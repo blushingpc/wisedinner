@@ -60,11 +60,11 @@ export default function Home() {
           <p className="mt-4 font-mono text-micro uppercase text-ink-soft">{HERO.micro}</p>
         </div>
 
-        <div className="relative mx-auto h-[720px] w-[320px] lg:w-[580px]">
+        <div className="relative mx-auto h-[720px] w-[320px] lg:w-[640px]">
           <DeviceFrame label="phone showing the plan view: two meals with protein and price, and a mini receipt" className="absolute top-0 left-0 lg:-rotate-3">
             <PlanScreen />
           </DeviceFrame>
-          <DeviceFrame label="phone showing the solved-week receipt with the estimated in-store total" className="absolute top-12 left-0 hidden lg:left-[260px] lg:block lg:rotate-2">
+          <DeviceFrame label="phone showing the solved-week receipt with the estimated in-store total" className="absolute top-12 left-0 hidden lg:left-[320px] lg:block lg:rotate-2">
             <ReceiptCard week={drop} variant="plan" />
           </DeviceFrame>
         </div>

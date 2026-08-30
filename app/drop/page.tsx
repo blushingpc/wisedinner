@@ -17,10 +17,10 @@ export default function Drop() {
     <main id="main">
       <PageView event="drop_view" />
       <Section className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-        <div data-reveal>
+        <div data-reveal className="order-2 lg:order-1">
           <ReceiptCard week={drop} variant="drop" title="this week's drop" tilt />
         </div>
-        <div>
+        <div className="order-1 lg:order-2">
           <p className="font-mono text-micro uppercase text-ink-soft">refreshed every sunday · generated {drop.generated_at}</p>
           <h1 className="mt-4 text-display font-bold text-balance">this week&apos;s protein plan.</h1>
           <p className="mt-6 max-w-[62ch] text-xl text-ink-soft">
@@ -38,10 +38,13 @@ export default function Drop() {
                 </div>
                 <ol className="mt-1 grid gap-1">
                   {d.items.map((i) => (
-                    <li key={i.unit}>
-                      <span className="font-mono text-micro uppercase text-ink-soft">{i.unit} </span>
-                      {i.name}
-                      <span className="text-ink-soft"> · {i.portion} · {i.protein_g} g</span>
+                    <li key={i.unit} className="grid grid-cols-[5.5rem_1fr_auto] items-baseline gap-2">
+                      <span className="font-mono text-micro uppercase text-ink-soft">{i.unit}</span>
+                      <span>
+                        {i.name}
+                        <span className="block font-mono text-micro text-ink-soft">{i.portion}</span>
+                      </span>
+                      <span className="font-mono text-spec tabular-nums text-ink-soft">{i.protein_g} g</span>
                     </li>
                   ))}
                 </ol>

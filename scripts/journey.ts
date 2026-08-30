@@ -55,7 +55,8 @@ async function quiz(page: Page, tag: string) {
   const infeasible = await page.locator("text=isn't solvable").count();
   if (infeasible) fail(`${tag}: /plan shows the infeasible state for $55 / 150 g`);
   else ok(`${tag}: /plan feasible receipt`);
-  const total = await page.locator("text=/^\\$\\d+\\.\\d{2}$/").first().textContent().catch(() => null);
+  // the receipt total: the money span that follows the "est. in-store total" label
+  const total = await page.locator("text=est. in-store total").locator("xpath=following-sibling::span[last()]").textContent().catch(() => null);
   ok(`${tag}: /plan total ${total}`);
   await shot(page, `${tag}-plan`);
 }
@@ -96,6 +97,7 @@ try {
     console.log(`\n== ${tag} ${viewport.width}×${viewport.height}`);
     const ctx = await browser.newContext({ viewport, deviceScaleFactor: 1 });
     const page = await ctx.newPage();
+    await page.emulateMedia({ reducedMotion: "reduce" }); // reveals visible + count-up static, so fullPage shots show the real page
     page.on("pageerror", (e) => fail(`${tag}: page error ${e.message}`));
     await page.goto(`${BASE}/`);
     await shot(page, `${tag}-home`);
