@@ -1,36 +1,77 @@
 @import "tailwindcss";
 
-/* human-design tokens — use these, never inline values */
+/* ledger editorial tokens — docs/DESIGN.md §2, §3, §7. use these, never inline values */
 @theme {
-  --color-paper: #faf8f3;
-  --color-receipt: #ffffff;
-  --color-ink: #191817;
-  --color-ink-soft: #6b675f;
-  --color-accent: #1d7a46;
-  --color-stamp: #c33d2e;
-  --color-rule: #d9d4c8;
+  --color-bg: oklch(0.985 0.002 90); /* #fbfbfa near-neutral page */
+  --color-ink: oklch(0.215 0.004 80); /* #191817 */
+  --color-ink-soft: oklch(0.53 0.008 80); /* #6b675f */
+  --color-rule: oklch(0.9 0.005 90); /* #e4e2dc */
+  --color-accent: oklch(0.52 0.11 155); /* #1d7a46 money green, ≤3 uses per page */
+  --color-accent-wash: oklch(0.96 0.02 155); /* #edf3ec badge bg */
+  --color-receipt-paper: oklch(0.975 0.008 85); /* #faf8f3 — inside receipts only */
+  --color-receipt-total: oklch(0.52 0.16 30); /* #c33d2e — inside receipts only */
 
-  --font-sans: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
 
-  --radius-sm: 2px;
-  --radius-md: 8px;
+  --text-micro: 0.6875rem; /* mono micro-labels */
+  --text-micro--letter-spacing: 0.15em;
+  --text-spec: 0.8125rem; /* spec-sheet rows */
+  --text-base: 1.0625rem; /* body */
+  --text-base--line-height: 1.65;
+  --text-h2: 2rem;
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.02em;
+  --text-display: clamp(2.5rem, 6vw, 5rem);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.03em;
+  --text-hero: clamp(3.5rem, 9vw, 7rem);
+  --text-hero--line-height: 1;
 
-  --shadow-receipt: 0 1px 2px rgba(25, 24, 23, 0.08);
+  --radius-sm: 4px; /* buttons, inputs; receipts are 0 */
+
+  --shadow-receipt: 0 1px 2px oklch(0.215 0.004 80 / 0.08); /* the only shadow, receipts only */
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* reveals, 600ms */
+  --ease-press: cubic-bezier(0.32, 0.72, 0, 1); /* interactions, 200ms */
+}
+
+:root {
+  --z-sticky: 10;
+  --z-modal: 50;
+  --z-toast: 60;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-/* receipt furniture */
-.receipt-edge {
-  height: 10px;
-  background: radial-gradient(circle at 5px 0, transparent 5px, var(--color-receipt) 5.5px);
-  background-size: 10px 10px;
+/* reveals — visible by default; app/reveal.tsx adds .reveal-from only when JS runs */
+[data-reveal] {
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+.reveal-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+    transform: none;
+  }
 }
 
+/* receipt furniture */
+.leader {
+  flex: 1;
+  margin: 0 0.5ch 0.3em;
+  border-bottom: 2px dotted var(--color-rule);
+}
 .barcode {
   height: 32px;
   background: repeating-linear-gradient(
