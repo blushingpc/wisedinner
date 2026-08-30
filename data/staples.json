@@ -574,19 +574,5 @@
     ],
     "perishable": true,
     "price_as_of": "2026-08-30"
-  },
-  {
-    "name": "soy sauce",
-    "unit": "15 oz bottle",
-    "price_usd": 1.64,
-    "protein_g": 40,
-    "kcal": 285,
-    "diet_flags": [
-      "vegetarian",
-      "vegan",
-      "dairy-free"
-    ],
-    "perishable": false,
-    "price_as_of": "2026-08-30"
   }
 ]
