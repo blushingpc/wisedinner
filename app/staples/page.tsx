@@ -37,7 +37,7 @@ export default function Staples() {
       <div className="mt-8 overflow-x-auto">
         <table className="w-full border-collapse font-mono text-base tabular-nums">
           <thead>
-            <tr className="border-b border-ink text-left text-xs text-ink-soft">
+            <tr className="border-b border-ink text-left text-xs whitespace-nowrap text-ink-soft">
               <th className="py-2 pr-4 font-normal">item</th>
               <th className="py-2 pr-4 font-normal">unit</th>
               <th className="py-2 pr-4 text-right font-normal">price</th>
@@ -51,12 +51,12 @@ export default function Staples() {
           <tbody>
             {staples.map((s) => (
               <tr key={s.name} className="border-b border-rule">
-                <td className="py-1.5 pr-4 font-sans">{s.name}</td>
+                <td className="py-1.5 pr-4 font-sans whitespace-nowrap">{s.name}</td>
                 <td className="py-1.5 pr-4 whitespace-nowrap text-ink-soft">{s.unit}</td>
                 <td className="py-1.5 pr-4 text-right">${s.price_usd.toFixed(2)}</td>
                 <td className="py-1.5 pr-4 text-right">{s.protein_g}</td>
                 <td className="py-1.5 pr-4 text-right">{s.kcal}</td>
-                <td className="py-1.5 pr-4 text-ink-soft">{s.diet_flags.join(" ")}</td>
+                <td className="py-1.5 pr-4 whitespace-nowrap text-ink-soft">{s.diet_flags.join(" ")}</td>
                 <td className="py-1.5 pr-4">{s.perishable ? "yes" : "no"}</td>
                 <td className="py-1.5 whitespace-nowrap text-ink-soft">{s.price_as_of}</td>
               </tr>
