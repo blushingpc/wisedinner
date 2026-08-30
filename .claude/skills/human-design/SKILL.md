@@ -39,7 +39,7 @@ Restrained page, loud numbers, one warm artifact. Precedence: keep-it-simple →
 - Async surfaces ship all four states: skeleton (no spinners), empty (one sentence + CTA), error (what happened + what to do, no "Error:" prefix), success (the content).
 
 ## Imperfection budget — exactly 2–3 per page, from this list only, never on nav/forms/legal
-1 receipt tilt · 2 one number overhanging its rule by 8–12px · 3 one full-bleed element · 4 uneven rhythm (always on, free) · 5 one hero word italic 400 among 700 · 6 one 90deg mono marginalia note (desktop) · 7 footer timestamp `built by two people and a solver · last deploy 22:41` · 8 flat-lay cropped to object-position 46%.
+1 receipt tilt · 2 one number overhanging its rule by 8–12px · 3 one full-bleed element · 4 uneven rhythm (always on, free) · 5 one hero word at weight 400 among 700 (Bricolage has no italic; never synthesize one) · 6 one 90deg mono marginalia note (desktop) · 7 footer timestamp `built by two people and a solver · last deploy 22:41` · 8 flat-lay cropped to object-position 46%.
 Floors imperfection never breaks: contrast (body ≥4.5:1, large ≥3:1, placeholders ≥4.5:1), visible focus, tap targets ≥44px, alignment inside forms/tables, every money number labeled "est. in-store", delivered prices shown with fees next to in-store.
 
 ## Motion — CSS transitions + one ~15-line IntersectionObserver, nothing else

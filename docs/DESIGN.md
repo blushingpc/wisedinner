@@ -83,7 +83,7 @@ Imperfection is a budget, not a theme: **exactly 2–3 moves per page, chosen fr
 2. One number overhanging its section rule by 8–12px (breaks the line like ink past a margin).
 3. One full-bleed element per page while everything else stays contained.
 4. The uneven section rhythm (Section 4) — always on; doesn't count against budget.
-5. One hero word in italic 400 while the rest sits 700 (same family).
+5. One hero word at weight 400 while the rest sits 700 (same family; Bricolage has no italic on Google Fonts, so weight is the emphasis axis).
 6. A mono marginalia note rotated 90deg on desktop ("est. in-store, verified weekly") — max one per page.
 7. Footer timestamp: `built by two people and a solver · last deploy 22:41`.
 8. Flat-lay image cropped slightly off-center in its frame (object-position 46%).
