@@ -27,10 +27,10 @@ Ideas with a metric tag [activation|conversion|price-accuracy|perf] or they get 
 
 ## Ideas
 (append here — metric tag required)
-- [activation] Sunday GitHub Action to regenerate data/drop.json (SITE-SPEC §11)
 - [activation] dark mode — deferred by docs/DESIGN.md §0.5, revisit after 100 users
 
 ## Done
+W. Sunday drop automation (weekly-drop.yml + guard + iso-week seed) — done 2026-08-30, dispatch run green
 V. Variety + truth sprint: template solver, variety floors, seeded regenerate, fixture regen, placeholders — done 2026-08-30, live
 4–15. SITE-SPEC v2 sprint: full public site (see PROGRESS 2026-08-30) — done 2026-08-30, live
 3. Solver: `/api/solve` deterministic greedy + repair, two-bucket week, 7 unit tests. — done 2026-08-30, live
