@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw brand originals (>500kb) — optimized jpgs in public/img are committed
+public/img/src/

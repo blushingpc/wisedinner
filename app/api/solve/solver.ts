@@ -10,6 +10,7 @@ export type SolveInput = {
   kcal_max: number;
   diet: Diet;
   household: number; // people eating
+  pantry?: string[]; // staple names already owned: one free pack each
 };
 
 export type PlanItem = {
@@ -46,10 +47,13 @@ const isProteinSource = (s: Staple) => s.protein_g / s.kcal >= 0.06 && s.protein
 
 export function solve(input: SolveInput, staples: Staple[]): SolveOutput {
   const people = input.household;
+  const pantry = new Set(input.pantry ?? []);
   const pool = staples
     .filter((s) => input.diet === "none" || s.diet_flags.includes(input.diet))
+    .map((s) => (pantry.has(s.name) ? { ...s, price_usd: 0 } : s))
     .filter((s) => s.price_usd <= input.budget)
     .sort((a, b) => a.name.localeCompare(b.name)); // stable order → deterministic ties
+  const perDollar = (value: number, s: Staple) => value / Math.max(s.price_usd, 0.01); // pantry packs are free
 
   const qty = new Map<string, number>();
   let cost = 0;
@@ -87,12 +91,13 @@ export function solve(input: SolveInput, staples: Staple[]): SolveOutput {
       kcal -= s.kcal;
     };
     const canAdd = (s: Staple) =>
-      (picked.get(s.name) ?? 0) < MAX_UNITS_PER_SKU && round2(cost + s.price_usd) <= input.budget;
+      (pantry.has(s.name) ? (qty.get(s.name) ?? 0) < 1 : (picked.get(s.name) ?? 0) < MAX_UNITS_PER_SKU) &&
+      round2(cost + s.price_usd) <= input.budget;
 
     // pass 1: protein — best protein per dollar first, until the bucket's target is met
     const proteinSources = bucket.pool
       .filter(isProteinSource)
-      .sort((a, b) => b.protein_g / b.price_usd - a.protein_g / a.price_usd);
+      .sort((a, b) => perDollar(b.protein_g, b) - perDollar(a.protein_g, a));
     while (protein < needProtein) {
       const next = proteinSources.find(canAdd);
       if (!next) break;
@@ -100,7 +105,7 @@ export function solve(input: SolveInput, staples: Staple[]): SolveOutput {
     }
 
     // pass 2: kcal — cheapest calories first, whole packages only, never past the ceiling
-    const byKcalPerDollar = [...bucket.pool].sort((a, b) => b.kcal / b.price_usd - a.kcal / a.price_usd);
+    const byKcalPerDollar = [...bucket.pool].sort((a, b) => perDollar(b.kcal, b) - perDollar(a.kcal, a));
     while (kcal < needKcalMin) {
       const next = byKcalPerDollar.find((s) => canAdd(s) && kcal + s.kcal <= needKcalMax);
       if (!next) break;

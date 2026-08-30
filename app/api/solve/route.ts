@@ -19,6 +19,8 @@ export async function POST(req: Request) {
   const kcal_max = num("kcal_max", 500, 6000);
   const household = num("household", 1, 8);
   const diet = DIETS.includes(body.diet as Diet) ? (body.diet as Diet) : null;
+  const known = new Set(staples.map((s) => s.name));
+  const pantry = Array.isArray(body.pantry) ? body.pantry.filter((n): n is string => typeof n === "string" && known.has(n)) : [];
 
   if (
     budget === null ||
@@ -40,6 +42,6 @@ export async function POST(req: Request) {
     );
   }
 
-  const input: SolveInput = { budget, protein_per_day, kcal_min, kcal_max, diet, household };
+  const input: SolveInput = { budget, protein_per_day, kcal_min, kcal_max, diet, household, pantry };
   return Response.json(solve(input, staples));
 }

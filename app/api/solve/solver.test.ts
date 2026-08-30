@@ -61,6 +61,14 @@ test("kcal ceiling breached by the protein target is not feasible", () => {
   assert.equal(out.feasible, false);
 });
 
+test("pantry: an owned pack is used once, free, and never bought twice", () => {
+  const out = assertWeek({ ...base, pantry: ["lentils, dry"] });
+  const lentils = out.list.find((i) => i.name === "lentils, dry");
+  assert.ok(lentils, "pantry lentils should be used");
+  assert.equal(lentils.qty, 1);
+  assert.equal(lentils.price_usd, 0);
+});
+
 test("deterministic: same input, same output", () => {
   assert.deepEqual(solve(base, staples), solve(base, staples));
 });

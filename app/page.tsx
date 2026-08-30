@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Wordmark } from "./wordmark";
 import { solve } from "@/app/api/solve/solver";
 import { staples } from "@/data/staples";
 
@@ -15,8 +17,10 @@ export default function Home() {
     <>
       <header className="sticky top-0 z-(--z-sticky) border-b border-rule bg-bg/96">
         <div className="mx-auto flex max-w-[1200px] items-baseline justify-between px-6 py-4 lg:px-12">
-          <span className="text-lg font-bold tracking-tight">wisedinner</span>
-          <span className="font-mono text-micro uppercase text-ink-soft">status: shell · solver v0</span>
+          <Wordmark />
+          <Link href="/start" className="rounded-sm bg-ink px-5 py-3 font-medium text-bg transition duration-200 ease-press hover:bg-ink-press active:scale-[0.98]">
+            solve my week
+          </Link>
         </div>
       </header>
 
@@ -36,6 +40,14 @@ export default function Home() {
               est. in-store · example week, one person, {EXAMPLE.protein_per_day} g/day · prices as of {week.price_as_of}
             </p>
             <p className="mt-8 text-ink-soft">your week, estimated in-store. before you shop.</p>
+            <div className="mt-8 flex items-center gap-6">
+              <Link href="/start" className="rounded-sm bg-ink px-5 py-3 font-medium text-bg transition duration-200 ease-press hover:bg-ink-press active:scale-[0.98]">
+                solve my week
+              </Link>
+              <Link href="/start" className="underline decoration-2 underline-offset-[5px]">
+                free to see your plan
+              </Link>
+            </div>
           </div>
 
           {/* receipt artifact — the only card; tilt is imperfection move #1 */}
@@ -78,6 +90,21 @@ export default function Home() {
           </div>
         </section>
 
+        {/* S2 — the week, in glass. one photo, no caption theatre */}
+        <section className="border-b border-rule py-12 sm:py-20">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static asset, sized explicitly */}
+          <img
+            data-reveal
+            src="/img/week-containers.jpg"
+            alt="five glass meal-prep containers in a row on linen: chicken and rice, black beans and eggs, yogurt with banana and oats, shredded chicken with roasted vegetables, quinoa with beans and greens"
+            width={1600}
+            height={893}
+            loading="lazy"
+            className="img-grade h-auto w-full"
+          />
+          <p className="mt-3 font-mono text-micro uppercase text-ink-soft">mon → fri · one trip · nothing left over</p>
+        </section>
+
         {/* the math strip — py-20 */}
         <section className="grid border-b border-rule py-12 sm:py-20 md:grid-cols-[1.6fr_1fr_1fr]">
           {[
@@ -112,7 +139,7 @@ export default function Home() {
 
       <footer className="border-t border-rule">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-baseline justify-between gap-4 px-6 py-8 lg:px-12">
-          <span className="font-bold">wisedinner</span>
+          <Wordmark className="text-base" />
           <span className="font-mono text-micro text-ink-soft">built by two people and a solver · last deploy {printedAt}</span>
         </div>
       </footer>

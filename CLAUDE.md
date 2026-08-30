@@ -15,3 +15,11 @@ Next.js (App Router, TS strict) · Tailwind (tokens only, no plugins) · Supabas
 
 ## Commands
 - dev: `npm run dev` · build check: `npm run build` · deploy: push to `main` (Vercel auto-deploys)
+
+## Higgsfield usage law (permanent)
+The higgsfield MCP exists for asset REPLACEMENT only — regenerate a SITE-SPEC §18B asset when its QA gate fails or the founder names a change. Never generate new decorative imagery on your own judgment, never at runtime, never receipts/hauls/people/user-results, never inside the build or deploy path. Every generation gets one PROGRESS.md line: what, why, which queue job required it. Violating this is a pre-flight fail.
+
+## Brand assets
+- Mark: `public/logo/wisedinner-mark.svg` (vector, single ink #191817). Nav wordmark is always type via `app/wordmark.tsx`, mark at 20px beside it — never a rasterized wordmark.
+- Icons: `node scripts/gen-icons.ts` (sharp devDep, one-time raster export) → app/icon.png, app/apple-icon.png, public/icons/*, public/press/wisedinner-mark.png, and optimized jpgs from `public/img/src/*.png` (originals gitignored, >500kb).
+- Every brand photo uses `.img-grade` (globals.css) — one uniform grade, explicit width/height, real alt text.
