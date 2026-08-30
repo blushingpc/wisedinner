@@ -1,148 +1,187 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Wordmark } from "./wordmark";
-import { solve } from "@/app/api/solve/solver";
-import { staples } from "@/data/staples";
+import { drop } from "@/data/drop";
+import { meals } from "@/data/meals";
+import { ABOUT, FAQ, HERO, HONESTY, SITE, STEPS } from "./copy";
+import { Accordion } from "./ui/accordion";
+import { DeviceFrame } from "./ui/device-frame";
+import { MealCard } from "./ui/meal-card";
+import { ReceiptCard } from "./ui/receipt-card";
+import { Section } from "./ui/section";
+import { StatStrip } from "./ui/stat-strip";
+import { WaitlistForm } from "./ui/waitlist-form";
 
-// the example week on the landing page is real solver output, not marketing copy
-const EXAMPLE = { budget: 100, protein_per_day: 150, kcal_min: 1800, kcal_max: 2800, diet: "none", household: 1 } as const;
+// delivered range = shelf total × (1.25 … 1.37): 15–25% item markup plus fees. labeled ~ and est.
+const delivered = (t: number) => `~$${Math.round(t * 1.25)}–${Math.round(t * 1.37)}`;
 
-export default function Home() {
-  const week = solve(EXAMPLE, staples);
-  const [dollars, cents] = week.est_total.toFixed(2).split(".");
-  const weekProtein = week.days.reduce((a, d) => a + d.protein_g, 0);
-  const proteinPerDollar = Math.round(weekProtein / week.est_total);
-  const printedAt = new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" }).toLowerCase();
+const ORG = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "wisedinner",
+  url: SITE,
+  logo: `${SITE}/press/wisedinner-mark.png`,
+  email: "support@wisedinner.com",
+  description: ABOUT[1],
+};
 
+function PlanScreen() {
   return (
     <>
-      <header className="sticky top-0 z-(--z-sticky) border-b border-rule bg-bg/96">
-        <div className="mx-auto flex max-w-[1200px] items-baseline justify-between px-6 py-4 lg:px-12">
-          <Wordmark />
-          <Link href="/start" className="rounded-sm bg-ink px-5 py-3 font-medium text-bg transition duration-200 ease-press hover:bg-ink-press active:scale-[0.98]">
-            solve my week
+      <p className="font-mono text-micro uppercase text-ink-soft">tue · plan</p>
+      {meals.slice(0, 2).map((m, i) => (
+        <MealCard key={m.name} meal={m} priority={i === 0} />
+      ))}
+      <div className="mt-4">
+        <ReceiptCard week={drop} variant="mini" title="this week" />
+      </div>
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+    <main id="main">
+      <script type="application/ld+json">{JSON.stringify(ORG)}</script>
+
+      {/* S1 hero */}
+      <section className="mx-auto grid min-h-[88dvh] max-w-[1200px] items-center gap-12 px-6 py-14 lg:grid-cols-[1.1fr_1fr] lg:px-12 lg:py-24">
+        <div className="max-w-[62ch]">
+          <p className="font-mono text-micro uppercase text-ink-soft">{HERO.eyebrow}</p>
+          <h1 className="mt-6 text-display font-bold text-balance">{HERO.h1}</h1>
+          <p className="mt-6 text-xl text-ink-soft">{HERO.sub}</p>
+          <div className="mt-8 flex flex-wrap items-center gap-6">
+            <a href="#early-access" className="cta">
+              {HERO.cta}
+            </a>
+            <Link href="/start" className="text-link inline-flex min-h-11 items-center">
+              {HERO.demo}
+            </Link>
+          </div>
+          <p className="mt-4 font-mono text-micro uppercase text-ink-soft">{HERO.micro}</p>
+        </div>
+
+        <div className="relative mx-auto h-[720px] w-[320px] lg:w-[580px]">
+          <DeviceFrame label="phone showing the plan view: two meals with protein and price, and a mini receipt" className="absolute top-0 left-0 lg:-rotate-3">
+            <PlanScreen />
+          </DeviceFrame>
+          <DeviceFrame label="phone showing the solved-week receipt with the estimated in-store total" className="absolute top-12 left-0 hidden lg:left-[260px] lg:block lg:rotate-2">
+            <ReceiptCard week={drop} variant="plan" />
+          </DeviceFrame>
+        </div>
+      </section>
+
+      {/* S2 the solved week */}
+      <Section alt id="week" className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
+        <Image
+          src="/img/week-containers.jpg"
+          alt="five glass meal-prep containers in a row on linen: chicken and rice, black beans and eggs, yogurt with banana and oats, shredded chicken with roasted vegetables, quinoa with beans and greens"
+          width={1600}
+          height={893}
+          quality={75}
+          sizes="(min-width: 1024px) 640px, 100vw"
+          className="img-grade h-auto w-full rounded-[14px]"
+        />
+        <div>
+          <h2 className="text-h2 font-bold text-balance">one list. five days. this is what $[your number] looks like.</h2>
+          <div className="mt-8">
+            <StatStrip stacked stats={[[`${drop.protein_per_day}g`, "protein / day"], [`$${drop.est_total.toFixed(2)}`, "est. in-store, weekly"], ["0 lb", "waste by design"]]} />
+          </div>
+          <p className="mt-4 font-mono text-micro uppercase text-ink-soft">numbers from a real solver run at 2026 average prices — methodology in faq</p>
+        </div>
+      </Section>
+
+      {/* S3 how it works */}
+      <Section id="how">
+        <h2 className="text-h2 font-bold">how it works</h2>
+        <ol className="mt-12 grid gap-16">
+          {STEPS.map(([title, body], i) => (
+            <li key={title} className={`grid items-center gap-8 lg:grid-cols-2 ${i % 2 ? "lg:[&>div:first-child]:order-2" : ""}`}>
+              <div className="max-w-[62ch]">
+                <h3 className="text-2xl font-medium">{title}</h3>
+                <p className="mt-3 text-ink-soft">{body}</p>
+              </div>
+              <div className="mx-auto origin-top scale-[0.8] lg:scale-90" style={{ height: 600 }}>
+                <DeviceFrame label={`phone showing step ${i + 1}`}>
+                  {i === 0 && (
+                    <div className="font-mono text-spec">
+                      <p className="text-micro uppercase text-ink-soft">01 / 06</p>
+                      <p className="mt-6 text-micro uppercase text-ink-soft">weekly grocery budget, usd</p>
+                      <p className="mt-2 border-b border-rule pb-2 text-4xl tabular-nums">$[your number]</p>
+                      <p className="mt-6 text-micro uppercase text-ink-soft">protein per day, grams</p>
+                      <p className="mt-2 border-b border-rule pb-2 text-4xl tabular-nums">[your target]</p>
+                    </div>
+                  )}
+                  {i === 1 && (
+                    <>
+                      <p className="font-mono text-micro uppercase text-ink-soft">solving · {drop.list.length} staples</p>
+                      <MealCard meal={meals[1]} />
+                      <MealCard meal={meals[2]} />
+                      <div className="mt-4">
+                        <ReceiptCard week={drop} variant="mini" title="one week, solved" />
+                      </div>
+                    </>
+                  )}
+                  {i === 2 && (
+                    <>
+                      <p className="font-mono text-micro uppercase text-ink-soft">fri · last meal</p>
+                      <MealCard meal={meals[2]} />
+                      <p className="mt-4 font-mono text-micro uppercase text-ink-soft">fridge</p>
+                      <p className="mt-2 text-3xl font-bold">empty, on purpose.</p>
+                      <p className="mt-2 font-mono text-spec text-ink-soft">every pack finished. receipt kept.</p>
+                    </>
+                  )}
+                </DeviceFrame>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      {/* S4 demo banner */}
+      <section className="bg-accent-wash py-14 lg:py-24">
+        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-6 px-6 lg:px-12">
+          <h2 className="text-h2 font-bold text-balance">see your week solved in 60 seconds.</h2>
+          <Link href="/start" className="cta">
+            {HERO.demo}
           </Link>
         </div>
-      </header>
+      </section>
 
-      <main id="main" className="mx-auto max-w-[1200px] px-6 lg:px-12">
-        {/* hero — py-28 */}
-        <section className="grid min-h-[88dvh] items-center gap-12 border-b border-rule py-16 sm:py-28 md:grid-cols-[1.6fr_1fr]">
-          <div className="max-w-[62ch]">
-            <p className="font-mono text-micro uppercase text-ink-soft">groceries, solved like math</p>
-            <h1 className="mt-6 text-display font-bold text-balance">
-              150g of protein a <span className="font-normal">day.</span>
-            </h1>
-            <p className="mt-10 font-mono text-hero font-medium tabular-nums">
-              ${dollars}
-              <span className="text-[0.5em] text-ink-soft">.{cents}</span>
-            </p>
-            <p className="mt-2 font-mono text-micro uppercase text-ink-soft">
-              est. in-store · example week, one person, {EXAMPLE.protein_per_day} g/day · prices as of {week.price_as_of}
-            </p>
-            <p className="mt-8 text-ink-soft">your week, estimated in-store. before you shop.</p>
-            <div className="mt-8 flex items-center gap-6">
-              <Link href="/start" className="rounded-sm bg-ink px-5 py-3 font-medium text-bg transition duration-200 ease-press hover:bg-ink-press active:scale-[0.98]">
-                solve my week
-              </Link>
-              <Link href="/start" className="underline decoration-2 underline-offset-[5px]">
-                free to see your plan
-              </Link>
-            </div>
+      {/* S5 honesty strip */}
+      <Section className="grid gap-10 lg:grid-cols-2">
+        <dl className="grid gap-4 font-mono tabular-nums">
+          <div className="border-t border-rule py-4">
+            <dd className="text-4xl font-medium sm:text-5xl">${drop.est_total.toFixed(2)}</dd>
+            <dt className="mt-1 text-micro uppercase text-ink-soft">est. in-store · the week above</dt>
           </div>
-
-          {/* receipt artifact — the only card; tilt is imperfection move #1 */}
-          <div
-            data-reveal
-            className="w-full max-w-xs justify-self-start bg-receipt-paper px-6 pt-7 pb-6 font-mono text-spec tabular-nums shadow-receipt md:-rotate-[0.5deg] md:justify-self-end"
-          >
-            <p className="text-center text-micro uppercase">wisedinner</p>
-            <p className="mt-1 text-center text-ink-soft">one week, solved</p>
-            <p className="my-4 text-center text-ink-soft">* * *</p>
-            {week.list.map((item) => (
-              <div key={item.name} className="flex items-baseline py-0.5">
-                <span className="uppercase">
-                  {item.qty > 1 ? `${item.qty}× ` : ""}
-                  {item.name}
-                </span>
-                <span className="leader" />
-                <span>${item.price_usd.toFixed(2)}</span>
-              </div>
-            ))}
-            <div className="my-4 border-t border-dashed border-rule" />
-            <div className="flex items-baseline">
-              <span className="text-micro uppercase">est. in-store</span>
-              <span className="leader" />
-              <span className="text-xl font-medium text-receipt-total">${week.est_total.toFixed(2)}</span>
-            </div>
-            <div className="flex items-baseline py-0.5">
-              <span className="uppercase">protein / day</span>
-              <span className="leader" />
-              <span>{week.protein_per_day} g</span>
-            </div>
-            <div className="flex items-baseline py-0.5">
-              <span className="uppercase">food wasted</span>
-              <span className="leader" />
-              <span>0</span>
-            </div>
-            <p className="my-4 text-center text-ink-soft">* * *</p>
-            <div className="barcode" aria-hidden="true" />
-            <p className="mt-2 text-center text-ink-soft">printed {printedAt}</p>
+          <div className="border-t border-rule py-4">
+            <dd className="text-4xl font-medium text-ink-soft sm:text-5xl">{delivered(drop.est_total)}</dd>
+            <dt className="mt-1 text-micro uppercase text-ink-soft">delivered w/ fees · est. +25–37%</dt>
           </div>
-        </section>
+        </dl>
+        <p className="max-w-[62ch] self-center text-xl">{HONESTY}</p>
+      </Section>
 
-        {/* S2 — the week, in glass. one photo, no caption theatre */}
-        <section className="border-b border-rule py-12 sm:py-20">
-          {/* eslint-disable-next-line @next/next/no-img-element -- static asset, sized explicitly */}
-          <img
-            data-reveal
-            src="/img/week-containers.jpg"
-            alt="five glass meal-prep containers in a row on linen: chicken and rice, black beans and eggs, yogurt with banana and oats, shredded chicken with roasted vegetables, quinoa with beans and greens"
-            width={1600}
-            height={893}
-            loading="lazy"
-            className="img-grade h-auto w-full"
-          />
-          <p className="mt-3 font-mono text-micro uppercase text-ink-soft">mon → fri · one trip · nothing left over</p>
-        </section>
-
-        {/* the math strip — py-20 */}
-        <section className="grid border-b border-rule py-12 sm:py-20 md:grid-cols-[1.6fr_1fr_1fr]">
-          {[
-            ["protein / dollar", `${proteinPerDollar} g`],
-            ["items / week", `${week.list.length}`],
-            ["waste friday", "0"],
-          ].map(([label, value], i) => (
-            <div key={label} data-reveal style={{ "--i": i } as React.CSSProperties} className="border-t border-rule py-6 md:border-t-0 md:border-l md:pl-6 md:first:border-l-0 md:first:pl-0">
-              <p className="font-mono text-5xl font-medium tabular-nums sm:text-6xl">{value}</p>
-              <p className="mt-2 font-mono text-micro uppercase text-ink-soft">{label}</p>
-            </div>
-          ))}
-        </section>
-
-        {/* how it works — py-36 */}
-        <section className="py-20 sm:py-36">
-          <h2 className="text-h2 font-bold">how it works</h2>
-          <ol className="mt-10 max-w-[62ch]">
-            {["tell us your numbers", "we solve the week", "shop it, cook it, keep the receipt"].map((step, i) => (
-              <li key={step} data-reveal style={{ "--i": i } as React.CSSProperties} className="flex items-baseline gap-6 border-t border-rule py-5">
-                <span className="font-mono text-micro text-ink-soft">0{i + 1}</span>
-                <span className="text-xl">{step}</span>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-10 max-w-[62ch] text-ink-soft">
-            the solver runs on a fixed staple pool with dated, buffered shelf prices. delivered prices, if we ever show
-            them, sit next to the in-store number with fees included.
-          </p>
-        </section>
-      </main>
-
-      <footer className="border-t border-rule">
-        <div className="mx-auto flex max-w-[1200px] flex-wrap items-baseline justify-between gap-4 px-6 py-8 lg:px-12">
-          <Wordmark className="text-base" />
-          <span className="font-mono text-micro text-ink-soft">built by two people and a solver · last deploy {printedAt}</span>
+      {/* S6 faq preview */}
+      <Section alt>
+        <h2 className="text-h2 font-bold">questions</h2>
+        <div className="mt-8 max-w-[70ch]">
+          <Accordion items={FAQ.slice(0, 4)} />
         </div>
-      </footer>
-    </>
+        <Link href="/faq" className="text-link mt-6 inline-flex min-h-11 items-center">
+          all questions →
+        </Link>
+      </Section>
+
+      {/* S7 final cta */}
+      <section id="early-access" className="bg-ink py-14 text-bg lg:py-24">
+        <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-2 lg:px-12">
+          <h2 className="text-display font-bold text-balance">your protein. your budget. solved.</h2>
+          <div className="self-center">
+            <WaitlistForm source="hero" light />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

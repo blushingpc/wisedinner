@@ -1,4 +1,4 @@
-import raw from "./staples.json";
+import raw from "./staples.json" with { type: "json" };
 
 export type Staple = {
   name: string;

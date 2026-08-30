@@ -1,47 +1,63 @@
 "use client";
 
-import { Wordmark } from "@/app/wordmark";
-import { useState } from "react";
-import { DIETS, type Diet, type SolveOutput } from "@/app/api/solve/solver";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { DIETS, type Diet } from "@/app/api/solve/solver";
+import { track } from "@/app/ui/track";
 
 const STEPS = 6;
+const BANDS: [string, number, number][] = [
+  ["1500 – 2000", 1500, 2000],
+  ["1800 – 2400", 1800, 2400],
+  ["2200 – 2800", 2200, 2800],
+  ["2600 – 3200", 2600, 3200],
+];
 
-type Answers = {
-  budget: string;
-  protein: string;
-  kcalMin: string;
-  kcalMax: string;
-  diet: Diet;
-  household: string;
-  pantry: string[];
-};
+export type Answers = { budget: number; spend: string; protein: number; band: number; diet: Diet; household: number; pantry: string[] };
+const DEFAULTS: Answers = { budget: 60, spend: "", protein: 150, band: 1, diet: "none", household: 1, pantry: [] };
+export const KEY = { answers: "wd.answers", plan: "wd.plan" };
 
-type Solve = { status: "idle" | "loading" | "error" } | { status: "done"; week: SolveOutput };
-
-const input = "mt-2 w-full rounded-sm border border-rule bg-bg px-4 py-3 font-mono text-4xl tabular-nums";
 const label = "block font-mono text-micro uppercase text-ink-soft";
 const helper = "mt-2 text-ink-soft";
-const cta = "rounded-sm bg-ink px-5 py-3 font-medium text-bg transition duration-200 ease-press hover:bg-ink-press active:scale-[0.98]";
-const textLink = "underline decoration-2 underline-offset-[5px]";
+const num = "field mt-2 font-mono text-4xl tabular-nums";
 
 export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
+  const router = useRouter();
   const [step, setStep] = useState(0);
-  const [a, setA] = useState<Answers>({ budget: "", protein: "", kcalMin: "", kcalMax: "", diet: "none", household: "1", pantry: [] });
+  const [a, setA] = useState<Answers>(DEFAULTS);
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState("");
-  const [solve, setSolve] = useState<Solve>({ status: "idle" });
+  const form = useRef<HTMLFormElement>(null);
 
-  const set = (patch: Partial<Answers>) => setA({ ...a, ...patch });
-  const n = (v: string) => Number(v);
+  // refresh-safe: answers + step live in sessionStorage (no cookies from us)
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(KEY.answers);
+      if (saved) {
+        const { step: s, ...rest } = JSON.parse(saved);
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating from sessionStorage after mount is the point
+        setA({ ...DEFAULTS, ...rest });
+        setStep(s ?? 0);
+      }
+    } catch {}
+    track("demo_start");
+  }, []);
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(KEY.answers, JSON.stringify({ ...a, step }));
+    } catch {}
+  }, [a, step]);
 
-  // the same bounds the api enforces, said in plain words
-  const problem = (): string => {
-    if (step === 0 && !(n(a.budget) >= 1 && n(a.budget) <= 1000)) return "a number between 1 and 1000, please.";
-    if (step === 1 && !(n(a.protein) >= 1 && n(a.protein) <= 400)) return "a number between 1 and 400, please.";
-    if (step === 2) {
-      if (!(n(a.kcalMin) >= 500 && n(a.kcalMax) <= 6000)) return "both numbers between 500 and 6000, please.";
-      if (n(a.kcalMin) > n(a.kcalMax)) return "the low end has to be at or below the high end.";
-    }
-    if (step === 4 && !(Number.isInteger(n(a.household)) && n(a.household) >= 1 && n(a.household) <= 8)) return "a whole number from 1 to 8, please.";
+  // keyboard-completable: every step starts focused so Enter always submits
+  useEffect(() => {
+    form.current?.querySelector<HTMLElement>("input:checked, input:not([type=hidden])")?.focus();
+  }, [step]);
+
+  const set = (patch: Partial<Answers>) => setA((prev) => ({ ...prev, ...patch }));
+  const problem = () => {
+    if (step === 0 && !(a.budget >= 30 && a.budget <= 120)) return "a budget between 30 and 120, please.";
+    if (step === 0 && a.spend && !(Number(a.spend) >= 1 && Number(a.spend) <= 1000)) return "current spend as a number, or leave it blank.";
+    if (step === 1 && !(a.protein >= 80 && a.protein <= 220)) return "a target between 80 and 220, please.";
     return "";
   };
 
@@ -50,62 +66,47 @@ export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
     const p = problem();
     setError(p);
     if (p) return;
-    if (step < STEPS - 1) {
-      setStep(step + 1);
-      return;
-    }
-    setSolve({ status: "loading" });
+    if (step < STEPS - 1) return setStep(step + 1);
+    setStatus("loading");
     try {
+      const [, lo, hi] = BANDS[a.band];
       const res = await fetch("/api/solve", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          budget: n(a.budget),
-          protein_per_day: n(a.protein),
-          kcal_min: n(a.kcalMin),
-          kcal_max: n(a.kcalMax),
-          diet: a.diet,
-          household: n(a.household),
-          pantry: a.pantry,
-        }),
+        body: JSON.stringify({ budget: a.budget, protein_per_day: a.protein, kcal_min: lo, kcal_max: hi, diet: a.diet, household: a.household, pantry: a.pantry }),
       });
       if (!res.ok) throw new Error(String(res.status));
-      setSolve({ status: "done", week: await res.json() });
+      sessionStorage.setItem(KEY.plan, JSON.stringify({ answers: a, week: await res.json() }));
+      track("demo_complete");
+      router.push("/plan");
     } catch {
-      setSolve({ status: "error" });
+      setStatus("error");
     }
   };
 
-  const back = () => {
-    setError("");
-    setStep(step - 1);
-  };
-
-  if (solve.status === "done") return <Result week={solve.week} a={a} again={() => setSolve({ status: "idle" })} />;
-
   return (
-    <main id="main" className="mx-auto min-h-dvh max-w-[1200px] px-6 py-10 lg:px-12">
-      <div className="fixed inset-x-0 top-0 h-0.5 bg-rule" aria-hidden="true">
-        <div className="h-full bg-accent transition-[width] duration-200 ease-press" style={{ width: `${(step / STEPS) * 100}%` }} />
+    <>
+      <div className="fixed inset-x-0 top-0 z-(--z-sticky) h-0.5 bg-rule" aria-hidden="true">
+        <div className="h-full bg-accent transition-[width] duration-200 ease-press" style={{ width: `${((step + 1) / STEPS) * 100}%` }} />
       </div>
+      <p className="font-mono text-micro uppercase text-ink-soft">
+        0{step + 1} / 0{STEPS}
+      </p>
 
-      <header className="flex items-baseline justify-between">
-        <Wordmark />
-        <span className="font-mono text-micro text-ink-soft">
-          0{step + 1} / 0{STEPS}
-        </span>
-      </header>
-
-      <form onSubmit={next} className="mt-20 max-w-[62ch] sm:mt-28" aria-live="polite">
+      <form ref={form} onSubmit={next} className="mt-10 max-w-[62ch]" aria-live="polite">
         {step === 0 && (
           <>
             <label htmlFor="budget" className={label}>
               weekly grocery budget, usd
             </label>
-            <input id="budget" className={input} inputMode="decimal" autoFocus value={a.budget} onChange={(e) => set({ budget: e.target.value })} aria-describedby="budget-help" />
-            <p id="budget-help" className={helper}>
-              what you&apos;d spend in the store this week. your number, not ours.
-            </p>
+            <input id="budget" type="number" min={30} max={120} step={1} className={num} value={a.budget} onChange={(e) => set({ budget: Number(e.target.value) })} />
+            <input type="range" min={30} max={120} value={a.budget} onChange={(e) => set({ budget: Number(e.target.value) })} aria-label="weekly budget slider" className="mt-4 h-11 w-full accent-ink" />
+            <p className={helper}>what you&apos;d spend in the store this week. your number, not ours.</p>
+            <label htmlFor="spend" className={`${label} mt-8`}>
+              what you spend now, roughly (optional)
+            </label>
+            <input id="spend" inputMode="decimal" className="field mt-2 font-mono text-2xl tabular-nums" value={a.spend} onChange={(e) => set({ spend: e.target.value.slice(0, 6) })} aria-describedby="spend-help" />
+            <p id="spend-help" className={helper}>per week. only used to project your savings on the next page.</p>
           </>
         )}
         {step === 1 && (
@@ -113,35 +114,29 @@ export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
             <label htmlFor="protein" className={label}>
               protein per day, grams
             </label>
-            <input id="protein" className={input} inputMode="numeric" autoFocus value={a.protein} onChange={(e) => set({ protein: e.target.value })} aria-describedby="protein-help" />
-            <p id="protein-help" className={helper}>
-              per person. most people here aim for 140 to 160.
-            </p>
+            <input id="protein" type="number" min={80} max={220} className={num} value={a.protein} onChange={(e) => set({ protein: Number(e.target.value) })} />
+            <input type="range" min={80} max={220} value={a.protein} onChange={(e) => set({ protein: Number(e.target.value) })} aria-label="protein slider" className="mt-4 h-11 w-full accent-ink" />
+            <p className={helper}>per person. most people here aim for 140 to 160.</p>
           </>
         )}
         {step === 2 && (
-          <>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="kcal-min" className={label}>
-                  calories per day, low end
+          <fieldset>
+            <legend className={label}>calories per day</legend>
+            <p className={helper}>per person. a band gives the solver room.</p>
+            <div className="mt-2 grid gap-1">
+              {BANDS.map(([name], i) => (
+                <label key={name} className="flex min-h-11 cursor-pointer items-center gap-3 border-t border-rule py-2 font-mono text-xl tabular-nums">
+                  <input type="radio" name="band" checked={a.band === i} onChange={() => set({ band: i })} className="size-5 accent-ink" />
+                  {name}
                 </label>
-                <input id="kcal-min" className={input} inputMode="numeric" autoFocus value={a.kcalMin} onChange={(e) => set({ kcalMin: e.target.value })} />
-              </div>
-              <div>
-                <label htmlFor="kcal-max" className={label}>
-                  high end
-                </label>
-                <input id="kcal-max" className={input} inputMode="numeric" value={a.kcalMax} onChange={(e) => set({ kcalMax: e.target.value })} />
-              </div>
+              ))}
             </div>
-            <p className={helper}>per person. a range like 1800 to 2600 gives the solver room.</p>
-          </>
+          </fieldset>
         )}
         {step === 3 && (
           <fieldset>
             <legend className={label}>diet</legend>
-            <div className="mt-2 grid gap-2">
+            <div className="mt-2 grid gap-1">
               {DIETS.map((d) => (
                 <label key={d} className="flex min-h-11 cursor-pointer items-center gap-3 border-t border-rule py-2 text-xl">
                   <input type="radio" name="diet" value={d} checked={a.diet === d} onChange={() => set({ diet: d })} className="size-5 accent-ink" />
@@ -152,139 +147,62 @@ export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
           </fieldset>
         )}
         {step === 4 && (
-          <>
-            <label htmlFor="household" className={label}>
-              people eating
-            </label>
-            <input id="household" className={input} inputMode="numeric" autoFocus value={a.household} onChange={(e) => set({ household: e.target.value })} aria-describedby="household-help" />
-            <p id="household-help" className={helper}>
-              everyone the list has to feed, you included.
-            </p>
-          </>
-        )}
-        {step === 5 && (
           <fieldset>
-            <legend className={label}>already in your pantry</legend>
-            <p className={helper}>optional. tick what you own a full pack of. the solver uses it for free.</p>
-            <div className="mt-4 grid gap-1 sm:grid-cols-2">
-              {pantryOptions.map((name) => (
-                <label key={name} className="flex min-h-11 cursor-pointer items-center gap-3 border-t border-rule py-2">
-                  <input
-                    type="checkbox"
-                    checked={a.pantry.includes(name)}
-                    onChange={(e) => set({ pantry: e.target.checked ? [...a.pantry, name] : a.pantry.filter((p) => p !== name) })}
-                    className="size-5 accent-ink"
-                  />
-                  {name}
+            <legend className={label}>people eating</legend>
+            <p className={helper}>everyone the list has to feed, you included.</p>
+            <div className="mt-2 flex gap-2">
+              {[1, 2, 3, 4].map((n) => (
+                <label key={n} className={`flex size-14 cursor-pointer items-center justify-center rounded-[12px] border font-mono text-2xl tabular-nums ${a.household === n ? "border-ink bg-ink text-bg" : "border-rule"}`}>
+                  <input type="radio" name="household" className="sr-only" checked={a.household === n} onChange={() => set({ household: n })} />
+                  {n}
                 </label>
               ))}
             </div>
           </fieldset>
         )}
-
-        {error && (
-          <p role="alert" className="mt-4 font-mono text-spec text-receipt-total">
-            {error}
-          </p>
+        {step === 5 && (
+          <fieldset>
+            <legend className={label}>already in your pantry</legend>
+            <p className={helper}>optional. tap what you own a full pack of. the solver uses it for free.</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {pantryOptions.map((name) => {
+                const on = a.pantry.includes(name);
+                return (
+                  <label key={name} className={`inline-flex min-h-11 cursor-pointer items-center rounded-[12px] border px-4 ${on ? "border-ink bg-ink text-bg" : "border-rule"}`}>
+                    <input type="checkbox" className="sr-only" checked={on} onChange={(e) => set({ pantry: e.target.checked ? [...a.pantry, name] : a.pantry.filter((p) => p !== name) })} />
+                    {name}
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
         )}
-        {solve.status === "error" && (
+
+        {(error || status === "error") && (
           <p role="alert" className="mt-4 font-mono text-spec text-receipt-total">
-            the solver didn&apos;t answer. check your connection and press the button again.
+            {error || "the solver didn't answer. check your connection and press the button again."}
           </p>
         )}
 
         <div className="mt-10 flex items-center gap-6">
-          <button type="submit" className={cta} disabled={solve.status === "loading"}>
-            {step < STEPS - 1 ? "next" : "solve my week"}
+          <button type="submit" className="cta" disabled={status === "loading"}>
+            {status === "loading" ? "solving…" : step < STEPS - 1 ? "next" : "solve my week"}
           </button>
           {step > 0 && (
-            <button type="button" onClick={back} className={textLink}>
+            <button type="button" onClick={() => (setError(""), setStep(step - 1))} className="text-link min-h-11">
               back
             </button>
           )}
         </div>
       </form>
 
-      {solve.status === "loading" && (
-        <div className="mt-16 max-w-xs space-y-3" aria-label="solving" role="status">
+      {status === "loading" && (
+        <div className="mt-16 max-w-xs space-y-3" role="status" aria-label="solving">
           {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} className="h-4 animate-pulse bg-rule" style={{ width: `${90 - i * 12}%` }} />
           ))}
         </div>
       )}
-    </main>
-  );
-}
-
-function Result({ week, a, again }: { week: SolveOutput; a: Answers; again: () => void }) {
-  return (
-    <main id="main" className="mx-auto max-w-[1200px] px-6 py-10 lg:px-12">
-      <header className="flex items-baseline justify-between">
-        <Wordmark />
-        <button onClick={again} className={`font-mono text-micro uppercase text-ink-soft ${textLink}`}>
-          start over
-        </button>
-      </header>
-
-      {!week.feasible && (
-        <p className="mt-16 max-w-[62ch] text-xl">
-          we couldn&apos;t hit {a.protein} g a day for ${a.budget} at those calories. the week below is as close as the
-          staple pool gets, short by {week.protein_shortfall_g} g. a higher budget or a lower target usually fixes it.
-        </p>
-      )}
-
-      <div className="mt-16 grid gap-12 md:grid-cols-[1fr_1.6fr]">
-        <div className="w-full max-w-xs bg-receipt-paper px-6 pt-7 pb-6 font-mono text-spec tabular-nums shadow-receipt md:-rotate-[0.5deg]">
-          <p className="text-center text-micro uppercase">wisedinner</p>
-          <p className="mt-1 text-center text-ink-soft">your week, solved</p>
-          <p className="my-4 text-center text-ink-soft">* * *</p>
-          {week.list.map((item) => (
-            <div key={item.name} className="flex items-baseline py-0.5">
-              <span className="uppercase">
-                {item.qty > 1 ? `${item.qty}× ` : ""}
-                {item.name}
-              </span>
-              <span className="leader" />
-              <span>{item.price_usd === 0 ? "pantry" : `$${item.price_usd.toFixed(2)}`}</span>
-            </div>
-          ))}
-          <div className="my-4 border-t border-dashed border-rule" />
-          <div className="flex items-baseline">
-            <span className="text-micro uppercase">est. in-store</span>
-            <span className="leader" />
-            <span className="text-xl font-medium text-receipt-total">${week.est_total.toFixed(2)}</span>
-          </div>
-          <div className="flex items-baseline py-0.5">
-            <span className="uppercase">protein / day</span>
-            <span className="leader" />
-            <span>{week.protein_per_day} g</span>
-          </div>
-          <div className="flex items-baseline py-0.5">
-            <span className="uppercase">kcal / day</span>
-            <span className="leader" />
-            <span>{week.kcal_per_day}</span>
-          </div>
-          <p className="my-4 text-center text-ink-soft">* * *</p>
-          <p className="text-center text-ink-soft">prices as of {week.price_as_of}</p>
-        </div>
-
-        <div>
-          <h1 className="text-h2 font-bold">five days, one trip.</h1>
-          <ol className="mt-6 max-w-[62ch]">
-            {week.days.map((d) => (
-              <li key={d.day} className="border-t border-rule py-4">
-                <div className="flex items-baseline justify-between font-mono text-micro uppercase text-ink-soft">
-                  <span>{d.day}</span>
-                  <span>
-                    {d.protein_g} g · {d.kcal} kcal
-                  </span>
-                </div>
-                <p className="mt-1">{d.items.map((i) => `${i.name}, ${i.portion}`).join(" · ")}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </div>
-    </main>
+    </>
   );
 }
