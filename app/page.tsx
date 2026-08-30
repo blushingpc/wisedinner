@@ -20,7 +20,7 @@ export default function Home() {
       </section>
 
       <section className="mt-20 sm:mt-28">
-        <div className="relative w-full max-w-xs rotate-[0.4deg] bg-white shadow-receipt">
+        <div className="relative w-full max-w-xs rotate-[0.4deg] bg-receipt shadow-receipt">
           <div className="px-6 pt-7 pb-6 font-mono text-sm tabular-nums">
             <p className="text-center text-xs uppercase tracking-[0.2em]">
               wisedinner
@@ -57,10 +57,10 @@ export default function Home() {
           <div className="receipt-edge absolute inset-x-0 -bottom-[10px]" aria-hidden="true" />
         </div>
 
-        <p className="mt-10 max-w-md font-mono text-sm leading-relaxed text-ink-soft">
-          the solver runs on a fixed staple pool with dated prices. delivered
-          prices, when we show them, sit next to the in-store number and
-          include fees.
+        <p className="mt-10 max-w-md text-base leading-relaxed text-ink-soft">
+          when the solver ships, it will run on a fixed staple pool with dated
+          prices. delivered prices, if we show them, will sit next to the
+          in-store number, fees included.
         </p>
       </section>
 

@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
-/* human-design tokens — the only colors, fonts, radii and shadow in the app */
+/* human-design tokens — use these, never inline values */
 @theme {
   --color-paper: #faf8f3;
+  --color-receipt: #ffffff;
   --color-ink: #191817;
   --color-ink-soft: #6b675f;
   --color-accent: #1d7a46;
@@ -18,12 +19,6 @@
   --shadow-receipt: 0 1px 2px rgba(25, 24, 23, 0.08);
 }
 
-body {
-  background: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-}
-
 :focus-visible {
   outline: 2px solid var(--color-ink);
   outline-offset: 2px;
@@ -32,7 +27,7 @@ body {
 /* receipt furniture */
 .receipt-edge {
   height: 10px;
-  background: radial-gradient(circle at 5px 0, transparent 5px, #fff 5.5px);
+  background: radial-gradient(circle at 5px 0, transparent 5px, var(--color-receipt) 5.5px);
   background-size: 10px 10px;
 }
 
