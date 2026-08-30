@@ -14,7 +14,7 @@ const S: LegalSection[] = [
     title: "who we are, and what you agree to",
     body: (
       <>
-        <p>wisedinner is made by [WiseDinner LLC]. we&apos;ll call ourselves &quot;we&quot; or &quot;wisedinner&quot;. you&apos;re &quot;you&quot;.</p>
+        <p>wisedinner is made by «ENTITY». we&apos;ll call ourselves &quot;we&quot; or &quot;wisedinner&quot;. you&apos;re &quot;you&quot;.</p>
         <p>these terms cover the wisedinner website at wisedinner.com, the free demo on it, and the early-access waitlist. by using any of them you agree to these terms. if you don&apos;t agree, please don&apos;t use the site.</p>
         <p>the ios app isn&apos;t out yet. when it ships it will have its own terms, and paid plans will have their own billing terms. nothing here sells you anything.</p>
       </>
@@ -131,8 +131,8 @@ const S: LegalSection[] = [
     title: "governing law, and talking first",
     body: (
       <>
-        <p>these terms are governed by the laws of [Florida, USA], without regard to conflict-of-law rules.</p>
-        <p>if there&apos;s a problem, email support@wisedinner.com first. we&apos;ll try to sort it out informally within 30 days. if we can&apos;t, either of us can take it to the state or federal courts located in [Florida, USA], and you agree to that jurisdiction.</p>
+        <p>these terms are governed by the laws of «STATE», without regard to conflict-of-law rules.</p>
+        <p>if there&apos;s a problem, email support@wisedinner.com first. we&apos;ll try to sort it out informally within 30 days. if we can&apos;t, either of us can take it to the state or federal courts located in «STATE», and you agree to that jurisdiction.</p>
       </>
     ),
   },
@@ -142,12 +142,12 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>we may update these terms. if the change matters, we&apos;ll post the new version here with a new effective date and, if you&apos;re on the waitlist, email you about it at least 14 days before it takes effect. using the site after that date means you accept the new terms.</p>
-        <p>effective: [DATE]</p>
+        <p>effective: «DATE»</p>
       </>
     ),
   },
 ];
 
 export default function Terms() {
-  return <LegalLayout title="terms of service" effective="[DATE]" sections={S} />;
+  return <LegalLayout title="terms of service" effective="«DATE»" sections={S} />;
 }

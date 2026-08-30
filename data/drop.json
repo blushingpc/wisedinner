@@ -14,148 +14,248 @@
       "day": "mon",
       "items": [
         {
-          "name": "lentils, dry",
-          "unit": "1 lb bag",
-          "portion": "2/3 of pack",
-          "protein_g": 75,
-          "kcal": 1065
+          "name": "oats with peanut butter",
+          "unit": "breakfast",
+          "portion": "old fashioned oats 1/12 · peanut butter 1/6",
+          "protein_g": 30,
+          "kcal": 821
         },
         {
-          "name": "pasta, spaghetti",
-          "unit": "1 lb box",
-          "portion": "1/3 of pack",
-          "protein_g": 20,
-          "kcal": 562
+          "name": "frozen chicken, sweet potato",
+          "unit": "lunch",
+          "portion": "frozen chicken breast 1/5 · sweet potatoes 1/4 · frozen mixed vegetables 1/2",
+          "protein_g": 72,
+          "kcal": 742
         },
         {
-          "name": "pork loin",
-          "unit": "3 lb",
-          "portion": "1/3 of pack",
-          "protein_g": 97,
-          "kcal": 649
+          "name": "frozen chicken, sweet potato",
+          "unit": "dinner",
+          "portion": "frozen chicken breast 1/5 · sweet potatoes 1/4 · frozen mixed vegetables 1/2",
+          "protein_g": 72,
+          "kcal": 742
         }
       ],
-      "protein_g": 191,
-      "kcal": 2276
+      "protein_g": 174,
+      "kcal": 2304
     },
     {
       "day": "tue",
       "items": [
         {
-          "name": "lentils, dry",
-          "unit": "1 lb bag",
-          "portion": "2/3 of pack",
-          "protein_g": 75,
-          "kcal": 1065
+          "name": "oats with peanut butter",
+          "unit": "breakfast",
+          "portion": "old fashioned oats 1/12 · peanut butter 1/6",
+          "protein_g": 30,
+          "kcal": 821
         },
         {
-          "name": "pasta, spaghetti",
-          "unit": "1 lb box",
-          "portion": "1/3 of pack",
-          "protein_g": 20,
-          "kcal": 562
+          "name": "lentil and chicken stew",
+          "unit": "lunch",
+          "portion": "lentils 1/4 · canned chicken breast 1/2 · canned diced tomatoes 1/2 · carrots 1/4",
+          "protein_g": 62,
+          "kcal": 673
         },
         {
-          "name": "pork loin",
-          "unit": "3 lb",
-          "portion": "1/3 of pack",
-          "protein_g": 97,
-          "kcal": 649
+          "name": "lentil and chicken stew",
+          "unit": "dinner",
+          "portion": "lentils 1/4 · canned chicken breast 1/2 · canned diced tomatoes 1/2 · carrots 1/4",
+          "protein_g": 62,
+          "kcal": 673
         }
       ],
-      "protein_g": 191,
-      "kcal": 2276
+      "protein_g": 153,
+      "kcal": 2166
     },
     {
       "day": "wed",
       "items": [
         {
-          "name": "lentils, dry",
-          "unit": "1 lb bag",
-          "portion": "2/3 of pack",
-          "protein_g": 75,
-          "kcal": 1065
+          "name": "oats with peanut butter",
+          "unit": "breakfast",
+          "portion": "old fashioned oats 1/12 · peanut butter 1/6",
+          "protein_g": 30,
+          "kcal": 821
         },
         {
-          "name": "pasta, spaghetti",
-          "unit": "1 lb box",
-          "portion": "1/3 of pack",
-          "protein_g": 20,
-          "kcal": 562
+          "name": "frozen chicken, sweet potato",
+          "unit": "lunch",
+          "portion": "frozen chicken breast 1/5 · sweet potatoes 1/4 · frozen mixed vegetables 1/2",
+          "protein_g": 72,
+          "kcal": 742
         },
         {
-          "name": "pork loin",
-          "unit": "3 lb",
-          "portion": "1/3 of pack",
-          "protein_g": 97,
-          "kcal": 649
+          "name": "frozen chicken, sweet potato",
+          "unit": "dinner",
+          "portion": "frozen chicken breast 1/5 · sweet potatoes 1/4 · frozen mixed vegetables 1/2",
+          "protein_g": 72,
+          "kcal": 742
         }
       ],
-      "protein_g": 191,
-      "kcal": 2276
+      "protein_g": 174,
+      "kcal": 2304
     },
     {
       "day": "thu",
       "items": [
         {
-          "name": "whey protein powder",
-          "unit": "2 lb tub",
-          "portion": "1/2 of pack",
-          "protein_g": 363,
-          "kcal": 1815
+          "name": "oats with peanut butter",
+          "unit": "breakfast",
+          "portion": "old fashioned oats 1/12 · peanut butter 1/6",
+          "protein_g": 30,
+          "kcal": 821
+        },
+        {
+          "name": "frozen chicken, sweet potato",
+          "unit": "lunch",
+          "portion": "frozen chicken breast 1/5 · sweet potatoes 1/4 · frozen mixed vegetables 1/2",
+          "protein_g": 72,
+          "kcal": 742
+        },
+        {
+          "name": "chickpea tuna salad, bread",
+          "unit": "dinner",
+          "portion": "chickpeas 1 pack · canned tuna in water 1 pack · whole wheat bread 1/10",
+          "protein_g": 56,
+          "kcal": 665
         }
       ],
-      "protein_g": 363,
-      "kcal": 1815
+      "protein_g": 158,
+      "kcal": 2227
     },
     {
       "day": "fri",
       "items": [
         {
-          "name": "whey protein powder",
-          "unit": "2 lb tub",
-          "portion": "1/2 of pack",
-          "protein_g": 363,
-          "kcal": 1815
+          "name": "oats with peanut butter",
+          "unit": "breakfast",
+          "portion": "old fashioned oats 1/12 · peanut butter 1/6",
+          "protein_g": 30,
+          "kcal": 821
+        },
+        {
+          "name": "lentil and chicken stew",
+          "unit": "lunch",
+          "portion": "lentils 1/4 · canned chicken breast 1/2 · canned diced tomatoes 1/2 · carrots 1/4",
+          "protein_g": 62,
+          "kcal": 673
+        },
+        {
+          "name": "lentil and chicken stew",
+          "unit": "dinner",
+          "portion": "lentils 1/4 · canned chicken breast 1/2 · canned diced tomatoes 1/2 · carrots 1/4",
+          "protein_g": 62,
+          "kcal": 673
         }
       ],
-      "protein_g": 363,
-      "kcal": 1815
+      "protein_g": 153,
+      "kcal": 2166
     }
   ],
   "list": [
     {
+      "name": "canned chicken breast",
+      "unit": "12.5 oz can",
+      "qty": 2,
+      "price_usd": 5.92,
+      "perishable": false,
+      "eaten": 2
+    },
+    {
+      "name": "canned diced tomatoes",
+      "unit": "14.5 oz can",
+      "qty": 2,
+      "price_usd": 2.02,
+      "perishable": false,
+      "eaten": 2
+    },
+    {
+      "name": "canned tuna in water",
+      "unit": "5 oz can",
+      "qty": 1,
+      "price_usd": 1.05,
+      "perishable": false,
+      "eaten": 1
+    },
+    {
+      "name": "carrots",
+      "unit": "2 lb bag",
+      "qty": 1,
+      "price_usd": 1.86,
+      "perishable": false,
+      "eaten": 1
+    },
+    {
+      "name": "chickpeas, canned",
+      "unit": "15 oz can",
+      "qty": 1,
+      "price_usd": 0.94,
+      "perishable": false,
+      "eaten": 1
+    },
+    {
+      "name": "frozen chicken breast",
+      "unit": "3 lb bag",
+      "qty": 1,
+      "price_usd": 9.87,
+      "perishable": false,
+      "eaten": 1
+    },
+    {
+      "name": "frozen mixed vegetables",
+      "unit": "12 oz bag",
+      "qty": 3,
+      "price_usd": 3.75,
+      "perishable": false,
+      "eaten": 2.5
+    },
+    {
       "name": "lentils, dry",
       "unit": "1 lb bag",
+      "qty": 1,
+      "price_usd": 1.63,
+      "perishable": false,
+      "eaten": 1
+    },
+    {
+      "name": "old fashioned oats",
+      "unit": "42 oz canister",
+      "qty": 1,
+      "price_usd": 3.84,
+      "perishable": false,
+      "eaten": 0.42
+    },
+    {
+      "name": "peanut butter",
+      "unit": "16 oz jar",
+      "qty": 1,
+      "price_usd": 2.33,
+      "perishable": false,
+      "eaten": 0.83
+    },
+    {
+      "name": "sweet potatoes",
+      "unit": "3 lb bag",
       "qty": 2,
-      "price_usd": 3.26,
-      "perishable": false
+      "price_usd": 6.36,
+      "perishable": false,
+      "eaten": 1.25
     },
     {
-      "name": "pasta, spaghetti",
-      "unit": "1 lb box",
+      "name": "whole wheat bread",
+      "unit": "20 oz loaf",
       "qty": 1,
-      "price_usd": 1.2,
-      "perishable": false
-    },
-    {
-      "name": "pork loin",
-      "unit": "3 lb",
-      "qty": 1,
-      "price_usd": 7.16,
-      "perishable": true
-    },
-    {
-      "name": "whey protein powder",
-      "unit": "2 lb tub",
-      "qty": 1,
-      "price_usd": 21.98,
-      "perishable": false
+      "price_usd": 2.19,
+      "perishable": false,
+      "eaten": 0.1
     }
   ],
-  "est_total": 33.6,
-  "protein_per_day": 191,
-  "kcal_per_day": 2092,
+  "est_total": 41.76,
+  "protein_per_day": 153,
+  "kcal_per_day": 2234,
   "protein_shortfall_g": 0,
-  "price_as_of": "2026-08-30"
+  "price_as_of": "2026-08-30",
+  "distinct_skus": 12,
+  "protein_sources": 4,
+  "seed": 0,
+  "why": []
 }

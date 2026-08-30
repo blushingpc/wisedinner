@@ -33,7 +33,7 @@ export function ReceiptCard({ week, variant, title = "your week, solved", printe
                   {d.protein_g} g · {d.kcal} kcal
                 </span>
               </div>
-              <p className="mt-0.5 text-ink-soft">{d.items.map((i) => `${i.name}, ${i.portion}`).join(" · ")}</p>
+              <p className="mt-0.5 text-ink-soft">{d.items.map((i) => i.name).join(" · ")}</p>
             </div>
           ))}
           <p className="mt-4 text-micro uppercase text-ink-soft">list · fresh aisle</p>

@@ -6,7 +6,7 @@ import { DIETS, type Diet } from "@/app/api/solve/solver";
 import { track } from "@/app/ui/track";
 
 const STEPS = 6;
-const BANDS: [string, number, number][] = [
+export const BANDS: [string, number, number][] = [
   ["1500 – 2000", 1500, 2000],
   ["1800 – 2400", 1800, 2400],
   ["2200 – 2800", 2200, 2800],

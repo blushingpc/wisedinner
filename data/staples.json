@@ -380,7 +380,7 @@
       "vegan",
       "dairy-free"
     ],
-    "perishable": true,
+    "perishable": false,
     "price_as_of": "2026-08-30"
   },
   {

@@ -36,7 +36,15 @@ export default function Drop() {
                     {d.protein_g} g · {d.kcal} kcal
                   </span>
                 </div>
-                <p className="mt-1">{d.items.map((i) => `${i.name}, ${i.portion}`).join(" · ")}</p>
+                <ol className="mt-1 grid gap-1">
+                  {d.items.map((i) => (
+                    <li key={i.unit}>
+                      <span className="font-mono text-micro uppercase text-ink-soft">{i.unit} </span>
+                      {i.name}
+                      <span className="text-ink-soft"> · {i.portion} · {i.protein_g} g</span>
+                    </li>
+                  ))}
+                </ol>
               </li>
             ))}
           </ol>

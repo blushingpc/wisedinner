@@ -26,6 +26,7 @@ export async function POST(req: Request) {
   const kcal_min = num("kcal_min", 500, 6000);
   const kcal_max = num("kcal_max", 500, 6000);
   const household = num("household", 1, 4);
+  const seed = num("seed", 0, 1_000_000) ?? 0;
   const diet = DIETS.includes(body.diet as Diet) ? (body.diet as Diet) : null;
   const known = new Set(staples.map((s) => s.name));
   const pantry = Array.isArray(body.pantry) ? body.pantry.filter((n): n is string => typeof n === "string" && known.has(n)).slice(0, 40) : [];
@@ -37,12 +38,12 @@ export async function POST(req: Request) {
     );
   }
 
-  const input: SolveInput = { budget, protein_per_day, kcal_min, kcal_max, diet, household, pantry };
+  const input: SolveInput = { budget, protein_per_day, kcal_min, kcal_max, diet, household, pantry, seed: Math.floor(seed) };
   const week: SolveResponse = solve(input, staples);
 
-  // infeasible → also return the closest solvable target (protein relaxed in 10 g steps) so /plan can offer "use closest"
+  // infeasible → also return the closest solvable target (protein relaxed in 20 g steps, four tries) so /plan can offer "use closest"
   if (!week.feasible) {
-    for (let p = protein_per_day - 10; p >= 60; p -= 10) {
+    for (let p = protein_per_day - 20; p >= Math.max(60, protein_per_day - 80); p -= 20) {
       const relaxed = solve({ ...input, protein_per_day: p }, staples);
       if (relaxed.feasible) {
         week.closest = { protein_per_day: p, week: relaxed };

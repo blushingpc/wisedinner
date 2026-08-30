@@ -7,7 +7,7 @@ import type { SolveResponse } from "@/app/api/solve/route";
 import { ReceiptCard } from "@/app/ui/receipt-card";
 import { WaitlistForm } from "@/app/ui/waitlist-form";
 import { track } from "@/app/ui/track";
-import { KEY, type Answers } from "@/app/start/quiz";
+import { BANDS, KEY, type Answers } from "@/app/start/quiz";
 
 type Session = { answers: Answers; week: SolveResponse };
 
@@ -16,6 +16,30 @@ export function Plan() {
   const [s, setS] = useState<Session | null>(null);
   const [useClosest, setUseClosest] = useState(false);
   const [printedAt, setPrintedAt] = useState("");
+  const [regen, setRegen] = useState<"idle" | "loading" | "done" | "error">("idle");
+
+  // one re-solve with the next seed: same numbers, a different valid week (the solver picks within a 3% cost band)
+  const regenerate = async () => {
+    if (!s || regen !== "idle") return;
+    setRegen("loading");
+    try {
+      const { answers, week } = s;
+      const [, lo, hi] = BANDS[answers.band];
+      const res = await fetch("/api/solve", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ budget: answers.budget, protein_per_day: answers.protein, kcal_min: lo, kcal_max: hi, diet: answers.diet, household: answers.household, pantry: answers.pantry, seed: (week.seed ?? 0) + 1 }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      const next = { answers, week: (await res.json()) as SolveResponse };
+      sessionStorage.setItem(KEY.plan, JSON.stringify(next));
+      setS(next);
+      setUseClosest(false);
+      setRegen("done");
+    } catch {
+      setRegen("error");
+    }
+  };
 
   useEffect(() => {
     try {
@@ -69,7 +93,7 @@ export function Plan() {
         <div>
           <h1 className="text-h2 font-bold">five days, one trip.</h1>
           <p className="mt-3 text-ink-soft">
-            {protein} g protein a day, {answers.household} {answers.household === 1 ? "person" : "people"}, est. in-store. prices as of {week.price_as_of}.
+            {week.distinct_skus} items · {week.protein_sources} protein sources · {protein} g protein a day, {answers.household} {answers.household === 1 ? "person" : "people"}, est. in-store. prices as of {week.price_as_of}.
           </p>
           {monthly !== null && (
             <dl className="mt-8 border-t border-rule py-4 font-mono tabular-nums">
@@ -88,11 +112,24 @@ export function Plan() {
                     {d.protein_g} g · {d.kcal} kcal
                   </span>
                 </div>
-                <p className="mt-1">{d.items.map((i) => `${i.name}, ${i.portion}`).join(" · ")}</p>
+                <ol className="mt-1 grid gap-1">
+                  {d.items.map((i) => (
+                    <li key={i.unit}>
+                      <span className="font-mono text-micro uppercase text-ink-soft">{i.unit} </span>
+                      {i.name}
+                      <span className="text-ink-soft"> · {i.portion} · {i.protein_g} g</span>
+                    </li>
+                  ))}
+                </ol>
               </li>
             ))}
           </ol>
           <div className="mt-8 flex flex-wrap gap-6">
+            {regen !== "done" && (
+              <button type="button" onClick={regenerate} disabled={regen === "loading"} className="text-link min-h-11">
+                {regen === "loading" ? "re-solving…" : regen === "error" ? "regenerate (try again)" : "regenerate"}
+              </button>
+            )}
             <Link href="/start" className="text-link inline-flex min-h-11 items-center">
               change my numbers
             </Link>

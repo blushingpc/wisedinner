@@ -38,7 +38,7 @@ export function Footer() {
             </li>
           ))}
         </ul>
-        <p className="font-mono text-micro text-ink-soft lg:col-span-3">built by a tiny team and a solver · © 2026 [WiseDinner LLC]</p>
+        <p className="font-mono text-micro text-ink-soft lg:col-span-3">built by a tiny team and a solver · © 2026 «ENTITY»</p>
       </div>
     </footer>
   );
