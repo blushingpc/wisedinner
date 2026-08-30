@@ -1,0 +1,31 @@
+name: weekly drop
+
+on:
+  schedule:
+    - cron: "0 10 * * 0" # sunday 10:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  drop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      # gen-drop exits 1 (and writes nothing) if the week is infeasible or has fewer than 8 skus — the run fails loudly
+      - run: node scripts/gen-drop.ts
+      - name: commit if changed
+        run: |
+          if git diff --quiet -- data/drop.json; then
+            echo "drop unchanged"
+            exit 0
+          fi
+          git config user.name "weekly-drop[bot]"
+          git config user.email "weekly-drop@users.noreply.github.com"
+          git add data/drop.json
+          git commit -m "weekly drop [skip ci-notes]"
+          git push
