@@ -13,7 +13,7 @@ export const HERO = {
 
 export const STEPS = [
   ["01 — tell us two numbers", "your weekly budget and your daily protein."],
-  ["02 — we solve the week", "a deterministic solver picks ~15 staples that overlap across five days. no ai guessing your macros."],
+  ["02 — we solve the week", "a deterministic solver picks a small set of overlapping staples that stretch across five days. no ai guessing your macros."],
   ["03 — shop it. cook it. keep the receipt.", "perishables early in the week, freezer-friendly by friday. empty fridge, on purpose."],
 ] as const;
 
@@ -63,4 +63,4 @@ export const ABOUT = [
 ];
 
 export const PRESS_BOILERPLATE =
-  "wisedinner is a meal-planning app that treats groceries as a math problem: give it a weekly budget and a protein target and it returns a solved week — a ~15-item list, five days of meals, and an estimated in-store total, with zero food waste by construction. it launches on iOS in 2026.";
+  "wisedinner is a meal-planning app that treats groceries as a math problem: give it a weekly budget and a protein target and it returns a solved week — a small set of overlapping staples, five days of meals, and an estimated in-store total, with zero food waste by construction. it launches on iOS in 2026.";
