@@ -4,8 +4,6 @@ Blocked jobs get `BLOCKED:` + one line on what's needed. New ideas go under
 Ideas with a metric tag [activation|conversion|price-accuracy|perf] or they get deleted.
 
 ## MVP
-2. Staple price data v0: `data/staples.json` — ~40 SKUs, fields: name, unit, price_usd, protein_g, kcal, diet_flags, perishable, price_as_of. Assumption prices, conservative (+10% buffer).
-   done means: typed loader + the file renders on a hidden /staples debug page.
 3. Solver: `/api/solve` deterministic (greedy + repair pass). Input: budget, protein/day, kcal range, diet, household. Output: 5-day plan, consolidated list, est. in-store total, protein/day achieved. Unit tests for 3 known cases incl. infeasible budget.
    done means: `npm test` green; curl of /api/solve returns a valid week under budget.
 4. Quiz `/start`: 6 steps (budget → protein → kcal → diet → household → pantry), in-memory state, ends by calling solve.
@@ -31,4 +29,5 @@ Ideas with a metric tag [activation|conversion|price-accuracy|perf] or they get 
 (append here — metric tag required)
 
 ## Done
+2. Staple price data v0: `data/staples.json` — 42 SKUs, typed loader, hidden /staples debug page. — done 2026-08-30, live at https://wisedinner.vercel.app/staples
 1. Scaffold: Next.js App Router + TS strict + Tailwind with the human-design tokens; deploy pipeline to Vercel working. — done 2026-08-30, live at https://wisedinner.vercel.app
