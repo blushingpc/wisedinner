@@ -3,21 +3,23 @@ Rules: one job in flight. Each job has a "done means" line — that is the test.
 Blocked jobs get `BLOCKED:` + one line on what's needed. New ideas go under
 Ideas with a metric tag [activation|conversion|price-accuracy|perf] or they get deleted.
 
-## MVP
-4. Quiz `/start`: 6 steps (budget → protein → kcal → diet → household → pantry), in-memory state, ends by calling solve.
-   done means: full quiz on mobile viewport reaches the reveal with no dead ends.
-5. Reveal page: plan grid, aisle-sorted list, big estimated in-store total, protein/day, projected monthly savings vs stated current spend. Receipt aesthetic. This page is the aha — it gets the most design care.
-   done means: screenshot-worthy on a 390px viewport; totals match solver output exactly.
-6. Waitlist: Supabase table `waitlist(email, budget, protein_target, created_at)` + insert route + capture on reveal ("email me my plan + early access").
-   done means: a real email lands in the Supabase table from the live site. BLOCKED until Supabase env vars are in Vercel.
-7. Weekly drop `/drop`: one universal week (fixed seed through the solver), shareable, OG image, email capture reused.
-   done means: /drop live, loads under 1s, share preview renders the receipt card.
-8. Events: quiz_start, quiz_complete, reveal_view, waitlist_join via Vercel Analytics custom events.
-   done means: events visible in the Vercel dashboard from a live run-through.
-9. Meta/SEO: title, description, OG receipt card image, favicon.
-   done means: paste the URL in a chat app → card looks intentional.
-10. Ledger preview: static mocked Savings Ledger section on the landing page (real math from example weeks, labeled example).
-    done means: section exists, clearly labeled "example", screenshots well.
+## MVP — SITE-SPEC v2 §19 (docs/SITE-SPEC.md). one sprint, push after each step.
+1. [x] foundation: SectionShell + token audit
+2. [ ] DeviceFrame + ReceiptCard + MealCard + CountUp
+3. [ ] landing all sections (S2 upgrade included)
+4. [ ] quiz v2 (absorb WIP) + /plan + infeasible state
+5. [ ] waitlist API + migration + /thanks
+6. [ ] /drop + gen-drop
+7. [ ] /pricing /faq /about
+8. [ ] /support + API + table
+9. [ ] /terms /privacy + LegalLayout
+10. [ ] /press + press-kit zip
+11. [ ] 404/500
+12. [ ] SEO: OG route, robots, sitemap, JSON-LD
+13. [ ] analytics events
+14. [ ] full pre-flight sweep + Lighthouse every page
+15. [ ] PROGRESS sprint summary
+   done means: every §20 acceptance line checked.
 
 ## After keys/DNS (blocked until human does chrome-tasks.md)
 11. BLOCKED (Stripe keys): 21-day trial checkout, annual-first pricing page per wisedinner-truth.
@@ -26,6 +28,7 @@ Ideas with a metric tag [activation|conversion|price-accuracy|perf] or they get 
 ## Ideas
 (append here — metric tag required)
 - [activation] solver variety rule (max share of weekly protein from one SKU) — a week of lentils + pork loin + whey is optimal but not a week people cook; more accepted plans at the reveal
+- [activation] Sunday GitHub Action to regenerate data/drop.json (SITE-SPEC §11)
 - [activation] dark mode — deferred by docs/DESIGN.md §0.5, revisit after 100 users
 
 ## Done
