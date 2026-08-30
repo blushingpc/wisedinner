@@ -1,0 +1,592 @@
+[
+  {
+    "name": "chicken breast, boneless skinless",
+    "unit": "3 lb family pack",
+    "price_usd": 9.21,
+    "protein_g": 306,
+    "kcal": 1633,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "chicken thighs, bone-in",
+    "unit": "5 lb pack",
+    "price_usd": 8.2,
+    "protein_g": 262,
+    "kcal": 3350,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "frozen chicken breast",
+    "unit": "3 lb bag",
+    "price_usd": 9.87,
+    "protein_g": 306,
+    "kcal": 1633,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "ground turkey 93/7",
+    "unit": "1 lb",
+    "price_usd": 4.53,
+    "protein_g": 85,
+    "kcal": 680,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "ground beef 80/20",
+    "unit": "1 lb",
+    "price_usd": 5.63,
+    "protein_g": 78,
+    "kcal": 1152,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "pork loin",
+    "unit": "3 lb",
+    "price_usd": 7.16,
+    "protein_g": 291,
+    "kcal": 1946,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "frozen tilapia fillets",
+    "unit": "2 lb bag",
+    "price_usd": 9.67,
+    "protein_g": 182,
+    "kcal": 871,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "eggs, large",
+    "unit": "dozen",
+    "price_usd": 3.29,
+    "protein_g": 72,
+    "kcal": 840,
+    "diet_flags": [
+      "vegetarian",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "canned tuna in water",
+    "unit": "5 oz can",
+    "price_usd": 1.05,
+    "protein_g": 27,
+    "kcal": 120,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "canned chicken breast",
+    "unit": "12.5 oz can",
+    "price_usd": 2.96,
+    "protein_g": 60,
+    "kcal": 280,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "greek yogurt, plain nonfat",
+    "unit": "32 oz tub",
+    "price_usd": 4.24,
+    "protein_g": 93,
+    "kcal": 535,
+    "diet_flags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "cottage cheese 2%",
+    "unit": "24 oz tub",
+    "price_usd": 3.28,
+    "protein_g": 75,
+    "kcal": 570,
+    "diet_flags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "milk 2%",
+    "unit": "1 gallon",
+    "price_usd": 3.43,
+    "protein_g": 128,
+    "kcal": 1950,
+    "diet_flags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "whey protein powder",
+    "unit": "2 lb tub",
+    "price_usd": 21.98,
+    "protein_g": 725,
+    "kcal": 3630,
+    "diet_flags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "tofu, extra firm",
+    "unit": "14 oz block",
+    "price_usd": 2.18,
+    "protein_g": 42,
+    "kcal": 400,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "black beans, canned",
+    "unit": "15 oz can",
+    "price_usd": 0.92,
+    "protein_g": 25,
+    "kcal": 385,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "chickpeas, canned",
+    "unit": "15 oz can",
+    "price_usd": 0.94,
+    "protein_g": 22,
+    "kcal": 400,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "lentils, dry",
+    "unit": "1 lb bag",
+    "price_usd": 1.63,
+    "protein_g": 112,
+    "kcal": 1598,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "peanut butter",
+    "unit": "16 oz jar",
+    "price_usd": 2.33,
+    "protein_g": 102,
+    "kcal": 2670,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "string cheese",
+    "unit": "12 ct pack",
+    "price_usd": 3.84,
+    "protein_g": 84,
+    "kcal": 960,
+    "diet_flags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "shredded cheddar",
+    "unit": "8 oz bag",
+    "price_usd": 2.52,
+    "protein_g": 53,
+    "kcal": 915,
+    "diet_flags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "deli turkey breast",
+    "unit": "9 oz pack",
+    "price_usd": 3.61,
+    "protein_g": 45,
+    "kcal": 265,
+    "diet_flags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "frozen edamame, shelled",
+    "unit": "12 oz bag",
+    "price_usd": 2.37,
+    "protein_g": 37,
+    "kcal": 390,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "white rice, long grain",
+    "unit": "5 lb bag",
+    "price_usd": 3.84,
+    "protein_g": 161,
+    "kcal": 8280,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "brown rice",
+    "unit": "2 lb bag",
+    "price_usd": 2.18,
+    "protein_g": 68,
+    "kcal": 3310,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "old fashioned oats",
+    "unit": "42 oz canister",
+    "price_usd": 3.84,
+    "protein_g": 157,
+    "kcal": 4515,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "pasta, spaghetti",
+    "unit": "1 lb box",
+    "price_usd": 1.2,
+    "protein_g": 59,
+    "kcal": 1685,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "whole wheat bread",
+    "unit": "20 oz loaf",
+    "price_usd": 2.19,
+    "protein_g": 71,
+    "kcal": 1445,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "flour tortillas",
+    "unit": "10 ct pack",
+    "price_usd": 2.18,
+    "protein_g": 41,
+    "kcal": 1530,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "russet potatoes",
+    "unit": "5 lb bag",
+    "price_usd": 3.62,
+    "protein_g": 49,
+    "kcal": 1792,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "sweet potatoes",
+    "unit": "3 lb bag",
+    "price_usd": 3.18,
+    "protein_g": 21,
+    "kcal": 1170,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "bananas",
+    "unit": "3 lb",
+    "price_usd": 1.78,
+    "protein_g": 10,
+    "kcal": 787,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "apples, gala",
+    "unit": "3 lb bag",
+    "price_usd": 4.39,
+    "protein_g": 4,
+    "kcal": 637,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "yellow onions",
+    "unit": "3 lb bag",
+    "price_usd": 2.74,
+    "protein_g": 13,
+    "kcal": 490,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "carrots",
+    "unit": "2 lb bag",
+    "price_usd": 1.86,
+    "protein_g": 8,
+    "kcal": 372,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "frozen broccoli florets",
+    "unit": "12 oz bag",
+    "price_usd": 1.38,
+    "protein_g": 10,
+    "kcal": 90,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "frozen mixed vegetables",
+    "unit": "12 oz bag",
+    "price_usd": 1.25,
+    "protein_g": 11,
+    "kcal": 245,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "canned diced tomatoes",
+    "unit": "14.5 oz can",
+    "price_usd": 1.01,
+    "protein_g": 3,
+    "kcal": 80,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "salsa",
+    "unit": "24 oz jar",
+    "price_usd": 2.52,
+    "protein_g": 10,
+    "kcal": 245,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "olive oil",
+    "unit": "17 oz bottle",
+    "price_usd": 7.14,
+    "protein_g": 0,
+    "kcal": 4050,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "butter, salted",
+    "unit": "1 lb",
+    "price_usd": 4.06,
+    "protein_g": 4,
+    "kcal": 3255,
+    "diet_flags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "perishable": true,
+    "price_as_of": "2026-08-30"
+  },
+  {
+    "name": "soy sauce",
+    "unit": "15 oz bottle",
+    "price_usd": 1.64,
+    "protein_g": 40,
+    "kcal": 285,
+    "diet_flags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free"
+    ],
+    "perishable": false,
+    "price_as_of": "2026-08-30"
+  }
+]
