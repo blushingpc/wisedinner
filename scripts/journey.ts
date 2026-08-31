@@ -1,8 +1,9 @@
 // the loop's eyes and hands. run: node scripts/journey.ts [--base http://localhost:3077] [--out design/shots/iter-N]
 // screenshots / at 390 + 1440, runs the full quiz ($55 / 150 g), asserts a feasible /plan receipt, shoots /plan /drop /pricing,
-// clicks every nav + footer link (asserts 200), joins the waitlist once as loop-test@wisedinner.com and deletes that row.
+// clicks every nav + footer link (asserts 200), and drives the waitlist form against a MOCKED /api/waitlist
+// (page.route) so no real row is ever written — the real API is exercised on prod, not by the loop.
 import { chromium, type Page } from "playwright";
-import { mkdirSync, readFileSync, existsSync } from "node:fs";
+import { mkdirSync } from "node:fs";
 
 const arg = (k: string, d: string) => {
   const i = process.argv.indexOf(k);
@@ -12,14 +13,6 @@ const BASE = arg("--base", "http://localhost:3077").replace(/\/$/, "");
 const OUT = arg("--out", "design/shots/latest");
 const TEST_EMAIL = "loop-test@wisedinner.com";
 mkdirSync(OUT, { recursive: true });
-
-// .env.local is gitignored; the service key only ever lives there or in vercel
-if (existsSync(".env.local")) {
-  for (const line of readFileSync(".env.local", "utf8").split("\n")) {
-    const m = line.match(/^([A-Z_]+)=(.*)$/);
-    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^"|"$/g, "");
-  }
-}
 
 const findings: string[] = [];
 const fail = (msg: string) => {
@@ -76,19 +69,17 @@ async function links(page: Page) {
 }
 
 async function waitlist(page: Page) {
-  const res = await page.request.post(`${BASE}/api/waitlist`, { data: { email: TEST_EMAIL, source: "hero" } });
-  const body = await res.json().catch(() => ({}));
-  if (res.status() === 200 && (body.status === "ok" || body.status === "already")) ok(`waitlist ${body.status} (position ${body.position ?? "-"})`);
-  else fail(`waitlist → ${res.status()} ${JSON.stringify(body)}`);
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) {
-    findings.push(`NOTE waitlist row ${TEST_EMAIL} NOT deleted — no service key in .env.local`);
-    return;
-  }
-  const del = await fetch(`${url}/rest/v1/waitlist?email=eq.${encodeURIComponent(TEST_EMAIL)}`, { method: "DELETE", headers: { apikey: key, authorization: `Bearer ${key}` } });
-  if (del.ok) ok(`waitlist row ${TEST_EMAIL} deleted`);
-  else fail(`could not delete test row: ${del.status}`);
+  // mocked end to end: the form's fetch is intercepted, so nothing lands in the real table
+  await page.route("**/api/waitlist", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ status: "ok", position: 42 }) }));
+  await page.goto(`${BASE}/#early-access`);
+  const input = page.locator("#email-hero");
+  await input.fill(TEST_EMAIL);
+  await input.press("Enter");
+  await page.waitForURL(/\/thanks\?n=42/, { timeout: 10_000 }).catch(() => fail("waitlist submit did not reach /thanks"));
+  const h1 = (await page.locator("h1").textContent().catch(() => "")) ?? "";
+  if (h1.includes("you're in") && h1.includes("#42")) ok("waitlist (mocked) → /thanks renders position #42");
+  else fail(`/thanks h1 unexpected: "${h1.trim()}"`);
+  await page.unroute("**/api/waitlist");
 }
 
 const browser = await chromium.launch();
