@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { drop } from "@/data/drop";
 import { meals } from "@/data/meals";
-import { ABOUT, FAQ, HERO, SITE, STEPS } from "./copy";
+import { ABOUT, FAQ, HERO, SITE } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { DeviceFrame } from "./ui/device-frame";
 import { MealCard } from "./ui/meal-card";
+import { PinnedWalkthrough } from "./ui/pinned-walkthrough";
+import { ReceiptCard } from "./ui/receipt-card";
 import { Section } from "./ui/section";
 import { ShelfTag } from "./ui/shelf-tag";
 import { WaitlistForm } from "./ui/waitlist-form";
@@ -118,63 +120,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* S3 how it works — purged screens: real values, no receipts, no kcal (§5, §9.4; pinned rebuild queued) */}
-      <Section id="how">
-        <h2 className="text-h2 font-bold">how it works</h2>
-        <ol className="mt-10 grid gap-10 lg:gap-14">
-          {STEPS.map(([title, body], i) => (
-            <li key={title} className={`grid items-center gap-8 lg:grid-cols-2 ${i % 2 ? "lg:[&>div:first-child]:order-2" : ""}`}>
-              <div className="max-w-[62ch]">
-                <h3 className="text-[1.75rem] font-bold">{title}</h3>
-                <p className="mt-3 text-ink-soft">{body}</p>
-              </div>
-              <DeviceFrame label={`phone showing step ${i + 1}`} widthClass="w-[280px] lg:w-[320px]" className="mx-auto">
-                {i === 0 && (
-                  <div>
-                    <p className="text-caption font-semibold text-kale">weekly budget</p>
-                    <p className="mt-2 border-b border-rule pb-2 font-mono text-4xl tabular-nums">$60</p>
-                    <p className="mt-8 text-caption font-semibold text-kale">protein per day</p>
-                    <p className="mt-2 border-b border-rule pb-2 font-mono text-4xl tabular-nums">150 g</p>
-                    <p className="mt-8 text-caption font-semibold text-ink-soft">that&apos;s all we ask.</p>
-                  </div>
-                )}
-                {i === 1 && (
-                  <>
-                    <p className="text-caption font-semibold text-kale">solving your week</p>
-                    <MealCard meal={meals[0]} />
-                    <MealCard meal={meals[2]} />
-                    <p className="mt-4 text-caption font-semibold text-ink-soft">a dozen staples, shared across five days.</p>
-                  </>
-                )}
-                {i === 2 && (
-                  <>
-                    <p className="text-caption font-semibold text-kale">fri · last meal</p>
-                    <MealCard meal={meals[2]} />
-                    <p className="mt-6 text-caption font-semibold text-kale">fridge</p>
-                    <p className="mt-1 text-3xl font-bold">empty, on purpose.</p>
-                    <p className="mt-2 text-caption font-semibold text-ink-soft">every pack finished. receipt kept.</p>
-                  </>
-                )}
-              </DeviceFrame>
-            </li>
-          ))}
-        </ol>
-      </Section>
+      {/* S3 how it works — pinned phone, three screens swap on scroll; mobile swipe carousel (§9.4, Tier 1 item 5) */}
+      <PinnedWalkthrough
+        fresh={drop.list.filter((i) => i.perishable).map((i) => i.name)}
+        shelf={drop.list.filter((i) => !i.perishable).map((i) => i.name)}
+      />
 
-      {/* S4 demo band — kale, the one dark moment until the receipt room lands (§9.5 inline demo queued) */}
-      <section className="bg-kale py-14 text-bg lg:py-20">
+      {/* S4 receipt room — the one receipt on the homepage, printing in on kale (§9.7, Tier 2 item 1) */}
+      <section className="relative overflow-hidden bg-kale py-16 text-bg lg:py-24">
+        <Image
+          src="/img/A3.jpg"
+          alt=""
+          fill
+          quality={70}
+          sizes="100vw"
+          className="img-grade object-cover opacity-30"
+        />
+        <div className="relative mx-auto grid max-w-[1200px] items-center gap-12 px-6 lg:grid-cols-[5fr_7fr] lg:px-12">
+          <div>
+            <h2 className="text-h2 font-bold text-balance">the receipt is the proof.</h2>
+            <p className="mt-4 max-w-[44ch] text-bg/80">
+              shelf prices, refreshed weekly. no delivery markups, no sponsored picks, no fake reviews.
+            </p>
+          </div>
+          <div data-reveal className="receipt-print rotate-[3deg] justify-self-center lg:justify-self-start">
+            <ReceiptCard week={drop} variant="proof" title="this week, solved" />
+          </div>
+        </div>
+      </section>
+
+      {/* S5 demo band — linen, so the kale receipt room stays the one dark moment (§9.5 inline demo queued) */}
+      <section className="bg-bg-alt py-14 lg:py-20">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-6 px-6 lg:px-12">
           <div>
             <h2 className="text-h2 font-bold text-balance">see your week solved in 60 seconds.</h2>
-            <p className="mt-2 text-bg/80">no account. takes a minute.</p>
+            <p className="mt-2 text-ink-soft">no account. takes a minute.</p>
           </div>
-          <Link href="/start" className="cta cta-light">
+          <Link href="/start" className="cta cta-ghost">
             {HERO.demo}
           </Link>
         </div>
       </section>
 
-      {/* S5 faq preview — launch question first (§9.10) */}
+      {/* S6 faq preview — launch question first (§9.10) */}
       <Section>
         <h2 className="text-h2 font-bold">questions</h2>
         <div className="mt-8 max-w-[60ch]">
@@ -185,7 +173,7 @@ export default function Home() {
         </Link>
       </Section>
 
-      {/* S6 final cta */}
+      {/* S7 final cta */}
       <section id="early-access" className="bg-kale py-14 text-bg lg:py-24">
         <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-2 lg:px-12">
           <h2 className="text-display font-bold text-balance">your protein. your budget. <em>solved.</em></h2>

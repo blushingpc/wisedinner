@@ -166,6 +166,24 @@
   background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.04) 46%, rgba(255, 255, 255, 0.04) 58%, transparent 62%);
   pointer-events: none;
 }
+/* the homepage receipt prints in top-to-bottom (DESIGN-AUDIT §12.3). rides [data-reveal] +
+   app/reveal.tsx: no JS or reduced motion → the receipt is simply there. negative inset keeps
+   the card shadow unclipped in the settled state. */
+.receipt-print {
+  clip-path: inset(-10% -10% -10% -10%);
+  transition: clip-path 600ms var(--ease-out);
+}
+.receipt-print.reveal-from {
+  opacity: 1;
+  transform: none; /* the 3° tilt is the standalone rotate property; only the fade/slide is cancelled */
+  clip-path: inset(-10% -10% 100% -10%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .receipt-print {
+    transition-duration: 1ms;
+  }
+}
+
 .lift {
   transition: transform 200ms var(--ease-press), box-shadow 200ms var(--ease-press);
 }

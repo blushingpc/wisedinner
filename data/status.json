@@ -1,7 +1,7 @@
 {
-  "iteration": 4,
+  "iteration": 5,
   "open_audit_issues": 1,
   "idle": false,
-  "updated_at": "2026-08-31T12:00:00.000Z",
-  "note": "iter-4: build clean + tests 12/12 green (follow-up session); journey screenshots and gh issue poll still permission-blocked — visual verification deferred to first unsandboxed cycle"
+  "updated_at": "2026-08-31T18:00:00.000Z",
+  "note": "iter-5: pinned walkthrough (Tier 1 item 5) + receipt room on kale (Tier 2 item 1); build clean, 12/12 tests green. gh/journey/servers still permission-blocked — issue count stale from iter-4, visual verification debt now covers iters 4+5, top job for first unsandboxed cycle."
 }
