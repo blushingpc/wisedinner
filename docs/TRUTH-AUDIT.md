@@ -11,6 +11,8 @@ Cal-AI-premium bar with realistic placeholder content. Every element whose conte
 returns anything or this table has open rows. The founder runs the closing audit; the loop never
 clears the gate itself.
 
+NOTE 2026-08-31: rows 1–3 render only where NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF=true (preview). Production builds drop the section; the amended gate checks the production render.
+
 | # | location | placeholder content | honest replacement plan | status |
 |---|----------|--------------------|------------------------|--------|
 | 1 | app/page.tsx S6b quote 1 | "finally a meal app that starts from what i can spend…" — sam · austin | real beta-user quote (first name + city, with consent) | OPEN |

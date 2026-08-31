@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Reveal } from "./reveal";
 import { Nav } from "./ui/nav";
 import { Footer } from "./ui/footer";
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <Reveal />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
