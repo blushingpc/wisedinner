@@ -5,6 +5,7 @@ import { meals } from "@/data/meals";
 import { ABOUT, FAQ, HERO, SITE } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { DeviceFrame } from "./ui/device-frame";
+import { MobileCtaBar } from "./ui/mobile-cta-bar";
 import { InlineDemo } from "./ui/inline-demo";
 import { MealCard } from "./ui/meal-card";
 import { PinnedWalkthrough } from "./ui/pinned-walkthrough";
@@ -72,7 +73,7 @@ export default function Home() {
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-12 lg:min-h-[90dvh] lg:grid-cols-[5fr_7fr] lg:px-12 lg:py-16">
           <div>
-            <h1 className="fade-up text-display font-extrabold text-balance">{HERO.h1}</h1>
+            <h1 className="rise-up text-display font-extrabold text-balance">{HERO.h1}</h1>
             <p className="fade-up mt-6 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{HERO.sub}</p>
             <div className="fade-up mt-8 max-w-md [animation-delay:160ms]">
               <WaitlistForm source="hero" />
@@ -129,6 +130,8 @@ export default function Home() {
       <section id="week" className="relative">
         <Image
           src="/img/A2.jpg"
+          priority
+          fetchPriority="high"
           alt="five different home-cooked high-protein dinners plated in a row on a linen tablecloth in warm evening light"
           width={2560}
           height={853}
@@ -138,6 +141,8 @@ export default function Home() {
         />
         <Image
           src="/img/A2-mobile.jpg"
+          priority
+          fetchPriority="high"
           alt="five different home-cooked high-protein dinners plated in a row on a linen tablecloth in warm evening light"
           width={1600}
           height={2000}
@@ -256,6 +261,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <MobileCtaBar />
     </main>
   );
 }

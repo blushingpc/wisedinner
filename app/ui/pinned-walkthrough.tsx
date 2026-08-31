@@ -88,6 +88,7 @@ export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: st
 
   // the solving animation fires the first time step 2 enters (either layout), then stays settled
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- latches the one-shot solve animation when step 2 first enters
     if (active === 1 || slide === 1) setPlayed(true);
   }, [active, slide]);
 

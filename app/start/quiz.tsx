@@ -35,8 +35,8 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
       const saved = sessionStorage.getItem(KEY.answers);
       if (saved) {
         const { step: s, ...rest } = JSON.parse(saved);
-        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating from sessionStorage after mount is the point
         // URL values (inline demo) beat the saved session — the visitor just chose them
+        // eslint-disable-next-line react-hooks/set-state-in-effect, react-hooks/exhaustive-deps -- hydrating from sessionStorage after mount is the point
         setA({ ...DEFAULTS, ...rest, ...(initial?.budget && { budget: initial.budget }), ...(initial?.protein && { protein: initial.protein }) });
         setStep(s ?? 0);
       }

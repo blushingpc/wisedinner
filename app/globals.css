@@ -241,3 +241,44 @@
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+/* tier-3 item 4: link underlines animate in from the left; instant under reduced motion */
+.text-link,
+.text-link-quiet {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+  text-decoration: none;
+  padding-bottom: 2px;
+  transition: background-size 250ms var(--ease-press);
+}
+.text-link-quiet {
+  background-size: 0 2px;
+}
+.text-link-quiet:hover,
+.text-link:hover {
+  background-size: 100% 2px;
+}
+.text-link:not(:hover) {
+  background-size: 100% 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .text-link,
+  .text-link-quiet {
+    transition: none;
+  }
+}
+
+/* LCP-safe entrance for the H1 (18.5 gate): transform-only, so the headline paints at t=0 */
+.rise-up {
+  animation: rise-up 300ms var(--ease-out) both;
+  animation-delay: 60ms;
+}
+@keyframes rise-up {
+  from { transform: translateY(14px); }
+  to { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise-up { animation: none; }
+}
