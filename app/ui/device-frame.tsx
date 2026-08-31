@@ -1,14 +1,10 @@
 // DeviceFrame v2: three-layer bezel, dynamic island, 9:41 status bar, diagonal glare, layered shadow,
-// desktop-only perspective tilt. children are REAL components, never screenshots. fixed dims → zero CLS.
-export function DeviceFrame({ children, className = "", label, tilt }: { children: React.ReactNode; className?: string; label: string; tilt?: "left" | "right" }) {
-  const persp = tilt === "left" ? "lg:[transform:perspective(1200px)_rotateY(-4deg)]" : tilt === "right" ? "lg:[transform:perspective(1200px)_rotateY(3deg)]" : "";
+// desktop-only perspective tilt. children are REAL components, never screenshots.
+// size via widthClass + fixed aspect ratio (real width, never transform: scale — DESIGN-AUDIT §12); zero CLS.
+export function DeviceFrame({ children, className = "", label, tilt, widthClass = "w-[320px]" }: { children: React.ReactNode; className?: string; label: string; tilt?: "left" | "right"; widthClass?: string }) {
+  const persp = tilt === "left" ? "lg:[transform:perspective(1200px)_rotateY(-8deg)]" : tilt === "right" ? "lg:[transform:perspective(1200px)_rotateY(3deg)]" : "";
   return (
-    <div
-      role="img"
-      aria-label={label}
-      className={`w-[320px] shrink-0 rounded-[54px] bg-ink p-[10px] shadow-frame ${persp} ${className}`}
-      style={{ height: 660 }}
-    >
+    <div role="img" aria-label={label} className={`aspect-[160/330] shrink-0 rounded-[54px] bg-ink p-[10px] shadow-frame ${widthClass} ${persp} ${className}`}>
       <div className="frame-glare relative h-full rounded-[44px] border border-white/14 bg-ink p-[3px]">
         <div className="relative h-full overflow-hidden rounded-[40px] bg-bg">
           <div className="flex items-center justify-between px-7 pt-3" aria-hidden="true">

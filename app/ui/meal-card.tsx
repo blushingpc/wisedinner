@@ -8,9 +8,7 @@ export function MealCard({ meal, priority = false }: { meal: Meal; priority?: bo
       <Image src={meal.img} alt={meal.alt} width={64} height={64} quality={75} priority={priority} className="img-grade size-16 rounded-[10px] object-cover" />
       <figcaption>
         <p className="font-medium leading-tight">{meal.name}</p>
-        <p className="mt-1 font-mono text-spec tabular-nums text-ink-soft">
-          {meal.protein_g}g · ${meal.price_usd.toFixed(2)}
-        </p>
+        <p className="mt-1 font-mono text-spec tabular-nums text-ink-soft">${meal.price_usd.toFixed(2)}</p>
       </figcaption>
     </figure>
   );

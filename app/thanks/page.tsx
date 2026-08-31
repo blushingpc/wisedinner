@@ -24,7 +24,7 @@ export default async function Thanks({ searchParams }: { searchParams: Promise<{
         <p className="mt-10 font-mono text-micro uppercase text-ink-soft">while you wait</p>
         <div className="mt-3 flex flex-wrap gap-6">
           <Link href="/start" className="cta">
-            try the demo
+            try the free demo
           </Link>
           <Link href="/drop" className="text-link inline-flex min-h-11 items-center">
             get this week&apos;s drop

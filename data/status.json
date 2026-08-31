@@ -1,6 +1,7 @@
 {
-  "iteration": 3,
+  "iteration": 4,
   "open_audit_issues": 1,
   "idle": false,
-  "updated_at": "2026-08-31T02:14:34.731Z"
+  "updated_at": "2026-08-31T12:00:00.000Z",
+  "note": "iter-4: build clean + tests 12/12 green (follow-up session); journey screenshots and gh issue poll still permission-blocked — visual verification deferred to first unsandboxed cycle"
 }

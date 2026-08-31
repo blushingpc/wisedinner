@@ -18,6 +18,9 @@ export function Nav() {
           <Link href="/#how" className="hidden min-h-11 items-center sm:inline-flex">
             how it works
           </Link>
+          <Link href="/pricing" className="hidden min-h-11 items-center sm:inline-flex">
+            pricing
+          </Link>
           <Link href="/faq" className="hidden min-h-11 items-center sm:inline-flex">
             faq
           </Link>

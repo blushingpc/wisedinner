@@ -12,7 +12,7 @@ export default function NotFound() {
             back home
           </Link>
           <Link href="/start" className="text-link inline-flex min-h-11 items-center">
-            try the demo
+            try the free demo →
           </Link>
         </div>
       </Section>

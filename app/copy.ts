@@ -2,40 +2,37 @@
 export const SUPPORT_EMAIL = "support@wisedinner.com";
 export const SITE = "https://www.wisedinner.com";
 
+// homepage copy — DESIGN-AUDIT §18.4 copy deck, verbatim where the deck is verbatim
 export const HERO = {
-  eyebrow: "PROTEIN, SOLVED LIKE MATH",
-  h1: "Hit your protein. Spend way less.",
-  sub: "wisedinner turns your budget and a protein target into a solved week — one short grocery list, five days of meals, and a receipt that proves it.",
+  h1: "hit your protein. spend way less.",
+  sub: "tell us your budget and protein goal. we plan five days of meals and one short grocery list.",
   cta: "get early access",
-  micro: "free demo below · app coming soon",
-  demo: "try the demo",
+  pill: "iOS · 2026 · free web demo",
+  demo: "try the free demo →",
 };
 
 export const STEPS = [
-  ["01 — tell us two numbers", "your weekly budget and your daily protein."],
-  ["02 — we solve the week", "a deterministic solver picks ~12 staples that overlap across five days. no ai guessing your macros."],
-  ["03 — shop it. cook it. keep the receipt.", "perishables early in the week, freezer-friendly by friday. empty fridge, on purpose."],
+  ["two numbers in", "your weekly budget and your daily protein. that's it."],
+  ["a week out", "a dozen staples that overlap across five days, so every pack gets finished."],
+  ["shop once, eat all week", "perishables early, freezer-friendly by friday. empty fridge, on purpose."],
 ] as const;
 
-export const HONESTY =
-  "we quote shelf prices, not app prices. delivery apps mark items up 15–25% and stack fees on top — if you ever export a list for delivery, we show you both numbers first. the cheap way is walking in with the list.";
-
 export const FAQ = [
+  {
+    q: "when does the app launch?",
+    a: "we're building it now. early access goes to the waitlist, in order, before the public ios launch in 2026.",
+  },
   {
     q: "what is wisedinner?",
     a: "a meal planner that treats groceries as a math problem: your weekly budget and a protein target in, a solved week out — one short list, five days of meals, an estimated in-store total. it's an app first; this site is the demo and the waitlist.",
   },
   {
     q: "how accurate are the prices?",
-    a: "they're averages from public price data with a buffer on top, labeled as estimates, refreshed weekly. your receipt is the truth — in the app, every receipt you log tightens the estimate for you.",
+    a: "they're averages from public price data with a buffer on top, labeled as estimates, refreshed weekly. we quote shelf prices, not delivery-app prices — those run 15–25% higher before fees. your receipt is the truth — in the app, every receipt you log tightens the estimate for you.",
   },
   {
     q: "why not just use chatgpt?",
     a: "a chat model can't hold real prices, can't aggregate half an onion across five days, and can't guarantee the math. our solver is deterministic: same numbers in, same week out, and it can't get arithmetic wrong. then we show receipts.",
-  },
-  {
-    q: "when does the app launch?",
-    a: "we're building it now. early access goes to the waitlist, in order, before the public ios launch in 2026.",
   },
   {
     q: "is this medical or diet advice?",

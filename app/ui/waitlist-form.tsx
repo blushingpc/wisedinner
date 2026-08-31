@@ -40,7 +40,7 @@ export function WaitlistForm({ source, quiz, light }: { source: string; quiz?: u
   const soft = light ? "text-bg/80" : "text-ink-soft";
   return (
     <form onSubmit={submit} className="w-full max-w-md" aria-describedby={`${id}-msg`}>
-      <label htmlFor={id} className={`block font-mono text-micro uppercase ${soft}`}>
+      <label htmlFor={id} className={`block text-caption font-semibold ${soft}`}>
         email
       </label>
       <div className="mt-2 flex gap-2">
