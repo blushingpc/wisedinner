@@ -4,6 +4,7 @@ import { drop } from "@/data/drop";
 import { meals } from "@/data/meals";
 import { ABOUT, FAQ, HERO, HONESTY, SITE, STEPS } from "./copy";
 import { Accordion } from "./ui/accordion";
+import { CountUp } from "./ui/count-up";
 import { DeviceFrame } from "./ui/device-frame";
 import { MealCard } from "./ui/meal-card";
 import { ReceiptCard } from "./ui/receipt-card";
@@ -46,7 +47,7 @@ export default function Home() {
       {/* S1 hero */}
       <section className="mx-auto grid min-h-[88dvh] max-w-[1200px] items-center gap-12 px-6 py-14 lg:grid-cols-[1.1fr_1fr] lg:px-12 lg:py-24">
         <div className="max-w-[62ch]">
-          <p className="font-mono text-micro uppercase text-ink-soft">{HERO.eyebrow}</p>
+          <p className="font-mono text-micro uppercase text-green-600">{HERO.eyebrow}</p>
           <h1 className="mt-6 text-display font-bold text-balance">{HERO.h1}</h1>
           <p className="mt-6 text-xl text-ink-soft">{HERO.sub}</p>
           <div className="mt-8 flex flex-wrap items-center gap-6">
@@ -60,13 +61,16 @@ export default function Home() {
           <p className="mt-4 font-mono text-micro uppercase text-ink-soft">{HERO.micro}</p>
         </div>
 
-        <div className="relative mx-auto h-[720px] w-[320px] lg:w-[640px]">
-          <DeviceFrame label="phone showing the plan view: two meals with protein and price, and a mini receipt" className="absolute top-0 left-0 lg:-rotate-3">
+        <div className="hero-field relative mx-auto h-[720px] w-[320px] lg:w-[620px]">
+          <DeviceFrame label="phone showing the plan view: two meals with protein and price, and a mini receipt" tilt="left" className="absolute top-0 left-0 lg:-rotate-3">
             <PlanScreen />
           </DeviceFrame>
-          <DeviceFrame label="phone showing the solved-week receipt with the estimated in-store total" className="absolute top-12 left-0 hidden lg:left-[320px] lg:block lg:rotate-2">
+          <DeviceFrame label="phone showing the solved-week receipt with the estimated in-store total" tilt="right" className="absolute top-12 left-0 hidden lg:left-[290px] lg:block lg:rotate-2">
             <ReceiptCard week={drop} variant="plan" />
           </DeviceFrame>
+          <div className="absolute top-[500px] -left-10 z-10 hidden w-64 rounded-[14px] bg-bg px-3 shadow-receipt lg:block">
+            <MealCard meal={meals[2]} />
+          </div>
         </div>
       </section>
 
@@ -82,9 +86,9 @@ export default function Home() {
           className="img-grade h-auto w-full rounded-[14px]"
         />
         <div>
-          <h2 className="text-h2 font-bold text-balance">one list. five days. this is what $[your number] looks like.</h2>
+          <h2 className="text-h2 font-bold text-balance">one list. <span className="text-green-600">five days.</span> this is what $[your number] looks like.</h2>
           <div className="mt-8">
-            <StatStrip stacked stats={[[`${drop.protein_per_day}g`, "protein / day"], [`$${drop.est_total.toFixed(2)}`, "est. in-store, weekly"], ["0 lb", "waste by design"]]} />
+            <StatStrip stacked stats={[[<CountUp key="p" value={drop.protein_per_day} decimals={0} suffix="g" />, "protein / day"], [<CountUp key="t" value={drop.est_total} prefix="$" />, "est. in-store, weekly"], [<CountUp key="w" value={0} decimals={0} suffix=" lb" />, "waste by design"]]} />
           </div>
           <p className="mt-4 font-mono text-micro uppercase text-ink-soft">numbers from a real solver run at 2026 average prices — methodology in faq</p>
         </div>
@@ -138,10 +142,10 @@ export default function Home() {
       </Section>
 
       {/* S4 demo banner */}
-      <section className="bg-accent-wash py-14 lg:py-24">
+      <section className="bg-green-900 py-14 text-bg lg:py-24">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-6 px-6 lg:px-12">
           <h2 className="text-h2 font-bold text-balance">see your week solved in 60 seconds.</h2>
-          <Link href="/start" className="cta">
+          <Link href="/start" className="cta cta-light">
             {HERO.demo}
           </Link>
         </div>
@@ -174,9 +178,9 @@ export default function Home() {
       </Section>
 
       {/* S7 final cta */}
-      <section id="early-access" className="bg-ink py-14 text-bg lg:py-24">
+      <section id="early-access" className="bg-green-900 py-14 text-bg lg:py-24">
         <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-2 lg:px-12">
-          <h2 className="text-display font-bold text-balance">your protein. your budget. solved.</h2>
+          <h2 className="text-display font-bold text-balance">your protein. your budget. <em>solved.</em></h2>
           <div className="self-center">
             <WaitlistForm source="hero" light />
           </div>

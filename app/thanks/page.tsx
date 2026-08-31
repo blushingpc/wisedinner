@@ -10,7 +10,7 @@ export default async function Thanks({ searchParams }: { searchParams: Promise<{
   return (
     <main id="main">
       <Section className="min-h-[60dvh]">
-        <p className="font-mono text-micro uppercase text-ink-soft">early access</p>
+        <p className="font-mono text-micro uppercase text-green-600">early access</p>
         <h1 className="mt-6 text-display font-bold text-balance">
           you&apos;re in.{" "}
           {position > 0 && (

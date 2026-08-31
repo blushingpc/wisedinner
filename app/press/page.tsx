@@ -14,7 +14,7 @@ export default function Press() {
     <main id="main">
       <Section className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
         <div>
-          <p className="font-mono text-micro uppercase text-ink-soft">press</p>
+          <p className="font-mono text-micro uppercase text-green-600">press</p>
           <h1 className="mt-4 text-display font-bold">press kit.</h1>
           <h2 className="mt-10 font-mono text-micro uppercase text-ink-soft">boilerplate</h2>
           <p className="mt-3 max-w-[62ch] text-xl">{PRESS_BOILERPLATE}</p>

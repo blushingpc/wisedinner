@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 // counts once from 0 to value on mount. reduced motion or no JS → the final number is simply there (SSR renders it).
-export function CountUp({ value, prefix = "", decimals = 2, className = "" }: { value: number; prefix?: string; decimals?: number; className?: string }) {
+export function CountUp({ value, prefix = "", suffix = "", decimals = 2, className = "" }: { value: number; prefix?: string; suffix?: string; decimals?: number; className?: string }) {
   const [n, setN] = useState(value);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -21,6 +21,7 @@ export function CountUp({ value, prefix = "", decimals = 2, className = "" }: { 
     <span className={`font-mono tabular-nums ${className}`}>
       {prefix}
       {n.toFixed(decimals)}
+      {suffix}
     </span>
   );
 }

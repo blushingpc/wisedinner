@@ -15,7 +15,7 @@ export default function About() {
     <main id="main">
       <Section className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
         <div>
-          <p className="font-mono text-micro uppercase text-ink-soft">about</p>
+          <p className="font-mono text-micro uppercase text-green-600">about</p>
           <h1 className="mt-4 text-display font-bold text-balance">groceries, as a math problem.</h1>
           <div className="mt-8 max-w-[62ch] space-y-5 text-xl">
             {ABOUT.map((p) => (

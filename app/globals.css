@@ -8,8 +8,13 @@
   --color-ink-press: oklch(0.28 0.004 80); /* primary button hover */
   --color-ink-soft: oklch(0.53 0.008 80); /* #6b675f */
   --color-rule: #e9e7e2;
-  --color-accent: oklch(0.52 0.11 155); /* #1d7a46 money green, ≤3 uses per page */
-  --color-accent-wash: oklch(0.96 0.02 155); /* #edf3ec badge bg */
+  --color-green-050: #f2f7f3;
+  --color-green-100: #edf3ec;
+  --color-green-600: #1d7a46;
+  --color-green-700: #175e37;
+  --color-green-900: #0f3d25;
+  --color-accent: #1d7a46; /* = green-600 */
+  --color-accent-wash: #edf3ec; /* = green-100 */
   --color-receipt-paper: oklch(0.975 0.008 85); /* #faf8f3 — inside receipts only */
   --color-receipt-total: oklch(0.52 0.16 30); /* #c33d2e — inside receipts only */
 
@@ -24,7 +29,7 @@
   --text-h2: 2rem;
   --text-h2--line-height: 1.15;
   --text-h2--letter-spacing: -0.02em;
-  --text-display: clamp(2.6rem, 6vw, 4.5rem);
+  --text-display: clamp(2.8rem, 6.5vw, 5rem);
   --text-display--line-height: 1.08;
   --text-display--letter-spacing: -0.025em;
   --text-hero: clamp(3.5rem, 9vw, 7rem);
@@ -34,7 +39,8 @@
   --radius-cta: 12px;
   --radius-card: 14px; /* cards, device frames, photos */
 
-  --shadow-receipt: 0 8px 30px rgba(25, 24, 23, 0.06); /* the only shadow: device frames + receipts */
+  --shadow-receipt: 0 8px 30px rgba(25, 24, 23, 0.06); /* receipts */
+  --shadow-frame: 0 2px 6px rgba(25, 24, 23, 0.28), 0 24px 60px rgba(25, 24, 23, 0.14); /* device frames: tight contact + wide ambient */
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* reveals, 600ms */
   --ease-press: cubic-bezier(0.32, 0.72, 0, 1); /* interactions, 200ms */
@@ -91,7 +97,7 @@
 
 /* uniform photo grade — every brand photo goes through this, no per-image tuning */
 .img-grade {
-  filter: saturate(0.96) contrast(1.02);
+  filter: saturate(1.03) contrast(1.02); /* food carries warmth */
 }
 
 /* shared primitives — one class per intent (SITE-SPEC §6) */
@@ -127,3 +133,27 @@
 .prose p, .prose ul { margin-top: 1rem; max-width: 65ch; }
 .prose ul { padding-left: 1.25rem; list-style: disc; }
 .prose a { text-decoration: underline; text-underline-offset: 4px; }
+
+/* design v2 — brief surfaces */
+.hero-field {
+  background: radial-gradient(ellipse 60% 50% at 72% 42%, var(--color-green-100) 0%, transparent 70%);
+}
+  /* glare lives on the inner (relative) bezel layer so it never fights the caller's position utilities */
+.frame-glare::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 44px;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.04) 46%, rgba(255, 255, 255, 0.04) 58%, transparent 62%);
+  pointer-events: none;
+}
+.lift {
+  transition: transform 200ms var(--ease-press), box-shadow 200ms var(--ease-press);
+}
+.lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-receipt);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lift:hover { transform: none; }
+}

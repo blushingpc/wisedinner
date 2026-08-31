@@ -21,7 +21,7 @@ export default function Drop() {
           <ReceiptCard week={drop} variant="drop" title="this week's drop" tilt />
         </div>
         <div className="order-1 lg:order-2">
-          <p className="font-mono text-micro uppercase text-ink-soft">refreshed every sunday · generated {drop.generated_at}</p>
+          <p className="font-mono text-micro uppercase text-green-600">refreshed every sunday · generated {drop.generated_at}</p>
           <h1 className="mt-4 text-display font-bold text-balance">this week&apos;s protein plan.</h1>
           <p className="mt-6 max-w-[62ch] text-xl text-ink-soft">
             one universal week: {drop.input.protein_per_day} g protein a day for one person, solved under ${drop.input.budget} at this week&apos;s estimated shelf prices. no
