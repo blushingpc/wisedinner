@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/app/wordmark";
+import { HeaderCta } from "./header-cta";
 
 const LINKS = [
   ["how it works", "/#how"],
@@ -24,9 +25,7 @@ export function Nav() {
           <Link href="/faq" className="hidden min-h-11 items-center sm:inline-flex">
             faq
           </Link>
-          <Link href="/#early-access" className="cta">
-            get early access
-          </Link>
+          <HeaderCta />
           {/* ponytail: native details = hamburger with zero JS; swap for a client component if focus-trapping ever matters */}
           <details className="group relative sm:hidden">
             <summary aria-label="menu" className="flex size-11 cursor-pointer list-none items-center justify-center rounded-[12px] border border-rule [&::-webkit-details-marker]:hidden">

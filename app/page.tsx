@@ -54,7 +54,7 @@ export default function Home() {
               <Link href="/start" className="cta cta-ghost">
                 {HERO.demo}
               </Link>
-              <p className="text-caption font-semibold text-ink-soft">{HERO.pill}</p>
+              <p className="inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft">{HERO.pill}</p>
             </div>
           </div>
 

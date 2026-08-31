@@ -94,6 +94,27 @@ async function waitlist(page: Page) {
   await page.unroute("**/api/waitlist");
 }
 
+// §18.5: the header CTA never scrolls the page — at the top of / it focuses the
+// hero field; scrolled away it opens the slide-down sheet; Escape closes it.
+async function headerCta(page: Page) {
+  await page.goto(`${BASE}/`);
+  await page.locator("header a.cta").click();
+  if (await page.evaluate(() => document.activeElement?.id === "email-hero")) ok("header cta at top → focuses hero field");
+  else fail("header cta at top did not focus #email-hero");
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
+  const yBefore = await page.evaluate(() => window.scrollY);
+  await page.locator("header a.cta").click();
+  await page.waitForSelector("#header-sheet", { timeout: 3_000 }).catch(() => fail("header cta mid-page: sheet did not open"));
+  const yAfter = await page.evaluate(() => window.scrollY);
+  if (Math.abs(yAfter - yBefore) < 5) ok("header cta mid-page → sheet opens, no jump");
+  else fail(`header cta scrolled the page (${yBefore} → ${yAfter})`);
+  if (await page.evaluate(() => document.activeElement?.id === "email-header")) ok("sheet focuses its email field");
+  else fail("sheet did not focus #email-header");
+  await page.keyboard.press("Escape");
+  if ((await page.locator("#header-sheet").count()) === 0) ok("escape closes the sheet");
+  else fail("escape did not close the sheet");
+}
+
 // live smoke against the PREVIEW api: loop-test@wisedinner.com is seeded once, so every later run
 // must get {status:"already"} — proves api + db path end to end with zero cleanup.
 async function smoke() {
@@ -125,6 +146,7 @@ try {
     }
     if (tag === "desktop") {
       await links(page);
+      await headerCta(page);
       await waitlist(page);
     }
     await ctx.close();

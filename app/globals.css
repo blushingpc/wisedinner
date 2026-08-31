@@ -122,6 +122,10 @@
   white-space: nowrap;
   transition: background-color 200ms var(--ease-press), transform 200ms var(--ease-press);
 }
+/* narrow phones: wordmark + cta + hamburger share 390px — tighten only the header's cta */
+@media (max-width: 420px) {
+  header .cta { padding: 0.75rem; font-size: 0.875rem; }
+}
 .cta:hover { background: var(--color-yolk-press); }
 .cta:active { transform: scale(0.98); }
 .cta:disabled { opacity: 0.6; transform: none; }
@@ -158,6 +162,15 @@
 .dish-drift { animation: dish-drift 6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
   .dish-drift { animation: none; }
+}
+
+/* header sheet — slides down from under the sticky nav (§9.1) */
+@keyframes sheet-drop {
+  from { opacity: 0; transform: translateY(-8px); }
+}
+.sheet-drop { animation: sheet-drop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .sheet-drop { animation: none; }
 }
   /* glare lives on the inner (relative) bezel layer so it never fights the caller's position utilities */
 .frame-glare::after {

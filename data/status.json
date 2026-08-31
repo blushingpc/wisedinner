@@ -1,7 +1,7 @@
 {
-  "iteration": 7,
+  "iteration": 8,
   "open_audit_issues": 1,
   "idle": false,
-  "updated_at": "2026-08-31T23:55:00.000Z",
-  "note": "iter-7: Tier 2 item 3 shipped — three photo-led benefits (§9.8) on white with A4-1..3, middle offset, §18 caption copy. Plus journey.ts scroll-walk fix (fullPage shots missed below-fold lazy images). Build clean, 12/12 green, journey green 3x. Next: Tier 2 item 4 (people section) — needs founder input on real quotes/kitchen photo, else item 5 (header CTA behaviour)."
+  "updated_at": "2026-08-31T23:59:00.000Z",
+  "note": "iter-8: Tier 2 item 5 shipped — header CTA never jumps (focus hero field on screen, else slide-down sheet, Escape closes), hero pill restyled as quiet outlined pill, mobile ≤420px header CTA tightened so the wordmark stops clipping. journey gained 4 headerCta assertions, all green. Next: Tier 2 item 6 (demo result page: day cards + show-the-math toggle) — item 4 (people section) stays founder-blocked on real quotes/kitchen photo."
 }
