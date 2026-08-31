@@ -2,8 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(npm run build*)",
+      "Bash(npm run dev*)",
+      "Bash(npm run lint*)",
       "Bash(npm test*)",
       "Bash(npm install*)",
+      "Bash(node scripts/*)",
+      "Bash(npx playwright*)",
+      "Bash(npx skills*)",
+      "Bash(npx tsc*)",
+      "Bash(npx eslint*)",
       "Bash(git add*)",
       "Bash(git restore*)",
       "Bash(git commit*)",
@@ -11,7 +18,27 @@
       "Bash(git status*)",
       "Bash(git log*)",
       "Bash(git diff*)",
-      "Bash(curl*)"
+      "Bash(git checkout*)",
+      "Bash(git pull*)",
+      "Bash(git merge*)",
+      "Bash(gh issue*)",
+      "Bash(gh pr*)",
+      "Bash(gh run*)",
+      "Bash(gh api*)",
+      "Bash(gh label*)",
+      "Bash(curl*)",
+      "Bash(pkill -f next dev*)",
+      "mcp__claude_ai_higgsfield"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)",
+      "Bash(rm -rf C:*)",
+      "Bash(rm -rf ..*)",
+      "Read(.env*)",
+      "Read(**/.env*)"
     ]
   }
 }
