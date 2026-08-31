@@ -5,8 +5,8 @@ import { STEPS } from "../copy";
 import { DeviceFrame } from "./device-frame";
 
 // how-it-works per DESIGN-AUDIT §9.4/§12: desktop pins one phone while three steps scroll past
-// (screen crossfades per step); mobile is a snap-scroll carousel with dots. static screens — the
-// solving animation is Tier 3. no JS → step text fully readable, phone shows screen 1.
+// (screen crossfades per step); mobile is a snap-scroll carousel with dots. step 2 plays the
+// solving chip animation once on enter (§12.2). no JS → step text fully readable, screens static.
 
 const Check = () => (
   <span aria-hidden="true" className="grid size-4 shrink-0 place-items-center rounded-[4px] bg-yolk text-[10px] font-bold text-ink">
@@ -28,7 +28,7 @@ function SliderRow({ label, value, frac }: { label: string; value: string; frac:
   );
 }
 
-function StepScreen({ step, fresh, shelf }: { step: number; fresh: string[]; shelf: string[] }) {
+function StepScreen({ step, fresh, shelf, play = false }: { step: number; fresh: string[]; shelf: string[]; play?: boolean }) {
   if (step === 0) {
     return (
       <div className="grid gap-8 pt-2">
@@ -39,17 +39,22 @@ function StepScreen({ step, fresh, shelf }: { step: number; fresh: string[]; she
     );
   }
   if (step === 1) {
+    // §12.2: chips pop in staggered (~1.5s total), the solved line lands last; plays once, static without JS
     return (
-      <div className="pt-2">
+      <div className={`pt-2 ${play ? "solve-play" : ""}`}>
         <p className="text-caption font-semibold text-kale">solving your week</p>
         <ul className="mt-3 flex flex-wrap gap-1">
-          {[...fresh, ...shelf].map((n) => (
-            <li key={n} className="rounded-full border border-rule px-2 py-0.5 text-xs leading-snug">
+          {[...fresh, ...shelf].map((n, i) => (
+            <li
+              key={n}
+              style={{ "--chip-delay": `${i * 90}ms` } as React.CSSProperties}
+              className="chip-in rounded-full border border-rule px-2 py-0.5 text-xs leading-snug"
+            >
               {n}
             </li>
           ))}
         </ul>
-        <p className="mt-5 flex items-center gap-2 text-caption font-semibold text-kale">
+        <p className="solve-done mt-5 flex items-center gap-2 text-caption font-semibold text-kale">
           <Check /> solved — five days, one list
         </p>
       </div>
@@ -78,7 +83,13 @@ function StepScreen({ step, fresh, shelf }: { step: number; fresh: string[]; she
 export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: string[] }) {
   const [active, setActive] = useState(0);
   const [slide, setSlide] = useState(0);
+  const [played, setPlayed] = useState(false);
   const stepsRef = useRef<HTMLOListElement>(null);
+
+  // the solving animation fires the first time step 2 enters (either layout), then stays settled
+  useEffect(() => {
+    if (active === 1 || slide === 1) setPlayed(true);
+  }, [active, slide]);
 
   useEffect(() => {
     const els = stepsRef.current?.querySelectorAll<HTMLElement>("[data-step]");
@@ -120,7 +131,7 @@ export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: st
                         i === active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
                       }`}
                     >
-                      <StepScreen step={i} fresh={fresh} shelf={shelf} />
+                      <StepScreen step={i} fresh={fresh} shelf={shelf} play={played} />
                     </div>
                   ))}
                 </div>
@@ -146,7 +157,7 @@ export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: st
                 <h3 className="text-2xl font-bold">{title}</h3>
                 <p className="mt-2 text-ink-soft">{body}</p>
                 <DeviceFrame label={`phone showing step ${i + 1}: ${title}`} widthClass="w-[240px]" className="mx-auto mt-6">
-                  <StepScreen step={i} fresh={fresh} shelf={shelf} />
+                  <StepScreen step={i} fresh={fresh} shelf={shelf} play={played} />
                 </DeviceFrame>
               </li>
             ))}

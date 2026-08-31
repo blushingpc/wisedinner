@@ -1,7 +1,7 @@
 {
-  "iteration": 9,
+  "iteration": 10,
   "open_audit_issues": 1,
   "idle": false,
-  "updated_at": "2026-08-31T23:59:00.000Z",
-  "note": "iter-9: Tier 2 items 6+7 shipped — /plan defaults to five day cards (per-day protein, meal rows, honest photo thumbs only on exact template matches; fractions/kcal behind a 'show the math' toggle; plan receipt slimmed to list+totals) and the final CTA moved kale→yolk with ink text, kale submit, ghost demo button. journey +6 plan-math checks, all green. Next: Tier 3 (item 4 people section stays founder-blocked on real quotes/kitchen photo; Higgsfield MCP needs OAuth for any new photography)."
+  "updated_at": "2026-08-31T10:30:00.000Z",
+  "note": "iter-10: Tier 3 items 1-3 shipped — hero phone now crossfades this-week/the-list every 4s with staggered fade-up load (pure CSS, reduced-motion safe), walkthrough step 2 plays the solving chip stagger once on enter, and /og is the composed A6 card (A2 crop + real Bricolage 800 + yolk shelf-tag; fonts/crop committed as edge assets). Journey green x2, numbers gate holds at 5. Next: Tier 3 items 4-7 + Lighthouse re-measure."
 }

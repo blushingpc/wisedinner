@@ -158,8 +158,31 @@
   50% { transform: translateY(-6px); }
 }
 .dish-drift { animation: dish-drift 6s ease-in-out infinite; }
+
+/* hero motion (DESIGN-AUDIT §12.1) — screen B crossfades over screen A every 4s; load fade-up staggered 80ms */
+@keyframes hero-xfade {
+  0%, 42% { opacity: 0; }
+  50%, 92% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.hero-xfade-b { opacity: 0; animation: hero-xfade 8s ease-in-out infinite; background: var(--color-bg); }
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.fade-up { animation: fade-up 300ms var(--ease-press) both; }
+
+/* walkthrough step 2 "solving" (§12.2) — chips pop in staggered, the solved line lands last; plays once */
+@keyframes chip-in {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: none; }
+}
+.solve-play .chip-in { opacity: 0; animation: chip-in 350ms var(--ease-press) forwards; animation-delay: var(--chip-delay, 0ms); }
+.solve-play .solve-done { opacity: 0; animation: fade-up 300ms var(--ease-press) 1150ms forwards; }
+
 @media (prefers-reduced-motion: reduce) {
-  .dish-drift { animation: none; }
+  .dish-drift, .hero-xfade-b, .fade-up, .solve-play .chip-in, .solve-play .solve-done { animation: none; }
+  .solve-play .chip-in, .solve-play .solve-done { opacity: 1; }
 }
 
 /* header sheet — slides down from under the sticky nav (§9.1) */

@@ -36,6 +36,33 @@ function ScreenThisWeek({ priority = false }: { priority?: boolean }) {
   );
 }
 
+// "the list" screen — the hero phone's second face (§12.1 crossfade). no numerals: the numbers gate holds.
+function ScreenTheList() {
+  const fresh = drop.list.filter((i) => i.perishable).map((i) => i.name);
+  const shelf = drop.list.filter((i) => !i.perishable).map((i) => i.name);
+  const row = (n: string) => (
+    <li key={n} className="flex items-center gap-2 text-[0.9375rem]">
+      <span aria-hidden="true" className="grid size-4 shrink-0 place-items-center rounded-[4px] bg-yolk text-[10px] font-bold text-ink">
+        ✓
+      </span>
+      {n}
+    </li>
+  );
+  return (
+    <>
+      <p className="text-caption font-semibold text-ink-soft">the list</p>
+      <p className="mt-3 text-caption font-semibold text-kale">fresh aisle</p>
+      <ul className="mt-2 grid gap-1.5">{fresh.slice(0, 5).map(row)}</ul>
+      <p className="mt-4 text-caption font-semibold text-kale">shelf + freezer</p>
+      <ul className="mt-2 grid gap-1.5">
+        {shelf.slice(0, 5).map(row)}
+        <li className="text-ink-soft">…</li>
+      </ul>
+      <p className="mt-4 text-caption font-semibold text-ink-soft">empty fridge, on purpose.</p>
+    </>
+  );
+}
+
 export default function Home() {
   return (
     <main id="main">
@@ -45,12 +72,12 @@ export default function Home() {
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-12 lg:min-h-[90dvh] lg:grid-cols-[5fr_7fr] lg:px-12 lg:py-16">
           <div>
-            <h1 className="text-display font-extrabold text-balance">{HERO.h1}</h1>
-            <p className="mt-6 max-w-[44ch] text-xl text-ink-soft">{HERO.sub}</p>
-            <div className="mt-8 max-w-md">
+            <h1 className="fade-up text-display font-extrabold text-balance">{HERO.h1}</h1>
+            <p className="fade-up mt-6 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{HERO.sub}</p>
+            <div className="fade-up mt-8 max-w-md [animation-delay:160ms]">
               <WaitlistForm source="hero" />
             </div>
-            <div className="mt-2 flex flex-wrap items-center gap-5">
+            <div className="fade-up mt-2 flex flex-wrap items-center gap-5 [animation-delay:240ms]">
               <Link href="/start" className="cta cta-ghost">
                 {HERO.demo}
               </Link>
@@ -58,14 +85,21 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hero-field relative mx-auto h-[660px] w-full max-w-[600px] lg:h-[780px]">
+          <div className="hero-field fade-up relative mx-auto h-[660px] w-full max-w-[600px] [animation-delay:160ms] lg:h-[780px]">
             <DeviceFrame
-              label="phone showing this week's plan: three meals with photos and prices"
+              label="phone alternating between this week's meals with prices and the one grocery list"
               tilt="left"
               widthClass="w-[300px] lg:w-[430px]"
               className="absolute left-1/2 top-0 -translate-x-1/2 rotate-3 lg:rotate-6"
             >
-              <ScreenThisWeek priority />
+              <div className="relative h-full">
+                <div className="absolute inset-0">
+                  <ScreenThisWeek priority />
+                </div>
+                <div aria-hidden="true" className="hero-xfade-b absolute inset-0">
+                  <ScreenTheList />
+                </div>
+              </div>
             </DeviceFrame>
             <ShelfTag label={`$${drop.est_total.toFixed(2)}`} sub="one trip" className="absolute right-2 top-10 z-10 lg:right-6" />
             <Image
