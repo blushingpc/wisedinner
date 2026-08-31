@@ -46,7 +46,7 @@ export default function Pricing() {
     <main id="main">
       <PageView event="pricing_view" />
       <Section>
-        <p className="font-mono text-micro uppercase text-ink-soft">pricing</p>
+        <p className="font-mono text-micro uppercase text-green-600">pricing</p>
         <h1 className="mt-4 text-display font-bold text-balance">pricing that&apos;ll apply in the app — nothing for sale on this page yet.</h1>
         <div className="mt-12 grid gap-8 lg:grid-cols-2">
           {TIERS.map((t, i) => (

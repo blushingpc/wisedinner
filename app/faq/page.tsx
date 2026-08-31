@@ -21,7 +21,7 @@ export default function Faq() {
     <main id="main">
       <script type="application/ld+json">{JSON.stringify(LD)}</script>
       <Section>
-        <p className="font-mono text-micro uppercase text-ink-soft">faq</p>
+        <p className="font-mono text-micro uppercase text-green-600">faq</p>
         <h1 className="mt-4 text-display font-bold">questions.</h1>
         <div className="mt-10 max-w-[70ch]">
           <Accordion items={FAQ} />

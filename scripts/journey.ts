@@ -10,6 +10,7 @@ const arg = (k: string, d: string) => {
   return i > -1 ? process.argv[i + 1] : d;
 };
 const BASE = arg("--base", "http://localhost:3077").replace(/\/$/, "");
+const SMOKE = arg("--smoke", "https://wisedinner-git-design-v2-wise-dinner.vercel.app").replace(/\/$/, "");
 const OUT = arg("--out", "design/shots/latest");
 const TEST_EMAIL = "loop-test@wisedinner.com";
 mkdirSync(OUT, { recursive: true });
@@ -22,6 +23,17 @@ const fail = (msg: string) => {
 const ok = (msg: string) => console.log("  ✔", msg);
 
 async function shot(page: Page, name: string, full = true) {
+  if (full) {
+    // walk the page so loading=lazy images below Chromium's lazy margin actually load before capture
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += 800) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 60));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForLoadState("networkidle").catch(() => {});
+  }
   await page.waitForTimeout(400);
   await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: full });
   console.log("  📷", `${OUT}/${name}.png`);
@@ -52,6 +64,15 @@ async function quiz(page: Page, tag: string) {
   const total = await page.locator("text=est. in-store total").locator("xpath=following-sibling::span[last()]").textContent().catch(() => null);
   ok(`${tag}: /plan total ${total}`);
   await shot(page, `${tag}-plan`);
+  // day cards by default: no kcal until "show the math" (DESIGN-AUDIT §9.13 / 18.5)
+  const mathToggle = page.getByRole("button", { name: "show the math" });
+  if ((await page.getByText("kcal").count()) > 0) fail(`${tag}: /plan shows kcal before the math toggle`);
+  else ok(`${tag}: /plan default view hides kcal`);
+  await mathToggle.click().catch(() => fail(`${tag}: /plan math toggle missing`));
+  if ((await page.getByText("kcal").count()) > 0) ok(`${tag}: /plan math view reveals kcal`);
+  else fail(`${tag}: /plan math toggle revealed nothing`);
+  await shot(page, `${tag}-plan-math`, false);
+  await page.getByRole("button", { name: "hide the math" }).click().catch(() => fail(`${tag}: /plan hide-the-math missing`));
 }
 
 async function links(page: Page) {
@@ -82,6 +103,41 @@ async function waitlist(page: Page) {
   await page.unroute("**/api/waitlist");
 }
 
+// §18.5: the header CTA never scrolls the page — at the top of / it focuses the
+// hero field; scrolled away it opens the slide-down sheet; Escape closes it.
+async function headerCta(page: Page) {
+  await page.goto(`${BASE}/`);
+  await page.locator("header a.cta").click();
+  if (await page.evaluate(() => document.activeElement?.id === "email-hero")) ok("header cta at top → focuses hero field");
+  else fail("header cta at top did not focus #email-hero");
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
+  const yBefore = await page.evaluate(() => window.scrollY);
+  await page.locator("header a.cta").click();
+  await page.waitForSelector("#header-sheet", { timeout: 3_000 }).catch(() => fail("header cta mid-page: sheet did not open"));
+  const yAfter = await page.evaluate(() => window.scrollY);
+  if (Math.abs(yAfter - yBefore) < 5) ok("header cta mid-page → sheet opens, no jump");
+  else fail(`header cta scrolled the page (${yBefore} → ${yAfter})`);
+  if (await page.evaluate(() => document.activeElement?.id === "email-header")) ok("sheet focuses its email field");
+  else fail("sheet did not focus #email-header");
+  await page.keyboard.press("Escape");
+  if ((await page.locator("#header-sheet").count()) === 0) ok("escape closes the sheet");
+  else fail("escape did not close the sheet");
+}
+
+// live smoke against the PREVIEW api: loop-test@wisedinner.com is seeded once, so every later run
+// must get {status:"already"} — proves api + db path end to end with zero cleanup.
+async function smoke() {
+  try {
+    const res = await fetch(`${SMOKE}/api/waitlist`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: TEST_EMAIL, source: "hero" }) });
+    const body = await res.json().catch(() => ({}));
+    if (res.status === 200 && body.status === "already") ok("smoke: preview api+db path live (already)");
+    else if (res.status === 200 && body.status === "ok") ok(`smoke: seeded ${TEST_EMAIL} (first run) — every later run must return already`);
+    else fail(`smoke: preview /api/waitlist → ${res.status} ${JSON.stringify(body)}`);
+  } catch (e) {
+    fail(`smoke: preview unreachable: ${(e as Error).message}`);
+  }
+}
+
 const browser = await chromium.launch();
 try {
   for (const [tag, viewport] of [["mobile", { width: 390, height: 844 }], ["desktop", { width: 1440, height: 900 }]] as const) {
@@ -99,6 +155,7 @@ try {
     }
     if (tag === "desktop") {
       await links(page);
+      await headerCta(page);
       await waitlist(page);
     }
     await ctx.close();
@@ -106,5 +163,6 @@ try {
 } finally {
   await browser.close();
 }
+await smoke();
 console.log(`\n${findings.length ? findings.join("\n") : "journey: all checks passed"}`);
 process.exit(findings.some((f) => f.startsWith("FAIL")) ? 1 : 0);

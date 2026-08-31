@@ -1,7 +1,7 @@
 import type { SolveOutput } from "@/app/api/solve/solver";
 import { CountUp } from "./count-up";
 
-type Props = { week: SolveOutput; variant: "plan" | "drop" | "mini"; title?: string; printedAt?: string; tilt?: boolean };
+type Props = { week: SolveOutput; variant: "plan" | "drop" | "mini" | "proof"; title?: string; printedAt?: string; tilt?: boolean };
 
 const Row = ({ l, r, strong }: { l: string; r: string; strong?: boolean }) => (
   <div className="flex items-baseline py-0.5">
@@ -12,8 +12,10 @@ const Row = ({ l, r, strong }: { l: string; r: string; strong?: boolean }) => (
 );
 
 // receipt-paper + receipt-red live ONLY here. everything inside is mono + tabular.
+// "proof" = the one homepage receipt (DESIGN-AUDIT §9.7): 12 lines + totals, no day rows, no kcal, no date stamp.
 export function ReceiptCard({ week, variant, title = "your week, solved", printedAt, tilt }: Props) {
   const mini = variant === "mini";
+  const proof = variant === "proof";
   const list = mini ? week.list.slice(0, 4) : week.list;
   const perishable = week.list.filter((i) => i.perishable);
   const shelf = week.list.filter((i) => !i.perishable);
@@ -23,19 +25,21 @@ export function ReceiptCard({ week, variant, title = "your week, solved", printe
       <p className="mt-1 text-center text-ink-soft">{title}</p>
       <p className="my-3 text-center text-ink-soft">* * *</p>
 
+      {/* day rows only on /drop, where the receipt is the sole day listing; /plan shows days as cards beside it (§9.13) */}
+      {variant === "drop" &&
+        week.days.map((d) => (
+          <div key={d.day} className="border-b border-dashed border-rule py-2">
+            <div className="flex items-baseline justify-between uppercase">
+              <span>{d.day}</span>
+              <span className="text-ink-soft">
+                {d.protein_g} g · {d.kcal} kcal
+              </span>
+            </div>
+            <p className="mt-0.5 text-ink-soft">{d.items.map((i) => i.name).join(" · ")}</p>
+          </div>
+        ))}
       {!mini && (
         <>
-          {week.days.map((d) => (
-            <div key={d.day} className="border-b border-dashed border-rule py-2">
-              <div className="flex items-baseline justify-between uppercase">
-                <span>{d.day}</span>
-                <span className="text-ink-soft">
-                  {d.protein_g} g · {d.kcal} kcal
-                </span>
-              </div>
-              <p className="mt-0.5 text-ink-soft">{d.items.map((i) => i.name).join(" · ")}</p>
-            </div>
-          ))}
           <p className="mt-4 text-micro uppercase text-ink-soft">list · fresh aisle</p>
           {perishable.map((i) => (
             <Row key={i.name} l={`${i.qty > 1 ? `${i.qty}× ` : ""}${i.name}`} r={i.price_usd === 0 ? "pantry" : `$${i.price_usd.toFixed(2)}`} />
@@ -52,8 +56,8 @@ export function ReceiptCard({ week, variant, title = "your week, solved", printe
       <div className="flex items-baseline">
         <span className="text-micro uppercase">est. in-store total</span>
         <span className="leader" />
-        {mini ? (
-          <span className="text-xl font-medium text-receipt-total">${week.est_total.toFixed(2)}</span>
+        {mini || proof ? (
+          <span className={`${proof ? "text-2xl" : "text-xl"} font-medium text-receipt-total`}>${week.est_total.toFixed(2)}</span>
         ) : (
           <CountUp value={week.est_total} prefix="$" className="text-2xl font-medium text-receipt-total" />
         )}
@@ -63,14 +67,16 @@ export function ReceiptCard({ week, variant, title = "your week, solved", printe
         <span className="leader" />
         <span className="font-medium text-accent">{week.protein_per_day} g</span>
       </div>
-      {!mini && <Row l="kcal / day" r={`${week.kcal_per_day}`} />}
+      {variant === "drop" && <Row l="kcal / day" r={`${week.kcal_per_day}`} />}
       <Row l="food wasted" r="0" />
       <p className="my-3 text-center text-ink-soft">* * *</p>
       {!mini && <div className="barcode" aria-hidden="true" />}
-      <p className="mt-2 text-center text-ink-soft">
-        prices as of {week.price_as_of}
-        {printedAt ? ` · printed ${printedAt}` : ""}
-      </p>
+      {!proof && (
+        <p className="mt-2 text-center text-ink-soft">
+          prices as of {week.price_as_of}
+          {printedAt ? ` · printed ${printedAt}` : ""}
+        </p>
+      )}
     </div>
   );
 }

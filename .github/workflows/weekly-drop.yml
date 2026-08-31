@@ -24,8 +24,9 @@ jobs:
             echo "drop unchanged"
             exit 0
           fi
-          git config user.name "weekly-drop[bot]"
-          git config user.email "weekly-drop@users.noreply.github.com"
+          # Vercel Pro deploys only commits authored by the account owner
+          git config user.name "blushingpc"
+          git config user.email "293302513+blushingpc@users.noreply.github.com"
           git add data/drop.json
           git commit -m "weekly drop [skip ci-notes]"
           git push

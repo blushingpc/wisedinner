@@ -48,3 +48,4 @@ public/img/src/
 loop.log
 .loop-idle
 .loop-halt
+.devserver.log

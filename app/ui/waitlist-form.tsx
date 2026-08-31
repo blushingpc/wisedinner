@@ -7,7 +7,8 @@ import { track } from "./track";
 type State = "idle" | "loading" | "error" | "already";
 
 // one form, five entry points (source). success → /thanks?n=position. quiz answers ride along from /plan.
-export function WaitlistForm({ source, quiz, light }: { source: string; quiz?: unknown; light?: boolean }) {
+// yolk: the final-CTA ground (§9.11) — kale button, ink text; tomato fails AA on yolk so errors go ink there.
+export function WaitlistForm({ source, quiz, yolk }: { source: string; quiz?: unknown; yolk?: boolean }) {
   const router = useRouter();
   const [state, setState] = useState<State>("idle");
   const [email, setEmail] = useState("");
@@ -37,10 +38,10 @@ export function WaitlistForm({ source, quiz, light }: { source: string; quiz?: u
     }
   };
 
-  const soft = light ? "text-bg/80" : "text-ink-soft";
+  const soft = yolk ? "text-ink" : "text-ink-soft";
   return (
     <form onSubmit={submit} className="w-full max-w-md" aria-describedby={`${id}-msg`}>
-      <label htmlFor={id} className={`block font-mono text-micro uppercase ${soft}`}>
+      <label htmlFor={id} className={`block text-caption font-semibold ${soft}`}>
         email
       </label>
       <div className="mt-2 flex gap-2">
@@ -54,14 +55,14 @@ export function WaitlistForm({ source, quiz, light }: { source: string; quiz?: u
           placeholder="you@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className={`field ${light ? "border-bg/30 bg-transparent text-bg placeholder:text-bg/70" : ""}`}
+          className={`field ${yolk ? "border-ink/30" : ""}`}
         />
         <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
-        <button type="submit" disabled={state === "loading"} className={`cta ${light ? "cta-light" : ""}`}>
+        <button type="submit" disabled={state === "loading"} className={`cta ${yolk ? "cta-kale" : ""}`}>
           {state === "loading" ? "saving…" : "get early access"}
         </button>
       </div>
-      <p id={`${id}-msg`} role="status" aria-live="polite" className={`mt-3 min-h-6 text-spec ${state === "error" ? "font-mono text-receipt-total" : soft}`}>
+      <p id={`${id}-msg`} role="status" aria-live="polite" className={`mt-3 min-h-6 text-spec ${state === "error" ? `font-mono ${yolk ? "text-ink" : "text-receipt-total"}` : soft}`}>
         {state === "already" && "you're already on the list — good instincts."}
         {state === "error" && "that didn't go through. try once more?"}
         {state === "idle" && "no spam. one email when the app is ready."}

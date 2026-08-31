@@ -1,6 +1,7 @@
 {
-  "iteration": 0,
-  "open_audit_issues": 0,
-  "idle": false,
-  "updated_at": "2026-08-30"
+  "iteration": 12,
+  "open_audit_issues": 1,
+  "idle": true,
+  "updated_at": "2026-08-31T07:39:49.196Z",
+  "note": "iter-12: §9.9 people section shipped as tagged placeholders (3 TRUTH-AUDIT rows). all remaining #8 items founder-gated: LCP prod measure (#5 freeze), real quotes to clear the merge gate."
 }

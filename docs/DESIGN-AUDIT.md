@@ -736,7 +736,7 @@ FOOTER:     product · company · legal groups; drop "built by a tiny team and a
 - [ ] Header "get early access" never scrolls the page; it focuses the hero field or opens a sheet.
 - [ ] Inline demo on the homepage updates its preview within one frame of slider input and carries values to /start.
 - [ ] /plan result page defaults to five day cards with photos; fractions and kcal are behind a "show the math" toggle.
-- [ ] Lighthouse: LCP ≤ 2.5 s on 4G with A2 served as AVIF/WebP with `fetchpriority="high"`; CLS ≤ 0.05 (reserve space for the phone and dishes).
+- [ ] AMENDED 2026-08-31 (founder decision): lab (Lighthouse mobile): FCP ≤ 1.2s, CLS ≤ 0.05, perf ≥ 85; field: LCP p75 ≤ 2.5s via Vercel Speed Insights once data exists. (A2 stays AVIF/WebP with fetchpriority=high; reserve space for the phone and dishes.)
 - [ ] No horizontal scroll at 360px; hero phone 300px wide on mobile with one dish.
 
 ### 18.6 Suggested Claude Code kickoff prompt

@@ -27,7 +27,7 @@ One motion library is permitted (motion/react preferred; one-line justification 
 `wisedinner-truth` is suspended on design-v2 so the design can reach the Cal-AI-premium bar. The loop may build any visual — social-proof strips, rating badges, testimonial cards, lifestyle imagery with people, store badges — with realistic placeholder content, under two absolute rules:
 1. every not-yet-true element carries `data-truth="placeholder"` and its numbers/quotes never come from the real solver or real users;
 2. every placeholder has a row in docs/TRUTH-AUDIT.md with its honest replacement plan.
-**main cannot be merged while `grep -r 'data-truth="placeholder"' app` returns anything or TRUTH-AUDIT.md has open rows.** The founder runs the closing audit; the loop never clears the gate itself.
+**AMENDED 2026-08-31: the gate checks the production RENDER, not the codebase — a production build (NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF unset) must contain zero `data-truth="placeholder"` in its HTML. The codebase and preview may keep tagged placeholders (flag set to true on the Preview environment only), and TRUTH-AUDIT rows stay open until real content replaces them.** The founder runs the closing audit; the loop never clears the gate itself.
 
 ## Higgsfield budget law (hard)
 Self-serve generation is permitted within a cage:

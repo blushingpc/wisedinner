@@ -21,10 +21,10 @@ const label = "block font-mono text-micro uppercase text-ink-soft";
 const helper = "mt-2 text-ink-soft";
 const num = "field mt-2 font-mono text-4xl tabular-nums";
 
-export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
+export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; initial?: { budget?: number; protein?: number } }) {
   const router = useRouter();
   const [step, setStep] = useState(0);
-  const [a, setA] = useState<Answers>(DEFAULTS);
+  const [a, setA] = useState<Answers>({ ...DEFAULTS, ...(initial?.budget && { budget: initial.budget }), ...(initial?.protein && { protein: initial.protein }) });
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState("");
   const form = useRef<HTMLFormElement>(null);
@@ -35,8 +35,9 @@ export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
       const saved = sessionStorage.getItem(KEY.answers);
       if (saved) {
         const { step: s, ...rest } = JSON.parse(saved);
-        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating from sessionStorage after mount is the point
-        setA({ ...DEFAULTS, ...rest });
+        // URL values (inline demo) beat the saved session — the visitor just chose them
+        // eslint-disable-next-line react-hooks/set-state-in-effect, react-hooks/exhaustive-deps -- hydrating from sessionStorage after mount is the point
+        setA({ ...DEFAULTS, ...rest, ...(initial?.budget && { budget: initial.budget }), ...(initial?.protein && { protein: initial.protein }) });
         setStep(s ?? 0);
       }
     } catch {}
@@ -99,8 +100,7 @@ export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
             <label htmlFor="budget" className={label}>
               weekly grocery budget, usd
             </label>
-            <input id="budget" type="number" min={30} max={120} step={1} className={num} value={a.budget} onChange={(e) => set({ budget: Number(e.target.value) })} />
-            <input type="range" min={30} max={120} value={a.budget} onChange={(e) => set({ budget: Number(e.target.value) })} aria-label="weekly budget slider" className="mt-4 h-11 w-full accent-ink" />
+            <input id="budget" type="number" min={30} max={120} step={1} className={`${num} no-spin`} inputMode="numeric" value={a.budget} onChange={(e) => set({ budget: Number(e.target.value) })} />
             <p className={helper}>what you&apos;d spend in the store this week. your number, not ours.</p>
             <label htmlFor="spend" className={`${label} mt-8`}>
               what you spend now, roughly (optional)
@@ -114,8 +114,7 @@ export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
             <label htmlFor="protein" className={label}>
               protein per day, grams
             </label>
-            <input id="protein" type="number" min={80} max={220} className={num} value={a.protein} onChange={(e) => set({ protein: Number(e.target.value) })} />
-            <input type="range" min={80} max={220} value={a.protein} onChange={(e) => set({ protein: Number(e.target.value) })} aria-label="protein slider" className="mt-4 h-11 w-full accent-ink" />
+            <input id="protein" type="number" min={80} max={220} className={`${num} no-spin`} inputMode="numeric" value={a.protein} onChange={(e) => set({ protein: Number(e.target.value) })} />
             <p className={helper}>per person. most people here aim for 140 to 160.</p>
           </>
         )}

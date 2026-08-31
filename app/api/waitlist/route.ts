@@ -1,8 +1,9 @@
-import { count, EMAIL, insert, rateLimited } from "../db";
+import { configured, count, EMAIL, insert, rateLimited } from "../db";
 
 const SOURCES = new Set(["hero", "plan", "drop", "pricing", "thanks"]);
 
 export async function POST(req: Request) {
+  if (!configured()) return Response.json({ error: "not configured" }, { status: 503 });
   if (rateLimited(req)) return Response.json({ error: "too many requests" }, { status: 429 });
   let body: Record<string, unknown>;
   try {

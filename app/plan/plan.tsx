@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,12 +12,20 @@ import { BANDS, KEY, type Answers } from "@/app/start/quiz";
 
 type Session = { answers: Answers; week: SolveResponse };
 
+// honest photos only: exact template-name matches to photography we own — never a look-alike (truth law)
+const MEAL_IMG: Record<string, { src: string; alt: string }> = {
+  "chicken thigh rice bowl": { src: "/img/meal-chicken-bowl.jpg", alt: "ceramic bowl of sliced roasted chicken thigh over white rice with charred broccoli" },
+  "greek yogurt oat parfait": { src: "/img/meal-yogurt-parfait.jpg", alt: "glass of plain greek yogurt layered with oats and banana slices" },
+  "black bean egg bowl": { src: "/img/meal-bean-bowl.jpg", alt: "bowl of black beans and rice topped with halved boiled eggs" },
+};
+
 export function Plan() {
   const router = useRouter();
   const [s, setS] = useState<Session | null>(null);
   const [useClosest, setUseClosest] = useState(false);
   const [printedAt, setPrintedAt] = useState("");
   const [regen, setRegen] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [showMath, setShowMath] = useState(false);
 
   // one re-solve with the next seed: same numbers, a different valid week (the solver picks within a 3% cost band)
   const regenerate = async () => {
@@ -86,6 +95,23 @@ export function Plan() {
         </div>
       )}
 
+      {/* scorecard: checks are computed, not decorative — truth law */}
+      <dl className="mb-8 grid grid-cols-3 gap-2 sm:max-w-lg">
+        {[
+          [week.est_total <= answers.budget, "budget", week.est_total <= answers.budget ? `$${week.est_total.toFixed(2)} under $${answers.budget}` : `over by $${(week.est_total - answers.budget).toFixed(2)}`],
+          [week.protein_per_day >= protein, "protein", week.protein_per_day >= protein ? `${week.protein_per_day} g / day` : `${week.protein_per_day} of ${protein} g`],
+          [true, "waste", "0 lb by design"],
+        ].map(([met, label, detail]) => (
+          <div key={label as string} className={`rounded-[14px] border px-3 py-2 ${met ? "border-rule bg-green-050" : "border-rule"}`}>
+            <dt className="font-mono text-micro uppercase text-ink-soft">
+              <span aria-hidden="true" className={met ? "text-green-600" : "text-ink-soft"}>{met ? "✓ " : "— "}</span>
+              {label as string}
+            </dt>
+            <dd className="mt-0.5 font-mono text-spec tabular-nums">{detail as string}</dd>
+          </div>
+        ))}
+      </dl>
+
       <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
         <div data-reveal>
           <ReceiptCard week={week} variant="plan" printedAt={printedAt} tilt />
@@ -103,27 +129,60 @@ export function Plan() {
               <dt className="mt-1 text-micro uppercase text-ink-soft">projected monthly savings vs the ${spend}/week you told us</dt>
             </dl>
           )}
-          <ol className="mt-8">
-            {week.days.map((d) => (
-              <li key={d.day} className="border-t border-rule py-4">
-                <div className="flex items-baseline justify-between font-mono text-micro uppercase text-ink-soft">
-                  <span>{d.day}</span>
-                  <span>
-                    {d.protein_g} g · {d.kcal} kcal
-                  </span>
-                </div>
-                <ol className="mt-1 grid gap-1">
-                  {d.items.map((i) => (
-                    <li key={i.unit}>
-                      <span className="font-mono text-micro uppercase text-ink-soft">{i.unit} </span>
-                      {i.name}
-                      <span className="text-ink-soft"> · {i.portion} · {i.protein_g} g</span>
-                    </li>
-                  ))}
-                </ol>
-              </li>
-            ))}
-          </ol>
+          {showMath ? (
+            <ol className="mt-8">
+              {week.days.map((d) => (
+                <li key={d.day} className="border-t border-rule py-4">
+                  <div className="flex items-baseline justify-between font-mono text-micro uppercase text-ink-soft">
+                    <span>{d.day}</span>
+                    <span>
+                      {d.protein_g} g · {d.kcal} kcal
+                    </span>
+                  </div>
+                  <ol className="mt-1 grid gap-1">
+                    {d.items.map((i) => (
+                      <li key={i.unit} className="grid grid-cols-[5.5rem_1fr_auto] items-baseline gap-2">
+                        <span className="font-mono text-micro uppercase text-ink-soft">{i.unit}</span>
+                        <span>
+                          {i.name}
+                          <span className="block font-mono text-micro text-ink-soft">{i.portion}</span>
+                        </span>
+                        <span className="font-mono text-spec tabular-nums text-ink-soft">{i.protein_g} g</span>
+                      </li>
+                    ))}
+                  </ol>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <ol className="mt-8 grid gap-3">
+              {week.days.map((d) => (
+                <li key={d.day} className="rounded-[14px] border border-rule bg-bg px-4 py-3">
+                  <div className="flex items-baseline justify-between">
+                    <span className="font-mono text-micro uppercase text-ink-soft">{d.day}</span>
+                    <span className="font-mono text-spec tabular-nums text-ink-soft">{d.protein_g} g protein</span>
+                  </div>
+                  <ol className="mt-2 grid gap-2">
+                    {d.items.map((i) => {
+                      const img = MEAL_IMG[i.name];
+                      return (
+                        <li key={i.unit} className="flex items-center gap-3">
+                          {img && <Image src={img.src} alt={img.alt} width={48} height={48} quality={75} className="img-grade size-12 shrink-0 rounded-[10px] object-cover" />}
+                          <div>
+                            <span className="block font-mono text-micro uppercase text-ink-soft">{i.unit}</span>
+                            <span>{i.name}</span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </li>
+              ))}
+            </ol>
+          )}
+          <button type="button" onClick={() => setShowMath(!showMath)} aria-pressed={showMath} className="text-link mt-4 min-h-11">
+            {showMath ? "hide the math" : "show the math"}
+          </button>
           <div className="mt-8 flex flex-wrap gap-6">
             {regen !== "done" && (
               <button type="button" onClick={regenerate} disabled={regen === "loading"} className="text-link min-h-11">

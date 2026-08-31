@@ -14,7 +14,7 @@ export default function Support() {
     <main id="main">
       <Section className="grid gap-12 lg:grid-cols-2">
         <div>
-          <p className="font-mono text-micro uppercase text-ink-soft">support</p>
+          <p className="font-mono text-micro uppercase text-green-600">support</p>
           <h1 className="mt-4 text-display font-bold">talk to a person.</h1>
           <p className="mt-6 max-w-[62ch] text-xl text-ink-soft">
             email{" "}
