@@ -1,7 +1,7 @@
 {
-  "iteration": 12,
+  "iteration": 13,
   "open_audit_issues": 1,
   "idle": true,
-  "updated_at": "2026-08-31T07:39:49.196Z",
-  "note": "iter-12: §9.9 people section shipped as tagged placeholders (3 TRUTH-AUDIT rows). all remaining #8 items founder-gated: LCP prod measure (#5 freeze), real quotes to clear the merge gate."
+  "updated_at": "2026-08-31T08:07:50.141Z",
+  "note": "PUBLISHED c7d2451: DESIGN-AUDIT redesign live on www.wisedinner.com. prod lighthouse: perf 92, a11y 100, FCP 975ms, LCP 2929ms, CLS 0.000 — amended gate PASS. remaining on #8: field LCP p75 via speed insights once data exists; real quotes to replace flag-gated placeholders."
 }
