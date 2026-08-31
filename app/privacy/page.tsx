@@ -115,12 +115,12 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>if we change what we collect or why, we&apos;ll update this page with a new effective date and email the waitlist before the change takes effect. small wording fixes just get posted here.</p>
-        <p>effective: «DATE»</p>
+        <p>effective: August 30, 2026</p>
       </>
     ),
   },
 ];
 
 export default function Privacy() {
-  return <LegalLayout title="privacy policy" effective="«DATE»" sections={S} />;
+  return <LegalLayout title="privacy policy" effective="August 30, 2026" sections={S} />;
 }
