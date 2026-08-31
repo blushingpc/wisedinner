@@ -1,7 +1,7 @@
 {
-  "iteration": 8,
+  "iteration": 9,
   "open_audit_issues": 1,
   "idle": false,
   "updated_at": "2026-08-31T23:59:00.000Z",
-  "note": "iter-8: Tier 2 item 5 shipped — header CTA never jumps (focus hero field on screen, else slide-down sheet, Escape closes), hero pill restyled as quiet outlined pill, mobile ≤420px header CTA tightened so the wordmark stops clipping. journey gained 4 headerCta assertions, all green. Next: Tier 2 item 6 (demo result page: day cards + show-the-math toggle) — item 4 (people section) stays founder-blocked on real quotes/kitchen photo."
+  "note": "iter-9: Tier 2 items 6+7 shipped — /plan defaults to five day cards (per-day protein, meal rows, honest photo thumbs only on exact template matches; fractions/kcal behind a 'show the math' toggle; plan receipt slimmed to list+totals) and the final CTA moved kale→yolk with ink text, kale submit, ghost demo button. journey +6 plan-math checks, all green. Next: Tier 3 (item 4 people section stays founder-blocked on real quotes/kitchen photo; Higgsfield MCP needs OAuth for any new photography)."
 }

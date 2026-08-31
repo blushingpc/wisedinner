@@ -210,13 +210,13 @@ export default function Home() {
         </Link>
       </Section>
 
-      {/* S8 final cta */}
-      <section id="early-access" className="bg-kale py-14 text-bg lg:py-24">
+      {/* S8 final cta — the page's boldest moment, saved for last (§9.11, yolk ground) */}
+      <section id="early-access" className="bg-yolk py-14 text-ink lg:py-24">
         <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-2 lg:px-12">
           <h2 className="text-display font-bold text-balance">your protein. your budget. <em>solved.</em></h2>
           <div className="self-center">
-            <WaitlistForm source="final" light />
-            <Link href="/start" className="text-link mt-4 inline-flex min-h-11 items-center text-bg">
+            <WaitlistForm source="final" yolk />
+            <Link href="/start" className="cta cta-ghost mt-4 inline-flex">
               {HERO.demo}
             </Link>
           </div>

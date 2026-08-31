@@ -25,7 +25,8 @@ export function ReceiptCard({ week, variant, title = "your week, solved", printe
       <p className="mt-1 text-center text-ink-soft">{title}</p>
       <p className="my-3 text-center text-ink-soft">* * *</p>
 
-      {!mini && !proof &&
+      {/* day rows only on /drop, where the receipt is the sole day listing; /plan shows days as cards beside it (§9.13) */}
+      {variant === "drop" &&
         week.days.map((d) => (
           <div key={d.day} className="border-b border-dashed border-rule py-2">
             <div className="flex items-baseline justify-between uppercase">
@@ -66,7 +67,7 @@ export function ReceiptCard({ week, variant, title = "your week, solved", printe
         <span className="leader" />
         <span className="font-medium text-accent">{week.protein_per_day} g</span>
       </div>
-      {!mini && !proof && <Row l="kcal / day" r={`${week.kcal_per_day}`} />}
+      {variant === "drop" && <Row l="kcal / day" r={`${week.kcal_per_day}`} />}
       <Row l="food wasted" r="0" />
       <p className="my-3 text-center text-ink-soft">* * *</p>
       {!mini && <div className="barcode" aria-hidden="true" />}

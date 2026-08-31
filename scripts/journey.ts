@@ -64,6 +64,15 @@ async function quiz(page: Page, tag: string) {
   const total = await page.locator("text=est. in-store total").locator("xpath=following-sibling::span[last()]").textContent().catch(() => null);
   ok(`${tag}: /plan total ${total}`);
   await shot(page, `${tag}-plan`);
+  // day cards by default: no kcal until "show the math" (DESIGN-AUDIT §9.13 / 18.5)
+  const mathToggle = page.getByRole("button", { name: "show the math" });
+  if ((await page.getByText("kcal").count()) > 0) fail(`${tag}: /plan shows kcal before the math toggle`);
+  else ok(`${tag}: /plan default view hides kcal`);
+  await mathToggle.click().catch(() => fail(`${tag}: /plan math toggle missing`));
+  if ((await page.getByText("kcal").count()) > 0) ok(`${tag}: /plan math view reveals kcal`);
+  else fail(`${tag}: /plan math toggle revealed nothing`);
+  await shot(page, `${tag}-plan-math`, false);
+  await page.getByRole("button", { name: "hide the math" }).click().catch(() => fail(`${tag}: /plan hide-the-math missing`));
 }
 
 async function links(page: Page) {

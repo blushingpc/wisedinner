@@ -129,8 +129,6 @@
 .cta:hover { background: var(--color-yolk-press); }
 .cta:active { transform: scale(0.98); }
 .cta:disabled { opacity: 0.6; transform: none; }
-.cta-light { background: var(--color-bg); color: var(--color-ink); }
-.cta-light:hover { background: var(--color-bg-alt); }
 .cta-ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1.5px var(--color-ink); }
 .cta-ghost:hover { background: var(--color-ink); color: var(--color-bg); }
 .cta-kale { background: var(--color-kale); color: var(--color-bg); }
