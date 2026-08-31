@@ -45,7 +45,7 @@ export default function Home() {
       <script type="application/ld+json">{JSON.stringify(ORG)}</script>
 
       {/* S1 hero */}
-      <section className="mx-auto grid min-h-[88dvh] max-w-[1200px] items-center gap-12 px-6 py-14 lg:grid-cols-[1.1fr_1fr] lg:px-12 lg:py-24">
+      <section className="mx-auto grid max-w-[1200px] items-center gap-8 px-6 py-10 lg:min-h-[88dvh] lg:grid-cols-[1.1fr_1fr] lg:px-12 lg:py-24">
         <div className="max-w-[62ch]">
           <p className="font-mono text-micro uppercase text-green-600">{HERO.eyebrow}</p>
           <h1 className="mt-6 text-display font-bold text-balance">{HERO.h1}</h1>
@@ -90,21 +90,22 @@ export default function Home() {
           <div className="mt-8">
             <StatStrip stacked stats={[[<CountUp key="p" value={drop.protein_per_day} decimals={0} suffix="g" />, "protein / day"], [<CountUp key="t" value={drop.est_total} prefix="$" />, "est. in-store, weekly"], [<CountUp key="w" value={0} decimals={0} suffix=" lb" />, "waste by design"]]} />
           </div>
-          <p className="mt-4 font-mono text-micro uppercase text-ink-soft">numbers from a real solver run at 2026 average prices — methodology in faq</p>
+          <p className="mt-4 font-mono text-micro uppercase text-ink-soft">$[your number] is the budget you type in — we never pick it for you</p>
+          <p className="mt-1 font-mono text-micro uppercase text-ink-soft">numbers from a real solver run at 2026 average prices — methodology in faq</p>
         </div>
       </Section>
 
       {/* S3 how it works */}
       <Section id="how">
         <h2 className="text-h2 font-bold">how it works</h2>
-        <ol className="mt-12 grid gap-16">
+        <ol className="mt-10 grid gap-8 lg:gap-16">
           {STEPS.map(([title, body], i) => (
             <li key={title} className={`grid items-center gap-8 lg:grid-cols-2 ${i % 2 ? "lg:[&>div:first-child]:order-2" : ""}`}>
               <div className="max-w-[62ch]">
                 <h3 className="text-2xl font-medium">{title}</h3>
                 <p className="mt-3 text-ink-soft">{body}</p>
               </div>
-              <div className="mx-auto origin-top scale-[0.8] lg:scale-90" style={{ height: 600 }}>
+              <div className="mx-auto h-[540px] origin-top scale-[0.8] lg:h-[600px] lg:scale-90">
                 <DeviceFrame label={`phone showing step ${i + 1}`}>
                   {i === 0 && (
                     <div className="font-mono text-spec">
@@ -129,9 +130,12 @@ export default function Home() {
                     <>
                       <p className="font-mono text-micro uppercase text-ink-soft">fri · last meal</p>
                       <MealCard meal={meals[2]} />
-                      <p className="mt-4 font-mono text-micro uppercase text-ink-soft">fridge</p>
-                      <p className="mt-2 text-3xl font-bold">empty, on purpose.</p>
-                      <p className="mt-2 font-mono text-spec text-ink-soft">every pack finished. receipt kept.</p>
+                      <p className="mt-3 font-mono text-micro uppercase text-ink-soft">fridge</p>
+                      <p className="mt-1 text-3xl font-bold">empty, on purpose.</p>
+                      <p className="mt-1 font-mono text-spec text-ink-soft">every pack finished. receipt kept.</p>
+                      <div className="mt-4">
+                        <ReceiptCard week={drop} variant="mini" title="week complete" />
+                      </div>
                     </>
                   )}
                 </DeviceFrame>

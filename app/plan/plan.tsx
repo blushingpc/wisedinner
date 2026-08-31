@@ -86,6 +86,23 @@ export function Plan() {
         </div>
       )}
 
+      {/* scorecard: checks are computed, not decorative — truth law */}
+      <dl className="mb-8 grid grid-cols-3 gap-2 sm:max-w-lg">
+        {[
+          [week.est_total <= answers.budget, "budget", week.est_total <= answers.budget ? `$${week.est_total.toFixed(2)} under $${answers.budget}` : `over by $${(week.est_total - answers.budget).toFixed(2)}`],
+          [week.protein_per_day >= protein, "protein", week.protein_per_day >= protein ? `${week.protein_per_day} g / day` : `${week.protein_per_day} of ${protein} g`],
+          [true, "waste", "0 lb by design"],
+        ].map(([met, label, detail]) => (
+          <div key={label as string} className={`rounded-[14px] border px-3 py-2 ${met ? "border-rule bg-green-050" : "border-rule"}`}>
+            <dt className="font-mono text-micro uppercase text-ink-soft">
+              <span aria-hidden="true" className={met ? "text-green-600" : "text-ink-soft"}>{met ? "✓ " : "— "}</span>
+              {label as string}
+            </dt>
+            <dd className="mt-0.5 font-mono text-spec tabular-nums">{detail as string}</dd>
+          </div>
+        ))}
+      </dl>
+
       <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
         <div data-reveal>
           <ReceiptCard week={week} variant="plan" printedAt={printedAt} tilt />

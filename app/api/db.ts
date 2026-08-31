@@ -36,3 +36,5 @@ export function rateLimited(req: Request, limit = 10) {
 }
 
 export const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+export const configured = () => Boolean(url() && key());

@@ -99,8 +99,7 @@ export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
             <label htmlFor="budget" className={label}>
               weekly grocery budget, usd
             </label>
-            <input id="budget" type="number" min={30} max={120} step={1} className={num} value={a.budget} onChange={(e) => set({ budget: Number(e.target.value) })} />
-            <input type="range" min={30} max={120} value={a.budget} onChange={(e) => set({ budget: Number(e.target.value) })} aria-label="weekly budget slider" className="mt-4 h-11 w-full accent-ink" />
+            <input id="budget" type="number" min={30} max={120} step={1} className={`${num} no-spin`} inputMode="numeric" value={a.budget} onChange={(e) => set({ budget: Number(e.target.value) })} />
             <p className={helper}>what you&apos;d spend in the store this week. your number, not ours.</p>
             <label htmlFor="spend" className={`${label} mt-8`}>
               what you spend now, roughly (optional)
@@ -114,8 +113,7 @@ export function Quiz({ pantryOptions }: { pantryOptions: string[] }) {
             <label htmlFor="protein" className={label}>
               protein per day, grams
             </label>
-            <input id="protein" type="number" min={80} max={220} className={num} value={a.protein} onChange={(e) => set({ protein: Number(e.target.value) })} />
-            <input type="range" min={80} max={220} value={a.protein} onChange={(e) => set({ protein: Number(e.target.value) })} aria-label="protein slider" className="mt-4 h-11 w-full accent-ink" />
+            <input id="protein" type="number" min={80} max={220} className={`${num} no-spin`} inputMode="numeric" value={a.protein} onChange={(e) => set({ protein: Number(e.target.value) })} />
             <p className={helper}>per person. most people here aim for 140 to 160.</p>
           </>
         )}

@@ -10,6 +10,7 @@ const arg = (k: string, d: string) => {
   return i > -1 ? process.argv[i + 1] : d;
 };
 const BASE = arg("--base", "http://localhost:3077").replace(/\/$/, "");
+const SMOKE = arg("--smoke", "https://wisedinner-git-design-v2-wise-dinner.vercel.app").replace(/\/$/, "");
 const OUT = arg("--out", "design/shots/latest");
 const TEST_EMAIL = "loop-test@wisedinner.com";
 mkdirSync(OUT, { recursive: true });
@@ -82,6 +83,20 @@ async function waitlist(page: Page) {
   await page.unroute("**/api/waitlist");
 }
 
+// live smoke against the PREVIEW api: loop-test@wisedinner.com is seeded once, so every later run
+// must get {status:"already"} — proves api + db path end to end with zero cleanup.
+async function smoke() {
+  try {
+    const res = await fetch(`${SMOKE}/api/waitlist`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: TEST_EMAIL, source: "hero" }) });
+    const body = await res.json().catch(() => ({}));
+    if (res.status === 200 && body.status === "already") ok("smoke: preview api+db path live (already)");
+    else if (res.status === 200 && body.status === "ok") ok(`smoke: seeded ${TEST_EMAIL} (first run) — every later run must return already`);
+    else fail(`smoke: preview /api/waitlist → ${res.status} ${JSON.stringify(body)}`);
+  } catch (e) {
+    fail(`smoke: preview unreachable: ${(e as Error).message}`);
+  }
+}
+
 const browser = await chromium.launch();
 try {
   for (const [tag, viewport] of [["mobile", { width: 390, height: 844 }], ["desktop", { width: 1440, height: 900 }]] as const) {
@@ -106,5 +121,6 @@ try {
 } finally {
   await browser.close();
 }
+await smoke();
 console.log(`\n${findings.length ? findings.join("\n") : "journey: all checks passed"}`);
 process.exit(findings.some((f) => f.startsWith("FAIL")) ? 1 : 0);
