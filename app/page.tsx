@@ -5,6 +5,7 @@ import { meals } from "@/data/meals";
 import { ABOUT, FAQ, HERO, SITE } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { DeviceFrame } from "./ui/device-frame";
+import { InlineDemo } from "./ui/inline-demo";
 import { MealCard } from "./ui/meal-card";
 import { PinnedWalkthrough } from "./ui/pinned-walkthrough";
 import { ReceiptCard } from "./ui/receipt-card";
@@ -149,16 +150,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* S5 demo band — linen, so the kale receipt room stays the one dark moment (§9.5 inline demo queued) */}
-      <section className="bg-bg-alt py-14 lg:py-20">
-        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-6 px-6 lg:px-12">
-          <div>
-            <h2 className="text-h2 font-bold text-balance">see your week solved in 60 seconds.</h2>
-            <p className="mt-2 text-ink-soft">no account. takes a minute.</p>
+      {/* S5 inline demo — step one of /start embedded, values carry into the quiz (§9.5, Tier 2 item 2) */}
+      <section className="py-16 lg:py-24">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 lg:grid-cols-[5fr_7fr] lg:px-12">
+          <h2 className="text-h2 font-bold text-balance">see your week solved in 60 seconds.</h2>
+          <div className="w-full max-w-[520px] lg:justify-self-center">
+            <InlineDemo />
           </div>
-          <Link href="/start" className="cta cta-ghost">
-            {HERO.demo}
-          </Link>
         </div>
       </section>
 

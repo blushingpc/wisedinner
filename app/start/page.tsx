@@ -8,7 +8,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/start" },
 };
 
-export default function Start() {
+export default async function Start({ searchParams }: { searchParams: Promise<{ budget?: string; protein?: string }> }) {
+  // §9.5 inline demo carries its values here; clamp to the quiz's own ranges
+  const sp = await searchParams;
+  const inRange = (v: string | undefined, lo: number, hi: number) => {
+    const n = Number(v);
+    return v && n >= lo && n <= hi ? n : undefined;
+  };
+  const initial = { budget: inRange(sp.budget, 30, 120), protein: inRange(sp.protein, 80, 220) };
   // top 12 pantry candidates: shelf-stable staples by protein per dollar
   const pantryOptions = staples
     .filter((s) => !s.perishable)
@@ -20,7 +27,7 @@ export default function Start() {
       <noscript>
         <p className="text-xl">the demo needs javascript.</p>
       </noscript>
-      <Quiz pantryOptions={pantryOptions} />
+      <Quiz pantryOptions={pantryOptions} initial={initial} />
     </main>
   );
 }

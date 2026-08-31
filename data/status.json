@@ -1,7 +1,7 @@
 {
-  "iteration": 5,
+  "iteration": 6,
   "open_audit_issues": 1,
   "idle": false,
-  "updated_at": "2026-08-31T18:00:00.000Z",
-  "note": "iter-5: pinned walkthrough (Tier 1 item 5) + receipt room on kale (Tier 2 item 1); build clean, 12/12 tests green. gh/journey/servers still permission-blocked — issue count stale from iter-4, visual verification debt now covers iters 4+5, top job for first unsandboxed cycle."
+  "updated_at": "2026-08-31T21:30:00.000Z",
+  "note": "iter-6: first unsandboxed cycle. Journey green, iters 4-5 shots verified (no reverts). Shipped: weekly-drop authorship fix (#6/#9), Tier 2 item 2 inline demo (§9.5) with value carry-over into /start. #7 closed as superseded by #8. Next: Tier 2 item 3 (A4 benefits row)."
 }
