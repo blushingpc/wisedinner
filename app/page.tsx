@@ -160,7 +160,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* S6 faq preview — launch question first (§9.10) */}
+      {/* S6 three benefits — photo-led, no cards (§9.8, Tier 2 item 3) */}
+      <section className="bg-white py-16 lg:py-24">
+        <h2 className="sr-only">what changes</h2>
+        <div className="mx-auto grid max-w-[1200px] gap-10 px-6 sm:grid-cols-3 sm:gap-6 lg:px-12">
+          {(
+            [
+              {
+                src: "/img/A4-1.jpg",
+                alt: "hands plating sliced roasted chicken over rice in a warm kitchen, evening light",
+                line: "never ask “what’s for dinner.”",
+              },
+              {
+                src: "/img/A4-2.jpg",
+                alt: "a single wire grocery basket on a wooden counter holding twelve everyday staples",
+                line: "one short list. one trip.",
+              },
+              {
+                src: "/img/A4-3.jpg",
+                alt: "an open, tidy refrigerator with five glass meal-prep containers on one shelf",
+                line: "nothing rots on thursday.",
+              },
+            ] as const
+          ).map((b, i) => (
+            <figure key={b.src} className={i === 1 ? "lg:mt-10" : undefined}>
+              <Image
+                src={b.src}
+                alt={b.alt}
+                width={1400}
+                height={1738}
+                quality={75}
+                sizes="(min-width: 640px) 33vw, 100vw"
+                className="img-grade w-full rounded-[14px] object-cover"
+              />
+              <figcaption className="mt-4 text-[1.75rem] leading-tight font-bold text-balance">{b.line}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      {/* S7 faq preview — launch question first (§9.10) */}
       <Section>
         <h2 className="text-h2 font-bold">questions</h2>
         <div className="mt-8 max-w-[60ch]">
@@ -171,7 +210,7 @@ export default function Home() {
         </Link>
       </Section>
 
-      {/* S7 final cta */}
+      {/* S8 final cta */}
       <section id="early-access" className="bg-kale py-14 text-bg lg:py-24">
         <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-2 lg:px-12">
           <h2 className="text-display font-bold text-balance">your protein. your budget. <em>solved.</em></h2>

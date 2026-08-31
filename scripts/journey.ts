@@ -23,6 +23,17 @@ const fail = (msg: string) => {
 const ok = (msg: string) => console.log("  ✔", msg);
 
 async function shot(page: Page, name: string, full = true) {
+  if (full) {
+    // walk the page so loading=lazy images below Chromium's lazy margin actually load before capture
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += 800) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 60));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForLoadState("networkidle").catch(() => {});
+  }
   await page.waitForTimeout(400);
   await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: full });
   console.log("  📷", `${OUT}/${name}.png`);
