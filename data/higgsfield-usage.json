@@ -84,5 +84,6 @@
   "credit_floor": 235.7,
   "recorded_at": "2026-08-31",
   "iteration_generation_count": 8,
-  "day_generation_count": 8
+  "day_generation_count": 8,
+  "balance_after_run": 1159.5
 }
