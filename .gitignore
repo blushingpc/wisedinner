@@ -42,3 +42,9 @@ next-env.d.ts
 
 # raw brand originals (>500kb) — optimized jpgs in public/img are committed
 public/img/src/
+
+# loop runtime
+.loop.pid
+loop.log
+.loop-idle
+.loop-halt
