@@ -1,7 +1,7 @@
 {
-  "iteration": 11,
+  "iteration": 12,
   "open_audit_issues": 1,
   "idle": true,
-  "updated_at": "2026-08-31T07:37:07.130Z",
-  "note": "iter-11: tier-3 items 4-6 done (underlines, footer regroup, sticky mobile bar), A2 fetchpriority, H1 paints t=0, Bricolage 800 real, lint debt cleared. a11y 100, CLS 0, perf ~90; LCP 3.7 local-sim vs 2.5 gate — needs prod CDN measure, blocked by #5. phantom-server incident documented in iter-11 AUDIT."
+  "updated_at": "2026-08-31T07:39:49.196Z",
+  "note": "iter-12: §9.9 people section shipped as tagged placeholders (3 TRUTH-AUDIT rows). all remaining #8 items founder-gated: LCP prod measure (#5 freeze), real quotes to clear the merge gate."
 }

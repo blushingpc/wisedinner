@@ -13,4 +13,6 @@ clears the gate itself.
 
 | # | location | placeholder content | honest replacement plan | status |
 |---|----------|--------------------|------------------------|--------|
-| — | (none yet) | | | |
+| 1 | app/page.tsx S6b quote 1 | "finally a meal app that starts from what i can spend…" — sam · austin | real beta-user quote (first name + city, with consent) | OPEN |
+| 2 | app/page.tsx S6b quote 2 | "the list is twelve things…" — priya · chicago | real beta-user quote | OPEN |
+| 3 | app/page.tsx S6b quote 3 | "my fridge is actually empty on friday…" — marcus · tampa | real beta-user quote | OPEN |

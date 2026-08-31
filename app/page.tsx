@@ -238,6 +238,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* S6b people — quotes, not ratings (§9.9). placeholder content under the truth merge gate:
+          every quote is tagged data-truth and ledgered in docs/TRUTH-AUDIT.md until real beta words replace it.
+          no waitlist count (the honest number is small), no stars, founder-photo slot stays empty until a real one exists. */}
+      <Section className="py-10 lg:py-16">
+        <p className="text-caption font-semibold text-kale">people on the list</p>
+        <div className="mt-8 grid gap-10 sm:grid-cols-3 sm:gap-6">
+          {(
+            [
+              ["finally a meal app that starts from what i can spend, not what i should eat.", "sam · austin", "lg:mt-0"],
+              ["the list is twelve things. i stopped ordering delivery on wednesdays.", "priya · chicago", "lg:mt-10"],
+              ["my fridge is actually empty on friday. that never happens.", "marcus · tampa", "lg:mt-20"],
+            ] as const
+          ).map(([q, who, off]) => (
+            <figure key={who} data-truth="placeholder" className={off}>
+              <blockquote className="text-[1.5rem] leading-snug font-medium text-balance">“{q}”</blockquote>
+              <figcaption className="mt-3 text-caption font-semibold text-ink-soft">{who}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </Section>
+
       {/* S7 faq preview — launch question first (§9.10) */}
       <Section>
         <h2 className="text-h2 font-bold">questions</h2>
