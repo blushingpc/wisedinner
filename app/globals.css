@@ -282,3 +282,20 @@
 @media (prefers-reduced-motion: reduce) {
   .rise-up { animation: none; }
 }
+
+/* 3d phones: directional rim light (window light from the left) + edge thickness + grounded shadow.
+   box-shadow only — transforms stay in the tilt classes, reduced-motion unaffected (static). */
+.frame-3d-left {
+  box-shadow:
+    inset 3px 2px 2px -1px rgba(255, 255, 255, 0.28),
+    inset -4px -3px 6px -2px rgba(0, 0, 0, 0.65),
+    -18px 32px 44px -18px rgba(27, 26, 24, 0.4),
+    -40px 70px 110px -30px rgba(27, 26, 24, 0.22);
+}
+.frame-3d-right {
+  box-shadow:
+    inset -3px 2px 2px -1px rgba(255, 255, 255, 0.24),
+    inset 4px -3px 6px -2px rgba(0, 0, 0, 0.65),
+    16px 34px 44px -18px rgba(27, 26, 24, 0.42),
+    36px 72px 110px -30px rgba(27, 26, 24, 0.22);
+}

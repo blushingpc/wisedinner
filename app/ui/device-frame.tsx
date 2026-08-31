@@ -2,7 +2,7 @@
 // desktop-only perspective tilt. children are REAL components, never screenshots.
 // size via widthClass + fixed aspect ratio (real width, never transform: scale — DESIGN-AUDIT §12); zero CLS.
 export function DeviceFrame({ children, className = "", label, tilt, widthClass = "w-[320px]" }: { children: React.ReactNode; className?: string; label: string; tilt?: "left" | "right"; widthClass?: string }) {
-  const persp = tilt === "left" ? "lg:[transform:perspective(1200px)_rotateY(-8deg)]" : tilt === "right" ? "lg:[transform:perspective(1200px)_rotateY(3deg)]" : "";
+  const persp = tilt === "left" ? "frame-3d-left lg:[transform:perspective(1100px)_rotateY(-10deg)_rotateX(1.5deg)]" : tilt === "right" ? "frame-3d-right lg:[transform:perspective(1100px)_rotateY(7deg)_rotateX(1deg)]" : "";
   return (
     <div role="img" aria-label={label} className={`aspect-[160/330] shrink-0 rounded-[54px] bg-ink p-[10px] shadow-frame ${widthClass} ${persp} ${className}`}>
       <div className="frame-glare relative h-full rounded-[44px] border border-white/14 bg-ink p-[3px]">
