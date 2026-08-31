@@ -32,7 +32,7 @@ One-shot the complete public website: all §5 routes, all §8 components, all §
 - not-found.tsx custom 404 · error.tsx custom 500
 - robots.txt (disallow /plan, /thanks) · sitemap.xml (all indexable) · manifest exists · favicons exist
 
-## 6. DESIGN DIRECTION "APP FUNNEL"
+## 6. DESIGN DIRECTION "APP FUNNEL" — SUPERSEDED 2026-08-31 by docs/DESIGN-V2-PLAN.md (single design source of truth; this section kept for history)
 Tokens: page #FFFFFF; section-alt #FBFBFA; ink #191817; soft #6B675F; rule #E9E7E2; accent #1D7A46; accent-wash #EDF3EC; receipt-paper #FAF8F3 + receipt-red #C33D2E INSIDE receipt artifacts only. Radius 14px cards/frames, 12px CTAs, receipt 0. Shadow `0 8px 30px rgba(25,24,23,0.06)` on device frames + receipt only. Type: Bricolage Grotesque 400/500/700 via next/font/google; IBM Plex Mono tabular for EVERY number/label/receipt. H1 clamp(2.6rem,6vw,4.5rem) w700 tracking -0.025em text-wrap:balance; body 1.0625rem/1.65 max 62ch. Sections py-24 desktop / py-14 mobile; container 1200px. Friendly, big, air; centered heroes allowed; phone-mockup-led. Motion: 600ms cubic-bezier(0.16,1,0.3,1) IO fade-ups + 80ms stagger; receipt total counts up once; CTAs scale(0.98) active. Receipt aesthetic lives INSIDE DeviceFrames, /plan, /drop — page stays consumer-clean. IMAGERY: §18B files via next/image, explicit dimensions, radius 14px or in-frame, `.img-grade { filter: saturate(0.96) contrast(1.02) }`, real alt text, no text baked in, imagery supports / type leads.
 
 ## 7. PAGE SPECS

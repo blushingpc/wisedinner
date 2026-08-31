@@ -5,6 +5,11 @@ description: The WiseDinner product bible — what we are building, for whom, th
 
 # WiseDinner truth
 
+> **PHASE NOTE (founder decision, 2026-08-31):** this skill is SUSPENDED for design work on branch
+> `design-v2` — see the truth merge gate in CLAUDE.md (placeholders allowed only with
+> `data-truth="placeholder"` + a docs/TRUTH-AUDIT.md row; nothing merges to main while any remain).
+> It stays fully in force for main, for anything actually shipped, and for the closing audit.
+
 **One-liner:** WiseDinner turns a weekly budget and a protein target into a solved week — one small grocery list, five days of meals, zero waste, receipt as proof. We sell a verified financial outcome, not recipes.
 
 **User:** 18–30, budget-constrained, wants 140–160g protein/day, shops in person at Aldi/Walmart, lives on TikTok. Secondary later: GLP-1 users. NOT targets: families, macro athletes, recipe hobbyists.
