@@ -27,6 +27,7 @@ Ideas with a metric tag [activation|conversion|price-accuracy|perf] or they get 
 
 ## Ideas
 (append here — metric tag required)
+- [activation] solver: cap breakfast repeats (same breakfast ≤3×/week, same lunch ≤3×) — iter-1 plans serve one breakfast 5 days straight; the dinner cap alone reads monotonous at the reveal
 - [activation] dark mode — deferred by docs/DESIGN.md §0.5, revisit after 100 users
 
 ## Done
