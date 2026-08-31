@@ -1,4 +1,6 @@
 {
-  "starting_balance": null,
-  "generations": []
+  "starting_balance": 1178.5,
+  "generations": [],
+  "credit_floor": 235.7,
+  "recorded_at": "2026-08-31"
 }
