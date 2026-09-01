@@ -1,5 +1,8 @@
 // SITE-SPEC §18 copy bank — verbatim where the spec is verbatim. used by /, /faq, /about, /press, JSON-LD.
-import { launchWindow, perk } from "@/content/site";
+import { site } from "@/content/site";
+
+const { launchWindow } = site;
+const perk = site.hero.perk;
 
 export const SUPPORT_EMAIL = "support@wisedinner.com";
 export const SITE = "https://www.wisedinner.com";

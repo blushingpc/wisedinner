@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { proof } from "@/content/site";
+import { site } from "@/content/site";
 
 export const runtime = "edge";
 
@@ -26,7 +26,7 @@ export async function GET(req: Request) {
         <div style={{ display: "flex", position: "relative", width: 800, height: 630 }}>
           {/* @ts-expect-error satori accepts an ArrayBuffer src */}
           <img src={a2} width={800} height={630} />
-          {page !== "pricing" && proof.avgWeekUsd > 0 && (
+          {page !== "pricing" && site.proof.avgWeekUsd > 0 && (
             <div
             style={{
               display: "flex",
@@ -43,7 +43,7 @@ export async function GET(req: Request) {
               fontFamily: "PlexMono",
             }}
           >
-              <span style={{ fontSize: 40, fontWeight: 600 }}>${proof.avgWeekUsd.toFixed(2)}</span>
+              <span style={{ fontSize: 40, fontWeight: 600 }}>${site.proof.avgWeekUsd.toFixed(2)}</span>
               <span style={{ fontSize: 18 }}>/ week</span>
             </div>
           )}

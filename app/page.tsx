@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { drop } from "@/data/drop";
 import { meals } from "@/data/meals";
-import { launchWindow, perk, proof } from "@/content/site";
+import { site } from "@/content/site";
 import { ABOUT, FAQ, HERO, SITE } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { AppStoreBadge } from "./ui/app-store-badge";
@@ -13,6 +13,7 @@ import { InlineDemo } from "./ui/inline-demo";
 import { MealCard } from "./ui/meal-card";
 import { People } from "./ui/people";
 import { PreorderButton } from "./ui/preorder-button";
+import { ProofChip } from "./ui/proof-chip";
 import { PinnedWalkthrough } from "./ui/pinned-walkthrough";
 import { ReceiptCard } from "./ui/receipt-card";
 import { Section } from "./ui/section";
@@ -69,17 +70,6 @@ function ScreenTheList() {
   );
 }
 
-// hero proof chip — the first available proof point wins; hides entirely when none are set.
-// the proof-number branches are sample content (truth-tagged); the launch-window branch is real copy.
-const heroChip =
-  proof.preorders > 0
-    ? { text: `${proof.preorders.toLocaleString("en-US")} people pre-ordered`, placeholder: true }
-    : proof.demoWeeksThisMonth > 0
-      ? { text: `${proof.demoWeeksThisMonth.toLocaleString("en-US")} weeks solved in the demo this month`, placeholder: true }
-      : launchWindow
-        ? { text: `launching ${launchWindow}`, placeholder: false }
-        : null;
-
 export default function Home() {
   return (
     <main id="main">
@@ -89,14 +79,7 @@ export default function Home() {
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-12 lg:min-h-[90dvh] lg:grid-cols-[5fr_7fr] lg:px-12 lg:py-16">
           <div>
-            {heroChip && (
-              <p
-                data-truth={heroChip.placeholder ? "placeholder" : undefined}
-                className="fade-up mb-4 inline-flex items-center rounded-full border border-rule bg-bg-alt px-3 py-1 text-caption font-semibold text-kale"
-              >
-                {heroChip.text}
-              </p>
-            )}
+            <ProofChip className="fade-up mb-4" />
             <h1 className="rise-up text-display font-extrabold text-balance">{HERO.h1}</h1>
             <p className="fade-up mt-6 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{HERO.sub}</p>
             {/* no entrance animation on this row — the Apple badge must never animate */}
@@ -108,7 +91,7 @@ export default function Home() {
                     {HERO.demo}
                   </Link>
                 </div>
-                {perk && <p className="mt-4 text-caption font-semibold text-kale">{perk}</p>}
+                {site.hero.perk && <p className="mt-4 text-caption font-semibold text-kale">{site.hero.perk}</p>}
               </div>
               {/* TODO(launch): swap for a QR that encodes the App Store URL */}
               <div className="hidden shrink-0 lg:block">
