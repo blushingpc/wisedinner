@@ -8,7 +8,8 @@ import { Footer } from "./ui/footer";
 import { SITE } from "./copy";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({ variable: "--font-bricolage", subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], display: "swap", preload: true });
+// variable font: one file covers 400-800, so the H1's 800 isn't queued behind four other weight files (LCP)
+const bricolage = Bricolage_Grotesque({ variable: "--font-bricolage", subsets: ["latin"], display: "swap", preload: true });
 const plexMono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin"], weight: ["400", "500"], display: "swap", preload: true });
 
 export const metadata: Metadata = {
