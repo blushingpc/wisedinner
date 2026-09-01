@@ -1,4 +1,6 @@
 // SITE-SPEC §18 copy bank — verbatim where the spec is verbatim. used by /, /faq, /about, /press, JSON-LD.
+import { launchWindow, perk } from "@/content/site";
+
 export const SUPPORT_EMAIL = "support@wisedinner.com";
 export const SITE = "https://www.wisedinner.com";
 
@@ -6,8 +8,7 @@ export const SITE = "https://www.wisedinner.com";
 export const HERO = {
   h1: "hit your protein. spend way less.",
   sub: "tell us your budget and protein goal. we plan five days of meals and one short grocery list.",
-  cta: "get early access",
-  pill: "iOS · 2026 · free web demo",
+  pill: "free to pre-order · installs itself on launch day · 21-day free trial",
   demo: "try the free demo →",
 };
 
@@ -20,11 +21,21 @@ export const STEPS = [
 export const FAQ = [
   {
     q: "when does the app launch?",
-    a: "we're building it now. early access goes to the waitlist, in order, before the public ios launch in 2026.",
+    // TODO(launch): the "(target: …)" tail drops itself when launchWindow is ""
+    a: `pre-order it now on the App Store and it installs itself on launch day. we'll email you the date the moment it's fixed.${launchWindow ? ` (target: ${launchWindow})` : ""}`,
+  },
+  {
+    q: "how much does it cost?",
+    // TODO(launch): confirm figures against /pricing
+    a: `pre-ordering is free. the app comes with a 21-day free trial, then $4.99/mo billed yearly or $8.99 month to month.${perk ? ` ${perk}` : ""}`,
+  },
+  {
+    q: "is it on android?",
+    a: "not at launch. leave your email and you'll get the android date first.",
   },
   {
     q: "what is wisedinner?",
-    a: "a meal planner that treats groceries as a math problem: your weekly budget and a protein target in, a solved week out — one short list, five days of meals, an estimated in-store total. it's an app first; this site is the demo and the waitlist.",
+    a: "a meal planner that treats groceries as a math problem: your weekly budget and a protein target in, a solved week out — one short list, five days of meals, an estimated in-store total. it's an app first; this site is the demo and the pre-order.",
   },
   {
     q: "how accurate are the prices?",
@@ -37,10 +48,6 @@ export const FAQ = [
   {
     q: "is this medical or diet advice?",
     a: "no. protein and calorie figures are planning estimates from a food database. talk to a professional before changing how you eat, especially with a health condition.",
-  },
-  {
-    q: "what will it cost?",
-    a: "protein plan at $59/yr ($4.99/mo billed yearly) or $8.99 monthly; autopilot at $89/yr or $12.99 monthly. 21-day free trial in the app. nothing is for sale yet.",
   },
   {
     q: "do you sell my data?",

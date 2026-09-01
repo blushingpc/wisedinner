@@ -8,7 +8,7 @@ type State = "idle" | "loading" | "error" | "already";
 
 // one form, five entry points (source). success → /thanks?n=position. quiz answers ride along from /plan.
 // yolk: the final-CTA ground (§9.11) — kale button, ink text; tomato fails AA on yolk so errors go ink there.
-export function WaitlistForm({ source, quiz, yolk }: { source: string; quiz?: unknown; yolk?: boolean }) {
+export function WaitlistForm({ source, quiz, yolk, label = "email", button = "notify me" }: { source: string; quiz?: unknown; yolk?: boolean; label?: string; button?: string }) {
   const router = useRouter();
   const [state, setState] = useState<State>("idle");
   const [email, setEmail] = useState("");
@@ -42,7 +42,7 @@ export function WaitlistForm({ source, quiz, yolk }: { source: string; quiz?: un
   return (
     <form onSubmit={submit} className="w-full max-w-md" aria-describedby={`${id}-msg`}>
       <label htmlFor={id} className={`block text-caption font-semibold ${soft}`}>
-        email
+        {label}
       </label>
       <div className="mt-2 flex gap-2">
         <input
@@ -59,7 +59,7 @@ export function WaitlistForm({ source, quiz, yolk }: { source: string; quiz?: un
         />
         <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
         <button type="submit" disabled={state === "loading"} className={`cta ${yolk ? "cta-kale" : ""}`}>
-          {state === "loading" ? "saving…" : "get early access"}
+          {state === "loading" ? "saving…" : button}
         </button>
       </div>
       <p id={`${id}-msg`} role="status" aria-live="polite" className={`mt-3 min-h-6 text-spec ${state === "error" ? `font-mono ${yolk ? "text-ink" : "text-receipt-total"}` : soft}`}>

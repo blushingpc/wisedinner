@@ -5,7 +5,7 @@ import type { Meal } from "@/data/meals";
 export function MealCard({ meal, priority = false }: { meal: Meal; priority?: boolean }) {
   return (
     <figure className="lift flex items-center gap-3 rounded-[10px] border-t border-rule px-1 py-3 first:border-t-0">
-      <Image src={meal.img} alt={meal.alt} width={64} height={64} quality={75} priority={priority} className="img-grade size-16 rounded-[10px] object-cover" />
+      <Image src={meal.img} alt={meal.alt} width={192} height={192} quality={75} sizes="96px" priority={priority} className="img-grade size-16 rounded-[10px] object-cover" />
       <figcaption>
         <p className="font-medium leading-tight">{meal.name}</p>
         <p className="mt-1 font-mono text-spec tabular-nums text-ink-soft">${meal.price_usd.toFixed(2)}</p>

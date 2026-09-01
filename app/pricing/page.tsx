@@ -75,7 +75,7 @@ export default function Pricing() {
         </div>
         <p className="mt-8 font-mono text-micro uppercase text-ink-soft">21-day free trial in the app · cancel anytime · prices may change before launch</p>
         <div className="mt-14 border-t border-rule pt-8">
-          <h2 className="text-2xl font-medium">get early access</h2>
+          <h2 className="text-2xl font-medium">not on iPhone? get the launch email</h2>
           <div className="mt-6">
             <WaitlistForm source="pricing" />
           </div>

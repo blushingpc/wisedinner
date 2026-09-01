@@ -18,7 +18,7 @@ function SliderRow({ label, value, frac }: { label: string; value: string; frac:
   return (
     <div>
       <p className="text-caption font-semibold text-kale">{label}</p>
-      <p className="mt-2 font-mono text-4xl tabular-nums">{value}</p>
+      <p className="mt-2 text-4xl font-bold tabular-nums">{value}</p>
       <div aria-hidden="true" className="mt-3 h-1.5 rounded-full bg-rule">
         <div className={`relative h-full rounded-full bg-ink ${frac}`}>
           <span className="absolute -right-2 -top-[5px] block size-4 rounded-full bg-yolk shadow-tag" />
@@ -30,18 +30,26 @@ function SliderRow({ label, value, frac }: { label: string; value: string; frac:
 
 function StepScreen({ step, fresh, shelf, play = false }: { step: number; fresh: string[]; shelf: string[]; play?: boolean }) {
   if (step === 0) {
+    // lower half mirrors the inline demo card: live-preview line + the solve button — no blank screen
     return (
-      <div className="grid gap-8 pt-2">
+      <div className="grid h-full content-center gap-7 pb-8">
         <SliderRow label="weekly budget" value="$60" frac="w-1/2" />
         <SliderRow label="protein per day" value="150 g" frac="w-2/3" />
-        <p className="text-caption font-semibold text-ink-soft">that&apos;s all we ask.</p>
+        <div className="border-t border-rule pt-5">
+          <p className="text-caption font-semibold text-ink-soft">that&apos;s all we ask.</p>
+          <p className="mt-3 text-[0.9375rem] text-ink-soft">
+            <span className="font-semibold text-ink">$60</span> → 5 dinners · <span className="font-semibold text-ink">150 g</span> a day · ~
+            <span className="font-semibold text-ink">12</span> items
+          </p>
+          <span className="cta cta-kale pointer-events-none mt-4">solve my week</span>
+        </div>
       </div>
     );
   }
   if (step === 1) {
     // §12.2: chips pop in staggered (~1.5s total), the solved line lands last; plays once, static without JS
     return (
-      <div className={`pt-2 ${play ? "solve-play" : ""}`}>
+      <div className={`flex h-full flex-col justify-center pb-8 ${play ? "solve-play" : ""}`}>
         <p className="text-caption font-semibold text-kale">solving your week</p>
         <ul className="mt-3 flex flex-wrap gap-1">
           {[...fresh, ...shelf].map((n, i) => (
@@ -66,7 +74,7 @@ function StepScreen({ step, fresh, shelf, play = false }: { step: number; fresh:
     </li>
   );
   return (
-    <div className="pt-2">
+    <div className="flex h-full flex-col justify-center pb-8">
       <p className="text-caption font-semibold text-kale">fresh aisle</p>
       <ul className="mt-2 grid gap-1.5">{fresh.slice(0, 4).map(row)}</ul>
       <p className="mt-4 text-caption font-semibold text-kale">shelf + freezer</p>

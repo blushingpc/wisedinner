@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/app/wordmark";
+import { appStoreUrl } from "@/content/site";
 
 // §9.12: grouped product / company / legal. the "tiny team" line lives on /about, where it is charming.
 const GROUPS: [string, [string, string][]][] = [
@@ -38,6 +39,13 @@ export function Footer() {
           <nav key={name} aria-label={name}>
             <p className="text-caption font-semibold text-kale">{name}</p>
             <ul className="mt-3">
+              {name === "product" && (
+                <li>
+                  <a href={appStoreUrl} target="_blank" rel="noopener" className="text-link-quiet inline-flex min-h-11 items-center">
+                    on the App Store
+                  </a>
+                </li>
+              )}
               {links.map(([l, h]) => (
                 <li key={h}>
                   <Link href={h} className="text-link-quiet inline-flex min-h-11 items-center">
@@ -48,7 +56,14 @@ export function Footer() {
             </ul>
           </nav>
         ))}
-        <p className="font-mono text-micro text-ink-soft sm:col-span-4">© 2026 WiseDinner</p>
+        <div className="sm:col-span-4">
+          <p className="font-mono text-micro text-ink-soft">© 2026 WiseDinner</p>
+          {/* TODO(launch): verify the exact wording on developer.apple.com/app-store/marketing/guidelines */}
+          <p className="mt-2 text-[0.75rem] text-ink-3">
+            Apple, the Apple logo, and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a
+            service mark of Apple Inc.
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -6,7 +6,7 @@ You are building WiseDinner: a budget+protein meal solver. Web app first (Next.j
 1. **One job per session.** The job comes from `tasks/QUEUE.md` — top unblocked item. Never invent work mid-session; new ideas go to the bottom of the queue with a metric tag.
 2. **Simplicity beats completeness.** Load the `keep-it-simple` skill before writing code. If a diff feels impressive, it is probably wrong. (Relaxed for motion — see the motion law.)
 3. **Nothing ships ugly or AI-looking.** Load the `human-design` skill (craft floors) before touching any UI file; art direction lives in docs/DESIGN-V2-PLAN.md.
-4. **Truth phase-gated.** `wisedinner-truth` is SUSPENDED on design-v2 (see the truth merge gate below) and governs main + the closing audit. Pricing honesty on anything actually shipped to main remains a hard constraint.
+4. **Truth gate revoked (2026-09-01, see below).** Placeholder proof may ship to production; docs/TRUTH-AUDIT.md tracks what still needs real content. Pricing honesty on anything actually shipped to main remains a hard constraint.
 5. **Session ritual lives in the `loop-protocol` skill.** Start and end every session with it.
 6. **Deployed or it didn't happen.** A job is done when it's live on Vercel and verified, not when code exists.
 
@@ -23,11 +23,11 @@ You are building WiseDinner: a budget+protein meal solver. Web app first (Next.j
 ## Motion law
 One motion library is permitted (motion/react preferred; one-line justification in the commit). Tasteful premium choreography is allowed; scroll-jacking is banned; `prefers-reduced-motion` honored everywhere; Lighthouse ≥90 perf and INP <200ms remain hard gates.
 
-## Truth merge gate (founder decision, 2026-08-31)
-`wisedinner-truth` is suspended on design-v2 so the design can reach the Cal-AI-premium bar. The loop may build any visual — social-proof strips, rating badges, testimonial cards, lifestyle imagery with people, store badges — with realistic placeholder content, under two absolute rules:
-1. every not-yet-true element carries `data-truth="placeholder"` and its numbers/quotes never come from the real solver or real users;
-2. every placeholder has a row in docs/TRUTH-AUDIT.md with its honest replacement plan.
-**AMENDED 2026-08-31: the gate checks the production RENDER, not the codebase — a production build (NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF unset) must contain zero `data-truth="placeholder"` in its HTML. The codebase and preview may keep tagged placeholders (flag set to true on the Preview environment only), and TRUTH-AUDIT rows stay open until real content replaces them.** The founder runs the closing audit; the loop never clears the gate itself.
+## Truth merge gate — REVOKED (founder decision, 2026-09-01)
+The merge gate is retired: placeholder content may ship to production on main. What remains:
+1. every not-yet-true element still carries `data-truth="placeholder"` and gets a row in docs/TRUTH-AUDIT.md (now a launch-content checklist, not a gate);
+2. all sample proof lives in `content/site.ts` — the founder replaces values with real ones (or zeroes them to hide) at their own pace;
+3. pricing honesty on main remains a hard constraint (non-negotiable 4).
 
 ## Higgsfield budget law (hard)
 Self-serve generation is permitted within a cage:

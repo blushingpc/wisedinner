@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { drop } from "@/data/drop";
+import { proof } from "@/content/site";
 
 export const runtime = "edge";
 
@@ -26,7 +26,7 @@ export async function GET(req: Request) {
         <div style={{ display: "flex", position: "relative", width: 800, height: 630 }}>
           {/* @ts-expect-error satori accepts an ArrayBuffer src */}
           <img src={a2} width={800} height={630} />
-          {page !== "pricing" && (
+          {page !== "pricing" && proof.avgWeekUsd > 0 && (
             <div
             style={{
               display: "flex",
@@ -43,8 +43,8 @@ export async function GET(req: Request) {
               fontFamily: "PlexMono",
             }}
           >
-              <span style={{ fontSize: 40, fontWeight: 600 }}>${drop.est_total.toFixed(2)}</span>
-              <span style={{ fontSize: 18 }}>one trip</span>
+              <span style={{ fontSize: 40, fontWeight: 600 }}>${proof.avgWeekUsd.toFixed(2)}</span>
+              <span style={{ fontSize: 18 }}>/ week</span>
             </div>
           )}
         </div>
@@ -62,7 +62,7 @@ export async function GET(req: Request) {
             <span>{l1}</span>
             <span style={{ color: "#4e4b45" }}>{l2}</span>
           </div>
-          <div style={{ display: "flex", fontSize: 20, fontWeight: 800, color: "#173f2e" }}>wisedinner.com</div>
+          <div style={{ display: "flex", fontSize: 20, fontWeight: 800, color: "#173f2e" }}>pre-order on the App Store</div>
         </div>
       </div>
     ),

@@ -113,7 +113,8 @@ export function Plan() {
       </dl>
 
       <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-        <div data-reveal>
+        {/* receipt beside the day cards on desktop, beneath them on mobile */}
+        <div data-reveal className="order-last lg:order-first">
           <ReceiptCard week={week} variant="plan" printedAt={printedAt} tilt />
         </div>
         <div>
@@ -162,16 +163,14 @@ export function Plan() {
                     <span className="font-mono text-micro uppercase text-ink-soft">{d.day}</span>
                     <span className="font-mono text-spec tabular-nums text-ink-soft">{d.protein_g} g protein</span>
                   </div>
+                  {/* TODO(launch): show one price per day once the solver returns per-day cost */}
                   <ol className="mt-2 grid gap-2">
                     {d.items.map((i) => {
                       const img = MEAL_IMG[i.name];
                       return (
                         <li key={i.unit} className="flex items-center gap-3">
-                          {img && <Image src={img.src} alt={img.alt} width={48} height={48} quality={75} className="img-grade size-12 shrink-0 rounded-[10px] object-cover" />}
-                          <div>
-                            <span className="block font-mono text-micro uppercase text-ink-soft">{i.unit}</span>
-                            <span>{i.name}</span>
-                          </div>
+                          {img && <Image src={img.src} alt={img.alt} width={192} height={192} quality={75} sizes="96px" className="img-grade size-24 shrink-0 rounded-[10px] object-cover" />}
+                          <span className="font-medium">{i.name}</span>
                         </li>
                       );
                     })}
@@ -197,10 +196,9 @@ export function Plan() {
             </Link>
           </div>
           <div id="early-access" className="mt-14 border-t border-rule pt-8">
-            <h2 className="text-2xl font-medium">get early access</h2>
-            <p className="mt-2 text-ink-soft">we save this plan with your email. the app picks it up on day one.</p>
+            <h2 className="text-2xl font-medium">save this week to your phone</h2>
             <div className="mt-6">
-              <WaitlistForm source="plan" quiz={{ ...answers, est_total: week.est_total, feasible: week.feasible }} />
+              <WaitlistForm source="plan" button="save my week" quiz={{ ...answers, est_total: week.est_total, feasible: week.feasible }} />
             </div>
           </div>
         </div>
@@ -213,7 +211,7 @@ export function Plan() {
             <span className="text-xl font-medium">${week.est_total.toFixed(2)}</span>
           </p>
           <a href="#early-access" className="cta">
-            get early access
+            save this week
           </a>
         </div>
       </div>

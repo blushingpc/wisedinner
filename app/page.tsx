@@ -2,12 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { drop } from "@/data/drop";
 import { meals } from "@/data/meals";
+import { launchWindow, perk, proof } from "@/content/site";
 import { ABOUT, FAQ, HERO, SITE } from "./copy";
 import { Accordion } from "./ui/accordion";
+import { AppStoreBadge } from "./ui/app-store-badge";
+import { HeroEmailFallback } from "./ui/hero-email-fallback";
 import { DeviceFrame } from "./ui/device-frame";
 import { MobileCtaBar } from "./ui/mobile-cta-bar";
 import { InlineDemo } from "./ui/inline-demo";
 import { MealCard } from "./ui/meal-card";
+import { People } from "./ui/people";
+import { PreorderButton } from "./ui/preorder-button";
 import { PinnedWalkthrough } from "./ui/pinned-walkthrough";
 import { ReceiptCard } from "./ui/receipt-card";
 import { Section } from "./ui/section";
@@ -29,8 +34,8 @@ function ScreenThisWeek({ priority = false }: { priority?: boolean }) {
   return (
     <>
       <p className="text-caption font-semibold text-kale">this week</p>
-      {meals.map((m, i) => (
-        <MealCard key={m.name} meal={m} priority={priority && i === 0} />
+      {meals.map((m) => (
+        <MealCard key={m.name} meal={m} priority={priority} />
       ))}
       <p className="mt-4 text-caption font-semibold text-ink-soft">five days · one list · one trip</p>
     </>
@@ -64,6 +69,17 @@ function ScreenTheList() {
   );
 }
 
+// hero proof chip — the first available proof point wins; hides entirely when none are set.
+// the proof-number branches are sample content (truth-tagged); the launch-window branch is real copy.
+const heroChip =
+  proof.preorders > 0
+    ? { text: `${proof.preorders.toLocaleString("en-US")} people pre-ordered`, placeholder: true }
+    : proof.demoWeeksThisMonth > 0
+      ? { text: `${proof.demoWeeksThisMonth.toLocaleString("en-US")} weeks solved in the demo this month`, placeholder: true }
+      : launchWindow
+        ? { text: `launching ${launchWindow}`, placeholder: false }
+        : null;
+
 export default function Home() {
   return (
     <main id="main">
@@ -73,17 +89,35 @@ export default function Home() {
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-12 lg:min-h-[90dvh] lg:grid-cols-[5fr_7fr] lg:px-12 lg:py-16">
           <div>
+            {heroChip && (
+              <p
+                data-truth={heroChip.placeholder ? "placeholder" : undefined}
+                className="fade-up mb-4 inline-flex items-center rounded-full border border-rule bg-bg-alt px-3 py-1 text-caption font-semibold text-kale"
+              >
+                {heroChip.text}
+              </p>
+            )}
             <h1 className="rise-up text-display font-extrabold text-balance">{HERO.h1}</h1>
             <p className="fade-up mt-6 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{HERO.sub}</p>
-            <div className="fade-up mt-8 max-w-md [animation-delay:160ms]">
-              <WaitlistForm source="hero" />
+            {/* no entrance animation on this row — the Apple badge must never animate */}
+            <div className="mt-8 flex items-start gap-8">
+              <div>
+                <div className="flex flex-wrap items-center gap-4">
+                  <AppStoreBadge />
+                  <Link href="/start" className="cta cta-ghost">
+                    {HERO.demo}
+                  </Link>
+                </div>
+                {perk && <p className="mt-4 text-caption font-semibold text-kale">{perk}</p>}
+              </div>
+              {/* TODO(launch): swap for a QR that encodes the App Store URL */}
+              <div className="hidden shrink-0 lg:block">
+                <Image src="/badges/qr-placeholder.svg" alt="" width={96} height={96} />
+                <p className="mt-1 text-[0.75rem] text-ink-3">scan to pre-order</p>
+              </div>
             </div>
-            <div className="fade-up mt-2 flex flex-wrap items-center gap-5 [animation-delay:240ms]">
-              <Link href="/start" className="cta cta-ghost">
-                {HERO.demo}
-              </Link>
-              <p className="inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft">{HERO.pill}</p>
-            </div>
+            <HeroEmailFallback className="fade-up mt-4 [animation-delay:240ms]" />
+            <p className="fade-up mt-4 inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft [animation-delay:240ms]">{HERO.pill}</p>
           </div>
 
           <div className="hero-field fade-up relative mx-auto h-[660px] w-full max-w-[600px] [animation-delay:160ms] lg:h-[780px]">
@@ -109,6 +143,7 @@ export default function Home() {
               width={1600}
               height={1600}
               quality={75}
+              priority
               sizes="(min-width: 1024px) 260px, 170px"
               className="dish-drift img-grade absolute -left-2 bottom-4 z-10 w-[170px] [filter:drop-shadow(0_24px_28px_rgba(27,26,24,0.28))] lg:-left-6 lg:bottom-10 lg:w-[260px]"
             />
@@ -137,7 +172,7 @@ export default function Home() {
           height={853}
           quality={80}
           sizes="100vw"
-          className="img-grade hidden w-full sm:block"
+          className="img-grade hidden w-full object-cover sm:block lg:min-h-[60vh]"
         />
         <Image
           src="/img/A2-mobile.jpg"
@@ -150,13 +185,28 @@ export default function Home() {
           sizes="100vw"
           className="img-grade w-full sm:hidden"
         />
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg via-bg/80 to-transparent pt-28">
-          <div className="mx-auto max-w-[1200px] px-6 pb-8 lg:px-12">
+        {/* paper scrim block, bottom-left on desktop, beneath the image on mobile — the plates are never covered by text */}
+        <div className="bg-bg lg:absolute lg:bottom-0 lg:left-0 lg:max-w-[640px] lg:rounded-tr-[14px]">
+          <div className="px-6 py-8 lg:px-12 lg:py-10">
             <h2 className="text-h2 font-bold text-balance">
               five dinners. one trip. ${drop.est_total.toFixed(2)}.
             </h2>
             <p className="mt-3 text-caption font-semibold text-kale">about {drop.protein_per_day} g of protein a day, nothing left to rot on thursday.</p>
           </div>
+        </div>
+      </section>
+
+      {/* S2b what happens when you pre-order — three lines on paper, hairline rules, no cards, no icons */}
+      <section className="py-14 lg:py-20">
+        <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
+          <div className="max-w-[46ch] divide-y divide-rule">
+            <p className="py-5 text-[clamp(22px,2.2vw,28px)] leading-tight font-bold">tap pre-order. it&apos;s free.</p>
+            <p className="py-5 text-[clamp(22px,2.2vw,28px)] leading-tight font-bold">launch day, it installs itself. we&apos;ll tell you the date.</p>
+            <p className="py-5 text-[clamp(22px,2.2vw,28px)] leading-tight font-bold">your solved week is already inside.</p>
+          </div>
+          <p className="mt-2 max-w-[46ch] text-[1rem] font-normal text-ink-soft">
+            solve a week in the demo and save it — it&apos;s waiting in the app on day one.
+          </p>
         </div>
       </section>
 
@@ -238,29 +288,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* S6b people — placeholder quotes render ONLY where NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF=true
-          (preview env). production builds inline the unset flag and drop the section entirely, so the
-          truth gate holds on the production RENDER while the codebase keeps the tagged placeholders. */}
-      {process.env.NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF === "true" && (
-        <Section className="py-10 lg:py-16">
-          <p className="text-caption font-semibold text-kale">people on the list</p>
-          <div className="mt-8 grid gap-10 sm:grid-cols-3 sm:gap-6">
-            {(
-              [
-                ["finally a meal app that starts from what i can spend, not what i should eat.", "sam · austin", "lg:mt-0"],
-                ["the list is twelve things. i stopped ordering delivery on wednesdays.", "priya · chicago", "lg:mt-10"],
-                ["my fridge is actually empty on friday. that never happens.", "marcus · tampa", "lg:mt-20"],
-              ] as const
-            ).map(([q, who, off]) => (
-              <figure key={who} data-truth="placeholder" className={off}>
-                <blockquote className="text-[1.5rem] leading-snug font-medium text-balance">“{q}”</blockquote>
-                <figcaption className="mt-3 text-caption font-semibold text-ink-soft">{who}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </Section>
-
-        )}
+      {/* S6b people — proof row + quotes from content/site.ts; zeroed values hide themselves (TRUTH-AUDIT rows stay open) */}
+      <People />
 
       {/* S7 faq preview — launch question first (§9.10) */}
       <Section>
@@ -274,14 +303,19 @@ export default function Home() {
       </Section>
 
       {/* S8 final cta — the page's boldest moment, saved for last (§9.11, yolk ground) */}
-      <section id="early-access" className="bg-yolk py-14 text-ink lg:py-24">
+      <section id="early-access" className="bg-yolk py-14 pb-36 text-ink sm:pb-14 lg:py-24">
         <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-2 lg:px-12">
           <h2 className="text-display font-bold text-balance">your protein. your budget. <em>solved.</em></h2>
           <div className="self-center">
-            <WaitlistForm source="final" yolk />
-            <Link href="/start" className="cta cta-ghost mt-4 inline-flex">
-              {HERO.demo}
-            </Link>
+            <div className="flex flex-wrap items-center gap-4">
+              <PreorderButton variant="ink" />
+              <Link href="/start" className="cta cta-ghost">
+                {HERO.demo}
+              </Link>
+            </div>
+            <div className="mt-8">
+              <WaitlistForm source="final" yolk label="not on iPhone? get the launch email" />
+            </div>
           </div>
         </div>
       </section>
