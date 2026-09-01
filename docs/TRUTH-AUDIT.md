@@ -18,12 +18,18 @@ its element cleanly. As checked in (sample values live), the production render C
 `data-truth="placeholder"` nodes — shipped deliberately under the 2026-09-01 gate revocation; the
 founder closes rows below by zeroing sample values or replacing them with real ones.
 
+NOTE 2026-09-01 (strategy round): fabricated proof REMOVED from the live render — quotes deleted,
+counts zeroed and now gated `>= 100`, chip falls back to product facts. Rows 1–5 closed by removal;
+proof now renders only when real values are entered in content/site.ts.
+
 | # | location | placeholder content | honest replacement plan | status |
 |---|----------|--------------------|------------------------|--------|
-| 1 | content/site.ts quotes[0] (people section) | "i solved a week for $41…" — sam · austin | real beta-user quote (first name + city, with consent), or `quotes: []` to hide | OPEN |
-| 2 | content/site.ts quotes[1] | "two numbers in, a list out…" — priya · chicago | real beta-user quote, or empty the array | OPEN |
-| 3 | content/site.ts quotes[2] | "153 g a day for forty bucks…" — marcus · denver | real beta-user quote, or empty the array | OPEN |
-| 4 | content/site.ts proof.preorders (hero chip + people row) | 1,240 pre-orders | real number from App Store Connect, or 0 to hide | OPEN |
-| 5 | content/site.ts proof.demoWeeksThisMonth | 3,400 demo weeks | real analytics number, or 0 to hide | OPEN |
-| 6 | content/site.ts perk (hero + FAQ cost answer) | "first month is on us" offer | founder-confirmed offer, or "" to hide | OPEN |
+| 1 | content/site.ts quotes[0] (people section) | sample quote — sam · austin | removed 2026-09-01; add only real quotes with consent | CLOSED |
+| 2 | content/site.ts quotes[1] | sample quote — priya · chicago | removed 2026-09-01 | CLOSED |
+| 3 | content/site.ts quotes[2] | sample quote — marcus · denver | removed 2026-09-01 | CLOSED |
+| 4 | content/site.ts proof.preorders | 1,240 pre-orders | zeroed 2026-09-01; renders only when real and >= 100 | CLOSED |
+| 5 | content/site.ts proof.demoWeeksThisMonth | 3,400 demo weeks | zeroed 2026-09-01; renders only when real and >= 100 | CLOSED |
+| 6 | content/site.ts hero.perk (hero + FAQ cost answer) | "first month is on us" offer | founder-confirmed offer, or "" to hide | OPEN |
 | 7 | content/site.ts appStoreUrl + badge/QR placeholders | "#app-store", drawn badge box, dummy QR | real App Store URL + official Apple badge SVG + real QR | OPEN |
+| 8 | content/site.ts founderNote | empty (hidden) | real founder note + real kitchen photo, or stays hidden | OPEN |
+| 9 | content/site.ts demo.bands (inline-demo cards) | static budget-band dinner picks (real meals, real computed prices, but not the live solver's pick) | drive pickDinners from real solver output | OPEN |

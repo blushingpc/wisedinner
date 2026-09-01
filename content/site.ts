@@ -16,8 +16,7 @@ export const site = {
   quotes: [] as { text: string; name: string; city: string; date: string; tag?: string }[], // real only
   founderNote: { text: "", photo: "", name: "" }, // TODO(launch): real note + real kitchen photo
   strip: {
-    h2: "five dinners. one trip. $39.72.",
-    caption: "about 153 g of protein a day, nothing left to rot on thursday.",
+    // h2 + caption render computed from data/drop.json (weekly refresh) — only the enemy line is typed copy
     enemy: "no meal kit. no tracking. no 40-item list.",
   },
   receipt: {
@@ -46,5 +45,6 @@ export const site = {
       { max: 999, dinners: ["chicken thigh rice bowl", "pork loin and sweet potato", "tuna rice bowl, edamame"] },
     ],
   },
-  finalCta: { h2: "your protein. your budget. solved.", under: "free to pre-order · 21-day free trial" },
+  // finalCta h2 is rendered in app/page.tsx with an <em> around "solved." — edit it there
+  finalCta: { under: "free to pre-order · 21-day free trial" },
 };

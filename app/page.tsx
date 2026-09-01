@@ -27,7 +27,9 @@ const ORG = {
   url: SITE,
   logo: `${SITE}/press/wisedinner-mark.png`,
   email: "support@wisedinner.com",
-  description: ABOUT[1],
+  // benefit-worded on purpose — system words (solver etc.) stay off every homepage surface, JSON-LD included
+  description:
+    "a meal planner that turns two numbers — your weekly budget and your daily protein — into a solved week: five days of meals, one short list, an estimated in-store total.",
 };
 
 // "this week" screen — food first: depicted meals with computed prices (data/meals.ts), no receipt, no kcal.
@@ -103,9 +105,11 @@ export default function Home() {
               </div>
             </div>
             <HeroEmailFallback className="fade-up mt-3 [animation-delay:240ms] lg:mt-4" />
-            <p className="fade-up mt-3 inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft [animation-delay:240ms] lg:mt-4">
-              {site.hero.pill}
-            </p>
+            {site.hero.pill && (
+              <p className="fade-up mt-3 inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft [animation-delay:240ms] lg:mt-4">
+                {site.hero.pill}
+              </p>
+            )}
           </div>
 
           <div className="hero-field fade-up relative mx-auto h-[660px] w-full max-w-[600px] [animation-delay:160ms] lg:h-[780px]">
@@ -176,8 +180,9 @@ export default function Home() {
         {/* paper scrim block, bottom-left on desktop, beneath the image on mobile — the plates are never covered by text */}
         <div className="bg-bg lg:absolute lg:bottom-0 lg:left-0 lg:max-w-[640px] lg:rounded-tr-[14px]">
           <div className="px-6 py-8 lg:px-12 lg:py-10">
-            <h2 className="text-h2 font-bold text-balance">{site.strip.h2}</h2>
-            <p className="mt-3 text-caption font-semibold text-kale">{site.strip.caption}</p>
+            {/* numbers computed from drop.json so the weekly refresh can never strand a typed price (pricing-honesty law) */}
+            <h2 className="text-h2 font-bold text-balance">five dinners. one trip. ${drop.est_total.toFixed(2)}.</h2>
+            <p className="mt-3 text-caption font-semibold text-kale">about {drop.protein_per_day} g of protein a day, nothing left to rot on thursday.</p>
             <p className="mt-2 text-[0.9375rem] font-semibold text-kale">{site.strip.enemy}</p>
           </div>
         </div>
@@ -259,8 +264,8 @@ export default function Home() {
                 sizes="(min-width: 640px) 33vw, 100vw"
                 className="img-grade w-full rounded-[14px] object-cover"
               />
-              <figcaption className="mt-4 text-[1.75rem] leading-tight font-bold text-balance">{site.changes.items[i].title}</figcaption>
-              {site.changes.items[i].sub && <p className="mt-2 text-[0.9375rem] text-ink-soft">{site.changes.items[i].sub}</p>}
+              <figcaption className="mt-4 text-[1.75rem] leading-tight font-bold text-balance">{site.changes.items[i]?.title}</figcaption>
+              {site.changes.items[i]?.sub && <p className="mt-2 text-[0.9375rem] text-ink-soft">{site.changes.items[i].sub}</p>}
             </figure>
           ))}
         </div>

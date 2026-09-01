@@ -1,113 +1,113 @@
-﻿{
-    "starting_balance":  1178.5,
-    "generations":  [
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "generation",
-                            "what":  "A1-1 chicken thigh bowl, plain bg",
-                            "job_id":  "80dd870f-efe4-415f-b011-29b116382b2d",
-                            "used_for":  "hero cut-out dish (DESIGN-AUDIT Â§13 A1)",
-                            "model":  "nano_banana_2"
-                        },
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "generation",
-                            "what":  "A1-2 black bean egg bowl, plain bg",
-                            "job_id":  "a20d3cc8-cb6d-4442-b67a-6b9bc6cf97ee",
-                            "used_for":  "hero cut-out dish (A1)",
-                            "model":  "nano_banana_2"
-                        },
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "generation",
-                            "what":  "A1-3 yogurt parfait, plain bg",
-                            "job_id":  "af2b50c3-d0a5-4d93-b710-ac9130d421a2",
-                            "used_for":  "hero cut-out dish (A1)",
-                            "model":  "nano_banana_2"
-                        },
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "generation",
-                            "what":  "A2 five dinners table strip 21:9",
-                            "job_id":  "d7fbc407-b6a6-4fb5-8d3d-d8244decf52c",
-                            "used_for":  "full-bleed section 9.3 (A2)",
-                            "model":  "nano_banana_2"
-                        },
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "generation",
-                            "what":  "A3 twelve staples flat-lay dark",
-                            "job_id":  "7690110d-56ef-467a-93ad-6fec6e6574ae",
-                            "used_for":  "receipt room background (A3)",
-                            "model":  "nano_banana_2"
-                        },
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "generation",
-                            "what":  "A4-1 hands plating, no faces",
-                            "job_id":  "4152e784-82af-40b0-a6c9-65bf4092fc97",
-                            "used_for":  "benefit photo (A4)",
-                            "model":  "nano_banana_2"
-                        },
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "generation",
-                            "what":  "A4-2 basket of twelve staples",
-                            "job_id":  "62ebaa02-d5ac-420c-a26b-660789b0c2f9",
-                            "used_for":  "benefit photo (A4)",
-                            "model":  "nano_banana_2"
-                        },
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "generation",
-                            "what":  "A4-3 tidy fridge with containers",
-                            "job_id":  "cf73db35-a512-416c-bfb3-b72c70a4d1bb",
-                            "used_for":  "benefit photo (A4)",
-                            "model":  "nano_banana_2"
-                        },
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "edit-remove_background",
-                            "what":  "A1-1/2/3 cutouts",
-                            "job_id":  "b31fc85f + 464f0ee5 + d2282d75",
-                            "used_for":  "transparent hero dishes"
-                        },
-                        {
-                            "date":  "2026-08-31",
-                            "kind":  "edit-upscale-4k",
-                            "what":  "A2 hero-scale",
-                            "job_id":  "f76d64f2-465b-401f-9524-fc23d30210c1",
-                            "used_for":  "A2 desktop 3:1 + mobile 4:5 crops",
-                            "status":  "FAILED upstream (21:9 3168px input); A2 shipped from the 2K master â€” quality sufficient at 2560w web size"
-                        },
-                        {
-                            "what":  "meal-lentil-stew square bowl",
-                            "job_id":  "15ff8214-e4c3-463a-aadd-29376280e48c",
-                            "kind":  "generation",
-                            "date":  "2026-09-01",
-                            "used_for":  "inline-demo dinner card (strategy r1 §7)",
-                            "model":  "nano_banana_flash"
-                        },
-                        {
-                            "what":  "meal-pork-sweet-potato square plate",
-                            "job_id":  "b22e8c15-58b7-4ab4-8c78-b52869b71c68",
-                            "kind":  "generation",
-                            "date":  "2026-09-01",
-                            "used_for":  "inline-demo dinner card",
-                            "model":  "nano_banana_flash"
-                        },
-                        {
-                            "what":  "meal-tuna-bowl edamame square bowl",
-                            "job_id":  "4e6904cb-3b73-4227-8db2-5fcf51c56396",
-                            "kind":  "generation",
-                            "date":  "2026-09-01",
-                            "used_for":  "inline-demo dinner card",
-                            "model":  "nano_banana_flash"
-                        }
-                    ],
-    "credit_floor":  235.7,
-    "recorded_at":  "2026-09-01",
-    "iteration_generation_count":  3,
-    "day_generation_count":  3,
-    "balance_after_run":  1159.5
+{
+  "starting_balance": 1178.5,
+  "generations": [
+    {
+      "date": "2026-08-31",
+      "kind": "generation",
+      "what": "A1-1 chicken thigh bowl, plain bg",
+      "job_id": "80dd870f-efe4-415f-b011-29b116382b2d",
+      "used_for": "hero cut-out dish (DESIGN-AUDIT §13 A1)",
+      "model": "nano_banana_2"
+    },
+    {
+      "date": "2026-08-31",
+      "kind": "generation",
+      "what": "A1-2 black bean egg bowl, plain bg",
+      "job_id": "a20d3cc8-cb6d-4442-b67a-6b9bc6cf97ee",
+      "used_for": "hero cut-out dish (A1)",
+      "model": "nano_banana_2"
+    },
+    {
+      "date": "2026-08-31",
+      "kind": "generation",
+      "what": "A1-3 yogurt parfait, plain bg",
+      "job_id": "af2b50c3-d0a5-4d93-b710-ac9130d421a2",
+      "used_for": "hero cut-out dish (A1)",
+      "model": "nano_banana_2"
+    },
+    {
+      "date": "2026-08-31",
+      "kind": "generation",
+      "what": "A2 five dinners table strip 21:9",
+      "job_id": "d7fbc407-b6a6-4fb5-8d3d-d8244decf52c",
+      "used_for": "full-bleed section 9.3 (A2)",
+      "model": "nano_banana_2"
+    },
+    {
+      "date": "2026-08-31",
+      "kind": "generation",
+      "what": "A3 twelve staples flat-lay dark",
+      "job_id": "7690110d-56ef-467a-93ad-6fec6e6574ae",
+      "used_for": "receipt room background (A3)",
+      "model": "nano_banana_2"
+    },
+    {
+      "date": "2026-08-31",
+      "kind": "generation",
+      "what": "A4-1 hands plating, no faces",
+      "job_id": "4152e784-82af-40b0-a6c9-65bf4092fc97",
+      "used_for": "benefit photo (A4)",
+      "model": "nano_banana_2"
+    },
+    {
+      "date": "2026-08-31",
+      "kind": "generation",
+      "what": "A4-2 basket of twelve staples",
+      "job_id": "62ebaa02-d5ac-420c-a26b-660789b0c2f9",
+      "used_for": "benefit photo (A4)",
+      "model": "nano_banana_2"
+    },
+    {
+      "date": "2026-08-31",
+      "kind": "generation",
+      "what": "A4-3 tidy fridge with containers",
+      "job_id": "cf73db35-a512-416c-bfb3-b72c70a4d1bb",
+      "used_for": "benefit photo (A4)",
+      "model": "nano_banana_2"
+    },
+    {
+      "date": "2026-08-31",
+      "kind": "edit-remove_background",
+      "what": "A1-1/2/3 cutouts",
+      "job_id": "b31fc85f + 464f0ee5 + d2282d75",
+      "used_for": "transparent hero dishes"
+    },
+    {
+      "date": "2026-08-31",
+      "kind": "edit-upscale-4k",
+      "what": "A2 hero-scale",
+      "job_id": "f76d64f2-465b-401f-9524-fc23d30210c1",
+      "used_for": "A2 desktop 3:1 + mobile 4:5 crops",
+      "status": "FAILED upstream (21:9 3168px input); A2 shipped from the 2K master — quality sufficient at 2560w web size"
+    },
+    {
+      "date": "2026-09-01",
+      "kind": "generation",
+      "what": "meal-lentil-stew square bowl",
+      "job_id": "15ff8214-e4c3-463a-aadd-29376280e48c",
+      "used_for": "inline-demo dinner card (strategy r1 §7)",
+      "model": "nano_banana_flash"
+    },
+    {
+      "date": "2026-09-01",
+      "kind": "generation",
+      "what": "meal-pork-sweet-potato square plate",
+      "job_id": "b22e8c15-58b7-4ab4-8c78-b52869b71c68",
+      "used_for": "inline-demo dinner card",
+      "model": "nano_banana_flash"
+    },
+    {
+      "date": "2026-09-01",
+      "kind": "generation",
+      "what": "meal-tuna-bowl edamame square bowl",
+      "job_id": "4e6904cb-3b73-4227-8db2-5fcf51c56396",
+      "used_for": "inline-demo dinner card",
+      "model": "nano_banana_flash"
+    }
+  ],
+  "credit_floor": 235.7,
+  "recorded_at": "2026-09-01",
+  "iteration_generation_count": 3,
+  "day_generation_count": 3,
+  "balance_after_run": 1155.0
 }

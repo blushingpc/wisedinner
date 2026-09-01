@@ -75,7 +75,8 @@ export function InlineDemo({ pool }: { pool: DemoDinner[] }) {
       <PreviewLine budget={budget} protein={protein} items={itemsFor(budget)} className="mt-6 border-t border-rule pt-4" />
 
       <p className="mt-5 text-caption text-ink-soft">{site.demo.previewNote}</p>
-      <div key={bandIdx} className="demo-fade mt-3 grid grid-cols-2 gap-3">
+      {/* static band picks, tagged until the real solver drives them (TRUTH-AUDIT row 9) */}
+      <div key={bandIdx} data-truth="placeholder" className="demo-fade mt-3 grid grid-cols-2 gap-3">
         {dinners.map((d) => (
           <figure key={d.name} className="flex min-h-24 items-center gap-3">
             <Image src={d.img} alt={d.alt} width={192} height={192} quality={75} sizes="96px" className="img-grade size-24 shrink-0 rounded-[10px] object-cover" />

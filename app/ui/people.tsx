@@ -28,7 +28,7 @@ export function People() {
           </div>
         )}
         {hasFounder && (
-          <div className={`grid items-center gap-10 sm:grid-cols-[2fr_3fr] ${stats.length > 0 ? "mt-14" : ""}`}>
+          <div className={`${founderNote.photo ? "grid items-center gap-10 sm:grid-cols-[2fr_3fr]" : "max-w-[52ch]"} ${stats.length > 0 ? "mt-14" : ""}`}>
             {founderNote.photo && (
               <Image
                 src={founderNote.photo}
@@ -42,7 +42,7 @@ export function People() {
             )}
             <div>
               <p className="text-[1.25rem] font-medium leading-relaxed">{founderNote.text}</p>
-              <p className="mt-4 text-caption text-ink-soft">— {founderNote.name}</p>
+              {founderNote.name && <p className="mt-4 text-caption text-ink-soft">— {founderNote.name}</p>}
             </div>
           </div>
         )}
