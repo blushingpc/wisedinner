@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { STEPS } from "../copy";
 import { DeviceFrame } from "./device-frame";
+import { PreviewLine } from "./preview-line";
 
 // how-it-works per DESIGN-AUDIT §9.4/§12: desktop pins one phone while three steps scroll past
 // (screen crossfades per step); mobile is a snap-scroll carousel with dots. step 2 plays the
@@ -37,10 +38,7 @@ function StepScreen({ step, fresh, shelf, play = false }: { step: number; fresh:
         <SliderRow label="protein per day" value="150 g" frac="w-2/3" />
         <div className="border-t border-rule pt-5">
           <p className="text-caption font-semibold text-ink-soft">that&apos;s all we ask.</p>
-          <p className="mt-3 text-[0.9375rem] text-ink-soft">
-            <span className="font-semibold text-ink">$60</span> → 5 dinners · <span className="font-semibold text-ink">150 g</span> a day · ~
-            <span className="font-semibold text-ink">12</span> items
-          </p>
+          <PreviewLine budget={60} protein={150} items={12} className="mt-3 text-[0.9375rem]" />
           <span className="cta cta-kale pointer-events-none mt-4">solve my week</span>
         </div>
       </div>

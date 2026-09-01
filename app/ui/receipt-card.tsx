@@ -1,4 +1,5 @@
 import type { SolveOutput } from "@/app/api/solve/solver";
+import { site } from "@/content/site";
 import { CountUp } from "./count-up";
 
 type Props = { week: SolveOutput; variant: "plan" | "drop" | "mini" | "proof"; title?: string; printedAt?: string; tilt?: boolean };
@@ -70,6 +71,7 @@ export function ReceiptCard({ week, variant, title = "your week, solved", printe
       {variant === "drop" && <Row l="kcal / day" r={`${week.kcal_per_day}`} />}
       <Row l="food wasted" r="0" />
       <p className="my-3 text-center text-ink-soft">* * *</p>
+      {proof && <p className="mb-2 text-center text-[0.75rem] text-ink-soft">{site.receipt.refreshed}</p>}
       {!mini && <div className="barcode" aria-hidden="true" />}
       {!proof && (
         <p className="mt-2 text-center text-ink-soft">

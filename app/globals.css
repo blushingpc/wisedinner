@@ -175,6 +175,11 @@
   to { opacity: 1; transform: none; }
 }
 .fade-up { animation: fade-up 300ms var(--ease-press) both; }
+/* demo dinner cards fade in on budget-band change (200ms, opacity only) */
+@keyframes demo-fade {
+  from { opacity: 0; }
+}
+.demo-fade { animation: demo-fade 200ms ease-out both; }
 
 /* walkthrough step 2 "solving" (§12.2) — chips pop in staggered, the solved line lands last; plays once */
 @keyframes chip-in {
@@ -185,7 +190,7 @@
 .solve-play .solve-done { opacity: 0; animation: fade-up 300ms var(--ease-press) 1150ms forwards; }
 
 @media (prefers-reduced-motion: reduce) {
-  .dish-drift, .hero-xfade-b, .fade-up, .solve-play .chip-in, .solve-play .solve-done { animation: none; }
+  .dish-drift, .hero-xfade-b, .fade-up, .demo-fade, .solve-play .chip-in, .solve-play .solve-done { animation: none; }
   .solve-play .chip-in, .solve-play .solve-done { opacity: 1; }
 }
 

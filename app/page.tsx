@@ -35,7 +35,7 @@ function ScreenThisWeek({ priority = false }: { priority?: boolean }) {
   return (
     <>
       <p className="text-caption font-semibold text-kale">this week</p>
-      {meals.map((m) => (
+      {meals.slice(0, 3).map((m) => (
         <MealCard key={m.name} meal={m} priority={priority} />
       ))}
       <p className="mt-4 text-caption font-semibold text-ink-soft">five days · one list · one trip</p>
@@ -70,6 +70,9 @@ function ScreenTheList() {
   );
 }
 
+// dinner-card pool for the inline demo — precomputed server-side so staples stay out of the client bundle
+const demoPool = meals.map(({ name, img, alt, price_usd }) => ({ name, img, alt, price_usd }));
+
 export default function Home() {
   return (
     <main id="main">
@@ -77,21 +80,21 @@ export default function Home() {
 
       {/* S1 hero — one phone full of food, cut-out dishes, inline email (DESIGN-AUDIT §8) */}
       <section className="overflow-hidden">
-        <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-12 lg:min-h-[90dvh] lg:grid-cols-[5fr_7fr] lg:px-12 lg:py-16">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-6 px-6 py-7 lg:min-h-[90dvh] lg:grid-cols-[5fr_7fr] lg:gap-10 lg:px-12 lg:py-16">
           <div>
             <ProofChip className="fade-up mb-4" />
-            <h1 className="rise-up text-display font-extrabold text-balance">{HERO.h1}</h1>
-            <p className="fade-up mt-6 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{HERO.sub}</p>
+            <h1 className="rise-up text-display font-extrabold text-balance">{site.hero.h1}</h1>
+            <p className="fade-up mt-5 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{site.hero.lede}</p>
             {/* no entrance animation on this row — the Apple badge must never animate */}
-            <div className="mt-8 flex items-start gap-8">
+            <div className="mt-6 flex items-start gap-8 lg:mt-8">
               <div>
                 <div className="flex flex-wrap items-center gap-4">
-                  <AppStoreBadge />
+                  <AppStoreBadge placement="hero" />
                   <Link href="/start" className="cta cta-ghost">
                     {HERO.demo}
                   </Link>
                 </div>
-                {site.hero.perk && <p className="mt-4 text-caption font-semibold text-kale">{site.hero.perk}</p>}
+                {site.hero.perk && <p className="mt-3 text-caption font-semibold text-kale lg:mt-4">{site.hero.perk}</p>}
               </div>
               {/* TODO(launch): swap for a QR that encodes the App Store URL */}
               <div className="hidden shrink-0 lg:block">
@@ -99,8 +102,10 @@ export default function Home() {
                 <p className="mt-1 text-[0.75rem] text-ink-3">scan to pre-order</p>
               </div>
             </div>
-            <HeroEmailFallback className="fade-up mt-4 [animation-delay:240ms]" />
-            <p className="fade-up mt-4 inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft [animation-delay:240ms]">{HERO.pill}</p>
+            <HeroEmailFallback className="fade-up mt-3 [animation-delay:240ms] lg:mt-4" />
+            <p className="fade-up mt-3 inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft [animation-delay:240ms] lg:mt-4">
+              {site.hero.pill}
+            </p>
           </div>
 
           <div className="hero-field fade-up relative mx-auto h-[660px] w-full max-w-[600px] [animation-delay:160ms] lg:h-[780px]">
@@ -171,10 +176,9 @@ export default function Home() {
         {/* paper scrim block, bottom-left on desktop, beneath the image on mobile — the plates are never covered by text */}
         <div className="bg-bg lg:absolute lg:bottom-0 lg:left-0 lg:max-w-[640px] lg:rounded-tr-[14px]">
           <div className="px-6 py-8 lg:px-12 lg:py-10">
-            <h2 className="text-h2 font-bold text-balance">
-              five dinners. one trip. ${drop.est_total.toFixed(2)}.
-            </h2>
-            <p className="mt-3 text-caption font-semibold text-kale">about {drop.protein_per_day} g of protein a day, nothing left to rot on thursday.</p>
+            <h2 className="text-h2 font-bold text-balance">{site.strip.h2}</h2>
+            <p className="mt-3 text-caption font-semibold text-kale">{site.strip.caption}</p>
+            <p className="mt-2 text-[0.9375rem] font-semibold text-kale">{site.strip.enemy}</p>
           </div>
         </div>
       </section>
@@ -211,10 +215,12 @@ export default function Home() {
         />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-12 px-6 lg:grid-cols-[5fr_7fr] lg:px-12">
           <div>
-            <h2 className="text-h2 font-bold text-balance">the receipt is the proof.</h2>
-            <p className="mt-4 max-w-[44ch] text-bg/80">
-              shelf prices, refreshed weekly. no delivery markups, no sponsored picks, no fake reviews.
-            </p>
+            <h2 className="text-h2 font-bold text-balance">{site.receipt.h2}</h2>
+            <p className="mt-4 max-w-[44ch] text-[1.125rem] leading-relaxed text-bg/85">{site.receipt.caption}</p>
+            <p className="mt-2 max-w-[44ch] text-[1.125rem] leading-relaxed text-bg/85">{site.receipt.promises}</p>
+            <Link href="/the-math" className="text-link mt-5 inline-flex min-h-11 items-center text-bg">
+              how the math works →
+            </Link>
           </div>
           <div data-reveal className="receipt-print rotate-[3deg] justify-self-center lg:justify-self-start">
             <ReceiptCard week={drop} variant="proof" title="this week, solved" />
@@ -225,34 +231,22 @@ export default function Home() {
       {/* S5 inline demo — step one of /start embedded, values carry into the quiz (§9.5, Tier 2 item 2) */}
       <section className="py-16 lg:py-24">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 lg:grid-cols-[5fr_7fr] lg:px-12">
-          <h2 className="text-h2 font-bold text-balance">see your week solved in 60 seconds.</h2>
+          <h2 className="text-h2 font-bold text-balance">{site.demo.h2}</h2>
           <div className="w-full max-w-[520px] lg:justify-self-center">
-            <InlineDemo />
+            <InlineDemo pool={demoPool} />
           </div>
         </div>
       </section>
 
       {/* S6 three benefits — photo-led, no cards (§9.8, Tier 2 item 3) */}
       <section className="bg-white py-16 lg:py-24">
-        <h2 className="sr-only">what changes</h2>
+        <h2 className="sr-only">{site.changes.h2}</h2>
         <div className="mx-auto grid max-w-[1200px] gap-10 px-6 sm:grid-cols-3 sm:gap-6 lg:px-12">
           {(
             [
-              {
-                src: "/img/A4-1.jpg",
-                alt: "hands plating sliced roasted chicken over rice in a warm kitchen, evening light",
-                line: "never ask “what’s for dinner.”",
-              },
-              {
-                src: "/img/A4-2.jpg",
-                alt: "a single wire grocery basket on a wooden counter holding twelve everyday staples",
-                line: "one short list. one trip.",
-              },
-              {
-                src: "/img/A4-3.jpg",
-                alt: "an open, tidy refrigerator with five glass meal-prep containers on one shelf",
-                line: "nothing rots on thursday.",
-              },
+              { src: "/img/A4-1.jpg", alt: "hands plating sliced roasted chicken over rice in a warm kitchen, evening light" },
+              { src: "/img/A4-2.jpg", alt: "a single wire grocery basket on a wooden counter holding twelve everyday staples" },
+              { src: "/img/A4-3.jpg", alt: "an open, tidy refrigerator with five glass meal-prep containers on one shelf" },
             ] as const
           ).map((b, i) => (
             <figure key={b.src} className={i === 1 ? "lg:mt-10" : undefined}>
@@ -265,7 +259,8 @@ export default function Home() {
                 sizes="(min-width: 640px) 33vw, 100vw"
                 className="img-grade w-full rounded-[14px] object-cover"
               />
-              <figcaption className="mt-4 text-[1.75rem] leading-tight font-bold text-balance">{b.line}</figcaption>
+              <figcaption className="mt-4 text-[1.75rem] leading-tight font-bold text-balance">{site.changes.items[i].title}</figcaption>
+              {site.changes.items[i].sub && <p className="mt-2 text-[0.9375rem] text-ink-soft">{site.changes.items[i].sub}</p>}
             </figure>
           ))}
         </div>
@@ -291,11 +286,12 @@ export default function Home() {
           <h2 className="text-display font-bold text-balance">your protein. your budget. <em>solved.</em></h2>
           <div className="self-center">
             <div className="flex flex-wrap items-center gap-4">
-              <PreorderButton variant="ink" />
+              <PreorderButton variant="ink" placement="final" />
               <Link href="/start" className="cta cta-ghost">
                 {HERO.demo}
               </Link>
             </div>
+            <p className="mt-3 text-[0.8125rem] text-ink/80">{site.finalCta.under}</p>
             <div className="mt-8">
               <WaitlistForm source="final" yolk label="not on iPhone? get the launch email" />
             </div>

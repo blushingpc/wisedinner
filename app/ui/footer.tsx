@@ -8,6 +8,7 @@ const GROUPS: [string, [string, string][]][] = [
     "product",
     [
       ["how it works", "/#how"],
+      ["the math", "/the-math"],
       ["pricing", "/pricing"],
       ["this week's drop", "/drop"],
       ["faq", "/faq"],

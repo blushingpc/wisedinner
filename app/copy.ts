@@ -9,10 +9,7 @@ export const SITE = "https://www.wisedinner.com";
 
 // homepage copy — DESIGN-AUDIT §18.4 copy deck, verbatim where the deck is verbatim
 export const HERO = {
-  h1: "hit your protein. spend way less.",
-  sub: "tell us your budget and protein goal. we plan five days of meals and one short grocery list.",
-  pill: "free to pre-order · installs itself on launch day · 21-day free trial",
-  demo: "try the free demo →",
+  demo: "try the free demo →", // h1/lede/pill live in content/site.ts (site.hero)
 };
 
 export const STEPS = [
@@ -38,15 +35,17 @@ export const FAQ = [
   },
   {
     q: "what is wisedinner?",
-    a: "a meal planner that treats groceries as a math problem: your weekly budget and a protein target in, a solved week out — one short list, five days of meals, an estimated in-store total. it's an app first; this site is the demo and the pre-order.",
+    a: "a meal planner that turns two numbers — your weekly budget and your daily protein — into a solved week: five days of meals, one short list, an estimated in-store total. it can’t get the math wrong, and it shows you the receipt. it’s an app first; this site is the demo and the pre-order.",
   },
   {
     q: "how accurate are the prices?",
     a: "they're averages from public price data with a buffer on top, labeled as estimates, refreshed weekly. we quote shelf prices, not delivery-app prices — those run 15–25% higher before fees. your receipt is the truth — in the app, every receipt you log tightens the estimate for you.",
+    more: { label: "how the math works →", href: "/the-math" },
   },
   {
     q: "why not just use chatgpt?",
     a: "a chat model can't hold real prices, can't aggregate half an onion across five days, and can't guarantee the math. our solver is deterministic: same numbers in, same week out, and it can't get arithmetic wrong. then we show receipts.",
+    more: { label: "how the math works →", href: "/the-math" },
   },
   {
     q: "is this medical or diet advice?",

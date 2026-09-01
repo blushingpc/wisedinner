@@ -34,6 +34,38 @@ const MEALS: { name: string; img: string; alt: string; parts: [string, number][]
       ["eggs, large", 1 / 6],
     ],
   },
+  // demo-band dinners — parts mirror data/templates.ts so the card price matches the solver's meal
+  {
+    name: "lentil and chicken stew",
+    img: "/img/meal-lentil-stew.jpg",
+    alt: "rustic ceramic bowl of lentil stew with shredded chicken, carrots and tomato",
+    parts: [
+      ["lentils, dry", 1 / 4],
+      ["canned chicken breast", 1 / 2],
+      ["canned diced tomatoes", 1 / 2],
+      ["carrots", 1 / 4],
+    ],
+  },
+  {
+    name: "pork loin and sweet potato",
+    img: "/img/meal-pork-sweet-potato.jpg",
+    alt: "plate of sliced roasted pork loin with cubed sweet potato and carrots",
+    parts: [
+      ["pork loin", 1 / 6],
+      ["sweet potatoes", 1 / 4],
+      ["carrots", 1 / 4],
+    ],
+  },
+  {
+    name: "tuna rice bowl, edamame",
+    img: "/img/meal-tuna-bowl.jpg",
+    alt: "bowl of white rice topped with flaked tuna and shelled edamame",
+    parts: [
+      ["canned tuna in water", 2],
+      ["white rice, long grain", 1 / 16],
+      ["frozen edamame, shelled", 1 / 3],
+    ],
+  },
 ];
 
 export const meals: Meal[] = MEALS.map(({ parts, ...m }) => {

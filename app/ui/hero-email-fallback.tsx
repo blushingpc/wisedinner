@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { site } from "@/content/site";
 import { WaitlistForm } from "./waitlist-form";
 
 // hero tertiary — quiet "not on iPhone?" link that expands the email fallback inline (200ms height/opacity)
@@ -15,7 +16,7 @@ export function HeroEmailFallback({ className = "" }: { className?: string }) {
         aria-controls="hero-email"
         className="min-h-11 text-[0.9375rem] font-medium underline-offset-4 hover:underline"
       >
-        not on iPhone? get the launch email →
+        {site.hero.notOnIphone}
       </button>
       <div
         id="hero-email"
