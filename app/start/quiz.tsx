@@ -28,7 +28,9 @@ export function decodeAnswers(p: string): (Answers & { seed?: number }) | null {
   try {
     const bin = atob(p.replace(/-/g, "+").replace(/_/g, "/"));
     const o = JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0))));
-    if (typeof o.budget !== "number" || typeof o.protein !== "number" || typeof o.band !== "number" || typeof o.household !== "number") return null;
+    // the quiz's own ranges — anything outside them is a dead link, not a request for the API to refuse
+    const within = (v: unknown, lo: number, hi: number) => typeof v === "number" && v >= lo && v <= hi;
+    if (!within(o.budget, 30, 120) || !within(o.protein, 80, 220) || !Number.isInteger(o.band) || !(o.band in BANDS) || !Number.isInteger(o.household) || !within(o.household, 1, 4)) return null;
     if (!DIETS.includes(o.diet) || !Array.isArray(o.pantry) || !o.pantry.every((x: unknown) => typeof x === "string")) return null;
     return { ...DEFAULTS, ...o, spend: typeof o.spend === "string" ? o.spend : "" };
   } catch {
@@ -52,7 +54,19 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
   const [error, setError] = useState("");
   const form = useRef<HTMLFormElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
-  const goTo = (n: number) => router.push(`/start?step=${n + 1}`, { scroll: false });
+  const depth = useRef(0); // quiz-internal history entries this mount pushed — "back" only pops history it owns
+  const goTo = (n: number) => {
+    depth.current++;
+    router.push(`/start?step=${n + 1}`, { scroll: false });
+  };
+  const back = () => {
+    setError("");
+    if (depth.current > 0) {
+      depth.current--;
+      return router.back();
+    }
+    router.push(`/start?step=${step}`, { scroll: false }); // landed here directly: the previous entry is not a quiz step
+  };
 
   // refresh-safe: answers + furthest step live in sessionStorage (no cookies from us)
   useEffect(() => {
@@ -80,12 +94,15 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
     } catch {}
   }, [a, reached, hydrated]);
 
-  // first paint: the field is focused so Enter submits. every later step: focus lands on the step heading (WD-04)
-  const mounted = useRef(false);
+  // first paint: the field is focused so Enter submits. every later step: focus lands on the step heading (WD-04).
+  // keyed on the step that changed, so StrictMode's second effect run is a no-op.
+  const shownStep = useRef<number | null>(null);
   useEffect(() => {
-    if (mounted.current) return heading.current?.focus();
-    mounted.current = true;
-    form.current?.querySelector<HTMLElement>("input:checked, input:not([type=hidden])")?.focus();
+    if (shownStep.current === step) return;
+    const first = shownStep.current === null;
+    shownStep.current = step;
+    if (first) form.current?.querySelector<HTMLElement>("input:checked, input:not([type=hidden])")?.focus();
+    else heading.current?.focus();
   }, [step]);
 
   const set = (patch: Partial<Answers>) => setA((prev) => ({ ...prev, ...patch }));
@@ -237,7 +254,7 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
             {status === "loading" ? "solving…" : step < STEPS - 1 ? "next" : "solve my week"}
           </button>
           {step > 0 && (
-            <button type="button" onClick={() => (setError(""), router.back())} className="text-link min-h-11">
+            <button type="button" onClick={back} className="text-link min-h-11">
               back
             </button>
           )}

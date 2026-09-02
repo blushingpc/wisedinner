@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { SolveResponse } from "@/app/api/solve/route";
 import { ReceiptCard } from "@/app/ui/receipt-card";
 import { WaitlistForm } from "@/app/ui/waitlist-form";
@@ -19,9 +19,20 @@ async function solve(answers: Answers, seed?: number): Promise<SolveResponse> {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ budget: answers.budget, protein_per_day: answers.protein, kcal_min: lo, kcal_max: hi, diet: answers.diet, household: answers.household, pantry: answers.pantry, ...(seed !== undefined && { seed }) }),
   });
-  if (!res.ok) throw new Error(String(res.status));
+  if (!res.ok) throw new Error(String(res.status)); // the status is the message: 429 → busy, other 4xx → dead link, 5xx/network → error
   return res.json();
 }
+
+const failState = (e: unknown) => {
+  const status = Number(e instanceof Error ? e.message : 0);
+  return status === 429 ? "busy" : status >= 400 && status < 500 ? "empty" : "error";
+};
+
+const FAIL_COPY = {
+  empty: ["that plan’s gone.", "plans live in your browser, not our servers. solving a new one takes about 60 seconds."],
+  busy: ["the solver is busy.", "too many weeks solved from here in the last minute. wait a minute, then reload this link — it still works."],
+  error: ["the solver didn’t answer.", "check your connection and reload this link, or solve a fresh week — it takes about 60 seconds."],
+} as const;
 
 // honest photos only: exact template-name matches to photography we own — never a look-alike (truth law)
 const MEAL_IMG: Record<string, { src: string; alt: string }> = {
@@ -34,18 +45,22 @@ export function Plan({ badge }: { badge: ReactNode }) {
   const router = useRouter();
   const p = useSearchParams().get("p");
   const [s, setS] = useState<Session | null>(null);
-  const [state, setState] = useState<"loading" | "empty" | "error" | "ready">("loading");
+  const [state, setState] = useState<"loading" | "empty" | "busy" | "error" | "ready">("loading");
   const [useClosest, setUseClosest] = useState(false);
   const [printedAt, setPrintedAt] = useState("");
   const [regen, setRegen] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [showMath, setShowMath] = useState(false);
+  const shown = useRef<string | null>(null); // the ?p= this component itself wrote — its own router.replace must not count as a new visit
 
   const show = (next: Session) => {
-    sessionStorage.setItem(KEY.plan, JSON.stringify(next));
+    try {
+      sessionStorage.setItem(KEY.plan, JSON.stringify(next)); // fast path only; the URL is the source of truth
+    } catch {}
     setS(next);
     setState("ready");
     // the URL is the share link: answers + the seed that picked this week (WD-06)
     const q = encodeAnswers(next.answers, next.week.seed);
+    shown.current = q;
     if (q !== p) router.replace(`/plan?p=${q}`, { scroll: false });
   };
 
@@ -65,39 +80,38 @@ export function Plan({ badge }: { badge: ReactNode }) {
   // ?p= wins (a shared or reopened link re-solves — the solver is deterministic), the session is the fast path,
   // and with neither we say so instead of bouncing to the quiz (WD-06)
   useEffect(() => {
+    if (p && p === shown.current) return; // the URL rewrite from show(): already rendered, already counted
     let cached: Session | null = null;
     try {
       cached = JSON.parse(sessionStorage.getItem(KEY.plan) ?? "null");
     } catch {}
-    const fromUrl = p ? decodeAnswers(p) : null;
     const done = (next: Session) => {
       show(next);
       setPrintedAt(new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }).toLowerCase());
       track("reveal_view");
     };
-    if (fromUrl) {
+    if (p) {
+      const fromUrl = decodeAnswers(p);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- a present-but-broken link is a dead link, not a reason to show someone else's cached week
+      if (!fromUrl) return setState("empty");
       const { seed, ...answers } = fromUrl;
       if (cached && encodeAnswers(cached.answers, cached.week.seed) === p) return done(cached);
       solve(answers, seed)
         .then((week) => done({ answers, week }))
-        .catch(() => setState("error"));
+        .catch((e) => setState(failState(e)));
       return;
     }
     if (cached) return done(cached);
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- reading the session after mount is the point
     setState("empty");
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once per ?p; show() only rewrites the URL
   }, [p]);
 
-  if (state === "empty" || state === "error") {
+  if (state === "empty" || state === "busy" || state === "error") {
+    const [h1, body] = FAIL_COPY[state];
     return (
       <div className="max-w-[46ch]">
-        <h1 className="text-h2 font-bold text-balance">{state === "empty" ? "that plan’s gone." : "the solver didn’t answer."}</h1>
-        <p className="mt-4 text-ink-soft">
-          {state === "empty"
-            ? "plans live in your browser, not our servers. solving a new one takes about 60 seconds."
-            : "check your connection and reload this link, or solve a fresh week — it takes about 60 seconds."}
-        </p>
+        <h1 className="text-h2 font-bold text-balance">{h1}</h1>
+        <p className="mt-4 text-ink-soft">{body}</p>
         <Link href="/start" className="cta mt-8">
           solve my week →
         </Link>

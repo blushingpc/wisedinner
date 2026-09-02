@@ -1,5 +1,6 @@
 import Image, { getImageProps } from "next/image";
 import Link from "next/link";
+import { preload, type PreloadOptions } from "react-dom";
 import { drop } from "@/data/drop";
 import { meals } from "@/data/meals";
 import { site } from "@/content/site";
@@ -82,6 +83,9 @@ const { props: a2Wide } = getImageProps({ src: "/img/A2.jpg", alt: A2_ALT, width
 const { props: a2Mobile } = getImageProps({ src: "/img/A2-mobile.jpg", alt: A2_ALT, width: 1600, height: 2000, quality: 75, sizes: "100vw", priority: true });
 
 export default function Home() {
+  // WD-10: one media-scoped head preload per S2 crop, so each viewport announces only the image it will show
+  preload(a2Mobile.src as string, { as: "image", imageSrcSet: a2Mobile.srcSet as string, imageSizes: a2Mobile.sizes, media: "(max-width: 639px)", fetchPriority: "high" } as PreloadOptions);
+  preload(a2Wide.src as string, { as: "image", imageSrcSet: a2Wide.srcSet as string, imageSizes: a2Wide.sizes, media: "(min-width: 640px)", fetchPriority: "high" } as PreloadOptions);
   return (
     <main id="main">
       <script type="application/ld+json">{JSON.stringify(ORG)}</script>
@@ -169,8 +173,6 @@ export default function Home() {
       <section id="week" className="relative">
         {/* one <picture>, two crops: phones fetch only the tall crop, everything else only the wide one (WD-10 — the
             hidden twin used to download and render at 0×0). preloads are media-scoped for the same reason. */}
-        <link rel="preload" as="image" media="(max-width: 639px)" imageSrcSet={a2Mobile.srcSet} imageSizes={a2Mobile.sizes} />
-        <link rel="preload" as="image" media="(min-width: 640px)" imageSrcSet={a2Wide.srcSet} imageSizes={a2Wide.sizes} />
         <picture>
           <source media="(max-width: 639px)" srcSet={a2Mobile.srcSet} sizes={a2Mobile.sizes} width={1600} height={2000} />
           <img {...a2Wide} alt={A2_ALT} fetchPriority="high" className="img-grade w-full object-cover lg:min-h-[60vh]" />
