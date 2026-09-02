@@ -6,7 +6,7 @@ import { Section } from "@/app/ui/section";
 
 export const metadata: Metadata = {
   title: "About — WiseDinner",
-  description: "Why we built a grocery solver instead of another macro tracker, and the three things we refuse to do.",
+  description: "why we built a grocery solver instead of another macro tracker, how two numbers become a solved week, and the three things we refuse to do.",
   alternates: { canonical: "/about" },
 };
 

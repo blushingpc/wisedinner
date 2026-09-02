@@ -44,6 +44,13 @@ export const site = {
       { max: 999, dinners: ["chicken thigh rice bowl", "pork loin and sweet potato", "tuna rice bowl, edamame"] },
     ],
   },
+  // /pricing cards + Offer JSON-LD (WD-16). pricing honesty law: these are the only pricing numbers on the site
+  pricing: {
+    tiers: [
+      { name: "protein plan", monthly: 8.99, yearly: 59, perMonth: 4.99, popular: true, rows: [["weeks solved", "unlimited"], ["grocery list", "export + print"], ["re-solve", "any time"], ["receipt ledger", "included"], ["pantry credit", "included"]] },
+      { name: "autopilot", monthly: 12.99, yearly: 89, perMonth: 7.49, popular: false, rows: [["everything in protein plan", "yes"], ["next week, solved automatically", "sunday"], ["price alerts on your staples", "weekly"], ["household up to", "4"], ["delivery export w/ fees shown", "included"]] },
+    ] as { name: string; monthly: number; yearly: number; perMonth: number; popular: boolean; rows: [string, string][] }[],
+  },
   // finalCta h2 is rendered in app/page.tsx with an <em> around "solved." — edit it there
   finalCta: { under: "free to pre-order · 21-day free trial" },
 };

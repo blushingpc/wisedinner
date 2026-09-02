@@ -5,7 +5,7 @@ import { InlineDemo } from "@/app/ui/inline-demo";
 
 export const metadata: Metadata = {
   title: "How the math works — WiseDinner",
-  description: "Two numbers in, a solved week out: fixed staple pool, real shelf prices, nothing wasted by construction.",
+  description: "two numbers in, a solved week out: a fixed pool of staples, real shelf prices with a buffer, whole packs eaten by construction, and a receipt to check.",
   alternates: { canonical: "/the-math" },
 };
 

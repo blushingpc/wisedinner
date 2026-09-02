@@ -5,7 +5,7 @@ import { Quiz } from "./quiz";
 
 export const metadata: Metadata = {
   title: "Solve my week — WiseDinner",
-  description: "60 seconds: your budget, your protein target, your solved week.",
+  description: "solve a week in 60 seconds. tell us your budget and protein target — get five dinners, one short list, and a real in-store total. no account, no card.",
   alternates: { canonical: "/start" },
 };
 

@@ -5,7 +5,7 @@ import { Section } from "@/app/ui/section";
 
 export const metadata: Metadata = {
   title: "Press — WiseDinner",
-  description: "Boilerplate, brand mark, and contact for press.",
+  description: "press kit for wisedinner: the one-paragraph boilerplate, the vector mark and a 2048px png, everything as one zip, and the address to write to.",
   alternates: { canonical: "/press" },
 };
 

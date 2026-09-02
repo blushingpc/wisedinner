@@ -90,8 +90,9 @@ html {
   --z-toast: 110; /* skip-to-content link */
 }
 
+/* WD-13: currentColor follows the control's own text, so the ring reads on paper, yolk, kale and black alike */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid currentColor;
   outline-offset: 2px;
 }
 

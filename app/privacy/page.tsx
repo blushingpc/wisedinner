@@ -4,7 +4,7 @@ import { LegalLayout, type LegalSection } from "@/app/ui/legal-layout";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — WiseDinner",
-  description: "What we collect, what we don't, and how to get it deleted.",
+  description: "what wisedinner collects, what it never does with it, where it lives, how long we keep it, and how to see or delete it. no data sales, not ever.",
   alternates: { canonical: "/privacy" },
 };
 

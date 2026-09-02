@@ -61,6 +61,13 @@ export const FAQ = [
   },
 ];
 
+// FAQPage JSON-LD for any subset of FAQ (WD-15: /faq and the homepage preview both emit it)
+export const faqLd = (items: { q: string; a: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
+});
+
 export const ABOUT = [
   "groceries got absurd. protein got expensive. and every app we tried optimized macros, not money — it would hand you a perfect day of eating that cost more than your rent allowed, then shrug when half of it rotted on thursday.",
   "wisedinner is the other way round. you give it two numbers: what you can spend this week and how much protein you want a day. a deterministic solver returns one short list from a fixed pool of staples, five days of meals that share ingredients, and an estimated in-store total. the whole package gets eaten, by construction.",
