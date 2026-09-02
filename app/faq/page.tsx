@@ -1,25 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FAQ } from "@/app/copy";
+import { FAQ, faqLd } from "@/app/copy";
 import { Accordion } from "@/app/ui/accordion";
 import { Section } from "@/app/ui/section";
 
 export const metadata: Metadata = {
   title: "FAQ — WiseDinner",
-  description: "How the solver works, how accurate the prices are, what it will cost, and what we do with your data.",
+  description: "when the app launches, what it costs, how accurate the shelf prices are, why not just ask a chatbot, and what we do with your data — answered plainly.",
   alternates: { canonical: "/faq" },
-};
-
-const LD = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
 };
 
 export default function Faq() {
   return (
     <main id="main">
-      <script type="application/ld+json">{JSON.stringify(LD)}</script>
+      <script type="application/ld+json">{JSON.stringify(faqLd(FAQ))}</script>
       <Section>
         <p className="font-mono text-micro uppercase text-green-600">faq</p>
         <h1 className="mt-4 text-display font-bold">questions.</h1>

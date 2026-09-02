@@ -4,7 +4,7 @@ import { LegalLayout, type LegalSection } from "@/app/ui/legal-layout";
 
 export const metadata: Metadata = {
   title: "Terms of Service — WiseDinner",
-  description: "The terms for using the wisedinner demo and waitlist.",
+  description: "the terms for using the wisedinner demo and launch email list: what the estimates are and aren't, what the waitlist promises, and how we settle things.",
   alternates: { canonical: "/terms" },
 };
 

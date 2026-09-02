@@ -7,7 +7,7 @@ import { WaitlistForm } from "@/app/ui/waitlist-form";
 
 export const metadata: Metadata = {
   title: "This week's protein plan — WiseDinner",
-  description: "One universal high-protein week at real in-store prices, refreshed every Sunday.",
+  description: "one universal high-protein week at real in-store prices, refreshed every sunday: five days of meals, one short list, an estimated total. free, no account.",
   alternates: { canonical: "/drop" },
   openGraph: { images: ["/og?page=drop"] },
 };

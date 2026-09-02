@@ -5,7 +5,7 @@ import { SupportForm } from "./form";
 
 export const metadata: Metadata = {
   title: "Support — WiseDinner",
-  description: "Email us or send a message. We read everything, usually within a day.",
+  description: "email support@wisedinner.com or use the form on this page — questions, bugs, a wrong price. we read everything, usually within a day.",
   alternates: { canonical: "/support" },
 };
 

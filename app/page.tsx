@@ -4,7 +4,7 @@ import { preload, type PreloadOptions } from "react-dom";
 import { drop } from "@/data/drop";
 import { meals } from "@/data/meals";
 import { site } from "@/content/site";
-import { FAQ, HERO, SITE } from "./copy";
+import { FAQ, HERO, SITE, faqLd } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { AppStoreBadge } from "./ui/app-store-badge";
 import { HeroEmailFallback } from "./ui/hero-email-fallback";
@@ -82,6 +82,21 @@ const A2_ALT = "five different home-cooked high-protein dinners plated in a row 
 const { props: a2Wide } = getImageProps({ src: "/img/A2.jpg", alt: A2_ALT, width: 2560, height: 853, quality: 80, sizes: "100vw", priority: true });
 const { props: a2Mobile } = getImageProps({ src: "/img/A2-mobile.jpg", alt: A2_ALT, width: 1600, height: 2000, quality: 75, sizes: "100vw", priority: true });
 
+// WD-16: the app itself, with the /pricing tiers as pre-order offers. no aggregateRating — there are no reviews.
+const APP = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "WiseDinner",
+  applicationCategory: "LifestyleApplication",
+  operatingSystem: "iOS",
+  url: SITE,
+  description: ORG.description,
+  offers: site.pricing.tiers.flatMap((t) => [
+    { "@type": "Offer", name: `${t.name} — yearly`, price: t.yearly.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/PreOrder" },
+    { "@type": "Offer", name: `${t.name} — monthly`, price: t.monthly.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/PreOrder" },
+  ]),
+};
+
 export default function Home() {
   // WD-10: one media-scoped head preload per S2 crop, so each viewport announces only the image it will show
   preload(a2Mobile.src as string, { as: "image", imageSrcSet: a2Mobile.srcSet as string, imageSizes: a2Mobile.sizes, media: "(max-width: 639px)", fetchPriority: "high" } as PreloadOptions);
@@ -89,6 +104,8 @@ export default function Home() {
   return (
     <main id="main">
       <script type="application/ld+json">{JSON.stringify(ORG)}</script>
+      <script type="application/ld+json">{JSON.stringify(APP)}</script>
+      <script type="application/ld+json">{JSON.stringify(faqLd(FAQ.slice(0, 4)))}</script>
 
       {/* S1 hero — one phone full of food, cut-out dishes, inline email (DESIGN-AUDIT §8) */}
       <section className="overflow-hidden">
@@ -147,7 +164,7 @@ export default function Home() {
             <ShelfTag label={`$${drop.est_total.toFixed(2)}`} sub="one trip" className="absolute right-2 top-10 z-(--z-raised) lg:right-6" />
             <Image
               src="/img/A1-1.png"
-              alt="ceramic bowl of sliced roasted chicken thigh over rice with charred broccoli"
+              alt="" // decorative garnish (WD-18): the phone screen already names the dish
               width={1600}
               height={1600}
               quality={75}
@@ -157,7 +174,7 @@ export default function Home() {
             />
             <Image
               src="/img/A1-3.png"
-              alt="glass of greek yogurt layered with oats and banana slices"
+              alt="" // decorative garnish (WD-18)
               width={1600}
               height={1600}
               quality={75}
@@ -175,7 +192,7 @@ export default function Home() {
             hidden twin used to download and render at 0×0). preloads are media-scoped for the same reason. */}
         <picture>
           <source media="(max-width: 639px)" srcSet={a2Mobile.srcSet} sizes={a2Mobile.sizes} width={1600} height={2000} />
-          <img {...a2Wide} alt={A2_ALT} fetchPriority="high" className="img-grade w-full object-cover lg:min-h-[60vh]" />
+          <img {...a2Wide} alt={A2_ALT} fetchPriority="high" className="img-grade w-full" />
         </picture>
         {/* paper scrim block, bottom-left on desktop, beneath the image on mobile — the plates are never covered by text */}
         <div className="bg-bg lg:absolute lg:bottom-0 lg:left-0 lg:max-w-[640px] lg:rounded-tr-[14px]">
@@ -212,11 +229,11 @@ export default function Home() {
       <section className="relative overflow-hidden bg-kale py-16 text-bg lg:py-24">
         <Image
           src="/img/A3.jpg"
-          alt=""
+          alt="top-down flat-lay of the week's staples on dark slate: paper-wrapped meat, tins, a jar of lentils, peanut butter, an onion, carrots, sweet potatoes, a bag of rice, frozen broccoli and edamame"
           fill
           quality={70}
           sizes="100vw"
-          className="img-grade object-cover opacity-30"
+          className="img-grade object-cover object-[50%_40%] opacity-30"
         />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-12 px-6 lg:grid-cols-[5fr_7fr] lg:px-12">
           <div>

@@ -153,9 +153,23 @@ export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: st
               </li>
             ))}
           </ol>
-          <div aria-hidden="true" className="mt-4 flex justify-center gap-2 lg:hidden">
-            {STEPS.map((_, i) => (
-              <span key={i} className={`size-2 rounded-full transition-colors ${i === slide ? "bg-ink" : "bg-rule"}`} />
+          {/* WD-14: the dots are controls — a 44px target wraps each 8px dot, the active one carries aria-current */}
+          <div className="mt-1 flex justify-center lg:hidden">
+            {STEPS.map(([title], i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`go to step ${i + 1}: ${title}`}
+                aria-current={i === slide ? "true" : undefined}
+                onClick={() => {
+                  const el = stepsRef.current;
+                  const li = el?.children[i] as HTMLElement | undefined;
+                  if (el && li) el.scrollTo({ left: li.offsetLeft - el.offsetLeft - (el.clientWidth - li.clientWidth) / 2, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+                }}
+                className="grid size-11 place-items-center"
+              >
+                <span className={`size-2 rounded-full transition-colors ${i === slide ? "bg-ink" : "bg-rule"}`} />
+              </button>
             ))}
           </div>
 

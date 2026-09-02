@@ -1,4 +1,4 @@
-// remediation-spec acceptance probe (docs/REMEDIATION-2026-09-02.md §9). run: node scripts/wd-check.ts [--base http://localhost:3077] [--phase 1|2]
+// remediation-spec acceptance probe (docs/REMEDIATION-2026-09-02.md §9). run: node scripts/wd-check.ts [--base http://localhost:3077] [--phase 1|2|3]
 // prints measured values; exits 1 on any FAIL so it can gate a phase. --phase N runs phases 1..N (default: all).
 import { chromium, type Page } from "playwright";
 
@@ -98,8 +98,9 @@ for (const width of [1440, 1746]) {
 }
 
 // ---------- phase 2 ----------
+const nextBtn = (page: Page) => page.getByRole("button", { name: "next", exact: true }).click();
+
 if (PHASE >= 2) {
-  const nextBtn = (page: Page) => page.getByRole("button", { name: "next", exact: true }).click();
   const heads = (page: Page) =>
     page.evaluate(() => ({
       h1: [...document.querySelectorAll("h1")].map((h) => h.textContent ?? ""),
@@ -227,6 +228,100 @@ if (PHASE >= 2) {
   await ctx.close();
   await ctx2.close();
   await ctx3.close();
+}
+
+// ---------- phase 3 ----------
+if (PHASE >= 3) {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  watch(page, "phase3");
+  // WD-17 + WD-20 + WD-18 — every route: description length, theme-color, alt="" only on dish-drift
+  for (const r of ROUTES) {
+    await page.goto(`${BASE}${r}`, { waitUntil: "domcontentloaded" });
+    const m = await page.evaluate(() => ({
+      desc: document.querySelector('meta[name="description"]')?.getAttribute("content") ?? "",
+      theme: document.querySelector('meta[name="theme-color"]')?.getAttribute("content") ?? "",
+      emptyAlt: [...document.querySelectorAll("img")].filter((i) => i.getAttribute("alt") === "" && !i.classList.contains("dish-drift") && i.getAttribute("aria-hidden") !== "true").map((i) => i.getAttribute("src")?.slice(0, 40) ?? "?"),
+    }));
+    if (r !== "/plan") check(m.desc.length >= 120 && m.desc.length <= 155, `WD-17 ${r}: description ${m.desc.length} chars`);
+    check(m.theme.toLowerCase() === "#fbfaf6", `WD-20 ${r}: theme-color ${m.theme}`);
+    check(m.emptyAlt.length === 0, `WD-18 ${r}: alt="" only on dish-drift${m.emptyAlt.length ? ` (${m.emptyAlt.join(", ")})` : ""}`);
+  }
+  // WD-15 + WD-16 — structured data
+  const ld = async (r: string) => {
+    await page.goto(`${BASE}${r}`, { waitUntil: "domcontentloaded" });
+    return page.evaluate(() => [...document.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent ?? "{}")));
+  };
+  const home = await ld("/");
+  const types = home.map((x) => x["@type"]);
+  const app = home.find((x) => x["@type"] === "SoftwareApplication");
+  check(types.includes("Organization") && types.includes("FAQPage") && !!app, `WD-15/16 homepage JSON-LD types: ${types.join(", ")}`);
+  check(!!app && app.applicationCategory === "LifestyleApplication" && app.operatingSystem === "iOS" && Array.isArray(app.offers) && app.offers.length >= 2 && !("aggregateRating" in app), `WD-16 SoftwareApplication: ${app?.offers?.length ?? 0} offers, aggregateRating=${app ? "aggregateRating" in app : "n/a"}`);
+  const homeFaq = home.find((x) => x["@type"] === "FAQPage");
+  check(homeFaq?.mainEntity?.length === 4, `WD-15 homepage FAQPage has ${homeFaq?.mainEntity?.length ?? 0} questions (expect 4)`);
+  const pricing = await ld("/pricing");
+  const product = pricing.find((x) => x["@type"] === "Product");
+  const pageText = await page.evaluate(() => document.body.innerText);
+  const pricesOnPage = product?.offers?.every((o: { price: string }) => pageText.includes("$" + o.price.replace(/\.00$/, "")));
+  check(!!product && product.offers?.length === 4 && pricesOnPage === true, `WD-16 /pricing Product with ${product?.offers?.length ?? 0} offers, every price visible on the page: ${pricesOnPage}`);
+  const faq = await ld("/faq");
+  check(faq.some((x) => x["@type"] === "FAQPage" && x.mainEntity?.length >= 8), "WD-15 /faq still ships FAQPage");
+  // WD-13 — focus ring: a solid ≥2px ring in ink on every ground, paper inside the kale room; also the tiles on /start 5–6
+  await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+  const ringOf = (sel: string) =>
+    page.evaluate((s) => {
+      const el = document.querySelector(s) as HTMLElement | null;
+      if (!el) return `${s}: missing`;
+      el.focus();
+      const ring = el.closest("label") ?? el; // sr-only inputs show the ring on their tile
+      const cs = getComputedStyle(ring);
+      const ink = getComputedStyle(document.body).color;
+      const paper = getComputedStyle(document.body).backgroundColor;
+      const want = el.closest(".bg-kale") ? paper : ink;
+      const okRing = el.matches(":focus-visible") && cs.outlineStyle === "solid" && parseFloat(cs.outlineWidth) >= 2 && cs.outlineColor === want;
+      el.blur();
+      return `${s}: ${okRing ? "ok" : `${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor} (want ${want})`}`;
+    }, sel);
+  const rings: string[] = [];
+  for (const s of ['header a[data-placement="header"]', 'a[data-placement="final"]', 'a[href="/the-math"]', "footer a", '#early-access input[type="email"]']) rings.push(await ringOf(s));
+  await page.goto(`${BASE}/start`, { waitUntil: "networkidle" });
+  for (let i = 0; i < 4; i++) {
+    await nextBtn(page);
+    await page.waitForURL(new RegExp(`step=${i + 2}`));
+  }
+  // a radio only becomes :focus-visible through the keyboard, so Tab from the step heading onto the first tile
+  await page.keyboard.press("Tab");
+  rings.push(
+    await page.evaluate(() => {
+      const a = document.activeElement as HTMLElement;
+      const cs = getComputedStyle(a.closest("label") ?? a);
+      const okTile = a.getAttribute("name") === "household" && cs.outlineStyle === "solid" && parseFloat(cs.outlineWidth) >= 2 && cs.outlineColor === getComputedStyle(document.body).color;
+      return `/start step 5 tile: ${okTile ? "ok" : `${a.tagName}[${a.getAttribute("name")}] ${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor}`}`;
+    }),
+  );
+  check(rings.every((r) => /: ok$/.test(r)), `WD-13 focus rings: ${rings.join(" | ")}`);
+  // WD-12 — the wide S2 band shows its whole source (≤2% discarded); the phone crop too
+  for (const w of [1440, 390]) {
+    await page.setViewportSize({ width: w, height: 900 });
+    await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+    const band = await page.evaluate(() => {
+      const img = document.querySelector("#week img") as HTMLImageElement;
+      const r = img.getBoundingClientRect();
+      const natural = img.naturalWidth / img.naturalHeight;
+      const rendered = r.width / r.height;
+      return { natural: +natural.toFixed(3), rendered: +rendered.toFixed(3), discarded: +Math.abs(1 - Math.min(natural, rendered) / Math.max(natural, rendered)).toFixed(3), src: img.currentSrc.replace(/.*url=/, "").replace(/&.*/, "") };
+    });
+    check(band.discarded <= 0.02, `WD-12 ${w}px S2 band: source ${band.natural} rendered ${band.rendered} → ${(band.discarded * 100).toFixed(1)}% discarded (${decodeURIComponent(band.src)})`);
+  }
+  // WD-14 — carousel dots are buttons with 44px targets, aria-current, and they move the carousel
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${BASE}/#how`, { waitUntil: "networkidle" });
+  const dots = await page.evaluate(() => [...document.querySelectorAll('#how button[aria-label^="go to step"]')].map((b) => ({ w: b.getBoundingClientRect().width, h: b.getBoundingClientRect().height, cur: b.getAttribute("aria-current") })));
+  check(dots.length === 3 && dots.every((d) => d.w >= 44 && d.h >= 44) && dots[0].cur === "true", `WD-14 dots: ${dots.length} buttons, sizes ${dots.map((d) => `${Math.round(d.w)}×${Math.round(d.h)}`).join(" ")}, aria-current on first=${dots[0]?.cur}`);
+  await page.locator('#how button[aria-label^="go to step 3"]').click();
+  await page.waitForTimeout(900);
+  const after = await page.evaluate(() => [...document.querySelectorAll('#how button[aria-label^="go to step"]')].map((b) => b.getAttribute("aria-current")));
+  check(after[2] === "true", `WD-14 tapping dot 3 moves the carousel (aria-current now on ${after.indexOf("true") + 1})`);
+  await page.close();
 }
 
 const EXPECTED = ["final", "header", "hero", "plan", "sticky", "the-math"];

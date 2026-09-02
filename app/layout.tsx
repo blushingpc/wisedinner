@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -15,10 +15,13 @@ const plexMono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin"
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: "WiseDinner — hit your protein, spend way less",
-  description: "Turn your budget and protein target into a solved grocery week. One short list, five days of meals, zero waste.",
+  description: "turn a weekly budget and a daily protein target into a solved grocery week: five days of meals, one short list, an estimated in-store total. no waste.",
   alternates: { canonical: "/" },
   openGraph: { siteName: "wisedinner", type: "website", images: ["/og"] },
 };
+
+// WD-20: the browser chrome takes the page's paper colour (--color-bg)
+export const viewport: Viewport = { themeColor: "#fbfaf6" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

@@ -8,7 +8,7 @@ export const runtime = "edge";
 const COPY: Record<string, [string, string]> = {
   home: ["hit your protein.", "spend way less."],
   drop: ["this week's protein plan.", "refreshed every sunday."],
-  pricing: ["$4.99/mo billed yearly.", "nothing for sale yet."],
+  pricing: [`$${site.pricing.tiers[0].perMonth.toFixed(2)}/mo billed yearly.`, "nothing for sale yet."],
 };
 
 export async function GET(req: Request) {
