@@ -6,8 +6,9 @@ import { DeviceFrame } from "./device-frame";
 import { PreviewLine } from "./preview-line";
 
 // how-it-works per DESIGN-AUDIT §9.4/§12: desktop pins one phone while three steps scroll past
-// (screen crossfades per step); mobile is a snap-scroll carousel with dots. step 2 plays the
-// solving chip animation once on enter (§12.2). no JS → step text fully readable, screens static.
+// (screen crossfades per step); mobile is a snap-scroll carousel with a phone per slide and dots.
+// one list of steps serves both layouts (WD-10) — the copy exists once in the DOM; only the phones differ.
+// step 2 plays the solving chip animation once on enter (§12.2). no JS → step text fully readable, screens static.
 
 const Check = () => (
   <span aria-hidden="true" className="grid size-4 shrink-0 place-items-center rounded-[4px] bg-yolk text-[10px] font-bold text-ink">
@@ -86,10 +87,13 @@ function StepScreen({ step, fresh, shelf, play = false }: { step: number; fresh:
   );
 }
 
+const DESKTOP = "(min-width: 1024px)";
+
 export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: string[] }) {
   const [active, setActive] = useState(0);
   const [slide, setSlide] = useState(0);
   const [played, setPlayed] = useState(false);
+  const [carousel, setCarousel] = useState(true); // below lg the list scrolls sideways and is a keyboard-focusable region
   const stepsRef = useRef<HTMLOListElement>(null);
 
   // the solving animation fires the first time step 2 enters (either layout), then stays settled
@@ -99,6 +103,16 @@ export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: st
   }, [active, slide]);
 
   useEffect(() => {
+    const mq = window.matchMedia(DESKTOP);
+    const sync = () => setCarousel(!mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  // desktop only: the step in the middle of the viewport drives the pinned phone
+  useEffect(() => {
+    if (carousel) return;
     const els = stepsRef.current?.querySelectorAll<HTMLElement>("[data-step]");
     if (!els?.length) return;
     const io = new IntersectionObserver(
@@ -109,24 +123,43 @@ export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: st
     );
     for (const el of els) io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [carousel]);
 
   return (
     <section id="how" className="bg-white py-14 lg:py-20">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
         <h2 className="text-h2 font-bold">how it works</h2>
 
-        {/* desktop: pinned phone, steps scroll — total stays ≤1500px (gate 18.5) */}
-        <div className="mt-4 hidden lg:grid lg:grid-cols-[7fr_5fr] lg:gap-12">
-          <ol ref={stepsRef}>
+        <div className="mt-4 lg:grid lg:grid-cols-[7fr_5fr] lg:gap-12">
+          {/* < lg: swipe carousel, one phone per slide (gate 18.5). ≥ lg: the steps stack and scroll past the pinned phone — total stays ≤1500px */}
+          <ol
+            ref={stepsRef}
+            tabIndex={carousel ? 0 : undefined}
+            aria-label={carousel ? "the three steps, swipe or scroll sideways" : undefined}
+            onScroll={(e) => {
+              const el = e.currentTarget;
+              const range = el.scrollWidth - el.clientWidth;
+              if (range > 0) setSlide(Math.round((el.scrollLeft / range) * (STEPS.length - 1)));
+            }}
+            className="-mx-6 mt-2 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:mt-0 lg:block lg:overflow-visible lg:px-0 lg:pb-0"
+          >
             {STEPS.map(([title, body], i) => (
-              <li key={title} data-step={i} className="flex min-h-[400px] max-w-[52ch] flex-col justify-center">
-                <h3 className="text-[1.75rem] font-bold">{title}</h3>
-                <p className="mt-3 text-ink-soft">{body}</p>
+              <li key={title} data-step={i} className="w-[88%] shrink-0 snap-center lg:flex lg:min-h-[400px] lg:w-auto lg:max-w-[52ch] lg:flex-col lg:justify-center">
+                <h3 className="text-2xl font-bold lg:text-[1.75rem]">{title}</h3>
+                <p className="mt-2 text-ink-soft lg:mt-3">{body}</p>
+                <DeviceFrame label={`phone showing step ${i + 1}: ${title}`} widthClass="w-[240px]" className="mx-auto mt-6 lg:hidden">
+                  <StepScreen step={i} fresh={fresh} shelf={shelf} play={played} />
+                </DeviceFrame>
               </li>
             ))}
           </ol>
-          <div>
+          <div aria-hidden="true" className="mt-4 flex justify-center gap-2 lg:hidden">
+            {STEPS.map((_, i) => (
+              <span key={i} className={`size-2 rounded-full transition-colors ${i === slide ? "bg-ink" : "bg-rule"}`} />
+            ))}
+          </div>
+
+          <div className="hidden lg:block">
             <div className="sticky top-24">
               <DeviceFrame label={`phone showing step ${active + 1}: ${STEPS[active][0]}`} widthClass="w-[380px]" className="mx-auto">
                 <div className="relative h-full">
@@ -144,35 +177,6 @@ export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: st
                 </div>
               </DeviceFrame>
             </div>
-          </div>
-        </div>
-
-        {/* mobile: swipe carousel with dots (gate 18.5) */}
-        <div className="lg:hidden">
-          <ol
-            tabIndex={0}
-            aria-label="the three steps, swipe or scroll sideways"
-            onScroll={(e) => {
-              const el = e.currentTarget;
-              const range = el.scrollWidth - el.clientWidth;
-              if (range > 0) setSlide(Math.round((el.scrollLeft / range) * (STEPS.length - 1)));
-            }}
-            className="-mx-6 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {STEPS.map(([title, body], i) => (
-              <li key={title} className="w-[88%] shrink-0 snap-center">
-                <h3 className="text-2xl font-bold">{title}</h3>
-                <p className="mt-2 text-ink-soft">{body}</p>
-                <DeviceFrame label={`phone showing step ${i + 1}: ${title}`} widthClass="w-[240px]" className="mx-auto mt-6">
-                  <StepScreen step={i} fresh={fresh} shelf={shelf} play={played} />
-                </DeviceFrame>
-              </li>
-            ))}
-          </ol>
-          <div aria-hidden="true" className="mt-4 flex justify-center gap-2">
-            {STEPS.map((_, i) => (
-              <span key={i} className={`size-2 rounded-full transition-colors ${i === slide ? "bg-ink" : "bg-rule"}`} />
-            ))}
           </div>
         </div>
       </div>

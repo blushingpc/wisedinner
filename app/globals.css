@@ -55,6 +55,12 @@
   --ease-press: cubic-bezier(0.32, 0.72, 0, 1); /* interactions, 200ms */
 }
 
+/* chrome — the header, the homepage mobile bar and the /plan total bar share one opaque surface (WD-09):
+   solid paper, zero compositing cost, nothing ghosts through. frosted blur reads as mud over food photography. */
+.chrome {
+  background: var(--color-bg);
+}
+
 /* the homepage's mobile sticky bar (WD-03) needs the footer to end 9rem early so its last line stays readable;
    only the page that renders the bar's sentinel pays for it */
 @media (max-width: 639px) {

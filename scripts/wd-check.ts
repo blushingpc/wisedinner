@@ -1,12 +1,13 @@
-// remediation-spec acceptance probe (WD-01/02/03). run: node scripts/wd-check.ts [--base http://localhost:3077]
-// prints measured values; exits 1 on any FAIL so it can gate a phase.
-import { chromium } from "playwright";
+// remediation-spec acceptance probe (docs/REMEDIATION-2026-09-02.md §9). run: node scripts/wd-check.ts [--base http://localhost:3077] [--phase 1|2]
+// prints measured values; exits 1 on any FAIL so it can gate a phase. --phase N runs phases 1..N (default: all).
+import { chromium, type Page } from "playwright";
 
 const arg = (k: string, d: string) => {
   const i = process.argv.indexOf(k);
   return i > -1 ? process.argv[i + 1] : d;
 };
 const BASE = arg("--base", "http://localhost:3077").replace(/\/$/, "");
+const PHASE = Number(arg("--phase", "9"));
 const ROUTES = ["/", "/start", "/plan", "/pricing", "/faq", "/the-math", "/drop", "/about", "/press", "/support", "/terms", "/privacy"];
 
 let fails = 0;
@@ -15,13 +16,21 @@ const fail = (m: string) => {
   console.log("  ✖", m);
 };
 const ok = (m: string) => console.log("  ✔", m);
+const check = (cond: boolean, msg: string) => (cond ? ok(msg) : fail(msg));
 
 const browser = await chromium.launch();
+const errors: string[] = [];
+const placements = new Set<string>(); // every data-placement value seen anywhere — all six must survive (WD-01)
+const watch = (page: Page, tag: string) => {
+  page.on("pageerror", (e) => errors.push(`${tag} pageerror: ${e.message}`));
+  page.on("console", (m) => m.type() === "error" && errors.push(`${tag} console: ${m.text().slice(0, 160)}`));
+};
+
+// ---------- phase 1 ----------
 
 // WD-01 — no fragment link points at an id that does not exist on its page; data-placement values preserved
 {
   const page = await browser.newPage();
-  const placements = new Set<string>();
   for (const r of ROUTES) {
     await page.goto(`${BASE}${r}`, { waitUntil: "domcontentloaded" });
     const dead = await page.locator('a[href^="#"]').evaluateAll((els) =>
@@ -29,10 +38,8 @@ const browser = await chromium.launch();
     );
     const p = await page.locator("[data-placement]").evaluateAll((els) => els.map((e) => e.getAttribute("data-placement")));
     p.forEach((x) => x && placements.add(x));
-    if (dead.length) fail(`WD-01 ${r}: ${dead.length} dead fragment links (${[...new Set(dead)].join(", ")})`);
-    else ok(`WD-01 ${r}: 0 dead fragment links`);
+    check(dead.length === 0, `WD-01 ${r}: ${dead.length} dead fragment links${dead.length ? ` (${[...new Set(dead)].join(", ")})` : ""}`);
   }
-  console.log("  data-placement values seen:", [...placements].sort().join(", "));
   await page.close();
 }
 
@@ -60,8 +67,7 @@ for (const width of [1440, 1746]) {
       }
     }
   }
-  if (bad) fail(`WD-02 ${width}px: ${bad} covered hit-tests`);
-  else ok(`WD-02 ${width}px: header clickable at every step (reduced motion)`);
+  check(bad === 0, `WD-02 ${width}px: header clickable at every step (reduced motion)${bad ? ` — ${bad} covered` : ""}`);
   await page.close();
 }
 
@@ -69,35 +75,164 @@ for (const width of [1440, 1746]) {
 {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
-  const bar = 'a[data-placement="sticky"]';
   const state = async (y: number) => {
     await page.evaluate((y) => window.scrollTo(0, y), y);
     await page.waitForTimeout(450);
-    return page.evaluate((sel) => {
-      const a = document.querySelector(sel) as HTMLElement;
-      const r = a.parentElement!.getBoundingClientRect();
+    return page.evaluate(() => {
+      const d = document.querySelector('a[data-placement="sticky"]')!.parentElement!;
+      const r = d.getBoundingClientRect();
       const finalCta = document.querySelector('a[data-placement="final"]')?.getBoundingClientRect();
-      return { y: window.scrollY, top: Math.round(r.top), visible: r.top < window.innerHeight, overlapsFinal: !!finalCta && finalCta.bottom > r.top && finalCta.top < r.bottom };
-    }, bar);
+      const lastP = [...document.querySelectorAll("footer p")].at(-1)?.getBoundingClientRect();
+      return { y: window.scrollY, top: Math.round(r.top), visible: r.top < window.innerHeight, overlapsFinal: !!finalCta && finalCta.bottom > r.top && finalCta.top < r.bottom, overlapsFooterText: !!lastP && lastP.bottom > r.top };
+    });
   };
   const docH = await page.evaluate(() => document.documentElement.scrollHeight);
   const heroCtaBottom = await page.evaluate(() => (document.querySelector('a[data-placement="hero"]') as HTMLElement).getBoundingClientRect().bottom + window.scrollY);
   const s0 = await state(0);
-  if (s0.visible) fail(`WD-03 bar visible at scrollY 0 (top=${s0.top})`);
-  else ok("WD-03 bar hidden at scrollY 0");
+  check(!s0.visible, `WD-03 bar hidden at scrollY 0 (top=${s0.top})`);
   const sAfter = await state(Math.round(heroCtaBottom + 200));
-  if (sAfter.visible) ok(`WD-03 bar visible once hero CTA is gone (scrollY ${sAfter.y})`);
-  else fail(`WD-03 bar still hidden at scrollY ${sAfter.y} (hero CTA bottom ${Math.round(heroCtaBottom)})`);
-  for (const y of [1500, 3000, 5000, Math.round(docH * 0.6), Math.round(docH * 0.9)]) {
-    const s = await state(y);
-    console.log(`    390px scrollY=${s.y} bar top=${s.top} visible=${s.visible}`);
-  }
+  check(sAfter.visible, `WD-03 bar visible once the hero CTA is gone (scrollY ${sAfter.y}, hero CTA bottom ${Math.round(heroCtaBottom)})`);
   const sEnd = await state(docH);
-  if (sEnd.overlapsFinal) fail("WD-03 bar covers the final CTA at page bottom");
-  else ok(`WD-03 bar clear of the final CTA at page bottom (visible=${sEnd.visible})`);
+  check(sEnd.visible && !sEnd.overlapsFinal && !sEnd.overlapsFooterText, `WD-03 bar at page bottom: visible=${sEnd.visible} overlapsFinalCta=${sEnd.overlapsFinal} overlapsFooterText=${sEnd.overlapsFooterText}`);
   await page.close();
 }
 
+// ---------- phase 2 ----------
+if (PHASE >= 2) {
+  const nextBtn = (page: Page) => page.getByRole("button", { name: "next", exact: true }).click();
+  const heads = (page: Page) =>
+    page.evaluate(() => ({
+      h1: [...document.querySelectorAll("h1")].map((h) => h.textContent ?? ""),
+      h2: [...document.querySelectorAll("main h2")].map((h) => h.textContent ?? ""),
+      pb: document.querySelector('[role="progressbar"]')?.getAttribute("aria-label") ?? "",
+      url: location.pathname + location.search,
+    }));
+  const card = (page: Page) => page.evaluate(() => [...document.querySelectorAll("main dd")].slice(0, 3).map((d) => d.textContent ?? ""));
+
+  // WD-04 + WD-05 — headings + progressbar per step, history walks the demo, reload + forward-jump guard
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await ctx.newPage();
+  watch(page, "/start");
+  await page.goto(`${BASE}/start`, { waitUntil: "networkidle" });
+  let h = await heads(page);
+  check(h.h1.length === 1 && h.h2.length === 1 && h.pb === "Step 1 of 6", `WD-04 step 1: h1=${h.h1.length} h2="${h.h2[0]}" progressbar="${h.pb}"`);
+  await page.fill("#budget", "60");
+  await nextBtn(page);
+  await page.waitForURL(/step=2/);
+  await page.fill("#protein", "150");
+  await nextBtn(page);
+  await page.waitForURL(/step=3/);
+  await nextBtn(page);
+  await page.waitForURL(/step=4/);
+  await page.waitForTimeout(150);
+  h = await heads(page);
+  check(h.h1.length === 1 && h.h2[0] === "diet" && h.pb === "Step 4 of 6", `WD-04 step 4: h2="${h.h2[0]}" progressbar="${h.pb}"`);
+  const focused = await page.evaluate(() => document.activeElement?.tagName);
+  check(focused === "H2", `WD-04 focus lands on the step heading after a step change (active=${focused})`);
+  await page.goBack();
+  await page.goBack();
+  await page.goBack();
+  await page.waitForTimeout(300);
+  h = await heads(page);
+  const budget = await page.inputValue("#budget");
+  check(h.pb === "Step 1 of 6" && /\/start/.test(h.url) && budget === "60", `WD-05 three browser backs → step 1 inside the demo with answers intact (url=${h.url}, budget=${budget})`);
+  await page.goto(`${BASE}/start?step=3`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(500);
+  h = await heads(page);
+  check(h.pb === "Step 3 of 6", `WD-05 reload at ?step=3 stays on step 3 (got "${h.pb}")`);
+  await page.goto(`${BASE}/start?step=6`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(700);
+  h = await heads(page);
+  check(h.pb === "Step 4 of 6", `WD-05 forward jump to ?step=6 lands on the first unvisited step (got "${h.pb}")`);
+  // finish the quiz → shareable /plan
+  await nextBtn(page);
+  await page.waitForURL(/step=5/);
+  await nextBtn(page);
+  await page.waitForURL(/step=6/);
+  await page.getByRole("button", { name: "solve my week", exact: true }).click();
+  await page.waitForURL(/\/plan\?p=/, { timeout: 20_000 });
+  await page.waitForSelector("text=est. in-store total", { timeout: 15_000 });
+  const planUrl = page.url();
+  const c1 = await card(page);
+  check(c1[0] === "$40.24 under $60" && c1[1] === "152 g / day", `solver regression: ${c1.join(" · ")} (expect $40.24 / 152 g)`);
+  const items = await page.evaluate(() => document.querySelector("main h1 + p")?.textContent ?? "");
+  check(/^12 items/.test(items), `solver regression: "${items.slice(0, 40)}" (expect 12 items)`);
+  await page.reload({ waitUntil: "networkidle" });
+  await page.waitForSelector("text=est. in-store total");
+  check((await card(page))[0] === c1[0], "WD-06 /plan survives a reload");
+
+  // WD-06 — the link renders the same plan in a fresh context; cold /plan and a garbage ?p= show written states
+  const ctx2 = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const fresh = await ctx2.newPage();
+  watch(fresh, "/plan(fresh)");
+  await fresh.goto(planUrl, { waitUntil: "networkidle" });
+  await fresh.waitForSelector("text=est. in-store total", { timeout: 15_000 }).catch(() => {});
+  (await fresh.locator("[data-placement]").evaluateAll((els) => els.map((e) => e.getAttribute("data-placement") ?? ""))).forEach((x) => placements.add(x));
+  const c2 = await card(fresh);
+  check(c2[0] === c1[0] && c2[1] === c1[1], `WD-06 shared link in a fresh context renders the same plan (${c2.join(" · ")})`);
+  const ctx3 = await browser.newContext({ viewport: { width: 1440, height: 900 } }); // nothing cached in here
+  const cold0 = await ctx3.newPage();
+  watch(cold0, "/plan(cold)");
+  await cold0.goto(`${BASE}/plan`, { waitUntil: "networkidle" });
+  await cold0.waitForTimeout(600);
+  const cold = await cold0.evaluate(() => ({ url: location.pathname, h1: document.querySelector("main h1")?.textContent ?? "", cta: [...document.querySelectorAll("main a.cta")].map((a) => a.textContent).join("|") }));
+  check(cold.url === "/plan" && cold.h1 === "that plan’s gone." && /solve my week/.test(cold.cta), `WD-06 cold /plan shows the empty state, no redirect (url=${cold.url}, h1="${cold.h1}")`);
+  await cold0.goto(`${BASE}/plan?p=not-a-plan`, { waitUntil: "networkidle" });
+  await cold0.waitForTimeout(600);
+  check((await cold0.evaluate(() => document.querySelector("main h1")?.textContent)) === "that plan’s gone.", "WD-06 garbage ?p= falls through to the empty state");
+
+  // WD-11 — 404 title
+  const r404 = await fresh.goto(`${BASE}/this-aisle-does-not-exist`);
+  const robots = await fresh.evaluate(() => [...document.querySelectorAll('meta[name="robots"]')].map((m) => m.getAttribute("content")).join("|"));
+  check(r404?.status() === 404 && (await fresh.title()) === "Page not found — WiseDinner" && /noindex/.test(robots), `WD-11 404: status=${r404?.status()} title="${await fresh.title()}" robots=${robots}`);
+
+  // WD-07 — real QR, caption + short URL, /ios redirect
+  await fresh.goto(`${BASE}/`, { waitUntil: "networkidle" });
+  const qr = await fresh.evaluate(() => {
+    const i = document.querySelector('img[src*="qr-"]') as HTMLImageElement | null;
+    return { src: i?.getAttribute("src") ?? "", alt: i?.alt ?? "", caption: i?.parentElement?.textContent ?? "" };
+  });
+  check(/qr-ios\.svg/.test(qr.src) && qr.alt.startsWith("QR code") && /wisedinner\.com\/ios/.test(qr.caption), `WD-07 QR: src=${qr.src} alt="${qr.alt}" caption="${qr.caption}"`);
+  const ios = await fetch(`${BASE}/ios`, { redirect: "manual" });
+  check([302, 307].includes(ios.status) && !!ios.headers.get("location"), `WD-07 /ios → ${ios.status} ${ios.headers.get("location")}`);
+
+  // WD-08 + WD-09 + WD-10 — header links reachable at 320/390, opaque chrome, walkthrough copy once, no 0×0 images
+  for (const w of [320, 390, 1440]) {
+    const c = await browser.newContext({ viewport: { width: w, height: 844 } });
+    const pg = await c.newPage();
+    watch(pg, `/@${w}`);
+    const a2: string[] = [];
+    pg.on("request", (rq) => /A2/.test(rq.url()) && a2.push(decodeURIComponent(rq.url()).replace(/.*url=/, "").replace(/&.*/, "")));
+    await pg.goto(`${BASE}/`, { waitUntil: "networkidle" });
+    const info = await pg.evaluate(() => {
+      const links = [...document.querySelectorAll("header nav ul a")];
+      const inView = links.filter((a) => {
+        const r = a.getBoundingClientRect();
+        return r.width > 0 && r.right <= innerWidth && r.bottom <= innerHeight;
+      }).length;
+      const hdr = document.querySelector("header")!;
+      const h3s = [...document.querySelectorAll("#how h3")].map((x) => x.textContent);
+      const zero = [...document.querySelectorAll("img")].filter((i) => i.currentSrc && i.getBoundingClientRect().width === 0).map((i) => i.alt.slice(0, 30) || i.currentSrc.slice(-30));
+      return { links: links.length, inView, headerH: Math.round(hdr.getBoundingClientRect().height), bg: getComputedStyle(hdr).backgroundColor, overflow: document.documentElement.scrollWidth > innerWidth, h3s, zero, olTab: document.querySelector("#how ol")?.getAttribute("tabindex") };
+    });
+    if (w < 768) check(info.links === 3 && info.inView === 3 && !info.overflow, `WD-08 ${w}px: ${info.inView}/${info.links} header links reachable without scrolling, header ${info.headerH}px, overflow=${info.overflow}`);
+    check(!/rgba\(/.test(info.bg) || /, 1\)$/.test(info.bg), `WD-09 ${w}px: header background opaque (${info.bg})`);
+    check(info.h3s.length === 3 && new Set(info.h3s).size === 3, `WD-10 ${w}px: each how-it-works heading once (${info.h3s.length} h3)`);
+    check(info.zero.length === 0, `WD-10 ${w}px: no image rendered at 0×0${info.zero.length ? ` (${info.zero.join(", ")})` : ""}`);
+    const a2set = [...new Set(a2)];
+    check(a2set.length === 1 && (w < 640 ? /A2-mobile/.test(a2set[0]) : !/mobile/.test(a2set[0])), `WD-10 ${w}px: one S2 source fetched (${a2set.join(", ")})`);
+    check(w < 1024 ? info.olTab === "0" : info.olTab === null, `WD-10 ${w}px: carousel tabindex only while it scrolls (tabindex=${info.olTab})`);
+    await c.close();
+  }
+  await ctx.close();
+  await ctx2.close();
+  await ctx3.close();
+}
+
+const EXPECTED = ["final", "header", "hero", "plan", "sticky", "the-math"];
+check(EXPECTED.every((x) => placements.has(x)), `WD-01 data-placement values preserved: ${[...placements].sort().join(", ")}`);
+const real = errors.filter((e) => !/status of 404/.test(e)); // the 404 probe's own document request
+check(real.length === 0, `console clean${real.length ? `: ${real.join(" | ")}` : ""}`);
 await browser.close();
 console.log(fails ? `\n${fails} FAIL` : "\nall checks pass");
 process.exit(fails ? 1 : 0);

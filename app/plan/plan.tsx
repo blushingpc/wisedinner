@@ -2,15 +2,26 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState, type ReactNode } from "react";
 import type { SolveResponse } from "@/app/api/solve/route";
 import { ReceiptCard } from "@/app/ui/receipt-card";
 import { WaitlistForm } from "@/app/ui/waitlist-form";
 import { track } from "@/app/ui/track";
-import { BANDS, KEY, type Answers } from "@/app/start/quiz";
+import { BANDS, KEY, decodeAnswers, encodeAnswers, type Answers } from "@/app/start/quiz";
 
 type Session = { answers: Answers; week: SolveResponse };
+
+async function solve(answers: Answers, seed?: number): Promise<SolveResponse> {
+  const [, lo, hi] = BANDS[answers.band];
+  const res = await fetch("/api/solve", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ budget: answers.budget, protein_per_day: answers.protein, kcal_min: lo, kcal_max: hi, diet: answers.diet, household: answers.household, pantry: answers.pantry, ...(seed !== undefined && { seed }) }),
+  });
+  if (!res.ok) throw new Error(String(res.status));
+  return res.json();
+}
 
 // honest photos only: exact template-name matches to photography we own — never a look-alike (truth law)
 const MEAL_IMG: Record<string, { src: string; alt: string }> = {
@@ -19,30 +30,31 @@ const MEAL_IMG: Record<string, { src: string; alt: string }> = {
   "black bean egg bowl": { src: "/img/meal-bean-bowl.jpg", alt: "bowl of black beans and rice topped with halved boiled eggs" },
 };
 
-export function Plan() {
+export function Plan({ badge }: { badge: ReactNode }) {
   const router = useRouter();
+  const p = useSearchParams().get("p");
   const [s, setS] = useState<Session | null>(null);
+  const [state, setState] = useState<"loading" | "empty" | "error" | "ready">("loading");
   const [useClosest, setUseClosest] = useState(false);
   const [printedAt, setPrintedAt] = useState("");
   const [regen, setRegen] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [showMath, setShowMath] = useState(false);
+
+  const show = (next: Session) => {
+    sessionStorage.setItem(KEY.plan, JSON.stringify(next));
+    setS(next);
+    setState("ready");
+    // the URL is the share link: answers + the seed that picked this week (WD-06)
+    const q = encodeAnswers(next.answers, next.week.seed);
+    if (q !== p) router.replace(`/plan?p=${q}`, { scroll: false });
+  };
 
   // one re-solve with the next seed: same numbers, a different valid week (the solver picks within a 3% cost band)
   const regenerate = async () => {
     if (!s || regen !== "idle") return;
     setRegen("loading");
     try {
-      const { answers, week } = s;
-      const [, lo, hi] = BANDS[answers.band];
-      const res = await fetch("/api/solve", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ budget: answers.budget, protein_per_day: answers.protein, kcal_min: lo, kcal_max: hi, diet: answers.diet, household: answers.household, pantry: answers.pantry, seed: (week.seed ?? 0) + 1 }),
-      });
-      if (!res.ok) throw new Error(String(res.status));
-      const next = { answers, week: (await res.json()) as SolveResponse };
-      sessionStorage.setItem(KEY.plan, JSON.stringify(next));
-      setS(next);
+      show({ answers: s.answers, week: await solve(s.answers, (s.week.seed ?? 0) + 1) });
       setUseClosest(false);
       setRegen("done");
     } catch {
@@ -50,18 +62,48 @@ export function Plan() {
     }
   };
 
+  // ?p= wins (a shared or reopened link re-solves — the solver is deterministic), the session is the fast path,
+  // and with neither we say so instead of bouncing to the quiz (WD-06)
   useEffect(() => {
+    let cached: Session | null = null;
     try {
-      const raw = sessionStorage.getItem(KEY.plan);
-      if (!raw) return router.replace("/start");
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating from sessionStorage after mount is the point
-      setS(JSON.parse(raw));
+      cached = JSON.parse(sessionStorage.getItem(KEY.plan) ?? "null");
+    } catch {}
+    const fromUrl = p ? decodeAnswers(p) : null;
+    const done = (next: Session) => {
+      show(next);
       setPrintedAt(new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }).toLowerCase());
       track("reveal_view");
-    } catch {
-      router.replace("/start");
+    };
+    if (fromUrl) {
+      const { seed, ...answers } = fromUrl;
+      if (cached && encodeAnswers(cached.answers, cached.week.seed) === p) return done(cached);
+      solve(answers, seed)
+        .then((week) => done({ answers, week }))
+        .catch(() => setState("error"));
+      return;
     }
-  }, [router]);
+    if (cached) return done(cached);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reading the session after mount is the point
+    setState("empty");
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once per ?p; show() only rewrites the URL
+  }, [p]);
+
+  if (state === "empty" || state === "error") {
+    return (
+      <div className="max-w-[46ch]">
+        <h1 className="text-h2 font-bold text-balance">{state === "empty" ? "that plan’s gone." : "the solver didn’t answer."}</h1>
+        <p className="mt-4 text-ink-soft">
+          {state === "empty"
+            ? "plans live in your browser, not our servers. solving a new one takes about 60 seconds."
+            : "check your connection and reload this link, or solve a fresh week — it takes about 60 seconds."}
+        </p>
+        <Link href="/start" className="cta mt-8">
+          solve my week →
+        </Link>
+      </div>
+    );
+  }
 
   if (!s) {
     return (
@@ -81,6 +123,7 @@ export function Plan() {
 
   return (
     <>
+      {badge}
       {!week.feasible && (
         <div className="mb-10 max-w-[62ch] border-l-2 border-accent pl-5">
           <p className="text-xl">
@@ -204,7 +247,7 @@ export function Plan() {
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-(--z-sticky) border-t border-rule bg-bg/96">
+      <div className="chrome fixed inset-x-0 bottom-0 z-(--z-sticky) border-t border-rule">
         <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-6 py-3 lg:px-12">
           <p className="font-mono tabular-nums">
             <span className="text-micro uppercase text-ink-soft">est. in-store </span>

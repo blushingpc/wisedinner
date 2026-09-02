@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { DIETS, type Diet } from "@/app/api/solve/solver";
 import { track } from "@/app/ui/track";
@@ -16,6 +16,25 @@ export const BANDS: [string, number, number][] = [
 export type Answers = { budget: number; spend: string; protein: number; band: number; diet: Diet; household: number; pantry: string[] };
 const DEFAULTS: Answers = { budget: 60, spend: "", protein: 150, band: 1, diet: "none", household: 1, pantry: [] };
 export const KEY = { answers: "wd.answers", plan: "wd.plan" };
+// one visible h2 per step (WD-04); the labels/legends beneath stay exactly as they were
+const TITLES = ["weekly grocery budget", "protein per day", "calories per day", "diet", "people eating", "already in your pantry"];
+
+// /plan?p=… carries the answers (+ the seed that picked the week) so a solved week survives a new tab or a share (WD-06)
+export function encodeAnswers(a: Answers, seed?: number) {
+  const json = JSON.stringify(seed === undefined ? a : { ...a, seed });
+  return btoa(String.fromCharCode(...new TextEncoder().encode(json))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+export function decodeAnswers(p: string): (Answers & { seed?: number }) | null {
+  try {
+    const bin = atob(p.replace(/-/g, "+").replace(/_/g, "/"));
+    const o = JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0))));
+    if (typeof o.budget !== "number" || typeof o.protein !== "number" || typeof o.band !== "number" || typeof o.household !== "number") return null;
+    if (!DIETS.includes(o.diet) || !Array.isArray(o.pantry) || !o.pantry.every((x: unknown) => typeof x === "string")) return null;
+    return { ...DEFAULTS, ...o, spend: typeof o.spend === "string" ? o.spend : "" };
+  } catch {
+    return null;
+  }
+}
 
 const label = "block font-mono text-micro uppercase text-ink-soft";
 const helper = "mt-2 text-ink-soft";
@@ -23,34 +42,49 @@ const num = "field mt-2 font-mono text-4xl tabular-nums";
 
 export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; initial?: { budget?: number; protein?: number } }) {
   const router = useRouter();
-  const [step, setStep] = useState(0);
+  // the URL owns the step (WD-05): ?step=1…6, so browser back / swipe-back walk the demo instead of leaving it
+  const stepParam = Number(useSearchParams().get("step"));
+  const step = Number.isInteger(stepParam) && stepParam >= 1 && stepParam <= STEPS ? stepParam - 1 : 0;
   const [a, setA] = useState<Answers>({ ...DEFAULTS, ...(initial?.budget && { budget: initial.budget }), ...(initial?.protein && { protein: initial.protein }) });
+  const [reached, setReached] = useState(0); // furthest step visited this session — forward-jumping past it is refused
+  const [hydrated, setHydrated] = useState(false); // nothing is written back until the saved session has been read
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState("");
   const form = useRef<HTMLFormElement>(null);
+  const heading = useRef<HTMLHeadingElement>(null);
+  const goTo = (n: number) => router.push(`/start?step=${n + 1}`, { scroll: false });
 
-  // refresh-safe: answers + step live in sessionStorage (no cookies from us)
+  // refresh-safe: answers + furthest step live in sessionStorage (no cookies from us)
   useEffect(() => {
+    let r = 0;
     try {
       const saved = sessionStorage.getItem(KEY.answers);
       if (saved) {
         const { step: s, ...rest } = JSON.parse(saved);
+        r = Number.isInteger(s) ? Math.min(Math.max(s, 0), STEPS - 1) : 0;
         // URL values (inline demo) beat the saved session — the visitor just chose them
-        // eslint-disable-next-line react-hooks/set-state-in-effect, react-hooks/exhaustive-deps -- hydrating from sessionStorage after mount is the point
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating from sessionStorage after mount is the point
         setA({ ...DEFAULTS, ...rest, ...(initial?.budget && { budget: initial.budget }), ...(initial?.protein && { protein: initial.protein }) });
-        setStep(s ?? 0);
       }
     } catch {}
+    setReached((prev) => Math.max(prev, r));
+    setHydrated(true);
+    if (step > r) router.replace(`/start?step=${r + 1}`, { scroll: false });
     track("demo_start");
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once: the landing step is checked against the saved session
   }, []);
   useEffect(() => {
+    if (!hydrated) return;
     try {
-      sessionStorage.setItem(KEY.answers, JSON.stringify({ ...a, step }));
+      sessionStorage.setItem(KEY.answers, JSON.stringify({ ...a, step: reached }));
     } catch {}
-  }, [a, step]);
+  }, [a, reached, hydrated]);
 
-  // keyboard-completable: every step starts focused so Enter always submits
+  // first paint: the field is focused so Enter submits. every later step: focus lands on the step heading (WD-04)
+  const mounted = useRef(false);
   useEffect(() => {
+    if (mounted.current) return heading.current?.focus();
+    mounted.current = true;
     form.current?.querySelector<HTMLElement>("input:checked, input:not([type=hidden])")?.focus();
   }, [step]);
 
@@ -67,7 +101,10 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
     const p = problem();
     setError(p);
     if (p) return;
-    if (step < STEPS - 1) return setStep(step + 1);
+    if (step < STEPS - 1) {
+      setReached((prev) => Math.max(prev, step + 1));
+      return goTo(step + 1);
+    }
     setStatus("loading");
     try {
       const [, lo, hi] = BANDS[a.band];
@@ -77,9 +114,10 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
         body: JSON.stringify({ budget: a.budget, protein_per_day: a.protein, kcal_min: lo, kcal_max: hi, diet: a.diet, household: a.household, pantry: a.pantry }),
       });
       if (!res.ok) throw new Error(String(res.status));
-      sessionStorage.setItem(KEY.plan, JSON.stringify({ answers: a, week: await res.json() }));
+      const week = await res.json();
+      sessionStorage.setItem(KEY.plan, JSON.stringify({ answers: a, week }));
       track("demo_complete");
-      router.push("/plan");
+      router.push(`/plan?p=${encodeAnswers(a, week.seed)}`);
     } catch {
       setStatus("error");
     }
@@ -90,11 +128,22 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
       <div className="fixed inset-x-0 top-0 z-(--z-sticky) h-0.5 bg-rule" aria-hidden="true">
         <div className="h-full bg-accent transition-[width] duration-200 ease-press" style={{ width: `${((step + 1) / STEPS) * 100}%` }} />
       </div>
-      <p className="font-mono text-micro uppercase text-ink-soft">
-        0{step + 1} / 0{STEPS}
+      <h1 className="sr-only">Solve my week</h1>
+      <p
+        role="progressbar"
+        aria-valuenow={step + 1}
+        aria-valuemin={1}
+        aria-valuemax={STEPS}
+        aria-label={`Step ${step + 1} of ${STEPS}`}
+        className="font-mono text-micro uppercase text-ink-soft"
+      >
+        {String(step + 1).padStart(2, "0")} / {String(STEPS).padStart(2, "0")}
       </p>
+      <h2 ref={heading} tabIndex={-1} className="mt-4 text-h2 font-bold focus:outline-none">
+        {TITLES[step]}
+      </h2>
 
-      <form ref={form} onSubmit={next} className="mt-10 max-w-[62ch]" aria-live="polite">
+      <form ref={form} onSubmit={next} className="mt-8 max-w-[62ch]" aria-live="polite">
         {step === 0 && (
           <>
             <label htmlFor="budget" className={label}>
@@ -188,7 +237,7 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
             {status === "loading" ? "solving…" : step < STEPS - 1 ? "next" : "solve my week"}
           </button>
           {step > 0 && (
-            <button type="button" onClick={() => (setError(""), setStep(step - 1))} className="text-link min-h-11">
+            <button type="button" onClick={() => (setError(""), router.back())} className="text-link min-h-11">
               back
             </button>
           )}

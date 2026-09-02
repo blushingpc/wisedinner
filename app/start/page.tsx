@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { staples } from "@/data/staples";
 import { Quiz } from "./quiz";
 
@@ -27,7 +28,10 @@ export default async function Start({ searchParams }: { searchParams: Promise<{ 
       <noscript>
         <p className="text-xl">the demo needs javascript.</p>
       </noscript>
-      <Quiz pantryOptions={pantryOptions} initial={initial} />
+      {/* Quiz reads ?step= on the client (WD-05) */}
+      <Suspense>
+        <Quiz pantryOptions={pantryOptions} initial={initial} />
+      </Suspense>
     </main>
   );
 }
