@@ -30,6 +30,6 @@ proof now renders only when real values are entered in content/site.ts.
 | 4 | content/site.ts proof.preorders | 1,240 pre-orders | zeroed 2026-09-01; renders only when real and >= 100 | CLOSED |
 | 5 | content/site.ts proof.demoWeeksThisMonth | 3,400 demo weeks | zeroed 2026-09-01; renders only when real and >= 100 | CLOSED |
 | 6 | content/site.ts hero.perk (hero + FAQ cost answer) | "first month is on us" offer | founder-confirmed offer, or "" to hide | OPEN |
-| 7 | content/site.ts appStoreUrl + badge/QR placeholders | "#app-store", drawn badge box, dummy QR | real App Store URL + official Apple badge SVG + real QR | OPEN |
+| 7 | lib/links.ts APP_STORE_URL + badge/QR placeholders | every pre-order control routes to /start as "try the free demo →" until NEXT_PUBLIC_APP_STORE_URL is set (WD-01); drawn badge box; dummy QR | set NEXT_PUBLIC_APP_STORE_URL in Vercel (prod + preview) + official Apple badge SVG + real QR (WD-07) | OPEN |
 | 8 | content/site.ts founderNote | empty (hidden) | real founder note + real kitchen photo, or stays hidden | OPEN |
 | 9 | content/site.ts demo.bands (inline-demo cards) | static budget-band dinner picks (real meals, real computed prices, but not the live solver's pick) | drive pickDinners from real solver output | OPEN |

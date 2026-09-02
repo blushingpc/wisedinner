@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/app/wordmark";
-import { site } from "@/content/site";
+import { AppStoreLink } from "./app-store-link";
 
 // §9.12: grouped product / company / legal. the "tiny team" line lives on /about, where it is charming.
 const GROUPS: [string, [string, string][]][] = [
@@ -42,9 +42,7 @@ export function Footer() {
             <ul className="mt-3">
               {name === "product" && (
                 <li>
-                  <a href={site.appStoreUrl} target="_blank" rel="noopener noreferrer" className="text-link-quiet inline-flex min-h-11 items-center">
-                    on the App Store
-                  </a>
+                  <AppStoreLink className="text-link-quiet inline-flex min-h-11 items-center">on the App Store</AppStoreLink>
                 </li>
               )}
               {links.map(([l, h]) => (

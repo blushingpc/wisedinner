@@ -8,7 +8,7 @@ import { Accordion } from "./ui/accordion";
 import { AppStoreBadge } from "./ui/app-store-badge";
 import { HeroEmailFallback } from "./ui/hero-email-fallback";
 import { DeviceFrame } from "./ui/device-frame";
-import { MobileCtaBar } from "./ui/mobile-cta-bar";
+import { MOBILE_CTA_SENTINEL, MobileCtaBar } from "./ui/mobile-cta-bar";
 import { InlineDemo } from "./ui/inline-demo";
 import { MealCard } from "./ui/meal-card";
 import { People } from "./ui/people";
@@ -19,6 +19,7 @@ import { ReceiptCard } from "./ui/receipt-card";
 import { Section } from "./ui/section";
 import { ShelfTag } from "./ui/shelf-tag";
 import { WaitlistForm } from "./ui/waitlist-form";
+import { APP_STORE_IS_LIVE } from "@/lib/links";
 
 const ORG = {
   "@context": "https://schema.org",
@@ -92,11 +93,14 @@ export default function Home() {
               <div>
                 <div className="flex flex-wrap items-center gap-4">
                   <AppStoreBadge placement="hero" />
-                  <Link href="/start" className="cta cta-ghost">
-                    {HERO.demo}
-                  </Link>
+                  {/* before launch the badge itself is the demo CTA, so the ghost twin would be a duplicate */}
+                  {APP_STORE_IS_LIVE && (
+                    <Link href="/start" className="cta cta-ghost">
+                      {HERO.demo}
+                    </Link>
+                  )}
                 </div>
-                {site.hero.perk && <p className="mt-3 text-caption font-semibold text-kale lg:mt-4">{site.hero.perk}</p>}
+                {APP_STORE_IS_LIVE && site.hero.perk && <p className="mt-3 text-caption font-semibold text-kale lg:mt-4">{site.hero.perk}</p>}
               </div>
               {/* TODO(launch): swap for a QR that encodes the App Store URL */}
               <div className="hidden shrink-0 lg:block">
@@ -104,6 +108,8 @@ export default function Home() {
                 <p className="mt-1 text-[0.75rem] text-ink-3">scan to pre-order</p>
               </div>
             </div>
+            {/* the mobile sticky bar shows once this line has scrolled off the top (WD-03) */}
+            <div id={MOBILE_CTA_SENTINEL} aria-hidden="true" />
             <HeroEmailFallback className="fade-up mt-3 [animation-delay:240ms] lg:mt-4" />
             {site.hero.pill && (
               <p className="fade-up mt-3 inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft [animation-delay:240ms] lg:mt-4">
@@ -128,7 +134,7 @@ export default function Home() {
                 </div>
               </div>
             </DeviceFrame>
-            <ShelfTag label={`$${drop.est_total.toFixed(2)}`} sub="one trip" className="absolute right-2 top-10 z-10 lg:right-6" />
+            <ShelfTag label={`$${drop.est_total.toFixed(2)}`} sub="one trip" className="absolute right-2 top-10 z-(--z-raised) lg:right-6" />
             <Image
               src="/img/A1-1.png"
               alt="ceramic bowl of sliced roasted chicken thigh over rice with charred broccoli"
@@ -137,7 +143,7 @@ export default function Home() {
               quality={75}
               priority
               sizes="(min-width: 1024px) 260px, 170px"
-              className="dish-drift img-grade absolute -left-2 bottom-4 z-10 w-[170px] [filter:drop-shadow(0_24px_28px_rgba(27,26,24,0.28))] lg:-left-6 lg:bottom-10 lg:w-[260px]"
+              className="dish-drift img-grade absolute -left-2 bottom-4 z-(--z-decoration) w-[170px] [filter:drop-shadow(0_24px_28px_rgba(27,26,24,0.28))] lg:-left-6 lg:bottom-10 lg:w-[260px]"
             />
             <Image
               src="/img/A1-3.png"
@@ -147,7 +153,7 @@ export default function Home() {
               quality={75}
               sizes="180px"
               style={{ animationDelay: "-3s" }}
-              className="dish-drift img-grade absolute -right-4 bottom-32 z-10 hidden w-[180px] [filter:drop-shadow(0_24px_28px_rgba(27,26,24,0.28))] lg:block"
+              className="dish-drift img-grade absolute -right-4 bottom-32 z-(--z-decoration) hidden w-[180px] [filter:drop-shadow(0_24px_28px_rgba(27,26,24,0.28))] lg:block"
             />
           </div>
         </div>
@@ -292,9 +298,11 @@ export default function Home() {
           <div className="self-center">
             <div className="flex flex-wrap items-center gap-4">
               <PreorderButton variant="ink" placement="final" />
-              <Link href="/start" className="cta cta-ghost">
-                {HERO.demo}
-              </Link>
+              {APP_STORE_IS_LIVE && (
+                <Link href="/start" className="cta cta-ghost">
+                  {HERO.demo}
+                </Link>
+              )}
             </div>
             <p className="mt-3 text-[0.8125rem] text-ink/80">{site.finalCta.under}</p>
             <div className="mt-8">

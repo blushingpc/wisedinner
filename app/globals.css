@@ -55,10 +55,23 @@
   --ease-press: cubic-bezier(0.32, 0.72, 0, 1); /* interactions, 200ms */
 }
 
+/* the homepage's mobile sticky bar (WD-03) needs the footer to end 9rem early so its last line stays readable;
+   only the page that renders the bar's sentinel pays for it */
+@media (max-width: 639px) {
+  main:has(#hero-cta-end) + footer > div {
+    padding-bottom: 9rem;
+  }
+}
+
+/* z-index scale (WD-02) — every z-index on the site is one of these; no two tiers share a value.
+   `z-(--z-decoration)` etc. in class names, never a raw number. */
 :root {
-  --z-sticky: 10;
-  --z-modal: 50;
-  --z-toast: 60;
+  --z-base: 0; /* normal content */
+  --z-decoration: 1; /* dish-drift, floating garnish, glare */
+  --z-raised: 10; /* cards and tags lifting off the page */
+  --z-sticky: 50; /* header, mobile CTA bar, /plan total bar, quiz progress line */
+  --z-modal: 100; /* nothing uses this yet — reserved */
+  --z-toast: 110; /* skip-to-content link */
 }
 
 :focus-visible {

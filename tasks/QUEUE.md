@@ -21,6 +21,14 @@ Ideas with a metric tag [activation|conversion|price-accuracy|perf] or they get 
 15. [x] PROGRESS sprint summary
    done means: every §20 acceptance line checked.
 
+## Remediation — docs/REMEDIATION-2026-09-02.md (founder work order). three PRs, in order; each phase is one job.
+R1. [ ] Phase 1 (WD-01 dead App Store links · WD-02 z-index scale · WD-03 mobile sticky bar) — branch wd-phase-1, PR to main.
+   done means: `node scripts/wd-check.ts` passes on the Vercel preview, §9 Phase 1 lines all checked, PR open for the founder.
+R2. [ ] Phase 2 (WD-04 → WD-11) — branch wd-phase-2 on top of phase 1.
+   done means: §9 Phase 2 lines all checked on the preview; PR open.
+R3. [ ] Phase 3 (WD-12 → WD-20) — branch wd-phase-3 on top of phase 2.
+   done means: §9 Phase 3 + global regression lines all checked on the preview; PR open.
+
 ## After keys/DNS (blocked until human does chrome-tasks.md)
 11. BLOCKED (Stripe keys): 21-day trial checkout, annual-first pricing page per wisedinner-truth.
 12. Switch canonical URL to https://www.wisedinner.com everywhere (DNS resolves to Vercel as of 2026-08-30; apex redirects to www).

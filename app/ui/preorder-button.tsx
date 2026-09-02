@@ -1,4 +1,4 @@
-import { site } from "@/content/site";
+import { AppStoreLink } from "./app-store-link";
 
 // text pre-order CTA. yolk = default primary; ink = ink ground with yolk text (final CTA only).
 // short: below md the label is just "pre-order →" so the header fits narrow phones.
@@ -15,14 +15,8 @@ export function PreorderButton({
   className?: string;
 }) {
   return (
-    <a
-      href={site.appStoreUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      data-placement={placement}
-      className={`cta ${variant === "ink" ? "cta-ink" : ""} ${className}`}
-    >
+    <AppStoreLink placement={placement} className={`cta ${variant === "ink" ? "cta-ink" : ""} ${className}`}>
       pre-order{short ? <span className="hidden md:inline">&nbsp;on the App Store</span> : " on the App Store"} →
-    </a>
+    </AppStoreLink>
   );
 }

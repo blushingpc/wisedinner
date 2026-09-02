@@ -1,7 +1,6 @@
 // all marketing copy + sample values in one place. components render nothing for "", 0, [].
 // proof counts show only when >= 100; nothing here may claim a number, quote or rating that is not real.
 export const site = {
-  appStoreUrl: "#app-store", // TODO(launch): App Store Marketing Tools link
   hero: {
     h1: "hit your protein. spend way less.",
     lede: "stop guessing in the aisle. tell us your budget and protein goal; we plan five days and one short list.",
