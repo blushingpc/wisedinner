@@ -22,9 +22,9 @@ Ideas with a metric tag [activation|conversion|price-accuracy|perf] or they get 
    done means: every §20 acceptance line checked.
 
 ## Remediation — docs/REMEDIATION-2026-09-02.md (founder work order). three PRs, in order; each phase is one job.
-R1. [x] Phase 1 (WD-01 dead App Store links · WD-02 z-index scale · WD-03 mobile sticky bar) — branch wd-phase-1, PR #10 open, preview probe green 2026-09-02. awaiting founder merge.
-R2. [x] Phase 2 (WD-04 → WD-11) — branch wd-phase-2, PR #11 open (base wd-phase-1), preview probe green 2026-09-02. awaiting founder merge.
-R3. [x] Phase 3 (WD-12 → WD-20) — branch wd-phase-3, PR open (base wd-phase-2), preview probe per PR comment. awaiting founder merge; WD-12 band B + WD-06 tier 2 are founder calls (see ledger).
+R1. [x] Phase 1 (WD-01 dead App Store links · WD-02 z-index scale · WD-03 mobile sticky bar) — MERGED to main + LIVE 2026-09-02 (641bbbb), prod probe green.
+R2. [x] Phase 2 (WD-04 → WD-11) — MERGED to main + LIVE 2026-09-02, prod probe green.
+R3. [x] Phase 3 (WD-12 → WD-20) — MERGED to main + LIVE 2026-09-02, prod probe green. open founder calls: NEXT_PUBLIC_APP_STORE_URL in Vercel · WD-06 tier 2 (backend) · WD-12 band B (A3 fill background) · WD-19 payload refactor · /start description wording (see ledger).
 
 ## After keys/DNS (blocked until human does chrome-tasks.md)
 11. BLOCKED (Stripe keys): 21-day trial checkout, annual-first pricing page per wisedinner-truth.
