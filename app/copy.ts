@@ -2,6 +2,8 @@
 import { site } from "@/content/site";
 
 const { launchWindow } = site;
+const [plan] = site.pricing.tiers;
+const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 const perk = site.hero.perk;
 
 export const SUPPORT_EMAIL = "support@wisedinner.com";
@@ -27,7 +29,7 @@ export const FAQ = [
   {
     q: "how much does it cost?",
     // TODO(launch): confirm figures against /pricing
-    a: `pre-ordering is free. the app comes with a 21-day free trial, then $4.99/mo billed yearly or $8.99 month to month.${perk ? ` ${perk}` : ""}`,
+    a: `pre-ordering is free. the app comes with a 21-day free trial, then ${usd(plan.perMonth)}/mo billed yearly or ${usd(plan.monthly)} month to month.${perk ? ` ${perk}` : ""}`,
   },
   {
     q: "is it on android?",
@@ -53,7 +55,7 @@ export const FAQ = [
   },
   {
     q: "do you sell my data?",
-    a: "no. not now, not at launch, not as the business model. the business model is $59/yr.",
+    a: `no. not now, not at launch, not as the business model. the business model is ${usd(plan.yearly)}/yr.`,
   },
   {
     q: "how is zero waste possible without logging?",

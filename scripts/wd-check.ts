@@ -98,8 +98,9 @@ for (const width of [1440, 1746]) {
 }
 
 // ---------- phase 2 ----------
+const nextBtn = (page: Page) => page.getByRole("button", { name: "next", exact: true }).click();
+
 if (PHASE >= 2) {
-  const nextBtn = (page: Page) => page.getByRole("button", { name: "next", exact: true }).click();
   const heads = (page: Page) =>
     page.evaluate(() => ({
       h1: [...document.querySelectorAll("h1")].map((h) => h.textContent ?? ""),
@@ -260,24 +261,43 @@ if (PHASE >= 3) {
   const pricing = await ld("/pricing");
   const product = pricing.find((x) => x["@type"] === "Product");
   const pageText = await page.evaluate(() => document.body.innerText);
-  const pricesOnPage = product?.offers?.every((o: { price: string }) => pageText.includes(`${o.price.replace(/.00$/, "")}`));
+  const pricesOnPage = product?.offers?.every((o: { price: string }) => pageText.includes("$" + o.price.replace(/\.00$/, "")));
   check(!!product && product.offers?.length === 4 && pricesOnPage === true, `WD-16 /pricing Product with ${product?.offers?.length ?? 0} offers, every price visible on the page: ${pricesOnPage}`);
   const faq = await ld("/faq");
   check(faq.some((x) => x["@type"] === "FAQPage" && x.mainEntity?.length >= 8), "WD-15 /faq still ships FAQPage");
-  // WD-13 — focus ring: outline colour equals the control's own text colour on paper, yolk, ink and kale grounds
+  // WD-13 — focus ring: a solid ≥2px ring in ink on every ground, paper inside the kale room; also the tiles on /start 5–6
   await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
-  const rings = await page.evaluate(() => {
-    const sels = ['header a[data-placement="header"]', 'a[data-placement="final"]', 'a[href="/the-math"]', "footer a", '#early-access input[type="email"]'];
-    return sels.map((s) => {
+  const ringOf = (sel: string) =>
+    page.evaluate((s) => {
       const el = document.querySelector(s) as HTMLElement | null;
       if (!el) return `${s}: missing`;
       el.focus();
-      const cs = getComputedStyle(el);
-      const okRing = cs.outlineStyle !== "none" && parseFloat(cs.outlineWidth) >= 2 && cs.outlineColor === cs.color;
+      const ring = el.closest("label") ?? el; // sr-only inputs show the ring on their tile
+      const cs = getComputedStyle(ring);
+      const ink = getComputedStyle(document.body).color;
+      const paper = getComputedStyle(document.body).backgroundColor;
+      const want = el.closest(".bg-kale") ? paper : ink;
+      const okRing = el.matches(":focus-visible") && cs.outlineStyle === "solid" && parseFloat(cs.outlineWidth) >= 2 && cs.outlineColor === want;
       el.blur();
-      return `${s}: ${okRing ? "ok" : `${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor} vs text ${cs.color}`}`;
-    });
-  });
+      return `${s}: ${okRing ? "ok" : `${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor} (want ${want})`}`;
+    }, sel);
+  const rings: string[] = [];
+  for (const s of ['header a[data-placement="header"]', 'a[data-placement="final"]', 'a[href="/the-math"]', "footer a", '#early-access input[type="email"]']) rings.push(await ringOf(s));
+  await page.goto(`${BASE}/start`, { waitUntil: "networkidle" });
+  for (let i = 0; i < 4; i++) {
+    await nextBtn(page);
+    await page.waitForURL(new RegExp(`step=${i + 2}`));
+  }
+  // a radio only becomes :focus-visible through the keyboard, so Tab from the step heading onto the first tile
+  await page.keyboard.press("Tab");
+  rings.push(
+    await page.evaluate(() => {
+      const a = document.activeElement as HTMLElement;
+      const cs = getComputedStyle(a.closest("label") ?? a);
+      const okTile = a.getAttribute("name") === "household" && cs.outlineStyle === "solid" && parseFloat(cs.outlineWidth) >= 2 && cs.outlineColor === getComputedStyle(document.body).color;
+      return `/start step 5 tile: ${okTile ? "ok" : `${a.tagName}[${a.getAttribute("name")}] ${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor}`}`;
+    }),
+  );
   check(rings.every((r) => /: ok$/.test(r)), `WD-13 focus rings: ${rings.join(" | ")}`);
   // WD-12 — the wide S2 band shows its whole source (≤2% discarded); the phone crop too
   for (const w of [1440, 390]) {

@@ -90,10 +90,15 @@ html {
   --z-toast: 110; /* skip-to-content link */
 }
 
-/* WD-13: currentColor follows the control's own text, so the ring reads on paper, yolk, kale and black alike */
+/* WD-13: the ring sits 2px outside the control, on the surrounding ground — ink reads on paper, linen and yolk;
+   the spec's currentColor measured 1.00:1 on inverted controls (yolk-on-ink CTA over the yolk section, paper-on-kale
+   demo button over paper). the kale room is the one dark ground, so it gets a paper ring. */
 :focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--color-ink);
   outline-offset: 2px;
+}
+.bg-kale :focus-visible {
+  outline-color: var(--color-bg);
 }
 
 /* reveals — visible by default; app/reveal.tsx adds .reveal-from only when JS runs */

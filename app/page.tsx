@@ -164,7 +164,7 @@ export default function Home() {
             <ShelfTag label={`$${drop.est_total.toFixed(2)}`} sub="one trip" className="absolute right-2 top-10 z-(--z-raised) lg:right-6" />
             <Image
               src="/img/A1-1.png"
-              alt="ceramic bowl of sliced roasted chicken thigh over rice with charred broccoli"
+              alt="" // decorative garnish (WD-18): the phone screen already names the dish
               width={1600}
               height={1600}
               quality={75}
@@ -174,7 +174,7 @@ export default function Home() {
             />
             <Image
               src="/img/A1-3.png"
-              alt="glass of greek yogurt layered with oats and banana slices"
+              alt="" // decorative garnish (WD-18)
               width={1600}
               height={1600}
               quality={75}

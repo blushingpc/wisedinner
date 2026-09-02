@@ -44,7 +44,8 @@ export const site = {
       { max: 999, dinners: ["chicken thigh rice bowl", "pork loin and sweet potato", "tuna rice bowl, edamame"] },
     ],
   },
-  // /pricing cards + Offer JSON-LD (WD-16). pricing honesty law: these are the only pricing numbers on the site
+  // /pricing cards, Offer JSON-LD, FAQ answers, the /pricing description and the OG card all read these (WD-16).
+  // pricing honesty law: change a price here and nowhere else
   pricing: {
     tiers: [
       { name: "protein plan", monthly: 8.99, yearly: 59, perMonth: 4.99, popular: true, rows: [["weeks solved", "unlimited"], ["grocery list", "export + print"], ["re-solve", "any time"], ["receipt ledger", "included"], ["pantry credit", "included"]] },

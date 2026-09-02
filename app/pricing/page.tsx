@@ -5,15 +5,15 @@ import { WaitlistForm } from "@/app/ui/waitlist-form";
 import { SITE } from "@/app/copy";
 import { site } from "@/content/site";
 
+const TIERS = site.pricing.tiers;
+const money = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
+
 export const metadata: Metadata = {
   title: "Pricing — WiseDinner",
-  description: "what wisedinner will cost when the app ships: $4.99 a month billed yearly or $8.99 monthly, 21-day free trial, cancel anytime. nothing for sale here yet.",
+  description: `what wisedinner will cost when the app ships: ${money(TIERS[0].perMonth)} a month billed yearly or ${money(TIERS[0].monthly)} monthly, 21-day free trial, cancel anytime. nothing for sale here yet.`,
   alternates: { canonical: "/pricing" },
   openGraph: { images: ["/og?page=pricing"] },
 };
-
-const TIERS = site.pricing.tiers;
-const money = (n: number) => `${n.toFixed(2).replace(/.00$/, "")}`;
 
 // Product + one Offer per tier and term (WD-16). PreOrder availability: nothing is for sale on this page yet.
 const LD = {

@@ -164,7 +164,7 @@ export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: st
                 onClick={() => {
                   const el = stepsRef.current;
                   const li = el?.children[i] as HTMLElement | undefined;
-                  if (el && li) el.scrollTo({ left: li.offsetLeft - el.offsetLeft - (el.clientWidth - li.clientWidth) / 2, behavior: "smooth" });
+                  if (el && li) el.scrollTo({ left: li.offsetLeft - el.offsetLeft - (el.clientWidth - li.clientWidth) / 2, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
                 }}
                 className="grid size-11 place-items-center"
               >

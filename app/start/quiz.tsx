@@ -156,7 +156,7 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
       >
         {String(step + 1).padStart(2, "0")} / {String(STEPS).padStart(2, "0")}
       </p>
-      <h2 ref={heading} tabIndex={-1} className="mt-4 text-h2 font-bold focus:outline-none">
+      <h2 ref={heading} tabIndex={-1} className="mt-4 text-h2 font-bold">
         {TITLES[step]}
       </h2>
 
@@ -217,7 +217,7 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
             <p className={helper}>everyone the list has to feed, you included.</p>
             <div className="mt-2 flex gap-2">
               {[1, 2, 3, 4].map((n) => (
-                <label key={n} className={`flex size-14 cursor-pointer items-center justify-center rounded-[12px] border font-mono text-2xl tabular-nums ${a.household === n ? "border-ink bg-ink text-bg" : "border-rule"}`}>
+                <label key={n} className={`flex size-14 cursor-pointer items-center justify-center rounded-[12px] border font-mono text-2xl tabular-nums has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink ${a.household === n ? "border-ink bg-ink text-bg" : "border-rule"}`}>
                   <input type="radio" name="household" className="sr-only" checked={a.household === n} onChange={() => set({ household: n })} />
                   {n}
                 </label>
@@ -233,7 +233,7 @@ export function Quiz({ pantryOptions, initial }: { pantryOptions: string[]; init
               {pantryOptions.map((name) => {
                 const on = a.pantry.includes(name);
                 return (
-                  <label key={name} className={`inline-flex min-h-11 cursor-pointer items-center rounded-[12px] border px-4 ${on ? "border-ink bg-ink text-bg" : "border-rule"}`}>
+                  <label key={name} className={`inline-flex min-h-11 cursor-pointer items-center rounded-[12px] border px-4 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink ${on ? "border-ink bg-ink text-bg" : "border-rule"}`}>
                     <input type="checkbox" className="sr-only" checked={on} onChange={(e) => set({ pantry: e.target.checked ? [...a.pantry, name] : a.pantry.filter((p) => p !== name) })} />
                     {name}
                   </label>
