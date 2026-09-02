@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: { formats: ["image/avif", "image/webp"] },
+  async redirects() {
+    // the printed short link (hero QR, WD-07): repoint here, never reprint. temporary (307) on purpose.
+    return [{ source: "/ios", destination: process.env.NEXT_PUBLIC_APP_STORE_URL || "/start", permanent: false }];
+  },
   async headers() {
     return [
       {

@@ -1,9 +1,10 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
+import { preload, type PreloadOptions } from "react-dom";
 import { drop } from "@/data/drop";
 import { meals } from "@/data/meals";
 import { site } from "@/content/site";
-import { ABOUT, FAQ, HERO, SITE } from "./copy";
+import { FAQ, HERO, SITE } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { AppStoreBadge } from "./ui/app-store-badge";
 import { HeroEmailFallback } from "./ui/hero-email-fallback";
@@ -76,7 +77,15 @@ function ScreenTheList() {
 // dinner-card pool for the inline demo — precomputed server-side so staples stay out of the client bundle
 const demoPool = meals.map(({ name, img, alt, price_usd }) => ({ name, img, alt, price_usd }));
 
+// S2 band art direction: the 3:1 row of plates on ≥ sm, the tall crop on phones (same next/image ladders, one request)
+const A2_ALT = "five different home-cooked high-protein dinners plated in a row on a linen tablecloth in warm evening light";
+const { props: a2Wide } = getImageProps({ src: "/img/A2.jpg", alt: A2_ALT, width: 2560, height: 853, quality: 80, sizes: "100vw", priority: true });
+const { props: a2Mobile } = getImageProps({ src: "/img/A2-mobile.jpg", alt: A2_ALT, width: 1600, height: 2000, quality: 75, sizes: "100vw", priority: true });
+
 export default function Home() {
+  // WD-10: one media-scoped head preload per S2 crop, so each viewport announces only the image it will show
+  preload(a2Mobile.src as string, { as: "image", imageSrcSet: a2Mobile.srcSet as string, imageSizes: a2Mobile.sizes, media: "(max-width: 639px)", fetchPriority: "high" } as PreloadOptions);
+  preload(a2Wide.src as string, { as: "image", imageSrcSet: a2Wide.srcSet as string, imageSizes: a2Wide.sizes, media: "(min-width: 640px)", fetchPriority: "high" } as PreloadOptions);
   return (
     <main id="main">
       <script type="application/ld+json">{JSON.stringify(ORG)}</script>
@@ -102,10 +111,11 @@ export default function Home() {
                 </div>
                 {APP_STORE_IS_LIVE && site.hero.perk && <p className="mt-3 text-caption font-semibold text-kale lg:mt-4">{site.hero.perk}</p>}
               </div>
-              {/* TODO(launch): swap for a QR that encodes the App Store URL */}
+              {/* WD-07: the QR encodes wisedinner.com/ios, a redirect we control (next.config.ts) — never the raw store URL */}
               <div className="hidden shrink-0 lg:block">
-                <Image src="/badges/qr-placeholder.svg" alt="" width={96} height={96} />
-                <p className="mt-1 text-[0.75rem] text-ink-3">scan to pre-order</p>
+                <Image src="/badges/qr-ios.svg" alt={APP_STORE_IS_LIVE ? "QR code — scan to open the WiseDinner pre-order page" : "QR code — scan to open the WiseDinner demo"} width={96} height={96} />
+                <p className="mt-1 text-[0.75rem] text-ink-3">{APP_STORE_IS_LIVE ? "scan to pre-order" : "scan to try the demo"}</p>
+                <p className="font-mono text-[0.6875rem] text-ink-3">wisedinner.com/ios</p>
               </div>
             </div>
             {/* the mobile sticky bar shows once this line has scrolled off the top (WD-03) */}
@@ -161,28 +171,12 @@ export default function Home() {
 
       {/* S2 five dinners — full-bleed food strip (DESIGN-AUDIT §9.3), the page's color moment */}
       <section id="week" className="relative">
-        <Image
-          src="/img/A2.jpg"
-          priority
-          fetchPriority="high"
-          alt="five different home-cooked high-protein dinners plated in a row on a linen tablecloth in warm evening light"
-          width={2560}
-          height={853}
-          quality={80}
-          sizes="100vw"
-          className="img-grade hidden w-full object-cover sm:block lg:min-h-[60vh]"
-        />
-        <Image
-          src="/img/A2-mobile.jpg"
-          priority
-          fetchPriority="high"
-          alt="five different home-cooked high-protein dinners plated in a row on a linen tablecloth in warm evening light"
-          width={1600}
-          height={2000}
-          quality={75}
-          sizes="100vw"
-          className="img-grade w-full sm:hidden"
-        />
+        {/* one <picture>, two crops: phones fetch only the tall crop, everything else only the wide one (WD-10 — the
+            hidden twin used to download and render at 0×0). preloads are media-scoped for the same reason. */}
+        <picture>
+          <source media="(max-width: 639px)" srcSet={a2Mobile.srcSet} sizes={a2Mobile.sizes} width={1600} height={2000} />
+          <img {...a2Wide} alt={A2_ALT} fetchPriority="high" className="img-grade w-full object-cover lg:min-h-[60vh]" />
+        </picture>
         {/* paper scrim block, bottom-left on desktop, beneath the image on mobile — the plates are never covered by text */}
         <div className="bg-bg lg:absolute lg:bottom-0 lg:left-0 lg:max-w-[640px] lg:rounded-tr-[14px]">
           <div className="px-6 py-8 lg:px-12 lg:py-10">

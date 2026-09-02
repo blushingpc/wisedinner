@@ -15,7 +15,7 @@ export function PreorderButton({
   className?: string;
 }) {
   return (
-    <AppStoreLink placement={placement} className={`cta ${variant === "ink" ? "cta-ink" : ""} ${className}`}>
+    <AppStoreLink placement={placement} short={short} className={`cta ${variant === "ink" ? "cta-ink" : ""} ${className}`}>
       pre-order{short ? <span className="hidden md:inline">&nbsp;on the App Store</span> : " on the App Store"} →
     </AppStoreLink>
   );

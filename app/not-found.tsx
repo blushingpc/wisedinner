@@ -1,5 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Section } from "./ui/section";
+
+// WD-11: the 404 carries its own title (it used to inherit the homepage's). Next already emits noindex + a real 404 status.
+export const metadata: Metadata = { title: "Page not found — WiseDinner" };
 
 export default function NotFound() {
   return (
