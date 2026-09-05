@@ -1,0 +1,676 @@
+{
+  "viewport": {
+    "vw": 838,
+    "vh": 1200,
+    "dpr": 2,
+    "docH": 9908
+  },
+  "sections": [
+    {
+      "i": 0,
+      "y": 106,
+      "h": 998,
+      "pctVh": 83,
+      "tag": "main",
+      "heading": "h1",
+      "headingPx": 52,
+      "headingWeight": "700",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 4,
+      "largestMedia": {
+        "x": 67,
+        "y": 474,
+        "w": 700,
+        "h": 630
+      },
+      "mediaPctW": 84,
+      "storeBadges": 2,
+      "buttons": 0,
+      "cards": 0,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 1,
+      "y": 1616,
+      "h": 2282,
+      "pctVh": 190,
+      "tag": "div",
+      "heading": "h3",
+      "headingPx": 20,
+      "headingWeight": "600",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 6,
+      "largestMedia": {
+        "x": 16,
+        "y": 2164,
+        "w": 391,
+        "h": 555
+      },
+      "mediaPctW": 47,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 6,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 2,
+      "y": 3898,
+      "h": 1572,
+      "pctVh": 131,
+      "tag": "section",
+      "heading": "h2",
+      "headingPx": 36,
+      "headingWeight": "500",
+      "headingAlign": "center",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 267,
+        "y": 4194,
+        "w": 300,
+        "h": 612
+      },
+      "mediaPctW": 36,
+      "storeBadges": 0,
+      "buttons": 4,
+      "cards": 0,
+      "padTop": "64px",
+      "padBottom": "64px"
+    },
+    {
+      "i": 3,
+      "y": 5702,
+      "h": 684,
+      "pctVh": 57,
+      "tag": "div",
+      "heading": "h3",
+      "headingPx": 20,
+      "headingWeight": "700",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 0,
+      "largestMedia": null,
+      "mediaPctW": 0,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 3,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 4,
+      "y": 6386,
+      "h": 1131,
+      "pctVh": 94,
+      "tag": "section",
+      "heading": "h2",
+      "headingPx": 36,
+      "headingWeight": "700",
+      "headingAlign": "center",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 267,
+        "y": 6777,
+        "w": 300,
+        "h": 612
+      },
+      "mediaPctW": 36,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 1,
+      "padTop": "128px",
+      "padBottom": "128px"
+    },
+    {
+      "i": 5,
+      "y": 7517,
+      "h": 832,
+      "pctVh": 69,
+      "tag": "section",
+      "heading": "h2",
+      "headingPx": 36,
+      "headingWeight": "700",
+      "headingAlign": "center",
+      "bg": "rgb(30, 26, 36)",
+      "isDark": true,
+      "mediaCount": 4,
+      "largestMedia": {
+        "x": 114,
+        "y": 7702,
+        "w": 42,
+        "h": 42
+      },
+      "mediaPctW": 5,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 5,
+      "padTop": "64px",
+      "padBottom": "64px"
+    },
+    {
+      "i": 6,
+      "y": 8349,
+      "h": 944,
+      "pctVh": 79,
+      "tag": "section",
+      "heading": "h2",
+      "headingPx": 48,
+      "headingWeight": "500",
+      "headingAlign": "center",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 0,
+      "largestMedia": null,
+      "mediaPctW": 0,
+      "storeBadges": 0,
+      "buttons": 3,
+      "cards": 6,
+      "padTop": "128px",
+      "padBottom": "32px"
+    },
+    {
+      "i": 7,
+      "y": 9293,
+      "h": 346,
+      "pctVh": 29,
+      "tag": "section",
+      "heading": "h2",
+      "headingPx": 36,
+      "headingWeight": "700",
+      "headingAlign": "center",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 3,
+      "largestMedia": {
+        "x": 0,
+        "y": 9293,
+        "w": 834,
+        "h": 346
+      },
+      "mediaPctW": 100,
+      "storeBadges": 2,
+      "buttons": 0,
+      "cards": 0,
+      "padTop": "64px",
+      "padBottom": "64px"
+    },
+    {
+      "i": 8,
+      "y": 9639,
+      "h": 269,
+      "pctVh": 22,
+      "tag": "footer",
+      "heading": "h3",
+      "headingPx": 16,
+      "headingWeight": "600",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 0,
+      "largestMedia": null,
+      "mediaPctW": 0,
+      "storeBadges": 2,
+      "buttons": 0,
+      "cards": 0,
+      "padTop": "28px",
+      "padBottom": "0px"
+    }
+  ],
+  "hero": {
+    "band": {
+      "y": 106,
+      "h": 998,
+      "pctVh": 83,
+      "bg": "rgb(255, 255, 255)"
+    },
+    "header": 66,
+    "h1": {
+      "px": 52,
+      "weight": "700",
+      "lineHeightPx": 65,
+      "ratio": 1.25,
+      "letterSpacing": "normal",
+      "align": "start",
+      "widthPx": 510,
+      "widthPctVw": 61,
+      "lines": 3,
+      "y": 124,
+      "contrast": 21,
+      "color": "rgb(0, 0, 0)"
+    },
+    "lede": {
+      "px": 16,
+      "lineHeightPx": 24,
+      "widthPx": 510,
+      "lines": 3,
+      "color": "rgb(0, 0, 0)",
+      "contrast": 21,
+      "gapFromH1": 16
+    },
+    "chip": {
+      "y": 66,
+      "w": 362,
+      "h": 43,
+      "radius": "3.35544e+07px",
+      "avatars": 3,
+      "border": "1px"
+    },
+    "textBlock": {
+      "x": 162,
+      "y": 124,
+      "w": 510,
+      "h": 283
+    },
+    "media": {
+      "count": 4,
+      "phone": {
+        "x": 67,
+        "y": 474,
+        "w": 700,
+        "h": 630
+      },
+      "union": {
+        "x": 67,
+        "y": 68,
+        "w": 700,
+        "h": 1036
+      },
+      "unionPctW": 84,
+      "phoneToTextAreaRatio": 3.06,
+      "layout": "media-then-text",
+      "phoneTop": 474,
+      "phoneInFold": true,
+      "phoneFoldPct": 100
+    },
+    "badges": [
+      {
+        "host": "apps.apple.com",
+        "y": 423,
+        "x": 162,
+        "w": 162,
+        "h": 50,
+        "imgW": null,
+        "badgeVsSurface": 21,
+        "radius": "0px",
+        "aboveFold": true
+      },
+      {
+        "host": "play.google.com",
+        "y": 423,
+        "x": 340,
+        "w": 170,
+        "h": 50,
+        "imgW": 170,
+        "badgeVsSurface": 21,
+        "radius": "0px",
+        "aboveFold": true
+      }
+    ],
+    "buttons": []
+  },
+  "pushes": [
+    {
+      "host": "apps.apple.com",
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "fixed": true,
+      "visible": false,
+      "inHeader": true,
+      "band": -1
+    },
+    {
+      "host": "play.google.com",
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "fixed": true,
+      "visible": false,
+      "inHeader": true,
+      "band": -1
+    },
+    {
+      "host": "apps.apple.com",
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "fixed": true,
+      "visible": false,
+      "inHeader": true,
+      "band": -1
+    },
+    {
+      "host": "play.google.com",
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "fixed": true,
+      "visible": false,
+      "inHeader": true,
+      "band": -1
+    },
+    {
+      "host": "apps.apple.com",
+      "y": 423,
+      "w": 162,
+      "h": 50,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 0
+    },
+    {
+      "host": "play.google.com",
+      "y": 423,
+      "w": 170,
+      "h": 50,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 0
+    },
+    {
+      "host": "apps.apple.com",
+      "y": 9533,
+      "w": 135,
+      "h": 41,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 7
+    },
+    {
+      "host": "play.google.com",
+      "y": 9533,
+      "w": 141,
+      "h": 42,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 7
+    },
+    {
+      "host": "apps.apple.com",
+      "y": 9763,
+      "w": 246,
+      "h": 41,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 8
+    },
+    {
+      "host": "play.google.com",
+      "y": 9812,
+      "w": 246,
+      "h": 42,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 8
+    }
+  ],
+  "fixedAfterScroll": [
+    {
+      "tag": "header",
+      "top": 0,
+      "bottom": 1134,
+      "h": 66,
+      "w": 834,
+      "links": 16,
+      "store": 4,
+      "isHeader": true
+    }
+  ],
+  "tokens": {
+    "colors": [
+      {
+        "v": "rgb(0, 0, 0)",
+        "n": 315
+      },
+      {
+        "v": "rgb(255, 255, 255)",
+        "n": 60
+      },
+      {
+        "v": "rgb(74, 69, 82)",
+        "n": 26
+      },
+      {
+        "v": "rgb(30, 26, 36)",
+        "n": 25
+      },
+      {
+        "v": "oklch(0.551 0.027 264.364)",
+        "n": 18
+      },
+      {
+        "v": "rgb(248, 248, 253)",
+        "n": 13
+      },
+      {
+        "v": "rgb(183, 174, 195)",
+        "n": 10
+      },
+      {
+        "v": "oklch(0.446 0.03 256.802)",
+        "n": 9
+      },
+      {
+        "v": "oklab(0 0 0 / 0.2)",
+        "n": 6
+      },
+      {
+        "v": "oklch(0.707 0.165 254.624)",
+        "n": 6
+      },
+      {
+        "v": "rgb(45, 41, 52)",
+        "n": 5
+      },
+      {
+        "v": "oklch(0.278 0.033 256.848)",
+        "n": 4
+      }
+    ],
+    "typeScale": [
+      {
+        "v": "14px/20px",
+        "n": 36
+      },
+      {
+        "v": "16px/26px",
+        "n": 22
+      },
+      {
+        "v": "18px/28px",
+        "n": 16
+      },
+      {
+        "v": "36px/40px",
+        "n": 10
+      },
+      {
+        "v": "20px/28px",
+        "n": 9
+      },
+      {
+        "v": "14px/22.75px",
+        "n": 8
+      },
+      {
+        "v": "20px/30px",
+        "n": 5
+      },
+      {
+        "v": "16px/24px",
+        "n": 4
+      },
+      {
+        "v": "48px/72px",
+        "n": 3
+      },
+      {
+        "v": "52px/65px",
+        "n": 2
+      },
+      {
+        "v": "36px/45px",
+        "n": 1
+      },
+      {
+        "v": "24px/32px",
+        "n": 1
+      }
+    ],
+    "weights": [
+      {
+        "v": "400",
+        "n": 55
+      },
+      {
+        "v": "500",
+        "n": 26
+      },
+      {
+        "v": "600",
+        "n": 16
+      },
+      {
+        "v": "700",
+        "n": 14
+      },
+      {
+        "v": "300",
+        "n": 6
+      }
+    ],
+    "families": [
+      {
+        "v": "Inter",
+        "n": 117
+      }
+    ],
+    "spacing": [
+      {
+        "v": "16px",
+        "n": 89
+      },
+      {
+        "v": "12px",
+        "n": 48
+      },
+      {
+        "v": "24px",
+        "n": 38
+      },
+      {
+        "v": "8px",
+        "n": 37
+      },
+      {
+        "v": "32px",
+        "n": 24
+      },
+      {
+        "v": "4px",
+        "n": 12
+      },
+      {
+        "v": "2px",
+        "n": 10
+      },
+      {
+        "v": "10px",
+        "n": 10
+      },
+      {
+        "v": "21px",
+        "n": 8
+      },
+      {
+        "v": "64px",
+        "n": 8
+      },
+      {
+        "v": "48px",
+        "n": 7
+      },
+      {
+        "v": "6px",
+        "n": 6
+      },
+      {
+        "v": "-8px",
+        "n": 6
+      },
+      {
+        "v": "-20px",
+        "n": 6
+      }
+    ],
+    "radii": [
+      {
+        "v": "3.35544e+07px",
+        "n": 37
+      },
+      {
+        "v": "16px",
+        "n": 13
+      },
+      {
+        "v": "24px",
+        "n": 12
+      },
+      {
+        "v": "6px 6px 16px 16px",
+        "n": 6
+      },
+      {
+        "v": "30px",
+        "n": 4
+      },
+      {
+        "v": "12px",
+        "n": 3
+      }
+    ],
+    "shadows": [
+      {
+        "v": "rgba(228, 229, 233, 0.5) 0px 1px 20px 1px",
+        "n": 9
+      },
+      {
+        "v": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px",
+        "n": 6
+      },
+      {
+        "v": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
+        "n": 6
+      }
+    ]
+  },
+  "header": {
+    "h": 66,
+    "sticky": true,
+    "links": 15,
+    "hasButton": true
+  },
+  "fold": {
+    "h1": true,
+    "mediaInFold": true,
+    "storeBadgesInFold": 2,
+    "buttonsInFold": 2
+  },
+  "_note": "metrics only \u2014 structure, geometry, computed styles. no copy text, assets or logos. captured 2026-09-05 via chrome-devtools MCP."
+}

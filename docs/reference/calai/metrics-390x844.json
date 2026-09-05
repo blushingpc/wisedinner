@@ -1,0 +1,857 @@
+{
+  "viewport": {
+    "vw": 390,
+    "vh": 844,
+    "dpr": 2,
+    "docH": 12587
+  },
+  "sections": [
+    {
+      "i": 0,
+      "y": 66,
+      "h": 667,
+      "pctVh": 79,
+      "tag": "div",
+      "heading": "h1",
+      "headingPx": 52,
+      "headingWeight": "700",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 3,
+      "largestMedia": {
+        "x": 27,
+        "y": 88,
+        "w": 38,
+        "h": 38
+      },
+      "mediaPctW": 10,
+      "storeBadges": 2,
+      "buttons": 0,
+      "cards": 0,
+      "padTop": "20px",
+      "padBottom": "20px"
+    },
+    {
+      "i": 1,
+      "y": 733,
+      "h": 511,
+      "pctVh": 61,
+      "tag": "div",
+      "heading": null,
+      "headingPx": null,
+      "headingWeight": null,
+      "headingAlign": null,
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 0,
+        "y": 733,
+        "w": 390,
+        "h": 351
+      },
+      "mediaPctW": 100,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 0,
+      "padTop": "0px",
+      "padBottom": "160px"
+    },
+    {
+      "i": 2,
+      "y": 1716,
+      "h": 484,
+      "pctVh": 57,
+      "tag": "a",
+      "heading": "h3",
+      "headingPx": 20,
+      "headingWeight": "600",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 16,
+        "y": 1716,
+        "w": 358,
+        "h": 484
+      },
+      "mediaPctW": 92,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 1,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 3,
+      "y": 2221,
+      "h": 509,
+      "pctVh": 60,
+      "tag": "a",
+      "heading": "h3",
+      "headingPx": 20,
+      "headingWeight": "600",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 16,
+        "y": 2221,
+        "w": 358,
+        "h": 509
+      },
+      "mediaPctW": 92,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 1,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 4,
+      "y": 2750,
+      "h": 509,
+      "pctVh": 60,
+      "tag": "a",
+      "heading": "h3",
+      "headingPx": 20,
+      "headingWeight": "600",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 16,
+        "y": 2750,
+        "w": 358,
+        "h": 509
+      },
+      "mediaPctW": 92,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 1,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 5,
+      "y": 3280,
+      "h": 509,
+      "pctVh": 60,
+      "tag": "a",
+      "heading": "h3",
+      "headingPx": 20,
+      "headingWeight": "600",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 16,
+        "y": 3280,
+        "w": 358,
+        "h": 509
+      },
+      "mediaPctW": 92,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 1,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 6,
+      "y": 3810,
+      "h": 509,
+      "pctVh": 60,
+      "tag": "a",
+      "heading": "h3",
+      "headingPx": 20,
+      "headingWeight": "600",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 16,
+        "y": 3810,
+        "w": 358,
+        "h": 509
+      },
+      "mediaPctW": 92,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 1,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 7,
+      "y": 4339,
+      "h": 509,
+      "pctVh": 60,
+      "tag": "a",
+      "heading": "h3",
+      "headingPx": 20,
+      "headingWeight": "600",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 16,
+        "y": 4339,
+        "w": 358,
+        "h": 509
+      },
+      "mediaPctW": 92,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 1,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 8,
+      "y": 4848,
+      "h": 1816,
+      "pctVh": 215,
+      "tag": "section",
+      "heading": "h2",
+      "headingPx": 36,
+      "headingWeight": "500",
+      "headingAlign": "center",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 45,
+        "y": 5184,
+        "w": 300,
+        "h": 612
+      },
+      "mediaPctW": 77,
+      "storeBadges": 0,
+      "buttons": 4,
+      "cards": 0,
+      "padTop": "64px",
+      "padBottom": "64px"
+    },
+    {
+      "i": 9,
+      "y": 6968,
+      "h": 984,
+      "pctVh": 117,
+      "tag": "div",
+      "heading": "h3",
+      "headingPx": 20,
+      "headingWeight": "700",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 0,
+      "largestMedia": null,
+      "mediaPctW": 0,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 3,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 10,
+      "y": 7952,
+      "h": 1131,
+      "pctVh": 134,
+      "tag": "section",
+      "heading": "h2",
+      "headingPx": 36,
+      "headingWeight": "700",
+      "headingAlign": "center",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 1,
+      "largestMedia": {
+        "x": 45,
+        "y": 8343,
+        "w": 300,
+        "h": 612
+      },
+      "mediaPctW": 77,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 1,
+      "padTop": "128px",
+      "padBottom": "128px"
+    },
+    {
+      "i": 11,
+      "y": 9083,
+      "h": 1264,
+      "pctVh": 150,
+      "tag": "section",
+      "heading": "h2",
+      "headingPx": 36,
+      "headingWeight": "700",
+      "headingAlign": "center",
+      "bg": "rgb(30, 26, 36)",
+      "isDark": true,
+      "mediaCount": 4,
+      "largestMedia": {
+        "x": 68,
+        "y": 9308,
+        "w": 42,
+        "h": 42
+      },
+      "mediaPctW": 11,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 5,
+      "padTop": "64px",
+      "padBottom": "64px"
+    },
+    {
+      "i": 12,
+      "y": 10347,
+      "h": 1138,
+      "pctVh": 135,
+      "tag": "section",
+      "heading": "h2",
+      "headingPx": 48,
+      "headingWeight": "500",
+      "headingAlign": "center",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 0,
+      "largestMedia": null,
+      "mediaPctW": 0,
+      "storeBadges": 0,
+      "buttons": 3,
+      "cards": 6,
+      "padTop": "128px",
+      "padBottom": "32px"
+    },
+    {
+      "i": 13,
+      "y": 11289,
+      "h": 415,
+      "pctVh": 49,
+      "tag": "div",
+      "heading": null,
+      "headingPx": null,
+      "headingWeight": null,
+      "headingAlign": null,
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 0,
+      "largestMedia": null,
+      "mediaPctW": 0,
+      "storeBadges": 0,
+      "buttons": 0,
+      "cards": 0,
+      "padTop": "0px",
+      "padBottom": "24px"
+    },
+    {
+      "i": 14,
+      "y": 11549,
+      "h": 315,
+      "pctVh": 37,
+      "tag": "div",
+      "heading": "h2",
+      "headingPx": 36,
+      "headingWeight": "700",
+      "headingAlign": "center",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 2,
+      "largestMedia": {
+        "x": -33,
+        "y": 11577,
+        "w": 42,
+        "h": 120
+      },
+      "mediaPctW": 11,
+      "storeBadges": 2,
+      "buttons": 0,
+      "cards": 0,
+      "padTop": "0px",
+      "padBottom": "0px"
+    },
+    {
+      "i": 15,
+      "y": 11927,
+      "h": 660,
+      "pctVh": 78,
+      "tag": "footer",
+      "heading": "h3",
+      "headingPx": 16,
+      "headingWeight": "600",
+      "headingAlign": "start",
+      "bg": "rgb(255, 255, 255)",
+      "isDark": false,
+      "mediaCount": 0,
+      "largestMedia": null,
+      "mediaPctW": 0,
+      "storeBadges": 2,
+      "buttons": 0,
+      "cards": 0,
+      "padTop": "28px",
+      "padBottom": "0px"
+    }
+  ],
+  "hero": {
+    "band": {
+      "y": 66,
+      "h": 667,
+      "pctVh": 79,
+      "bg": "rgb(255, 255, 255)"
+    },
+    "header": 66,
+    "h1": {
+      "px": 52,
+      "weight": "700",
+      "lineHeightPx": 65,
+      "ratio": 1.25,
+      "letterSpacing": "normal",
+      "align": "start",
+      "widthPx": 350,
+      "widthPctVw": 90,
+      "lines": 5,
+      "y": 144,
+      "contrast": 21,
+      "color": "rgb(0, 0, 0)"
+    },
+    "lede": {
+      "px": 16,
+      "lineHeightPx": 24,
+      "widthPx": 350,
+      "lines": 4,
+      "color": "rgb(0, 0, 0)",
+      "contrast": 21,
+      "gapFromH1": 16
+    },
+    "chip": {
+      "y": 86,
+      "w": 312,
+      "h": 43,
+      "radius": "3.35544e+07px",
+      "avatars": 3,
+      "border": "1px"
+    },
+    "textBlock": {
+      "x": 20,
+      "y": 144,
+      "w": 350,
+      "h": 437
+    },
+    "media": {
+      "count": 3,
+      "phone": {
+        "x": 27,
+        "y": 88,
+        "w": 38,
+        "h": 38
+      },
+      "union": {
+        "x": 27,
+        "y": 88,
+        "w": 74,
+        "h": 38
+      },
+      "unionPctW": 19,
+      "phoneToTextAreaRatio": 0.01,
+      "layout": "media-then-text",
+      "phoneTop": 88,
+      "phoneInFold": true,
+      "phoneFoldPct": 100
+    },
+    "badges": [
+      {
+        "host": "apps.apple.com",
+        "y": 597,
+        "x": 20,
+        "w": 350,
+        "h": 49,
+        "imgW": null,
+        "badgeVsSurface": 21,
+        "radius": "0px",
+        "aboveFold": true
+      },
+      {
+        "host": "play.google.com",
+        "y": 663,
+        "x": 20,
+        "w": 350,
+        "h": 50,
+        "imgW": 170,
+        "badgeVsSurface": 21,
+        "radius": "0px",
+        "aboveFold": true
+      }
+    ],
+    "buttons": []
+  },
+  "pushes": [
+    {
+      "host": "apps.apple.com",
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "fixed": true,
+      "visible": false,
+      "inHeader": true,
+      "band": -1
+    },
+    {
+      "host": "play.google.com",
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "fixed": true,
+      "visible": false,
+      "inHeader": true,
+      "band": -1
+    },
+    {
+      "host": "apps.apple.com",
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "fixed": true,
+      "visible": false,
+      "inHeader": true,
+      "band": -1
+    },
+    {
+      "host": "play.google.com",
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "fixed": true,
+      "visible": false,
+      "inHeader": true,
+      "band": -1
+    },
+    {
+      "host": "apps.apple.com",
+      "y": 597,
+      "w": 350,
+      "h": 49,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 0
+    },
+    {
+      "host": "play.google.com",
+      "y": 663,
+      "w": 350,
+      "h": 50,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 0
+    },
+    {
+      "host": "apps.apple.com",
+      "y": 11765,
+      "w": 135,
+      "h": 41,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 14
+    },
+    {
+      "host": "play.google.com",
+      "y": 11822,
+      "w": 141,
+      "h": 42,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 14
+    },
+    {
+      "host": "apps.apple.com",
+      "y": 12051,
+      "w": 358,
+      "h": 41,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 15
+    },
+    {
+      "host": "play.google.com",
+      "y": 12100,
+      "w": 358,
+      "h": 42,
+      "fixed": false,
+      "visible": true,
+      "inHeader": false,
+      "band": 15
+    }
+  ],
+  "fixedAfterScroll": [
+    {
+      "tag": "header",
+      "top": 0,
+      "bottom": 778,
+      "h": 66,
+      "w": 390,
+      "links": 16,
+      "store": 4,
+      "isHeader": true
+    }
+  ],
+  "tokens": {
+    "colors": [
+      {
+        "v": "rgb(0, 0, 0)",
+        "n": 315
+      },
+      {
+        "v": "rgb(255, 255, 255)",
+        "n": 60
+      },
+      {
+        "v": "rgb(74, 69, 82)",
+        "n": 26
+      },
+      {
+        "v": "rgb(30, 26, 36)",
+        "n": 25
+      },
+      {
+        "v": "oklch(0.551 0.027 264.364)",
+        "n": 18
+      },
+      {
+        "v": "rgb(248, 248, 253)",
+        "n": 13
+      },
+      {
+        "v": "rgb(183, 174, 195)",
+        "n": 10
+      },
+      {
+        "v": "oklch(0.446 0.03 256.802)",
+        "n": 9
+      },
+      {
+        "v": "oklab(0 0 0 / 0.2)",
+        "n": 6
+      },
+      {
+        "v": "oklch(0.707 0.165 254.624)",
+        "n": 6
+      },
+      {
+        "v": "rgb(45, 41, 52)",
+        "n": 5
+      },
+      {
+        "v": "oklch(0.278 0.033 256.848)",
+        "n": 4
+      }
+    ],
+    "typeScale": [
+      {
+        "v": "14px/20px",
+        "n": 35
+      },
+      {
+        "v": "16px/26px",
+        "n": 22
+      },
+      {
+        "v": "16px/24px",
+        "n": 10
+      },
+      {
+        "v": "36px/40px",
+        "n": 10
+      },
+      {
+        "v": "18px/28px",
+        "n": 10
+      },
+      {
+        "v": "20px/28px",
+        "n": 9
+      },
+      {
+        "v": "14px/22.75px",
+        "n": 8
+      },
+      {
+        "v": "20px/30px",
+        "n": 5
+      },
+      {
+        "v": "48px/72px",
+        "n": 3
+      },
+      {
+        "v": "52px/65px",
+        "n": 2
+      },
+      {
+        "v": "12px/16px",
+        "n": 1
+      },
+      {
+        "v": "36px/45px",
+        "n": 1
+      },
+      {
+        "v": "24px/32px",
+        "n": 1
+      }
+    ],
+    "weights": [
+      {
+        "v": "400",
+        "n": 55
+      },
+      {
+        "v": "500",
+        "n": 26
+      },
+      {
+        "v": "600",
+        "n": 16
+      },
+      {
+        "v": "700",
+        "n": 14
+      },
+      {
+        "v": "300",
+        "n": 6
+      }
+    ],
+    "families": [
+      {
+        "v": "Inter",
+        "n": 117
+      }
+    ],
+    "spacing": [
+      {
+        "v": "16px",
+        "n": 90
+      },
+      {
+        "v": "12px",
+        "n": 48
+      },
+      {
+        "v": "8px",
+        "n": 37
+      },
+      {
+        "v": "24px",
+        "n": 26
+      },
+      {
+        "v": "32px",
+        "n": 24
+      },
+      {
+        "v": "20px",
+        "n": 14
+      },
+      {
+        "v": "4px",
+        "n": 12
+      },
+      {
+        "v": "2px",
+        "n": 10
+      },
+      {
+        "v": "10px",
+        "n": 10
+      },
+      {
+        "v": "21px",
+        "n": 8
+      },
+      {
+        "v": "64px",
+        "n": 8
+      },
+      {
+        "v": "48px",
+        "n": 7
+      },
+      {
+        "v": "6px",
+        "n": 6
+      },
+      {
+        "v": "-8px",
+        "n": 6
+      }
+    ],
+    "radii": [
+      {
+        "v": "3.35544e+07px",
+        "n": 37
+      },
+      {
+        "v": "16px",
+        "n": 13
+      },
+      {
+        "v": "24px",
+        "n": 12
+      },
+      {
+        "v": "6px 6px 16px 16px",
+        "n": 6
+      },
+      {
+        "v": "30px",
+        "n": 4
+      },
+      {
+        "v": "12px",
+        "n": 3
+      }
+    ],
+    "shadows": [
+      {
+        "v": "rgba(228, 229, 233, 0.5) 0px 1px 20px 1px",
+        "n": 9
+      },
+      {
+        "v": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px",
+        "n": 6
+      },
+      {
+        "v": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
+        "n": 6
+      }
+    ]
+  },
+  "header": {
+    "h": 66,
+    "sticky": true,
+    "links": 15,
+    "hasButton": true
+  },
+  "fold": {
+    "h1": true,
+    "mediaInFold": true,
+    "storeBadgesInFold": 2,
+    "buttonsInFold": 2
+  },
+  "_note": "metrics only \u2014 structure, geometry, computed styles. no copy text, assets or logos. captured 2026-09-05 via chrome-devtools MCP."
+}
