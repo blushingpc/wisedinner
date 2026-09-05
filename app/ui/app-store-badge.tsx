@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { APP_STORE_IS_LIVE } from "@/lib/links";
+import { APP_STORE_IS_LIVE, RELEASE_DATE } from "@/lib/links";
 import { AppStoreLink } from "./app-store-link";
 
 const BADGE_SRC = "/badges/preorder-on-the-app-store-black.svg";
@@ -10,11 +10,12 @@ const hasBadge = existsSync(join(process.cwd(), "public", BADGE_SRC));
 
 // the official Apple badge — never tilted, recolored, animated or shadowed (Apple marketing rules).
 // clear space (≥25% of badge height) comes from the surrounding layout gaps, all ≥ height/4.
-// before the listing is live the badge is a lie, so the placement renders the primary demo CTA instead.
+// before the listing is live the badge is a lie, so the placement renders the waitlist CTA instead. RELEASE_DATE rides under the badge.
 export function AppStoreBadge({ height = 56, placement, className = "" }: { height?: number; placement?: string; className?: string }) {
   if (!APP_STORE_IS_LIVE) return <AppStoreLink placement={placement} className={`cta ${className}`} />;
   return (
-    <AppStoreLink placement={placement} className={`inline-block ${className}`} aria-label="pre-order wisedinner on the App Store">
+    <span className={`inline-block ${className}`}>
+      <AppStoreLink placement={placement} className="inline-block" aria-label="pre-order wisedinner on the App Store">
       {hasBadge ? (
         // eslint-disable-next-line @next/next/no-img-element -- svg badge, no optimization pass wanted
         <img src={BADGE_SRC} alt="Pre-order on the App Store" style={{ height, width: "auto" }} />
@@ -27,6 +28,8 @@ export function AppStoreBadge({ height = 56, placement, className = "" }: { heig
           <span className="mt-1 text-[19px] font-semibold">App Store</span>
         </span>
       )}
-    </AppStoreLink>
+      </AppStoreLink>
+      {RELEASE_DATE && <span className="mt-2 block text-caption font-semibold text-kale">expected {RELEASE_DATE}</span>}
+    </span>
   );
 }

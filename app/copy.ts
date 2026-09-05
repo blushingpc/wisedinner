@@ -1,5 +1,6 @@
 // SITE-SPEC §18 copy bank — verbatim where the spec is verbatim. used by /, /faq, /about, /press, JSON-LD.
 import { site } from "@/content/site";
+import { APP_STORE_IS_LIVE } from "@/lib/links";
 
 const { launchWindow } = site;
 const [plan] = site.pricing.tiers;
@@ -12,6 +13,8 @@ export const SITE = "https://www.wisedinner.com";
 // homepage copy — DESIGN-AUDIT §18.4 copy deck, verbatim where the deck is verbatim
 export const HERO = {
   demo: "try the free demo →", // h1/lede/pill live in content/site.ts (site.hero)
+  waitlist: "get early access →", // locked label (human-design CTA lock) — every primary control while the listing is not live
+  preorder: "pre-order on the App Store →", // every primary control once NEXT_PUBLIC_APP_STORE_URL is set
 };
 
 export const STEPS = [
@@ -24,7 +27,9 @@ export const FAQ = [
   {
     q: "when does the app launch?",
     // TODO(launch): the "(target: …)" tail drops itself when launchWindow is ""
-    a: `pre-order it now on the App Store and it installs itself on launch day. we'll email you the date the moment it's fixed.${launchWindow ? ` (target: ${launchWindow})` : ""}`,
+    a: APP_STORE_IS_LIVE
+      ? `pre-order it now on the App Store and it installs itself on launch day. we'll email you the date the moment it's fixed.${launchWindow ? ` (target: ${launchWindow})` : ""}`
+      : "leave your email and you'll get one message the day it's up for pre-order on the App Store, and one when it launches.",
   },
   {
     q: "how much does it cost?",

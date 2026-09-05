@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { APP_STORE_IS_LIVE } from "@/lib/links";
+import { APP_STORE_IS_LIVE, RELEASE_DATE } from "@/lib/links";
+import { HERO } from "@/app/copy";
 import { AppStoreLink } from "./app-store-link";
 
 // the homepage places this empty div right after the hero CTA block; the bar shows while it is off-screen (WD-03).
@@ -25,9 +26,9 @@ export function MobileCtaBar() {
       aria-hidden={!show}
       className={`chrome fixed inset-x-0 bottom-0 z-(--z-sticky) border-t border-rule p-3 transition-transform duration-300 ease-out motion-reduce:transition-none sm:hidden ${show ? "translate-y-0" : "translate-y-full"}`}
     >
-      <p className="pb-1.5 text-center text-[0.75rem] text-ink-soft">{APP_STORE_IS_LIVE ? "free · installs itself on launch day" : "no account · takes a minute"}</p>
+      <p className="pb-1.5 text-center text-[0.75rem] text-ink-soft">{APP_STORE_IS_LIVE ? `${RELEASE_DATE ? `expected ${RELEASE_DATE} · ` : ""}free · installs itself on launch day` : "one email when the app is ready"}</p>
       <AppStoreLink placement="sticky" className="cta min-h-[52px] w-full" tabIndex={show ? 0 : -1}>
-        pre-order on the App Store →
+        {HERO.preorder}
       </AppStoreLink>
     </div>
   );

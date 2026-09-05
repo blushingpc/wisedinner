@@ -8,7 +8,8 @@ type State = "idle" | "loading" | "error" | "already";
 
 // one form, five entry points (source). success → /thanks?n=position. quiz answers ride along from /plan.
 // yolk: the final-CTA ground (§9.11) — kale button, ink text; tomato fails AA on yolk so errors go ink there.
-export function WaitlistForm({ source, quiz, yolk, label = "email", button = "notify me" }: { source: string; quiz?: unknown; yolk?: boolean; label?: string; button?: string }) {
+// placement: set when the form is the page's primary control (listing not live) so the data-placement contract (WD-01) survives.
+export function WaitlistForm({ source, quiz, yolk, label = "email", button = "notify me", placement }: { source: string; quiz?: unknown; yolk?: boolean; label?: string; button?: string; placement?: string }) {
   const router = useRouter();
   const [state, setState] = useState<State>("idle");
   const [email, setEmail] = useState("");
@@ -58,7 +59,7 @@ export function WaitlistForm({ source, quiz, yolk, label = "email", button = "no
           className={`field ${yolk ? "border-ink/30" : ""}`}
         />
         <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
-        <button type="submit" disabled={state === "loading"} className={`cta ${yolk ? "cta-kale" : ""}`}>
+        <button type="submit" disabled={state === "loading"} data-placement={placement} className={`cta ${yolk ? "cta-kale" : ""}`}>
           {state === "loading" ? "saving…" : button}
         </button>
       </div>

@@ -20,7 +20,7 @@ import { ReceiptCard } from "./ui/receipt-card";
 import { Section } from "./ui/section";
 import { ShelfTag } from "./ui/shelf-tag";
 import { WaitlistForm } from "./ui/waitlist-form";
-import { APP_STORE_IS_LIVE, STRIPE_PAYMENT_LINK } from "@/lib/links";
+import { APP_STORE_IS_LIVE } from "@/lib/links";
 
 const ORG = {
   "@context": "https://schema.org",
@@ -114,31 +114,42 @@ export default function Home() {
             <ProofChip className="fade-up mb-4" />
             <h1 className="rise-up text-display font-extrabold text-balance">{site.hero.h1}</h1>
             <p className="fade-up mt-5 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{site.hero.lede}</p>
-            {/* no entrance animation on this row — the Apple badge must never animate */}
+            {/* no entrance animation on this row — the Apple badge must never animate.
+                listing not live: the waitlist form IS the primary control (funnel decision 2026-09-05); live: badge + demo twin + email fallback */}
             <div className="mt-6 flex items-start gap-8 lg:mt-8">
-              <div>
-                <div className="flex flex-wrap items-center gap-4">
-                  <AppStoreBadge placement="hero" />
-                  {/* before launch the badge itself is the demo CTA, so the ghost twin would be a duplicate */}
-                  {APP_STORE_IS_LIVE && (
+              <div className="min-w-0 flex-1">
+                {APP_STORE_IS_LIVE ? (
+                  <div className="flex flex-wrap items-center gap-4">
+                    <AppStoreBadge placement="hero" />
                     <Link href="/start" className="cta cta-ghost">
                       {HERO.demo}
                     </Link>
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <WaitlistForm source="hero" button="get early access" placement="hero" />
+                )}
                 {APP_STORE_IS_LIVE && site.hero.perk && <p className="mt-3 text-caption font-semibold text-kale lg:mt-4">{site.hero.perk}</p>}
               </div>
-              {/* WD-07: the QR encodes wisedinner.com/ios, a redirect we control (next.config.ts) — never the raw store URL */}
-              <div className="hidden shrink-0 lg:block">
+              {/* WD-07: the QR encodes wisedinner.com/ios, a redirect we control (next.config.ts) — never the raw store URL.
+                  only while live — before that it would just point at the demo and squeeze the email field beside it */}
+              {APP_STORE_IS_LIVE && (
+                <div className="hidden shrink-0 lg:block">
                 <Image src="/badges/qr-ios.svg" alt={APP_STORE_IS_LIVE ? "QR code — scan to open the WiseDinner pre-order page" : "QR code — scan to open the WiseDinner demo"} width={96} height={96} />
                 <p className="mt-1 text-[0.75rem] text-ink-3">{APP_STORE_IS_LIVE ? "scan to pre-order" : "scan to try the demo"}</p>
-                <p className="font-mono text-[0.6875rem] text-ink-3">wisedinner.com/ios</p>
-              </div>
+                  <p className="font-mono text-[0.6875rem] text-ink-3">wisedinner.com/ios</p>
+                </div>
+              )}
             </div>
             {/* the mobile sticky bar shows once this line has scrolled off the top (WD-03) */}
             <div id={MOBILE_CTA_SENTINEL} aria-hidden="true" />
-            <HeroEmailFallback className="fade-up mt-3 [animation-delay:240ms] lg:mt-4" />
-            {site.hero.pill && (
+            {APP_STORE_IS_LIVE ? (
+              <HeroEmailFallback className="fade-up mt-3 [animation-delay:240ms] lg:mt-4" />
+            ) : (
+              <Link href="/start" className="fade-up mt-3 inline-flex min-h-11 items-center text-[0.9375rem] font-medium underline-offset-4 hover:underline [animation-delay:240ms] lg:mt-4">
+                {HERO.demo}
+              </Link>
+            )}
+            {APP_STORE_IS_LIVE && site.hero.pill && (
               <p className="fade-up mt-3 inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft [animation-delay:240ms] lg:mt-4">
                 {site.hero.pill}
               </p>
@@ -260,30 +271,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* S5b founding member pre-sale — one Stripe payment link, no checkout code; renders only once NEXT_PUBLIC_STRIPE_PAYMENT_LINK
-          is set so no control ever dead-ends (founder decision 2026-09-05, reversing "no payments on web").
-          note: adds three marketing numerals above the FAQ (DESIGN-AUDIT §5 caps at six and bans date stamps) — founder directive outranks. */}
-      {STRIPE_PAYMENT_LINK && (
-        <section id="founders" className="bg-bg-alt py-14 lg:py-20">
-          <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-[7fr_5fr] lg:px-12">
-            <div className="max-w-[52ch]">
-              <h2 className="text-h2 font-bold text-balance">{site.founding.h2}</h2>
-              <p className="mt-5 text-xl leading-relaxed">
-                <span className="font-mono font-medium tabular-nums">${site.founding.priceUsd}</span> once. you get your first year of {site.pricing.tiers[0].name} free at launch (
-                <span className="font-mono tabular-nums">${site.pricing.tiers[0].yearly}</span> value), {site.founding.perks[0]}, and {site.founding.perks[1]}.
-              </p>
-              <p className="mt-3 text-xl leading-relaxed">if we don&apos;t launch by {site.founding.refundBy}, you get every dollar back.</p>
-            </div>
-            <div className="self-center">
-              <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" data-placement="founders" className="cta">
-                {site.founding.cta} →
-              </a>
-              <p className="mt-3 max-w-[40ch] text-[0.8125rem] text-ink-soft">{site.founding.honest}</p>
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* S6 three benefits — photo-led, no cards (§9.8, Tier 2 item 3) */}
       <section className="bg-white py-16 lg:py-24">
         <h2 className="sr-only">{site.changes.h2}</h2>
@@ -331,18 +318,27 @@ export default function Home() {
         <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-2 lg:px-12">
           <h2 className="text-display font-bold text-balance">your protein. your budget. <em>solved.</em></h2>
           <div className="self-center">
-            <div className="flex flex-wrap items-center gap-4">
-              <PreorderButton variant="ink" placement="final" />
-              {APP_STORE_IS_LIVE && (
-                <Link href="/start" className="cta cta-ghost">
+            {APP_STORE_IS_LIVE ? (
+              <>
+                <div className="flex flex-wrap items-center gap-4">
+                  <PreorderButton variant="ink" placement="final" />
+                  <Link href="/start" className="cta cta-ghost">
+                    {HERO.demo}
+                  </Link>
+                </div>
+                <p className="mt-3 text-[0.8125rem] text-ink/80">{site.finalCta.under}</p>
+                <div className="mt-8">
+                  <WaitlistForm source="final" yolk label="not on iPhone? get the launch email" />
+                </div>
+              </>
+            ) : (
+              <>
+                <WaitlistForm source="final" yolk button="get early access" placement="final" />
+                <Link href="/start" className="cta cta-ghost mt-4">
                   {HERO.demo}
                 </Link>
-              )}
-            </div>
-            <p className="mt-3 text-[0.8125rem] text-ink/80">{site.finalCta.under}</p>
-            <div className="mt-8">
-              <WaitlistForm source="final" yolk label="not on iPhone? get the launch email" />
-            </div>
+              </>
+            )}
           </div>
         </div>
       </section>

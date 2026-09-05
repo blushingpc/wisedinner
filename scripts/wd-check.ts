@@ -81,13 +81,13 @@ for (const width of [1440, 1746]) {
     return page.evaluate(() => {
       const d = document.querySelector('a[data-placement="sticky"]')!.parentElement!;
       const r = d.getBoundingClientRect();
-      const finalCta = document.querySelector('a[data-placement="final"]')?.getBoundingClientRect();
+      const finalCta = document.querySelector('[data-placement="final"]')?.getBoundingClientRect();
       const lastP = [...document.querySelectorAll("footer p")].at(-1)?.getBoundingClientRect();
       return { y: window.scrollY, top: Math.round(r.top), visible: r.top < window.innerHeight, overlapsFinal: !!finalCta && finalCta.bottom > r.top && finalCta.top < r.bottom, overlapsFooterText: !!lastP && lastP.bottom > r.top };
     });
   };
   const docH = await page.evaluate(() => document.documentElement.scrollHeight);
-  const heroCtaBottom = await page.evaluate(() => (document.querySelector('a[data-placement="hero"]') as HTMLElement).getBoundingClientRect().bottom + window.scrollY);
+  const heroCtaBottom = await page.evaluate(() => (document.querySelector('[data-placement="hero"]') as HTMLElement).getBoundingClientRect().bottom + window.scrollY);
   const s0 = await state(0);
   check(!s0.visible, `WD-03 bar hidden at scrollY 0 (top=${s0.top})`);
   const sAfter = await state(Math.round(heroCtaBottom + 200));
@@ -189,11 +189,14 @@ if (PHASE >= 2) {
 
   // WD-07 — real QR, caption + short URL, /ios redirect
   await fresh.goto(`${BASE}/`, { waitUntil: "networkidle" });
+  // the QR renders only while the listing is live (funnel decision 2026-09-05) — infer the state from the header CTA
   const qr = await fresh.evaluate(() => {
     const i = document.querySelector('img[src*="qr-"]') as HTMLImageElement | null;
-    return { src: i?.getAttribute("src") ?? "", alt: i?.alt ?? "", caption: i?.parentElement?.textContent ?? "" };
+    const live = /pre-order/i.test(document.querySelector('[data-placement="header"]')?.textContent ?? "");
+    return { live, src: i?.getAttribute("src") ?? "", alt: i?.alt ?? "", caption: i?.parentElement?.textContent ?? "" };
   });
-  check(/qr-ios\.svg/.test(qr.src) && qr.alt.startsWith("QR code") && /wisedinner\.com\/ios/.test(qr.caption), `WD-07 QR: src=${qr.src} alt="${qr.alt}" caption="${qr.caption}"`);
+  if (qr.live) check(/qr-ios\.svg/.test(qr.src) && qr.alt.startsWith("QR code") && /wisedinner\.com\/ios/.test(qr.caption), `WD-07 QR: src=${qr.src} alt="${qr.alt}" caption="${qr.caption}"`);
+  else check(qr.src === "", `WD-07 QR absent while the listing is not live (src=${qr.src})`);
   const ios = await fetch(`${BASE}/ios`, { redirect: "manual" });
   check([302, 307].includes(ios.status) && !!ios.headers.get("location"), `WD-07 /ios → ${ios.status} ${ios.headers.get("location")}`);
 
@@ -282,7 +285,7 @@ if (PHASE >= 3) {
       return `${s}: ${okRing ? "ok" : `${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor} (want ${want})`}`;
     }, sel);
   const rings: string[] = [];
-  for (const s of ['header a[data-placement="header"]', 'a[data-placement="final"]', 'a[href="/the-math"]', "footer a", '#early-access input[type="email"]']) rings.push(await ringOf(s));
+  for (const s of ['header a[data-placement="header"]', '[data-placement="final"]', 'a[href="/the-math"]', "footer a", '#early-access input[type="email"]']) rings.push(await ringOf(s));
   await page.goto(`${BASE}/start`, { waitUntil: "networkidle" });
   for (let i = 0; i < 4; i++) {
     await nextBtn(page);

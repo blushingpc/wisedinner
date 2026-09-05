@@ -2,5 +2,5 @@ import type { MetadataRoute } from "next";
 import { SITE } from "./copy";
 
 export default function robots(): MetadataRoute.Robots {
-  return { rules: { userAgent: "*", allow: "/", disallow: ["/plan", "/thanks", "/founders", "/staples", "/api/"] }, sitemap: `${SITE}/sitemap.xml` };
+  return { rules: { userAgent: "*", allow: "/", disallow: ["/plan", "/thanks", "/staples", "/api/"] }, sitemap: `${SITE}/sitemap.xml` };
 }

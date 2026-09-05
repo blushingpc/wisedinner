@@ -11,7 +11,7 @@ export const site = {
     notOnIphone: "not on iPhone? get the launch email →",
   },
   proof: { preorders: 0, demoWeeksThisMonth: 0, avgWeekUsd: 39.72 }, // counts show only when >= 100
-  launchWindow: "", // only when the date is firm
+  launchWindow: process.env.NEXT_PUBLIC_RELEASE_DATE || "", // only when the date is firm — set with the App Store URL (lib/links.ts)
   quotes: [] as { text: string; name: string; city: string; date: string; tag?: string }[], // real only
   founderNote: { text: "", photo: "", name: "" }, // TODO(launch): real note + real kitchen photo
   strip: {
@@ -51,15 +51,6 @@ export const site = {
       { name: "protein plan", monthly: 8.99, yearly: 59, perMonth: 4.99, popular: true, rows: [["weeks solved", "unlimited"], ["grocery list", "export + print"], ["re-solve", "any time"], ["receipt ledger", "included"], ["pantry credit", "included"]] },
       { name: "autopilot", monthly: 12.99, yearly: 89, perMonth: 7.49, popular: false, rows: [["everything in protein plan", "yes"], ["next week, solved automatically", "sunday"], ["price alerts on your staples", "weekly"], ["household up to", "4"], ["delivery export w/ fees shown", "included"]] },
     ] as { name: string; monthly: number; yearly: number; perMonth: number; popular: boolean; rows: [string, string][] }[],
-  },
-  // founding member pre-sale (founder decision 2026-09-05). the "$59 value" reads pricing.tiers[0].yearly in app/page.tsx — never typed here.
-  founding: {
-    h2: "become a founding member",
-    priceUsd: 9,
-    refundBy: "March 1, 2027",
-    perks: ["a private channel with the people building this", "a say in what ships first"],
-    cta: "become a founding member",
-    honest: "the app is in development. this is a pre-sale, not a purchase of software that exists today.",
   },
   // finalCta h2 is rendered in app/page.tsx with an <em> around "solved." — edit it there
   finalCta: { under: "free to pre-order · 21-day free trial" },
