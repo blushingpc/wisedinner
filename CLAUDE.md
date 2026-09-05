@@ -4,7 +4,7 @@ You are building WiseDinner: a budget+protein meal solver. Web app first (Next.j
 
 ## Non-negotiables
 1. **One job per session.** The job comes from `tasks/QUEUE.md` — top unblocked item. Never invent work mid-session; new ideas go to the bottom of the queue with a metric tag.
-2. **Simplicity beats completeness.** Load the `keep-it-simple` skill before writing code. If a diff feels impressive, it is probably wrong. (Relaxed for motion — see the motion law.)
+2. **Simplicity beats completeness.** If a diff feels impressive, it is probably wrong. (Relaxed for motion — see the motion law.)
 3. **Nothing ships ugly or AI-looking.** Run `/impeccable audit` on every UI change before it commits; art direction lives in docs/DESIGN-AUDIT.md.
 4. **Pricing honesty on anything shipped to main is a hard constraint.** Prices come from `content/site.ts` and nowhere else. (The truth gate, its `data-truth` tags and the TRUTH-AUDIT ledger were retired 2026-09-05 — see "External rules".)
 5. **Session ritual lives in the `loop-protocol` skill.** Start and end every session with it.
