@@ -16,8 +16,8 @@ You are building WiseDinner: a budget+protein meal solver. Web app first (Next.j
 - **impeccable** (user plugin, pbakaus/impeccable — `/impeccable audit`, `/impeccable polish`, `/impeccable critique`, …) — design fluency, creative direction and the craft floors. It replaces the retired `human-design` and `frontend-design` skills.
 - **web-design-guidelines** (.agents/skills, Vercel) — AUDITS ONLY (accessibility, performance, UX patterns). It reviews, never designs.
 - **21st MCP** (user scope) — component source only, never authority: pull a pattern, then rewrite it in this repo's tokens. Website only.
+- **dataviz** (bundled with Claude Code, always on) — every chart, stat tile or dashboard follows it; the WiseDinner palette instance is docs/DATAVIZ-PALETTE.md (kale primary series, ink axes, validated categorical order, cap 3).
 - **Higgsfield MCP** — food imagery, cinematic visuals, video, within the budget law below.
-- **ponytail** (user plugin) — DISABLED for all frontend work in this repo: it strips polish (shadows, bezels, glare) we now require. It may still govern solver/API/script sessions.
 - **Precedence on conflict:** DESIGN-AUDIT > ui-ux-pro-max > impeccable > web-design-guidelines (audits only) > 21st MCP (component source, never authority).
 - **Design floors** (contrast, four states, reduced-motion, 44px tap targets) are enforced by `/impeccable audit` and web-design-guidelines — there is no custom floors skill any more.
 
