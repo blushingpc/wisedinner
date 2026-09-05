@@ -1,10 +1,14 @@
 import Image from "next/image";
 import { site } from "@/content/site";
 
-// people section — proof row, quotes and founder note render ONLY from real content values.
+// people section — proof row, quotes and founder note render ONLY from real content values (CLAUDE.md "External rules").
 // counts need >= 100; empty quotes/founder note hide their blocks; all empty → section gone.
+// founder law 2026-09-05: the whole section sits behind NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF — unset in production, so hidden by default.
+const SHOW = process.env.NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF === "true";
+
 export function People() {
   const { proof, quotes, founderNote } = site;
+  if (!SHOW) return null;
   const stats = [
     proof.preorders >= 100 && { n: proof.preorders.toLocaleString("en-US"), cap: "pre-orders" },
     proof.demoWeeksThisMonth >= 100 && { n: proof.demoWeeksThisMonth.toLocaleString("en-US"), cap: "demo weeks solved" },

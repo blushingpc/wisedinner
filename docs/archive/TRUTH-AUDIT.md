@@ -1,3 +1,5 @@
+> RETIRED 2026-09-05 (founder law): the truth gate, `data-truth="placeholder"` tags and this ledger's mechanics are gone. Proof content is governed by CLAUDE.md "External rules" (Apple App Review 2.3/5.6, US FTC fake-review rule); the people section sits behind NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF, hidden in production. Kept for history only.
+
 # TRUTH AUDIT — placeholder ledger for the design-v2 phase
 
 wisedinner-truth is SUSPENDED on design-v2 (founder decision, 2026-08-31) so the design can reach the

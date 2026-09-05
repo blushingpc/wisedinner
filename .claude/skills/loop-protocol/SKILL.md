@@ -29,7 +29,7 @@ After finishing a job, you may spend a few minutes scanning for improvements —
 ## Priorities when the queue is empty (rare, but the loop must not idle-invent)
 1. Tighten estimate-vs-receipt accuracy (price data freshness, buffers).
 2. Speed: reveal page under 1s on 4G.
-3. Copy passes with the human-design skill.
+3. Copy passes with `/impeccable polish`.
 4. Then stop and write one line in PROGRESS asking the human for direction. Do NOT invent features.
 
 ## Honesty about limits

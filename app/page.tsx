@@ -299,7 +299,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* S6b people — proof row + quotes from content/site.ts; zeroed values hide themselves (TRUTH-AUDIT rows stay open) */}
+      {/* S6b people — proof row + quotes from content/site.ts, real values only; behind NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF, hidden in production */}
       <People />
 
       {/* S7 faq preview — launch question first (§9.10) */}

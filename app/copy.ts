@@ -13,7 +13,7 @@ export const SITE = "https://www.wisedinner.com";
 // homepage copy — DESIGN-AUDIT §18.4 copy deck, verbatim where the deck is verbatim
 export const HERO = {
   demo: "try the free demo →", // h1/lede/pill live in content/site.ts (site.hero)
-  waitlist: "get early access →", // locked label (human-design CTA lock) — every primary control while the listing is not live
+  waitlist: "get early access →", // locked label (CTA intent lock) — every primary control while the listing is not live
   preorder: "pre-order on the App Store →", // every primary control once NEXT_PUBLIC_APP_STORE_URL is set
 };
 
