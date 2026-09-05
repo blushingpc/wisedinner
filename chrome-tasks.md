@@ -17,6 +17,9 @@ These are the jobs that live in dashboards, not the terminal. Open the right tab
 ## Task 5 — later, when ready to charge (tab: dashboard.stripe.com)
 > In Stripe, create two products: "WiseDinner Protein Plan" with prices $8.99/month and $59/year, and "WiseDinner Autopilot" with prices $12.99/month and $89/year, all USD, all with a 21-day free trial configured on the checkout side. Then copy the publishable key and secret key from Developers → API keys into the Vercel wisedinner project env vars as NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY and STRIPE_SECRET_KEY, and redeploy. Do not paste the secret key into chat.
 
+## Task 5b — Stripe payment link for the founding member pre-sale (tab: dashboard.stripe.com, then vercel.com) — founder decision 2026-09-05
+> In Stripe, create a product "WiseDinner Founding Member" with a one-time price of $9.00 USD. Then create a Payment Link for it: quantity fixed at 1, collect the customer's email (it's how we match the membership to their app account). In the link's "After payment" settings choose "Don't show confirmation page" and redirect to https://www.wisedinner.com/founders. Save and copy the payment link URL. Then open the Vercel wisedinner project → Settings → Environment Variables and add NEXT_PUBLIC_STRIPE_PAYMENT_LINK = that URL and NEXT_PUBLIC_WHATSAPP_INVITE_LINK = the WhatsApp group invite link (both Production and Preview). Redeploy from the Deployments tab. The "become a founding member" section on the homepage only appears once the Stripe variable exists.
+
 ## Task 6 — Higgsfield (tab: higgsfield.ai, whenever you want assets)
 Brand imagery, OG art variants, and TikTok hook videos happen there or from the Claude chat app with the Higgsfield connector approved. Not blocking anything in the queue — the receipt aesthetic is pure CSS.
 

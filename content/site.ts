@@ -52,6 +52,15 @@ export const site = {
       { name: "autopilot", monthly: 12.99, yearly: 89, perMonth: 7.49, popular: false, rows: [["everything in protein plan", "yes"], ["next week, solved automatically", "sunday"], ["price alerts on your staples", "weekly"], ["household up to", "4"], ["delivery export w/ fees shown", "included"]] },
     ] as { name: string; monthly: number; yearly: number; perMonth: number; popular: boolean; rows: [string, string][] }[],
   },
+  // founding member pre-sale (founder decision 2026-09-05). the "$59 value" reads pricing.tiers[0].yearly in app/page.tsx — never typed here.
+  founding: {
+    h2: "become a founding member",
+    priceUsd: 9,
+    refundBy: "March 1, 2027",
+    perks: ["a private channel with the people building this", "a say in what ships first"],
+    cta: "become a founding member",
+    honest: "the app is in development. this is a pre-sale, not a purchase of software that exists today.",
+  },
   // finalCta h2 is rendered in app/page.tsx with an <em> around "solved." — edit it there
   finalCta: { under: "free to pre-order · 21-day free trial" },
 };

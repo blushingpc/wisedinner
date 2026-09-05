@@ -20,7 +20,7 @@ import { ReceiptCard } from "./ui/receipt-card";
 import { Section } from "./ui/section";
 import { ShelfTag } from "./ui/shelf-tag";
 import { WaitlistForm } from "./ui/waitlist-form";
-import { APP_STORE_IS_LIVE } from "@/lib/links";
+import { APP_STORE_IS_LIVE, STRIPE_PAYMENT_LINK } from "@/lib/links";
 
 const ORG = {
   "@context": "https://schema.org",
@@ -259,6 +259,30 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* S5b founding member pre-sale — one Stripe payment link, no checkout code; renders only once NEXT_PUBLIC_STRIPE_PAYMENT_LINK
+          is set so no control ever dead-ends (founder decision 2026-09-05, reversing "no payments on web").
+          note: adds three marketing numerals above the FAQ (DESIGN-AUDIT §5 caps at six and bans date stamps) — founder directive outranks. */}
+      {STRIPE_PAYMENT_LINK && (
+        <section id="founders" className="bg-bg-alt py-14 lg:py-20">
+          <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-[7fr_5fr] lg:px-12">
+            <div className="max-w-[52ch]">
+              <h2 className="text-h2 font-bold text-balance">{site.founding.h2}</h2>
+              <p className="mt-5 text-xl leading-relaxed">
+                <span className="font-mono font-medium tabular-nums">${site.founding.priceUsd}</span> once. you get your first year of {site.pricing.tiers[0].name} free at launch (
+                <span className="font-mono tabular-nums">${site.pricing.tiers[0].yearly}</span> value), {site.founding.perks[0]}, and {site.founding.perks[1]}.
+              </p>
+              <p className="mt-3 text-xl leading-relaxed">if we don&apos;t launch by {site.founding.refundBy}, you get every dollar back.</p>
+            </div>
+            <div className="self-center">
+              <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" data-placement="founders" className="cta">
+                {site.founding.cta} →
+              </a>
+              <p className="mt-3 max-w-[40ch] text-[0.8125rem] text-ink-soft">{site.founding.honest}</p>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* S6 three benefits — photo-led, no cards (§9.8, Tier 2 item 3) */}
       <section className="bg-white py-16 lg:py-24">

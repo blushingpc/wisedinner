@@ -1,6 +1,7 @@
 {/* <!-- draft for attorney review before paid launch --> */}
 import type { Metadata } from "next";
 import { LegalLayout, type LegalSection } from "@/app/ui/legal-layout";
+import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Terms of Service — WiseDinner",
@@ -15,8 +16,8 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>wisedinner is made by WiseDinner. we&apos;ll call ourselves &quot;we&quot; or &quot;wisedinner&quot;. you&apos;re &quot;you&quot;.</p>
-        <p>these terms cover the wisedinner website at wisedinner.com, the free demo on it, and the early-access waitlist. by using any of them you agree to these terms. if you don&apos;t agree, please don&apos;t use the site.</p>
-        <p>the ios app isn&apos;t out yet. when it ships it will have its own terms, and paid plans will have their own billing terms. nothing here sells you anything.</p>
+        <p>these terms cover the wisedinner website at wisedinner.com, the free demo on it, the early-access waitlist, and the founding member pre-sale (section 8). by using any of them you agree to these terms. if you don&apos;t agree, please don&apos;t use the site.</p>
+        <p>the ios app isn&apos;t out yet. when it ships it will have its own terms, and paid plans will have their own billing terms. the only thing for sale here today is the founding member pre-sale in section 8.</p>
       </>
     ),
   },
@@ -106,12 +107,37 @@ const S: LegalSection[] = [
     ),
   },
   {
+    id: "founding-member",
+    title: "founding member pre-sale",
+    body: (
+      <>
+        {/* attorney review before this goes further: pre-sale of a product that does not yet exist, refund trigger tied to a launch date, non-transferability, and whether the $59 first-year credit needs its own consumer-protection wording in Florida. */}
+        <p>
+          a founding membership costs <strong>${site.founding.priceUsd}</strong>, paid once, through a stripe payment link. it is a pre-sale. the app is still in development and you are not buying software that exists today.
+        </p>
+        <p>what you get:</p>
+        <ul>
+          <li>
+            your first year of {site.pricing.tiers[0].name} free when the app launches (the yearly plan currently lists at ${site.pricing.tiers[0].yearly}), applied to the app account that uses the email you paid with;
+          </li>
+          <li>an invite to a private channel with the people building wisedinner;</li>
+          <li>a say in what ships first — we ask, we listen, we decide.</li>
+        </ul>
+        <p>
+          <strong>the refund guarantee.</strong> if the app has not launched on the app store by {site.founding.refundBy}, we refund every dollar you paid, in full, to the card you paid with, without you having to ask. we&apos;ll email you when we do. you can also ask for the refund yourself any time after that date by emailing support@wisedinner.com. before that date, the pre-sale is non-refundable except where the law says otherwise.
+        </p>
+        <p>a founding membership is tied to the email address you paid with. it is non-transferable: you can&apos;t sell it, give it away, or move it to another person or account.</p>
+        <p>the pre-sale does not guarantee a launch date, a feature, or a price for anything beyond the first free year. your first year is free; after that, the plan renews at the price shown in the app at the time, and you can cancel before it does.</p>
+      </>
+    ),
+  },
+  {
     id: "termination",
     title: "ending things",
     body: (
       <>
         <p>you can stop using the site whenever you like. you can ask us to delete your data whenever you like.</p>
-        <p>we can suspend or end your access if you break these terms, if the law requires it, or if we shut the service down. sections 3, 6, 9, and 10 keep applying after that.</p>
+        <p>we can suspend or end your access if you break these terms, if the law requires it, or if we shut the service down. sections 3, 6, 8, 10, and 11 keep applying after that.</p>
       </>
     ),
   },
@@ -121,7 +147,7 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>to the fullest extent the law allows, we are not liable for indirect, incidental, special, consequential, or punitive damages, or for lost profits, lost savings, food you bought that didn&apos;t match a plan, or any health outcome from following a plan.</p>
-        <p>our total liability to you for anything connected to the site is capped at the greater of $50 or the fees you paid us in the twelve months before the claim. right now that&apos;s $0, so the cap is $50.</p>
+        <p>our total liability to you for anything connected to the site is capped at the greater of $50 or the fees you paid us in the twelve months before the claim. the founding member refund in section 8 is separate from this cap.</p>
         <p>some places don&apos;t allow these limits. where that&apos;s the case, they apply as far as the law permits.</p>
       </>
     ),

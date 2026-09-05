@@ -26,6 +26,10 @@ R1. [x] Phase 1 (WD-01 dead App Store links · WD-02 z-index scale · WD-03 mobi
 R2. [x] Phase 2 (WD-04 → WD-11) — MERGED to main + LIVE 2026-09-02, prod probe green.
 R3. [x] Phase 3 (WD-12 → WD-20) — MERGED to main + LIVE 2026-09-02, prod probe green. open founder calls: NEXT_PUBLIC_APP_STORE_URL in Vercel · WD-06 tier 2 (backend) · WD-12 band B (A3 fill background) · WD-19 payload refactor · /start description wording (see ledger).
 
+## Founding member pre-sale — founder decision 2026-09-05 (reverses "no payments on web"; one Stripe payment link, no checkout system)
+F1. [x] landing #founders section + /founders success page + terms §8 + privacy Stripe note — shipped 2026-09-05, gated on env. done means: section renders on production with the live payment link; /founders shows the WhatsApp link.
+F2. BLOCKED (founder, chrome-tasks.md Task 5b): create the $9 payment link, set its success redirect to https://www.wisedinner.com/founders, put NEXT_PUBLIC_STRIPE_PAYMENT_LINK + NEXT_PUBLIC_WHATSAPP_INVITE_LINK in Vercel, redeploy. Attorney review of terms §8 before promoting the pre-sale.
+
 ## After keys/DNS (blocked until human does chrome-tasks.md)
 11. BLOCKED (Stripe keys): 21-day trial checkout, annual-first pricing page per wisedinner-truth.
 12. Switch canonical URL to https://www.wisedinner.com everywhere (DNS resolves to Vercel as of 2026-08-30; apex redirects to www).

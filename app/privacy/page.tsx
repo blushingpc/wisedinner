@@ -26,10 +26,13 @@ const S: LegalSection[] = [
             <strong>support messages</strong>: your name if you give it, your email, and what you wrote.
           </li>
           <li>
+            <strong>founding member payments</strong> are processed by stripe on a stripe-hosted payment page. stripe collects your card details, name, and billing address under its own privacy policy; we never see or store your card. from stripe we keep only the email address you paid with, so we can match your membership to your app account and send your invites.
+          </li>
+          <li>
             <strong>cookieless analytics</strong>. we use vercel web analytics, which counts page views and a handful of named events (like &quot;demo completed&quot;) without cookies, without fingerprinting, and without a persistent identifier for you. it records a hashed, rotating visitor id, your country, device type, and referrer. it can&apos;t follow you across sites.
           </li>
         </ul>
-        <p>we don&apos;t ask for your name on the waitlist, your address, your payment details, or your health information. please don&apos;t put health information in the support form.</p>
+        <p>we don&apos;t ask for your name on the waitlist, your address, or your health information, and your payment details go to stripe, never to us. please don&apos;t put health information in the support form.</p>
       </>
     ),
   },
@@ -53,7 +56,7 @@ const S: LegalSection[] = [
     title: "where it lives",
     body: (
       <>
-        <p>the waitlist and support messages are stored in a supabase (postgres) database hosted in the united states. the website runs on vercel, which also provides the analytics. both are processors acting on our instructions; they don&apos;t get to use your data for their own purposes.</p>
+        <p>the waitlist and support messages are stored in a supabase (postgres) database hosted in the united states. the website runs on vercel, which also provides the analytics. founding member payments are handled by stripe. all three are processors acting on our instructions; they don&apos;t get to use your data for their own purposes, except that stripe also acts as its own controller for fraud prevention and the payment record it is legally required to keep.</p>
         <p>if you&apos;re outside the us, your data is transferred to and stored in the us when you submit it.</p>
       </>
     ),
