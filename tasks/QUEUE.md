@@ -32,7 +32,6 @@ F2. BLOCKED (founder, chrome-tasks.md Task 5b): create the $9 payment link, set 
 
 ## After keys/DNS (blocked until human does chrome-tasks.md)
 11. BLOCKED (Stripe keys): 21-day trial checkout, annual-first pricing page per wisedinner-truth.
-12. Switch canonical URL to https://www.wisedinner.com everywhere (DNS resolves to Vercel as of 2026-08-30; apex redirects to www).
 
 ## Ideas
 (append here — metric tag required)
@@ -40,6 +39,7 @@ F2. BLOCKED (founder, chrome-tasks.md Task 5b): create the $9 payment link, set 
 - [activation] dark mode — deferred by docs/DESIGN.md §0.5, revisit after 100 users
 
 ## Done
+12. Canonical URL → https://www.wisedinner.com everywhere (app/copy.ts SITE, metadataBase, sitemap, robots, OG; zero stale hosts in app/lib/content) — verified done 2026-09-05
 W. Sunday drop automation (weekly-drop.yml + guard + iso-week seed) — done 2026-08-30, dispatch run green
 V. Variety + truth sprint: template solver, variety floors, seeded regenerate, fixture regen, placeholders — done 2026-08-30, live
 4–15. SITE-SPEC v2 sprint: full public site (see PROGRESS 2026-08-30) — done 2026-08-30, live
