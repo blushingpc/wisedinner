@@ -1,5 +1,5 @@
-import type { Staple } from "../../../data/staples.ts";
-import { TEMPLATES, type Template } from "../../../data/templates.ts";
+import type { Staple } from "../data/staples.ts";
+import { TEMPLATES, type Template } from "../data/templates.ts";
 
 export const DIETS = ["none", "vegetarian", "vegan", "gluten-free", "dairy-free"] as const;
 export type Diet = (typeof DIETS)[number];

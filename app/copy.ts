@@ -12,7 +12,6 @@ export const SITE = "https://www.wisedinner.com";
 
 // homepage copy — DESIGN-AUDIT §18.4 copy deck, verbatim where the deck is verbatim
 export const HERO = {
-  demo: "try the free demo →", // h1/lede/pill live in content/site.ts (site.hero)
   waitlist: "get early access →", // locked label (CTA intent lock) — every primary control while the listing is not live
   preorder: "pre-order on the App Store →", // every primary control once NEXT_PUBLIC_APP_STORE_URL is set
 };
@@ -42,7 +41,7 @@ export const FAQ = [
   },
   {
     q: "what is wisedinner?",
-    a: "a meal planner that turns two numbers — your weekly budget and your daily protein — into a solved week: five days of meals, one short list, an estimated in-store total. it can’t get the math wrong, and it shows you the receipt. it’s an app first; this site is the demo and the pre-order.",
+    a: "a meal planner that turns two numbers — your weekly budget and your daily protein — into a solved week: five days of meals, one short list, an estimated in-store total. it can’t get the math wrong, and it shows you the receipt. it’s an app first; this site is the pre-order.",
   },
   {
     q: "how accurate are the prices?",

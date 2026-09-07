@@ -1,4 +1,4 @@
-import type { SolveOutput } from "@/app/api/solve/solver";
+import type { SolveOutput } from "@/lib/solver";
 import { site } from "@/content/site";
 import { CountUp } from "./count-up";
 

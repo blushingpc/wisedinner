@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import type { Staple } from "../../../data/staples.ts";
+import type { Staple } from "../data/staples.ts";
 import { floors, solve, type SolveInput } from "./solver.ts";
 
 const staples: Staple[] = JSON.parse(readFileSync("data/staples.json", "utf8"));

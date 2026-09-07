@@ -1,8 +1,6 @@
 import { track as vercel } from "@vercel/analytics";
 
 export type Event =
-  | "demo_start"
-  | "demo_complete"
   | "reveal_view"
   | "waitlist_join"
   | "waitlist_duplicate"

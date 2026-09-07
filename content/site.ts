@@ -32,18 +32,6 @@ export const site = {
       { title: "nothing rots on thursday.", sub: "not the half bag of spinach. not the $9 chicken you froze and forgot." },
     ],
   },
-  demo: {
-    h2: "see your week solved in 60 seconds.",
-    previewNote: "three of your five dinners, from real shelf prices.",
-    cta: "solve my week",
-    under: "no account. takes a minute. your solved week will be in the app on day one.",
-    bands: [
-      // TODO(launch): replace with solver output
-      { max: 49, dinners: ["black bean egg bowl", "yogurt oat parfait", "lentil and chicken stew"] },
-      { max: 79, dinners: ["chicken thigh rice bowl", "black bean egg bowl", "yogurt oat parfait"] },
-      { max: 999, dinners: ["chicken thigh rice bowl", "pork loin and sweet potato", "tuna rice bowl, edamame"] },
-    ],
-  },
   // /pricing cards, Offer JSON-LD, FAQ answers, the /pricing description and the OG card all read these (WD-16).
   // pricing honesty law: change a price here and nowhere else
   pricing: {

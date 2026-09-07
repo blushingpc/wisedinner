@@ -2,7 +2,7 @@
 // run: node scripts/gen-drop.ts   — .github/workflows/weekly-drop.yml runs it every sunday.
 // the seed is the ISO week number, so each sunday's drop is a different valid week within the 3% cost band.
 import { writeFileSync } from "node:fs";
-import { solve } from "../app/api/solve/solver.ts";
+import { solve } from "../lib/solver.ts";
 import { staples } from "../data/staples.ts";
 
 const MIN_SKUS = 8;

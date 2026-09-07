@@ -4,13 +4,12 @@ import { preload, type PreloadOptions } from "react-dom";
 import { drop } from "@/data/drop";
 import { meals } from "@/data/meals";
 import { site } from "@/content/site";
-import { FAQ, HERO, SITE, faqLd } from "./copy";
+import { FAQ, SITE, faqLd } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { AppStoreBadge } from "./ui/app-store-badge";
 import { HeroEmailFallback } from "./ui/hero-email-fallback";
 import { DeviceFrame } from "./ui/device-frame";
 import { MOBILE_CTA_SENTINEL, MobileCtaBar } from "./ui/mobile-cta-bar";
-import { InlineDemo } from "./ui/inline-demo";
 import { MealCard } from "./ui/meal-card";
 import { People } from "./ui/people";
 import { PreorderButton } from "./ui/preorder-button";
@@ -74,8 +73,6 @@ function ScreenTheList() {
   );
 }
 
-// dinner-card pool for the inline demo — precomputed server-side so staples stay out of the client bundle
-const demoPool = meals.map(({ name, img, alt, price_usd }) => ({ name, img, alt, price_usd }));
 
 // S2 band art direction: the 3:1 row of plates on ≥ sm, the tall crop on phones (same next/image ladders, one request)
 const A2_ALT = "five different home-cooked high-protein dinners plated in a row on a linen tablecloth in warm evening light";
@@ -115,15 +112,12 @@ export default function Home() {
             <h1 className="rise-up text-display font-extrabold text-balance">{site.hero.h1}</h1>
             <p className="fade-up mt-5 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{site.hero.lede}</p>
             {/* no entrance animation on this row — the Apple badge must never animate.
-                listing not live: the waitlist form IS the primary control (funnel decision 2026-09-05); live: badge + demo twin + email fallback */}
+                listing not live: the waitlist form IS the primary control (funnel decision 2026-09-05); live: badge + email fallback */}
             <div className="mt-6 flex items-start gap-8 lg:mt-8">
               <div className="min-w-0 flex-1">
                 {APP_STORE_IS_LIVE ? (
                   <div className="flex flex-wrap items-center gap-4">
                     <AppStoreBadge placement="hero" />
-                    <Link href="/start" className="cta cta-ghost">
-                      {HERO.demo}
-                    </Link>
                   </div>
                 ) : (
                   <WaitlistForm source="hero" button="get early access" placement="hero" />
@@ -131,24 +125,18 @@ export default function Home() {
                 {APP_STORE_IS_LIVE && site.hero.perk && <p className="mt-3 text-caption font-semibold text-kale lg:mt-4">{site.hero.perk}</p>}
               </div>
               {/* WD-07: the QR encodes wisedinner.com/ios, a redirect we control (next.config.ts) — never the raw store URL.
-                  only while live — before that it would just point at the demo and squeeze the email field beside it */}
+                  only while live — before that there is nothing to scan to */}
               {APP_STORE_IS_LIVE && (
                 <div className="hidden shrink-0 lg:block">
-                <Image src="/badges/qr-ios.svg" alt={APP_STORE_IS_LIVE ? "QR code — scan to open the WiseDinner pre-order page" : "QR code — scan to open the WiseDinner demo"} width={96} height={96} />
-                <p className="mt-1 text-[0.75rem] text-ink-3">{APP_STORE_IS_LIVE ? "scan to pre-order" : "scan to try the demo"}</p>
+                <Image src="/badges/qr-ios.svg" alt="QR code — scan to open the WiseDinner pre-order page" width={96} height={96} />
+                <p className="mt-1 text-[0.75rem] text-ink-3">scan to pre-order</p>
                   <p className="font-mono text-[0.6875rem] text-ink-3">wisedinner.com/ios</p>
                 </div>
               )}
             </div>
             {/* the mobile sticky bar shows once this line has scrolled off the top (WD-03) */}
             <div id={MOBILE_CTA_SENTINEL} aria-hidden="true" />
-            {APP_STORE_IS_LIVE ? (
-              <HeroEmailFallback className="fade-up mt-3 [animation-delay:240ms] lg:mt-4" />
-            ) : (
-              <Link href="/start" className="fade-up mt-3 inline-flex min-h-11 items-center text-[0.9375rem] font-medium underline-offset-4 hover:underline [animation-delay:240ms] lg:mt-4">
-                {HERO.demo}
-              </Link>
-            )}
+            {APP_STORE_IS_LIVE && <HeroEmailFallback className="fade-up mt-3 [animation-delay:240ms] lg:mt-4" />}
             {APP_STORE_IS_LIVE && site.hero.pill && (
               <p className="fade-up mt-3 inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft [animation-delay:240ms] lg:mt-4">
                 {site.hero.pill}
@@ -224,9 +212,6 @@ export default function Home() {
             <p className="py-5 text-[clamp(22px,2.2vw,28px)] leading-tight font-bold">launch day, it installs itself. we&apos;ll tell you the date.</p>
             <p className="py-5 text-[clamp(22px,2.2vw,28px)] leading-tight font-bold">your solved week is already inside.</p>
           </div>
-          <p className="mt-2 max-w-[46ch] text-[1rem] font-normal text-ink-soft">
-            solve a week in the demo and save it — it&apos;s waiting in the app on day one.
-          </p>
         </div>
       </section>
 
@@ -257,16 +242,6 @@ export default function Home() {
           </div>
           <div data-reveal className="receipt-print rotate-[3deg] justify-self-center lg:justify-self-start">
             <ReceiptCard week={drop} variant="proof" title="this week, solved" />
-          </div>
-        </div>
-      </section>
-
-      {/* S5 inline demo — step one of /start embedded, values carry into the quiz (§9.5, Tier 2 item 2) */}
-      <section className="py-16 lg:py-24">
-        <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 lg:grid-cols-[5fr_7fr] lg:px-12">
-          <h2 className="text-h2 font-bold text-balance">{site.demo.h2}</h2>
-          <div className="w-full max-w-[520px] lg:justify-self-center">
-            <InlineDemo pool={demoPool} />
           </div>
         </div>
       </section>
@@ -322,9 +297,6 @@ export default function Home() {
               <>
                 <div className="flex flex-wrap items-center gap-4">
                   <PreorderButton variant="ink" placement="final" />
-                  <Link href="/start" className="cta cta-ghost">
-                    {HERO.demo}
-                  </Link>
                 </div>
                 <p className="mt-3 text-[0.8125rem] text-ink/80">{site.finalCta.under}</p>
                 <div className="mt-8">
@@ -334,9 +306,6 @@ export default function Home() {
             ) : (
               <>
                 <WaitlistForm source="final" yolk button="get early access" placement="final" />
-                <Link href="/start" className="cta cta-ghost mt-4">
-                  {HERO.demo}
-                </Link>
               </>
             )}
           </div>

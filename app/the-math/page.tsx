@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { meals } from "@/data/meals";
 import { AppStoreBadge } from "@/app/ui/app-store-badge";
-import { InlineDemo } from "@/app/ui/inline-demo";
 
 export const metadata: Metadata = {
   title: "How the math works — WiseDinner",
@@ -37,7 +35,6 @@ const SECTIONS: [string, string][] = [
   ],
 ];
 
-const demoPool = meals.map(({ name, img, alt, price_usd }) => ({ name, img, alt, price_usd }));
 
 export default function TheMath() {
   return (
@@ -52,9 +49,6 @@ export default function TheMath() {
                 <p className="mt-2 text-ink-soft">{body}</p>
               </section>
             ))}
-          </div>
-          <div className="mt-14 max-w-[520px]">
-            <InlineDemo pool={demoPool} />
           </div>
           <div className="mt-10">
             <AppStoreBadge placement="the-math" />

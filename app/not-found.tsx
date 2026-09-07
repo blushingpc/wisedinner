@@ -15,9 +15,6 @@ export default function NotFound() {
           <Link href="/" className="cta">
             back home
           </Link>
-          <Link href="/start" className="text-link inline-flex min-h-11 items-center">
-            try the free demo →
-          </Link>
         </div>
       </Section>
     </main>
