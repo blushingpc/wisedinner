@@ -7,5 +7,9 @@
 export const APP_STORE_IS_LIVE = Boolean(process.env.NEXT_PUBLIC_APP_STORE_URL);
 export const APP_STORE_URL = process.env.NEXT_PUBLIC_APP_STORE_URL || "/#early-access";
 
+// Google Play (REDESIGN-V3 §2C): same contract as the App Store URL. preview sets both to "#" so the badges show for review.
+export const PLAY_IS_LIVE = Boolean(process.env.NEXT_PUBLIC_PLAY_URL);
+export const PLAY_URL = process.env.NEXT_PUBLIC_PLAY_URL || "/#early-access";
+
 // free text, shown only while live: "expected March 2027". empty → no date anywhere.
 export const RELEASE_DATE = APP_STORE_IS_LIVE ? process.env.NEXT_PUBLIC_RELEASE_DATE || "" : "";

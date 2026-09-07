@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AppStoreBadge } from "@/app/ui/app-store-badge";
+import { StoreBadges } from "@/app/ui/store-badges";
 
 export const metadata: Metadata = {
   title: "How the math works — WiseDinner",
@@ -51,7 +51,7 @@ export default function TheMath() {
             ))}
           </div>
           <div className="mt-10">
-            <AppStoreBadge placement="the-math" />
+            <StoreBadges placement="the-math" />
           </div>
         </div>
       </section>

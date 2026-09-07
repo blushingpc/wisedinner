@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/content/site";
 import { FAQ, SITE, faqLd } from "./copy";
 import { Accordion } from "./ui/accordion";
-import { AppStoreBadge } from "./ui/app-store-badge";
+import { StoreBadges } from "./ui/store-badges";
 import { HeroEmailFallback } from "./ui/hero-email-fallback";
 import { PhoneStage } from "./ui/phone-stage";
 import { FeatureSwitcher } from "./ui/feature-switcher";
@@ -11,7 +11,7 @@ import { Why } from "./ui/why";
 import { MOBILE_CTA_SENTINEL, MobileCtaBar } from "./ui/mobile-cta-bar";
 import { Testers } from "./ui/testers";
 import { PricingCards } from "./ui/pricing-cards";
-import { PreorderButton } from "./ui/preorder-button";
+import { PreorderBand } from "./ui/preorder-band";
 import { Section } from "./ui/section";
 import { WaitlistForm } from "./ui/waitlist-form";
 import { APP_STORE_IS_LIVE } from "@/lib/links";
@@ -62,9 +62,7 @@ export default function Home() {
             <div className="mt-6 flex items-start gap-8 lg:mt-8">
               <div className="min-w-0 flex-1">
                 {APP_STORE_IS_LIVE ? (
-                  <div className="flex flex-wrap items-center gap-4">
-                    <AppStoreBadge placement="hero" />
-                  </div>
+                  <StoreBadges placement="hero" height={44} />
                 ) : (
                   <>
                     <WaitlistForm source="hero" button="get early access" placement="hero" />
@@ -127,29 +125,9 @@ export default function Home() {
         </Link>
       </Section>
 
-      {/* S8 final cta — the page's boldest moment, saved for last (§9.11, yolk ground) */}
-      <section id="early-access" className="bg-yolk py-band pb-36 text-ink sm:pb-band">
-        <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-2 lg:px-12">
-          <h2 className="text-display font-bold text-balance">your protein. your budget. <em>solved.</em></h2>
-          <div className="self-center">
-            {APP_STORE_IS_LIVE ? (
-              <>
-                <div className="flex flex-wrap items-center gap-4">
-                  <PreorderButton variant="ink" placement="final" />
-                </div>
-                <p className="mt-3 text-[0.8125rem] text-ink/80">{site.finalCta.under}</p>
-                <div className="mt-8">
-                  <WaitlistForm source="final" yolk label="not on iPhone? get the launch email" />
-                </div>
-              </>
-            ) : (
-              <>
-                <WaitlistForm source="final" yolk button="get early access" placement="final" />
-              </>
-            )}
-          </div>
-        </div>
-      </section>
+      {/* SECTION 7 — pre-order band (REDESIGN-V3 §4): kale-900, paper type, badges when set, else the form; the week's numbers from the fixture */}
+      <PreorderBand />
+
       <MobileCtaBar />
     </main>
   );

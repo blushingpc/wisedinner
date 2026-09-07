@@ -72,14 +72,9 @@
   }
 }
 
-/* anchors land below the sticky header: two rows on phones (WD-08), one row from md */
+/* anchors land below the sticky header (one row everywhere since REDESIGN-V3's hamburger nav) */
 html {
-  scroll-padding-top: 7.25rem;
-}
-@media (min-width: 768px) {
-  html {
-    scroll-padding-top: 5.5rem;
-  }
+  scroll-padding-top: 5.5rem;
 }
 
 /* chrome — the header, the homepage mobile bar and the /plan total bar share one opaque surface (WD-09):
@@ -196,8 +191,6 @@ html {
 .cta:disabled { opacity: 0.6; transform: none; }
 .cta-ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1.5px var(--color-ink); }
 .cta-ghost:hover { background: var(--color-ink); color: var(--color-bg); }
-.cta-kale { background: var(--color-kale); color: var(--color-bg); }
-.cta-kale:hover { background: var(--color-kale-press); }
 /* final-CTA primary only — the one place ink-on-yolk inverts to yolk-on-ink */
 .cta-ink { min-height: 54px; background: var(--color-ink); color: var(--color-yolk); }
 .cta-ink:hover { background: var(--color-ink-press); }

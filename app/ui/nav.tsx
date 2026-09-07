@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { List } from "@phosphor-icons/react/dist/ssr";
 import { Wordmark } from "@/app/wordmark";
+import { APP_STORE_IS_LIVE, PLAY_IS_LIVE } from "@/lib/links";
 import { PreorderButton } from "./preorder-button";
+import { StoreBadges } from "./store-badges";
 
-// < 768px: wordmark + pre-order button on the first row, the three links on a second row (WD-08 — measured:
-//   wordmark 115px + the CTA 161px leave 12px at 320px, so the links cannot share the row at any type size).
-// ≥ 768px: wordmark · how it works · pricing · faq · pre-order on the App Store → on one row.
+// NAV (REDESIGN-V3 §4): lockup · how it works · pricing · faq · badges on the right when set, else the yolk
+// "get early access". Mobile: lockup + CTA + hamburger (native <details>, so it works without JS and the keyboard
+// gets it for free: Tab to the summary, Enter/Space toggles, links inside are plain links).
 const LINKS: [string, string][] = [
   ["how it works", "/#how"],
   ["pricing", "/pricing"],
@@ -12,11 +15,12 @@ const LINKS: [string, string][] = [
 ];
 
 export function Nav() {
+  const live = APP_STORE_IS_LIVE || PLAY_IS_LIVE;
   return (
     <header className="chrome sticky top-0 z-(--z-sticky) border-b border-rule">
-      <nav aria-label="primary" className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-x-3 px-4 pt-3 pb-1 sm:px-6 md:flex-nowrap md:gap-x-6 md:py-3 lg:px-12">
+      <nav aria-label="primary" className="mx-auto flex max-w-[1200px] items-center gap-x-3 px-4 py-3 sm:px-6 md:gap-x-6 lg:px-12">
         <Wordmark />
-        <ul className="order-last flex w-full items-center gap-5 text-sm md:order-none md:ml-auto md:w-auto md:gap-6 md:text-base">
+        <ul className="ml-auto hidden items-center gap-6 text-base md:flex">
           {LINKS.map(([label, href]) => (
             <li key={href}>
               <Link href={href} className="inline-flex min-h-11 items-center whitespace-nowrap">
@@ -25,7 +29,22 @@ export function Nav() {
             </li>
           ))}
         </ul>
-        <PreorderButton short placement="header" className="ml-auto md:ml-0" />
+        {live ? <StoreBadges placement="header" height={40} className="ml-auto flex-nowrap md:ml-0" fallback={false} release={false} playClassName="hidden shrink-0 md:inline-block" /> : <PreorderButton short placement="header" className="ml-auto md:ml-0" />}
+        {/* mobile: hamburger with the three links in a sheet under the bar */}
+        <details className="group relative md:hidden">
+          <summary aria-label="menu" className="grid size-11 cursor-pointer list-none place-items-center rounded-[10px] text-ink hover:bg-bg-alt [&::-webkit-details-marker]:hidden">
+            <List size={24} weight="bold" aria-hidden="true" />
+          </summary>
+          <ul className="sheet-drop absolute right-0 top-[calc(100%+0.5rem)] w-[220px] rounded-[14px] border border-rule bg-bg p-2 shadow-receipt">
+            {LINKS.map(([label, href]) => (
+              <li key={href}>
+                <Link href={href} className="flex min-h-11 items-center rounded-[10px] px-3 text-base font-medium hover:bg-bg-alt">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </details>
       </nav>
     </header>
   );
