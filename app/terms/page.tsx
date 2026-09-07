@@ -4,7 +4,7 @@ import { LegalLayout, type LegalSection } from "@/app/ui/legal-layout";
 
 export const metadata: Metadata = {
   title: "Terms of Service — WiseDinner",
-  description: "the terms for using the wisedinner demo and launch email list: what the estimates are and aren't, what the waitlist promises, and how we settle things.",
+  description: "the terms for using the wisedinner website, its shared-week pages and the launch email list: what the estimates are and aren't, what the waitlist promises, and how we settle things.",
   alternates: { canonical: "/terms" },
 };
 
@@ -15,7 +15,7 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>wisedinner is made by WiseDinner. we&apos;ll call ourselves &quot;we&quot; or &quot;wisedinner&quot;. you&apos;re &quot;you&quot;.</p>
-        <p>these terms cover the wisedinner website at wisedinner.com, the free demo on it, and the early-access waitlist. by using any of them you agree to these terms. if you don&apos;t agree, please don&apos;t use the site.</p>
+        <p>these terms cover the wisedinner website at wisedinner.com, the shared-week pages on it, and the early-access waitlist. by using any of them you agree to these terms. if you don&apos;t agree, please don&apos;t use the site.</p>
         <p>the ios app isn&apos;t out yet. when it ships it will have its own terms, and paid plans will have their own billing terms. nothing here sells you anything.</p>
       </>
     ),
@@ -28,13 +28,13 @@ const S: LegalSection[] = [
         <p>right now the service is two things.</p>
         <ul>
           <li>
-            <strong>a demo.</strong> you enter a weekly grocery budget, a daily protein target, a calorie band, a diet, how many people you feed, and what you already own. a deterministic solver picks items from a fixed list of grocery staples and returns a five-day plan, a shopping list, and an estimated in-store total. the same inputs always give the same plan. no ai model writes your plan.
+            <strong>shared weeks.</strong> the wisedinner app lets a user share a solved week as a card and a link on this site (wisedinner.com/w/…). a shared page shows the week&apos;s meals, its list and its estimated totals. it shows nothing about the person who shared it. the examples on this site today are fixtures, not real users&apos; weeks. the app itself has its own terms inside the app.
           </li>
           <li>
-            <strong>a waitlist.</strong> you give us an email address and we tell you when the app is ready. if you ask us to, we also keep the plan you generated so the app can pick it up.
+            <strong>a waitlist.</strong> you give us an email address and we tell you when the app is ready for pre-order and when it launches.
           </li>
         </ul>
-        <p>we can change, pause, or shut down the demo or the waitlist at any time. it&apos;s pre-launch software and it will change.</p>
+        <p>we can change, pause, or shut down the shared-week pages or the waitlist at any time. it&apos;s pre-launch software and it will change.</p>
       </>
     ),
   },
@@ -76,7 +76,7 @@ const S: LegalSection[] = [
         <ul>
           <li>scrape, crawl, or bulk-download the site, the price data, or plans, by hand or with a tool;</li>
           <li>resell, republish, or package plans or price data as your own product;</li>
-          <li>hit the demo or the forms with automated traffic, or try to get around rate limits;</li>
+          <li>hit the forms or the shared-week pages with automated traffic, or try to get around rate limits;</li>
           <li>probe, break, or test the security of the site without asking us first;</li>
           <li>submit someone else&apos;s email address, or abusive or unlawful content through the support form.</li>
         </ul>

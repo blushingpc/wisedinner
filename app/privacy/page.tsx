@@ -17,16 +17,16 @@ const S: LegalSection[] = [
         <p>very little, and only when you hand it to us.</p>
         <ul>
           <li>
-            <strong>your email address</strong>, if you join the waitlist, plus a one-word note on where you signed up (for example &quot;hero&quot;, &quot;plan&quot;, or &quot;drop&quot;). the email is stored lowercase and only once.
+            <strong>your email address</strong>, if you join the waitlist, plus a one-word note on where you signed up (for example &quot;hero&quot;, &quot;final&quot;, or &quot;drop&quot;). the email is stored lowercase and only once.
           </li>
           <li>
-            <strong>your quiz answers</strong>, if you join the waitlist from a solved plan and tell us to keep it: budget, protein target, calorie band, diet, household size, pantry items, and the estimated total. answers you enter in the demo but don&apos;t save live only in your browser&apos;s session storage and vanish when the tab closes.
+            <strong>shared weeks</strong>. when you share a week from the app, the card and its numbers — the meals, the list, the estimated totals — are published at a link on this site. nothing about you travels with it: no name, no email, no device identifier. the shared pages on this site today are fixtures.
           </li>
           <li>
             <strong>support messages</strong>: your name if you give it, your email, and what you wrote.
           </li>
           <li>
-            <strong>cookieless analytics</strong>. we use vercel web analytics, which counts page views and a handful of named events (like &quot;demo completed&quot;) without cookies, without fingerprinting, and without a persistent identifier for you. it records a hashed, rotating visitor id, your country, device type, and referrer. it can&apos;t follow you across sites.
+            <strong>cookieless analytics</strong>. we use vercel web analytics, which counts page views and a handful of named events (like &quot;waitlist joined&quot;) without cookies, without fingerprinting, and without a persistent identifier for you. it records a hashed, rotating visitor id, your country, device type, and referrer. it can&apos;t follow you across sites.
           </li>
         </ul>
         <p>we don&apos;t ask for your name on the waitlist, your address, your payment details, or your health information. please don&apos;t put health information in the support form.</p>
