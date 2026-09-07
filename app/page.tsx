@@ -1,18 +1,15 @@
-import Image, { getImageProps } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
-import { preload, type PreloadOptions } from "react-dom";
-import { drop } from "@/data/drop";
 import { site } from "@/content/site";
 import { FAQ, SITE, faqLd } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { AppStoreBadge } from "./ui/app-store-badge";
 import { HeroEmailFallback } from "./ui/hero-email-fallback";
 import { PhoneStage } from "./ui/phone-stage";
+import { FeatureSwitcher } from "./ui/feature-switcher";
 import { MOBILE_CTA_SENTINEL, MobileCtaBar } from "./ui/mobile-cta-bar";
 import { People } from "./ui/people";
 import { PreorderButton } from "./ui/preorder-button";
-import { PinnedWalkthrough } from "./ui/pinned-walkthrough";
-import { ReceiptCard } from "./ui/receipt-card";
 import { Section } from "./ui/section";
 import { WaitlistForm } from "./ui/waitlist-form";
 import { APP_STORE_IS_LIVE } from "@/lib/links";
@@ -30,11 +27,6 @@ const ORG = {
 };
 
 // S2 band art direction: the 3:1 row of plates on ≥ sm, the tall crop on phones (same next/image ladders, one request)
-const A2_ALT = "five different home-cooked high-protein dinners plated in a row on a linen tablecloth in warm evening light";
-const { props: a2Wide } = getImageProps({ src: "/img/A2.jpg", alt: A2_ALT, width: 2560, height: 853, quality: 80, sizes: "100vw", priority: true });
-const { props: a2Mobile } = getImageProps({ src: "/img/A2-mobile.jpg", alt: A2_ALT, width: 1600, height: 2000, quality: 75, sizes: "100vw", priority: true });
-
-// WD-16: the app itself, with the /pricing tiers as pre-order offers. no aggregateRating — there are no reviews.
 const APP = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -50,9 +42,6 @@ const APP = {
 };
 
 export default function Home() {
-  // WD-10: one media-scoped head preload per S2 crop, so each viewport announces only the image it will show
-  preload(a2Mobile.src as string, { as: "image", imageSrcSet: a2Mobile.srcSet as string, imageSizes: a2Mobile.sizes, media: "(max-width: 639px)", fetchPriority: "high" } as PreloadOptions);
-  preload(a2Wide.src as string, { as: "image", imageSrcSet: a2Wide.srcSet as string, imageSizes: a2Wide.sizes, media: "(min-width: 640px)", fetchPriority: "high" } as PreloadOptions);
   return (
     <main id="main">
       <script type="application/ld+json">{JSON.stringify(ORG)}</script>
@@ -108,94 +97,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* S2 five dinners — full-bleed food strip (DESIGN-AUDIT §9.3), the page's color moment */}
-      <section id="week" className="relative">
-        {/* one <picture>, two crops: phones fetch only the tall crop, everything else only the wide one (WD-10 — the
-            hidden twin used to download and render at 0×0). preloads are media-scoped for the same reason. */}
-        <picture>
-          <source media="(max-width: 639px)" srcSet={a2Mobile.srcSet} sizes={a2Mobile.sizes} width={1600} height={2000} />
-          <img {...a2Wide} alt={A2_ALT} fetchPriority="high" className="img-grade w-full" />
-        </picture>
-        {/* paper scrim block, bottom-left on desktop, beneath the image on mobile — the plates are never covered by text */}
-        <div className="bg-bg lg:absolute lg:bottom-0 lg:left-0 lg:max-w-[640px] lg:rounded-tr-[14px]">
-          <div className="px-6 py-8 lg:px-12 lg:py-10">
-            {/* numbers computed from drop.json so the weekly refresh can never strand a typed price (pricing-honesty law) */}
-            <h2 className="text-h2 font-bold text-balance">five dinners. one trip. ${drop.est_total.toFixed(2)}.</h2>
-            <p className="mt-3 text-caption font-semibold text-kale">about {drop.protein_per_day} g of protein a day, nothing left to rot on thursday.</p>
-            <p className="mt-2 text-[0.9375rem] font-semibold text-kale">{site.strip.enemy}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* S2b what happens when you pre-order — three lines on paper, hairline rules, no cards, no icons */}
-      <section className="py-band">
-        <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
-          <div className="max-w-[46ch] divide-y divide-rule">
-            <p className="py-5 text-[clamp(22px,2.2vw,28px)] leading-tight font-bold">tap pre-order. it&apos;s free.</p>
-            <p className="py-5 text-[clamp(22px,2.2vw,28px)] leading-tight font-bold">launch day, it installs itself. we&apos;ll tell you the date.</p>
-            <p className="py-5 text-[clamp(22px,2.2vw,28px)] leading-tight font-bold">your solved week is already inside.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* S3 how it works — pinned phone, three screens swap on scroll; mobile swipe carousel (§9.4, Tier 1 item 5) */}
-      <PinnedWalkthrough
-        fresh={drop.list.filter((i) => i.perishable).map((i) => i.name)}
-        shelf={drop.list.filter((i) => !i.perishable).map((i) => i.name)}
-      />
-
-      {/* S4 receipt room — the one receipt on the homepage, printing in on kale (§9.7, Tier 2 item 1) */}
-      <section className="relative overflow-hidden bg-kale py-band-spotlight text-bg">
-        <Image
-          src="/img/A3.jpg"
-          alt="top-down flat-lay of the week's staples on dark slate: paper-wrapped meat, tins, a jar of lentils, peanut butter, an onion, carrots, sweet potatoes, a bag of rice, frozen broccoli and edamame"
-          fill
-          quality={70}
-          sizes="100vw"
-          className="img-grade object-cover object-[50%_40%] opacity-30"
-        />
-        <div className="relative mx-auto grid max-w-[1200px] items-center gap-12 px-6 lg:grid-cols-[5fr_7fr] lg:px-12">
-          <div>
-            <h2 className="text-h2 font-bold text-balance">{site.receipt.h2}</h2>
-            <p className="mt-4 max-w-[44ch] text-[1.125rem] leading-relaxed text-bg/85">{site.receipt.caption}</p>
-            <p className="mt-2 max-w-[44ch] text-[1.125rem] leading-relaxed text-bg/85">{site.receipt.promises}</p>
-            <Link href="/the-math" className="text-link mt-5 inline-flex min-h-11 items-center text-bg">
-              how the math works →
-            </Link>
-          </div>
-          <div data-reveal className="receipt-print rotate-[3deg] justify-self-center lg:justify-self-start">
-            <ReceiptCard week={drop} variant="proof" title="this week, solved" />
-          </div>
-        </div>
-      </section>
-
-      {/* S6 three benefits — photo-led, no cards (§9.8, Tier 2 item 3) */}
-      <section className="bg-white py-band">
-        <h2 className="sr-only">{site.changes.h2}</h2>
-        <div className="mx-auto grid max-w-[1200px] gap-10 px-6 sm:grid-cols-3 sm:gap-6 lg:px-12">
-          {(
-            [
-              { src: "/img/A4-1.jpg", alt: "hands plating sliced roasted chicken over rice in a warm kitchen, evening light" },
-              { src: "/img/A4-2.jpg", alt: "a single wire grocery basket on a wooden counter holding twelve everyday staples" },
-              { src: "/img/A4-3.jpg", alt: "an open, tidy refrigerator with five glass meal-prep containers on one shelf" },
-            ] as const
-          ).map((b, i) => (
-            <figure key={b.src} className={i === 1 ? "lg:mt-10" : undefined}>
-              <Image
-                src={b.src}
-                alt={b.alt}
-                width={1400}
-                height={1738}
-                quality={75}
-                sizes="(min-width: 640px) 33vw, 100vw"
-                className="img-grade w-full rounded-[14px] object-cover"
-              />
-              <figcaption className="mt-4 text-[1.75rem] leading-tight font-bold text-balance">{site.changes.items[i]?.title}</figcaption>
-              {site.changes.items[i]?.sub && <p className="mt-2 text-[0.9375rem] text-ink-soft">{site.changes.items[i].sub}</p>}
-            </figure>
-          ))}
-        </div>
-      </section>
+      {/* SECTION 2 — what does wisedinner include? (REDESIGN-V3 §4): the switcher */}
+      <FeatureSwitcher />
 
       {/* S6b people — proof row + quotes from content/site.ts, real values only; behind NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF, hidden in production */}
       <People />

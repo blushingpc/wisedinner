@@ -242,23 +242,8 @@ html {
   to { opacity: 1; transform: none; }
 }
 .fade-up { animation: fade-up 300ms var(--ease-press) both; }
-/* demo dinner cards fade in on budget-band change (200ms, opacity only) */
-@keyframes demo-fade {
-  from { opacity: 0; }
-}
-.demo-fade { animation: demo-fade 200ms ease-out both; }
-
-/* walkthrough step 2 "solving" (§12.2) — chips pop in staggered, the solved line lands last; plays once */
-@keyframes chip-in {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: none; }
-}
-.solve-play .chip-in { opacity: 0; animation: chip-in 350ms var(--ease-press) forwards; animation-delay: var(--chip-delay, 0ms); }
-.solve-play .solve-done { opacity: 0; animation: fade-up 300ms var(--ease-press) 1150ms forwards; }
-
 @media (prefers-reduced-motion: reduce) {
-  .dish-drift, .fade-up, .demo-fade, .solve-play .chip-in, .solve-play .solve-done { animation: none; }
-  .solve-play .chip-in, .solve-play .solve-done { opacity: 1; }
+  .dish-drift, .fade-up { animation: none; }
 }
 
 /* header sheet — slides down from under the sticky nav (§9.1) */
