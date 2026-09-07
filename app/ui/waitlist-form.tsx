@@ -45,7 +45,8 @@ export function WaitlistForm({ source, quiz, yolk, label = "email", button = "no
       <label htmlFor={id} className={`block text-caption font-semibold ${soft}`}>
         {label}
       </label>
-      <div className="mt-2 flex gap-2">
+      {/* ≤420: field over a full-width 54px button (the field's natural height at 18px) — a 90vw tap target is the one thing every download page does (#14, reference study rank 2); wider: one row */}
+      <div className="mt-2 flex flex-col gap-2 min-[421px]:flex-row">
         <input
           id={id}
           type="email"
@@ -59,7 +60,7 @@ export function WaitlistForm({ source, quiz, yolk, label = "email", button = "no
           className={`field ${yolk ? "border-ink/30" : ""}`}
         />
         <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
-        <button type="submit" disabled={state === "loading"} data-placement={placement} className={`cta ${yolk ? "cta-kale" : ""}`}>
+        <button type="submit" disabled={state === "loading"} data-placement={placement} className={`cta cta-wide ${yolk ? "cta-kale" : ""}`}>
           {state === "loading" ? "saving…" : button}
         </button>
       </div>
