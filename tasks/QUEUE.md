@@ -29,7 +29,7 @@ R3. [x] Phase 3 (WD-12 → WD-20) — MERGED to main + LIVE 2026-09-02, prod pro
 ## Release epic — App Store pre-order → launch (founder decision 2026-09-05: site captures early access, then funnels to the listing)
 E1. [x] funnel simplification: pre-sale removed end to end, /founders 301 → /thanks, NEXT_PUBLIC_APP_STORE_URL + NEXT_PUBLIC_RELEASE_DATE flip every primary control between "get early access" and "pre-order on the App Store" — shipped 2026-09-05 with the flag unset.
 E2. BLOCKED (founder): App Store Connect listing exists → set NEXT_PUBLIC_APP_STORE_URL (+ NEXT_PUBLIC_RELEASE_DATE, e.g. "March 2027") in Vercel production + preview, drop Apple's official badge at public/badges/preorder-on-the-app-store-black.svg, redeploy. done means: prod header/hero/final/sticky all read "pre-order on the App Store", /ios 307s to the listing, wd-check green.
-E2b. [x] REDESIGN v3 (docs/REDESIGN-V3.md) built on design-v3 — preview live 2026-09-07, 20 steps, awaiting "publish". done means: founder says publish → design-v3 fast-forwards to main, prod probe green.
+E2b. [x] REDESIGN v3 (docs/REDESIGN-V3.md) — PUBLISHED 2026-09-07 (main 0437bb6), prod probe green, prod Lighthouse 95/100/100/100.
 E2c. BLOCKED (founder): Vercel Preview env for design review — NEXT_PUBLIC_APP_STORE_URL="#", NEXT_PUBLIC_PLAY_URL="#", NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF=true, NEXT_PUBLIC_RELEASE_DATE; official pre-order badge svg once the listing exists.
 E3. post-launch — WhatsApp outreach to new accounts, first 100 as S-tier testers. done means: outreach list + invite flow defined by the founder; nothing on the site.
 
