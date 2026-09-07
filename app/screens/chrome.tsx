@@ -13,7 +13,7 @@ export function Header({ title, right, sub }: { title: string; right?: ReactNode
   return (
     <div className="mt-[3.75em] flex items-end justify-between px-[1.25em]">
       <div>
-        <h3 className="text-[1.625em] leading-none font-bold tracking-[-0.02em]">{title}</h3>
+        <p className="text-[1.625em] leading-none font-bold tracking-[-0.02em]">{title}</p>
         {sub && <p className="mt-[0.35em] text-[0.8125em] font-medium text-ink-soft">{sub}</p>}
       </div>
       {right}

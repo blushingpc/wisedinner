@@ -52,13 +52,13 @@ export function PhoneStage() {
     <div ref={root} className="hero-field relative mx-auto aspect-[10/16] w-full max-w-[600px] select-none lg:aspect-[600/780]">
       {/* S4 — back-right, +4°, 88% */}
       <div className="absolute right-[1%] top-0 w-[53%] transition-transform duration-300 ease-out motion-reduce:transition-none" style={{ transform: `translate(${-dx * 0.5}px, ${-dy * 0.5}px)` }}>
-        <DeviceFrame label="phone showing the receipt reveal: estimated $49.20, actual $48.61, receipt verified" tilt="right" widthClass="w-full" className="rotate-[4deg]" chrome={false} sizes="(min-width: 1024px) 318px, 182px">
+        <DeviceFrame label="phone showing the receipt reveal: estimated $49.20, actual $48.61, receipt verified" tilt="right" widthClass="w-full" className="rotate-[4deg]" chrome={false} sizes="(min-width: 1024px) 380px, 182px">
           <ReceiptReveal week={fixtureWeek} />
         </DeviceFrame>
       </div>
       {/* S1 — front-left, −6° */}
       <div className="absolute left-[4%] top-[5%] w-[60%] transition-transform duration-300 ease-out motion-reduce:transition-none" style={{ transform: `translate(${dx}px, ${dy}px)` }}>
-        <DeviceFrame label={`phone showing this week: ${tue.meals.map((m) => m.name).join(", ")}; under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`} tilt="left" priority widthClass="w-full" className="rotate-[-6deg]" chrome={false} sizes="(min-width: 1024px) 360px, 250px">
+        <DeviceFrame label={`phone showing this week: ${tue.meals.map((m) => m.name).join(", ")}; under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`} tilt="left" priority widthClass="w-full" className="rotate-[-6deg]" chrome={false} sizes="(min-width: 1024px) 440px, 250px">
           <ThisWeek week={fixtureWeek} active="tue" priority />
         </DeviceFrame>
       </div>

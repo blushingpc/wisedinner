@@ -10,7 +10,7 @@ export function Onboarding({ value = "$55", step = 1 }: { value?: string; step?:
       <StatusBar />
       <div className="mt-[3.75em] px-[1.25em]">
         <p className="text-[0.75em] font-semibold text-ink-soft">{step} of 6</p>
-        <h3 className="mt-[0.4em] text-[1.625em] leading-none font-bold tracking-[-0.02em]">your weekly budget</h3>
+        <p className="mt-[0.4em] text-[1.625em] leading-none font-bold tracking-[-0.02em]">your weekly budget</p>
         <p className="mt-[0.5em] text-[0.875em] text-ink-soft">groceries only. we plan five days inside it.</p>
       </div>
       <p className="mt-[1.4em] text-center font-mono text-[3.5em] leading-none font-semibold tracking-tight">{value}</p>
