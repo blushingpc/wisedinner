@@ -148,6 +148,7 @@ export default function Home() {
             <DeviceFrame
               label="phone alternating between this week's meals with prices and the one grocery list"
               tilt="left"
+              priority
               widthClass="w-[300px] lg:w-[430px]"
               className="absolute left-1/2 top-0 -translate-x-1/2 rotate-3 lg:rotate-6"
             >

@@ -259,14 +259,15 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .sheet-drop { animation: none; }
 }
-  /* glare lives on the inner (relative) bezel layer so it never fights the caller's position utilities */
-.frame-glare::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 44px;
-  background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.04) 46%, rgba(255, 255, 255, 0.04) 58%, transparent 62%);
-  pointer-events: none;
+/* DeviceFrame v3 — screen glare (~6% white on a 115° diagonal) and the body-shaped shadows. the screen box owns
+   --pt: one iPhone point at a 390pt design width, and every app screen sizes in em off a 16pt font. */
+.screen {
+  --pt: calc(100cqw * 0.8933 / 390);
+  font-size: calc(16 * var(--pt));
+  line-height: 1.25;
+}
+.frame-glare {
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0.06) 56%, transparent 62%);
 }
 /* the homepage receipt prints in top-to-bottom (DESIGN-AUDIT §12.3). rides [data-reveal] +
    app/reveal.tsx: no JS or reduced motion → the receipt is simply there. negative inset keeps
@@ -349,19 +350,14 @@ html {
   .rise-up { animation: none; }
 }
 
-/* 3d phones: directional rim light (window light from the left) + edge thickness + grounded shadow.
-   box-shadow only — transforms stay in the tilt classes, reduced-motion unaffected (static). */
-.frame-3d-left {
-  box-shadow:
-    inset 3px 2px 2px -1px rgba(255, 255, 255, 0.28),
-    inset -4px -3px 6px -2px rgba(0, 0, 0, 0.65),
-    -18px 32px 44px -18px rgba(27, 26, 24, 0.4),
-    -40px 70px 110px -30px rgba(27, 26, 24, 0.22);
+/* device-frame v3 shadows: a soft contact shadow + a wide ambient one, grounded toward the window light on the
+   left. shapes live on a body-shaped layer behind the bezel PNG. reduced-motion unaffected (static). */
+.frame-shadow {
+  box-shadow: 0 2px 6px rgba(25, 24, 23, 0.28), 0 40px 80px -20px rgba(27, 26, 24, 0.35);
 }
-.frame-3d-right {
-  box-shadow:
-    inset -3px 2px 2px -1px rgba(255, 255, 255, 0.24),
-    inset 4px -3px 6px -2px rgba(0, 0, 0, 0.65),
-    16px 34px 44px -18px rgba(27, 26, 24, 0.42),
-    36px 72px 110px -30px rgba(27, 26, 24, 0.22);
+.frame-shadow-left {
+  box-shadow: -18px 32px 44px -18px rgba(27, 26, 24, 0.4), -40px 70px 110px -30px rgba(27, 26, 24, 0.22);
+}
+.frame-shadow-right {
+  box-shadow: 16px 34px 44px -18px rgba(27, 26, 24, 0.42), 36px 72px 110px -30px rgba(27, 26, 24, 0.22);
 }
