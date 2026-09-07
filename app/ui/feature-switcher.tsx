@@ -1,23 +1,14 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { DeviceFrame } from "./device-frame";
-import { GroceryList, ReceiptReveal, ShareWeek, ThisWeek } from "@/app/screens";
-import { fixtureWeek } from "@/data/fixtures";
-import { site } from "@/content/site";
 
 // SECTION 2 — "what does wisedinner include?" (REDESIGN-V3 §4): DeviceFrame left, four cards right (active = ink
 // outline on paper-alt). Click/tap = 250ms crossfade; auto-advance every 5s until the first interaction; dots.
 // Mobile: the cards collapse to a chip row above the phone. Tabs pattern: arrow keys move, Home/End jump.
-const SCREENS = [
-  <ThisWeek key="s1" week={fixtureWeek} active="tue" />,
-  <GroceryList key="s2" week={fixtureWeek} />,
-  <ShareWeek key="s3" week={fixtureWeek} />,
-  <ReceiptReveal key="s4" week={fixtureWeek} />,
-];
+// The four screens arrive server-rendered as `screens` so none of app/screens hydrates (Lighthouse TBT).
 
-export function FeatureSwitcher() {
-  const items = site.include.items;
+export function FeatureSwitcher({ h2, items, screens }: { h2: string; items: { title: string; body: string }[]; screens: ReactNode[] }) {
   const [active, setActive] = useState(0);
   const [touched, setTouched] = useState(false);
   const id = useId();
@@ -46,10 +37,10 @@ export function FeatureSwitcher() {
   return (
     <section id="how" className="py-band">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
-        <h2 className="text-h2 font-bold text-balance">{site.include.h2}</h2>
+        <h2 className="text-h2 font-bold text-balance">{h2}</h2>
         <div className="mt-8 grid items-center gap-8 lg:mt-12 lg:grid-cols-[5fr_6fr] lg:gap-16">
           {/* tabs: chips on mobile (above the phone), cards on desktop (right of it) */}
-          <div role="tablist" aria-label={site.include.h2} className="order-1 -mx-6 flex gap-2 overflow-x-auto px-6 pb-2 [scrollbar-width:none] lg:order-2 lg:mx-0 lg:grid lg:gap-3 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden">
+          <div role="tablist" aria-label={h2} className="order-1 -mx-6 flex gap-2 overflow-x-auto px-6 pb-2 [scrollbar-width:none] lg:order-2 lg:mx-0 lg:grid lg:gap-3 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden">
             {items.map((it, i) => {
               const on = i === active;
               return (
@@ -78,7 +69,7 @@ export function FeatureSwitcher() {
           <div className="order-2 lg:order-1">
             <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-tab-${active}`} className="mx-auto w-[260px] lg:w-[340px]">
               <DeviceFrame label={`phone showing ${items[active].title}`} widthClass="w-full" chrome={false} sizes="(min-width: 1024px) 340px, 260px">
-                {SCREENS.map((s, i) => (
+                {screens.map((s, i) => (
                   <div key={i} aria-hidden={i !== active} className={`absolute inset-0 transition-opacity duration-[250ms] motion-reduce:transition-none ${i === active ? "opacity-100" : "pointer-events-none opacity-0"}`}>
                     {s}
                   </div>

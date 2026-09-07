@@ -3,14 +3,14 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { DeviceFrame } from "./device-frame";
-import { ReceiptReveal, ThisWeek } from "@/app/screens";
-import { fixtureWeek, usd } from "@/data/fixtures";
+import type { ReactNode } from "react";
 
 // HERO PHONE STAGE (REDESIGN-V3 §4): S1 front-left at −6°, S4 back-right at +4° and 88%, overlapping; two callout
 // bubbles off S1; a hand-drawn arrow from S1's scorecard to S4's comparison that draws on first view (900ms, static
 // under reduced motion); the tenders basket and smash burger cut-outs breaking the phone edges; 3px pointer parallax
-// on desktop only (§7). Every number is the fixture's.
-export function PhoneStage() {
+// on desktop only (§7). Every number is the fixture's. The two screens arrive as server-rendered nodes so the client
+// bundle carries only this stage — none of app/screens, next/image or the fixture JSON hydrate (Lighthouse TBT).
+export function PhoneStage({ s1, s4, s1Label, s4Label, calloutMeal, calloutBudget }: { s1: ReactNode; s4: ReactNode; s1Label: string; s4Label: string; calloutMeal: string; calloutBudget: string }) {
   const root = useRef<HTMLDivElement>(null);
   const [drawn, setDrawn] = useState(false);
   const [dx, setDx] = useState(0);
@@ -44,31 +44,28 @@ export function PhoneStage() {
     };
   }, []);
 
-  const tue = fixtureWeek.days.find((d) => d.day === "tue")!;
-  const dinner = tue.meals.find((m) => m.slot === "dinner")!;
-  const short = dinner.name.replace(/^crispy baked /, "").replace(/ with .*$/, "");
 
   return (
     <div ref={root} className="hero-field relative mx-auto aspect-[10/16] w-full max-w-[600px] select-none lg:aspect-[600/780]">
       {/* S4 — back-right, +4°, 88% */}
       <div className="absolute right-[1%] top-0 w-[53%] transition-transform duration-300 ease-out motion-reduce:transition-none" style={{ transform: `translate(${-dx * 0.5}px, ${-dy * 0.5}px)` }}>
-        <DeviceFrame label="phone showing the receipt reveal: estimated $49.20, actual $48.61, receipt verified" tilt="right" widthClass="w-full" className="rotate-[4deg]" chrome={false} sizes="(min-width: 1024px) 380px, 182px">
-          <ReceiptReveal week={fixtureWeek} />
+        <DeviceFrame label={s4Label} tilt="right" widthClass="w-full" className="rotate-[4deg]" chrome={false} sizes="(min-width: 1024px) 380px, 182px">
+          {s4}
         </DeviceFrame>
       </div>
       {/* S1 — front-left, −6° */}
       <div className="absolute left-[4%] top-[5%] w-[60%] transition-transform duration-300 ease-out motion-reduce:transition-none" style={{ transform: `translate(${dx}px, ${dy}px)` }}>
-        <DeviceFrame label={`phone showing this week: ${tue.meals.map((m) => m.name).join(", ")}; under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`} tilt="left" priority widthClass="w-full" className="rotate-[-6deg]" chrome={false} sizes="(min-width: 1024px) 440px, 250px">
-          <ThisWeek week={fixtureWeek} active="tue" priority />
+        <DeviceFrame label={s1Label} tilt="left" priority widthClass="w-full" className="rotate-[-6deg]" chrome={false} sizes="(min-width: 1024px) 440px, 250px">
+          {s1}
         </DeviceFrame>
       </div>
 
       {/* callouts off S1 */}
       <Callout className="right-[2%] top-[58%] rotate-[-2deg] lg:right-auto lg:left-[40%]">
-        {short} · {dinner.protein_g}g · {usd(dinner.cost_usd)}
+        {calloutMeal}
       </Callout>
       <Callout className="left-[-1%] top-[67%] rotate-[2deg]" tone="kale">
-        under budget by {usd(fixtureWeek.totals.under_budget_by_usd)}
+        {calloutBudget}
       </Callout>
 
       {/* hand-drawn arrow: S1 scorecard → S4 comparison */}

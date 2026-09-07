@@ -6,6 +6,8 @@ import { Accordion } from "./ui/accordion";
 import { StoreBadges } from "./ui/store-badges";
 import { HeroEmailFallback } from "./ui/hero-email-fallback";
 import { PhoneStage } from "./ui/phone-stage";
+import { GroceryList, ReceiptReveal, ShareWeek, ThisWeek } from "./screens";
+import { fixtureWeek, usd } from "@/data/fixtures";
 import { FeatureSwitcher } from "./ui/feature-switcher";
 import { Why } from "./ui/why";
 import { MOBILE_CTA_SENTINEL, MobileCtaBar } from "./ui/mobile-cta-bar";
@@ -42,6 +44,10 @@ const APP = {
     { "@type": "Offer", name: `${t.name} — monthly`, price: t.monthly.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/PreOrder" },
   ]),
 };
+
+// hero fixture reads (REDESIGN-V3 §3 S1): tuesday's dinner feeds the callout
+const TUE = fixtureWeek.days.find((d) => d.day === "tue") ?? fixtureWeek.days[0];
+const DINNER = TUE.meals.find((m) => m.slot === "dinner") ?? TUE.meals[0];
 
 export default function Home() {
   return (
@@ -91,14 +97,31 @@ export default function Home() {
             )}
           </div>
 
-          <div className="fade-up [animation-delay:160ms]">
-            <PhoneStage />
+          {/* no entrance fade here: the S1 bezel is the LCP element and must paint the moment it decodes */}
+          <div>
+            <PhoneStage
+              s1={<ThisWeek week={fixtureWeek} active="tue" priority />}
+              s4={<ReceiptReveal week={fixtureWeek} />}
+              s1Label={`phone showing this week: ${TUE.meals.map((m) => m.name).join(", ")}; under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`}
+              s4Label={`phone showing the receipt reveal: estimated ${usd(fixtureWeek.receipt.estimated_usd)}, actual ${usd(fixtureWeek.receipt.actual_usd)}, receipt verified`}
+              calloutMeal={`${DINNER.name.replace(/^crispy baked /, "").replace(/ with .*$/, "")} · ${DINNER.protein_g}g · ${usd(DINNER.cost_usd)}`}
+              calloutBudget={`under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`}
+            />
           </div>
         </div>
       </section>
 
       {/* SECTION 2 — what does wisedinner include? (REDESIGN-V3 §4): the switcher */}
-      <FeatureSwitcher />
+      <FeatureSwitcher
+        h2={site.include.h2}
+        items={site.include.items}
+        screens={[
+          <ThisWeek key="s1" week={fixtureWeek} active="tue" />,
+          <GroceryList key="s2" week={fixtureWeek} />,
+          <ShareWeek key="s3" week={fixtureWeek} />,
+          <ReceiptReveal key="s4" week={fixtureWeek} />,
+        ]}
+      />
 
       {/* SECTION 3 — why wisedinner (§4) */}
       <Why />
