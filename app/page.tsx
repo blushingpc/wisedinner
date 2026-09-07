@@ -205,7 +205,7 @@ export default function Home() {
       </section>
 
       {/* S2b what happens when you pre-order — three lines on paper, hairline rules, no cards, no icons */}
-      <section className="py-14 lg:py-20">
+      <section className="py-band">
         <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
           <div className="max-w-[46ch] divide-y divide-rule">
             <p className="py-5 text-[clamp(22px,2.2vw,28px)] leading-tight font-bold">tap pre-order. it&apos;s free.</p>
@@ -222,7 +222,7 @@ export default function Home() {
       />
 
       {/* S4 receipt room — the one receipt on the homepage, printing in on kale (§9.7, Tier 2 item 1) */}
-      <section className="relative overflow-hidden bg-kale py-16 text-bg lg:py-24">
+      <section className="relative overflow-hidden bg-kale py-band-spotlight text-bg">
         <Image
           src="/img/A3.jpg"
           alt="top-down flat-lay of the week's staples on dark slate: paper-wrapped meat, tins, a jar of lentils, peanut butter, an onion, carrots, sweet potatoes, a bag of rice, frozen broccoli and edamame"
@@ -247,7 +247,7 @@ export default function Home() {
       </section>
 
       {/* S6 three benefits — photo-led, no cards (§9.8, Tier 2 item 3) */}
-      <section className="bg-white py-16 lg:py-24">
+      <section className="bg-white py-band">
         <h2 className="sr-only">{site.changes.h2}</h2>
         <div className="mx-auto grid max-w-[1200px] gap-10 px-6 sm:grid-cols-3 sm:gap-6 lg:px-12">
           {(
@@ -289,7 +289,7 @@ export default function Home() {
       </Section>
 
       {/* S8 final cta — the page's boldest moment, saved for last (§9.11, yolk ground) */}
-      <section id="early-access" className="bg-yolk py-14 pb-36 text-ink sm:pb-14 lg:py-24">
+      <section id="early-access" className="bg-yolk py-band pb-36 text-ink sm:pb-band">
         <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-2 lg:px-12">
           <h2 className="text-display font-bold text-balance">your protein. your budget. <em>solved.</em></h2>
           <div className="self-center">

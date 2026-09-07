@@ -19,7 +19,7 @@ export function People() {
   if (stats.length === 0 && quotes.length === 0 && !hasFounder) return null;
 
   return (
-    <section className="py-14 lg:py-24">
+    <section className="py-band">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
         {stats.length > 0 && (
           <div className="flex flex-wrap gap-x-16 gap-y-8">

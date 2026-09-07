@@ -43,6 +43,9 @@
   --text-hero: clamp(3.5rem, 9vw, 7rem);
   --text-hero--line-height: 1;
 
+  --spacing-band: var(--band); /* py-band — every homepage band; values below, responsive */
+  --spacing-band-spotlight: var(--band-spotlight); /* py-band-spotlight — the receipt room only */
+
   --radius-sm: 4px; /* inputs; receipts are 0 */
   --radius-cta: 12px;
   --radius-card: 14px; /* cards, device frames, photos */
@@ -53,6 +56,19 @@
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* reveals, 600ms */
   --ease-press: cubic-bezier(0.32, 0.72, 0, 1); /* interactions, 200ms */
+}
+
+/* band rhythm (#15, reference study rank 3): two paddings for every band and one spotlight value for the kale
+   receipt room. per-section py-* values are retired — a band is py-band or py-band-spotlight, nothing else. */
+:root {
+  --band: 56px;
+  --band-spotlight: 96px;
+}
+@media (min-width: 1024px) {
+  :root {
+    --band: 96px;
+    --band-spotlight: 160px;
+  }
 }
 
 /* anchors land below the sticky header: two rows on phones (WD-08), one row from md */

@@ -126,7 +126,7 @@ export function PinnedWalkthrough({ fresh, shelf }: { fresh: string[]; shelf: st
   }, [carousel]);
 
   return (
-    <section id="how" className="bg-white py-14 lg:py-20">
+    <section id="how" className="bg-white py-band">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
         <h2 className="text-h2 font-bold">how it works</h2>
 
