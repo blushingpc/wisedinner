@@ -258,6 +258,8 @@ html {
 .bare .screen {
   --pt: calc(100cqw / 390);
 }
+/* the S3 share card rendered at page width (/w/<id>): em sizing re-based to the page font */
+.screen-page { font-size: 1.125rem; }
 .frame-glare {
   background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0.06) 56%, transparent 62%);
 }
