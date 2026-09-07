@@ -161,6 +161,8 @@ html {
 /* narrow phones: wordmark + cta + hamburger share 390px — tighten only the header's cta */
 @media (max-width: 420px) {
   header .cta { padding: 0.75rem; font-size: 0.875rem; }
+  /* the waitlist submit and its ghost twin become one full-width 54px tap target (#14) — .cta's own min-height is unlayered, so utilities can't override it */
+  .cta-wide { width: 100%; min-height: 54px; }
 }
 .cta:hover { background: var(--color-yolk-press); }
 .cta:active { transform: scale(0.98); }

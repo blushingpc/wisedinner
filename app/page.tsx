@@ -334,7 +334,7 @@ export default function Home() {
             ) : (
               <>
                 <WaitlistForm source="final" yolk button="get early access" placement="final" />
-                <Link href="/start" className="cta cta-ghost mt-4">
+                <Link href="/start" className="cta cta-ghost cta-wide mt-4">
                   {HERO.demo}
                 </Link>
               </>
