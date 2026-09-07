@@ -42,7 +42,7 @@ const demoPool = meals.map(({ name, img, alt, price_usd }) => ({ name, img, alt,
 export default function TheMath() {
   return (
     <main id="main">
-      <section className="py-14 lg:py-24">
+      <section className="py-band">
         <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
           <h1 className="text-display font-bold">how the math works</h1>
           <div className="mt-10 max-w-[60ch]">
