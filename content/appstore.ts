@@ -2,7 +2,7 @@
 export const appStore = {
   subtitle: "protein on a budget", // ≤ 30 chars; alt "hit protein. spend less."
   promoText:
-    "two numbers in — your budget and your protein — and a solved week comes out: five days of meals, one 12-item list, real shelf prices. 21-day free trial.", // ≤ 170
+    "two numbers in — your budget and your protein — and a solved week comes out: five days of meals, one 12-item list, real shelf prices. 14-day free trial.", // ≤ 170
   screenshots: [
     { screen: "this week", caption: "hit your protein. spend way less." },
     { screen: "two numbers", caption: "two numbers in. a week out." },

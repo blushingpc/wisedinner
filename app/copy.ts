@@ -1,11 +1,9 @@
 // SITE-SPEC §18 copy bank — verbatim where the spec is verbatim. used by /, /faq, /about, /press, JSON-LD.
 import { site } from "@/content/site";
-import { APP_STORE_IS_LIVE } from "@/lib/links";
+import { APP_STORE_IS_LIVE, RELEASE_DATE } from "@/lib/links";
 
-const { launchWindow } = site;
-const [plan] = site.pricing.tiers;
+const [plan, auto] = site.pricing.tiers;
 const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
-const perk = site.hero.perk;
 
 export const SUPPORT_EMAIL = "support@wisedinner.com";
 export const SITE = "https://www.wisedinner.com";
@@ -23,47 +21,42 @@ export const STEPS = [
 ] as const;
 
 export const FAQ = [
-  {
-    q: "when does the app launch?",
-    // TODO(launch): the "(target: …)" tail drops itself when launchWindow is ""
-    a: APP_STORE_IS_LIVE
-      ? `pre-order it now on the App Store and it installs itself on launch day. we'll email you the date the moment it's fixed.${launchWindow ? ` (target: ${launchWindow})` : ""}`
-      : "leave your email and you'll get one message the day it's up for pre-order on the App Store, and one when it launches.",
-  },
-  {
-    q: "how much does it cost?",
-    // TODO(launch): confirm figures against /pricing
-    a: `pre-ordering is free. the app comes with a 21-day free trial, then ${usd(plan.perMonth)}/mo billed yearly or ${usd(plan.monthly)} month to month.${perk ? ` ${perk}` : ""}`,
-  },
-  {
-    q: "is it on android?",
-    a: "not at launch. leave your email and you'll get the android date first.",
-  },
+  // REDESIGN-V3 §4 section 6 — app-first, no web demo, free vs paid, receipt reveal, shelf-price honesty,
+  // pre-order in october, the challenge, "the first build collects nothing", the 14-day trial.
   {
     q: "what is wisedinner?",
-    a: "a meal planner that turns two numbers — your weekly budget and your daily protein — into a solved week: five days of meals, one short list, an estimated in-store total. it can’t get the math wrong, and it shows you the receipt. it’s an app first; this site is the pre-order.",
+    a: "an iphone app. you give it two numbers — your weekly budget and your daily protein — and it returns a solved week: five days of meals you'd actually order, one short list, and an estimated in-store total. there's no web version and no demo on this site; the app is the product.",
+  },
+  {
+    q: "what's free and what's paid?",
+    a: `the pre-order build is free and complete on its own: the six-question onboarding, the offline solver, the week view, the three checks, regenerate, the aisle list with its total, the delivery gap, share your week and beat this week. no account, nothing to buy. at launch, protein plan (${usd(plan.monthly)}/mo or ${usd(plan.yearly)}/yr) adds the receipt reveal, swap and the weekly solve challenge; autopilot (${usd(auto.monthly)}/mo or ${usd(auto.yearly)}/yr) solves next week for you every sunday at 5pm.`,
+  },
+  {
+    q: "what is the receipt reveal?",
+    a: "after you shop, photograph the receipt. the app puts the estimate and what you paid side by side, tells you the difference in one line, and keeps an accuracy score that climbs week over week. it's the proof that the numbers were real.",
   },
   {
     q: "how accurate are the prices?",
-    a: "they're averages from public price data with a buffer on top, labeled as estimates, refreshed weekly. we quote shelf prices, not delivery-app prices — those run 15–25% higher before fees. your receipt is the truth — in the app, every receipt you log tightens the estimate for you.",
+    a: "we quote what the shelf says: averages from public price data with a buffer on top, labeled as estimates, refreshed weekly. the delivery price sits beside it so you can see the markup — delivery apps run 15–25% higher before fees. every receipt you reveal tightens the estimate for you.",
     more: { label: "how the math works →", href: "/the-math" },
   },
   {
-    q: "why not just use chatgpt?",
-    a: "a chat model can't hold real prices, can't aggregate half an onion across five days, and can't guarantee the math. our solver is deterministic: same numbers in, same week out, and it can't get arithmetic wrong. then we show receipts.",
-    more: { label: "how the math works →", href: "/the-math" },
+    q: "when can i get it?",
+    a: APP_STORE_IS_LIVE
+      ? `pre-order it now on the app store and it installs itself on launch day.${RELEASE_DATE ? ` release: ${RELEASE_DATE}.` : ""}`
+      : "pre-order opens on the app store in october, with release three to four weeks after. leave your email and you'll get one message the day pre-order opens and one on launch day. iphone first; android follows.",
   },
   {
-    q: "is this medical or diet advice?",
-    a: "no. protein and calorie figures are planning estimates from a food database. talk to a professional before changing how you eat, especially with a health condition.",
+    q: "how does the weekly solve challenge work?",
+    a: "solve a week, shop it, reveal the receipt. only receipt-verified weeks count — estimate alone doesn't enter. the leaderboard is cost per gram of protein, so a $40 week can beat a $60 one. it's a protein plan feature at launch.",
   },
   {
-    q: "do you sell my data?",
-    a: `no. not now, not at launch, not as the business model. the business model is ${usd(plan.yearly)}/yr.`,
+    q: "what do you collect?",
+    a: "the first build collects nothing. no account, no sign-in, no tracking; your weeks and receipts stay on your phone. when you share a week, the card and its numbers are the only things that leave.",
   },
   {
-    q: "how is zero waste possible without logging?",
-    a: "eating the whole package is a constraint inside the solver, and perishables are scheduled first in the week. you never have to log anything for it to hold — tracking is optional.",
+    q: "why a 14-day trial?",
+    a: "14 days — two solves and one receipt reveal is enough to prove it. if the receipt doesn't match, don't pay.",
   },
 ];
 

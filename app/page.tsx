@@ -10,6 +10,7 @@ import { FeatureSwitcher } from "./ui/feature-switcher";
 import { Why } from "./ui/why";
 import { MOBILE_CTA_SENTINEL, MobileCtaBar } from "./ui/mobile-cta-bar";
 import { Testers } from "./ui/testers";
+import { PricingCards } from "./ui/pricing-cards";
 import { PreorderButton } from "./ui/preorder-button";
 import { Section } from "./ui/section";
 import { WaitlistForm } from "./ui/waitlist-form";
@@ -106,6 +107,14 @@ export default function Home() {
 
       {/* SECTION 4 — what our testers say (§2D/§4): placeholder entries, behind NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF, hidden in production */}
       <Testers />
+
+      {/* SECTION 5 — pricing (§4, §2E) */}
+      <Section id="pricing" alt>
+        <h2 className="text-h2 font-bold">pricing</h2>
+        <div className="mt-8 lg:mt-12">
+          <PricingCards compact />
+        </div>
+      </Section>
 
       {/* S7 faq preview — launch question first (§9.10) */}
       <Section>
