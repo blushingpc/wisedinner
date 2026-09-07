@@ -14,8 +14,6 @@ export const site = {
   },
   proof: { preorders: 0, demoWeeksThisMonth: 0, avgWeekUsd: 39.72 }, // counts show only when >= 100
   launchWindow: process.env.NEXT_PUBLIC_RELEASE_DATE || "", // only when the date is firm — set with the App Store URL (lib/links.ts)
-  quotes: [] as { text: string; name: string; city: string; date: string; tag?: string }[], // real only
-  founderNote: { text: "", photo: "", name: "" }, // TODO(launch): real note + real kitchen photo
   strip: {
     // h2 + caption render computed from data/drop.json (weekly refresh) — only the enemy line is typed copy
     enemy: "no meal kit. no tracking. no 40-item list.",

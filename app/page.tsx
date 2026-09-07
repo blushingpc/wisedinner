@@ -7,8 +7,9 @@ import { AppStoreBadge } from "./ui/app-store-badge";
 import { HeroEmailFallback } from "./ui/hero-email-fallback";
 import { PhoneStage } from "./ui/phone-stage";
 import { FeatureSwitcher } from "./ui/feature-switcher";
+import { Why } from "./ui/why";
 import { MOBILE_CTA_SENTINEL, MobileCtaBar } from "./ui/mobile-cta-bar";
-import { People } from "./ui/people";
+import { Testers } from "./ui/testers";
 import { PreorderButton } from "./ui/preorder-button";
 import { Section } from "./ui/section";
 import { WaitlistForm } from "./ui/waitlist-form";
@@ -100,8 +101,11 @@ export default function Home() {
       {/* SECTION 2 — what does wisedinner include? (REDESIGN-V3 §4): the switcher */}
       <FeatureSwitcher />
 
-      {/* S6b people — proof row + quotes from content/site.ts, real values only; behind NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF, hidden in production */}
-      <People />
+      {/* SECTION 3 — why wisedinner (§4) */}
+      <Why />
+
+      {/* SECTION 4 — what our testers say (§2D/§4): placeholder entries, behind NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF, hidden in production */}
+      <Testers />
 
       {/* S7 faq preview — launch question first (§9.10) */}
       <Section>
