@@ -11,7 +11,7 @@ export function PreorderBand() {
   const live = APP_STORE_IS_LIVE || PLAY_IS_LIVE;
   const t = fixtureWeek.totals;
   return (
-    <section id="early-access" className="bg-green-900 py-band pb-36 text-bg sm:pb-band">
+    <section id="early-access" className="cv-auto bg-green-900 py-band pb-36 text-bg sm:pb-band">
       <div className="mx-auto grid max-w-[1200px] gap-10 px-6 lg:grid-cols-[7fr_5fr] lg:items-center lg:px-12">
         <div>
           <h2 className="text-display font-bold text-balance">{site.hero.preorderNote}</h2>

@@ -10,7 +10,7 @@ const SHOW = process.env.NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF === "true";
 export function Testers() {
   if (!SHOW || TESTERS.length === 0) return null;
   return (
-    <section className="py-band">
+    <section className="cv-auto py-band">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
         <h2 className="text-h2 font-bold text-balance">what our testers say</h2>
         <p className="mt-2 text-caption font-semibold text-ink-soft">people running the early build</p>

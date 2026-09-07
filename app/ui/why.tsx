@@ -6,7 +6,7 @@ const ICONS = { calculator: Calculator, tag: Tag, leaf: Leaf } as const;
 
 export function Why() {
   return (
-    <section className="bg-white py-band">
+    <section className="cv-auto bg-white py-band">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
         <h2 className="text-h2 font-bold text-balance">{site.why.h2}</h2>
         <ul className="mt-8 grid gap-6 sm:grid-cols-3 lg:mt-12">

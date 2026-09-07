@@ -260,6 +260,11 @@ html {
 }
 /* the S3 share card rendered at page width (/w/<id>): em sizing re-based to the page font */
 .screen-page { font-size: 1.125rem; }
+/* below-the-fold bands skip layout/paint until they scroll near (REDESIGN-V3 §7 perf gate); anchors still work */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
 .frame-glare {
   background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0.06) 56%, transparent 62%);
 }

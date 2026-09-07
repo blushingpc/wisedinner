@@ -130,7 +130,7 @@ export default function Home() {
       <Testers />
 
       {/* SECTION 5 — pricing (§4, §2E) */}
-      <Section id="pricing" alt>
+      <Section id="pricing" alt lazy>
         <h2 className="text-h2 font-bold">pricing</h2>
         <div className="mt-8 lg:mt-12">
           <PricingCards compact />
@@ -138,7 +138,7 @@ export default function Home() {
       </Section>
 
       {/* S7 faq preview — launch question first (§9.10) */}
-      <Section>
+      <Section lazy>
         <h2 className="text-h2 font-bold">questions</h2>
         <div className="mt-8 max-w-[60ch]">
           <Accordion items={FAQ.slice(0, 4)} />

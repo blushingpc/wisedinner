@@ -35,7 +35,7 @@ export function FeatureSwitcher({ h2, items, screens }: { h2: string; items: { t
   };
 
   return (
-    <section id="how" className="py-band">
+    <section id="how" className="cv-auto py-band">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
         <h2 className="text-h2 font-bold text-balance">{h2}</h2>
         <div className="mt-8 grid items-center gap-8 lg:mt-12 lg:grid-cols-[5fr_6fr] lg:gap-16">
