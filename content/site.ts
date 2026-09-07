@@ -5,7 +5,7 @@ export const site = {
     h1: "hit your protein. spend way less.",
     lede: "stop guessing in the aisle. tell us your budget and protein goal; we plan five days and one short list.",
     ledeAlt: "never ask “what’s for dinner” again. two numbers in, a week of meals and one short list out.", // A/B later; not rendered
-    proofFacts: "12 items · one receipt · five days · real shelf prices",
+    proofFacts: "five days · one receipt · real shelf prices",
     pill: "free to pre-order · installs itself on launch day · 21-day free trial",
     perk: "pre-order and your first month is on us.", // TODO(launch): confirm or set ""
     notOnIphone: "not on iPhone? get the launch email →",
