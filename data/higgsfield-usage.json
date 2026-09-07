@@ -326,12 +326,100 @@
       "job_id": "4d5ea17e-5e72-4f4d-8ef2-d2c7c2caa5db",
       "used_for": "menu photo (REDESIGN-V3 §2I) batch 3",
       "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "pita pizza with chicken",
+      "job_id": "36799f7b-8254-453f-8189-11820f3d4a81",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 4",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "buffalo chicken wraps",
+      "job_id": "fdd03686-9753-4135-9e94-94ec6cdf3baf",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 4",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "loaded baked potato with pulled chicken",
+      "job_id": "7de9ca36-b814-45b8-837c-1dff1ece79e1",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 4",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "chicken fried rice",
+      "job_id": "62fc476e-7497-440f-9a05-8749bff2e69e",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 4",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "pulled chicken sandwich",
+      "job_id": "2bee184e-f618-44c1-85fc-9c61c4f15ddd",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 4",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "sloppy joes",
+      "job_id": "9efe48b4-a865-42fa-b8ae-6fde3852558b",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 4",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "turkey meatball sub (FAILED upstream, retried)",
+      "job_id": "3b590913-19f9-464b-a9ab-a2f33328e638",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 4",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "pork chops with mashed potatoes (FAILED upstream, retried)",
+      "job_id": "3bc7d641-b981-4462-8410-1d5912bb3290",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 4",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "turkey meatball sub (retry, OK)",
+      "job_id": "7676a833-3f94-4d86-aece-77617e3b88d7",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 5",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "pork chops with mashed potatoes (retry, OK)",
+      "job_id": "656d26c0-1b34-4347-a16e-654fcb647172",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 5",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "cheesesteak bowl",
+      "job_id": "a744224b-0fa1-4b89-8e21-3c7b9df0e68c",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 5",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
     }
   ],
   "credit_floor": 235.7,
   "recorded_at": "2026-09-07",
-  "iteration_generation_count": 8,
-  "day_generation_count": 27,
+  "iteration_generation_count": 3,
+  "day_generation_count": 38,
   "balance_after_run": null,
-  "note_2026_09_07": "v3 step 5: batch 1 = 9 attempts (8 usable), batch 2 = 10 (8), batch 3 = 8 (8). 24 of 33 dishes photographed; both fixture weeks complete. 27/40 today."
+  "note_2026_09_07": "v3 step 5 complete: 5 batches, 38 attempts (5 upstream failures retried), 33 of 33 dishes + 2 cut-outs. 38/40 today; next self-serve window opens 2026-09-08."
 }

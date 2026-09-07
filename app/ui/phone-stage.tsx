@@ -58,7 +58,7 @@ export function PhoneStage() {
       </div>
       {/* S1 — front-left, −6° */}
       <div className="absolute left-[4%] top-[5%] w-[60%] transition-transform duration-300 ease-out motion-reduce:transition-none" style={{ transform: `translate(${dx}px, ${dy}px)` }}>
-        <DeviceFrame label={`phone showing this week: ${tue.meals.map((m) => m.name).join(", ")}; under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`} tilt="left" priority widthClass="w-full" className="rotate-[-6deg]" chrome={false} sizes="(min-width: 1024px) 360px, 206px">
+        <DeviceFrame label={`phone showing this week: ${tue.meals.map((m) => m.name).join(", ")}; under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`} tilt="left" priority widthClass="w-full" className="rotate-[-6deg]" chrome={false} sizes="(min-width: 1024px) 360px, 250px">
           <ThisWeek week={fixtureWeek} active="tue" priority />
         </DeviceFrame>
       </div>
