@@ -103,11 +103,91 @@
       "job_id": "4e6904cb-3b73-4227-8db2-5fcf51c56396",
       "used_for": "inline-demo dinner card",
       "model": "nano_banana_flash"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "crispy chicken tenders basket (1/2 — first attempt FAILED upstream)",
+      "job_id": "67760f98-dcb3-46ff-b49e-b532941cfe7f",
+      "used_for": "menu photo (REDESIGN-V3 §2I); failed, retried",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "smash cheeseburgers",
+      "job_id": "7cdef758-c048-48fc-a2d9-97a0e0226a55",
+      "used_for": "menu photo + hero cut-out source",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "chicken caesar wrap",
+      "job_id": "52bf013b-6108-4874-8c93-aa10faf7b893",
+      "used_for": "menu photo",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "peanut butter banana oatmeal",
+      "job_id": "f6f66581-7968-4c47-bc88-61ed5d537466",
+      "used_for": "menu photo",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "beef tacos",
+      "job_id": "c2469fd7-7fab-48e8-be83-bb2962dfa78e",
+      "used_for": "menu photo",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "chicken alfredo pasta",
+      "job_id": "e3448313-c21b-4532-9d21-bacac8acfc88",
+      "used_for": "menu photo",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "bbq chicken thighs, mash, corn",
+      "job_id": "f82a2498-9634-4753-8243-7baf16be3150",
+      "used_for": "menu photo",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "scrambled eggs, toast, turkey bacon",
+      "job_id": "ae3c4916-2e4d-4d05-a5e0-bf42e20d8872",
+      "used_for": "menu photo",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "crispy chicken tenders basket (retry, OK)",
+      "job_id": "5c233444-be8f-467b-981d-6a24a6429d99",
+      "used_for": "menu photo + hero cut-out source",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "edit-remove_background",
+      "what": "tenders basket + smash burger cut-outs",
+      "job_id": "671849b3 + dc4d30c2",
+      "used_for": "hero cut-outs (§2I)"
     }
   ],
   "credit_floor": 235.7,
-  "recorded_at": "2026-09-01",
-  "iteration_generation_count": 3,
-  "day_generation_count": 3,
-  "balance_after_run": 1155.0
+  "recorded_at": "2026-09-07",
+  "iteration_generation_count": 9,
+  "day_generation_count": 9,
+  "balance_after_run": null,
+  "note_2026_09_07": "v3 step 5 batch 1: 9 generation attempts (8 + 1 retry of a failed job), 8 usable dishes of 33; 25 dishes remain for later batches (≤8 per iteration, ≤40 per 24h)."
 }
