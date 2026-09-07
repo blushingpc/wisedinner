@@ -182,12 +182,92 @@
       "what": "tenders basket + smash burger cut-outs",
       "job_id": "671849b3 + dc4d30c2",
       "used_for": "hero cut-outs (§2I)"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "turkey and cheese sandwich (FAILED upstream, retried)",
+      "job_id": "15694881-a376-4be7-b017-29a885e18796",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "egg and cheese sandwich",
+      "job_id": "13db7171-1de4-4391-af6f-4fd189164d02",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "egg salad sandwich",
+      "job_id": "dcf1ec87-fecd-40b2-9fbb-e008d948a1a7",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "greek yogurt with granola and honey",
+      "job_id": "54e9e160-1c61-4032-8536-dc1ece979211",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "breakfast burrito",
+      "job_id": "83c87f5a-1b73-4905-a52f-ad1dc5a808af",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "taco bowl (FAILED upstream, retried)",
+      "job_id": "eb335676-19f3-4ae6-b110-25000bc94e3d",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "chicken parm with spaghetti",
+      "job_id": "4253ac64-b74b-4ac1-aa37-877e329ae440",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "turkey chili with cheddar",
+      "job_id": "45cd9055-6cec-4544-b97d-68ed7c8d31a9",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "turkey and cheese sandwich (retry, OK)",
+      "job_id": "87100859-e914-4e2c-be5a-baa8ea640d58",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "taco bowl (retry, OK)",
+      "job_id": "b943f48e-9a30-4fdf-86ab-7791879293e5",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
     }
   ],
   "credit_floor": 235.7,
   "recorded_at": "2026-09-07",
-  "iteration_generation_count": 9,
-  "day_generation_count": 9,
+  "iteration_generation_count": 10,
+  "day_generation_count": 19,
   "balance_after_run": null,
-  "note_2026_09_07": "v3 step 5 batch 1: 9 generation attempts (8 + 1 retry of a failed job), 8 usable dishes of 33; 25 dishes remain for later batches (≤8 per iteration, ≤40 per 24h)."
+  "note_2026_09_07": "v3 step 5: batch 1 = 9 attempts (8 usable), batch 2 = 10 attempts (8 usable). 16 of 33 dishes photographed; 17 remain (week-2 dishes first). 19/40 today."
 }
