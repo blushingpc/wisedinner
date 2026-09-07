@@ -159,6 +159,13 @@ html {
 /* every number on the site and in the app screens is IBM Plex Mono, tabular (§2A) — columns of prices line up */
 .font-mono { font-variant-numeric: tabular-nums; }
 
+/* S4 thermal receipt paper: faint horizontal print banding on linen */
+.thermal {
+  background:
+    repeating-linear-gradient(180deg, rgba(27, 26, 24, 0.035) 0 1px, transparent 1px 3px),
+    var(--color-receipt-paper);
+}
+
 /* uniform photo grade — every brand photo goes through this, no per-image tuning */
 .img-grade {
   filter: saturate(1.03) contrast(1.02); /* food carries warmth */
@@ -265,6 +272,10 @@ html {
   --pt: calc(100cqw * 0.8933 / 390);
   font-size: calc(16 * var(--pt));
   line-height: 1.25;
+}
+/* a bare screen (no bezel — the store export): the container IS the screen, so one point = 1/390 of it */
+.bare .screen {
+  --pt: calc(100cqw / 390);
 }
 .frame-glare {
   background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0.06) 56%, transparent 62%);
