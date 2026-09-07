@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: { formats: ["image/avif", "image/webp"] },
+  devIndicators: false, // the store-shot export and design screenshots run against dev; the badge must not print
   async redirects() {
     // the printed short link (hero QR, WD-07): repoint here, never reprint. temporary (307) on purpose.
     return [

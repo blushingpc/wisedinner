@@ -21,7 +21,7 @@ export function ThisWeek({ week, active = "tue", priority = false }: { week: Fix
           </span>
         ))}
       </div>
-      <div className="mt-[1em] grid gap-[0.625em] px-[1.25em]">
+      <div className="mt-[1em] grid grid-cols-[minmax(0,1fr)] gap-[0.625em] px-[1.25em]">
         {day.meals.map((m) => (
           <MealCard key={m.slot} meal={m} priority={priority} />
         ))}
