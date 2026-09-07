@@ -54,6 +54,7 @@ export function WaitlistForm({ source, quiz, yolk, label = "email", button = "no
           required
           maxLength={254}
           autoComplete="email"
+          spellCheck={false}
           placeholder="you@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}

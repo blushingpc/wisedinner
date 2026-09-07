@@ -1,7 +1,7 @@
 {
-  "iteration": 13,
-  "open_audit_issues": 1,
+  "iteration": 14,
+  "open_audit_issues": 0,
   "idle": true,
-  "updated_at": "2026-08-31T08:07:50.141Z",
-  "note": "PUBLISHED c7d2451: DESIGN-AUDIT redesign live on www.wisedinner.com. prod lighthouse: perf 92, a11y 100, FCP 975ms, LCP 2929ms, CLS 0.000 — amended gate PASS. remaining on #8: field LCP p75 via speed insights once data exists; real quotes to replace flag-gated placeholders."
+  "updated_at": "2026-09-07T16:05:00.000Z",
+  "note": "loop 14 on design-v2 (c3248d6, 6724685, 71e6f2a): calai.app ports #13 mobile hero fold budget, #14 stacked full-width waitlist form, #15 band padding tokens. #8 relabelled blocked-founder. Preview: https://wisedinner-git-design-v2-wise-dinner.vercel.app \u2014 awaiting the founder's word to publish."
 }
