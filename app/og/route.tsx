@@ -22,7 +22,7 @@ export async function GET(req: Request) {
   ]);
   return new ImageResponse(
     (
-      <div style={{ display: "flex", width: "100%", height: "100%", background: "#fbfaf6", color: "#1b1a18", fontFamily: "Bricolage" }}>
+      <div style={{ display: "flex", width: "100%", height: "100%", background: "#faf7f0", color: "#191817", fontFamily: "Bricolage" }}>
         <div style={{ display: "flex", position: "relative", width: 800, height: 630 }}>
           {/* @ts-expect-error satori accepts an ArrayBuffer src */}
           <img src={a2} width={800} height={630} />

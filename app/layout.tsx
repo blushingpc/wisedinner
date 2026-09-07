@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 // WD-20: the browser chrome takes the page's paper colour (--color-bg)
-export const viewport: Viewport = { themeColor: "#fbfaf6" };
+export const viewport: Viewport = { themeColor: "#faf7f0" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

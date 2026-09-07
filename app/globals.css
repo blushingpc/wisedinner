@@ -2,7 +2,7 @@
 
 /* warm paper / yolk / kale tokens — docs/DESIGN-AUDIT.md §6, §18.1. use these, never inline values */
 @theme {
-  --color-bg: #fbfaf6; /* paper — warm page ground */
+  --color-bg: #faf7f0; /* paper — warm page ground (REDESIGN-V3 §2A) */
   --color-bg-alt: #f3f0e8; /* linen — alt sections, receipt paper */
   --color-ink: oklch(0.215 0.004 80); /* #191817 */
   --color-ink-press: oklch(0.28 0.004 80); /* dark surface hover */
@@ -49,6 +49,7 @@
   --radius-sm: 4px; /* inputs; receipts are 0 */
   --radius-cta: 12px;
   --radius-card: 14px; /* cards, device frames, photos */
+  --radius-sheet: 24px; /* app sheets + phone-screen panels (§2A) */
 
   --shadow-receipt: 0 1px 0 rgba(27, 26, 24, 0.04), 0 16px 40px -24px rgba(27, 26, 24, 0.3); /* cards */
   --shadow-frame: 0 2px 6px rgba(25, 24, 23, 0.28), 0 40px 80px -20px rgba(27, 26, 24, 0.35); /* device frames: contact + deep ambient */
@@ -154,6 +155,9 @@ html {
     transparent 12px 14px
   );
 }
+
+/* every number on the site and in the app screens is IBM Plex Mono, tabular (§2A) — columns of prices line up */
+.font-mono { font-variant-numeric: tabular-nums; }
 
 /* uniform photo grade — every brand photo goes through this, no per-image tuning */
 .img-grade {

@@ -5,6 +5,7 @@ import { readFileSync, readdirSync } from "node:fs";
 
 const MARK = "public/logo/wisedinner-mark.svg";
 const INK = readFileSync(MARK);
+const YOLK = "#F5B800";
 
 // trimmed mark, transparent, longest side = size
 async function mark(size: number) {
@@ -13,13 +14,13 @@ async function mark(size: number) {
   return sharp(trimmed).resize(size, size, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
 }
 
-// mark on white with 20% padding each side
+// app icon + favicon (REDESIGN-V3 §2B): ink "w." on a yolk tile, 20% padding each side
 async function icon(size: number, out: string) {
   const inner = Math.round(size * 0.6);
   const pad = Math.round(size * 0.2);
   await sharp(await mark(inner))
-    .extend({ top: pad, bottom: size - inner - pad, left: pad, right: size - inner - pad, background: "#FFFFFF" })
-    .flatten({ background: "#FFFFFF" })
+    .extend({ top: pad, bottom: size - inner - pad, left: pad, right: size - inner - pad, background: YOLK })
+    .flatten({ background: YOLK })
     .png()
     .toFile(out);
 }
