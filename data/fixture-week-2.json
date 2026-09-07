@@ -1,0 +1,257 @@
+{
+  "id": "example-2",
+  "budget_usd": 55,
+  "protein_goal_g": 150,
+  "generated_at": "2026-09-07",
+  "days": [
+    {
+      "day": "mon",
+      "meals": [
+        {
+          "slot": "breakfast",
+          "menu": "protein-french-toast",
+          "name": "protein french toast",
+          "protein_g": 40,
+          "cost_usd": 2.0,
+          "img": "/img/menu/protein-french-toast.jpg"
+        },
+        {
+          "slot": "lunch",
+          "menu": "tuna-melt",
+          "name": "tuna melt",
+          "protein_g": 48,
+          "cost_usd": 2.8,
+          "img": "/img/menu/tuna-melt.jpg"
+        },
+        {
+          "slot": "dinner",
+          "menu": "chicken-parm-with-spaghetti",
+          "name": "chicken parm with spaghetti",
+          "protein_g": 66,
+          "cost_usd": 5.2,
+          "img": "/img/menu/chicken-parm-with-spaghetti.jpg"
+        }
+      ],
+      "protein_g": 154,
+      "cost_usd": 10.0
+    },
+    {
+      "day": "tue",
+      "meals": [
+        {
+          "slot": "breakfast",
+          "menu": "peanut-butter-banana-oatmeal",
+          "name": "peanut butter banana oatmeal",
+          "protein_g": 34,
+          "cost_usd": 1.2,
+          "img": "/img/menu/peanut-butter-banana-oatmeal.jpg"
+        },
+        {
+          "slot": "lunch",
+          "menu": "grilled-cheese-with-tomato-soup",
+          "name": "grilled cheese with tomato soup",
+          "protein_g": 36,
+          "cost_usd": 2.3,
+          "img": "/img/menu/grilled-cheese-with-tomato-soup.jpg"
+        },
+        {
+          "slot": "dinner",
+          "menu": "turkey-chili-with-cheddar",
+          "name": "turkey chili with cheddar",
+          "protein_g": 64,
+          "cost_usd": 4.2,
+          "img": "/img/menu/turkey-chili-with-cheddar.jpg"
+        }
+      ],
+      "protein_g": 134,
+      "cost_usd": 7.7
+    },
+    {
+      "day": "wed",
+      "meals": [
+        {
+          "slot": "breakfast",
+          "menu": "scrambled-eggs-toast-and-turkey-bacon",
+          "name": "scrambled eggs, toast and turkey bacon",
+          "protein_g": 38,
+          "cost_usd": 2.2,
+          "img": "/img/menu/scrambled-eggs-toast-and-turkey-bacon.jpg"
+        },
+        {
+          "slot": "lunch",
+          "menu": "turkey-and-cheese-sandwich",
+          "name": "turkey and cheese sandwich",
+          "protein_g": 48,
+          "cost_usd": 2.9,
+          "img": "/img/menu/turkey-and-cheese-sandwich.jpg"
+        },
+        {
+          "slot": "dinner",
+          "menu": "chicken-quesadillas",
+          "name": "chicken quesadillas",
+          "protein_g": 60,
+          "cost_usd": 4.1,
+          "img": "/img/menu/chicken-quesadillas.jpg"
+        }
+      ],
+      "protein_g": 146,
+      "cost_usd": 9.2
+    },
+    {
+      "day": "thu",
+      "meals": [
+        {
+          "slot": "breakfast",
+          "menu": "greek-yogurt-with-granola-and-honey",
+          "name": "greek yogurt with granola and honey",
+          "protein_g": 36,
+          "cost_usd": 1.8,
+          "img": "/img/menu/greek-yogurt-with-granola-and-honey.jpg"
+        },
+        {
+          "slot": "lunch",
+          "menu": "chicken-caesar-wrap",
+          "name": "chicken caesar wrap",
+          "protein_g": 56,
+          "cost_usd": 3.3,
+          "img": "/img/menu/chicken-caesar-wrap.jpg"
+        },
+        {
+          "slot": "dinner",
+          "menu": "spaghetti-with-meat-sauce",
+          "name": "spaghetti with meat sauce",
+          "protein_g": 66,
+          "cost_usd": 4.3,
+          "img": "/img/menu/spaghetti-with-meat-sauce.jpg"
+        }
+      ],
+      "protein_g": 158,
+      "cost_usd": 9.4
+    },
+    {
+      "day": "fri",
+      "meals": [
+        {
+          "slot": "breakfast",
+          "menu": "breakfast-burrito",
+          "name": "breakfast burrito",
+          "protein_g": 40,
+          "cost_usd": 2.4,
+          "img": "/img/menu/breakfast-burrito.jpg"
+        },
+        {
+          "slot": "lunch",
+          "menu": "egg-salad-sandwich",
+          "name": "egg salad sandwich",
+          "protein_g": 40,
+          "cost_usd": 2.1,
+          "img": "/img/menu/egg-salad-sandwich.jpg"
+        },
+        {
+          "slot": "dinner",
+          "menu": "teriyaki-chicken-rice-bowl",
+          "name": "teriyaki chicken rice bowl",
+          "protein_g": 62,
+          "cost_usd": 3.9,
+          "img": "/img/menu/teriyaki-chicken-rice-bowl.jpg"
+        }
+      ],
+      "protein_g": 142,
+      "cost_usd": 8.4
+    }
+  ],
+  "totals": {
+    "est_total_usd": 44.7,
+    "protein_per_day_g": 147,
+    "under_budget_by_usd": 10.3,
+    "waste_lb": 0,
+    "items": 12
+  },
+  "list": {
+    "items": [
+      {
+        "name": "chicken breast, 3 lb family pack",
+        "aisle": "meat",
+        "price_usd": 9.49,
+        "checked": false
+      },
+      {
+        "name": "ground turkey, 1 lb",
+        "aisle": "meat",
+        "price_usd": 4.98,
+        "checked": false
+      },
+      {
+        "name": "ground beef 80/20, 1 lb",
+        "aisle": "meat",
+        "price_usd": 3.98,
+        "checked": false
+      },
+      {
+        "name": "chicken thighs, 2 lb",
+        "aisle": "meat",
+        "price_usd": 4.97,
+        "checked": false
+      },
+      {
+        "name": "eggs, 18 ct",
+        "aisle": "dairy",
+        "price_usd": 4.29,
+        "checked": true
+      },
+      {
+        "name": "cheddar block, 8 oz",
+        "aisle": "dairy",
+        "price_usd": 2.98,
+        "checked": false
+      },
+      {
+        "name": "greek yogurt, 32 oz",
+        "aisle": "dairy",
+        "price_usd": 4.49,
+        "checked": false
+      },
+      {
+        "name": "spaghetti, 16 oz",
+        "aisle": "pantry",
+        "price_usd": 1.28,
+        "checked": false
+      },
+      {
+        "name": "marinara, 24 oz",
+        "aisle": "pantry",
+        "price_usd": 1.5,
+        "checked": false
+      },
+      {
+        "name": "flour tortillas, 8 ct",
+        "aisle": "pantry",
+        "price_usd": 1.98,
+        "checked": false
+      },
+      {
+        "name": "sandwich bread",
+        "aisle": "pantry",
+        "price_usd": 1.78,
+        "checked": false
+      },
+      {
+        "name": "white rice, 2 lb",
+        "aisle": "pantry",
+        "price_usd": 2.98,
+        "checked": true
+      }
+    ],
+    "est_total_usd": 44.7,
+    "delivery_est_usd": 71.9,
+    "delivery_saves_usd": 27.2,
+    "delivery_label": "instacart est."
+  },
+  "receipt": {
+    "estimated_usd": 44.7,
+    "actual_usd": 44.11,
+    "delta_pct": -1,
+    "accuracy_pct": 96,
+    "verified": true
+  }
+}
