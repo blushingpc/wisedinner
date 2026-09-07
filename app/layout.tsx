@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "WiseDinner — hit your protein, spend way less",
   description: "turn a weekly budget and a daily protein target into a solved grocery week: five days of meals, one short list, an estimated in-store total. no waste.",
   alternates: { canonical: "/" },
-  openGraph: { siteName: "wisedinner", type: "website", images: ["/og"] },
+  openGraph: { siteName: "wisedinner", type: "website", images: ["/og/home.png"] }, // REDESIGN-V3 §2B: composed from the real components by scripts/og-card.ts
 };
 
 // WD-20: the browser chrome takes the page's paper colour (--color-bg)

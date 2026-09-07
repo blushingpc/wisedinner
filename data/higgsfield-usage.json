@@ -262,12 +262,76 @@
       "job_id": "b943f48e-9a30-4fdf-86ab-7791879293e5",
       "used_for": "menu photo (REDESIGN-V3 §2I) batch 2",
       "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "tuna melt",
+      "job_id": "a84ec56c-5d1f-4a93-b2e3-937d26f170b9",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 3",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "grilled cheese with tomato soup",
+      "job_id": "e0631ab9-8403-4d1d-8eed-54f59a6f1522",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 3",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "protein french toast",
+      "job_id": "f6cf62ae-ff75-4b2d-84e2-e75c7a14014c",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 3",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "chicken quesadillas",
+      "job_id": "70027610-5697-47d1-b5a9-b6910992e453",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 3",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "spaghetti with meat sauce",
+      "job_id": "fcc2e548-18c0-4d1c-a6e8-e6b077774b4d",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 3",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "teriyaki chicken rice bowl",
+      "job_id": "e2a2d4a2-b83f-4da9-9fb2-700befebb919",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 3",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "pancakes with greek yogurt and syrup",
+      "job_id": "2539d72c-bc18-433e-b880-5e0b132b85c3",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 3",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
+    },
+    {
+      "date": "2026-09-07",
+      "kind": "generation",
+      "what": "mac and cheese with chicken",
+      "job_id": "4d5ea17e-5e72-4f4d-8ef2-d2c7c2caa5db",
+      "used_for": "menu photo (REDESIGN-V3 §2I) batch 3",
+      "model": "nano_banana_2 (served as nano_banana_flash) 1:1 2k"
     }
   ],
   "credit_floor": 235.7,
   "recorded_at": "2026-09-07",
-  "iteration_generation_count": 10,
-  "day_generation_count": 19,
+  "iteration_generation_count": 8,
+  "day_generation_count": 27,
   "balance_after_run": null,
-  "note_2026_09_07": "v3 step 5: batch 1 = 9 attempts (8 usable), batch 2 = 10 attempts (8 usable). 16 of 33 dishes photographed; 17 remain (week-2 dishes first). 19/40 today."
+  "note_2026_09_07": "v3 step 5: batch 1 = 9 attempts (8 usable), batch 2 = 10 (8), batch 3 = 8 (8). 24 of 33 dishes photographed; both fixture weeks complete. 27/40 today."
 }
