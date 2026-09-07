@@ -2,22 +2,18 @@ import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { preload, type PreloadOptions } from "react-dom";
 import { drop } from "@/data/drop";
-import { meals } from "@/data/meals";
 import { site } from "@/content/site";
 import { FAQ, SITE, faqLd } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { AppStoreBadge } from "./ui/app-store-badge";
 import { HeroEmailFallback } from "./ui/hero-email-fallback";
-import { DeviceFrame } from "./ui/device-frame";
+import { PhoneStage } from "./ui/phone-stage";
 import { MOBILE_CTA_SENTINEL, MobileCtaBar } from "./ui/mobile-cta-bar";
-import { MealCard } from "./ui/meal-card";
 import { People } from "./ui/people";
 import { PreorderButton } from "./ui/preorder-button";
-import { ProofChip } from "./ui/proof-chip";
 import { PinnedWalkthrough } from "./ui/pinned-walkthrough";
 import { ReceiptCard } from "./ui/receipt-card";
 import { Section } from "./ui/section";
-import { ShelfTag } from "./ui/shelf-tag";
 import { WaitlistForm } from "./ui/waitlist-form";
 import { APP_STORE_IS_LIVE } from "@/lib/links";
 
@@ -32,47 +28,6 @@ const ORG = {
   description:
     "a meal planner that turns two numbers — your weekly budget and your daily protein — into a solved week: five days of meals, one short list, an estimated in-store total.",
 };
-
-// "this week" screen — food first: depicted meals with computed prices (data/meals.ts), no receipt, no kcal.
-function ScreenThisWeek({ priority = false }: { priority?: boolean }) {
-  return (
-    <>
-      <p className="text-caption font-semibold text-kale">this week</p>
-      {meals.slice(0, 3).map((m) => (
-        <MealCard key={m.name} meal={m} priority={priority} />
-      ))}
-      <p className="mt-4 text-caption font-semibold text-ink-soft">five days · one list · one trip</p>
-    </>
-  );
-}
-
-// "the list" screen — the hero phone's second face (§12.1 crossfade). no numerals: the numbers gate holds.
-function ScreenTheList() {
-  const fresh = drop.list.filter((i) => i.perishable).map((i) => i.name);
-  const shelf = drop.list.filter((i) => !i.perishable).map((i) => i.name);
-  const row = (n: string) => (
-    <li key={n} className="flex items-center gap-2 text-[0.9375rem]">
-      <span aria-hidden="true" className="grid size-4 shrink-0 place-items-center rounded-[4px] bg-yolk text-[10px] font-bold text-ink">
-        ✓
-      </span>
-      {n}
-    </li>
-  );
-  return (
-    <>
-      <p className="text-caption font-semibold text-ink-soft">the list</p>
-      <p className="mt-3 text-caption font-semibold text-kale">fresh aisle</p>
-      <ul className="mt-2 grid gap-1.5">{fresh.slice(0, 5).map(row)}</ul>
-      <p className="mt-4 text-caption font-semibold text-kale">shelf + freezer</p>
-      <ul className="mt-2 grid gap-1.5">
-        {shelf.slice(0, 5).map(row)}
-        <li className="text-ink-soft">…</li>
-      </ul>
-      <p className="mt-4 text-caption font-semibold text-ink-soft">empty fridge, on purpose.</p>
-    </>
-  );
-}
-
 
 // S2 band art direction: the 3:1 row of plates on ≥ sm, the tall crop on phones (same next/image ladders, one request)
 const A2_ALT = "five different home-cooked high-protein dinners plated in a row on a linen tablecloth in warm evening light";
@@ -108,7 +63,7 @@ export default function Home() {
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-6 px-6 py-7 lg:min-h-[90dvh] lg:grid-cols-[5fr_7fr] lg:gap-10 lg:px-12 lg:py-16">
           <div>
-            <ProofChip className="fade-up mb-4" />
+            <p className="fade-up mb-4 text-caption font-semibold text-kale">{site.hero.eyebrow}</p>
             <h1 className="rise-up text-display font-extrabold text-balance">{site.hero.h1}</h1>
             <p className="fade-up mt-5 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{site.hero.lede}</p>
             {/* no entrance animation on this row — the Apple badge must never animate.
@@ -120,7 +75,10 @@ export default function Home() {
                     <AppStoreBadge placement="hero" />
                   </div>
                 ) : (
-                  <WaitlistForm source="hero" button="get early access" placement="hero" />
+                  <>
+                    <WaitlistForm source="hero" button="get early access" placement="hero" />
+                    <p className="mt-1 text-caption font-semibold text-kale">{site.hero.preorderNote}</p>
+                  </>
                 )}
                 {APP_STORE_IS_LIVE && site.hero.perk && <p className="mt-3 text-caption font-semibold text-kale lg:mt-4">{site.hero.perk}</p>}
               </div>
@@ -144,44 +102,8 @@ export default function Home() {
             )}
           </div>
 
-          <div className="hero-field fade-up relative mx-auto h-[660px] w-full max-w-[600px] [animation-delay:160ms] lg:h-[780px]">
-            <DeviceFrame
-              label="phone alternating between this week's meals with prices and the one grocery list"
-              tilt="left"
-              priority
-              widthClass="w-[300px] lg:w-[430px]"
-              className="absolute left-1/2 top-0 -translate-x-1/2 rotate-3 lg:rotate-6"
-            >
-              <div className="relative h-full">
-                <div className="absolute inset-0">
-                  <ScreenThisWeek priority />
-                </div>
-                <div aria-hidden="true" className="hero-xfade-b absolute inset-0">
-                  <ScreenTheList />
-                </div>
-              </div>
-            </DeviceFrame>
-            <ShelfTag label={`$${drop.est_total.toFixed(2)}`} sub="one trip" className="absolute right-2 top-10 z-(--z-raised) lg:right-6" />
-            <Image
-              src="/img/A1-1.png"
-              alt="" // decorative garnish (WD-18): the phone screen already names the dish
-              width={1600}
-              height={1600}
-              quality={75}
-              priority
-              sizes="(min-width: 1024px) 260px, 170px"
-              className="dish-drift img-grade absolute -left-2 bottom-4 z-(--z-decoration) w-[170px] [filter:drop-shadow(0_24px_28px_rgba(27,26,24,0.28))] lg:-left-6 lg:bottom-10 lg:w-[260px]"
-            />
-            <Image
-              src="/img/A1-3.png"
-              alt="" // decorative garnish (WD-18)
-              width={1600}
-              height={1600}
-              quality={75}
-              sizes="180px"
-              style={{ animationDelay: "-3s" }}
-              className="dish-drift img-grade absolute -right-4 bottom-32 z-(--z-decoration) hidden w-[180px] [filter:drop-shadow(0_24px_28px_rgba(27,26,24,0.28))] lg:block"
-            />
+          <div className="fade-up [animation-delay:160ms]">
+            <PhoneStage />
           </div>
         </div>
       </section>

@@ -227,13 +227,16 @@ html {
 }
 .dish-drift { animation: dish-drift 6s ease-in-out infinite; }
 
-/* hero motion (DESIGN-AUDIT §12.1) — screen B crossfades over screen A every 4s; load fade-up staggered 80ms */
-@keyframes hero-xfade {
-  0%, 42% { opacity: 0; }
-  50%, 92% { opacity: 1; }
-  100% { opacity: 0; }
+/* hero arrow (REDESIGN-V3 §4/§7): the hand-drawn stroke draws in 900ms on first view; reduced motion → already drawn */
+.arrow-path { stroke-dasharray: 420; stroke-dashoffset: 420; }
+.arrow-head { stroke-dasharray: 60; stroke-dashoffset: 60; }
+.arrow-drawn .arrow-path { animation: arrow-draw 700ms var(--ease-out) forwards; }
+.arrow-drawn .arrow-head { animation: arrow-draw 200ms var(--ease-out) 700ms forwards; }
+@keyframes arrow-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .arrow-path, .arrow-head { stroke-dashoffset: 0; animation: none; }
 }
-.hero-xfade-b { opacity: 0; animation: hero-xfade 8s ease-in-out infinite; background: var(--color-bg); }
+/* hero load: fade-up staggered 80ms (DESIGN-AUDIT §12.1) */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: none; }
@@ -254,7 +257,7 @@ html {
 .solve-play .solve-done { opacity: 0; animation: fade-up 300ms var(--ease-press) 1150ms forwards; }
 
 @media (prefers-reduced-motion: reduce) {
-  .dish-drift, .hero-xfade-b, .fade-up, .demo-fade, .solve-play .chip-in, .solve-play .solve-done { animation: none; }
+  .dish-drift, .fade-up, .demo-fade, .solve-play .chip-in, .solve-play .solve-done { animation: none; }
   .solve-play .chip-in, .solve-play .solve-done { opacity: 1; }
 }
 
