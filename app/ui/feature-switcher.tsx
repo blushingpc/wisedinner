@@ -70,7 +70,7 @@ export function FeatureSwitcher({ h2, items, screens }: { h2: string; items: { t
               hydration on a throttled phone); the incoming screen fades in over 250ms */}
           <div className="order-2 lg:order-1">
             <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-tab-${active}`} className="mx-auto w-[260px] lg:w-[340px]">
-              <DeviceFrame label={`Phone showing ${items[active].title}`} widthClass="w-full" chrome={false} sizes="(min-width: 1024px) 340px, 260px">
+              <DeviceFrame label={`Phone showing ${items[active].title}`} widthClass="w-full" chrome={false} ptClass="pt-switcher" sizes="(min-width: 1024px) 340px, 260px">
                 <div key={active} className="fade-in absolute inset-0">
                   {screens[active]}
                 </div>

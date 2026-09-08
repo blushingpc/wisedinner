@@ -15,8 +15,12 @@ import type { ReactNode } from "react";
 export function PhoneStage({ s1, s4, s1Label, s4Label, calloutMeal, calloutBudget }: { s1: ReactNode; s4: ReactNode; s1Label: string; s4Label: string; calloutMeal: string; calloutBudget: string }) {
   const root = useRef<HTMLDivElement>(null);
   const [drawn, setDrawn] = useState(false);
+  // the back phone's screen mounts after hydration: shaping the screens' text is half of the hero's first layout on a
+  // throttled phone (measured), and S4 sits behind S1 and mostly below the fold on mobile. its bezel paints at once.
+  const [late, setLate] = useState(false);
 
   useEffect(() => {
+    setLate(true);
     const el = root.current;
     if (!el) return;
     // reduced motion: the CSS already renders the arrow fully drawn
@@ -30,13 +34,13 @@ export function PhoneStage({ s1, s4, s1Label, s4Label, calloutMeal, calloutBudge
     <div ref={root} className="relative isolate mx-auto aspect-[10/16] w-full max-w-[560px] select-none lg:aspect-[600/760]">
       {/* S4: back-right, +4°, 88% */}
       <div className="absolute top-0 right-[1%] w-[53%]">
-        <DeviceFrame label={s4Label} tilt="right" widthClass="w-full" className="rotate-[4deg]" chrome={false} sizes="(min-width: 1024px) 256px, (min-width: 608px) 297px, calc((100vw - 48px) * 0.53)">
-          {s4}
+        <DeviceFrame label={s4Label} tilt="right" widthClass="w-full" className="rotate-[4deg]" chrome={false} ptClass="pt-hero-s4" sizes="(min-width: 1024px) 256px, (min-width: 608px) 297px, calc((100vw - 48px) * 0.53)">
+          {late ? s4 : null}
         </DeviceFrame>
       </div>
       {/* S1: front-left, −6° */}
       <div className="absolute top-[5%] left-[4%] w-[60%]">
-        <DeviceFrame label={s1Label} tilt="left" priority widthClass="w-full" className="rotate-[-6deg]" chrome={false} sizes="(min-width: 1024px) 290px, (min-width: 608px) 336px, calc((100vw - 48px) * 0.6)">
+        <DeviceFrame label={s1Label} tilt="left" priority widthClass="w-full" className="rotate-[-6deg]" chrome={false} ptClass="pt-hero-s1" sizes="(min-width: 1024px) 290px, (min-width: 608px) 336px, calc((100vw - 48px) * 0.6)">
           {s1}
         </DeviceFrame>
       </div>

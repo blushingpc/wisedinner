@@ -31,7 +31,7 @@ export default async function StoreShot({ params }: { params: Promise<{ screen: 
   return (
     <div className="store-shot flex h-[2796px] w-[1290px] flex-col items-center bg-forest text-white">
       <h1 className="px-[120px] pt-[170px] pb-[110px] text-center text-[96px] leading-[1.08] text-white text-balance">{caption}</h1>
-      <DeviceFrame label={caption} widthClass="w-[1000px]" chrome={false} priority sizes="1000px" className="shrink-0">
+      <DeviceFrame label={caption} widthClass="w-[1000px]" chrome={false} priority ptClass="pt-store" sizes="1000px" className="shrink-0">
         {node}
       </DeviceFrame>
     </div>

@@ -29,6 +29,7 @@ export function DeviceFrame({
   chrome = true,
   priority = false,
   sizes = "(min-width: 1024px) 430px, 300px",
+  ptClass = "",
 }: {
   children: React.ReactNode;
   className?: string;
@@ -38,6 +39,7 @@ export function DeviceFrame({
   chrome?: boolean; // true: draw the status bar + screen padding for legacy children; false: the child is a full screen (app/screens/*)
   priority?: boolean; // the hero frame: fetchpriority=high + a preload link for its bezel; every other frame is lazy
   sizes?: string; // the frame's rendered CSS width per breakpoint; drives which ladder file the browser picks
+  ptClass?: string; // a .pt-* class from globals.css that states --pt in viewport units (first-paint fast path); cqw otherwise
 }) {
   if (priority) preload("/img/bezel/iphone-17-black.png", { as: "image", imageSrcSet: AVIF, imageSizes: sizes, type: "image/avif", fetchPriority: "high" });
   const persp = tilt === "left" ? "lg:[transform:perspective(1100px)_rotateY(-10deg)_rotateX(1.5deg)]" : tilt === "right" ? "lg:[transform:perspective(1100px)_rotateY(7deg)_rotateX(1deg)]" : "";
@@ -46,7 +48,7 @@ export function DeviceFrame({
     <div role="img" aria-label={label} className={`@container relative aspect-[1350/2760] shrink-0 ${widthClass} ${persp} ${className}`}>
       {/* the one ambient shadow shaped to the body: the PNG's corners are transparent, so a box shadow on the root would print a rectangle */}
       <div aria-hidden="true" className={`absolute rounded-[19.3%/9.6%] bg-ink ${shadow}`} style={{ left: "2.07%", top: "0.9%", width: "95.85%", height: "98.2%" }} />
-      <div className="screen absolute overflow-hidden bg-white text-ink" style={{ left: "5.333%", top: "2.5%", width: "89.333%", height: "95%", borderRadius: "15.75% / 7.25%" }}>
+      <div className={`screen ${ptClass} absolute overflow-hidden bg-white text-ink`} style={{ left: "5.333%", top: "2.5%", width: "89.333%", height: "95%", borderRadius: "15.75% / 7.25%" }}>
         {chrome ? (
           <>
             <StatusBar />

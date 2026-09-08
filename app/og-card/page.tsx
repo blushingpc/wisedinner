@@ -23,7 +23,7 @@ export default function OgCard() {
       </div>
       {/* the phone: 300px wide, 4° tilt, the one ambient shadow plus a contact ellipse so it rests on the field */}
       <div className="contact-shadow absolute right-[150px] top-[80px] w-[300px] rotate-[4deg]">
-        <DeviceFrame label="This week" widthClass="w-full" chrome={false} priority sizes="320px">
+        <DeviceFrame label="This week" widthClass="w-full" chrome={false} priority ptClass="pt-og" sizes="320px">
           <ThisWeek week={fixtureWeek} active="tue" priority />
         </DeviceFrame>
       </div>
