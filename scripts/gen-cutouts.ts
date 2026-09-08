@@ -1,16 +1,21 @@
-// hero cut-outs (REDESIGN-V3 §2I): transparent masters in public/img/src/cutouts/<name>.png (2K, gitignored) →
-// public/img/cutout-<name>.{png,webp,avif}, trimmed to the subject, longest side 1600. run: node scripts/gen-cutouts.ts
+// HERO CUT-OUTS (REDESIGN-V4 §5D): the chicken burrito bowl and the Greek yogurt parfait, generated on white,
+// upscaled to 4K, background removed at 4K (public/img/src/cutouts-4k/<id>.png, gitignored) → trimmed to the subject
+// and exported as transparent PNG at 3x of the rendered width (300px on desktop → 900px), plus WebP and AVIF.
+// run: node scripts/gen-cutouts.ts
 import sharp from "sharp";
-import { readdirSync } from "node:fs";
 
-for (const f of readdirSync("public/img/src/cutouts")) {
-  if (!f.endsWith(".png")) continue;
-  const name = f.replace(/\.png$/, "");
-  const trimmed = await sharp(`public/img/src/cutouts/${f}`).trim().toBuffer();
-  const base = sharp(trimmed).resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true });
+const CUTOUTS: [string, string][] = [
+  ["chicken-burrito-bowl", "burrito-bowl"],
+  ["greek-yogurt-parfait-with-berries-and-granola", "parfait"],
+];
+const WIDTH = 900; // 300px rendered × 3
+
+for (const [id, name] of CUTOUTS) {
+  const trimmed = await sharp(`public/img/src/cutouts-4k/${id}.png`).trim().toBuffer();
+  const base = sharp(trimmed).resize({ width: WIDTH, fit: "inside", withoutEnlargement: true });
   await base.clone().png({ compressionLevel: 9, palette: false }).toFile(`public/img/cutout-${name}.png`);
-  await base.clone().webp({ quality: 82, alphaQuality: 90 }).toFile(`public/img/cutout-${name}.webp`);
-  await base.clone().avif({ quality: 60 }).toFile(`public/img/cutout-${name}.avif`);
+  await base.clone().webp({ quality: 88, alphaQuality: 95 }).toFile(`public/img/cutout-${name}.webp`);
+  await base.clone().avif({ quality: 70 }).toFile(`public/img/cutout-${name}.avif`);
   const m = await sharp(`public/img/cutout-${name}.png`).metadata();
   console.log(name, m.width, m.height);
 }

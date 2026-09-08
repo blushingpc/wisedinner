@@ -790,13 +790,277 @@
       "job_id": "86f9d80b-a625-47d9-9616-290d42bf9c70",
       "used_for": "4K master (REDESIGN-V4 §5B)",
       "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "buffalo chicken bowl",
+      "job_id": "bb8e5c3c-96a7-4b64-ac09-ca704b6f0691",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 4 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "shrimp and veggie stir-fry",
+      "job_id": "36d2be39-8313-43a2-a209-5d96ce3c0f59",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 4 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "salmon with rice and asparagus",
+      "job_id": "191cf9f7-3413-4d13-8a04-f4f3aabf2d67",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 4 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "Greek yogurt parfait 4k cut-out",
+      "job_id": "78fcc28e-1f0e-455d-8249-ed2da0a6e179",
+      "used_for": "hero cut-out (REDESIGN-V4 §5D); the dish master reused, no extra generation",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "sheet pan chicken 2k -> 4k",
+      "job_id": "65b36636-4cd4-4348-8fce-9637061c72c5",
+      "used_for": "4K master",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "buffalo-chicken-bowl 2k -> 4k",
+      "job_id": "f1fd596a-9daa-49c4-80be-85bc31111961",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "shrimp-and-veggie-stir-fry 2k -> 4k",
+      "job_id": "de105db2-5e2f-4423-a7b1-11537b6c3407",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "salmon-with-rice-and-asparagus 2k -> 4k",
+      "job_id": "6c75f639-de0d-4f23-b025-bbad6b5abb0a",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "protein-oatmeal-with-peanut-butter-and-banana 4k background removed",
+      "job_id": "ed65e80c-8ec3-49dd-9a77-1527584737ae",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "egg-white-and-veggie-scramble-with-toast 4k background removed",
+      "job_id": "071cdeb3-a619-4d2c-ae9e-29e44aabf399",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "protein-pancakes-with-berries 4k background removed",
+      "job_id": "df054f95-9e62-443f-a488-bef3525d5905",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "egg-and-avocado-breakfast-wrap 4k background removed",
+      "job_id": "c17dccf0-9163-4890-9515-ea80aa64361d",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "cottage-cheese-bowl-with-fruit-and-honey 4k background removed",
+      "job_id": "86e27750-2338-4c81-8903-a6a580a81bbf",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "chicken-caesar-wrap 4k background removed",
+      "job_id": "0e42172e-6a01-4eaa-bb7e-7fcc94209f03",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "southwest-chicken-wrap 4k background removed",
+      "job_id": "cdee85cc-dbdc-4ae0-ba0d-ab72fe519b8e",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "turkey-and-avocado-sandwich-on-whole-wheat 4k background removed",
+      "job_id": "bf659846-6f3f-4887-b129-0b8e2698aef6",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "tuna-salad-wrap 4k background removed",
+      "job_id": "738c1cb6-c91e-4431-bd9b-07bccbeecd55",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "mediterranean-chicken-bowl-with-tzatziki 4k background removed",
+      "job_id": "4e85c34d-b967-4490-b516-59f94272edec",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "turkey-taco-bowl 4k background removed",
+      "job_id": "169f6f9f-adae-47d6-8fc7-918f19fd2c26",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "teriyaki-chicken-and-broccoli-rice-bowl 4k background removed",
+      "job_id": "f9680d57-6d5b-4279-b704-37036b450328",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "chicken-fajita-bowl 4k background removed",
+      "job_id": "34b2bdfe-7a48-4827-bff5-df540446544e",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "sheet-pan-chicken-with-sweet-potato-and-broccoli 4k background removed",
+      "job_id": "a29d26b3-6172-4610-89e9-9cf8d763ffb7",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "turkey-chili 4k background removed",
+      "job_id": "9014a6f1-0076-463c-b696-5ea3ba6bd577",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "pesto-chicken-pasta 4k background removed",
+      "job_id": "c10ad11f-60ac-4986-9f48-eba26821f9d8",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "turkey-meatballs-with-whole-wheat-spaghetti 4k background removed",
+      "job_id": "24b184c3-f93f-461c-b135-f6b8e7d646c4",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "chicken-stir-fry-with-rice 4k background removed",
+      "job_id": "7bc847f1-0548-482c-b113-58b3bf30d961",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "healthier-chicken-parmesan 4k background removed",
+      "job_id": "10739058-1a5b-426a-bddb-b4ac8ceb5ef3",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "turkey-burgers-with-sweet-potato-wedges 4k background removed",
+      "job_id": "1b1c28b0-3231-4b1f-b6bb-8f9d5e3e2791",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "ground-turkey-lettuce-wraps 4k background removed",
+      "job_id": "305e6adc-d110-4244-826c-93d1cade7edd",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "bbq-chicken-with-roasted-vegetables-and-rice 4k background removed",
+      "job_id": "78da9485-6f71-4cdd-994e-3ef76e51f6ae",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "buffalo-chicken-bowl 4k background removed",
+      "job_id": "0dfa0eb4-c2e2-430d-a2b4-4319831f31e7",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "shrimp-and-veggie-stir-fry 4k background removed",
+      "job_id": "a2e9d46d-847b-4fd2-9ee5-975a2e6020b6",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-remove_background",
+      "what": "salmon-with-rice-and-asparagus 4k background removed",
+      "job_id": "fb26a5ce-a679-426f-b612-4bf99e2c0448",
+      "used_for": "white-blend master (REDESIGN-V4 §5E): flattened on pure white by scripts/gen-menu.ts",
+      "model": "image_background_remover"
     }
   ],
   "credit_floor": 235.7,
   "recorded_at": "2026-09-08",
-  "iteration_generation_count": 8,
-  "day_generation_count": 24,
-  "balance_after_run": 1007,
+  "iteration_generation_count": 3,
+  "day_generation_count": 27,
+  "balance_after_run": 897,
   "note_2026_09_07": "v3 step 5 complete: 5 batches, 38 attempts (5 upstream failures retried), 33 of 33 dishes + 2 cut-outs. 38/40 today; next self-serve window opens 2026-09-08.",
-  "note_2026_09_08": "v4 step 4: 27 dishes + 2 cut-outs, four batches of <=8 generations; each generation is upscaled to 4K (kind edit-upscale-4k, not counted against the caps). starting balance for the day 1007 credits, floor 235.7."
+  "note_2026_09_08": "v4 step 4 complete: 27 dishes generated (nano_banana_pro 2k, anchor as image reference), 27 upscaled to 4K (one retry), 27 backgrounds removed at 4K (free on this plan) and flattened on pure white by scripts/gen-menu.ts; the two hero cut-outs reuse the burrito bowl and parfait masters. 27 of 40 generations for the day; balance 1007 -> 897."
 }

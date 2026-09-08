@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: { formats: ["image/avif", "image/webp"] },
+  // REDESIGN-V4 §5C: every rendered photo width at 1x, 2x and 3x (thumbnails 56, share strip 64, cards 160) so
+  // next/image serves an exact candidate for each DPR and nothing renders above its intrinsic size or soft at 3x
+  images: { formats: ["image/avif", "image/webp"], imageSizes: [56, 64, 112, 128, 160, 168, 192, 320, 480], qualities: [75, 90] },
   devIndicators: false, // the store-shot export and design screenshots run against dev; the badge must not print
   async redirects() {
     // the printed short link (hero QR, WD-07): repoint here, never reprint. temporary (307) on purpose.
