@@ -2,162 +2,162 @@
   "id": "example",
   "budget_usd": 55,
   "protein_goal_g": 150,
-  "generated_at": "2026-09-07",
+  "generated_at": "2026-09-08",
   "days": [
     {
       "day": "mon",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "scrambled-eggs-toast-and-turkey-bacon",
-          "name": "scrambled eggs, toast and turkey bacon",
-          "protein_g": 38,
-          "cost_usd": 2.2,
-          "img": "/img/menu/scrambled-eggs-toast-and-turkey-bacon.jpg"
+          "menu": "protein-oatmeal-with-peanut-butter-and-banana",
+          "name": "Protein oatmeal with peanut butter and banana",
+          "protein_g": 40,
+          "cost_usd": 1.8,
+          "img": "/img/menu/protein-oatmeal-with-peanut-butter-and-banana.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "turkey-and-cheese-sandwich",
-          "name": "turkey and cheese sandwich",
-          "protein_g": 48,
-          "cost_usd": 2.9,
-          "img": "/img/menu/turkey-and-cheese-sandwich.jpg"
+          "menu": "chicken-caesar-wrap",
+          "name": "Chicken caesar wrap",
+          "protein_g": 52,
+          "cost_usd": 3.6,
+          "img": "/img/menu/chicken-caesar-wrap.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "smash-cheeseburgers",
-          "name": "smash cheeseburgers",
-          "protein_g": 70,
-          "cost_usd": 5.6,
-          "img": "/img/menu/smash-cheeseburgers.jpg"
+          "menu": "teriyaki-chicken-and-broccoli-rice-bowl",
+          "name": "Teriyaki chicken and broccoli rice bowl",
+          "protein_g": 60,
+          "cost_usd": 3.8,
+          "img": "/img/menu/teriyaki-chicken-and-broccoli-rice-bowl.jpg"
         }
       ],
-      "protein_g": 156,
-      "cost_usd": 10.7
+      "protein_g": 152,
+      "cost_usd": 9.2
     },
     {
       "day": "tue",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "peanut-butter-banana-oatmeal",
-          "name": "peanut butter banana oatmeal",
-          "protein_g": 34,
-          "cost_usd": 1.2,
-          "img": "/img/menu/peanut-butter-banana-oatmeal.jpg"
+          "menu": "greek-yogurt-parfait-with-berries-and-granola",
+          "name": "Greek yogurt parfait with berries and granola",
+          "protein_g": 38,
+          "cost_usd": 2.2,
+          "img": "/img/menu/greek-yogurt-parfait-with-berries-and-granola.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "chicken-caesar-wrap",
-          "name": "chicken caesar wrap",
-          "protein_g": 56,
-          "cost_usd": 3.3,
-          "img": "/img/menu/chicken-caesar-wrap.jpg"
+          "menu": "chicken-burrito-bowl",
+          "name": "Chicken burrito bowl",
+          "protein_g": 46,
+          "cost_usd": 3.6,
+          "img": "/img/menu/chicken-burrito-bowl.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "crispy-baked-chicken-tenders-with-fries-and-broccoli",
-          "name": "crispy baked chicken tenders with fries and broccoli",
-          "protein_g": 44,
-          "cost_usd": 3.4,
-          "img": "/img/menu/crispy-baked-chicken-tenders-with-fries-and-broccoli.jpg"
+          "menu": "turkey-chili",
+          "name": "Turkey chili",
+          "protein_g": 58,
+          "cost_usd": 3.6,
+          "img": "/img/menu/turkey-chili.jpg"
         }
       ],
-      "protein_g": 134,
-      "cost_usd": 7.9
+      "protein_g": 142,
+      "cost_usd": 9.4
     },
     {
       "day": "wed",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "greek-yogurt-with-granola-and-honey",
-          "name": "greek yogurt with granola and honey",
-          "protein_g": 36,
-          "cost_usd": 1.8,
-          "img": "/img/menu/greek-yogurt-with-granola-and-honey.jpg"
+          "menu": "egg-white-and-veggie-scramble-with-toast",
+          "name": "Egg white and veggie scramble with toast",
+          "protein_g": 38,
+          "cost_usd": 2.1,
+          "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "egg-salad-sandwich",
-          "name": "egg salad sandwich",
-          "protein_g": 40,
-          "cost_usd": 2.1,
-          "img": "/img/menu/egg-salad-sandwich.jpg"
+          "menu": "turkey-chili",
+          "name": "Turkey chili",
+          "protein_g": 58,
+          "cost_usd": 3.6,
+          "img": "/img/menu/turkey-chili.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "beef-tacos",
-          "name": "beef tacos",
-          "protein_g": 80,
-          "cost_usd": 4.8,
-          "img": "/img/menu/beef-tacos.jpg"
+          "menu": "sheet-pan-chicken-with-sweet-potato-and-broccoli",
+          "name": "Sheet pan chicken with sweet potato and broccoli",
+          "protein_g": 60,
+          "cost_usd": 4.2,
+          "img": "/img/menu/sheet-pan-chicken-with-sweet-potato-and-broccoli.jpg"
         }
       ],
       "protein_g": 156,
-      "cost_usd": 8.7
+      "cost_usd": 9.9
     },
     {
       "day": "thu",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "breakfast-burrito",
-          "name": "breakfast burrito",
+          "menu": "cottage-cheese-bowl-with-fruit-and-honey",
+          "name": "Cottage cheese bowl with fruit and honey",
           "protein_g": 40,
-          "cost_usd": 2.4,
-          "img": "/img/menu/breakfast-burrito.jpg"
+          "cost_usd": 2,
+          "img": "/img/menu/cottage-cheese-bowl-with-fruit-and-honey.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "taco-bowl-last-night-s-tacos",
-          "name": "taco bowl (last night's tacos)",
-          "protein_g": 56,
-          "cost_usd": 3.6,
-          "img": "/img/menu/taco-bowl-last-night-s-tacos.jpg"
+          "menu": "sheet-pan-chicken-with-sweet-potato-and-broccoli",
+          "name": "Sheet pan chicken with sweet potato and broccoli",
+          "protein_g": 60,
+          "cost_usd": 4.2,
+          "img": "/img/menu/sheet-pan-chicken-with-sweet-potato-and-broccoli.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "chicken-alfredo-pasta",
-          "name": "chicken alfredo pasta",
-          "protein_g": 64,
-          "cost_usd": 5.4,
-          "img": "/img/menu/chicken-alfredo-pasta.jpg"
+          "menu": "pesto-chicken-pasta",
+          "name": "Pesto chicken pasta",
+          "protein_g": 56,
+          "cost_usd": 4.1,
+          "img": "/img/menu/pesto-chicken-pasta.jpg"
         }
       ],
-      "protein_g": 160,
-      "cost_usd": 11.4
+      "protein_g": 156,
+      "cost_usd": 10.3
     },
     {
       "day": "fri",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "egg-and-cheese-sandwich",
-          "name": "egg and cheese sandwich",
-          "protein_g": 36,
-          "cost_usd": 1.9,
-          "img": "/img/menu/egg-and-cheese-sandwich.jpg"
+          "menu": "protein-pancakes-with-berries",
+          "name": "Protein pancakes with berries",
+          "protein_g": 40,
+          "cost_usd": 2.2,
+          "img": "/img/menu/protein-pancakes-with-berries.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "chicken-caesar-wrap",
-          "name": "chicken caesar wrap",
+          "menu": "pesto-chicken-pasta",
+          "name": "Pesto chicken pasta",
           "protein_g": 56,
-          "cost_usd": 3.3,
-          "img": "/img/menu/chicken-caesar-wrap.jpg"
+          "cost_usd": 4.1,
+          "img": "/img/menu/pesto-chicken-pasta.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "bbq-chicken-thighs-with-mashed-potatoes-and-corn",
-          "name": "bbq chicken thighs with mashed potatoes and corn",
-          "protein_g": 62,
-          "cost_usd": 5.3,
-          "img": "/img/menu/bbq-chicken-thighs-with-mashed-potatoes-and-corn.jpg"
+          "menu": "bbq-chicken-with-roasted-vegetables-and-rice",
+          "name": "BBQ chicken with roasted vegetables and rice",
+          "protein_g": 58,
+          "cost_usd": 4.1,
+          "img": "/img/menu/bbq-chicken-with-roasted-vegetables-and-rice.jpg"
         }
       ],
       "protein_g": 154,
-      "cost_usd": 10.5
+      "cost_usd": 10.4
     }
   ],
   "totals": {
@@ -170,86 +170,86 @@
   "list": {
     "items": [
       {
-        "name": "chicken breast, 3 lb family pack",
+        "name": "Chicken breast, 3 lb family pack",
         "aisle": "meat",
-        "price_usd": 9.49,
+        "price_usd": 9.97,
         "checked": true
       },
       {
-        "name": "ground beef 80/20, 2 lb",
+        "name": "Ground turkey 93/7, 2 lb",
         "aisle": "meat",
-        "price_usd": 8.48,
+        "price_usd": 8.98,
         "checked": true
       },
       {
-        "name": "chicken thighs, 2.5 lb",
-        "aisle": "meat",
-        "price_usd": 6.27,
-        "checked": false
-      },
-      {
-        "name": "eggs, 18 ct",
-        "aisle": "dairy",
-        "price_usd": 4.29,
-        "checked": false
-      },
-      {
-        "name": "cheddar block, 16 oz",
-        "aisle": "dairy",
-        "price_usd": 3.98,
-        "checked": false
-      },
-      {
-        "name": "greek yogurt, 32 oz",
+        "name": "Greek yogurt, 32 oz",
         "aisle": "dairy",
         "price_usd": 4.49,
         "checked": false
       },
       {
-        "name": "flour tortillas, 10 ct",
-        "aisle": "pantry",
-        "price_usd": 2.48,
+        "name": "Eggs, 18 ct",
+        "aisle": "dairy",
+        "price_usd": 4.29,
         "checked": false
       },
       {
-        "name": "pasta, 16 oz",
-        "aisle": "pantry",
-        "price_usd": 1.28,
+        "name": "Cottage cheese, 24 oz",
+        "aisle": "dairy",
+        "price_usd": 3.29,
         "checked": false
       },
       {
-        "name": "old fashioned oats, 18 oz",
+        "name": "Jasmine rice, 5 lb",
+        "aisle": "pantry",
+        "price_usd": 4.98,
+        "checked": false
+      },
+      {
+        "name": "Whole wheat pasta, 16 oz",
+        "aisle": "pantry",
+        "price_usd": 1.48,
+        "checked": false
+      },
+      {
+        "name": "Rolled oats, 18 oz",
         "aisle": "pantry",
         "price_usd": 2.98,
         "checked": false
       },
       {
-        "name": "sandwich bread",
+        "name": "Kidney beans, 2 cans",
         "aisle": "pantry",
-        "price_usd": 2.28,
+        "price_usd": 1.96,
         "checked": false
       },
       {
-        "name": "frozen broccoli, 32 oz",
+        "name": "Frozen broccoli, 32 oz",
         "aisle": "frozen",
         "price_usd": 1.98,
         "checked": false
       },
       {
-        "name": "bananas, bunch",
+        "name": "Frozen mixed berries, 16 oz",
+        "aisle": "frozen",
+        "price_usd": 2.32,
+        "checked": false
+      },
+      {
+        "name": "Sweet potatoes, 3 lb",
         "aisle": "produce",
-        "price_usd": 1.2,
+        "price_usd": 2.48,
         "checked": false
       }
     ],
     "est_total_usd": 49.2,
-    "delivery_est_usd": 78.1,
-    "delivery_saves_usd": 28.9,
-    "delivery_label": "instacart est."
+    "delivery_est_usd": 68.9,
+    "delivery_saves_usd": 19.7,
+    "delivery_label": "Instacart estimate"
   },
   "receipt": {
     "estimated_usd": 49.2,
-    "actual_usd": 48.61,
+    "actual_usd": 48.55,
     "delta_pct": -1,
     "accuracy_pct": 96,
     "verified": true

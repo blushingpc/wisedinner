@@ -2,8 +2,8 @@ import type { MenuItem } from "./menu";
 import week1 from "./fixture-week.json" with { type: "json" };
 import week2 from "./fixture-week-2.json" with { type: "json" };
 
-// hand-authored solved weeks (REDESIGN-V3 §2H/§3). every number on the site's app screens, the share pages
-// and the pre-order band reads from here — the site never runs the solver for a visitor (§2F).
+// hand-authored solved weeks (REDESIGN-V4 §4, written by scripts/gen-fixtures.ts). every number on the site's app
+// screens, the share pages and the pre-order band reads from here; the site never runs the solver for a visitor.
 export type FixtureMeal = { slot: "breakfast" | "lunch" | "dinner"; menu: MenuItem["id"]; name: string; protein_g: number; cost_usd: number; img: string };
 export type FixtureDay = { day: "mon" | "tue" | "wed" | "thu" | "fri"; meals: FixtureMeal[]; protein_g: number; cost_usd: number };
 export type FixtureWeek = {

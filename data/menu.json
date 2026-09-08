@@ -1,332 +1,272 @@
 [
   {
-    "id": "crispy-baked-chicken-tenders-with-fries-and-broccoli",
-    "name": "crispy baked chicken tenders with fries and broccoli",
-    "type": "dinner",
-    "protein_source": "chicken breast",
-    "protein_g": 44,
-    "cost_usd": 3.4,
+    "id": "greek-yogurt-parfait-with-berries-and-granola",
+    "name": "Greek yogurt parfait with berries and granola",
+    "type": "breakfast",
+    "protein_source": "Greek yogurt",
+    "protein_g": 38,
+    "cost_usd": 2.2,
     "estimate": true,
-    "img": "/img/menu/crispy-baked-chicken-tenders-with-fries-and-broccoli.jpg"
+    "img": "/img/menu/greek-yogurt-parfait-with-berries-and-granola.jpg"
   },
   {
-    "id": "smash-cheeseburgers",
-    "name": "smash cheeseburgers",
-    "type": "dinner",
-    "protein_source": "ground beef",
-    "protein_g": 70,
-    "cost_usd": 5.6,
+    "id": "protein-oatmeal-with-peanut-butter-and-banana",
+    "name": "Protein oatmeal with peanut butter and banana",
+    "type": "breakfast",
+    "protein_source": "whey and peanut butter",
+    "protein_g": 40,
+    "cost_usd": 1.8,
     "estimate": true,
-    "img": "/img/menu/smash-cheeseburgers.jpg"
+    "img": "/img/menu/protein-oatmeal-with-peanut-butter-and-banana.jpg"
   },
   {
-    "id": "chicken-alfredo-pasta",
-    "name": "chicken alfredo pasta",
-    "type": "dinner",
-    "protein_source": "chicken breast",
-    "protein_g": 64,
-    "cost_usd": 5.4,
+    "id": "egg-white-and-veggie-scramble-with-toast",
+    "name": "Egg white and veggie scramble with toast",
+    "type": "breakfast",
+    "protein_source": "egg whites",
+    "protein_g": 38,
+    "cost_usd": 2.1,
     "estimate": true,
-    "img": "/img/menu/chicken-alfredo-pasta.jpg"
+    "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
   },
   {
-    "id": "chicken-parm-with-spaghetti",
-    "name": "chicken parm with spaghetti",
-    "type": "dinner",
-    "protein_source": "chicken breast",
-    "protein_g": 66,
-    "cost_usd": 5.2,
+    "id": "protein-pancakes-with-berries",
+    "name": "Protein pancakes with berries",
+    "type": "breakfast",
+    "protein_source": "whey and eggs",
+    "protein_g": 40,
+    "cost_usd": 2.2,
     "estimate": true,
-    "img": "/img/menu/chicken-parm-with-spaghetti.jpg"
+    "img": "/img/menu/protein-pancakes-with-berries.jpg"
   },
   {
-    "id": "beef-tacos",
-    "name": "beef tacos",
-    "type": "dinner",
-    "protein_source": "ground beef",
-    "protein_g": 80,
-    "cost_usd": 4.8,
+    "id": "egg-and-avocado-breakfast-wrap",
+    "name": "Egg and avocado breakfast wrap",
+    "type": "breakfast",
+    "protein_source": "eggs",
+    "protein_g": 36,
+    "cost_usd": 2.2,
     "estimate": true,
-    "img": "/img/menu/beef-tacos.jpg"
+    "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
   },
   {
-    "id": "chicken-quesadillas",
-    "name": "chicken quesadillas",
-    "type": "dinner",
-    "protein_source": "chicken breast",
-    "protein_g": 60,
-    "cost_usd": 4.1,
+    "id": "cottage-cheese-bowl-with-fruit-and-honey",
+    "name": "Cottage cheese bowl with fruit and honey",
+    "type": "breakfast",
+    "protein_source": "cottage cheese",
+    "protein_g": 40,
+    "cost_usd": 2,
     "estimate": true,
-    "img": "/img/menu/chicken-quesadillas.jpg"
-  },
-  {
-    "id": "teriyaki-chicken-rice-bowl",
-    "name": "teriyaki chicken rice bowl",
-    "type": "dinner",
-    "protein_source": "chicken thighs",
-    "protein_g": 62,
-    "cost_usd": 3.9,
-    "estimate": true,
-    "img": "/img/menu/teriyaki-chicken-rice-bowl.jpg"
-  },
-  {
-    "id": "bbq-chicken-thighs-with-mashed-potatoes-and-corn",
-    "name": "bbq chicken thighs with mashed potatoes and corn",
-    "type": "dinner",
-    "protein_source": "chicken thighs",
-    "protein_g": 62,
-    "cost_usd": 5.3,
-    "estimate": true,
-    "img": "/img/menu/bbq-chicken-thighs-with-mashed-potatoes-and-corn.jpg"
-  },
-  {
-    "id": "turkey-chili-with-cheddar",
-    "name": "turkey chili with cheddar",
-    "type": "dinner",
-    "protein_source": "ground turkey",
-    "protein_g": 64,
-    "cost_usd": 4.2,
-    "estimate": true,
-    "img": "/img/menu/turkey-chili-with-cheddar.jpg"
-  },
-  {
-    "id": "spaghetti-with-meat-sauce",
-    "name": "spaghetti with meat sauce",
-    "type": "dinner",
-    "protein_source": "ground beef",
-    "protein_g": 66,
-    "cost_usd": 4.3,
-    "estimate": true,
-    "img": "/img/menu/spaghetti-with-meat-sauce.jpg"
-  },
-  {
-    "id": "mac-and-cheese-with-chicken",
-    "name": "mac and cheese with chicken",
-    "type": "dinner",
-    "protein_source": "chicken breast",
-    "protein_g": 58,
-    "cost_usd": 4.4,
-    "estimate": true,
-    "img": "/img/menu/mac-and-cheese-with-chicken.jpg"
-  },
-  {
-    "id": "buffalo-chicken-wraps",
-    "name": "buffalo chicken wraps",
-    "type": "dinner",
-    "protein_source": "chicken breast",
-    "protein_g": 54,
-    "cost_usd": 4.1,
-    "estimate": true,
-    "img": "/img/menu/buffalo-chicken-wraps.jpg"
-  },
-  {
-    "id": "loaded-baked-potato-with-pulled-chicken",
-    "name": "loaded baked potato with pulled chicken",
-    "type": "dinner",
-    "protein_source": "chicken thighs",
-    "protein_g": 52,
-    "cost_usd": 3.6,
-    "estimate": true,
-    "img": "/img/menu/loaded-baked-potato-with-pulled-chicken.jpg"
-  },
-  {
-    "id": "chicken-fried-rice",
-    "name": "chicken fried rice",
-    "type": "dinner",
-    "protein_source": "chicken thighs",
-    "protein_g": 50,
-    "cost_usd": 3.5,
-    "estimate": true,
-    "img": "/img/menu/chicken-fried-rice.jpg"
-  },
-  {
-    "id": "pulled-chicken-sandwich",
-    "name": "pulled chicken sandwich",
-    "type": "dinner",
-    "protein_source": "chicken thighs",
-    "protein_g": 54,
-    "cost_usd": 3.8,
-    "estimate": true,
-    "img": "/img/menu/pulled-chicken-sandwich.jpg"
-  },
-  {
-    "id": "sloppy-joes",
-    "name": "sloppy joes",
-    "type": "dinner",
-    "protein_source": "ground turkey",
-    "protein_g": 50,
-    "cost_usd": 3.6,
-    "estimate": true,
-    "img": "/img/menu/sloppy-joes.jpg"
-  },
-  {
-    "id": "turkey-meatball-sub",
-    "name": "turkey meatball sub",
-    "type": "dinner",
-    "protein_source": "ground turkey",
-    "protein_g": 58,
-    "cost_usd": 4.5,
-    "estimate": true,
-    "img": "/img/menu/turkey-meatball-sub.jpg"
-  },
-  {
-    "id": "pork-chops-with-mashed-potatoes",
-    "name": "pork chops with mashed potatoes",
-    "type": "dinner",
-    "protein_source": "pork chops",
-    "protein_g": 62,
-    "cost_usd": 4.9,
-    "estimate": true,
-    "img": "/img/menu/pork-chops-with-mashed-potatoes.jpg"
-  },
-  {
-    "id": "cheesesteak-bowl",
-    "name": "cheesesteak bowl",
-    "type": "dinner",
-    "protein_source": "beef",
-    "protein_g": 56,
-    "cost_usd": 5.1,
-    "estimate": true,
-    "img": "/img/menu/cheesesteak-bowl.jpg"
-  },
-  {
-    "id": "pita-pizza-with-chicken",
-    "name": "pita pizza with chicken",
-    "type": "dinner",
-    "protein_source": "chicken breast",
-    "protein_g": 52,
-    "cost_usd": 3.9,
-    "estimate": true,
-    "img": "/img/menu/pita-pizza-with-chicken.jpg"
+    "img": "/img/menu/cottage-cheese-bowl-with-fruit-and-honey.jpg"
   },
   {
     "id": "chicken-caesar-wrap",
-    "name": "chicken caesar wrap",
+    "name": "Chicken caesar wrap",
     "type": "lunch",
     "protein_source": "chicken breast",
-    "protein_g": 56,
-    "cost_usd": 3.3,
+    "protein_g": 52,
+    "cost_usd": 3.6,
     "estimate": true,
     "img": "/img/menu/chicken-caesar-wrap.jpg"
   },
   {
-    "id": "turkey-and-cheese-sandwich",
-    "name": "turkey and cheese sandwich",
+    "id": "southwest-chicken-wrap",
+    "name": "Southwest chicken wrap",
     "type": "lunch",
-    "protein_source": "deli turkey",
+    "protein_source": "chicken breast",
+    "protein_g": 50,
+    "cost_usd": 3.3,
+    "estimate": true,
+    "img": "/img/menu/southwest-chicken-wrap.jpg"
+  },
+  {
+    "id": "chicken-burrito-bowl",
+    "name": "Chicken burrito bowl",
+    "type": "lunch",
+    "protein_source": "chicken breast",
+    "protein_g": 46,
+    "cost_usd": 3.6,
+    "estimate": true,
+    "img": "/img/menu/chicken-burrito-bowl.jpg"
+  },
+  {
+    "id": "turkey-and-avocado-sandwich-on-whole-wheat",
+    "name": "Turkey and avocado sandwich on whole wheat",
+    "type": "lunch",
+    "protein_source": "turkey breast",
+    "protein_g": 44,
+    "cost_usd": 3,
+    "estimate": true,
+    "img": "/img/menu/turkey-and-avocado-sandwich-on-whole-wheat.jpg"
+  },
+  {
+    "id": "tuna-salad-wrap",
+    "name": "Tuna salad wrap",
+    "type": "lunch",
+    "protein_source": "tuna",
+    "protein_g": 42,
+    "cost_usd": 2.5,
+    "estimate": true,
+    "img": "/img/menu/tuna-salad-wrap.jpg"
+  },
+  {
+    "id": "mediterranean-chicken-bowl-with-tzatziki",
+    "name": "Mediterranean chicken bowl with tzatziki",
+    "type": "lunch",
+    "protein_source": "chicken breast",
+    "protein_g": 54,
+    "cost_usd": 3.6,
+    "estimate": true,
+    "img": "/img/menu/mediterranean-chicken-bowl-with-tzatziki.jpg"
+  },
+  {
+    "id": "turkey-taco-bowl",
+    "name": "Turkey taco bowl",
+    "type": "lunch",
+    "protein_source": "ground turkey",
+    "protein_g": 50,
+    "cost_usd": 3.2,
+    "estimate": true,
+    "img": "/img/menu/turkey-taco-bowl.jpg"
+  },
+  {
+    "id": "teriyaki-chicken-and-broccoli-rice-bowl",
+    "name": "Teriyaki chicken and broccoli rice bowl",
+    "type": "dinner",
+    "protein_source": "chicken breast",
+    "protein_g": 60,
+    "cost_usd": 3.8,
+    "estimate": true,
+    "img": "/img/menu/teriyaki-chicken-and-broccoli-rice-bowl.jpg"
+  },
+  {
+    "id": "chicken-fajita-bowl",
+    "name": "Chicken fajita bowl",
+    "type": "dinner",
+    "protein_source": "chicken breast",
+    "protein_g": 56,
+    "cost_usd": 3.7,
+    "estimate": true,
+    "img": "/img/menu/chicken-fajita-bowl.jpg"
+  },
+  {
+    "id": "sheet-pan-chicken-with-sweet-potato-and-broccoli",
+    "name": "Sheet pan chicken with sweet potato and broccoli",
+    "type": "dinner",
+    "protein_source": "chicken breast",
+    "protein_g": 60,
+    "cost_usd": 4.2,
+    "estimate": true,
+    "img": "/img/menu/sheet-pan-chicken-with-sweet-potato-and-broccoli.jpg"
+  },
+  {
+    "id": "turkey-chili",
+    "name": "Turkey chili",
+    "type": "dinner",
+    "protein_source": "ground turkey",
+    "protein_g": 58,
+    "cost_usd": 3.6,
+    "estimate": true,
+    "img": "/img/menu/turkey-chili.jpg"
+  },
+  {
+    "id": "pesto-chicken-pasta",
+    "name": "Pesto chicken pasta",
+    "type": "dinner",
+    "protein_source": "chicken breast",
+    "protein_g": 56,
+    "cost_usd": 4.1,
+    "estimate": true,
+    "img": "/img/menu/pesto-chicken-pasta.jpg"
+  },
+  {
+    "id": "turkey-meatballs-with-whole-wheat-spaghetti",
+    "name": "Turkey meatballs with whole wheat spaghetti",
+    "type": "dinner",
+    "protein_source": "ground turkey",
+    "protein_g": 54,
+    "cost_usd": 3.6,
+    "estimate": true,
+    "img": "/img/menu/turkey-meatballs-with-whole-wheat-spaghetti.jpg"
+  },
+  {
+    "id": "chicken-stir-fry-with-rice",
+    "name": "Chicken stir-fry with rice",
+    "type": "dinner",
+    "protein_source": "chicken breast",
+    "protein_g": 56,
+    "cost_usd": 3.4,
+    "estimate": true,
+    "img": "/img/menu/chicken-stir-fry-with-rice.jpg"
+  },
+  {
+    "id": "healthier-chicken-parmesan",
+    "name": "Healthier chicken parmesan",
+    "type": "dinner",
+    "protein_source": "chicken breast",
+    "protein_g": 62,
+    "cost_usd": 4.2,
+    "estimate": true,
+    "img": "/img/menu/healthier-chicken-parmesan.jpg"
+  },
+  {
+    "id": "turkey-burgers-with-sweet-potato-wedges",
+    "name": "Turkey burgers with sweet potato wedges",
+    "type": "dinner",
+    "protein_source": "ground turkey",
+    "protein_g": 52,
+    "cost_usd": 3.7,
+    "estimate": true,
+    "img": "/img/menu/turkey-burgers-with-sweet-potato-wedges.jpg"
+  },
+  {
+    "id": "ground-turkey-lettuce-wraps",
+    "name": "Ground turkey lettuce wraps",
+    "type": "dinner",
+    "protein_source": "ground turkey",
     "protein_g": 48,
-    "cost_usd": 2.9,
+    "cost_usd": 3.2,
     "estimate": true,
-    "img": "/img/menu/turkey-and-cheese-sandwich.jpg"
+    "img": "/img/menu/ground-turkey-lettuce-wraps.jpg"
   },
   {
-    "id": "tuna-melt",
-    "name": "tuna melt",
-    "type": "lunch",
-    "protein_source": "canned tuna",
-    "protein_g": 48,
-    "cost_usd": 2.8,
+    "id": "bbq-chicken-with-roasted-vegetables-and-rice",
+    "name": "BBQ chicken with roasted vegetables and rice",
+    "type": "dinner",
+    "protein_source": "chicken thighs",
+    "protein_g": 58,
+    "cost_usd": 4.1,
     "estimate": true,
-    "img": "/img/menu/tuna-melt.jpg"
+    "img": "/img/menu/bbq-chicken-with-roasted-vegetables-and-rice.jpg"
   },
   {
-    "id": "grilled-cheese-with-tomato-soup",
-    "name": "grilled cheese with tomato soup",
-    "type": "lunch",
-    "protein_source": "cheddar",
-    "protein_g": 36,
-    "cost_usd": 2.3,
-    "estimate": true,
-    "img": "/img/menu/grilled-cheese-with-tomato-soup.jpg"
-  },
-  {
-    "id": "egg-salad-sandwich",
-    "name": "egg salad sandwich",
-    "type": "lunch",
-    "protein_source": "eggs",
-    "protein_g": 40,
-    "cost_usd": 2.1,
-    "estimate": true,
-    "img": "/img/menu/egg-salad-sandwich.jpg"
-  },
-  {
-    "id": "taco-bowl-last-night-s-tacos",
-    "name": "taco bowl (last night's tacos)",
-    "type": "lunch",
-    "protein_source": "ground beef",
+    "id": "buffalo-chicken-bowl",
+    "name": "Buffalo chicken bowl",
+    "type": "dinner",
+    "protein_source": "chicken breast",
     "protein_g": 56,
     "cost_usd": 3.6,
     "estimate": true,
-    "img": "/img/menu/taco-bowl-last-night-s-tacos.jpg"
+    "img": "/img/menu/buffalo-chicken-bowl.jpg"
   },
   {
-    "id": "scrambled-eggs-toast-and-turkey-bacon",
-    "name": "scrambled eggs, toast and turkey bacon",
-    "type": "breakfast",
-    "protein_source": "eggs",
-    "protein_g": 38,
-    "cost_usd": 2.2,
+    "id": "shrimp-and-veggie-stir-fry",
+    "name": "Shrimp and veggie stir-fry",
+    "type": "dinner",
+    "protein_source": "shrimp",
+    "protein_g": 46,
+    "cost_usd": 4.5,
     "estimate": true,
-    "img": "/img/menu/scrambled-eggs-toast-and-turkey-bacon.jpg"
+    "img": "/img/menu/shrimp-and-veggie-stir-fry.jpg"
   },
   {
-    "id": "breakfast-burrito",
-    "name": "breakfast burrito",
-    "type": "breakfast",
-    "protein_source": "eggs",
-    "protein_g": 40,
-    "cost_usd": 2.4,
+    "id": "salmon-with-rice-and-asparagus",
+    "name": "Salmon with rice and asparagus",
+    "type": "dinner",
+    "protein_source": "salmon",
+    "protein_g": 48,
+    "cost_usd": 5.3,
     "estimate": true,
-    "img": "/img/menu/breakfast-burrito.jpg"
-  },
-  {
-    "id": "pancakes-with-greek-yogurt-and-syrup",
-    "name": "pancakes with greek yogurt and syrup",
-    "type": "breakfast",
-    "protein_source": "greek yogurt",
-    "protein_g": 34,
-    "cost_usd": 2.1,
-    "estimate": true,
-    "img": "/img/menu/pancakes-with-greek-yogurt-and-syrup.jpg"
-  },
-  {
-    "id": "peanut-butter-banana-oatmeal",
-    "name": "peanut butter banana oatmeal",
-    "type": "breakfast",
-    "protein_source": "peanut butter",
-    "protein_g": 34,
-    "cost_usd": 1.2,
-    "estimate": true,
-    "img": "/img/menu/peanut-butter-banana-oatmeal.jpg"
-  },
-  {
-    "id": "egg-and-cheese-sandwich",
-    "name": "egg and cheese sandwich",
-    "type": "breakfast",
-    "protein_source": "eggs",
-    "protein_g": 36,
-    "cost_usd": 1.9,
-    "estimate": true,
-    "img": "/img/menu/egg-and-cheese-sandwich.jpg"
-  },
-  {
-    "id": "greek-yogurt-with-granola-and-honey",
-    "name": "greek yogurt with granola and honey",
-    "type": "breakfast",
-    "protein_source": "greek yogurt",
-    "protein_g": 36,
-    "cost_usd": 1.8,
-    "estimate": true,
-    "img": "/img/menu/greek-yogurt-with-granola-and-honey.jpg"
-  },
-  {
-    "id": "protein-french-toast",
-    "name": "protein french toast",
-    "type": "breakfast",
-    "protein_source": "eggs",
-    "protein_g": 40,
-    "cost_usd": 2.0,
-    "estimate": true,
-    "img": "/img/menu/protein-french-toast.jpg"
+    "img": "/img/menu/salmon-with-rice-and-asparagus.jpg"
   }
 ]
