@@ -670,12 +670,132 @@
       "job_id": "282ad56c-757c-4ece-9382-ce220e987a52",
       "used_for": "4K master (REDESIGN-V4 §5B)",
       "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "turkey chili",
+      "job_id": "51ba36aa-29ca-441d-bec0-5e3d80c66afb",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 3 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "pesto chicken pasta",
+      "job_id": "7fc0931d-9494-452d-8afb-2efc51061588",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 3 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "turkey meatballs with whole wheat spaghetti",
+      "job_id": "0260935f-4b00-4e0a-acc2-4f71c1484305",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 3 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "chicken stir-fry with rice",
+      "job_id": "86ae7ca7-2ff7-4c30-ba81-f0097f33adc5",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 3 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "healthier chicken parmesan",
+      "job_id": "2f0b07df-7405-45cf-a33c-278b53e26b5b",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 3 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "turkey burgers with sweet potato wedges",
+      "job_id": "915901c6-c83c-4035-a538-dad129f974c4",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 3 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "ground turkey lettuce wraps",
+      "job_id": "849bcf97-56dc-4e7a-942b-0b9f7f99273e",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 3 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "BBQ chicken with roasted vegetables and rice",
+      "job_id": "c899fb5a-1231-40f6-b8ee-881984b474ad",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 3 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "protein pancakes 2k -> 4k (retry; first attempt 28a95a6f failed upstream)",
+      "job_id": "681fbff8-3c8b-49da-91af-3c4c2521bf51",
+      "used_for": "4K master",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "turkey-chili 2k -> 4k",
+      "job_id": "21d1c36a-256f-4f8c-b262-3f487998ff77",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "pesto-chicken-pasta 2k -> 4k",
+      "job_id": "d1d33214-476b-4547-a24a-ac99b3e5ce3d",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "turkey-meatballs-with-whole-wheat-spaghetti 2k -> 4k",
+      "job_id": "e5d73429-addc-494e-960c-b4c6308302de",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "chicken-stir-fry-with-rice 2k -> 4k",
+      "job_id": "e4f89de8-29a4-42ed-9c27-1c0e8093aa60",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "healthier-chicken-parmesan 2k -> 4k",
+      "job_id": "48854ff9-1052-485a-8323-b719c2c52788",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "ground-turkey-lettuce-wraps 2k -> 4k",
+      "job_id": "86f9d80b-a625-47d9-9616-290d42bf9c70",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
     }
   ],
   "credit_floor": 235.7,
   "recorded_at": "2026-09-08",
   "iteration_generation_count": 8,
-  "day_generation_count": 16,
+  "day_generation_count": 24,
   "balance_after_run": 1007,
   "note_2026_09_07": "v3 step 5 complete: 5 batches, 38 attempts (5 upstream failures retried), 33 of 33 dishes + 2 cut-outs. 38/40 today; next self-serve window opens 2026-09-08.",
   "note_2026_09_08": "v4 step 4: 27 dishes + 2 cut-outs, four batches of <=8 generations; each generation is upscaled to 4K (kind edit-upscale-4k, not counted against the caps). starting balance for the day 1007 credits, floor 235.7."
