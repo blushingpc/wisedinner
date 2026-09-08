@@ -280,6 +280,21 @@ html {
   }
 }
 
+/* switcher: the incoming screen fades in over 250ms (§3 motion) */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.fade-in {
+  animation: fade-in 250ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
+}
+
 /* header sheet — slides down from under the sticky nav */
 @keyframes sheet-drop {
   from {

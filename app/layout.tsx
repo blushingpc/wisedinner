@@ -9,9 +9,10 @@ import { SITE } from "./copy";
 import "./globals.css";
 
 // REDESIGN-V4 §3: Plus Jakarta Sans for headings and the wordmark, Inter for body, UI and every number. both self-hosted
-// by next/font (no link tags); the variable files cover every weight in one request each.
-const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"], weight: ["700", "800"], display: "swap", preload: true });
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], weight: ["400", "500", "600"], display: "swap", preload: true });
+// by next/font (no link tags) as variable fonts: one file each covers 700/800 and 400/500/600, so the H1 and the body
+// are not queued behind five weight files (LCP).
+const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"], display: "swap", preload: true });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap", preload: true });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

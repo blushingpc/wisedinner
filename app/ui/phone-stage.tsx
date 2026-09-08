@@ -54,7 +54,7 @@ export function PhoneStage({ s1, s4, s1Label, s4Label, calloutMeal, calloutBudge
       {/* cut-outs (§5D): the burrito bowl over S1's bottom-left edge, the parfait over S4's right edge.
           mobile: smaller and behind the phones (negative z inside the isolated stage) */}
       <div className="contact-shadow absolute bottom-[3%] left-[-3%] -z-10 w-[26%] lg:z-(--z-decoration) lg:w-[34%]">
-        <Image src="/img/cutout-burrito-bowl.png" alt="" width={900} height={756} quality={90} priority sizes="(min-width: 1024px) 204px, 120px" className="h-auto w-full" />
+        <Image src="/img/cutout-burrito-bowl.png" alt="" width={900} height={756} quality={90} sizes="(min-width: 1024px) 204px, 120px" className="h-auto w-full" />
       </div>
       <div className="contact-shadow absolute right-[-5%] bottom-[46%] -z-10 w-[20%] lg:z-(--z-decoration) lg:w-[26%]">
         <Image src="/img/cutout-parfait.png" alt="" width={900} height={742} quality={90} sizes="(min-width: 1024px) 156px, 96px" className="h-auto w-full" />

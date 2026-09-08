@@ -15,9 +15,13 @@ const LINKS: [string, string][] = [
 export function Nav() {
   return (
     <header className="chrome sticky top-0 z-(--z-sticky) border-b border-border">
-      <nav aria-label="Primary" className="mx-auto flex h-[72px] max-w-[1200px] items-center gap-x-3 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-12">
-        <Lockup href="/" size={28} thin className="hidden lg:inline-flex" />
-        <Lockup href="/" size={22} thin className="lg:hidden" />
+      <nav aria-label="Primary" className="mx-auto flex h-[72px] max-w-[1200px] items-center gap-x-2 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-12">
+        <div className="hidden lg:block">
+          <Lockup href="/" size={28} thin />
+        </div>
+        <div className="lg:hidden">
+          <Lockup href="/" size={20} thin />
+        </div>
         <ul className="hidden items-center gap-8 lg:flex">
           {LINKS.map(([label, href]) => (
             <li key={href}>
@@ -27,8 +31,8 @@ export function Nav() {
             </li>
           ))}
         </ul>
-        <div className="ml-auto flex items-center gap-x-3 lg:ml-0 lg:justify-self-end">
-          <StoreBadges placement="header" height={36} release={false} wrap={false} playClassName="hidden lg:inline-block" />
+        <div className="ml-auto flex items-center gap-x-1 lg:ml-0 lg:gap-x-3 lg:justify-self-end">
+          <StoreBadges placement="header" height={32} release={false} wrap={false} playClassName="hidden lg:inline-block" className="lg:[&_img]:h-9" />
           {/* mobile: the three links in a sheet under the bar */}
           <details className="group relative lg:hidden">
             <summary aria-label="Menu" className="grid size-11 cursor-pointer list-none place-items-center rounded-[10px] text-ink hover:bg-surface [&::-webkit-details-marker]:hidden">
