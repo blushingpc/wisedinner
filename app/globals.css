@@ -1,116 +1,114 @@
 @import "tailwindcss";
 
-/* warm paper / yolk / kale tokens — docs/DESIGN-AUDIT.md §6, §18.1. use these, never inline values */
+/* REDESIGN-V4 §3 design system. white page, near-black type, forest brand, emerald for checks. use these tokens, never
+   inline values. every old token (paper, yolk, kale, tomato, receipt-*) is gone; the names below are the whole palette. */
 @theme {
-  --color-bg: #faf7f0; /* paper — warm page ground (REDESIGN-V3 §2A) */
-  --color-bg-alt: #f3f0e8; /* linen — alt sections, receipt paper */
-  --color-ink: oklch(0.215 0.004 80); /* #191817 */
-  --color-ink-press: oklch(0.28 0.004 80); /* dark surface hover */
-  --color-ink-soft: #4e4b45; /* ink-2 — secondary text, ≥4.5:1 on paper */
-  --color-ink-3: #6b6862; /* ink-3 — 12px fine print (QR caption, trademark line), ≥4.5:1 on paper */
-  --color-rule: #e6e0d3;
-  --color-green-050: #f2f7f3;
-  --color-green-100: #edf3ec;
-  --color-green-600: #173f2e; /* kale — captions, links, labels */
-  --color-green-700: #0f2c20;
-  --color-green-900: #0f2c20;
-  --color-yolk: #f5b800; /* primary CTA, shelf-tags, highlights — nothing else */
-  --color-yolk-press: #e6ad00;
-  --color-kale: #173f2e; /* the one dark room + captions */
-  --color-kale-press: #0f2c20;
-  --color-tomato: #c8402b; /* receipt total only */
-  --color-accent: #173f2e; /* = kale */
-  --color-accent-wash: #edf3ec;
-  --color-receipt-paper: #f3f0e8; /* = linen — inside receipts only */
-  --color-receipt-total: #c8402b; /* = tomato — inside receipts only */
+  --color-white: #ffffff; /* page */
+  --color-surface: #f5f5f7; /* section and card surface */
+  --color-border: #e6e6e6; /* hairlines, card borders */
+  --color-ink: #111111; /* text */
+  --color-ink-2: #6b6b6b; /* secondary text, 5.7:1 on white */
+  --color-forest: #0b3d2e; /* brand: primary buttons, header mark, dark bands, active states */
+  --color-forest-press: #082e22;
+  --color-emerald: #10b981; /* checks, progress, under budget, receipt verified, icon tiles */
+  --color-emerald-tint: #e7f7f0;
+  --color-danger: #d64545; /* over-budget states only */
 
-  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif; /* body, UI, every number */
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif; /* headings + wordmark */
 
-  --text-micro: 0.6875rem; /* mono micro-labels (receipt + shelf-tag only) */
-  --text-micro--letter-spacing: 0.15em;
-  --text-spec: 0.8125rem; /* spec-sheet rows */
-  --text-caption: 0.875rem; /* bricolage captions replace mono uppercase labels */
-  --text-caption--letter-spacing: 0.02em;
-  --text-base: 1.125rem; /* body */
-  --text-base--line-height: 1.55;
-  --text-h2: clamp(2rem, 3.6vw, 3.25rem);
-  --text-h2--line-height: 1.02;
-  --text-h2--letter-spacing: -0.025em;
-  --text-display: clamp(2.75rem, 6.2vw, 5.25rem);
-  --text-display--line-height: 0.95;
-  --text-display--letter-spacing: -0.035em;
-  --text-hero: clamp(3.5rem, 9vw, 7rem);
-  --text-hero--line-height: 1;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.4;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5;
+  --text-caption: 0.875rem;
+  --text-caption--line-height: 1.5;
+  --text-base: 1.0625rem; /* body */
+  --text-base--line-height: 1.6;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.55;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.5;
+  --text-h3: 1.375rem;
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h2: 2.25rem; /* section headers, centered */
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h1: clamp(2.5rem, 5.5vw, 4.25rem);
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.02em;
 
-  --spacing-band: var(--band); /* py-band — every homepage band; values below, responsive */
-  --spacing-band-spotlight: var(--band-spotlight); /* py-band-spotlight — the receipt room only */
+  --spacing-band: var(--band); /* py-band — every band; 64px mobile, 96px desktop */
 
-  --radius-sm: 4px; /* inputs; receipts are 0 */
-  --radius-cta: 12px;
-  --radius-card: 14px; /* cards, device frames, photos */
-  --radius-sheet: 24px; /* app sheets + phone-screen panels (§2A) */
+  --radius-field: 12px; /* inputs */
+  --radius-cta: 12px; /* buttons; pills only for badges and tags */
+  --radius-card: 16px; /* cards */
+  --radius-screen: 14px; /* phone-screen cards */
 
-  --shadow-receipt: 0 1px 0 rgba(27, 26, 24, 0.04), 0 16px 40px -24px rgba(27, 26, 24, 0.3); /* cards */
-  --shadow-frame: 0 2px 6px rgba(25, 24, 23, 0.28), 0 40px 80px -20px rgba(27, 26, 24, 0.35); /* device frames: contact + deep ambient */
-  --shadow-tag: 0 6px 14px -8px rgba(0, 0, 0, 0.45); /* shelf-tags */
+  --shadow-card: 0 8px 24px rgba(17, 17, 17, 0.06); /* the one ambient shadow: cards and phones, nothing else */
+  --shadow-none: none;
 
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* reveals, 600ms */
-  --ease-press: cubic-bezier(0.32, 0.72, 0, 1); /* interactions, 200ms */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* reveals */
+  --ease-press: cubic-bezier(0.32, 0.72, 0, 1); /* hover and press, 200ms */
 }
 
-/* band rhythm (#15, reference study rank 3): two paddings for every band and one spotlight value for the kale
-   receipt room. per-section py-* values are retired — a band is py-band or py-band-spotlight, nothing else. */
+/* headings and the wordmark are Plus Jakarta Sans 800; everything else inherits Inter from <body> */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* band rhythm: sections are py-16 on phones and py-24 on desktop (§3), expressed once here as py-band */
 :root {
-  --band: 56px;
-  --band-spotlight: 96px;
+  --band: 64px;
 }
 @media (min-width: 1024px) {
   :root {
     --band: 96px;
-    --band-spotlight: 160px;
   }
 }
 
-/* anchors land below the sticky header (one row everywhere since REDESIGN-V3's hamburger nav) */
+/* anchors land below the 72px sticky header */
 html {
   scroll-padding-top: 5.5rem;
 }
 
-/* chrome — the header, the homepage mobile bar and the /plan total bar share one opaque surface (WD-09):
-   solid paper, zero compositing cost, nothing ghosts through. frosted blur reads as mud over food photography. */
+/* chrome — the header and the mobile bar share one opaque white surface; nothing ghosts through */
 .chrome {
-  background: var(--color-bg);
+  background: var(--color-white);
 }
 
-/* the homepage's mobile sticky bar (WD-03) needs the footer to end 9rem early so its last line stays readable;
-   only the page that renders the bar's sentinel pays for it */
+/* the homepage's mobile sticky bar needs the footer to end 9rem early so its last line stays readable */
 @media (max-width: 639px) {
   main:has(#hero-cta-end) + footer > div {
     padding-bottom: 9rem;
   }
 }
 
-/* z-index scale (WD-02) — every z-index on the site is one of these; no two tiers share a value.
-   `z-(--z-decoration)` etc. in class names, never a raw number. */
+/* z-index scale — every z-index on the site is one of these; no two tiers share a value */
 :root {
-  --z-base: 0; /* normal content */
-  --z-decoration: 1; /* dish-drift, floating garnish, glare */
-  --z-raised: 10; /* cards and tags lifting off the page */
-  --z-sticky: 50; /* header, mobile CTA bar, /plan total bar, quiz progress line */
-  --z-modal: 100; /* nothing uses this yet — reserved */
+  --z-base: 0;
+  --z-decoration: 1; /* cut-outs, glare */
+  --z-raised: 10; /* cards and callouts lifting off the page */
+  --z-sticky: 50; /* header, mobile CTA bar */
+  --z-modal: 100; /* reserved */
   --z-toast: 110; /* skip-to-content link */
 }
 
-/* WD-13: the ring sits 2px outside the control, on the surrounding ground — ink reads on paper, linen and yolk;
-   the spec's currentColor measured 1.00:1 on inverted controls (yolk-on-ink CTA over the yolk section, paper-on-kale
-   demo button over paper). the kale room is the one dark ground, so it gets a paper ring. */
+/* focus ring sits 2px outside the control: forest on white surfaces, white inside the forest band */
 :focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--color-forest);
   outline-offset: 2px;
 }
-.bg-kale :focus-visible {
-  outline-color: var(--color-bg);
+.bg-forest :focus-visible {
+  outline-color: var(--color-white);
 }
 
 /* reveals — visible by default; app/reveal.tsx adds .reveal-from only when JS runs */
@@ -132,135 +130,188 @@ html {
   }
 }
 
-/* receipt furniture */
+/* every number is Inter with tabular figures (§3) so columns of prices line up */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* receipt furniture (the /drop receipt only) */
 .leader {
   flex: 1;
   margin: 0 0.5ch 0.3em;
-  border-bottom: 2px dotted var(--color-rule);
-}
-.barcode {
-  height: 32px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--color-ink) 0 2px,
-    transparent 2px 4px,
-    var(--color-ink) 4px 5px,
-    transparent 5px 9px,
-    var(--color-ink) 9px 12px,
-    transparent 12px 14px
-  );
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* every number on the site and in the app screens is IBM Plex Mono, tabular (§2A) — columns of prices line up */
-.font-mono { font-variant-numeric: tabular-nums; }
-
-/* S4 thermal receipt paper: faint horizontal print banding on linen */
-.thermal {
-  background:
-    repeating-linear-gradient(180deg, rgba(27, 26, 24, 0.035) 0 1px, transparent 1px 3px),
-    var(--color-receipt-paper);
-}
-
-/* uniform photo grade — every brand photo goes through this, no per-image tuning */
+/* brand photos are editorial on seamless white (§5E): no grade, they sit on the page as shot */
 .img-grade {
-  filter: saturate(1.03) contrast(1.02); /* food carries warmth */
+  filter: none;
 }
 
-/* shared primitives — one class per intent (SITE-SPEC §6) */
+/* shared primitives — one class per intent */
 .cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
+  min-height: 48px;
   padding: 0.75rem 1.25rem;
   border-radius: var(--radius-cta);
-  background: var(--color-yolk);
-  color: var(--color-ink);
-  font-weight: 700;
+  background: var(--color-forest);
+  color: var(--color-white);
+  font-size: 1rem;
+  font-weight: 600;
   white-space: nowrap;
-  transition: background-color 200ms var(--ease-press), transform 200ms var(--ease-press);
+  transition:
+    background-color 200ms var(--ease-press),
+    transform 200ms var(--ease-press);
 }
-/* narrow phones: wordmark + cta + hamburger share 390px — tighten only the header's cta */
 @media (max-width: 420px) {
-  header .cta { padding: 0.75rem; font-size: 0.875rem; }
-  /* the waitlist submit and its ghost twin become one full-width 54px tap target (#14) — .cta's own min-height is unlayered, so utilities can't override it */
-  .cta-wide { width: 100%; min-height: 54px; }
+  header .cta {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+  .cta-wide {
+    width: 100%;
+    min-height: 54px;
+  }
 }
-.cta:hover { background: var(--color-yolk-press); }
-.cta:active { transform: scale(0.98); }
-.cta:disabled { opacity: 0.6; transform: none; }
-.cta-ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1.5px var(--color-ink); }
-.cta-ghost:hover { background: var(--color-ink); color: var(--color-bg); }
-/* final-CTA primary only — the one place ink-on-yolk inverts to yolk-on-ink */
-.cta-ink { min-height: 54px; background: var(--color-ink); color: var(--color-yolk); }
-.cta-ink:hover { background: var(--color-ink-press); }
-.text-link { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.cta:hover {
+  background: var(--color-forest-press);
+}
+.cta:active {
+  transform: scale(0.98);
+}
+.cta:disabled {
+  opacity: 0.6;
+  transform: none;
+}
+.cta-ghost {
+  background: transparent;
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 1.5px var(--color-border);
+}
+.cta-ghost:hover {
+  background: var(--color-surface);
+}
+/* on the forest band the primary button inverts: white with forest text */
+.cta-light {
+  background: var(--color-white);
+  color: var(--color-forest);
+}
+.cta-light:hover {
+  background: var(--color-surface);
+}
 .field {
   width: 100%;
-  min-height: 44px;
-  border: 1px solid var(--color-rule);
-  border-radius: var(--radius-sm);
-  background: var(--color-bg);
+  min-height: 48px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-field);
+  background: var(--color-white);
+  color: var(--color-ink);
   padding: 0.75rem 1rem;
+  font-size: 1rem;
 }
-.field::placeholder { color: var(--color-ink-soft); } /* 4.6:1 on white */
-.prose h2 { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; margin-top: 2.5rem; scroll-margin-top: 0.5rem; } /* html scroll-padding clears the header */
-.prose p, .prose ul { margin-top: 1rem; max-width: 65ch; }
-.prose ul { padding-left: 1.25rem; list-style: disc; }
-.prose a { text-decoration: underline; text-underline-offset: 4px; }
+.field::placeholder {
+  color: var(--color-ink-2);
+}
+.prose h2 {
+  font-size: 1.375rem;
+  margin-top: 2.5rem;
+  scroll-margin-top: 0.5rem;
+}
+.prose p,
+.prose ul {
+  margin-top: 1rem;
+  max-width: 60ch;
+}
+.prose ul {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 
-/* design v2 — brief surfaces */
-.hero-field {
-  background: radial-gradient(ellipse 60% 50% at 60% 40%, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+/* hero arrow: the hand-drawn stroke draws in on first view; reduced motion means already drawn */
+.arrow-path {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
 }
-/* floating cut-out dishes drift 6px over 6s (DESIGN-AUDIT §12) */
-@keyframes dish-drift {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+.arrow-head {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
 }
-.dish-drift { animation: dish-drift 6s ease-in-out infinite; }
-
-/* hero arrow (REDESIGN-V3 §4/§7): the hand-drawn stroke draws in 900ms on first view; reduced motion → already drawn */
-.arrow-path { stroke-dasharray: 420; stroke-dashoffset: 420; }
-.arrow-head { stroke-dasharray: 60; stroke-dashoffset: 60; }
-.arrow-drawn .arrow-path { animation: arrow-draw 700ms var(--ease-out) forwards; }
-.arrow-drawn .arrow-head { animation: arrow-draw 200ms var(--ease-out) 700ms forwards; }
-@keyframes arrow-draw { to { stroke-dashoffset: 0; } }
+.arrow-drawn .arrow-path {
+  animation: arrow-draw 700ms var(--ease-out) forwards;
+}
+.arrow-drawn .arrow-head {
+  animation: arrow-draw 200ms var(--ease-out) 700ms forwards;
+}
+@keyframes arrow-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .arrow-path, .arrow-head { stroke-dashoffset: 0; animation: none; }
+  .arrow-path,
+  .arrow-head {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
 }
-/* hero load: fade-up staggered 80ms (DESIGN-AUDIT §12.1) */
+/* hero load: fade-up staggered 80ms */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
-.fade-up { animation: fade-up 300ms var(--ease-press) both; }
+.fade-up {
+  animation: fade-up 300ms var(--ease-press) both;
+}
 @media (prefers-reduced-motion: reduce) {
-  .dish-drift, .fade-up { animation: none; }
+  .fade-up {
+    animation: none;
+  }
 }
 
-/* header sheet — slides down from under the sticky nav (§9.1) */
+/* header sheet — slides down from under the sticky nav */
 @keyframes sheet-drop {
-  from { opacity: 0; transform: translateY(-8px); }
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
 }
-.sheet-drop { animation: sheet-drop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.sheet-drop {
+  animation: sheet-drop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 @media (prefers-reduced-motion: reduce) {
-  .sheet-drop { animation: none; }
+  .sheet-drop {
+    animation: none;
+  }
 }
-/* DeviceFrame v3 — screen glare (~6% white on a 115° diagonal) and the body-shaped shadows. the screen box owns
-   --pt: one iPhone point at a 390pt design width, and every app screen sizes in em off a 16pt font. */
+
+/* DeviceFrame: the screen box owns --pt, one iPhone point at a 390pt design width; every app screen sizes in em
+   off a 16pt font. */
 .screen {
   --pt: calc(100cqw * 0.8933 / 390);
   font-size: calc(16 * var(--pt));
   line-height: 1.25;
 }
-/* a bare screen (no bezel — the store export): the container IS the screen, so one point = 1/390 of it */
+/* a bare screen (no bezel, the store export): the container is the screen, so one point is 1/390 of it */
 .bare .screen {
   --pt: calc(100cqw / 390);
 }
 /* the S3 share card rendered at page width (/w/<id>): em sizing re-based to the page font */
-.screen-page { font-size: 1.125rem; }
-/* below-the-fold bands skip layout/paint until they scroll near (REDESIGN-V3 §7 perf gate); anchors still work */
+.screen-page {
+  font-size: 1.125rem;
+}
+/* below-the-fold bands skip layout and paint until they scroll near; anchors still work */
 .cv-auto {
   content-visibility: auto;
   contain-intrinsic-size: auto 720px;
@@ -268,36 +319,23 @@ html {
 .frame-glare {
   background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0.06) 56%, transparent 62%);
 }
-/* the homepage receipt prints in top-to-bottom (DESIGN-AUDIT §12.3). rides [data-reveal] +
-   app/reveal.tsx: no JS or reduced motion → the receipt is simply there. negative inset keeps
-   the card shadow unclipped in the settled state. */
-.receipt-print {
-  clip-path: inset(-10% -10% -10% -10%);
-  transition: clip-path 600ms var(--ease-out);
-}
-.receipt-print.reveal-from {
-  opacity: 1;
-  transform: none; /* the 3° tilt is the standalone rotate property; only the fade/slide is cancelled */
-  clip-path: inset(-10% -10% 100% -10%);
-}
-@media (prefers-reduced-motion: reduce) {
-  .receipt-print {
-    transition-duration: 1ms;
-  }
-}
 
 .lift {
-  transition: transform 200ms var(--ease-press), box-shadow 200ms var(--ease-press);
+  transition:
+    transform 200ms var(--ease-press),
+    box-shadow 200ms var(--ease-press);
 }
 .lift:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-receipt);
+  box-shadow: var(--shadow-card);
 }
 @media (prefers-reduced-motion: reduce) {
-  .lift:hover { transform: none; }
+  .lift:hover {
+    transform: none;
+  }
 }
 
-/* numeric inputs without native spinners — the keyboard is the stepper */
+/* numeric inputs without native spinners */
 .no-spin::-webkit-outer-spin-button,
 .no-spin::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -308,26 +346,26 @@ html {
   appearance: textfield;
 }
 
-/* tier-3 item 4: link underlines animate in from the left; instant under reduced motion */
+/* text links: underline animates in from the left; instant under reduced motion */
 .text-link,
 .text-link-quiet {
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;
   background-position: 0 100%;
-  background-size: 100% 2px;
+  background-size: 100% 1.5px;
   text-decoration: none;
   padding-bottom: 2px;
   transition: background-size 250ms var(--ease-press);
 }
 .text-link-quiet {
-  background-size: 0 2px;
+  background-size: 0 1.5px;
 }
 .text-link-quiet:hover,
 .text-link:hover {
-  background-size: 100% 2px;
+  background-size: 100% 1.5px;
 }
 .text-link:not(:hover) {
-  background-size: 100% 2px;
+  background-size: 100% 1.5px;
 }
 @media (prefers-reduced-motion: reduce) {
   .text-link,
@@ -336,27 +374,44 @@ html {
   }
 }
 
-/* LCP-safe entrance for the H1 (18.5 gate): transform-only, so the headline paints at t=0 */
+/* LCP-safe entrance for the H1: transform only, so the headline paints at t=0 */
 .rise-up {
   animation: rise-up 300ms var(--ease-out) both;
   animation-delay: 60ms;
 }
 @keyframes rise-up {
-  from { transform: translateY(14px); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(14px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rise-up { animation: none; }
+  .rise-up {
+    animation: none;
+  }
 }
 
-/* device-frame v3 shadows: a soft contact shadow + a wide ambient one, grounded toward the window light on the
-   left. shapes live on a body-shaped layer behind the bezel PNG. reduced-motion unaffected (static). */
-.frame-shadow {
-  box-shadow: 0 2px 6px rgba(25, 24, 23, 0.28), 0 40px 80px -20px rgba(27, 26, 24, 0.35);
-}
-.frame-shadow-left {
-  box-shadow: -18px 32px 44px -18px rgba(27, 26, 24, 0.4), -40px 70px 110px -30px rgba(27, 26, 24, 0.22);
-}
+/* phones carry the same one ambient shadow as cards (§3), plus a faint contact line so they rest on the page */
+.frame-shadow,
+.frame-shadow-left,
 .frame-shadow-right {
-  box-shadow: 16px 34px 44px -18px rgba(27, 26, 24, 0.42), 36px 72px 110px -30px rgba(27, 26, 24, 0.22);
+  box-shadow:
+    0 1px 2px rgba(17, 17, 17, 0.12),
+    0 8px 24px rgba(17, 17, 17, 0.06),
+    0 32px 64px -24px rgba(17, 17, 17, 0.18);
+}
+/* cut-outs rest on a soft elliptical contact shadow (§5D) */
+.contact-shadow::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -4%;
+  height: 12%;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, 0.12);
+  filter: blur(24px);
+  z-index: -1;
 }

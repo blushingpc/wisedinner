@@ -15,13 +15,13 @@ export default function About() {
     <main id="main">
       <Section className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
         <div>
-          <p className="font-mono text-micro uppercase text-green-600">about</p>
-          <h1 className="mt-4 text-display font-bold text-balance">groceries, as a math problem.</h1>
+          <p className="tnum text-xs uppercase text-forest">about</p>
+          <h1 className="mt-4 text-h1 font-bold text-balance">groceries, as a math problem.</h1>
           <div className="mt-8 max-w-[62ch] space-y-5 text-xl">
             {ABOUT.map((p) => (
               <p key={p.slice(0, 20)}>{p}</p>
             ))}
-            <p className="text-ink-soft">— the wisedinner team</p>
+            <p className="text-ink-2">— the wisedinner team</p>
           </div>
           <Link href="/press" className="text-link mt-8 inline-flex min-h-11 items-center">
             press kit →

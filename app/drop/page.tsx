@@ -21,16 +21,16 @@ export default function Drop() {
           <ReceiptCard week={drop} variant="drop" title="this week's drop" tilt />
         </div>
         <div className="order-1 lg:order-2">
-          <p className="font-mono text-micro uppercase text-green-600">refreshed every sunday · generated {drop.generated_at}</p>
-          <h1 className="mt-4 text-display font-bold text-balance">this week&apos;s protein plan.</h1>
-          <p className="mt-6 max-w-[62ch] text-xl text-ink-soft">
+          <p className="tnum text-xs uppercase text-forest">refreshed every sunday · generated {drop.generated_at}</p>
+          <h1 className="mt-4 text-h1 font-bold text-balance">this week&apos;s protein plan.</h1>
+          <p className="mt-6 max-w-[62ch] text-xl text-ink-2">
             one universal week: {drop.input.protein_per_day} g protein a day for one person, solved under ${drop.input.budget} at this week&apos;s estimated shelf prices. no
             account, no card. your own numbers go through the demo.
           </p>
           <ol className="mt-8 max-w-[62ch]">
             {drop.days.map((d) => (
-              <li key={d.day} className="border-t border-rule py-4">
-                <div className="flex items-baseline justify-between font-mono text-micro uppercase text-ink-soft">
+              <li key={d.day} className="border-t border-border py-4">
+                <div className="flex items-baseline justify-between tnum text-xs uppercase text-ink-2">
                   <span>{d.day}</span>
                   <span>
                     {d.protein_g} g · {d.kcal} kcal
@@ -39,19 +39,19 @@ export default function Drop() {
                 <ol className="mt-1 grid gap-1">
                   {d.items.map((i) => (
                     <li key={i.unit} className="grid grid-cols-[5.5rem_1fr_auto] items-baseline gap-2">
-                      <span className="font-mono text-micro uppercase text-ink-soft">{i.unit}</span>
+                      <span className="tnum text-xs uppercase text-ink-2">{i.unit}</span>
                       <span>
                         {i.name}
-                        <span className="block font-mono text-micro text-ink-soft">{i.portion}</span>
+                        <span className="block tnum text-xs text-ink-2">{i.portion}</span>
                       </span>
-                      <span className="font-mono text-spec tabular-nums text-ink-soft">{i.protein_g} g</span>
+                      <span className="tnum text-sm tabular-nums text-ink-2">{i.protein_g} g</span>
                     </li>
                   ))}
                 </ol>
               </li>
             ))}
           </ol>
-          <div className="mt-12 border-t border-rule pt-8">
+          <div className="mt-12 border-t border-border pt-8">
             <h2 className="text-2xl font-medium">get next week&apos;s drop first</h2>
             <div className="mt-6">
               <WaitlistForm source="drop" />

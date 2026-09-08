@@ -41,12 +41,12 @@ export default function TheMath() {
     <main id="main">
       <section className="py-band">
         <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
-          <h1 className="text-display font-bold">how the math works</h1>
+          <h1 className="text-h1 font-bold">how the math works</h1>
           <div className="mt-10 max-w-[60ch]">
             {SECTIONS.map(([h, body]) => (
               <section key={h} className="mt-8 first:mt-0">
                 <h2 className="text-[1.375rem] font-bold tracking-[-0.02em]">{h}</h2>
-                <p className="mt-2 text-ink-soft">{body}</p>
+                <p className="mt-2 text-ink-2">{body}</p>
               </section>
             ))}
           </div>

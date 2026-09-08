@@ -64,12 +64,12 @@ export function PhoneStage({ s1, s4, s1Label, s4Label, calloutMeal, calloutBudge
       <Callout className="right-[2%] top-[58%] rotate-[-2deg] lg:right-auto lg:left-[40%]">
         {calloutMeal}
       </Callout>
-      <Callout className="left-[-1%] top-[67%] rotate-[2deg]" tone="kale">
+      <Callout className="left-[-1%] top-[67%] rotate-[2deg]" tone="forest">
         {calloutBudget}
       </Callout>
 
       {/* hand-drawn arrow: S1 scorecard → S4 comparison */}
-      <svg aria-hidden="true" viewBox="0 0 600 780" preserveAspectRatio="none" className={`pointer-events-none absolute inset-0 h-full w-full text-kale ${drawn ? "arrow-drawn" : ""}`} fill="none" stroke="currentColor" strokeWidth="3" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round">
+      <svg aria-hidden="true" viewBox="0 0 600 780" preserveAspectRatio="none" className={`pointer-events-none absolute inset-0 h-full w-full text-forest ${drawn ? "arrow-drawn" : ""}`} fill="none" stroke="currentColor" strokeWidth="3" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round">
         <path className="arrow-path" d="M 310 452 C 400 446, 470 420, 470 350 C 470 300, 450 272, 432 250" />
         <path className="arrow-head" d="M 416 270 L 432 250 L 448 272" />
       </svg>
@@ -99,8 +99,8 @@ export function PhoneStage({ s1, s4, s1Label, s4Label, calloutMeal, calloutBudge
   );
 }
 
-function Callout({ children, className = "", tone = "paper" }: { children: React.ReactNode; className?: string; tone?: "paper" | "kale" }) {
+function Callout({ children, className = "", tone = "paper" }: { children: React.ReactNode; className?: string; tone?: "paper" | "forest" }) {
   return (
-    <p className={`callout absolute z-(--z-raised) whitespace-nowrap rounded-[10px] px-3 py-1.5 font-mono text-[0.75rem] font-semibold shadow-tag lg:text-[0.875rem] ${tone === "kale" ? "bg-kale text-bg" : "bg-white text-ink"} ${className}`}>{children}</p>
+    <p className={`callout absolute z-(--z-raised) whitespace-nowrap rounded-[10px] px-3 py-1.5 tnum text-[0.75rem] font-semibold shadow-card lg:text-[0.875rem] ${tone === "forest" ? "bg-forest text-white" : "bg-white text-ink"} ${className}`}>{children}</p>
   );
 }

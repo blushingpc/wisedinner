@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 export const runtime = "edge";
 
 // A6 (DESIGN-AUDIT §13): composed OG — A2 crop left two-thirds, lowercase headline in real
-// Bricolage 800 on paper, one yolk shelf-tag, small wordmark. fonts + crop are committed assets.
+// Bricolage 800 on paper, one forest shelf-tag, small wordmark. fonts + crop are committed assets.
 const COPY: Record<string, [string, string]> = {
   home: ["hit your protein.", "spend way less."],
   drop: ["this week's protein plan.", "refreshed every sunday."],

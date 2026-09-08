@@ -7,12 +7,12 @@ export function LegalLayout({ title, effective, sections }: { title: string; eff
   return (
     <main id="main" className="mx-auto grid max-w-[1200px] gap-12 px-6 py-14 lg:grid-cols-[220px_1fr] lg:px-12 lg:py-24">
       <nav aria-label="on this page" className="hidden self-start lg:sticky lg:top-24 lg:block">
-        <p className="font-mono text-micro uppercase text-ink-soft">contents</p>
-        <ol className="mt-3 space-y-1 text-spec">
+        <p className="tnum text-xs uppercase text-ink-2">contents</p>
+        <ol className="mt-3 space-y-1 text-sm">
           {sections.map((s, i) => (
             <li key={s.id}>
               <a href={`#${s.id}`} className="inline-flex min-h-8 items-center hover:underline">
-                <span className="mr-2 font-mono text-ink-soft">{String(i + 1).padStart(2, "0")}</span>
+                <span className="mr-2 tnum text-ink-2">{String(i + 1).padStart(2, "0")}</span>
                 {s.title}
               </a>
             </li>
@@ -20,8 +20,8 @@ export function LegalLayout({ title, effective, sections }: { title: string; eff
         </ol>
       </nav>
       <article className="prose">
-        <h1 className="text-display font-bold">{title}</h1>
-        <p className="mt-3 font-mono text-micro uppercase text-ink-soft">effective: {effective}</p>
+        <h1 className="text-h1 font-bold">{title}</h1>
+        <p className="mt-3 tnum text-xs uppercase text-ink-2">effective: {effective}</p>
         {sections.map((s, i) => (
           <section key={s.id}>
             <h2 id={s.id}>
@@ -30,7 +30,7 @@ export function LegalLayout({ title, effective, sections }: { title: string; eff
             {s.body}
           </section>
         ))}
-        <p className="mt-12 font-mono text-spec">
+        <p className="mt-12 tnum text-sm">
           questions:{" "}
           <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
         </p>

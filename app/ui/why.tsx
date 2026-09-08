@@ -13,12 +13,12 @@ export function Why() {
           {site.why.items.map((it) => {
             const Icon = ICONS[it.icon as keyof typeof ICONS];
             return (
-              <li key={it.title} className="lift rounded-[14px] border border-rule bg-bg p-6 lg:p-8">
-                <span className="grid size-12 place-items-center rounded-[12px] bg-bg-alt text-kale">
+              <li key={it.title} className="lift rounded-[14px] border border-border bg-white p-6 lg:p-8">
+                <span className="grid size-12 place-items-center rounded-[12px] bg-surface text-forest">
                   <Icon size={26} weight="regular" aria-hidden="true" />
                 </span>
                 <h3 className="mt-5 text-[1.375rem] leading-tight font-bold">{it.title}</h3>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">{it.body}</p>
+                <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-2">{it.body}</p>
               </li>
             );
           })}

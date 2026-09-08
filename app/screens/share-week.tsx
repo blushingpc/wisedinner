@@ -26,20 +26,20 @@ export function ShareWeek({ week }: { week: FixtureWeek }) {
 export function ShareCard({ week, className = "" }: { week: FixtureWeek; className?: string }) {
   const dinners = week.days.map((d) => d.meals.find((m) => m.slot === "dinner") ?? d.meals[0]);
   return (
-    <div className={`rounded-[1.5em] border border-rule bg-bg-alt p-[1.25em] ${className}`}>
+    <div className={`rounded-[1.5em] border border-border bg-surface p-[1.25em] ${className}`}>
       <div className="flex items-center justify-between">
         <Lockup className="text-[1em]" />
-        <span className="text-[0.75em] font-semibold text-ink-soft">solved week</span>
+        <span className="text-[0.75em] font-semibold text-ink-2">solved week</span>
       </div>
-      <p className="mt-[0.9em] font-mono text-[1.125em] font-semibold tracking-tight">
-        {usd(week.totals.est_total_usd)} · {week.totals.protein_per_day_g}g/day · <span className="text-kale">✓✓✓</span>
+      <p className="mt-[0.9em] tnum text-[1.125em] font-semibold tracking-tight">
+        {usd(week.totals.est_total_usd)} · {week.totals.protein_per_day_g}g/day · <span className="text-forest">✓✓✓</span>
       </p>
       <div className="mt-[0.9em] grid grid-cols-5 gap-[0.4em]">
         {dinners.map((m) => (
           <Image key={m.menu} src={m.img} alt={m.name} width={160} height={160} quality={75} sizes="64px" className="img-grade aspect-square w-full rounded-[0.625em] object-cover" />
         ))}
       </div>
-      <p className="mt-[0.75em] text-[0.75em] leading-snug text-ink-soft">
+      <p className="mt-[0.75em] text-[0.75em] leading-snug text-ink-2">
         five dinners · one {week.totals.items}-item list · under budget by {usd(week.totals.under_budget_by_usd)}
       </p>
     </div>

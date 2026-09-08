@@ -16,7 +16,7 @@ export function ThisWeek({ week, active = "tue", priority = false }: { week: Fix
       <Header title="this week" right={<Pill>{usd(week.totals.est_total_usd)} · one trip</Pill>} />
       <div className="mt-[1em] flex gap-[0.5em] px-[1.25em]">
         {DAYS.map((d) => (
-          <span key={d} className={`flex-1 rounded-full py-[0.45em] text-center text-[0.8125em] font-semibold ${d === active ? "bg-ink text-bg" : "bg-bg-alt text-ink-soft"}`}>
+          <span key={d} className={`flex-1 rounded-full py-[0.45em] text-center text-[0.8125em] font-semibold ${d === active ? "bg-ink text-white" : "bg-surface text-ink-2"}`}>
             {LABEL[d]}
           </span>
         ))}
@@ -26,8 +26,8 @@ export function ThisWeek({ week, active = "tue", priority = false }: { week: Fix
           <MealCard key={m.slot} meal={m} priority={priority} />
         ))}
       </div>
-      {/* the Three Checks — under budget ✓ · protein hit ✓ · zero waste ✓, in kale */}
-      <div className="mx-[1.25em] mt-[1em] grid grid-cols-3 gap-[0.25em] rounded-[0.875em] bg-green-050 px-[0.5em] py-[0.75em] text-center text-kale">
+      {/* the Three Checks — under budget ✓ · protein hit ✓ · zero waste ✓, in forest */}
+      <div className="mx-[1.25em] mt-[1em] grid grid-cols-3 gap-[0.25em] rounded-[0.875em] bg-surface px-[0.5em] py-[0.75em] text-center text-forest">
         <Check big="under budget" small={`by ${usd(week.totals.under_budget_by_usd)}`} />
         <Check big={`${week.totals.protein_per_day_g}g`} small="/ day" />
         <Check big={`${week.totals.waste_lb} lb`} small="wasted" />
@@ -41,7 +41,7 @@ function Check({ big, small }: { big: string; small: string }) {
   return (
     <div className="min-w-0">
       <p className="text-[0.7em] font-bold">✓</p>
-      <p className="truncate font-mono text-[0.75em] font-semibold">{big}</p>
+      <p className="truncate tnum text-[0.75em] font-semibold">{big}</p>
       <p className="truncate text-[0.625em] font-medium opacity-80">{small}</p>
     </div>
   );

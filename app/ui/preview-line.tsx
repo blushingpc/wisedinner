@@ -2,7 +2,7 @@
 export function PreviewLine({ budget, protein, items, className = "" }: { budget: number; protein: number; items: number; className?: string }) {
   const b = "font-semibold tabular-nums text-ink";
   return (
-    <p className={`text-ink-soft ${className}`}>
+    <p className={`text-ink-2 ${className}`}>
       <span className={b}>${budget}</span> → 5 dinners · <span className={b}>{protein} g</span> a day · ~<span className={b}>{items}</span> items
     </p>
   );

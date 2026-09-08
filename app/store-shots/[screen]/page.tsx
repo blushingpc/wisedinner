@@ -28,7 +28,7 @@ export default async function StoreShot({ params }: { params: Promise<{ screen: 
   if (!shot) notFound();
   const [, caption, node] = shot;
   return (
-    <div className="store-shot flex h-[2796px] w-[1290px] flex-col bg-bg text-ink" style={{ containerType: "inline-size" }}>
+    <div className="store-shot flex h-[2796px] w-[1290px] flex-col bg-white text-ink" style={{ containerType: "inline-size" }}>
       <p className="px-[100px] pt-[150px] pb-[90px] text-center text-[92px] leading-[1.05] font-bold tracking-[-0.03em] text-balance">{caption}</p>
       <div className="bare @container mx-auto w-[1290px] flex-1">
         <div className="screen relative h-full w-full overflow-hidden">{node}</div>

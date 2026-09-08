@@ -35,12 +35,12 @@ export default function Pricing() {
       <script type="application/ld+json">{JSON.stringify(LD)}</script>
       <PageView event="pricing_view" />
       <Section>
-        <p className="font-mono text-micro uppercase text-green-600">pricing</p>
-        <h1 className="mt-4 text-display font-bold text-balance">pricing that&apos;ll apply in the app — nothing for sale on this page yet.</h1>
+        <p className="tnum text-xs uppercase text-forest">pricing</p>
+        <h1 className="mt-4 text-h1 font-bold text-balance">pricing that&apos;ll apply in the app — nothing for sale on this page yet.</h1>
         <div className="mt-12">
           <PricingCards />
         </div>
-        <div className="mt-14 border-t border-rule pt-8">
+        <div className="mt-14 border-t border-border pt-8">
           <h2 className="text-2xl font-medium">not on iPhone? get the launch email</h2>
           <div className="mt-6">
             <WaitlistForm source="pricing" />

@@ -18,7 +18,7 @@ export function CountUp({ value, prefix = "", suffix = "", decimals = 2, classNa
     return () => cancelAnimationFrame(raf);
   }, [value]);
   return (
-    <span className={`font-mono tabular-nums ${className}`}>
+    <span className={`tnum tabular-nums ${className}`}>
       {prefix}
       {n.toFixed(decimals)}
       {suffix}

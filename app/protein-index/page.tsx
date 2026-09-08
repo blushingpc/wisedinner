@@ -19,12 +19,12 @@ export default function ProteinIndex() {
   return (
     <main id="main">
       <Section>
-        <p className="text-caption font-semibold text-kale">protein index</p>
-        <h1 className="mt-3 text-display font-bold text-balance">the cheapest protein on the shelf.</h1>
-        <p className="mt-5 max-w-[60ch] text-xl text-ink-soft">every staple the solver can buy, ranked by what a gram of protein costs at the register.</p>
-        <div className="mt-10 overflow-x-auto rounded-[14px] border border-rule bg-white">
-          <table className="w-full font-mono text-spec">
-            <thead className="bg-bg-alt text-left text-micro tracking-[0.1em] text-ink-soft uppercase">
+        <p className="text-caption font-semibold text-forest">protein index</p>
+        <h1 className="mt-3 text-h1 font-bold text-balance">the cheapest protein on the shelf.</h1>
+        <p className="mt-5 max-w-[60ch] text-xl text-ink-2">every staple the solver can buy, ranked by what a gram of protein costs at the register.</p>
+        <div className="mt-10 overflow-x-auto rounded-[14px] border border-border bg-white">
+          <table className="w-full tnum text-sm">
+            <thead className="bg-surface text-left text-xs tracking-[0.1em] text-ink-2 uppercase">
               <tr>
                 <th className="px-4 py-3">#</th>
                 <th className="px-4 py-3">staple</th>
@@ -35,22 +35,22 @@ export default function ProteinIndex() {
                 <th className="px-4 py-3 text-right">g per $</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-rule">
+            <tbody className="divide-y divide-border">
               {rows.map((s, i) => (
-                <tr key={s.name} className={i < 3 ? "bg-green-050" : ""}>
-                  <td className="px-4 py-2.5 text-ink-soft">{i + 1}</td>
+                <tr key={s.name} className={i < 3 ? "bg-surface" : ""}>
+                  <td className="px-4 py-2.5 text-ink-2">{i + 1}</td>
                   <td className="px-4 py-2.5 font-sans font-medium">{s.name}</td>
-                  <td className="px-4 py-2.5 text-ink-soft">{s.unit}</td>
+                  <td className="px-4 py-2.5 text-ink-2">{s.unit}</td>
                   <td className="px-4 py-2.5 text-right">${s.price_usd.toFixed(2)}</td>
                   <td className="px-4 py-2.5 text-right">{s.protein_g} g</td>
-                  <td className="px-4 py-2.5 text-right font-semibold text-kale">{s.centsPerGram.toFixed(1)}¢</td>
+                  <td className="px-4 py-2.5 text-right font-semibold text-forest">{s.centsPerGram.toFixed(1)}¢</td>
                   <td className="px-4 py-2.5 text-right">{s.perDollar.toFixed(0)} g</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-6 text-caption text-ink-soft">estimates; refreshed weekly at launch. shelf prices carry a buffer and are labeled as estimates everywhere they appear.</p>
+        <p className="mt-6 text-caption text-ink-2">estimates; refreshed weekly at launch. shelf prices carry a buffer and are labeled as estimates everywhere they appear.</p>
       </Section>
     </main>
   );

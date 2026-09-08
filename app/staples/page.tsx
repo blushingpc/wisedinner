@@ -23,11 +23,11 @@ export default function Staples() {
     <main id="main" className="mx-auto max-w-[1200px] px-6 py-10 lg:px-12">
       <header className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
         <span className="text-lg font-bold tracking-tight">wisedinner</span>
-        <span className="font-mono text-micro uppercase text-ink-soft">
+        <span className="tnum text-xs uppercase text-ink-2">
           staple pool v0 · {staples.length} skus · prices as of {asOf} · est. in-store, +10% buffer
         </span>
         {stale && (
-          <span className="font-mono text-micro uppercase">
+          <span className="tnum text-xs uppercase">
             stale: some prices are older than {STALE_AFTER_DAYS} days
           </span>
         )}
@@ -35,9 +35,9 @@ export default function Staples() {
 
       {/* spec-sheet rows: mono 13px, hairline per row, no boxes */}
       <div className="mt-8 overflow-x-auto">
-        <table className="w-full border-collapse font-mono text-spec tabular-nums">
+        <table className="w-full border-collapse tnum text-sm tabular-nums">
           <thead>
-            <tr className="text-left text-micro whitespace-nowrap text-ink-soft">
+            <tr className="text-left text-xs whitespace-nowrap text-ink-2">
               <th className="py-2 pr-4 font-normal">item</th>
               <th className="py-2 pr-4 font-normal">unit</th>
               <th className="py-2 pr-4 text-right font-normal">price</th>
@@ -50,15 +50,15 @@ export default function Staples() {
           </thead>
           <tbody>
             {staples.map((s) => (
-              <tr key={s.name} className="border-t border-rule">
+              <tr key={s.name} className="border-t border-border">
                 <td className="py-1.5 pr-4 whitespace-nowrap">{s.name}</td>
-                <td className="py-1.5 pr-4 whitespace-nowrap text-ink-soft">{s.unit}</td>
+                <td className="py-1.5 pr-4 whitespace-nowrap text-ink-2">{s.unit}</td>
                 <td className="py-1.5 pr-4 text-right">${s.price_usd.toFixed(2)}</td>
                 <td className="py-1.5 pr-4 text-right">{s.protein_g}</td>
                 <td className="py-1.5 pr-4 text-right">{s.kcal}</td>
-                <td className="py-1.5 pr-4 whitespace-nowrap text-ink-soft">{s.diet_flags.join(" ")}</td>
-                <td className="py-1.5 pr-4 text-ink-soft">{s.perishable ? "yes" : "no"}</td>
-                <td className="py-1.5 whitespace-nowrap text-ink-soft">{s.price_as_of}</td>
+                <td className="py-1.5 pr-4 whitespace-nowrap text-ink-2">{s.diet_flags.join(" ")}</td>
+                <td className="py-1.5 pr-4 text-ink-2">{s.perishable ? "yes" : "no"}</td>
+                <td className="py-1.5 whitespace-nowrap text-ink-2">{s.price_as_of}</td>
               </tr>
             ))}
           </tbody>

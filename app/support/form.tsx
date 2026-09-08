@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { track } from "@/app/ui/track";
 
-const label = "block font-mono text-micro uppercase text-ink-soft";
+const label = "block tnum text-xs uppercase text-ink-2";
 
 export function SupportForm() {
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
@@ -57,7 +57,7 @@ export function SupportForm() {
       </div>
       <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       {state === "error" && (
-        <p role="alert" className="font-mono text-spec text-receipt-total">
+        <p role="alert" className="tnum text-sm text-danger">
           that didn&apos;t go through. try once more?
         </p>
       )}

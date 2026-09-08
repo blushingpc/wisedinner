@@ -42,7 +42,7 @@ const S: LegalSection[] = [
     id: "disclaimers",
     title: "the important disclaimers",
     body: (
-      <div className="mt-4 rounded-[14px] border border-accent bg-accent-wash p-6">
+      <div className="mt-4 rounded-[14px] border border-forest bg-surface p-6">
         <p className="mt-0 font-medium">please read this part properly.</p>
         <p>
           <strong>(a) prices are estimates.</strong> every price you see is an estimate built from public price data with a buffer added on top. real prices in your store will differ — by region, by chain, by week, by what&apos;s on sale. we don&apos;t guarantee any total, and we don&apos;t guarantee that a plan fits your budget once you&apos;re at the register. treat the number as a good guess, not a quote.

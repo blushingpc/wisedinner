@@ -56,10 +56,10 @@ export function FeatureSwitcher({ h2, items, screens }: { h2: string; items: { t
                   tabIndex={on ? 0 : -1}
                   onClick={() => pick(i)}
                   onKeyDown={(e) => onKey(e, i)}
-                  className={`lift shrink-0 rounded-full px-4 py-2 text-left text-[0.9375rem] font-semibold whitespace-nowrap transition-[background-color,box-shadow] duration-200 lg:rounded-[14px] lg:px-6 lg:py-5 lg:whitespace-normal ${on ? "bg-bg-alt text-ink shadow-[inset_0_0_0_1.5px_var(--color-ink)]" : "bg-bg-alt/60 text-ink-soft hover:bg-bg-alt"}`}
+                  className={`lift shrink-0 rounded-full px-4 py-2 text-left text-[0.9375rem] font-semibold whitespace-nowrap transition-[background-color,box-shadow] duration-200 lg:rounded-[14px] lg:px-6 lg:py-5 lg:whitespace-normal ${on ? "bg-surface text-ink shadow-[inset_0_0_0_1.5px_var(--color-ink)]" : "bg-surface/60 text-ink-2 hover:bg-surface"}`}
                 >
                   <span className="block lg:text-[1.125rem] lg:font-bold lg:text-ink">{it.title}</span>
-                  <span className={`mt-2 hidden text-[0.9375rem] leading-snug font-normal text-ink-soft lg:block ${on ? "" : "lg:hidden"}`}>{it.body}</span>
+                  <span className={`mt-2 hidden text-[0.9375rem] leading-snug font-normal text-ink-2 lg:block ${on ? "" : "lg:hidden"}`}>{it.body}</span>
                 </button>
               );
             })}
@@ -77,10 +77,10 @@ export function FeatureSwitcher({ h2, items, screens }: { h2: string; items: { t
               </DeviceFrame>
             </div>
             {/* the body under the phone on mobile, where the cards are chips */}
-            <p className="mx-auto mt-5 max-w-[44ch] text-center text-[0.9375rem] leading-snug text-ink-soft lg:hidden">{items[active].body}</p>
+            <p className="mx-auto mt-5 max-w-[44ch] text-center text-[0.9375rem] leading-snug text-ink-2 lg:hidden">{items[active].body}</p>
             <div className="mt-4 flex justify-center gap-2" aria-hidden="true">
               {items.map((it, i) => (
-                <span key={it.title} className={`h-1.5 rounded-full transition-[width,background-color] duration-200 ${i === active ? "w-6 bg-ink" : "w-1.5 bg-rule"}`} />
+                <span key={it.title} className={`h-1.5 rounded-full transition-[width,background-color] duration-200 ${i === active ? "w-6 bg-ink" : "w-1.5 bg-border"}`} />
               ))}
             </div>
           </div>

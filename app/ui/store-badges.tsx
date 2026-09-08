@@ -29,7 +29,7 @@ export function StoreBadges({ height = 48, placement, className = "", fallback =
           <Image src={PLAY.src} alt="Get it on Google Play" width={PLAY.w} height={PLAY.h} sizes={`${Math.round((PLAY.w / PLAY.h) * playH)}px`} style={{ height: playH, width: "auto" }} />
         </a>
       )}
-      {release && RELEASE_DATE && <span className={`basis-full font-mono text-caption font-semibold ${dark ? "text-bg/80" : "text-kale"}`}>release: {RELEASE_DATE}</span>}
+      {release && RELEASE_DATE && <span className={`basis-full tnum text-caption font-semibold ${dark ? "text-white/80" : "text-forest"}`}>release: {RELEASE_DATE}</span>}
     </div>
   );
 }

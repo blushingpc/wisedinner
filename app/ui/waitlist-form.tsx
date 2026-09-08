@@ -7,7 +7,7 @@ import { track } from "./track";
 type State = "idle" | "loading" | "error" | "already";
 
 // one form, five entry points (source). success → /thanks?n=position. quiz answers ride along from /plan.
-// dark: the kale-900 pre-order band (REDESIGN-V3 §4) — paper text, paper field, yolk button; errors go yolk there (tomato fails AA on kale).
+// dark: the forest-900 pre-order band (REDESIGN-V3 §4) — paper text, paper field, forest button; errors go forest there (danger fails AA on forest).
 // placement: set when the form is the page's primary control (listing not live) so the data-placement contract (WD-01) survives.
 export function WaitlistForm({ source, quiz, dark, label = "email", button = "notify me", placement }: { source: string; quiz?: unknown; dark?: boolean; label?: string; button?: string; placement?: string }) {
   const router = useRouter();
@@ -39,7 +39,7 @@ export function WaitlistForm({ source, quiz, dark, label = "email", button = "no
     }
   };
 
-  const soft = dark ? "text-bg/80" : "text-ink-soft";
+  const soft = dark ? "text-white/80" : "text-ink-2";
   return (
     <form onSubmit={submit} className="w-full max-w-md" aria-describedby={`${id}-msg`}>
       <label htmlFor={id} className={`block text-caption font-semibold ${soft}`}>
@@ -64,7 +64,7 @@ export function WaitlistForm({ source, quiz, dark, label = "email", button = "no
           {state === "loading" ? "saving…" : button}
         </button>
       </div>
-      <p id={`${id}-msg`} role="status" aria-live="polite" className={`mt-3 min-h-6 text-spec ${state === "error" ? `font-mono ${dark ? "text-yolk" : "text-receipt-total"}` : soft}`}>
+      <p id={`${id}-msg`} role="status" aria-live="polite" className={`mt-3 min-h-6 text-sm ${state === "error" ? `${dark ? "text-white" : "text-danger"}` : soft}`}>
         {state === "already" && "you're already on the list — good instincts."}
         {state === "error" && "that didn't go through. try once more?"}
         {state === "idle" && "no spam. one email when the app is ready."}

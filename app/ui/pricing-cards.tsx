@@ -10,28 +10,28 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
   const { tiers, free, trial } = site.pricing;
   return (
     <div>
-      <p className="max-w-[60ch] text-[1.0625rem] leading-relaxed text-ink-soft">
+      <p className="max-w-[60ch] text-[1.0625rem] leading-relaxed text-ink-2">
         <span className="font-semibold text-ink">the pre-order build is free:</span> {free.join(" · ")}. no account, nothing to buy in the app.
       </p>
       <div className={`mt-8 grid gap-6 ${compact ? "lg:grid-cols-2" : "lg:grid-cols-2 lg:gap-8"}`}>
         {tiers.map((t) => (
-          <div key={t.name} className={`lift rounded-[14px] border bg-white p-6 sm:p-8 ${t.popular ? "border-ink shadow-receipt" : "border-rule"}`}>
+          <div key={t.name} className={`lift rounded-[14px] border bg-white p-6 sm:p-8 ${t.popular ? "border-ink shadow-card" : "border-border"}`}>
             <div className="flex items-baseline justify-between gap-4">
               <h3 className="text-[1.5rem] font-bold">{t.name}</h3>
-              {t.popular && <span className="rounded-full bg-yolk px-3 py-1 text-caption font-semibold text-ink">most popular</span>}
+              {t.popular && <span className="rounded-full bg-forest px-3 py-1 text-caption font-semibold text-white">Most popular</span>}
             </div>
-            <p className="mt-2 text-[0.9375rem] text-ink-soft">{t.tagline}</p>
-            <p className="mt-6 font-mono">
+            <p className="mt-2 text-[0.9375rem] text-ink-2">{t.tagline}</p>
+            <p className="mt-6 tnum">
               <span className="text-[2.75rem] leading-none font-semibold">{money(t.monthly)}</span>
-              <span className="text-ink-soft">/mo</span>
+              <span className="text-ink-2">/mo</span>
             </p>
-            <p className="mt-2 font-mono text-spec text-ink-soft">
+            <p className="mt-2 tnum text-sm text-ink-2">
               or {money(t.yearly)}/yr · {money(t.perMonth)}/mo billed yearly
             </p>
-            <ul className="mt-7 grid gap-2.5 border-t border-rule pt-6">
+            <ul className="mt-7 grid gap-2.5 border-t border-border pt-6">
               {t.rows.map((r) => (
                 <li key={r} className="flex items-start gap-2.5 text-[0.9375rem]">
-                  <Check size={18} weight="bold" aria-hidden="true" className="mt-0.5 shrink-0 text-kale" />
+                  <Check size={18} weight="bold" aria-hidden="true" className="mt-0.5 shrink-0 text-forest" />
                   <span>{r}</span>
                 </li>
               ))}
@@ -39,7 +39,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
           </div>
         ))}
       </div>
-      <p className="mt-6 text-caption font-semibold text-kale">{trial}</p>
+      <p className="mt-6 text-caption font-semibold text-forest">{trial}</p>
     </div>
   );
 }

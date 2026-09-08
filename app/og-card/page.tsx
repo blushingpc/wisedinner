@@ -12,16 +12,16 @@ export const metadata: Metadata = { title: "og card — WiseDinner", robots: { i
 // phone). noindex; not linked.
 export default function OgCard() {
   return (
-    <div className="og-card relative h-[630px] w-[1200px] overflow-hidden bg-bg text-ink" style={{ containerType: "inline-size" }}>
+    <div className="og-card relative h-[630px] w-[1200px] overflow-hidden bg-white text-ink" style={{ containerType: "inline-size" }}>
       <div className="absolute left-[56px] top-[44px] inline-flex items-center gap-2 text-[28px] font-bold tracking-tight">
         {/* eslint-disable-next-line @next/next/no-img-element -- static svg */}
         <img src="/logo/wisedinner-mark.svg" alt="" width={30} height={30} />
         wisedinner
       </div>
       <div className="absolute right-[56px] top-[130px] w-[540px]">
-        <p className="text-[22px] font-semibold text-kale">{site.hero.eyebrow}</p>
+        <p className="text-[22px] font-semibold text-forest">{site.hero.eyebrow}</p>
         <h1 className="mt-4 text-[76px] leading-[0.95] font-extrabold tracking-[-0.035em] text-balance">{site.hero.h1}</h1>
-        <p className="mt-8 text-[24px] font-semibold text-kale">{site.hero.preorderNote}</p>
+        <p className="mt-8 text-[24px] font-semibold text-forest">{site.hero.preorderNote}</p>
       </div>
       <div className="absolute left-[130px] top-[112px] w-[300px] rotate-[3deg]">
         <DeviceFrame label="this week" widthClass="w-full" chrome={false} priority sizes="320px">

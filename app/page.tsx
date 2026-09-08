@@ -60,9 +60,9 @@ export default function Home() {
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-6 px-6 py-7 lg:min-h-[90dvh] lg:grid-cols-[5fr_7fr] lg:gap-10 lg:px-12 lg:py-16">
           <div>
-            <p className="fade-up mb-4 text-caption font-semibold text-kale">{site.hero.eyebrow}</p>
-            <h1 className="rise-up text-display font-extrabold text-balance">{site.hero.h1}</h1>
-            <p className="fade-up mt-5 max-w-[44ch] text-xl text-ink-soft [animation-delay:80ms]">{site.hero.lede}</p>
+            <p className="fade-up mb-4 text-caption font-semibold text-forest">{site.hero.eyebrow}</p>
+            <h1 className="rise-up text-h1 font-extrabold text-balance">{site.hero.h1}</h1>
+            <p className="fade-up mt-5 max-w-[44ch] text-xl text-ink-2 [animation-delay:80ms]">{site.hero.lede}</p>
             {/* no entrance animation on this row — the Apple badge must never animate.
                 listing not live: the waitlist form IS the primary control (funnel decision 2026-09-05); live: badge + email fallback */}
             <div className="mt-6 flex items-start gap-8 lg:mt-8">
@@ -72,18 +72,18 @@ export default function Home() {
                 ) : (
                   <>
                     <WaitlistForm source="hero" button="get early access" placement="hero" />
-                    <p className="mt-1 text-caption font-semibold text-kale">{site.hero.preorderNote}</p>
+                    <p className="mt-1 text-caption font-semibold text-forest">{site.hero.preorderNote}</p>
                   </>
                 )}
-                {APP_STORE_IS_LIVE && site.hero.perk && <p className="mt-3 text-caption font-semibold text-kale lg:mt-4">{site.hero.perk}</p>}
+                {APP_STORE_IS_LIVE && site.hero.perk && <p className="mt-3 text-caption font-semibold text-forest lg:mt-4">{site.hero.perk}</p>}
               </div>
               {/* WD-07: the QR encodes wisedinner.com/ios, a redirect we control (next.config.ts) — never the raw store URL.
                   only while live — before that there is nothing to scan to */}
               {APP_STORE_IS_LIVE && (
                 <div className="hidden shrink-0 lg:block">
                 <Image src="/badges/qr-ios.svg" alt="QR code — scan to open the WiseDinner pre-order page" width={96} height={96} />
-                <p className="mt-1 text-[0.75rem] text-ink-3">scan to pre-order</p>
-                  <p className="font-mono text-[0.6875rem] text-ink-3">wisedinner.com/ios</p>
+                <p className="mt-1 text-[0.75rem] text-ink-2">scan to pre-order</p>
+                  <p className="tnum text-[0.6875rem] text-ink-2">wisedinner.com/ios</p>
                 </div>
               )}
             </div>
@@ -91,7 +91,7 @@ export default function Home() {
             <div id={MOBILE_CTA_SENTINEL} aria-hidden="true" />
             {APP_STORE_IS_LIVE && <HeroEmailFallback className="fade-up mt-3 [animation-delay:240ms] lg:mt-4" />}
             {APP_STORE_IS_LIVE && site.hero.pill && (
-              <p className="fade-up mt-3 inline-flex items-center rounded-full border border-rule px-3 py-1 text-caption font-semibold text-ink-soft [animation-delay:240ms] lg:mt-4">
+              <p className="fade-up mt-3 inline-flex items-center rounded-full border border-border px-3 py-1 text-caption font-semibold text-ink-2 [animation-delay:240ms] lg:mt-4">
                 {site.hero.pill}
               </p>
             )}
@@ -148,7 +148,7 @@ export default function Home() {
         </Link>
       </Section>
 
-      {/* SECTION 7 — pre-order band (REDESIGN-V3 §4): kale-900, paper type, badges when set, else the form; the week's numbers from the fixture */}
+      {/* SECTION 7 — pre-order band (REDESIGN-V3 §4): forest-900, paper type, badges when set, else the form; the week's numbers from the fixture */}
       <PreorderBand />
 
       <MobileCtaBar />

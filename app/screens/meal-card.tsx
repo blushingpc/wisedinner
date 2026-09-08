@@ -9,7 +9,7 @@ export function MealCard({ meal, priority = false, compact = false }: { meal: Fi
       <Image src={meal.img} alt="" width={224} height={224} quality={75} sizes="112px" priority={priority} className="img-grade size-[3.5em] shrink-0 rounded-[0.625em] object-cover" />
       <div className="min-w-0">
         <p className="truncate text-[0.9375em] leading-tight font-semibold">{meal.name}</p>
-        <p className="mt-[0.3em] font-mono text-[0.8125em] text-ink-soft">
+        <p className="mt-[0.3em] tnum text-[0.8125em] text-ink-2">
           {meal.protein_g}g · {usd(meal.cost_usd)}
         </p>
       </div>

@@ -27,24 +27,24 @@ const GROUPS: [string, [string, string][]][] = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-rule bg-bg-alt">
+    <footer className="border-t border-border bg-surface">
       <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-14 sm:grid-cols-[1.6fr_1fr_1fr] lg:px-12">
         <div>
           <Wordmark className="text-base" />
           <p className="mt-3 text-[1.0625rem] font-semibold">{site.hero.h1}</p>
           <StoreBadges placement="footer" height={40} className="mt-5" fallback={false} release={false} />
           <div className="mt-5 flex gap-2">
-            <a href="#" aria-label="wisedinner on TikTok" className="grid size-11 place-items-center rounded-[10px] text-ink hover:bg-bg">
+            <a href="#" aria-label="wisedinner on TikTok" className="grid size-11 place-items-center rounded-[10px] text-ink hover:bg-white">
               <TiktokLogo size={22} weight="regular" aria-hidden="true" />
             </a>
-            <a href="#" aria-label="wisedinner on Instagram" className="grid size-11 place-items-center rounded-[10px] text-ink hover:bg-bg">
+            <a href="#" aria-label="wisedinner on Instagram" className="grid size-11 place-items-center rounded-[10px] text-ink hover:bg-white">
               <InstagramLogo size={22} weight="regular" aria-hidden="true" />
             </a>
           </div>
         </div>
         {GROUPS.map(([name, links]) => (
           <nav key={name} aria-label={name}>
-            <p className="text-caption font-semibold text-kale">{name}</p>
+            <p className="text-caption font-semibold text-forest">{name}</p>
             <ul className="mt-3">
               {links.map(([l, h]) => (
                 <li key={h}>
@@ -57,9 +57,9 @@ export function Footer() {
           </nav>
         ))}
         <div className="sm:col-span-3">
-          <p className="font-mono text-micro text-ink-soft">© 2026 WiseDinner</p>
+          <p className="tnum text-xs text-ink-2">© 2026 WiseDinner</p>
           {/* TODO(launch): verify the exact wording on developer.apple.com/app-store/marketing/guidelines */}
-          <p className="mt-2 text-[0.75rem] text-ink-3">
+          <p className="mt-2 text-[0.75rem] text-ink-2">
             Apple, the Apple logo, and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a
             service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.
           </p>

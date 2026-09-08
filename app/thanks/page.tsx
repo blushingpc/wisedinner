@@ -10,18 +10,18 @@ export default async function Thanks({ searchParams }: { searchParams: Promise<{
   return (
     <main id="main">
       <Section className="min-h-[60dvh]">
-        <p className="font-mono text-micro uppercase text-green-600">launch email</p>
-        <h1 className="mt-6 text-display font-bold text-balance">
+        <p className="tnum text-xs uppercase text-forest">launch email</p>
+        <h1 className="mt-6 text-h1 font-bold text-balance">
           you&apos;re in.{" "}
           {position > 0 && (
-            <span className="font-mono font-medium tabular-nums">
+            <span className="tnum font-medium tabular-nums">
               #{position}
             </span>
           )}{" "}
           on the list.
         </h1>
-        <p className="mt-6 max-w-[62ch] text-xl text-ink-soft">one email when the app is ready. nothing before that.</p>
-        <p className="mt-10 font-mono text-micro uppercase text-ink-soft">while you wait</p>
+        <p className="mt-6 max-w-[62ch] text-xl text-ink-2">one email when the app is ready. nothing before that.</p>
+        <p className="mt-10 tnum text-xs uppercase text-ink-2">while you wait</p>
         <div className="mt-3 flex flex-wrap gap-6">
           <Link href="/drop" className="text-link inline-flex min-h-11 items-center">
             get this week&apos;s drop

@@ -20,14 +20,14 @@ export default function ScreensPreview() {
   return (
     <main id="main" className="mx-auto max-w-[1200px] px-6 py-14">
       <h1 className="text-h2 font-bold">app screens</h1>
-      <p className="mt-2 text-ink-soft">fixture-fed, props-driven. the Expo app copies these.</p>
+      <p className="mt-2 text-ink-2">fixture-fed, props-driven. the Expo app copies these.</p>
       <div className="mt-10 flex flex-wrap gap-10">
         {SCREENS.map(([label, node]) => (
           <figure key={label}>
             <DeviceFrame label={label} widthClass="w-[300px]" chrome={false}>
               {node}
             </DeviceFrame>
-            <figcaption className="mt-3 text-caption font-semibold text-ink-soft">{label}</figcaption>
+            <figcaption className="mt-3 text-caption font-semibold text-ink-2">{label}</figcaption>
           </figure>
         ))}
       </div>
@@ -36,7 +36,7 @@ export default function ScreensPreview() {
       <div className="mt-6 flex flex-wrap gap-6">
         {SCREENS.map(([label, node]) => (
           <div key={label} className="bare @container w-[390px]">
-            <div data-store-shot={label.split(" ")[0]} className="screen relative h-[844px] w-full overflow-hidden rounded-[24px] border border-rule bg-bg">
+            <div data-store-shot={label.split(" ")[0]} className="screen relative h-[844px] w-full overflow-hidden rounded-[24px] border border-border bg-white">
               {node}
             </div>
           </div>

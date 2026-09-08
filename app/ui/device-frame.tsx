@@ -39,7 +39,7 @@ export function DeviceFrame({
     <div role="img" aria-label={label} className={`@container relative aspect-[1350/2760] shrink-0 ${widthClass} ${persp} ${className}`}>
       {/* contact + ambient shadow shaped to the body — the PNG's corners are transparent, so a box shadow on the root would print a rectangle */}
       <div aria-hidden="true" className={`absolute rounded-[19.3%/9.6%] bg-ink ${shadow}`} style={{ left: "2.07%", top: "0.9%", width: "95.85%", height: "98.2%" }} />
-      <div className="screen absolute overflow-hidden bg-bg text-ink" style={{ left: "5.333%", top: "2.5%", width: "89.333%", height: "95%", borderRadius: "15.75% / 7.25%" }}>
+      <div className="screen absolute overflow-hidden bg-white text-ink" style={{ left: "5.333%", top: "2.5%", width: "89.333%", height: "95%", borderRadius: "15.75% / 7.25%" }}>
         {chrome ? (
           <>
             <StatusBar />
@@ -60,7 +60,7 @@ export function DeviceFrame({
 // (island rows 112–219 of the PNG → 1.6%–5.7% of the screen height).
 export function StatusBar({ dark = false }: { dark?: boolean }) {
   return (
-    <div aria-hidden="true" className={`absolute inset-x-0 top-[1.9%] flex items-center justify-between px-[1.6em] font-mono text-[0.9em] font-semibold ${dark ? "text-bg" : "text-ink"}`}>
+    <div aria-hidden="true" className={`absolute inset-x-0 top-[1.9%] flex items-center justify-between px-[1.6em] tnum text-[0.9em] font-semibold ${dark ? "text-white" : "text-ink"}`}>
       <span>9:41</span>
       <span className="flex items-center gap-[0.3em] text-[0.7em] tracking-normal">
         <span>●●●●</span>
