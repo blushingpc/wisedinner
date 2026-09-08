@@ -1,10 +1,11 @@
+import { Check } from "@phosphor-icons/react/dist/ssr";
 import type { FixtureWeek } from "@/data/fixtures";
 import { usd } from "@/data/fixtures";
 import { Header, Screen, TabBar } from "./chrome";
 import { StatusBar } from "@/app/ui/device-frame";
 
-// S4 RECEIPT REVEAL (REDESIGN-V3 §3): a CSS thermal receipt with three highlighted lines beside the estimate-vs-actual
-// comparison, the forest "receipt verified" badge and the climbing accuracy score. LAUNCH tier (§2E).
+// S4 RECEIPT REVEAL (REDESIGN-V4 §8): a clean white receipt card with light gray rule lines (no thermal texture)
+// beside the estimate-versus-actual comparison, the emerald "Receipt verified" state and the climbing accuracy score.
 export function ReceiptReveal({ week }: { week: FixtureWeek }) {
   const r = week.receipt;
   const rows = week.list.items.slice(0, 7);
@@ -13,39 +14,43 @@ export function ReceiptReveal({ week }: { week: FixtureWeek }) {
   return (
     <Screen>
       <StatusBar />
-      <Header title="receipt reveal" sub="this week · scanned" />
+      <Header title="Receipt reveal" sub="This week, scanned" />
       <div className="mt-[0.9em] flex items-start gap-[0.75em] px-[1.25em]">
-        {/* thermal receipt */}
-        <div className="thermal w-[45%] shrink-0 rotate-[-1.5deg] px-[0.6em] pt-[0.7em] pb-[0.8em] tnum text-[0.5625em] leading-[1.5] text-ink shadow-card">
-          <p className="text-center font-semibold tracking-[0.12em] uppercase">market</p>
-          <p className="text-center text-ink-2">* * *</p>
-          {rows.map((i, n) => (
-            <div key={i.name} className={`flex justify-between gap-[0.4em] ${highlight.has(n) ? "-mx-[0.3em] rounded-[0.2em] bg-forest/70 px-[0.3em]" : ""}`}>
-              <span className="truncate uppercase">{i.name.split(",")[0]}</span>
-              <span>{i.price_usd.toFixed(2)}</span>
-            </div>
-          ))}
-          <p className="text-center text-ink-2">…</p>
-          <div className="mt-[0.3em] flex justify-between border-t border-dashed border-ink/40 pt-[0.3em] font-semibold">
-            <span>TOTAL</span>
+        {/* the receipt card */}
+        <div className="w-[46%] shrink-0 rounded-[0.75em] border border-border bg-white px-[0.6em] pt-[0.6em] pb-[0.7em] text-[0.5625em] leading-[1.5] text-ink shadow-card tnum">
+          <p className="text-center font-semibold">Market</p>
+          <p className="text-center text-ink-2">Receipt</p>
+          <div className="mt-[0.4em] divide-y divide-border">
+            {rows.map((i, n) => (
+              <div key={i.name} className={`flex justify-between gap-[0.4em] py-[0.25em] ${highlight.has(n) ? "-mx-[0.3em] rounded-[0.25em] bg-emerald-tint px-[0.3em] text-forest" : ""}`}>
+                <span className="truncate">{i.name.split(",")[0]}</span>
+                <span>{i.price_usd.toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-[0.4em] flex justify-between border-t border-border pt-[0.4em] font-semibold">
+            <span>Total</span>
             <span>{r.actual_usd.toFixed(2)}</span>
           </div>
         </div>
-        {/* comparison */}
+        {/* the comparison */}
         <div className="min-w-0 flex-1">
-          <p className="text-[0.6875em] font-semibold text-ink-2">estimated</p>
-          <p className="tnum text-[1.25em] leading-none font-semibold">{usd(r.estimated_usd)}</p>
-          <p className="mt-[0.7em] text-[0.6875em] font-semibold text-ink-2">actual</p>
-          <p className="tnum text-[1.25em] leading-none font-semibold">{usd(r.actual_usd)}</p>
-          <p className={`mt-[0.6em] tnum text-[0.8125em] font-semibold ${under ? "text-forest" : "text-danger"}`}>
+          <p className="text-[0.6875em] font-medium text-ink-2">Estimated</p>
+          <p className="text-[1.25em] leading-none font-semibold tnum">{usd(r.estimated_usd)}</p>
+          <p className="mt-[0.7em] text-[0.6875em] font-medium text-ink-2">Actual</p>
+          <p className="text-[1.25em] leading-none font-semibold tnum">{usd(r.actual_usd)}</p>
+          <p className={`mt-[0.6em] text-[0.8125em] font-semibold tnum ${under ? "text-emerald" : "text-danger"}`}>
             {Math.abs(r.delta_pct)}% {under ? "under" : "over"}
           </p>
-          <span className="mt-[0.9em] inline-flex items-center gap-[0.35em] rounded-full bg-forest px-[0.7em] py-[0.35em] text-[0.6875em] font-bold text-white">✓ receipt verified</span>
-          <p className="mt-[0.9em] text-[0.6875em] font-semibold text-ink-2">accuracy</p>
-          <p className="tnum text-[1.125em] font-semibold text-forest">{r.accuracy_pct}% ↑</p>
+          <span className="mt-[0.9em] inline-flex items-center gap-[0.35em] rounded-full bg-emerald-tint px-[0.7em] py-[0.4em] text-[0.6875em] font-semibold text-forest">
+            <Check size="1em" weight="bold" className="text-emerald" aria-hidden="true" />
+            Receipt verified
+          </span>
+          <p className="mt-[0.9em] text-[0.6875em] font-medium text-ink-2">Accuracy</p>
+          <p className="text-[1.125em] font-semibold text-emerald tnum">{r.accuracy_pct}% and climbing</p>
         </div>
       </div>
-      <TabBar active="receipts" />
+      <TabBar active="Receipts" />
     </Screen>
   );
 }

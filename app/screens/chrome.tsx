@@ -1,7 +1,8 @@
 import { CalendarDots, ListChecks, Receipt, GearSix } from "@phosphor-icons/react/dist/ssr";
 import type { ReactNode } from "react";
 
-// app chrome shared by every screen (REDESIGN-V3 §2A/§3). sizes are em off the screen's 16pt base — see DeviceFrame v3.
+// app chrome shared by every screen (REDESIGN-V4 §8): white screens, #111 text, forest primary buttons, emerald checks,
+// Inter numbers with tnum, Plus Jakarta Sans titles. sizes are em off the screen's 16pt base (see DeviceFrame).
 // these are the REAL screens: props-driven, fixture-fed, copied by the Expo app later.
 
 export function Screen({ children, className = "", dark = false }: { children: ReactNode; className?: string; dark?: boolean }) {
@@ -11,32 +12,32 @@ export function Screen({ children, className = "", dark = false }: { children: R
 // top 3.75em clears the dynamic island + status bar
 export function Header({ title, right, sub }: { title: string; right?: ReactNode; sub?: string }) {
   return (
-    <div className="mt-[3.75em] flex items-end justify-between px-[1.25em]">
-      <div>
-        <p className="text-[1.625em] leading-none font-bold tracking-[-0.02em]">{title}</p>
-        {sub && <p className="mt-[0.35em] text-[0.8125em] font-medium text-ink-2">{sub}</p>}
+    <div className="mt-[3.75em] flex items-end justify-between gap-[0.75em] px-[1.25em]">
+      <div className="min-w-0">
+        <p className="font-display text-[1.625em] leading-none font-extrabold tracking-[-0.02em]">{title}</p>
+        {sub && <p className="mt-[0.4em] text-[0.8125em] font-medium text-ink-2">{sub}</p>}
       </div>
       {right}
     </div>
   );
 }
 
-// the forest mono pill — the app's price motif ("$49.20 · one trip")
-export function Pill({ children, tone = "forest" }: { children: ReactNode; tone?: "forest" | "surface" }) {
-  const t = tone === "forest" ? "bg-forest text-white" : "bg-surface text-ink";
-  return <span className={`inline-flex items-center rounded-full px-[0.75em] py-[0.35em] tnum text-[0.8125em] font-semibold whitespace-nowrap ${t}`}>{children}</span>;
+// the forest tag: the app's price motif ("$49.20, one trip")
+export function Pill({ children, tone = "forest" }: { children: ReactNode; tone?: "forest" | "surface" | "emerald" }) {
+  const t = tone === "forest" ? "bg-forest text-white" : tone === "emerald" ? "bg-emerald-tint text-forest" : "bg-surface text-ink";
+  return <span className={`inline-flex shrink-0 items-center rounded-full px-[0.75em] py-[0.4em] text-[0.8125em] font-semibold whitespace-nowrap tnum ${t}`}>{children}</span>;
 }
 
 export function Button({ children, tone = "forest", className = "" }: { children: ReactNode; tone?: "forest" | "ghost"; className?: string }) {
-  const t = tone === "forest" ? "bg-forest text-white" : "bg-transparent text-ink shadow-[inset_0_0_0_1.5px_currentColor]";
-  return <span className={`flex min-h-[3.25em] items-center justify-center rounded-[0.875em] px-[1.25em] text-[1em] font-bold ${t} ${className}`}>{children}</span>;
+  const t = tone === "forest" ? "bg-forest text-white" : "bg-white text-ink shadow-[inset_0_0_0_1.5px_var(--color-border)]";
+  return <span className={`flex min-h-[3.25em] items-center justify-center rounded-[0.75em] px-[1.25em] text-[1em] font-semibold ${t} ${className}`}>{children}</span>;
 }
 
 const TABS = [
-  ["this week", CalendarDots],
-  ["list", ListChecks],
-  ["receipts", Receipt],
-  ["settings", GearSix],
+  ["This week", CalendarDots],
+  ["List", ListChecks],
+  ["Receipts", Receipt],
+  ["Settings", GearSix],
 ] as const;
 
 export type Tab = (typeof TABS)[number][0];
@@ -48,7 +49,7 @@ export function TabBar({ active }: { active: Tab }) {
         {TABS.map(([label, Icon]) => {
           const on = label === active;
           return (
-            <div key={label} className={`flex flex-col items-center gap-[0.2em] text-[0.625em] font-semibold ${on ? "text-ink" : "text-ink-2"}`}>
+            <div key={label} className={`flex flex-col items-center gap-[0.2em] text-[0.625em] font-semibold ${on ? "text-forest" : "text-ink-2"}`}>
               <Icon size="1.9em" weight={on ? "fill" : "regular"} />
               <span>{label}</span>
             </div>

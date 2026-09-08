@@ -3,10 +3,9 @@ import { DeviceFrame } from "@/app/ui/device-frame";
 import { fixtureWeek, fixtureWeek2 } from "@/data/fixtures";
 import { GroceryList, Onboarding, ReceiptReveal, ShareWeek, ThisWeek } from "@/app/screens";
 
-export const metadata: Metadata = { title: "screens — WiseDinner", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "App screens", robots: { index: false, follow: false } };
 
-// design-review + store-export surface (REDESIGN-V3 §3, §5): every app screen at frame width, plus the bare screens
-// scripts/store-shots.ts captures at 1290×2796. noindex; not linked.
+// design-review surface (REDESIGN-V4 §8): every app screen at frame width, plus the bare 390×844 screens. noindex; not linked.
 const SCREENS = [
   ["S5 onboarding", <Onboarding key="s5" />],
   ["S1 this week", <ThisWeek key="s1" week={fixtureWeek} />],
@@ -19,8 +18,8 @@ const SCREENS = [
 export default function ScreensPreview() {
   return (
     <main id="main" className="mx-auto max-w-[1200px] px-6 py-14">
-      <h1 className="text-h2 font-bold">app screens</h1>
-      <p className="mt-2 text-ink-2">fixture-fed, props-driven. the Expo app copies these.</p>
+      <h1 className="text-h2">App screens</h1>
+      <p className="mt-2 text-ink-2">Fixture-fed and props-driven. The Expo app copies these.</p>
       <div className="mt-10 flex flex-wrap gap-10">
         {SCREENS.map(([label, node]) => (
           <figure key={label}>
@@ -32,7 +31,7 @@ export default function ScreensPreview() {
         ))}
       </div>
       {/* bare screens at 390×844 for the store export: no bezel, no shadow */}
-      <h2 className="mt-16 text-h2 font-bold">bare</h2>
+      <h2 className="mt-16 text-h2">Bare</h2>
       <div className="mt-6 flex flex-wrap gap-6">
         {SCREENS.map(([label, node]) => (
           <div key={label} className="bare @container w-[390px]">
