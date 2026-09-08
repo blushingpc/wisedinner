@@ -1,22 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Section } from "./ui/section";
+import { PageShell } from "./ui/page-shell";
 
-// WD-11: the 404 carries its own title (it used to inherit the homepage's). Next already emits noindex + a real 404 status.
-export const metadata: Metadata = { title: "Page not found — WiseDinner" };
+// the 404 carries its own title. Next already emits noindex and a real 404 status.
+export const metadata: Metadata = { title: "Page not found" };
 
 export default function NotFound() {
   return (
-    <main id="main">
-      <Section className="min-h-[60dvh]">
-        <p className="tnum text-xs uppercase text-ink-2">err 404 · nothing rotting here either</p>
-        <h1 className="mt-6 text-h1 font-bold text-balance">this aisle doesn&apos;t exist.</h1>
-        <div className="mt-10 flex flex-wrap gap-6">
-          <Link href="/" className="cta">
-            back home
-          </Link>
-        </div>
-      </Section>
-    </main>
+    <PageShell title="This page does not exist" sub="Error 404. The link may be old, or the address may have a typo." className="min-h-[50dvh]">
+      <div className="flex justify-center">
+        <Link href="/" className="cta">
+          Back home
+        </Link>
+      </div>
+    </PageShell>
   );
 }

@@ -1,13 +1,13 @@
 // App Store product-page copy — no UI reads this; it is the single place the store listing is drafted.
 export const appStore = {
-  subtitle: "protein on a budget", // ≤ 30 chars; alt "hit protein. spend less."
+  subtitle: "Protein on a budget", // 30 chars max; alt "Hit protein. Spend less."
   promoText:
-    "two numbers in — your budget and your protein — and a solved week comes out: five days of meals, one 12-item list, real shelf prices. 14-day free trial.", // ≤ 170
+    "Two numbers in, your budget and your protein, and a solved week comes out: five days of meals, one 12-item list, real shelf prices. 14-day free trial.", // 170 chars max
   screenshots: [
-    { screen: "this week", caption: "hit your protein. spend way less." },
-    { screen: "two numbers", caption: "two numbers in. a week out." },
-    { screen: "receipt", caption: "real shelf prices. the receipt is the proof." },
-    { screen: "list", caption: "one short list. one trip." },
-    { screen: "fridge", caption: "nothing rots on thursday." },
+    { screen: "this week", caption: "Hit your protein. Spend way less." },
+    { screen: "two numbers", caption: "Two numbers in. A week out." },
+    { screen: "receipt", caption: "Real shelf prices. The receipt is the proof." },
+    { screen: "list", caption: "One short list. One trip." },
+    { screen: "fridge", caption: "Nothing rots on Thursday." },
   ],
 };

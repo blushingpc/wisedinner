@@ -25,12 +25,13 @@ function* walk(dir: string): Generator<string> {
 
 // keep only string literals and JSX text: strip comments, then for tsx keep quoted strings plus text between tags
 const STRING = /"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*'|`(?:[^`\\]|\\.)*`/g;
-const JSX_TEXT = />([^<>{}]+)</g;
+const JSX_TEXT = />([^<>{}]+)</g; // JSX text only; segments carrying code punctuation are skipped below
+const CODE = /[;=(){}]/;
 function copyOf(src: string, file: string) {
   const noComments = src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:"'`])\/\/[^\n]*/g, "$1");
   if (file.endsWith(".json")) return noComments;
   const strings = [...noComments.matchAll(STRING)].map((m) => m[0]);
-  const jsx = [...noComments.matchAll(JSX_TEXT)].map((m) => m[1]);
+  const jsx = [...noComments.matchAll(JSX_TEXT)].map((m) => m[1]).filter((t) => !CODE.test(t));
   return [...strings, ...jsx].join("\n");
 }
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { track } from "@/app/ui/track";
 
-const label = "block tnum text-xs uppercase text-ink-2";
+const label = "block text-sm font-medium text-ink";
 
 export function SupportForm() {
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
@@ -29,8 +29,8 @@ export function SupportForm() {
 
   if (state === "done") {
     return (
-      <p role="status" className="text-xl">
-        got it — we read everything, usually within a day.
+      <p role="status" className="text-center text-lg">
+        Got it. We read everything, usually within a day.
       </p>
     );
   }
@@ -39,30 +39,30 @@ export function SupportForm() {
     <form onSubmit={submit} className="grid gap-5">
       <div>
         <label htmlFor="s-name" className={label}>
-          name (optional)
+          Name (optional)
         </label>
         <input id="s-name" name="name" maxLength={120} autoComplete="name" className="field mt-2" />
       </div>
       <div>
         <label htmlFor="s-email" className={label}>
-          email
+          Email
         </label>
         <input id="s-email" name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@email.com" className="field mt-2" />
       </div>
       <div>
         <label htmlFor="s-msg" className={label}>
-          message
+          Message
         </label>
         <textarea id="s-msg" name="message" required minLength={2} maxLength={2000} rows={6} className="field mt-2" />
       </div>
       <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       {state === "error" && (
-        <p role="alert" className="tnum text-sm text-danger">
-          that didn&apos;t go through. try once more?
+        <p role="alert" className="text-sm text-danger">
+          That did not go through. Try once more.
         </p>
       )}
       <button type="submit" disabled={state === "loading"} className="cta justify-self-start">
-        {state === "loading" ? "sending…" : "send"}
+        {state === "loading" ? "Sending" : "Send"}
       </button>
     </form>
   );

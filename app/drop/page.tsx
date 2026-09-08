@@ -1,50 +1,46 @@
 import type { Metadata } from "next";
 import { drop } from "@/data/drop";
 import { PageView } from "@/app/ui/page-view";
+import { PageShell } from "@/app/ui/page-shell";
 import { ReceiptCard } from "@/app/ui/receipt-card";
-import { Section } from "@/app/ui/section";
 import { WaitlistForm } from "@/app/ui/waitlist-form";
 
 export const metadata: Metadata = {
-  title: "This week's protein plan — WiseDinner",
-  description: "one universal high-protein week at real in-store prices, refreshed every sunday: five days of meals, one short list, an estimated total. free, no account.",
+  title: "This week's protein plan",
+  description: "One universal high-protein week at real in-store prices, refreshed every Sunday: five days of meals, one short list, an estimated total. Free, no account.",
   alternates: { canonical: "/drop" },
   openGraph: { images: ["/og?page=drop"] },
 };
 
+const DAY: Record<string, string> = { mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday" };
+
 export default function Drop() {
   return (
-    <main id="main">
+    <PageShell title="This week's protein plan" sub={`One universal week: ${drop.input.protein_per_day}g of protein a day for one person, solved under $${drop.input.budget} at this week's estimated shelf prices. Refreshed every Sunday. No account, no card.`} wide>
       <PageView event="drop_view" />
-      <Section className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-        <div data-reveal className="order-2 lg:order-1">
-          <ReceiptCard week={drop} variant="drop" title="this week's drop" tilt />
+      <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
+        <div data-reveal>
+          <ReceiptCard week={drop} variant="drop" title="This week's plan" />
         </div>
-        <div className="order-1 lg:order-2">
-          <p className="tnum text-xs uppercase text-forest">refreshed every sunday · generated {drop.generated_at}</p>
-          <h1 className="mt-4 text-h1 font-bold text-balance">this week&apos;s protein plan.</h1>
-          <p className="mt-6 max-w-[62ch] text-xl text-ink-2">
-            one universal week: {drop.input.protein_per_day} g protein a day for one person, solved under ${drop.input.budget} at this week&apos;s estimated shelf prices. no
-            account, no card. your own numbers go through the demo.
-          </p>
-          <ol className="mt-8 max-w-[62ch]">
+        <div>
+          <ol className="max-w-[62ch]">
             {drop.days.map((d) => (
               <li key={d.day} className="border-t border-border py-4">
-                <div className="flex items-baseline justify-between tnum text-xs uppercase text-ink-2">
-                  <span>{d.day}</span>
+                <div className="flex items-baseline justify-between text-sm text-ink-2 tnum">
+                  <span className="font-medium text-ink">{DAY[d.day] ?? d.day}</span>
                   <span>
-                    {d.protein_g} g · {d.kcal} kcal
+                    {d.protein_g}g protein, {d.kcal} kcal
                   </span>
                 </div>
-                <ol className="mt-1 grid gap-1">
+                <ol className="mt-2 grid gap-1.5">
                   {d.items.map((i) => (
                     <li key={i.unit} className="grid grid-cols-[5.5rem_1fr_auto] items-baseline gap-2">
-                      <span className="tnum text-xs uppercase text-ink-2">{i.unit}</span>
+                      <span className="text-xs font-medium text-ink-2">{i.unit}</span>
                       <span>
                         {i.name}
-                        <span className="block tnum text-xs text-ink-2">{i.portion}</span>
+                        <span className="block text-xs text-ink-2 tnum">{i.portion.replaceAll(" · ", ", ")}</span>
                       </span>
-                      <span className="tnum text-sm tabular-nums text-ink-2">{i.protein_g} g</span>
+                      <span className="text-sm text-ink-2 tnum">{i.protein_g} g</span>
                     </li>
                   ))}
                 </ol>
@@ -52,13 +48,13 @@ export default function Drop() {
             ))}
           </ol>
           <div className="mt-12 border-t border-border pt-8">
-            <h2 className="text-2xl font-medium">get next week&apos;s drop first</h2>
-            <div className="mt-6">
+            <h2 className="text-h3">Get next week&apos;s plan first</h2>
+            <div className="mt-5">
               <WaitlistForm source="drop" />
             </div>
           </div>
         </div>
-      </Section>
-    </main>
+      </div>
+    </PageShell>
   );
 }

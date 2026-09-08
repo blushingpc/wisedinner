@@ -15,7 +15,7 @@ const inter = Inter({ variable: "--font-inter", subsets: ["latin"], weight: ["40
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
-  title: "WiseDinner. Hit your protein. Spend way less.",
+  title: { default: "WiseDinner. Hit your protein. Spend way less.", template: "%s | WiseDinner" },
   description: "Tell WiseDinner your weekly grocery budget and your daily protein goal. It plans five days of meals, builds one short grocery list, and shows you the total before you shop.",
   alternates: { canonical: "/" },
   openGraph: { siteName: "WiseDinner", type: "website", images: ["/og/home.png"] }, // REDESIGN-V3 §2B: composed from the real components by scripts/og-card.ts

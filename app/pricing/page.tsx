@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageView } from "@/app/ui/page-view";
-import { Section } from "@/app/ui/section";
+import { PageShell } from "@/app/ui/page-shell";
 import { WaitlistForm } from "@/app/ui/waitlist-form";
 import { PricingCards } from "@/app/ui/pricing-cards";
 import { SITE } from "@/app/copy";
@@ -10,43 +10,37 @@ const TIERS = site.pricing.tiers;
 const money = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 
 export const metadata: Metadata = {
-  title: "Pricing — WiseDinner",
-  description: `what wisedinner will cost when the app ships: the pre-order build is free; protein plan ${money(TIERS[0].monthly)}/mo or ${money(TIERS[0].yearly)}/yr, autopilot ${money(TIERS[1].monthly)}/mo or ${money(TIERS[1].yearly)}/yr, 14-day free trial in the app. nothing for sale here yet.`,
+  title: "Pricing",
+  description: `What WiseDinner will cost when the app ships. The pre-order build is free. Protein Plan ${money(TIERS[0].monthly)} a month or ${money(TIERS[0].yearly)} a year, Autopilot ${money(TIERS[1].monthly)} a month or ${money(TIERS[1].yearly)} a year, 14-day free trial in the app. Nothing for sale here yet.`,
   alternates: { canonical: "/pricing" },
   openGraph: { images: ["/og?page=pricing"] },
 };
 
-// Product + one Offer per tier and term (WD-16). PreOrder availability: nothing is for sale on this page yet.
+// Product plus one Offer per tier and term. PreOrder availability: nothing is for sale on this page yet.
 const LD = {
   "@context": "https://schema.org",
   "@type": "Product",
   name: "WiseDinner",
-  description: "a meal planner that turns a weekly budget and a daily protein target into five days of meals, one short list and an estimated in-store total.",
-  brand: { "@type": "Brand", name: "wisedinner" },
+  description: site.hero.lede,
+  brand: { "@type": "Brand", name: "WiseDinner" },
   offers: TIERS.flatMap((t) => [
-    { "@type": "Offer", name: `${t.name} — yearly`, price: t.yearly.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/PreOrder", url: `${SITE}/pricing` },
-    { "@type": "Offer", name: `${t.name} — monthly`, price: t.monthly.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/PreOrder", url: `${SITE}/pricing` },
+    { "@type": "Offer", name: `${t.name}, yearly`, price: t.yearly.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/PreOrder", url: `${SITE}/pricing` },
+    { "@type": "Offer", name: `${t.name}, monthly`, price: t.monthly.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/PreOrder", url: `${SITE}/pricing` },
   ]),
 };
 
 export default function Pricing() {
   return (
-    <main id="main">
+    <PageShell title={site.pricing.h2} sub="These prices apply in the app at launch. Nothing is for sale on this page yet." wide>
       <script type="application/ld+json">{JSON.stringify(LD)}</script>
       <PageView event="pricing_view" />
-      <Section>
-        <p className="tnum text-xs uppercase text-forest">pricing</p>
-        <h1 className="mt-4 text-h1 font-bold text-balance">pricing that&apos;ll apply in the app — nothing for sale on this page yet.</h1>
-        <div className="mt-12">
-          <PricingCards />
+      <PricingCards />
+      <div className="mx-auto mt-16 max-w-md border-t border-border pt-10 text-center">
+        <h2 className="text-h3">Get the launch email</h2>
+        <div className="mt-5">
+          <WaitlistForm source="pricing" />
         </div>
-        <div className="mt-14 border-t border-border pt-8">
-          <h2 className="text-2xl font-medium">not on iPhone? get the launch email</h2>
-          <div className="mt-6">
-            <WaitlistForm source="pricing" />
-          </div>
-        </div>
-      </Section>
-    </main>
+      </div>
+    </PageShell>
   );
 }
