@@ -1,15 +1,18 @@
-// the one App Store destination (founder decision 2026-09-05: the site sells nothing and hosts no community — it captures
-// early access now and funnels to the App Store pre-order once NEXT_PUBLIC_APP_STORE_URL is set).
-// unset: every primary control is "get early access" → the waitlist form (WD-01: a control must never dead-end).
-// set: every primary control is "pre-order on the App Store" → the listing, with Apple's badge and the release date.
-// NEXT_PUBLIC_ prefix is required — client components (sticky bar) read these, and Next inlines only prefixed vars.
-// `||` not `??`: an empty value must not become href="" (a same-page reload, the original bug).
+// the store destinations (REDESIGN-V4 §6). the App Store and Google Play badges are always visible in the header, the
+// pre-order band and the footer; they link to "#" until NEXT_PUBLIC_APP_STORE_URL / NEXT_PUBLIC_PLAY_URL are set.
+// while the listing is not live the hero's primary control stays the early-access form, and the sticky bar and the
+// secondary pages' text CTAs point at it; once it is live every text CTA reads "Pre-order on the App Store".
+// NEXT_PUBLIC_ prefix is required: client components read these and Next inlines only prefixed vars.
+// `||` not `??`: an empty value must never become href="" (a same-page reload).
 export const APP_STORE_IS_LIVE = Boolean(process.env.NEXT_PUBLIC_APP_STORE_URL);
-export const APP_STORE_URL = process.env.NEXT_PUBLIC_APP_STORE_URL || "/#early-access";
+export const APP_STORE_URL = process.env.NEXT_PUBLIC_APP_STORE_URL || "#";
 
-// Google Play (REDESIGN-V3 §2C): same contract as the App Store URL. preview sets both to "#" so the badges show for review.
 export const PLAY_IS_LIVE = Boolean(process.env.NEXT_PUBLIC_PLAY_URL);
-export const PLAY_URL = process.env.NEXT_PUBLIC_PLAY_URL || "/#early-access";
+export const PLAY_URL = process.env.NEXT_PUBLIC_PLAY_URL || "#";
 
-// free text, shown only while live: "expected March 2027". empty → no date anywhere.
+// the text CTA target while the listing is not live: the early-access form on the homepage
+export const EARLY_ACCESS_URL = "/#early-access";
+export const CTA_URL = APP_STORE_IS_LIVE ? APP_STORE_URL : EARLY_ACCESS_URL;
+
+// free text, shown only while live: "March 2027". empty means no date anywhere.
 export const RELEASE_DATE = APP_STORE_IS_LIVE ? process.env.NEXT_PUBLIC_RELEASE_DATE || "" : "";

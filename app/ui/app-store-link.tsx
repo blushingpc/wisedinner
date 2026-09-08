@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { HERO } from "@/app/copy";
-import { APP_STORE_IS_LIVE, APP_STORE_URL } from "@/lib/links";
+import { APP_STORE_IS_LIVE, APP_STORE_URL, EARLY_ACCESS_URL } from "@/lib/links";
 
-// every primary control on the site goes through here (WD-01).
-// live: new tab to the App Store with the caller's label. not live: same-tab link to the waitlist, locked label "get early access".
-// short: below md the label drops "get" so the header row still fits a 320px phone beside the wordmark (WD-08).
+// every text CTA on the site goes through here (a control must never dead-end).
+// live: a new tab to the App Store with the caller's label. not live: a same-tab link to the early-access form.
+// short: below md the label drops "Get" so a narrow row still fits.
 export function AppStoreLink({
   placement,
   className = "",
@@ -23,11 +23,11 @@ export function AppStoreLink({
 }) {
   if (!APP_STORE_IS_LIVE) {
     return (
-      <Link href={APP_STORE_URL} data-placement={placement} tabIndex={tabIndex} className={className}>
+      <Link href={EARLY_ACCESS_URL} data-placement={placement} tabIndex={tabIndex} className={className}>
         {short ? (
           <>
-            {/* &nbsp; — .cta is inline-flex, so plain spaces at these text-run boundaries would be dropped */}
-            <span className="hidden md:inline">get&nbsp;</span>early&nbsp;access →
+            {/* &nbsp;: .cta is inline-flex, so plain spaces at these text-run boundaries would be dropped */}
+            <span className="hidden md:inline">Get&nbsp;</span>early&nbsp;access
           </>
         ) : (
           HERO.waitlist

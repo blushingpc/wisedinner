@@ -71,7 +71,7 @@ export function ReceiptCard({ week, variant, title = "your week, solved", printe
       {variant === "drop" && <Row l="kcal / day" r={`${week.kcal_per_day}`} />}
       <Row l="food wasted" r="0" />
       <p className="my-3 text-center text-ink-2">* * *</p>
-      {proof && <p className="mb-2 text-center text-[0.75rem] text-ink-2">{site.receipt.refreshed}</p>}
+      {proof && <p className="mb-2 text-center text-[0.75rem] text-ink-2">Prices refreshed every Sunday</p>}
       {!mini && <div className="barcode" aria-hidden="true" />}
       {!proof && (
         <p className="mt-2 text-center text-ink-2">
