@@ -15,7 +15,7 @@ const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin
 // Inter is `optional`: next/font ships a metric-matched fallback, so the body lays out identically either way and a
 // slow first visit keeps the fallback instead of re-painting the LCP paragraph when the file lands (measured as 2.4s
 // of element render delay under simulated slow 4G); every later view uses the cached file.
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "optional", preload: true });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "optional", preload: false }); // no preload: it would only contend with the stylesheet on slow links
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

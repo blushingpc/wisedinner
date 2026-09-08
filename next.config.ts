@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   // next/image serves an exact candidate for each DPR and nothing renders above its intrinsic size or soft at 3x
   images: { formats: ["image/avif", "image/webp"], imageSizes: [56, 64, 112, 128, 160, 168, 192, 320, 480], qualities: [75, 90] },
   devIndicators: false, // the store-shot export and design screenshots run against dev; the badge must not print
+  // hero LCP: the 12KB stylesheet was the render-blocking request that landed last behind the fonts and preloads on
+  // slow 4G (first paint 2.0s); inlined, first paint follows the document
+  experimental: { inlineCss: true },
   async redirects() {
     // the printed short link (hero QR, WD-07): repoint here, never reprint. temporary (307) on purpose.
     return [

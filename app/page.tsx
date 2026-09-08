@@ -71,7 +71,7 @@ export default function Home() {
           {/* no entrance fade here: the S1 bezel is the LCP element and must paint the moment it decodes */}
           <div>
             <PhoneStage
-              s1={<ThisWeek week={fixtureWeek} active="tue" priority />}
+              s1={<ThisWeek week={fixtureWeek} active="tue" />}
               s4={<ReceiptReveal week={fixtureWeek} />}
               s1Label={`Phone showing this week: ${TUE.meals.map((m) => m.name).join(", ")}; under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`}
               s4Label={`Phone showing the receipt reveal: estimated ${usd(fixtureWeek.receipt.estimated_usd)}, actual ${usd(fixtureWeek.receipt.actual_usd)}, receipt verified`}
