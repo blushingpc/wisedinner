@@ -1,9 +1,9 @@
-// zips the mark (svg + 2048 png) → public/press/wisedinner-press-kit.zip. run: node scripts/press-kit.ts
+// zips the v4 brand: the mark (forest + white svg, 2048 png), the app icon and the lockup png → public/press/wisedinner-press-kit.zip. run: node scripts/press-kit.ts
 // ponytail: a stored (uncompressed) zip is ~40 lines of stdlib; png is already compressed, svg is 4 kb. no zip dep.
 import { readFileSync, writeFileSync } from "node:fs";
 import { crc32 } from "node:zlib";
 
-const FILES = ["public/logo/wisedinner-mark.svg", "public/press/wisedinner-mark.png"];
+const FILES = ["public/logo/wisedinner-mark.svg", "public/logo/mark-white.svg", "public/press/wisedinner-mark.png", "public/press/wisedinner-mark-white.png", "public/press/wisedinner-app-icon.png", "public/press/wisedinner-lockup.png"];
 
 const u16 = (n: number) => Buffer.from([n & 255, (n >> 8) & 255]);
 const u32 = (n: number) => Buffer.from([n & 255, (n >> 8) & 255, (n >> 16) & 255, (n >>> 24) & 255]);

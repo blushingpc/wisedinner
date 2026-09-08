@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { List } from "@phosphor-icons/react/dist/ssr";
-import { Wordmark } from "@/app/wordmark";
+import { Lockup } from "@/app/lockup";
 import { APP_STORE_IS_LIVE, PLAY_IS_LIVE } from "@/lib/links";
 import { PreorderButton } from "./preorder-button";
 import { StoreBadges } from "./store-badges";
@@ -19,7 +19,7 @@ export function Nav() {
   return (
     <header className="chrome sticky top-0 z-(--z-sticky) border-b border-border">
       <nav aria-label="primary" className="mx-auto flex max-w-[1200px] items-center gap-x-3 px-4 py-3 sm:px-6 md:gap-x-6 lg:px-12">
-        <Wordmark />
+        <Lockup href="/" size={28} thin />
         <ul className="ml-auto hidden items-center gap-6 text-base md:flex">
           {LINKS.map(([label, href]) => (
             <li key={href}>

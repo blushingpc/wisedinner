@@ -61,13 +61,5 @@ export function TabBar({ active }: { active: Tab }) {
   );
 }
 
-// the brand lockup inside app surfaces (share card): mark + wordmark, both ink
-export function Lockup({ className = "" }: { className?: string }) {
-  return (
-    <span className={`inline-flex items-center gap-[0.4em] font-bold tracking-tight ${className}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- static svg */}
-      <img src="/logo/wisedinner-mark.svg" alt="" width={22} height={22} aria-hidden="true" className="size-[1.1em]" />
-      wisedinner
-    </span>
-  );
-}
+// the brand lockup inside app surfaces (share card): em-sized off the screen font
+export { LockupEm as Lockup } from "@/app/lockup";

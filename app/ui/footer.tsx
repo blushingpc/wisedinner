@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { InstagramLogo, TiktokLogo } from "@phosphor-icons/react/dist/ssr";
-import { Wordmark } from "@/app/wordmark";
+import { Lockup } from "@/app/lockup";
 import { site } from "@/content/site";
 import { StoreBadges } from "./store-badges";
 
@@ -30,7 +30,7 @@ export function Footer() {
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-14 sm:grid-cols-[1.6fr_1fr_1fr] lg:px-12">
         <div>
-          <Wordmark className="text-base" />
+          <Lockup href="/" size={24} />
           <p className="mt-3 text-[1.0625rem] font-semibold">{site.hero.h1}</p>
           <StoreBadges placement="footer" height={40} className="mt-5" fallback={false} release={false} />
           <div className="mt-5 flex gap-2">

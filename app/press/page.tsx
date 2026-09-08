@@ -32,7 +32,7 @@ export default function Press() {
               </a>
             </li>
             <li className="tnum text-sm text-ink-2">
-              contains: wisedinner-mark.svg (vector) · wisedinner-mark.png (2048 px, transparent) ·{" "}
+              contains: the mark as svg (forest and white), 2048 px png (forest and white), the app icon and the lockup.{" "}
               <a href="/logo/wisedinner-mark.svg" className="text-link">
                 svg
               </a>{" "}
@@ -42,10 +42,10 @@ export default function Press() {
               </a>
             </li>
           </ul>
-          <p className="mt-8 max-w-[62ch] text-ink-2">the wordmark is always set in type; please don&apos;t rasterize it. the mark stays single-colour, ink on white or white on ink.</p>
+          <p className="mt-8 max-w-[62ch] text-ink-2">The wordmark is always set in type in Plus Jakarta Sans. The mark stays one color: forest on white, or white on forest.</p>
         </div>
         <div className="self-start rounded-[14px] border border-border bg-surface p-12">
-          <Image src="/press/wisedinner-mark.png" alt="the wisedinner mark: a monoline lowercase w followed by a period" width={512} height={512} className="mx-auto h-auto w-48" />
+          <Image src="/press/wisedinner-mark.png" alt="The WiseDinner mark: a W drawn as two check marks" width={512} height={512} className="mx-auto h-auto w-48" />
         </div>
       </Section>
     </main>
