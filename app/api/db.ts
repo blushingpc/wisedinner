@@ -33,6 +33,23 @@ export async function count(table: string) {
   }
 }
 
+// keep-alive probe (issue #16): one HEAD select on the waitlist table through the service key. Supabase pauses free-tier
+// projects after seven idle days and PostgREST then answers 5xx; the weekly-drop workflow calls /api/status daily so
+// this query counts as activity. Returns no data, only whether the table answered and how fast.
+export async function ping(table = "waitlist") {
+  const started = Date.now();
+  try {
+    const res = await fetch(`${url()}/rest/v1/${table}?select=id&limit=1`, {
+      method: "HEAD",
+      headers: { apikey: key(), authorization: `Bearer ${key()}` },
+      cache: "no-store",
+    });
+    return { ok: res.ok, status: res.status, ms: Date.now() - started };
+  } catch (e) {
+    return { ok: false, status: 0, ms: Date.now() - started, error: (e as Error).message };
+  }
+}
+
 // ponytail: in-memory map, per instance, resets on deploy — fine at this scale; move to a KV when it isn't
 const hits = new Map<string, number[]>();
 export function rateLimited(req: Request, limit = 10) {

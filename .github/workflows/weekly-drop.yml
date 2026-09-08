@@ -2,14 +2,28 @@ name: weekly drop
 
 on:
   schedule:
-    - cron: "0 10 * * 0" # sunday 10:00 UTC
+    - cron: "0 10 * * 0" # sunday 10:00 UTC: the drop
+    - cron: "0 9 * * *" # daily 09:00 UTC: the supabase keep-alive only
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
+  # issue #16: supabase pauses a free-tier project after seven idle days and every waitlist insert then 502s.
+  # /api/status runs a HEAD select on the waitlist table with the key vercel holds, so this counts as activity
+  # without a database secret in github. runs on every schedule and on dispatch; fails loudly if the table does not answer.
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: select on the waitlist table via /api/status
+        run: |
+          body=$(curl -sS --max-time 30 https://www.wisedinner.com/api/status)
+          echo "$body" | jq '{db, last_commit}'
+          test "$(echo "$body" | jq -r '.db.ok')" = "true"
+
   drop:
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 10 * * 0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
