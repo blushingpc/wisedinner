@@ -49,16 +49,18 @@ export default function Home() {
       <script type="application/ld+json">{JSON.stringify(faqLd(FAQ))}</script>
 
       {/* HERO (REDESIGN-V4 §6): two columns from 1024px, stacked below. left: pill, H1, sub, the early-access form, the
-          microline. right: the phone stage. nothing else above the fold. */}
+          microline. right: the phone stage. nothing else above the fold. every entrance here is transform-only
+          (rise-up): an opacity fade keeps the LCP candidate unpainted until it ends, which measured as 2.3s of
+          element render delay on the sub paragraph. */}
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 pt-10 pb-12 lg:grid-cols-[1.2fr_1fr] lg:gap-10 lg:px-12 lg:py-12">
           <div>
-            <p className="fade-up inline-flex items-center gap-2 rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink">
+            <p className="rise-up inline-flex items-center gap-2 rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink">
               <span aria-hidden="true" className="size-2 rounded-full bg-emerald" />
               {site.hero.pill}
             </p>
             <h1 className="rise-up mt-5 text-h1 text-balance">{site.hero.h1}</h1>
-            <p className="fade-up mt-5 max-w-[52ch] text-lg text-ink-2 [animation-delay:80ms]">{site.hero.lede}</p>
+            <p className="rise-up mt-5 max-w-[52ch] text-lg text-ink-2 [animation-delay:120ms]">{site.hero.lede}</p>
             <div className="mt-8">
               <WaitlistForm source="hero" placement="hero" />
             </div>
