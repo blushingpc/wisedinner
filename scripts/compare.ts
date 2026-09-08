@@ -17,8 +17,9 @@ const tiles: { input: Buffer; top: number; left: number }[] = [];
 let y = 0;
 for (const [name, ref, ours] of rows) {
   const half = Math.floor(W / 2);
-  const left = await sharp(ref).resize({ width: half, height: 720, fit: "cover", position: "top" }).png().toBuffer();
-  const right = await sharp(ours).resize({ width: half, height: 720, fit: "cover", position: "top" }).png().toBuffer();
+  const fit = { width: half, height: 720, fit: "contain" as const, position: "top" as const, background: "#ffffff" };
+  const left = await sharp(ref).resize(fit).png().toBuffer();
+  const right = await sharp(ours).resize(fit).png().toBuffer();
   tiles.push({ input: label(`${name} (reference)`, half), top: y, left: 0 }, { input: label("WiseDinner v4", half), top: y, left: half });
   tiles.push({ input: left, top: y + 40, left: 0 }, { input: right, top: y + 40, left: half });
   y += 760 + 16;

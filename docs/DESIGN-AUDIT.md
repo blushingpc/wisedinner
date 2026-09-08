@@ -150,6 +150,8 @@ After the purge, the six numbers that remain on the homepage: **$39.72** (the we
 
 ## 6. COLOR DIRECTION — WARM PAPER, ONE YOLK, ONE KALE
 
+> **Superseded 2026-09-08.** The tokens in this section are archived: REDESIGN-V4 §3 replaces every color, type and shape value (white page, #F5F5F7 surface, #111 ink, forest #0B3D2E, emerald #10B981, Plus Jakarta Sans + Inter). Read it for the reasoning, not the values.
+
 The current palette is sterile because it was built to be neutral. But the seeds of a real palette already exist in the code: a brick red on totals, a forest green on protein, a pale mint band. The direction below grows those seeds into a system and derives the accent from the product's own world: **the yellow shelf-price tag.** You quote shelf prices; the shelf tag is yellow. That is a brand color with a reason.
 
 | Token | Hex | Role |
@@ -182,6 +184,8 @@ The current palette is sterile because it was built to be neutral. But the seeds
 ---
 
 ## 7. TYPOGRAPHY DIRECTION
+
+> **Superseded 2026-09-08.** The tokens in this section are archived: REDESIGN-V4 §3 replaces every color, type and shape value (white page, #F5F5F7 surface, #111 ink, forest #0B3D2E, emerald #10B981, Plus Jakarta Sans + Inter). Read it for the reasoning, not the values.
 
 Keep Bricolage Grotesque; give it the stage. Demote IBM Plex Mono to the two motifs only. Replace every 11px uppercase mono label with a 14px Bricolage semibold caption. Go lowercase everywhere, including the H1 — the current page capitalizes only the H1, and the OG image lowercases it, which reads as indecision.
 

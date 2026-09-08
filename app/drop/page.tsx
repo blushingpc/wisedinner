@@ -38,7 +38,7 @@ export default function Drop() {
                       <span className="text-xs font-medium text-ink-2">{i.unit}</span>
                       <span>
                         {i.name}
-                        <span className="block text-xs text-ink-2 tnum">{i.portion.replaceAll(" · ", ", ")}</span>
+                        <span className="block text-xs text-ink-2 tnum">{i.portion.replace(/ · /g, ", ")}</span>
                       </span>
                       <span className="text-sm text-ink-2 tnum">{i.protein_g} g</span>
                     </li>
