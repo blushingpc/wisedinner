@@ -494,12 +494,188 @@
       "job_id": "d24aab06-5540-42de-81cd-b5213e9de4aa",
       "used_for": "hero cut-out (REDESIGN-V4 §5D) and the white-blend test",
       "model": "image_background_remover"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "southwest chicken wrap",
+      "job_id": "698b9078-74fa-4262-9cdf-8a2a099a5834",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 2 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "turkey and avocado sandwich on whole wheat",
+      "job_id": "d16017a5-b0f0-4ace-a667-b451d2d67e3f",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 2 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "tuna salad wrap",
+      "job_id": "6b56f48d-e87c-4824-acfb-f4d0fbac0773",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 2 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "Mediterranean chicken bowl with tzatziki",
+      "job_id": "ab58fb86-c6c2-4ded-8c42-4dbda39f1b50",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 2 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "turkey taco bowl",
+      "job_id": "9f975425-9a3b-428c-99ba-43bceadc5a3b",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 2 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "teriyaki chicken and broccoli rice bowl",
+      "job_id": "2d916aa8-ef88-4679-bbbf-f874bebe3d30",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 2 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "chicken fajita bowl",
+      "job_id": "954a09fd-9e9c-4bce-9237-a4825085453b",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 2 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "generation",
+      "what": "sheet pan chicken with sweet potato and broccoli",
+      "job_id": "228c9bcc-2f80-4125-9722-1b592b16c13a",
+      "used_for": "menu photo (REDESIGN-V4 §5) batch 2 of 4, anchor as image reference",
+      "model": "nano_banana_pro 1:1 2k (served as nano_banana_2)"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "greek-yogurt-parfait-with-berries-and-granola 2k -> 4k",
+      "job_id": "f2689c0c-11a9-4ba6-b64a-21deb13ab84c",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "protein-oatmeal-with-peanut-butter-and-banana 2k -> 4k",
+      "job_id": "53def07f-b263-4750-a4a0-f21abfb98e75",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "egg-white-and-veggie-scramble-with-toast 2k -> 4k",
+      "job_id": "3f9f9ebb-c581-4f81-9b91-e42b3caa6b08",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "protein-pancakes-with-berries 2k -> 4k",
+      "job_id": "28a95a6f-c200-4005-ac7d-4d6ba860314d",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "egg-and-avocado-breakfast-wrap 2k -> 4k",
+      "job_id": "b0ceb435-20b0-4be5-9d01-0499fc9d9a94",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "cottage-cheese-bowl-with-fruit-and-honey 2k -> 4k",
+      "job_id": "05e413ab-b494-4cc0-a10d-140316dbee2c",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "chicken-caesar-wrap 2k -> 4k",
+      "job_id": "987ae1bc-0cb2-478f-8aeb-c6ac39064d8a",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "southwest-chicken-wrap 2k -> 4k",
+      "job_id": "c0b39693-9daa-46bd-b64a-66ecc4c5e220",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "turkey-and-avocado-sandwich-on-whole-wheat 2k -> 4k",
+      "job_id": "a3bfb564-aba3-4676-b406-d788055d611e",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "tuna-salad-wrap 2k -> 4k",
+      "job_id": "d9d7d5ad-a028-45f9-a220-6e4db70ee654",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "mediterranean-chicken-bowl-with-tzatziki 2k -> 4k",
+      "job_id": "5b645332-2e26-49ef-bf4f-73eeae49cc9d",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "turkey-taco-bowl 2k -> 4k",
+      "job_id": "e540f93c-7841-4379-b0a3-bff9ac469be4",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "teriyaki-chicken-and-broccoli-rice-bowl 2k -> 4k",
+      "job_id": "9512b2aa-b02e-4139-b776-31235b9e0fb5",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "edit-upscale-4k",
+      "what": "chicken-fajita-bowl 2k -> 4k",
+      "job_id": "282ad56c-757c-4ece-9382-ce220e987a52",
+      "used_for": "4K master (REDESIGN-V4 §5B)",
+      "model": "bytedance_image_upscale"
     }
   ],
   "credit_floor": 235.7,
   "recorded_at": "2026-09-08",
   "iteration_generation_count": 8,
-  "day_generation_count": 8,
+  "day_generation_count": 16,
   "balance_after_run": 1007,
   "note_2026_09_07": "v3 step 5 complete: 5 batches, 38 attempts (5 upstream failures retried), 33 of 33 dishes + 2 cut-outs. 38/40 today; next self-serve window opens 2026-09-08.",
   "note_2026_09_08": "v4 step 4: 27 dishes + 2 cut-outs, four batches of <=8 generations; each generation is upscaled to 4K (kind edit-upscale-4k, not counted against the caps). starting balance for the day 1007 credits, floor 235.7."
