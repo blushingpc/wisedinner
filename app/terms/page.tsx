@@ -4,7 +4,7 @@ import { LegalLayout, type LegalSection } from "@/app/ui/legal-layout";
 
 export const metadata: Metadata = {
   title: "Terms of service",
-  description: "The terms for using the WiseDinner website, its shared-week pages and the launch email list: what the estimates are and aren't, what the waitlist promises, and how we settle things.",
+  description: "The terms for using the WiseDinner website, its shared-week pages and the pre-order links to the App Store and Google Play: what the estimates are and aren't, what a pre-order promises, and how we settle things.",
   alternates: { canonical: "/terms" },
 };
 
@@ -15,8 +15,8 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>Wisedinner is made by WiseDinner. We&apos;ll call ourselves &quot;we&quot; or &quot;WiseDinner&quot;. You&apos;re &quot;you&quot;.</p>
-        <p>These terms cover the WiseDinner website at WiseDinner.com, the shared-week pages on it, and the early-access waitlist. By using any of them you agree to these terms. If you don&apos;t agree, please don&apos;t use the site.</p>
-        <p>The iOS app isn&apos;t out yet. When it ships it will have its own terms, and paid plans will have their own billing terms. Nothing here sells you anything.</p>
+        <p>These terms cover the WiseDinner website at WiseDinner.com, the shared-week pages on it, and the Pre-order now links that send you to the App Store or Google Play. By using any of them you agree to these terms. If you don&apos;t agree, please don&apos;t use the site.</p>
+        <p>The app is available for pre-order on the App Store (Android pre-registration follows on Google Play). The pre-order, any payment and the app itself are handled by that store and by the app&apos;s own terms; paid plans will have their own billing terms in the app. Nothing on this site sells you anything.</p>
       </>
     ),
   },
@@ -31,10 +31,10 @@ const S: LegalSection[] = [
             <strong>Shared weeks.</strong> the WiseDinner app lets a user share a solved week as a card and a link on this site (WiseDinner.com/w/). A shared page shows the week&apos;s meals, its list and its estimated totals. It shows nothing about the person who shared it. The examples on this site today are fixtures, not real users&apos; weeks. The app itself has its own terms inside the app.
           </li>
           <li>
-            <strong>A waitlist.</strong> you give us an email address and we tell you when the app is ready for pre-order and when it launches.
+            <strong>Pre-order links.</strong> the Pre-order now button sends you to the App Store (iPhone) or Google Play (Android). The pre-order or pre-registration is a contract between you and that store under its terms. This site takes no email address, payment or account details for it.
           </li>
         </ul>
-        <p>We can change, pause, or shut down the shared-week pages or the waitlist at any time. It&apos;s pre-launch software and it will change.</p>
+        <p>We can change, pause, or shut down the shared-week pages or the pre-order links at any time. It&apos;s pre-launch software and it will change.</p>
       </>
     ),
   },
@@ -78,7 +78,7 @@ const S: LegalSection[] = [
           <li>Resell, republish, or package plans or price data as your own product;</li>
           <li>Hit the forms or the shared-week pages with automated traffic, or try to get around rate limits;</li>
           <li>Probe, break, or test the security of the site without asking us first;</li>
-          <li>Submit someone else&apos;s email address, or abusive or unlawful content through the support form.</li>
+          <li>Submit someone else&apos;s details, or abusive or unlawful content, through the support form.</li>
         </ul>
         <p>If you do any of this we can block you, and we don&apos;t owe you a warning first.</p>
       </>
@@ -90,18 +90,18 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>The site, the solver, the code, the staple list and prices, the plans it produces, the WiseDinner name and mark, and all the design and copy are ours (or licensed to us). You can look at plans and use them to shop and cook. You can&apos;t copy or reuse them commercially.</p>
-        <p>Your inputs, your budget, your targets, your pantry, your email, your messages, are yours. You give us a licence to store and process them so we can run the service, save your plan, and contact you about the app. That licence ends when we delete your data (see the privacy policy).</p>
+        <p>Your inputs, your budget, your targets, your pantry, your support messages, are yours. You give us a licence to store and process them so we can run the service and answer you. That licence ends when we delete your data (see the privacy policy).</p>
         <p>If you send us feedback, we can use it without owing you anything. Thank you for it.</p>
       </>
     ),
   },
   {
-    id: "waitlist",
-    title: "The waitlist promises nothing",
+    id: "pre-order",
+    title: "A pre-order promises nothing extra",
     body: (
       <>
-        <p>Joining the waitlist gets you an email when the app is ready and a place in the order we invite people. It does not guarantee you access, a launch date, a feature, a price, or a free trial. The prices on our pricing page are what we currently plan to charge in the app, and they can change before launch.</p>
-        <p>You can leave the waitlist any time by emailing support@wisedinner.com.</p>
+        <p>Pre-ordering on the App Store or pre-registering on Google Play is handled by that store, under its terms and its cancellation and refund rules, not by us. It does not guarantee a launch date, a feature, a price, or a free trial. The prices on our pricing page are what we currently plan to charge in the app, and they can change before launch.</p>
+        <p>If you joined the early-access waitlist this site ran before pre-order opened, that list is closed; you can have your entry deleted any time by emailing support@wisedinner.com.</p>
       </>
     ),
   },
@@ -141,13 +141,13 @@ const S: LegalSection[] = [
     title: "Changes to these terms",
     body: (
       <>
-        <p>We may update these terms. If the change matters, we&apos;ll post the new version here with a new effective date and, if you&apos;re on the waitlist, email you about it at least 14 days before it takes effect. Using the site after that date means you accept the new terms.</p>
-        <p>Effective: August 30, 2026</p>
+        <p>We may update these terms. If the change matters, we&apos;ll post the new version here with a new effective date at least 14 days before it takes effect. Using the site after that date means you accept the new terms.</p>
+        <p>Effective: September 9, 2026</p>
       </>
     ),
   },
 ];
 
 export default function Terms() {
-  return <LegalLayout title="terms of service" effective="August 30, 2026" sections={S} />;
+  return <LegalLayout title="terms of service" effective="September 9, 2026" sections={S} />;
 }

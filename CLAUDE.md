@@ -9,6 +9,7 @@ You are building WiseDinner: a budget+protein meal solver. Web app first (Next.j
 4. **Pricing honesty on anything shipped to main is a hard constraint.** Prices come from `content/site.ts` and nowhere else. (The truth gate, its `data-truth` tags and the TRUTH-AUDIT ledger were retired 2026-09-05 — see "External rules".)
 5. **Session ritual lives in the `loop-protocol` skill.** Start and end every session with it.
 6. **Deployed or it didn't happen.** A job is done when it's live on Vercel and verified, not when code exists.
+7. **Never run a machine-wide process kill.** No `taskkill /IM node.exe`, `pkill node`, `killall`, or any kill by image name: other sessions, worktrees and MCP servers share this machine. Stop servers by PID or port only (`netstat -ano | findstr :3077` then `taskkill /F /PID <pid>`). Founder law, 2026-09-09.
 
 ## Design skills — roles + precedence (founder law, 2026-09-05; REDESIGN-V4 promoted 2026-09-08)
 - **docs/REDESIGN-V4.md** — the design source of truth, ABOVE everything else: brand (§2), tokens, type, shape, voice and motion (§3), menu (§4), imagery (§5), page structure (§6), copy deck (§7), app screens (§8), verification (§9). `npm run lint:voice` enforces §3's voice; the built HTML must carry no dashes, middots, ellipses or lowercase styling.
