@@ -5,8 +5,8 @@ export const site = {
     pill: "Pre-order available now on the App Store",
     h1: "Hit your protein. Spend way less.",
     lede: "Tell WiseDinner your weekly grocery budget and your daily protein goal. It plans five days of meals, builds one short grocery list, and shows you the total before you shop.",
-    cta: "Get early access",
-    micro: "No spam. One email when the app is ready.",
+    cta: "Pre-order now",
+    micro: "Free to pre-order. iPhone first, Android next.",
   },
   proof: { preorders: 0, demoWeeksThisMonth: 0, avgWeekUsd: 49.2 }, // counts show only when >= 100
   launchWindow: process.env.NEXT_PUBLIC_RELEASE_DATE || "", // only when the date is firm; set with the App Store URL (lib/links.ts)

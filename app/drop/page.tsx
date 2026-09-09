@@ -3,7 +3,7 @@ import { drop } from "@/data/drop";
 import { PageView } from "@/app/ui/page-view";
 import { PageShell } from "@/app/ui/page-shell";
 import { ReceiptCard } from "@/app/ui/receipt-card";
-import { WaitlistForm } from "@/app/ui/waitlist-form";
+import { PreorderButton } from "@/app/ui/preorder-modal";
 
 export const metadata: Metadata = {
   title: "This week's protein plan",
@@ -48,9 +48,9 @@ export default function Drop() {
             ))}
           </ol>
           <div className="mt-12 border-t border-border pt-8">
-            <h2 className="text-h3">Get next week&apos;s plan first</h2>
+            <h2 className="text-h3">Get next week&apos;s plan in the app</h2>
             <div className="mt-5">
-              <WaitlistForm source="drop" />
+              <PreorderButton placement="drop" className="cta cta-wide min-w-[200px]" />
             </div>
           </div>
         </div>

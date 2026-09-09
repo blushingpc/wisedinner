@@ -12,8 +12,10 @@ const nextConfig: NextConfig = {
     // the printed short link (hero QR, WD-07): repoint here, never reprint. temporary (307) on purpose.
     return [
       { source: "/ios", destination: process.env.NEXT_PUBLIC_APP_STORE_URL || "/", permanent: false },
-      // the pre-sale success page shipped for one day (2026-09-05) and was withdrawn the same day; anyone holding the link lands on the waitlist thanks page
-      { source: "/founders", destination: "/thanks", statusCode: 301 },
+      // the pre-sale success page (one day, 2026-09-05) and the waitlist thanks page (retired with the email form,
+      // FRONTEND-V4.1 §2): anyone holding either link lands on the homepage
+      { source: "/founders", destination: "/", statusCode: 301 },
+      { source: "/thanks", destination: "/", statusCode: 301 },
       // the web demo was removed in REDESIGN-V3 (2026-09-07): the site never runs the solver for a visitor
       { source: "/start", destination: "/", statusCode: 301 },
       { source: "/plan", destination: "/", statusCode: 301 },

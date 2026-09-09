@@ -7,11 +7,6 @@ const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 export const SUPPORT_EMAIL = "support@wisedinner.com";
 export const SITE = "https://www.wisedinner.com";
 
-export const HERO = {
-  waitlist: "Get early access", // every text CTA while the listing is not live (REDESIGN-V4 §7)
-  preorder: "Pre-order on the App Store", // every text CTA once NEXT_PUBLIC_APP_STORE_URL is set
-};
-
 export const FAQ = [
   // §7: the eight answers keep v3's facts (app-first, no web demo, free versus paid, the receipt reveal, shelf-price
   // honesty, pre-order open now, the challenge, "the first version collects no data", the 14-day trial).

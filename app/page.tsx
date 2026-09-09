@@ -11,7 +11,7 @@ import { Testers } from "./ui/testers";
 import { PricingCards } from "./ui/pricing-cards";
 import { PreorderBand } from "./ui/preorder-band";
 import { Section, SectionHeading } from "./ui/section";
-import { WaitlistForm } from "./ui/waitlist-form";
+import { PreorderButton } from "./ui/preorder-modal";
 
 const ORG = {
   "@context": "https://schema.org",
@@ -48,7 +48,7 @@ export default function Home() {
       <script type="application/ld+json">{JSON.stringify(APP)}</script>
       <script type="application/ld+json">{JSON.stringify(faqLd(FAQ))}</script>
 
-      {/* HERO (REDESIGN-V4 §6): two columns from 1024px, stacked below. left: pill, H1, sub, the early-access form, the
+      {/* HERO (REDESIGN-V4 §6): two columns from 1024px, stacked below. left: pill, H1, sub, the pre-order button, the
           microline. right: the phone stage. nothing else above the fold. every entrance here is transform-only
           (rise-up): an opacity fade keeps the LCP candidate unpainted until it ends, which measured as 2.3s of
           element render delay on the sub paragraph. */}
@@ -61,8 +61,9 @@ export default function Home() {
             </p>
             <h1 className="rise-up mt-5 text-h1 text-balance">{site.hero.h1}</h1>
             <p className="rise-up mt-5 max-w-[52ch] text-lg text-ink-2 [animation-delay:120ms]">{site.hero.lede}</p>
-            <div className="mt-8">
-              <WaitlistForm source="hero" placement="hero" />
+            <div className="rise-up mt-8 [animation-delay:160ms]">
+              <PreorderButton placement="hero" className="cta cta-wide min-w-[200px]" />
+              <p className="mt-3 text-sm text-ink-2">{site.hero.micro}</p>
             </div>
             {/* the mobile sticky bar shows once this line has scrolled off the top */}
             <div id={MOBILE_CTA_SENTINEL} aria-hidden="true" />

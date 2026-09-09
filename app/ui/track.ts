@@ -6,7 +6,9 @@ export type Event =
   | "waitlist_duplicate"
   | "drop_view"
   | "support_submit"
-  | "pricing_view";
+  | "pricing_view"
+  | "preorder_open"
+  | "preorder_pick";
 
 // fire-and-forget; analytics blocked → nothing happens, site unaffected
 export function track(event: Event, props?: Record<string, string | number>) {

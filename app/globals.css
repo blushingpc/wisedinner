@@ -430,3 +430,55 @@ html {
   filter: blur(24px);
   z-index: -1;
 }
+
+/* the pre-order dialog (FRONTEND-V4.1 §2): a centered panel that scales in over 200ms from 1024px up, a bottom sheet
+   that slides up on phones. the <dialog> element is the backdrop hit area; the panel is its only child. */
+.preorder-dialog {
+  width: min(100%, 560px);
+  max-width: none;
+  max-height: none;
+  padding: 0 1rem;
+  border: 0;
+  background: transparent;
+  overscroll-behavior: contain;
+}
+.preorder-dialog::backdrop {
+  background: rgba(17, 17, 17, 0.5);
+}
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+.preorder-dialog[open] {
+  animation: modal-in 200ms var(--ease-out) both;
+}
+@media (max-width: 639px) {
+  .preorder-dialog {
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .preorder-dialog > div {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+  .preorder-dialog[open] {
+    animation: sheet-up 200ms var(--ease-out) both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preorder-dialog[open] {
+    animation: none;
+  }
+}
+html:has(.preorder-dialog[open]) {
+  overflow: hidden;
+}

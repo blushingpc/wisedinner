@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageView } from "@/app/ui/page-view";
 import { PageShell } from "@/app/ui/page-shell";
-import { WaitlistForm } from "@/app/ui/waitlist-form";
+import { PreorderButton } from "@/app/ui/preorder-modal";
 import { PricingCards } from "@/app/ui/pricing-cards";
 import { SITE } from "@/app/copy";
 import { site } from "@/content/site";
@@ -36,9 +36,10 @@ export default function Pricing() {
       <PageView event="pricing_view" />
       <PricingCards />
       <div className="mx-auto mt-16 max-w-md border-t border-border pt-10 text-center">
-        <h2 className="text-h3">Get the launch email</h2>
+        <h2 className="text-h3">Free to pre-order</h2>
+        <p className="mt-2 text-ink-2">{site.hero.micro}</p>
         <div className="mt-5">
-          <WaitlistForm source="pricing" />
+          <PreorderButton placement="pricing" className="cta cta-wide min-w-[200px]" />
         </div>
       </div>
     </PageShell>
