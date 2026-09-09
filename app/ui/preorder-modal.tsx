@@ -8,8 +8,8 @@ import { track } from "./track";
 
 // THE PRE-ORDER CONTROL (FRONTEND-V4.1 §2): every primary CTA on the site is this one forest button. It opens a
 // native <dialog> titled "Choose your phone" with two option cards, iPhone (App Store) and Android (Google Play),
-// each linking to its store URL ("#" until the env var is set). showModal() gives the focus trap, Esc, the inert
-// page behind and focus return for free; a click on the backdrop closes; 200ms scale-in on desktop, a bottom sheet
+// each linking to its store URL ("#" until the env var is set). showModal() gives Esc, the inert page behind and
+// focus return for free, onTab wraps focus inside the panel; a click on the backdrop closes; 200ms scale-in on desktop, a bottom sheet
 // on phones (globals.css .preorder-dialog). No library.
 const OPTIONS = [
   { key: "ios", phone: "iPhone", label: "Pre-order on the App Store", href: APP_STORE_URL, live: APP_STORE_IS_LIVE, badge: "apple" as const },
@@ -29,13 +29,28 @@ export function PreorderButton({ placement, className = "cta", tabIndex, childre
   const onBackdrop = (e: React.MouseEvent<HTMLDialogElement>) => {
     if (e.target === e.currentTarget) close();
   };
+  // showModal() makes the page inert, but Chrome still routes Tab past the last control through the browser UI before
+  // it comes back; wrapping here keeps focus inside the panel the whole time
+  const onTab = (e: React.KeyboardEvent<HTMLDialogElement>) => {
+    if (e.key !== "Tab") return;
+    const items = [...e.currentTarget.querySelectorAll<HTMLElement>("a[href], button")];
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
 
   return (
     <>
       <button type="button" onClick={open} data-placement={placement} tabIndex={tabIndex} className={className}>
         {children}
       </button>
-      <dialog ref={dialog} aria-labelledby={`${id}-title`} onClick={onBackdrop} className="preorder-dialog">
+      <dialog ref={dialog} aria-labelledby={`${id}-title`} onClick={onBackdrop} onKeyDown={onTab} className="preorder-dialog">
         <div className="relative rounded-card bg-white p-6 shadow-card sm:p-8">
           <button type="button" onClick={close} aria-label="Close" className="absolute top-3 right-3 grid size-11 place-items-center rounded-[10px] text-ink-2 transition-colors duration-200 hover:bg-surface hover:text-ink">
             <X size={22} weight="bold" aria-hidden="true" />
