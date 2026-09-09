@@ -52,7 +52,7 @@ Next.js (App Router, TS strict) · Tailwind (tokens only, no plugins) · Supabas
 
 ## Brand assets (REDESIGN-V4 §2)
 - Mark: the double-check W, `public/logo/wisedinner-mark.svg` (forest), `mark-white.svg`, `mark-emerald.svg`; the same path lives inline in `app/lockup.tsx`, which renders the lockup (mark + "WiseDinner" in Plus Jakarta Sans 800) — always a component, never a raster.
-- Icons: `node scripts/gen-icons.ts` (sharp) → app/icon.png (1024, forest squircle), app/apple-icon.png, public/icons/*, public/press/*; `node scripts/press-kit.ts` zips the kit; `node scripts/og-card.ts` captures the OG card and the lockup PNG from a running dev server.
+- Icons: `node scripts/gen-icons.ts` (sharp) → app/icon.png (1024, forest squircle), app/apple-icon.png, public/icons/*, public/press/* (the Organization logo PNGs; the /press page and kit were removed in FRONTEND-V4.1); `node scripts/og-card.ts` captures the OG card from a running dev server.
 - Photos: `node scripts/gen-menu.ts` exports the 27 menu photos from the 4K cut-out masters in `public/img/src/cutouts-4k/` (gitignored) onto pure white; `node scripts/gen-cutouts.ts` the two hero cut-outs. Every photo has explicit width/height and a `sizes` that matches its rendered width (next.config imageSizes carries 1x/2x/3x).
 
 ## Loop v2 guardrails (standing)

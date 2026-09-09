@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ABOUT } from "@/app/copy";
 import { PageShell } from "@/app/ui/page-shell";
 
@@ -18,11 +17,6 @@ export default function About() {
         ))}
         <p className="text-ink-2">The WiseDinner team</p>
       </div>
-      <p className="mt-10 text-center">
-        <Link href="/press" className="text-link inline-flex min-h-11 items-center">
-          Press kit
-        </Link>
-      </p>
     </PageShell>
   );
 }

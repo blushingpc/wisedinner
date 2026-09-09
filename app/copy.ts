@@ -1,4 +1,4 @@
-// copy bank (REDESIGN-V4 §3 voice, §7 deck). used by /, /faq, /about, /press, JSON-LD.
+// copy bank (REDESIGN-V4 §3 voice, §7 deck). used by /, /faq, /about, JSON-LD.
 import { site } from "@/content/site";
 
 const [plan, auto] = site.pricing.tiers;
@@ -58,6 +58,3 @@ export const ABOUT = [
   "We refuse three things: fake reviews, sponsored picks in your list, and hidden delivery markups. When we show what the same list costs delivered from Kroger, it is an estimate and sits next to the shelf price with fees included.",
   "The receipt is the proof. We would rather be judged by it.",
 ];
-
-export const PRESS_BOILERPLATE =
-  "WiseDinner is a meal-planning app that treats groceries as a math problem. Give it a weekly budget and a protein target and it returns a solved week: a list of about twelve items, five days of meals, and an estimated in-store total, with zero food waste by construction. It launches on iOS in 2026.";

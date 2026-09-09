@@ -12,8 +12,6 @@ const GROUPS: [string, [string, string][]][] = [
     [
       ["FAQ", "/faq"],
       ["Support", "/support"],
-      ["Press", "/press"],
-      ["Protein index", "/protein-index"],
     ],
   ],
   [

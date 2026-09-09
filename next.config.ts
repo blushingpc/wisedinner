@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
       // FRONTEND-V4.1 §2): anyone holding either link lands on the homepage
       { source: "/founders", destination: "/", statusCode: 301 },
       { source: "/thanks", destination: "/", statusCode: 301 },
+      // the press kit and the protein index were removed (FRONTEND-V4.1 §6); public/press/*.png files still serve (the
+      // Organization logo), so the sources stay exact rather than a wildcard
+      { source: "/press", destination: "/", statusCode: 301 },
+      { source: "/press/lockup", destination: "/", statusCode: 301 },
+      { source: "/protein-index", destination: "/", statusCode: 301 },
       // the web demo was removed in REDESIGN-V3 (2026-09-07): the site never runs the solver for a visitor
       { source: "/start", destination: "/", statusCode: 301 },
       { source: "/plan", destination: "/", statusCode: 301 },
