@@ -16,7 +16,7 @@ export const FAQ = [
   },
   {
     q: "What is free and what is paid?",
-    a: `The pre-order build is free and complete on its own: the six-question onboarding, the offline solver, the week view, the three checks, regenerate, the aisle list with its total, the delivery comparison, share your week and beat this week. No account, nothing to buy. At launch, Protein Plan (${usd(plan.monthly)} a month or ${usd(plan.yearly)} a year) adds the receipt reveal, swap and the weekly solve challenge. Autopilot (${usd(auto.monthly)} a month or ${usd(auto.yearly)} a year) plans next week for you every Sunday at 5pm.`,
+    a: `${site.pricing.intro} No account, nothing to buy. At launch, Protein Plan (${usd(plan.monthly)} a month or ${usd(plan.yearly)} a year) adds regenerate for any single meal, the receipt reveal and the weekly solve challenge. Autopilot (${usd(auto.monthly)} a month or ${usd(auto.yearly)} a year) adds a menu of substitutes so you pick your own replacement, and plans next week for you every Sunday at 5pm.`,
   },
   {
     q: "What is the receipt reveal?",
