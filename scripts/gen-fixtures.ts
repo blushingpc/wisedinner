@@ -1,50 +1,37 @@
-// MENU v3 + FIXTURE WEEKS (REDESIGN-V4 §4). run: node scripts/gen-fixtures.ts
-// the menu and both weeks are hand-authored here; the script only does the arithmetic so every total matches its
-// meals and its list to the cent, then writes data/menu.json, data/fixture-week.json and data/fixture-week-2.json.
-// protein and cost are per-serving estimates (estimate: true). solver templates for these dishes are the data
-// sprint's job, not this one.
-import { writeFileSync } from "node:fs";
+// MENU + FIXTURE WEEKS (REDESIGN-V4 §4) from the data snapshot. run: node scripts/gen-fixtures.ts
+// the menu is the 27 base recipes with per-serving cost and protein from the snapshot (Kroger, Columbus 43215;
+// estimate: true). the two fixture weeks keep their hand-authored day grids and run through the solver's
+// evaluateWeek, so the list, its total and every per-meal cost come from real pack consolidation and the meals
+// match the list to the cent. delivery, actual and accuracy are the marketing fixture's numbers (no Instacart key
+// yet: the Delivery Gap has no live source, and nothing here models a markup).
+import { existsSync, writeFileSync } from "node:fs";
+import { baseRecipes, evaluateWeek, servingCost, servingNutrition, type SolveInput, type SolveOutput } from "../packages/solver/src/index.ts";
+import { snapshot } from "../data/snapshot.ts";
 
-type Type = "breakfast" | "lunch" | "dinner";
 type Aisle = "meat" | "dairy" | "pantry" | "frozen" | "produce";
-
-// name, type, headline protein, protein g, cost per serving
-const MENU: [string, Type, string, number, number][] = [
-  ["Greek yogurt parfait with berries and granola", "breakfast", "Greek yogurt", 38, 2.2],
-  ["Protein oatmeal with peanut butter and banana", "breakfast", "whey and peanut butter", 40, 1.8],
-  ["Egg white and veggie scramble with toast", "breakfast", "egg whites", 38, 2.1],
-  ["Protein pancakes with berries", "breakfast", "whey and eggs", 40, 2.2],
-  ["Egg and avocado breakfast wrap", "breakfast", "eggs", 36, 2.2],
-  ["Cottage cheese bowl with fruit and honey", "breakfast", "cottage cheese", 40, 2.0],
-  ["Chicken caesar wrap", "lunch", "chicken breast", 52, 3.6],
-  ["Southwest chicken wrap", "lunch", "chicken breast", 50, 3.3],
-  ["Chicken burrito bowl", "lunch", "chicken breast", 46, 3.6],
-  ["Turkey and avocado sandwich on whole wheat", "lunch", "turkey breast", 44, 3.0],
-  ["Tuna salad wrap", "lunch", "tuna", 42, 2.5],
-  ["Mediterranean chicken bowl with tzatziki", "lunch", "chicken breast", 54, 3.6],
-  ["Turkey taco bowl", "lunch", "ground turkey", 50, 3.2],
-  ["Teriyaki chicken and broccoli rice bowl", "dinner", "chicken breast", 60, 3.8],
-  ["Chicken fajita bowl", "dinner", "chicken breast", 56, 3.7],
-  ["Sheet pan chicken with sweet potato and broccoli", "dinner", "chicken breast", 60, 4.2],
-  ["Turkey chili", "dinner", "ground turkey", 58, 3.6],
-  ["Pesto chicken pasta", "dinner", "chicken breast", 56, 4.1],
-  ["Turkey meatballs with whole wheat spaghetti", "dinner", "ground turkey", 54, 3.6],
-  ["Chicken stir-fry with rice", "dinner", "chicken breast", 56, 3.4],
-  ["Healthier chicken parmesan", "dinner", "chicken breast", 62, 4.2],
-  ["Turkey burgers with sweet potato wedges", "dinner", "ground turkey", 52, 3.7],
-  ["Ground turkey lettuce wraps", "dinner", "ground turkey", 48, 3.2],
-  ["BBQ chicken with roasted vegetables and rice", "dinner", "chicken thighs", 58, 4.1],
-  ["Buffalo chicken bowl", "dinner", "chicken breast", 56, 3.6],
-  ["Shrimp and veggie stir-fry", "dinner", "shrimp", 46, 4.5],
-  ["Salmon with rice and asparagus", "dinner", "salmon", 48, 5.3],
-];
-
-const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-const menu = MENU.map(([name, type, protein_source, protein_g, cost_usd]) => ({ id: slug(name), name, type, protein_source, protein_g, cost_usd, estimate: true as const, img: `/img/menu/${slug(name)}.jpg` }));
-const byName = Object.fromEntries(menu.map((m) => [m.name, m]));
+const STORE = "kroger";
+const ZIP = "43215";
 const cents = (n: number) => Math.round(n * 100) / 100;
 
-type Plan = { id: string; budget: number; goal: number; days: [string, string, string, string][]; list: [string, Aisle, number, boolean][]; delivery: number; actual: number; accuracy: number };
+const menu = baseRecipes(snapshot)
+  .map((r) => {
+    const n = servingNutrition(r.id, snapshot);
+    return {
+      id: r.id,
+      name: r.name,
+      type: r.meal_type,
+      protein_source: r.tags.find((t) => t.startsWith("protein:"))?.slice(8) ?? "",
+      protein_g: n.protein_g,
+      cost_usd: servingCost(r.id, snapshot, STORE, ZIP),
+      estimate: true as const,
+      img: `/img/menu/${r.id}.jpg`,
+    };
+  })
+  .sort((a, b) => ["breakfast", "lunch", "dinner"].indexOf(a.type) - ["breakfast", "lunch", "dinner"].indexOf(b.type));
+for (const m of menu) if (!existsSync(`public/img/menu/${m.id}.jpg`)) throw new Error(`no photo for ${m.id}`);
+const byName = Object.fromEntries(snapshot.recipes.map((r) => [r.name, r.id]));
+
+type Plan = { id: string; budget: number; goal: number; days: [string, string, string, string][]; delivery: number; actual: number; accuracy: number };
 
 // lunches are mostly last night's dinner doubled (three of five); the other two are menu lunches
 const WEEK_1: Plan = {
@@ -57,20 +44,6 @@ const WEEK_1: Plan = {
     ["wed", "Egg white and veggie scramble with toast", "Turkey chili", "Sheet pan chicken with sweet potato and broccoli"],
     ["thu", "Cottage cheese bowl with fruit and honey", "Sheet pan chicken with sweet potato and broccoli", "Pesto chicken pasta"],
     ["fri", "Protein pancakes with berries", "Pesto chicken pasta", "BBQ chicken with roasted vegetables and rice"],
-  ],
-  list: [
-    ["Chicken breast, 3 lb family pack", "meat", 9.97, true],
-    ["Ground turkey 93/7, 2 lb", "meat", 8.98, true],
-    ["Greek yogurt, 32 oz", "dairy", 4.49, false],
-    ["Eggs, 18 ct", "dairy", 4.29, false],
-    ["Cottage cheese, 24 oz", "dairy", 3.29, false],
-    ["Jasmine rice, 5 lb", "pantry", 4.98, false],
-    ["Whole wheat pasta, 16 oz", "pantry", 1.48, false],
-    ["Rolled oats, 18 oz", "pantry", 2.98, false],
-    ["Kidney beans, 2 cans", "pantry", 1.96, false],
-    ["Frozen broccoli, 32 oz", "frozen", 1.98, false],
-    ["Frozen mixed berries, 16 oz", "frozen", 2.32, false],
-    ["Sweet potatoes, 3 lb", "produce", 2.48, false],
   ],
   delivery: 68.9,
   actual: 48.55,
@@ -89,53 +62,69 @@ const WEEK_2: Plan = {
     ["thu", "Greek yogurt parfait with berries and granola", "Mediterranean chicken bowl with tzatziki", "Buffalo chicken bowl"],
     ["fri", "Egg and avocado breakfast wrap", "Buffalo chicken bowl", "Healthier chicken parmesan"],
   ],
-  list: [
-    ["Chicken breast, 3 lb family pack", "meat", 9.47, true],
-    ["Ground turkey 93/7, 2 lb", "meat", 7.98, true],
-    ["Eggs, 18 ct", "dairy", 4.29, false],
-    ["Greek yogurt, 32 oz", "dairy", 4.49, false],
-    ["Cottage cheese, 24 oz", "dairy", 3.29, false],
-    ["Jasmine rice, 3 lb", "pantry", 3.48, false],
-    ["Whole wheat spaghetti, 16 oz", "pantry", 1.48, false],
-    ["Marinara, 24 oz", "pantry", 1.98, false],
-    ["Rolled oats, 18 oz", "pantry", 2.98, false],
-    ["Bell peppers, 3 pack", "produce", 2.98, false],
-    ["Romaine hearts, 3 pack", "produce", 2.48, false],
-    ["Bananas, bunch", "produce", 1.6, false],
-  ],
   delivery: 65.4,
   actual: 44.11,
   accuracy: 96,
 };
 
-function build(p: Plan) {
-  const days = p.days.map(([day, b, l, d]) => {
-    const meals = ([b, l, d] as const).map((name, i) => {
-      const m = byName[name];
-      if (!m) throw new Error(`not on the menu: ${name}`);
-      return { slot: (["breakfast", "lunch", "dinner"] as const)[i], menu: m.id, name: m.name, protein_g: m.protein_g, cost_usd: m.cost_usd, img: m.img };
+const AISLE: Record<string, Aisle> = { meat: "meat", dairy: "dairy", pantry: "pantry", frozen: "frozen", produce: "produce", bakery: "pantry" };
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+// each list line's full price spread over the servings that use it, so meals sum to the list to the cent
+function mealCosts(out: SolveOutput): number[][] {
+  const ing = new Map<string, { sku: string; qty: number }[]>();
+  for (const i of snapshot.recipe_ingredients) {
+    const arr = ing.get(i.recipe_id) ?? [];
+    arr.push({ sku: i.sku_id, qty: i.qty * (i.unit === "oz" ? 28.3495 : i.unit === "lb" ? 453.592 : i.unit === "fl_oz" ? 29.5735 : i.unit === "tbsp" ? 14.7868 : i.unit === "tsp" ? 4.92892 : i.unit === "cup" ? 236.588 : 1) });
+    ing.set(i.recipe_id, arr);
+  }
+  const useBySku = new Map<string, number>();
+  const meals = out.days.flatMap((d) => d.items.map((m) => m.recipe_id));
+  for (const id of meals) for (const p of ing.get(id) ?? []) useBySku.set(p.sku, (useBySku.get(p.sku) ?? 0) + p.qty);
+  const costs = meals.map(() => 0);
+  for (const line of out.list) {
+    const total = useBySku.get(line.sku_id) ?? 0;
+    if (!total) continue;
+    meals.forEach((id, i) => {
+      const q = (ing.get(id) ?? []).find((p) => p.sku === line.sku_id)?.qty ?? 0;
+      costs[i] += (line.price_usd * q) / total;
     });
-    return { day, meals, protein_g: meals.reduce((a, m) => a + m.protein_g, 0), cost_usd: cents(meals.reduce((a, m) => a + m.cost_usd, 0)) };
+  }
+  // round to cents and push the residue onto the last meal so the sum is exact
+  const rounded = costs.map(cents);
+  const diff = cents(out.est_total - rounded.reduce((a, b) => a + b, 0));
+  rounded[rounded.length - 1] = cents(rounded[rounded.length - 1] + diff);
+  return out.days.map((_, d) => rounded.slice(d * 3, d * 3 + 3));
+}
+
+function build(p: Plan) {
+  const ids = p.days.map(([, b, l, d]) =>
+    [b, l, d].map((name) => {
+      const id = byName[name];
+      if (!id) throw new Error(`not on the menu: ${name}`);
+      return id;
+    }),
+  );
+  const input: SolveInput = { budget: p.budget, protein_per_day: p.goal, kcal_min: 1800, kcal_max: 2800, diet: "none", household: 1, stores: [STORE], zip: ZIP };
+  const out = evaluateWeek(ids, input, snapshot);
+  const costs = mealCosts(out);
+  const days = out.days.map((d, di) => {
+    const meals = d.items.map((m, si) => ({ slot: (["breakfast", "lunch", "dinner"] as const)[si], menu: m.recipe_id, name: m.name, protein_g: m.protein_g, cost_usd: costs[di][si], img: `/img/menu/${snapshot.recipe_variants.find((v) => v.variant_recipe_id === m.recipe_id)?.recipe_id ?? m.recipe_id}.jpg` }));
+    return { day: d.day, meals, protein_g: d.protein_g, cost_usd: cents(meals.reduce((a, m) => a + m.cost_usd, 0)) };
   });
-  const est_total_usd = cents(days.reduce((a, d) => a + d.cost_usd, 0));
-  const list_total = cents(p.list.reduce((a, i) => a + i[2], 0));
-  if (est_total_usd !== list_total) throw new Error(`${p.id}: meals ${est_total_usd} vs list ${list_total}`);
-  if (p.list.length !== 12) throw new Error(`${p.id}: ${p.list.length} items`);
-  const protein_per_day_g = Math.round(days.reduce((a, d) => a + d.protein_g, 0) / days.length);
+  const est_total_usd = out.est_total;
+  const listTotal = cents(days.reduce((a, d) => a + d.cost_usd, 0));
+  if (listTotal !== est_total_usd) throw new Error(`${p.id}: meals ${listTotal} vs list ${est_total_usd}`);
+  if (!out.feasible) console.warn(`${p.id}: not feasible as authored: ${out.why.join("; ")}`);
+  const items = out.list.map((i) => ({ name: `${cap(i.name.split(",")[0])}, ${i.unit}`, aisle: AISLE[i.aisle], price_usd: i.price_usd, checked: i.aisle === "meat" }));
   return {
     id: p.id,
     budget_usd: p.budget,
     protein_goal_g: p.goal,
-    generated_at: "2026-09-08",
+    generated_at: snapshot.generated_at,
     days,
-    totals: { est_total_usd, protein_per_day_g, under_budget_by_usd: cents(p.budget - est_total_usd), waste_lb: 0, items: p.list.length },
-    list: {
-      items: p.list.map(([name, aisle, price_usd, checked]) => ({ name, aisle, price_usd, checked })),
-      est_total_usd,
-      delivery_est_usd: p.delivery,
-      delivery_saves_usd: cents(p.delivery - est_total_usd),
-      delivery_label: "Delivered from Kroger, estimated",
-    },
+    totals: { est_total_usd, protein_per_day_g: out.protein_per_day, under_budget_by_usd: cents(p.budget - est_total_usd), waste_lb: 0, items: items.length },
+    list: { items, est_total_usd, delivery_est_usd: p.delivery, delivery_saves_usd: cents(p.delivery - est_total_usd), delivery_label: "Delivered from Kroger, estimated" },
     receipt: { estimated_usd: est_total_usd, actual_usd: p.actual, delta_pct: Math.round(((p.actual - est_total_usd) / est_total_usd) * 100), accuracy_pct: p.accuracy, verified: true },
   };
 }
