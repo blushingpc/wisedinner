@@ -2,7 +2,7 @@
 // proof counts show only when >= 100; nothing here may claim a number, quote or rating that is not real.
 export const site = {
   hero: {
-    pill: "Pre-order opens on the App Store in October",
+    pill: "Pre-order available now on the App Store",
     h1: "Hit your protein. Spend way less.",
     lede: "Tell WiseDinner your weekly grocery budget and your daily protein goal. It plans five days of meals, builds one short grocery list, and shows you the total before you shop.",
     cta: "Get early access",
@@ -46,5 +46,5 @@ export const site = {
   },
   faq: { h2: "Frequently asked questions" },
   // SECTION 7 pre-order band (§6)
-  preorder: { h2: "Pre-order on the App Store in October" },
+  preorder: { h2: "Pre-order now on the App Store" },
 };

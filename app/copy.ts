@@ -1,6 +1,5 @@
 // copy bank (REDESIGN-V4 §3 voice, §7 deck). used by /, /faq, /about, /press, JSON-LD.
 import { site } from "@/content/site";
-import { APP_STORE_IS_LIVE, RELEASE_DATE } from "@/lib/links";
 
 const [plan, auto] = site.pricing.tiers;
 const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
@@ -15,7 +14,7 @@ export const HERO = {
 
 export const FAQ = [
   // §7: the eight answers keep v3's facts (app-first, no web demo, free versus paid, the receipt reveal, shelf-price
-  // honesty, pre-order in October, the challenge, "the first version collects no data", the 14-day trial).
+  // honesty, pre-order open now, the challenge, "the first version collects no data", the 14-day trial).
   {
     q: "What is WiseDinner?",
     a: "An iPhone app. You give it two numbers, your weekly budget and your daily protein goal, and it returns a solved week: five days of meals you would actually order, one short list, and an estimated in-store total. There is no web version and no demo on this site. The app is the product.",
@@ -35,9 +34,7 @@ export const FAQ = [
   },
   {
     q: "When can I get it?",
-    a: APP_STORE_IS_LIVE
-      ? `Pre-order it now on the App Store and it installs itself on launch day.${RELEASE_DATE ? ` Release: ${RELEASE_DATE}.` : ""}`
-      : "Pre-order opens on the App Store in October, with release three to four weeks after. Leave your email and you will get one message the day pre-order opens and one on launch day. iPhone first. Android follows.",
+    a: "Pre-order is open now on the App Store. Release follows three to four weeks after. iPhone first, Android next.",
   },
   {
     q: "How does the weekly solve challenge work?",

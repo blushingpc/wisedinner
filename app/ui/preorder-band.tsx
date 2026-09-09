@@ -2,7 +2,7 @@ import { fixtureWeek, usd } from "@/data/fixtures";
 import { site } from "@/content/site";
 import { StoreBadges } from "./store-badges";
 
-// SECTION 7, THE PRE-ORDER BAND (REDESIGN-V4 §6): forest field, white type. H2 "Pre-order on the App Store in October",
+// SECTION 7, THE PRE-ORDER BAND (REDESIGN-V4 §6): forest field, white type. H2 "Pre-order now on the App Store",
 // "Release: {date}" when set, both badges, and this week's plan from the fixture. The mobile sticky bar needs the
 // extra bottom padding on phones. `early-access` is the anchor every text CTA points at while the listing is not live.
 export function PreorderBand() {

@@ -13,12 +13,12 @@ export function StoreBadges({ height = 40, placement, className = "", dark = fal
   const playW = Math.round((PLAY.w / PLAY.h) * height);
   return (
     <div className={`flex items-center gap-x-3 gap-y-2 ${wrap ? "flex-wrap" : "flex-nowrap"} ${className}`}>
-      <a href={APP_STORE_URL} {...ext(APP_STORE_IS_LIVE)} data-placement={placement} aria-label={APP_STORE_IS_LIVE ? "Pre-order WiseDinner on the App Store" : "App Store listing coming in October"} className="inline-block shrink-0 rounded-[8px]">
+      <a href={APP_STORE_URL} {...ext(APP_STORE_IS_LIVE)} data-placement={placement} aria-label="Pre-order WiseDinner on the App Store" className="inline-block shrink-0 rounded-[8px]">
         {/* eslint-disable-next-line @next/next/no-img-element -- Apple's svg, served as-is */}
         <img src={APPLE.src} alt="Download on the App Store" width={appleW} height={height} style={{ height, width: "auto" }} />
       </a>
       {play && (
-        <a href={PLAY_URL} {...ext(PLAY_IS_LIVE)} data-placement={placement ? `${placement}-play` : undefined} aria-label={PLAY_IS_LIVE ? "Get WiseDinner on Google Play" : "Google Play listing coming later"} className={`${playClassName || "inline-block"} shrink-0 rounded-[8px]`}>
+        <a href={PLAY_URL} {...ext(PLAY_IS_LIVE)} data-placement={placement ? `${placement}-play` : undefined} aria-label="Pre-register WiseDinner on Google Play" className={`${playClassName || "inline-block"} shrink-0 rounded-[8px]`}>
           {/* eslint-disable-next-line @next/next/no-img-element -- Google's svg, served as-is */}
           <img src={PLAY.src} alt="Get it on Google Play" width={playW} height={height} style={{ height, width: "auto" }} />
         </a>
