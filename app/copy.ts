@@ -24,7 +24,7 @@ export const FAQ = [
   },
   {
     q: "How accurate are the prices?",
-    a: "We quote what the shelf says: averages from public price data with a buffer on top, labeled as estimates and refreshed weekly. The delivery price sits beside it so you can see the markup. Delivery apps run 15 to 25 percent higher before fees. Every receipt you reveal tightens the estimate for you.",
+    a: "We quote what the shelf says: averages from public price data with a buffer on top, labeled as estimates and refreshed weekly. Beside it sits what the same list costs delivered from Kroger, an estimate, so you can see the markup. Delivery apps run 15 to 25 percent higher before fees. Every receipt you reveal tightens the estimate for you.",
     more: { label: "How the math works", href: "/the-math" },
   },
   {
@@ -55,7 +55,7 @@ export const faqLd = (items: { q: string; a: string }[]) => ({
 export const ABOUT = [
   "Groceries got absurd. Protein got expensive. And every app we tried optimized macros, not money. It would hand you a perfect day of eating that cost more than your rent allowed, then shrug when half of it went bad on Thursday.",
   "WiseDinner is the other way round. You give it two numbers: what you can spend this week and how much protein you want a day. A solver returns one short list from a fixed pool of staples, five days of meals that share ingredients, and an estimated in-store total. The whole package gets eaten, by construction.",
-  "We refuse three things: fake reviews, sponsored picks in your list, and hidden delivery markups. If we ever show a delivered price it sits next to the shelf price with fees included.",
+  "We refuse three things: fake reviews, sponsored picks in your list, and hidden delivery markups. When we show what the same list costs delivered from Kroger, it is an estimate and sits next to the shelf price with fees included.",
   "The receipt is the proof. We would rather be judged by it.",
 ];
 

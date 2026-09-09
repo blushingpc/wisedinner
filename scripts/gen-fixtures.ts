@@ -134,7 +134,7 @@ function build(p: Plan) {
       est_total_usd,
       delivery_est_usd: p.delivery,
       delivery_saves_usd: cents(p.delivery - est_total_usd),
-      delivery_label: "Instacart estimate",
+      delivery_label: "Delivered from Kroger, estimated",
     },
     receipt: { estimated_usd: est_total_usd, actual_usd: p.actual, delta_pct: Math.round(((p.actual - est_total_usd) / est_total_usd) * 100), accuracy_pct: p.accuracy, verified: true },
   };

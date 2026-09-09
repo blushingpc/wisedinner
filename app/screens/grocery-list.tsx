@@ -8,7 +8,7 @@ const AISLES = ["meat", "dairy", "pantry", "frozen", "produce"] as const;
 const AISLE_LABEL: Record<(typeof AISLES)[number], string> = { meat: "Meat", dairy: "Dairy", pantry: "Pantry", frozen: "Frozen", produce: "Produce" };
 
 // S2 GROCERY LIST (REDESIGN-V4 §8): aisle groups, tnum prices right-aligned, two checked in emerald, the estimated
-// in-store total and the delivery comparison pinned to the bottom.
+// in-store total and what the same list costs delivered from Kroger (estimated) pinned to the bottom.
 export function GroceryList({ week }: { week: FixtureWeek }) {
   const { list } = week;
   return (

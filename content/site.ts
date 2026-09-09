@@ -15,7 +15,7 @@ export const site = {
     h2: "What does WiseDinner include?",
     items: [
       { title: "A solved week, not suggestions", body: "Give it two numbers. It returns five days of meals that share ingredients, so nothing you buy goes to waste. Regenerate a meal or the whole week." },
-      { title: "One short list with a real total", body: "About twelve items, grouped by aisle, with an estimated in-store total. You also see what the same list costs delivered." },
+      { title: "One short list with a real total", body: "About twelve items, grouped by aisle, with an estimated in-store total. You also see what the same list costs delivered from Kroger, estimated." },
       { title: "Share your week and beat a friend's", body: "Every solved week gets a card and a link. Send a friend your numbers and see who comes out cheaper." },
       { title: "Prove it with your receipt", body: "Photograph your receipt after you shop. You see the estimate next to what you actually paid, and the app gets more accurate every week." },
     ],
@@ -26,7 +26,7 @@ export const site = {
     sub: "The simplest way to eat well on a real budget.",
     items: [
       { title: "It does the math", body: "A solver plans the week. Same inputs, same result, every time. No guessing your macros.", icon: "calculator" },
-      { title: "Shelf prices, not app prices", body: "We quote what the shelf says and show the delivery price next to it. Delivery apps mark items up 15 to 25 percent before fees.", icon: "tag" },
+      { title: "Shelf prices, not app prices", body: "We quote what the shelf says and show what the same list costs delivered from Kroger, estimated, next to it. Delivery apps mark items up 15 to 25 percent before fees.", icon: "tag" },
       { title: "Nothing goes to waste", body: "Whole packages get used. Perishables early in the week, freezer friendly by Friday.", icon: "leaf" },
     ],
   },
