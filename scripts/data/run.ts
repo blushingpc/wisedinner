@@ -9,7 +9,7 @@ import { STORES } from "./authored/stores.ts";
 import { SKUS } from "./authored/skus.ts";
 import { RECIPES } from "./authored/recipes.ts";
 import { expandRecipes } from "./expand.ts";
-import { fetchUsda, loadUsdaMap, nutritionRows } from "./usda.ts";
+import { fetchUsda, nutritionRows } from "./usda.ts";
 import { fetchKroger, loadKrogerMap, type PriceRow } from "./kroger.ts";
 import { fetchWalmart } from "./walmart.ts";
 import { fetchInstacart } from "./instacart.ts";
@@ -62,7 +62,7 @@ async function main() {
   const walmart = await fetchWalmart();
   if (!local && walmart.rows.length) await upsert("prices", walmart.rows, "sku_id,store_id,region,source");
   const instacart = await fetchInstacart();
-  if (!local && instacart.quotes.length) await upsert("delivery_quotes", instacart.quotes.map(({ url: _url, ...q }) => q), "id");
+  if (!local && instacart.quotes.length) await upsert("delivery_quotes", instacart.quotes.map((q) => ({ list_hash: q.list_hash, store_id: q.store_id, zip: q.zip, subtotal: q.subtotal, fees: q.fees, source: q.source, quoted_at: q.quoted_at })), "id");
 
   // d. index estimates for every (sku, store) without a live row
   const live: LiveRow[] = [...kroger.rows, ...walmart.rows];

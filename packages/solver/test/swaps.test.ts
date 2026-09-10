@@ -16,8 +16,8 @@ test("excludes every recipe already in the week and caps at n", () => {
   for (const x of c) assert.ok(!inWeek.has(x.recipe_id), x.recipe_id);
 });
 
-test("only meal-type-valid options: dinners for a dinner slot, lunches or dinners for lunch, breakfasts for breakfast", () => {
-  for (const x of swapCandidates(week, 2, snap, 20)) assert.equal(mealType(x.recipe_id), "dinner");
+test("only meal-type-valid options: lunches or dinners for lunch and dinner slots, breakfasts for breakfast", () => {
+  for (const x of swapCandidates(week, 2, snap, 20)) assert.notEqual(mealType(x.recipe_id), "breakfast");
   for (const x of swapCandidates(week, 1, snap, 20)) assert.notEqual(mealType(x.recipe_id), "breakfast");
   for (const x of swapCandidates(week, 0, snap, 20)) assert.equal(mealType(x.recipe_id), "breakfast");
 });

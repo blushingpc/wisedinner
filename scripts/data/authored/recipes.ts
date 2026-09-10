@@ -93,7 +93,8 @@ export const RECIPES: AuthoredRecipe[] = [
     protein: "egg whites",
     minutes: 10,
     ingredients: [
-      ["egg-whites", 10, "oz"],
+      ["egg-whites", 8, "oz"],
+      ["eggs", 2, "each"],
       ["frozen-peppers-onions", 3, "oz"],
       ["ww-bread", 2, "oz"],
       ["olive-oil", 1, "tsp"],
@@ -105,12 +106,20 @@ export const RECIPES: AuthoredRecipe[] = [
     ],
     variants: [
       {
+        id: "egg-white-and-veggie-scramble-with-toast-eggs",
+        name: "Egg and veggie scramble with toast",
+        kind: "protein_swap",
+        protein: "eggs",
+        swap: { "egg-whites": ["eggs", 2, "each"] },
+      },
+
+      {
         id: "egg-white-and-veggie-scramble-with-toast-tofu",
         name: "Tofu and veggie scramble with toast",
         kind: "protein_swap",
         protein: "tofu",
         swap: {
-          "egg-whites": ["tofu", 7, "oz"],
+          "egg-whites": ["tofu", 7, "oz"], "eggs": null,
         },
         steps: [
           "Heat the oil in a pan and cook the peppers and onions until soft.",
@@ -339,7 +348,7 @@ export const RECIPES: AuthoredRecipe[] = [
     protein: "chicken breast",
     minutes: 15,
     ingredients: [
-      ["chicken-breast", 5, "oz"],
+      ["chicken-breast", 6, "oz"],
       ["flour-tortillas", 1, "each"],
       ["black-beans", 3, "oz"],
       ["salsa", 1, "oz"],
@@ -384,7 +393,7 @@ export const RECIPES: AuthoredRecipe[] = [
     protein: "chicken breast",
     minutes: 20,
     ingredients: [
-      ["chicken-breast", 6, "oz"],
+      ["chicken-breast", 8, "oz"],
       ["white-rice", 60, "g"],
       ["black-beans", 3, "oz"],
       ["salsa", 2, "oz"],
@@ -582,12 +591,12 @@ export const RECIPES: AuthoredRecipe[] = [
     ],
     variants: [
       {
-        id: "turkey-taco-bowl-beef",
-        name: "Beef taco bowl",
+        id: "turkey-taco-bowl-lentil",
+        name: "Lentil taco bowl",
         kind: "protein_swap",
-        protein: "ground beef",
+        protein: "lentils",
         swap: {
-          "ground-turkey": ["ground-beef", 6, "oz"],
+          "ground-turkey": ["lentils", 120, "g"],
         },
       },
       {
@@ -614,7 +623,7 @@ export const RECIPES: AuthoredRecipe[] = [
     protein: "chicken breast",
     minutes: 25,
     ingredients: [
-      ["chicken-breast", 8, "oz"],
+      ["chicken-breast", 10, "oz"],
       ["white-rice", 65, "g"],
       ["frozen-broccoli", 4, "oz"],
       ["teriyaki-sauce", 2, "tbsp"],
@@ -654,7 +663,7 @@ export const RECIPES: AuthoredRecipe[] = [
     protein: "chicken breast",
     minutes: 25,
     ingredients: [
-      ["chicken-breast", 7, "oz"],
+      ["chicken-breast", 9, "oz"],
       ["frozen-peppers-onions", 5, "oz"],
       ["white-rice", 60, "g"],
       ["taco-seasoning", 7, "g"],
@@ -700,7 +709,7 @@ export const RECIPES: AuthoredRecipe[] = [
     protein: "chicken breast",
     minutes: 35,
     ingredients: [
-      ["chicken-breast", 8, "oz"],
+      ["chicken-breast", 10, "oz"],
       ["sweet-potatoes", 8, "oz"],
       ["frozen-broccoli", 4, "oz"],
       ["olive-oil", 1, "tbsp"],
@@ -878,7 +887,7 @@ export const RECIPES: AuthoredRecipe[] = [
     protein: "chicken breast",
     minutes: 25,
     ingredients: [
-      ["chicken-breast", 8, "oz"],
+      ["chicken-breast", 10, "oz"],
       ["frozen-stirfry-veg", 5, "oz"],
       ["white-rice", 65, "g"],
       ["soy-sauce", 2, "tbsp"],
@@ -1077,7 +1086,7 @@ export const RECIPES: AuthoredRecipe[] = [
     protein: "chicken thighs",
     minutes: 35,
     ingredients: [
-      ["chicken-thighs", 8, "oz"],
+      ["chicken-thighs", 10, "oz"],
       ["white-rice", 70, "g"],
       ["frozen-mixed-veg", 5, "oz"],
       ["bbq-sauce", 2, "oz"],
@@ -1121,7 +1130,7 @@ export const RECIPES: AuthoredRecipe[] = [
     protein: "chicken breast",
     minutes: 25,
     ingredients: [
-      ["chicken-breast", 8, "oz"],
+      ["chicken-breast", 10, "oz"],
       ["white-rice", 60, "g"],
       ["buffalo-sauce", 2, "tbsp"],
       ["romaine", 0.25, "each"],

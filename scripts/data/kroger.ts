@@ -50,16 +50,19 @@ export async function token(): Promise<string> {
   return mem.token;
 }
 
-async function get<T>(path: string, params: Record<string, string>): Promise<T> {
+// rate limits (429) and the API's occasional 5xx are retried with backoff; anything else throws
+async function get<T>(path: string, params: Record<string, string>, attempt = 0): Promise<T> {
   const u = new URL(`${API}${path}`);
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v);
   const res = await fetch(u, { headers: { authorization: `Bearer ${await token()}`, accept: "application/json" } });
-  if (res.status === 429) {
-    await new Promise((r) => setTimeout(r, 2000));
-    return get(path, params);
+  const text = await res.text();
+  const html = text.trimStart().startsWith("<"); // a gateway error page, not the API
+  if ((res.status === 429 || res.status >= 500 || html) && attempt < 4) {
+    await new Promise((r) => setTimeout(r, 1500 * 2 ** attempt));
+    return get(path, params, attempt + 1);
   }
-  if (!res.ok) throw new Error(`kroger ${path} ${res.status}: ${await res.text()}`);
-  return (await res.json()) as T;
+  if (!res.ok) throw new Error(`kroger ${path} ${res.status}: ${text.slice(0, 200)}`);
+  return JSON.parse(text) as T;
 }
 
 // --- locations: nearest Kroger-family store to a ZIP → { locationId, chain, banner store id }
@@ -86,10 +89,11 @@ type Product = { productId: string; description: string; brand?: string; items: 
 // "8 lb" | "16 oz" | "12 ct" | "1 gal" | "32 fl oz" | "2 lb bag" → canonical qty in the sku's unit family
 export function parseSize(size: string | undefined, sku: AuthoredSku): number | null {
   if (!size) return null;
-  const m = size.toLowerCase().match(/(\d+(?:\.\d+)?)\s*(fl\.? ?oz|oz|ounces?|lb|lbs|ct|count|each|ea|dozen|gal|gallon|qt|pt|l|ml|g|kg)\b/);
+  const m = size.toLowerCase().match(/(\d+\/\d+|\d+(?:\.\d+)?)\s*(fl\.? ?oz|oz|ounces?|lb|lbs|ct|count|each|ea|dozen|gal|gallon|qt|pt|l|ml|g|kg)\b/);
   if (!m) return null;
   const multi = size.toLowerCase().match(/(\d+)\s*(pk|pack)\b/); // "16 oz / 2 pk" → two packs
-  const n = Number(m[1]) * (multi ? Number(multi[1]) : 1);
+  const qty = m[1].includes("/") ? Number(m[1].split("/")[0]) / Number(m[1].split("/")[1]) : Number(m[1]); // "1/2 gal"
+  const n = qty * (multi ? Number(multi[1]) : 1);
   const u = m[2].replace(/\./g, "").replace(/\s+/g, " ");
   const map: Record<string, [Unit, number]> = {
     "fl oz": ["fl_oz", 1], floz: ["fl_oz", 1], oz: ["oz", 1], ounce: ["oz", 1], ounces: ["oz", 1], lb: ["lb", 1], lbs: ["lb", 1], ct: ["each", 1], count: ["each", 1], each: ["each", 1], ea: ["each", 1],
@@ -104,15 +108,21 @@ export function parseSize(size: string | undefined, sku: AuthoredSku): number | 
   }
 }
 
-const STOP = new Set(["and", "the", "of", "in", "with", "pack", "family", "fresh", "count", "ct", "oz", "lb", "fl", "bag", "can", "tub", "jar", "box", "bottle", "carton", "block", "gallon", "packet", "mix", "burrito"]);
-const words = (s: string) => s.toLowerCase().replace(/[^a-z0-9% ]+/g, " ").split(/\s+/).filter((w) => w && !STOP.has(w) && !/^\d/.test(w));
+const STOP = new Set(["and", "the", "of", "in", "with", "pack", "family", "fresh", "count", "ct", "oz", "lb", "fl", "bag", "can", "tub", "jar", "box", "bottle", "carton", "block", "gallon", "packet", "mix"]);
+const SYN: Record<string, string> = { bbq: "barbecue", barbeque: "barbecue", garbanzo: "chickpea", chickpeas: "chickpea", lentil: "lentils" };
+const words = (s: string) => s.toLowerCase().replace(/[^a-z0-9% ]+/g, " ").split(/\s+/).filter((w) => w && !STOP.has(w) && !/^\d/.test(w)).map((w) => SYN[w] ?? w);
 
-// premium or off-target lines the baseline does not model (a plain shelf item at the value price)
-const PREMIUM = /\b(organic|pasture|cage.?free|free.?range|grass.?fed|seasoned|blackened|marinated|crusted|glazed|thin.?sliced|tenderloins?|singles|soup|snaps?|crisps?|chips|refried|meal|kit|greens|smoothie|juice|bar|cookie|cereal|trail|dip)\b|\d+\s*(pack|pk)\b/i;
+// off-category lines are never the product (hard exclusion); premium lines only lose a price handicap, so a
+// store that stocks nothing but organic tofu still prices tofu
+const OFF = /\b(soup|snaps?|crisps?|chips|refried|meal|kit|greens|smoothie|juice|bar|cookie|cereal|trail|dip|seltzer|sparkling|drink|soda|beverage|stage \d|baby food|pouch|puffs|dog|cat|pet|treats?|recipe|singles|thin.?sliced|tenderloins?|syrup|yams)\b|\d+\s*(pack|pk)\b/i;
+const PREMIUM = /\b(organic|pasture|cage.?free|free.?range|grass.?fed|seasoned|blackened|marinated|roasted|crusted|glazed|natural)\b/i;
+const PREMIUM_HANDICAP = 1.3;
+// a frozen item is off-target for a fresh sku and the other way round
+const FROZEN = /\bfrozen\b/i;
 
 // the value pick: every key word of the search term in the description, no premium words, pack size within
 // 4x of ours either way; among those the cheapest per canonical unit (ties: plain Kroger label, then closest size)
-function pickProduct(products: Product[], sku: AuthoredSku): { p: Product; size: number; price: number } | null {
+export function pickProduct(products: Product[], sku: AuthoredSku): { p: Product; size: number; price: number } | null {
   const cands: { p: Product; size: number; price: number; hit: number; premium: boolean; label: number; sizeGap: number; unit: number }[] = [];
   const ours = packCanonical(sku);
   const keys = words(sku.kroger);
@@ -122,28 +132,32 @@ function pickProduct(products: Product[], sku: AuthoredSku): { p: Product; size:
     const size = parseSize(it?.size, sku);
     if (!price || !size) continue;
     const desc = words(p.description);
-    const hit = keys.filter((k) => desc.some((d) => d === k || (k.length > 3 && d.startsWith(k)))).length / Math.max(keys.length, 1);
+    const stem = (a: string, b: string) => a === b || (a.length > 3 && b.length > 3 && (a.startsWith(b) || b.startsWith(a))); // potato / potatoes
+    const hit = keys.filter((k) => desc.some((d) => stem(d, k))).length / Math.max(keys.length, 1);
     const brand = (p.brand ?? "").toLowerCase();
     const label = brand === "kroger" || p.description.startsWith("Kroger") ? 1 : 0;
+    if ((OFF.test(p.description) && !OFF.test(sku.kroger)) || (FROZEN.test(p.description) && sku.aisle !== "frozen")) continue; // frozen lines never price a fresh sku
     const premium = PREMIUM.test(p.description) && !PREMIUM.test(sku.kroger);
-    cands.push({ p, size, price, hit, premium, label, sizeGap: Math.abs(Math.log(size / ours)), unit: price / size });
+    cands.push({ p, size, price, hit, premium, label, sizeGap: Math.abs(Math.log(size / ours)), unit: (price / size) * (premium ? PREMIUM_HANDICAP : 1) });
   }
-  const relevant = cands.filter((c) => c.hit >= 0.5 && c.sizeGap <= Math.log(4));
-  const plain = relevant.filter((c) => !c.premium);
-  const pool = plain.length ? plain : relevant;
+  const need = keys.length <= 2 ? 1 : 0.75; // every key word for short terms, three of four otherwise
+  const pool = cands.filter((c) => c.hit >= need && c.sizeGap <= Math.log(4));
   if (!pool.length) return null;
   pool.sort((a, b) => a.unit - b.unit || b.label - a.label || a.sizeGap - b.sizeGap);
   return pool[0];
 }
 
-// search the full term first, then the term without its qualifiers, then its first two words
+// the full term, then the term without its qualifiers, then its first two words: results are pooled (by product
+// id) until there are at least ten to choose from, so a narrow term cannot hide the value line
 async function searchProducts(term: string, locationId: string): Promise<Product[]> {
   const tries = [term, words(term).join(" "), words(term).slice(0, 2).join(" ")].filter((t, i, a) => t && a.indexOf(t) === i);
+  const seen = new Map<string, Product>();
   for (const t of tries) {
     const j = await get<{ data: Product[] }>("/products", { "filter.term": t, "filter.locationId": locationId, "filter.limit": "25" });
-    if (j.data?.length) return j.data;
+    for (const p of j.data ?? []) if (!seen.has(p.productId)) seen.set(p.productId, p);
+    if (seen.size >= 10) break;
   }
-  return [];
+  return [...seen.values()];
 }
 
 export function loadKrogerMap(): KrogerMap {
@@ -167,6 +181,7 @@ export async function fetchKroger(): Promise<{ rows: PriceRow[]; map: KrogerMap;
     for (const sku of SKUS) {
       const known = map[sku.id];
       let picked: { p: Product; size: number; price: number } | null = null;
+      try {
       if (known) {
         // fetch the known product at this location for its price
         const j = await get<{ data: Product[] }>("/products", { "filter.productId": known.productId, "filter.locationId": loc.locationId });
@@ -177,7 +192,12 @@ export async function fetchKroger(): Promise<{ rows: PriceRow[]; map: KrogerMap;
       }
       if (!picked) {
         picked = pickProduct(await searchProducts(sku.kroger, loc.locationId), sku);
-        if (picked && !known?.pinned) map[sku.id] = { productId: picked.p.productId, description: picked.p.description, size: picked.p.items[0].size ?? "", term: sku.kroger, matched_at: asOf };
+        // the map remembers the first store's match; other banners re-search when that product is not sold there
+        if (picked && !known) map[sku.id] = { productId: picked.p.productId, description: picked.p.description, size: picked.p.items[0].size ?? "", term: sku.kroger, matched_at: asOf };
+      }
+      } catch (e) {
+        log("kroger", `${sku.id} at ${zip}: ${(e as Error).message.slice(0, 120)}`);
+        picked = null;
       }
       if (!picked) {
         unmapped.add(sku.id);
@@ -187,6 +207,7 @@ export async function fetchKroger(): Promise<{ rows: PriceRow[]; map: KrogerMap;
       const unit_price = picked.price / picked.size;
       rows.push({ sku_id: sku.id, store_id: loc.store_id, region: zip, shelf_price: Math.round(unit_price * ours * 100) / 100, unit_price, source: "kroger-api", confidence: 0.9, as_of: asOf });
     }
+    writeFileSync(MAP, JSON.stringify(map, null, 2) + "\n"); // per store, so a crash keeps the matches so far
   }
   writeFileSync(MAP, JSON.stringify(map, null, 2) + "\n");
   const mapped = SKUS.filter((s) => map[s.id]).length;

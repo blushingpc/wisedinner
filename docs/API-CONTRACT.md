@@ -114,7 +114,7 @@ device (never an email, never a device id); receipt lines are stored unverified 
 | Tier | Calls | Notes |
 |---|---|---|
 | Free (pre-order build) | `solve(input, snapshot)`; whole-week regenerate = `solve({ ...input, seed: newSeed }, snapshot)` | `mode` may be omitted; the solver downgrades to what the data supports |
-| Protein Plan | + `regenerateSlot(week, slotIndex, seed, snapshot)` | `slotIndex = day * 3 + slot` (0..14); returns `changed: false` with a plain-words `why` when nothing else fits |
+| Protein Plan | + `regenerateSlot(week, slotIndex, seed, snapshot)` | `slotIndex = day * 3 + slot` (0..14); returns `changed: false` with a plain-words `why` when nothing else fits. Slot 0 takes breakfasts; slots 1 and 2 share the lunch + dinner pool |
 | Autopilot | + `swapCandidates(week, slotIndex, snapshot, n = 6)` | ranked substitutes with `deltaCost`, `deltaProtein`, `usesExisting`, `newItems`, `variantOf?`; apply one with `evaluateWeek(ids, week.input, snapshot)` |
 
 Gating lives in the app. The solver has no notion of tiers. `pantry` on the input is a list of sku ids the user

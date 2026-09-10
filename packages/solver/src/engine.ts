@@ -9,6 +9,9 @@ const SHELF_STABLE_FROM = 3; // thu, fri: freezer + shelf only — perishables a
 const MAX_STRETCH = 1.5; // a perishable pack is only bought if ≥ 2/3 of it is in the plan; the rest is spread over its servings
 const MAX_SKU_KCAL_SHARE = 0.35;
 const MAX_SAME_DINNER = 2;
+const MAX_SAME_BREAKFAST = 3; // tasks/QUEUE.md idea [activation]: one breakfast five days straight reads monotonous
+const MAX_SAME_LUNCH = 99; // lunches are doubled dinners by design; no cap
+const PREF_SAME_DAY = 2; // dollars-equivalent nudge against the same dish at lunch and dinner on one day
 export const BAND = 1.03; // near-optimal band: feasible weeks within 3% of the cheapest are all "right"; the seed picks one
 const CANDIDATES = 32;
 const STEPS = 1000;
@@ -56,7 +59,7 @@ export type Ctx = {
   pool: Pool;
   pantry: Set<string>;
   floors: { skus: number; proteinSources: number };
-  pools: Template[][]; // everything, the cheaper half per serving, the cheaper half per gram of protein
+  pools: Template[][]; // everything, the cheaper half per serving, the cheaper half per gram of protein, the top half by protein
 };
 
 export function makeCtx(input: SolveInput, pool: Pool): Ctx {
@@ -64,6 +67,7 @@ export function makeCtx(input: SolveInput, pool: Pool): Ctx {
   const price = (t: Template) => t.parts.reduce((a, p) => a + sku.get(p.sku)!.price_usd * p.frac, 0);
   const protein = (t: Template) => t.parts.reduce((a, p) => a + sku.get(p.sku)!.protein_g * p.frac, 0);
   // a small pool makes the search land (diet-restricted weeks always did); the full pool keeps variety.
+  // the halves: cheapest per serving, cheapest per gram of protein, and most protein per serving (high targets).
   const half = (key: (t: Template) => number) => {
     const out: Template[] = [];
     for (const mt of ["breakfast", "lunch", "dinner"] as const) {
@@ -77,14 +81,15 @@ export function makeCtx(input: SolveInput, pool: Pool): Ctx {
     pool,
     pantry: new Set(input.pantry ?? []),
     floors: floors(input.budget),
-    pools: [pool.templates, half(price), half((t) => price(t) / Math.max(protein(t), 1))],
+    pools: [pool.templates, half(price), half((t) => price(t) / Math.max(protein(t), 1)), half((t) => -protein(t))],
   };
 }
 
-// slot 0 takes breakfasts; slot 1 (lunch) takes lunches and dinners (a dinner at lunch is the doubled dinner);
-// slot 2 takes dinners only. thu/fri prefer shelf-stable recipes.
+// slot 0 takes breakfasts; slots 1 and 2 (lunch, dinner) share one pool of lunches and dinners, as the old
+// template solver did with its "main" pool: a dinner at lunch is the doubled dinner, a bowl at dinner is normal.
+// the dinner repeat cap still counts slot 2 only. thu/fri prefer shelf-stable recipes.
 export function options(ctx: Ctx, day: number, slot: number, p: Template[] = ctx.pool.templates): Template[] {
-  const want = (t: Template) => (slot === 0 ? t.meal_type === "breakfast" : slot === 1 ? t.meal_type !== "breakfast" : t.meal_type === "dinner");
+  const want = (t: Template) => (slot === 0 ? t.meal_type === "breakfast" : t.meal_type !== "breakfast");
   const late = day >= SHELF_STABLE_FROM;
   const o = p.filter((t) => want(t) && (!late || t.stable));
   return o.length >= 3 ? o : p.filter(want); // fewer than three shelf-stable options in this pool → allow perishables late
@@ -158,15 +163,24 @@ export function evaluate(week: Week, ctx: Ctx): Evaluation {
   const proteinSources = [...used.keys()].filter((id) => isProteinSource(sku.get(id)!)).length;
   fail(Math.max(0, ctx.floors.proteinSources - proteinSources) * 0.3, `fewer than ${ctx.floors.proteinSources} protein sources`);
   for (const [id, k] of kcalBySku) fail(Math.max(0, k / totalKcal - MAX_SKU_KCAL_SHARE), `${label(sku.get(id)!)} is over a third of the week's calories`);
-  const dinners = new Map<string, { n: number; name: string }>();
-  for (const day of week) {
-    const t = day[2];
-    const d = dinners.get(t.base_id) ?? { n: 0, name: t.name };
-    d.n++;
-    dinners.set(t.base_id, d);
-  }
-  for (const d of dinners.values()) fail(Math.max(0, d.n - MAX_SAME_DINNER) * 0.3, `${d.name} more than twice for dinner`);
-  return { penalty, cost, days, packs, used, shortfall, proteinSources, why, score: penalty * 1000 + cost };
+  const repeats = (slot: number, cap: number, word: string) => {
+    const seen = new Map<string, { n: number; name: string }>();
+    for (const day of week) {
+      const t = day[slot];
+      const d = seen.get(t.base_id) ?? { n: 0, name: t.name };
+      d.n++;
+      seen.set(t.base_id, d);
+    }
+    for (const d of seen.values()) fail(Math.max(0, d.n - cap) * 0.3, `${d.name} more than ${cap === 2 ? "twice" : "three times"} for ${word}`);
+  };
+  repeats(0, MAX_SAME_BREAKFAST, "breakfast");
+  repeats(1, MAX_SAME_LUNCH, "lunch");
+  repeats(2, MAX_SAME_DINNER, "dinner");
+  // preference, not a constraint: the same dish for lunch and dinner on one day is avoided when it costs less
+  // than about two dollars to do so, but it never makes a week infeasible
+  let pref = 0;
+  for (const day of week) if (day[1].base_id === day[2].base_id) pref += 1;
+  return { penalty, cost, days, packs, used, shortfall, proteinSources, why, score: penalty * 1000 + cost + pref * PREF_SAME_DAY };
 }
 
 const label = (s: PoolSku) => s.name.split(",")[0];
@@ -209,6 +223,31 @@ export function anneal(ctx: Ctx, seed: number, fixed?: { week: Week; free: [numb
     results.push(best);
   }
   return results;
+}
+
+// exhaustive single-slot repair: for every slot try every option and keep the best week; repeat while it improves.
+// cheap (15 slots × ~40 options) and it removes the last penalty the annealer parks on near a tight budget.
+export function polish(r: Result, ctx: Ctx, passes = 3): Result {
+  let { week, ev } = r;
+  for (let pass = 0; pass < passes; pass++) {
+    let improved = false;
+    for (let d = 0; d < DAYS.length; d++) {
+      for (let s = 0; s < SLOTS.length; s++) {
+        for (const t of options(ctx, d, s)) {
+          if (t === week[d][s]) continue;
+          const next = week.map((day, di) => (di === d ? day.map((x, si) => (si === s ? t : x)) : day));
+          const nev = evaluate(next, ctx);
+          if (nev.score < ev.score) {
+            week = next;
+            ev = nev;
+            improved = true;
+          }
+        }
+      }
+    }
+    if (!improved) break;
+  }
+  return { week, ev };
 }
 
 // among feasible results pick inside the band by the rng; otherwise the best score
@@ -335,7 +374,7 @@ export function solve(input: SolveInput, s: Snapshot): SolveOutput {
   for (const run of runStores(book)) {
     const ctx = makeCtx(input, buildPool(s, book.maps.get(run.mapKey)!, input.diet, input.budget, templates));
     if (!ctx.pool.templates.length) continue;
-    const results = anneal(ctx, seed);
+    const results = anneal(ctx, seed).map((r) => polish(r, ctx));
     const { week, ev } = choose(results, rng(seed ^ 0x5bd1e995));
     const out = toOutput(week, ev, ctx, seed, book, s);
     if (!best || ev.score < best.ev.score) best = { out, ev };

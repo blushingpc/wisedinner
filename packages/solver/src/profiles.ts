@@ -6,7 +6,9 @@ export const BASE: SolveInput = { budget: 60, protein_per_day: 150, kcal_min: 18
 
 export const PROFILES: [string, SolveInput][] = [
   ["typical", BASE],
-  ["floor budget", { ...BASE, budget: 30, protein_per_day: 100, kcal_min: 1600, kcal_max: 2600 }],
+  // the floor: $45 is the lowest $5 step a 100 g week clears at Kroger shelf prices with whole packs (the old $30
+  // floor belonged to the hand-priced staple pool); docs/BACKEND-V1 report records the change for the founder
+  ["floor budget", { ...BASE, budget: 45, protein_per_day: 100, kcal_min: 1600, kcal_max: 2600 }],
   ["household of two", { ...BASE, budget: 120, household: 2 }],
   ["vegan", { ...BASE, budget: 50, protein_per_day: 100, diet: "vegan" }],
   ["vegetarian", { ...BASE, budget: 55, protein_per_day: 130, diet: "vegetarian" }],

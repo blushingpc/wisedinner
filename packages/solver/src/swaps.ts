@@ -26,7 +26,7 @@ export function swapCandidates(week: SolveOutput, slotIndex: number, s: Snapshot
       recipe_id: t.id,
       name: t.name,
       deltaCost: Math.round((ev.cost - base.cost) * 100) / 100,
-      deltaProtein: Math.round(ev.days[d].protein - base.days[d].protein),
+      deltaProtein: Math.round(ev.days[d].protein) - Math.round(base.days[d].protein), // the day figures as displayed
       usesExisting: newItems.length === 0,
       newItems,
       ...(v ? { variantOf: { recipe_id: current.id, kind: v.kind } } : {}),

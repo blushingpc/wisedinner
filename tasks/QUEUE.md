@@ -33,6 +33,11 @@ E2b. [x] REDESIGN v3 (docs/REDESIGN-V3.md) — PUBLISHED 2026-09-07 (main 0437bb
 E2d. [x] REDESIGN v4 (docs/REDESIGN-V4.md) — PUBLISHED 2026-09-08 (main 8a3aa48), prod probe green, prod Lighthouse 93/100/100/100, issue #18.
 E2c. BLOCKED (founder): Vercel Preview env for design review — NEXT_PUBLIC_APP_STORE_URL="#", NEXT_PUBLIC_PLAY_URL="#", NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF=true, NEXT_PUBLIC_RELEASE_DATE; official pre-order badge svg once the listing exists.
 E3. post-launch — WhatsApp outreach to new accounts, first 100 as S-tier testers. done means: outreach list + invite flow defined by the founder; nothing on the site.
+E4. switch support email to a transactional provider before volume (the Gmail IMAP/SMTP loop in app/api/support/poll is capped at 450 sends a day; BACKEND-V1 §8).
+E5. add Anthropic billing before launch (the support assistant runs on a $5 balance, enough for testing; BACKEND-V1 §8).
+
+## Backend v1 — docs/BACKEND-V1.md (founder spec 2026-09-09), branch backend-v1, PR #20
+B1. [ ] backend v1: schema + pipeline + snapshot v1 + solver over the snapshot + API routes + AI support on Gmail + API contract. done means: the §7 report on PR #20 (pipeline end to end, snapshot published, all tests green, weekly workflow guard green, support auto-reply and escalation both confirmed).
 
 ## After keys/DNS (blocked until human does chrome-tasks.md)
 11. BLOCKED (Stripe keys): 21-day trial checkout, annual-first pricing page per wisedinner-truth.
