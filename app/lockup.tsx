@@ -39,7 +39,7 @@ export function Lockup({ variant = "forest", size = 28, thin = false, href, clas
       <span className={`font-display font-extrabold tracking-[-0.02em] ${v.text}`}>WiseDinner</span>
     </>
   );
-  const cls = `inline-flex items-center gap-[0.29em] leading-none whitespace-nowrap ${className}`;
+  const cls = `inline-flex items-center gap-[0.29em] leading-none whitespace-nowrap ${href ? "min-h-11" : ""} ${className}`;
   return href ? (
     <Link href={href} aria-label="WiseDinner home" className={cls} style={{ fontSize }}>
       {inner}

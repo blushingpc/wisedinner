@@ -70,7 +70,7 @@ export function FeatureSwitcher({ h2, items, screens }: { h2: string; items: { t
                   tabIndex={on ? 0 : -1}
                   onClick={() => pick(i)}
                   onKeyDown={(e) => onKey(e, i)}
-                  className={`shrink-0 rounded-full px-4 py-2 text-left text-[0.9375rem] font-medium whitespace-nowrap transition-[background-color,box-shadow,color] duration-200 ease-press lg:rounded-card lg:px-6 lg:py-5 lg:whitespace-normal ${on ? "bg-white text-ink shadow-[inset_0_0_0_2px_var(--color-forest)]" : "bg-surface text-ink-2 hover:text-ink lg:bg-white lg:shadow-[inset_0_0_0_1px_var(--color-border)] lg:hover:shadow-[inset_0_0_0_1px_var(--color-ink-2)]"}`}
+                  className={`min-h-11 shrink-0 rounded-full px-4 py-2 text-left text-[0.9375rem] font-medium whitespace-nowrap transition-[background-color,box-shadow,color] duration-200 ease-press lg:rounded-card lg:px-6 lg:py-5 lg:whitespace-normal ${on ? "bg-white text-ink shadow-[inset_0_0_0_2px_var(--color-forest)]" : "bg-surface text-ink-2 hover:text-ink lg:bg-white lg:shadow-[inset_0_0_0_1px_var(--color-border)] lg:hover:shadow-[inset_0_0_0_1px_var(--color-ink-2)]"}`}
                 >
                   <span className="block lg:font-display lg:text-[1.125rem] lg:font-bold lg:tracking-[-0.01em] lg:text-ink">{it.title}</span>
                   <span className={`mt-2 hidden text-[0.9375rem] leading-relaxed font-normal text-ink-2 lg:block ${on ? "" : "lg:hidden"}`}>{it.body}</span>

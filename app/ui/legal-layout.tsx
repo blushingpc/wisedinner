@@ -16,10 +16,10 @@ export function LegalLayout({ title, effective, sections }: { title: string; eff
           <div className="mx-auto mt-12 grid max-w-[960px] gap-12 lg:mt-16 lg:grid-cols-[220px_1fr]">
             <nav aria-label="On this page" className="hidden self-start lg:sticky lg:top-24 lg:block">
               <p className="text-sm font-semibold">Contents</p>
-              <ol className="mt-3 space-y-1 text-sm">
+              <ol className="mt-2 text-sm">
                 {sections.map((s, i) => (
                   <li key={s.id}>
-                    <a href={`#${s.id}`} className="inline-flex min-h-8 items-center text-ink-2 hover:text-ink hover:underline">
+                    <a href={`#${s.id}`} className="inline-flex min-h-11 items-center text-ink-2 hover:text-ink hover:underline">
                       <span className="mr-2 tnum">{String(i + 1).padStart(2, "0")}</span>
                       {s.title}
                     </a>

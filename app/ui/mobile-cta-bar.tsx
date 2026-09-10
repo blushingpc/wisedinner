@@ -23,7 +23,7 @@ export function MobileCtaBar() {
   return (
     <div
       aria-hidden={!show}
-      className={`chrome fixed inset-x-0 bottom-0 z-(--z-sticky) border-t border-border p-3 transition-transform duration-300 ease-out motion-reduce:transition-none sm:hidden ${show ? "translate-y-0" : "translate-y-full"}`}
+      className={`chrome fixed inset-x-0 bottom-0 z-(--z-sticky) border-t border-border p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-transform duration-300 ease-out motion-reduce:transition-none sm:hidden ${show ? "translate-y-0" : "translate-y-full"}`}
     >
       <p className="pb-1.5 text-center text-[0.75rem] text-ink-2">{site.hero.micro}</p>
       <PreorderButton placement="sticky" className="cta min-h-[52px] w-full" tabIndex={show ? 0 : -1} />
