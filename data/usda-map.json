@@ -1,0 +1,732 @@
+{
+  "chicken-breast": {
+    "fdc_id": 2646170,
+    "description": "Chicken, breast, boneless, skinless, raw",
+    "protein_g": 22.525,
+    "kcal": 106.034,
+    "fat_g": 1.934,
+    "carbs_g": 0,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "chicken-thighs": {
+    "fdc_id": 2727567,
+    "description": "Chicken, thigh, meat and skin, raw",
+    "protein_g": 17.10625,
+    "kcal": 187.8848,
+    "fat_g": 13.35,
+    "carbs_g": -0.17255,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "frozen-chicken-breast": {
+    "fdc_id": 2646170,
+    "description": "Chicken, breast, boneless, skinless, raw",
+    "protein_g": 22.525,
+    "kcal": 106.034,
+    "fat_g": 1.934,
+    "carbs_g": 0,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "ground-turkey": {
+    "fdc_id": 172850,
+    "description": "Turkey, ground, 93% lean, 7% fat, raw",
+    "protein_g": 18.7,
+    "kcal": 150,
+    "fat_g": 8.34,
+    "carbs_g": 0,
+    "matched_at": "2026-09-09"
+  },
+  "ground-beef": {
+    "fdc_id": 174036,
+    "description": "Beef, ground, 80% lean meat / 20% fat, raw",
+    "protein_g": 17.2,
+    "kcal": 254,
+    "fat_g": 20,
+    "carbs_g": 0,
+    "matched_at": "2026-09-09"
+  },
+  "pork-loin": {
+    "fdc_id": 168263,
+    "description": "Pork, fresh, loin, center loin (chops), boneless, separable lean only, raw",
+    "protein_g": 23.8,
+    "kcal": 123,
+    "fat_g": 3.09,
+    "carbs_g": 0,
+    "matched_at": "2026-09-09"
+  },
+  "frozen-tilapia": {
+    "fdc_id": 175176,
+    "description": "Fish, tilapia, raw",
+    "protein_g": 20.1,
+    "kcal": 96,
+    "fat_g": 1.7,
+    "carbs_g": 0,
+    "matched_at": "2026-09-09"
+  },
+  "frozen-shrimp": {
+    "fdc_id": 175179,
+    "description": "Crustaceans, shrimp, raw",
+    "protein_g": 20.1,
+    "kcal": 85,
+    "fat_g": 0.51,
+    "carbs_g": 0,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "frozen-salmon": {
+    "fdc_id": 175167,
+    "description": "Fish, salmon, Atlantic, farmed, raw",
+    "protein_g": 20.4,
+    "kcal": 208,
+    "fat_g": 13.4,
+    "carbs_g": 0,
+    "matched_at": "2026-09-09"
+  },
+  "deli-turkey": {
+    "fdc_id": 174572,
+    "description": "Turkey breast, low salt, prepackaged or deli, luncheon meat",
+    "protein_g": 21.81,
+    "kcal": 109,
+    "fat_g": 0.83,
+    "carbs_g": 3.51,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "canned-tuna": {
+    "fdc_id": 334194,
+    "description": "Fish, tuna, light, canned in water, drained solids",
+    "protein_g": 19,
+    "kcal": 90,
+    "fat_g": 0.94,
+    "carbs_g": 0.08,
+    "matched_at": "2026-09-09"
+  },
+  "canned-chicken": {
+    "fdc_id": 171099,
+    "description": "Chicken, canned, meat only, with broth",
+    "protein_g": 21.8,
+    "kcal": 165,
+    "fat_g": 7.95,
+    "carbs_g": 0,
+    "matched_at": "2026-09-09"
+  },
+  "eggs": {
+    "fdc_id": 171287,
+    "description": "Egg, whole, raw, fresh",
+    "protein_g": 12.6,
+    "kcal": 143,
+    "fat_g": 9.51,
+    "carbs_g": 0.72,
+    "matched_at": "2026-09-09"
+  },
+  "egg-whites": {
+    "fdc_id": 172183,
+    "description": "Egg, white, raw, fresh",
+    "protein_g": 10.9,
+    "kcal": 52,
+    "fat_g": 0.17,
+    "carbs_g": 0.73,
+    "matched_at": "2026-09-09"
+  },
+  "greek-yogurt": {
+    "fdc_id": 330137,
+    "description": "Yogurt, Greek, plain, nonfat",
+    "protein_g": 10.3,
+    "kcal": 61,
+    "fat_g": 0.37,
+    "carbs_g": 3.64,
+    "matched_at": "2026-09-09"
+  },
+  "cottage-cheese": {
+    "fdc_id": 328841,
+    "description": "Cheese, cottage, lowfat, 2% milkfat",
+    "protein_g": 11,
+    "kcal": 84,
+    "fat_g": 2.3,
+    "carbs_g": 4.31,
+    "matched_at": "2026-09-09"
+  },
+  "milk": {
+    "fdc_id": 746778,
+    "description": "Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D",
+    "protein_g": 3.36,
+    "kcal": 50,
+    "fat_g": 1.9,
+    "carbs_g": 4.9,
+    "matched_at": "2026-09-09"
+  },
+  "string-cheese": {
+    "fdc_id": 170847,
+    "description": "Cheese, mozzarella, part skim milk",
+    "protein_g": 24.3,
+    "kcal": 254,
+    "fat_g": 15.9,
+    "carbs_g": 2.77,
+    "matched_at": "2026-09-09"
+  },
+  "shredded-cheddar": {
+    "fdc_id": 328637,
+    "description": "Cheese, cheddar",
+    "protein_g": 23.3,
+    "kcal": 408,
+    "fat_g": 34,
+    "carbs_g": 2.44,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "shredded-mozzarella": {
+    "fdc_id": 170847,
+    "description": "Cheese, mozzarella, part skim milk",
+    "protein_g": 24.3,
+    "kcal": 254,
+    "fat_g": 15.9,
+    "carbs_g": 2.77,
+    "matched_at": "2026-09-09"
+  },
+  "parmesan": {
+    "fdc_id": 171247,
+    "description": "Cheese, parmesan, grated",
+    "protein_g": 28.4,
+    "kcal": 420,
+    "fat_g": 27.8,
+    "carbs_g": 13.9,
+    "matched_at": "2026-09-09"
+  },
+  "butter": {
+    "fdc_id": 173410,
+    "description": "Butter, salted",
+    "protein_g": 0.85,
+    "kcal": 717,
+    "fat_g": 81.1,
+    "carbs_g": 0.06,
+    "matched_at": "2026-09-09"
+  },
+  "plant-yogurt": {
+    "fdc_id": 175227,
+    "description": "SILK Plain soy yogurt",
+    "protein_g": 2.64,
+    "kcal": 66,
+    "fat_g": 1.76,
+    "carbs_g": 9.69,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "whey-protein": {
+    "fdc_id": 173180,
+    "description": "Beverages, Protein powder whey based",
+    "protein_g": 78.1,
+    "kcal": 352,
+    "fat_g": 1.56,
+    "carbs_g": 6.25,
+    "matched_at": "2026-09-09"
+  },
+  "pea-protein": {
+    "fdc_id": 173181,
+    "description": "Beverages, Protein powder soy based",
+    "protein_g": 55.6,
+    "kcal": 388,
+    "fat_g": 5.56,
+    "carbs_g": 28.9,
+    "matched_at": "2026-09-09"
+  },
+  "tofu": {
+    "fdc_id": 172475,
+    "description": "Tofu, raw, firm, prepared with calcium sulfate",
+    "protein_g": 17.3,
+    "kcal": 144,
+    "fat_g": 8.72,
+    "carbs_g": 2.78,
+    "matched_at": "2026-09-09"
+  },
+  "tempeh": {
+    "fdc_id": 174272,
+    "description": "Tempeh",
+    "protein_g": 20.3,
+    "kcal": 192,
+    "fat_g": 10.8,
+    "carbs_g": 7.64,
+    "matched_at": "2026-09-09"
+  },
+  "black-beans": {
+    "fdc_id": 175238,
+    "description": "Beans, black, mature seeds, canned, low sodium",
+    "protein_g": 6.03,
+    "kcal": 91,
+    "fat_g": 0.29,
+    "carbs_g": 16.6,
+    "matched_at": "2026-09-09"
+  },
+  "chickpeas": {
+    "fdc_id": 173800,
+    "description": "Chickpeas (garbanzo beans, bengal gram), mature seeds, canned, drained solids",
+    "protein_g": 7.05,
+    "kcal": 139,
+    "fat_g": 2.77,
+    "carbs_g": 22.5,
+    "matched_at": "2026-09-09"
+  },
+  "kidney-beans": {
+    "fdc_id": 174285,
+    "description": "Beans, kidney, red, mature seeds, canned, drained solids",
+    "protein_g": 7.98,
+    "kcal": 124,
+    "fat_g": 1.05,
+    "carbs_g": 21.5,
+    "matched_at": "2026-09-09"
+  },
+  "lentils": {
+    "fdc_id": 172420,
+    "description": "Lentils, raw",
+    "protein_g": 24.6,
+    "kcal": 352,
+    "fat_g": 1.06,
+    "carbs_g": 63.4,
+    "matched_at": "2026-09-09"
+  },
+  "peanut-butter": {
+    "fdc_id": 172470,
+    "description": "Peanut butter, smooth style, without salt",
+    "protein_g": 22.2,
+    "kcal": 598,
+    "fat_g": 51.4,
+    "carbs_g": 22.3,
+    "matched_at": "2026-09-09"
+  },
+  "frozen-edamame": {
+    "fdc_id": 168410,
+    "description": "Edamame, frozen, unprepared",
+    "protein_g": 11.2,
+    "kcal": 109,
+    "fat_g": 4.73,
+    "carbs_g": 7.61,
+    "matched_at": "2026-09-09"
+  },
+  "white-rice": {
+    "fdc_id": 169756,
+    "description": "Rice, white, long-grain, regular, raw, unenriched",
+    "protein_g": 7.13,
+    "kcal": 365,
+    "fat_g": 0.66,
+    "carbs_g": 80,
+    "matched_at": "2026-09-09"
+  },
+  "brown-rice": {
+    "fdc_id": 169703,
+    "description": "Rice, brown, long-grain, raw (Includes foods for USDA's Food Distribution Program)",
+    "protein_g": 7.54,
+    "kcal": 367,
+    "fat_g": 3.2,
+    "carbs_g": 76.25,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "quinoa": {
+    "fdc_id": 168874,
+    "description": "Quinoa, uncooked",
+    "protein_g": 14.1,
+    "kcal": 368,
+    "fat_g": 6.07,
+    "carbs_g": 64.2,
+    "matched_at": "2026-09-09"
+  },
+  "oats": {
+    "fdc_id": 173904,
+    "description": "Cereals, oats, regular and quick, not fortified, dry",
+    "protein_g": 13.2,
+    "kcal": 379,
+    "fat_g": 6.52,
+    "carbs_g": 67.7,
+    "matched_at": "2026-09-09"
+  },
+  "granola": {
+    "fdc_id": 171646,
+    "description": "Cereals ready-to-eat, granola, homemade",
+    "protein_g": 13.7,
+    "kcal": 489,
+    "fat_g": 24.3,
+    "carbs_g": 53.9,
+    "matched_at": "2026-09-09"
+  },
+  "spaghetti": {
+    "fdc_id": 168927,
+    "description": "Pasta, dry, unenriched",
+    "protein_g": 13,
+    "kcal": 371,
+    "fat_g": 1.51,
+    "carbs_g": 74.7,
+    "matched_at": "2026-09-09"
+  },
+  "ww-spaghetti": {
+    "fdc_id": 169738,
+    "description": "Spaghetti, whole-wheat, dry (SR Legacy 20124 values, manual)",
+    "protein_g": 14.6,
+    "kcal": 348,
+    "fat_g": 1.4,
+    "carbs_g": 75,
+    "manual": true,
+    "matched_at": "2026-09-09"
+  },
+  "penne": {
+    "fdc_id": 168927,
+    "description": "Pasta, dry, unenriched",
+    "protein_g": 13,
+    "kcal": 371,
+    "fat_g": 1.51,
+    "carbs_g": 74.7,
+    "matched_at": "2026-09-09"
+  },
+  "gf-pasta": {
+    "fdc_id": 168899,
+    "description": "Pasta, gluten-free, corn, dry",
+    "protein_g": 7.46,
+    "kcal": 357,
+    "fat_g": 2.08,
+    "carbs_g": 79.26,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "ww-bread": {
+    "fdc_id": 172688,
+    "description": "Bread, whole-wheat, commercially prepared",
+    "protein_g": 12.4,
+    "kcal": 252,
+    "fat_g": 3.5,
+    "carbs_g": 42.7,
+    "matched_at": "2026-09-09"
+  },
+  "flour-tortillas": {
+    "fdc_id": 173242,
+    "description": "Tortillas, ready-to-bake or -fry, flour, without added calcium",
+    "protein_g": 8.7,
+    "kcal": 325,
+    "fat_g": 7.1,
+    "carbs_g": 55.6,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "corn-tortillas": {
+    "fdc_id": 175036,
+    "description": "Tortillas, ready-to-bake or -fry, corn",
+    "protein_g": 5.7,
+    "kcal": 218,
+    "fat_g": 2.85,
+    "carbs_g": 44.64,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "ww-buns": {
+    "fdc_id": 174090,
+    "description": "Rolls, hamburger or hot dog, whole wheat",
+    "protein_g": 12.4,
+    "kcal": 269,
+    "fat_g": 4.38,
+    "carbs_g": 44.9,
+    "matched_at": "2026-09-09"
+  },
+  "pancake-mix": {
+    "fdc_id": 0,
+    "description": "Protein pancake mix, dry (Kodiak label, manual)",
+    "protein_g": 26.4,
+    "kcal": 358,
+    "fat_g": 3.8,
+    "carbs_g": 56.6,
+    "manual": true,
+    "matched_at": "2026-09-09"
+  },
+  "russet-potatoes": {
+    "fdc_id": 170032,
+    "description": "Potatoes, raw, skin",
+    "protein_g": 2.57,
+    "kcal": 58,
+    "fat_g": 0.1,
+    "carbs_g": 12.4,
+    "matched_at": "2026-09-09"
+  },
+  "sweet-potatoes": {
+    "fdc_id": 2346404,
+    "description": "Sweet potatoes, orange flesh, without skin, raw",
+    "protein_g": 1.578125,
+    "kcal": 78.999,
+    "fat_g": 0.375,
+    "carbs_g": 17.327875,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "bananas": {
+    "fdc_id": 173944,
+    "description": "Bananas, raw",
+    "protein_g": 1.09,
+    "kcal": 89,
+    "fat_g": 0.33,
+    "carbs_g": 22.8,
+    "matched_at": "2026-09-09"
+  },
+  "apples": {
+    "fdc_id": 168204,
+    "description": "Apples, raw, gala, with skin (Includes foods for USDA's Food Distribution Program)",
+    "protein_g": 0.25,
+    "kcal": 57,
+    "fat_g": 0.12,
+    "carbs_g": 13.7,
+    "matched_at": "2026-09-09"
+  },
+  "frozen-berries": {
+    "fdc_id": 173950,
+    "description": "Blueberries, frozen, unsweetened (Includes foods for USDA's Food Distribution Program)",
+    "protein_g": 0.42,
+    "kcal": 51,
+    "fat_g": 0.64,
+    "carbs_g": 12.17,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "avocados": {
+    "fdc_id": 171705,
+    "description": "Avocados, raw, all commercial varieties",
+    "protein_g": 2,
+    "kcal": 160,
+    "fat_g": 14.7,
+    "carbs_g": 8.53,
+    "matched_at": "2026-09-09"
+  },
+  "onions": {
+    "fdc_id": 170000,
+    "description": "Onions, raw",
+    "protein_g": 1.1,
+    "kcal": 40,
+    "fat_g": 0.1,
+    "carbs_g": 9.34,
+    "matched_at": "2026-09-09"
+  },
+  "carrots": {
+    "fdc_id": 170393,
+    "description": "Carrots, raw",
+    "protein_g": 0.93,
+    "kcal": 41,
+    "fat_g": 0.24,
+    "carbs_g": 9.58,
+    "matched_at": "2026-09-09"
+  },
+  "bell-peppers": {
+    "fdc_id": 170108,
+    "description": "Peppers, sweet, red, raw",
+    "protein_g": 0.99,
+    "kcal": 26,
+    "fat_g": 0.3,
+    "carbs_g": 6.03,
+    "matched_at": "2026-09-09"
+  },
+  "romaine": {
+    "fdc_id": 169247,
+    "description": "Lettuce, cos or romaine, raw",
+    "protein_g": 1.23,
+    "kcal": 17,
+    "fat_g": 0.3,
+    "carbs_g": 3.29,
+    "matched_at": "2026-09-09"
+  },
+  "tomatoes": {
+    "fdc_id": 170457,
+    "description": "Tomatoes, red, ripe, raw, year round average",
+    "protein_g": 0.88,
+    "kcal": 18,
+    "fat_g": 0.2,
+    "carbs_g": 3.89,
+    "matched_at": "2026-09-09"
+  },
+  "cucumber": {
+    "fdc_id": 168409,
+    "description": "Cucumber, with peel, raw",
+    "protein_g": 0.65,
+    "kcal": 15,
+    "fat_g": 0.11,
+    "carbs_g": 3.63,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "asparagus": {
+    "fdc_id": 168389,
+    "description": "Asparagus, raw",
+    "protein_g": 2.2,
+    "kcal": 20,
+    "fat_g": 0.12,
+    "carbs_g": 3.88,
+    "matched_at": "2026-09-09"
+  },
+  "frozen-broccoli": {
+    "fdc_id": 169968,
+    "description": "Broccoli, frozen, chopped, unprepared",
+    "protein_g": 2.81,
+    "kcal": 26,
+    "fat_g": 0.29,
+    "carbs_g": 4.78,
+    "matched_at": "2026-09-09"
+  },
+  "frozen-mixed-veg": {
+    "fdc_id": 170471,
+    "description": "Vegetables, mixed, frozen, unprepared",
+    "protein_g": 3.33,
+    "kcal": 72,
+    "fat_g": 0.52,
+    "carbs_g": 13.5,
+    "matched_at": "2026-09-09"
+  },
+  "frozen-stirfry-veg": {
+    "fdc_id": 170471,
+    "description": "Vegetables, mixed, frozen, unprepared",
+    "protein_g": 3.33,
+    "kcal": 72,
+    "fat_g": 0.52,
+    "carbs_g": 13.5,
+    "matched_at": "2026-09-09"
+  },
+  "frozen-peppers-onions": {
+    "fdc_id": 170022,
+    "description": "Peppers, sweet, green, frozen, chopped, unprepared",
+    "protein_g": 1.08,
+    "kcal": 20,
+    "fat_g": 0.21,
+    "carbs_g": 4.45,
+    "matched_at": "2026-09-09"
+  },
+  "canned-tomatoes": {
+    "fdc_id": 170051,
+    "description": "Tomatoes, red, ripe, canned, packed in tomato juice",
+    "protein_g": 0.79,
+    "kcal": 16,
+    "fat_g": 0.25,
+    "carbs_g": 3.47,
+    "matched_at": "2026-09-09"
+  },
+  "marinara": {
+    "fdc_id": 332282,
+    "description": "Sauce, pasta, spaghetti/marinara, ready-to-serve",
+    "protein_g": 1.41,
+    "kcal": 45,
+    "fat_g": 1.48,
+    "carbs_g": 8.05,
+    "matched_at": "2026-09-09"
+  },
+  "salsa": {
+    "fdc_id": 746777,
+    "description": "Sauce, salsa, ready-to-serve",
+    "protein_g": 1.44,
+    "kcal": 29,
+    "fat_g": 0.19,
+    "carbs_g": 6.74,
+    "matched_at": "2026-09-09"
+  },
+  "pesto": {
+    "fdc_id": 171580,
+    "description": "Sauce, pesto, ready-to-serve, shelf stable",
+    "protein_g": 5,
+    "kcal": 426,
+    "fat_g": 42.42,
+    "carbs_g": 6.14,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "teriyaki-sauce": {
+    "fdc_id": 171167,
+    "description": "Sauce, teriyaki, ready-to-serve",
+    "protein_g": 5.93,
+    "kcal": 89,
+    "fat_g": 0.02,
+    "carbs_g": 15.6,
+    "matched_at": "2026-09-09"
+  },
+  "soy-sauce": {
+    "fdc_id": 174277,
+    "description": "Soy sauce made from soy and wheat (shoyu)",
+    "protein_g": 8.14,
+    "kcal": 53,
+    "fat_g": 0.57,
+    "carbs_g": 4.93,
+    "matched_at": "2026-09-09"
+  },
+  "bbq-sauce": {
+    "fdc_id": 174523,
+    "description": "Sauce, barbecue",
+    "protein_g": 0.82,
+    "kcal": 172,
+    "fat_g": 0.63,
+    "carbs_g": 40.8,
+    "matched_at": "2026-09-09"
+  },
+  "buffalo-sauce": {
+    "fdc_id": 174527,
+    "description": "Sauce, ready-to-serve, pepper or hot",
+    "protein_g": 0.51,
+    "kcal": 11,
+    "fat_g": 0.37,
+    "carbs_g": 1.75,
+    "matched_at": "2026-09-10",
+    "pinned": true
+  },
+  "caesar-dressing": {
+    "fdc_id": 169055,
+    "description": "Salad dressing, caesar dressing, regular",
+    "protein_g": 2.17,
+    "kcal": 542,
+    "fat_g": 57.8,
+    "carbs_g": 3.3,
+    "matched_at": "2026-09-09"
+  },
+  "tzatziki": {
+    "fdc_id": 0,
+    "description": "Tzatziki (label typical, manual)",
+    "protein_g": 4,
+    "kcal": 120,
+    "fat_g": 9,
+    "carbs_g": 5,
+    "manual": true,
+    "matched_at": "2026-09-09"
+  },
+  "hummus": {
+    "fdc_id": 174289,
+    "description": "Hummus, commercial",
+    "protein_g": 7.78,
+    "kcal": 237,
+    "fat_g": 17.8,
+    "carbs_g": 15,
+    "matched_at": "2026-09-09"
+  },
+  "honey": {
+    "fdc_id": 169640,
+    "description": "Honey",
+    "protein_g": 0.3,
+    "kcal": 304,
+    "fat_g": 0,
+    "carbs_g": 82.4,
+    "matched_at": "2026-09-09"
+  },
+  "olive-oil": {
+    "fdc_id": 171413,
+    "description": "Oil, olive, salad or cooking",
+    "protein_g": 0,
+    "kcal": 884,
+    "fat_g": 100,
+    "carbs_g": 0,
+    "matched_at": "2026-09-09"
+  },
+  "taco-seasoning": {
+    "fdc_id": 171319,
+    "description": "Spices, chili powder",
+    "protein_g": 13.5,
+    "kcal": 282,
+    "fat_g": 14.3,
+    "carbs_g": 49.7,
+    "matched_at": "2026-09-09"
+  },
+  "breadcrumbs": {
+    "fdc_id": 174928,
+    "description": "Bread, crumbs, dry, grated, plain",
+    "protein_g": 13.4,
+    "kcal": 395,
+    "fat_g": 5.3,
+    "carbs_g": 72,
+    "matched_at": "2026-09-09"
+  }
+}

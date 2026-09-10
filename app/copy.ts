@@ -1,5 +1,5 @@
 // copy bank (REDESIGN-V4 §3 voice, §7 deck). used by /, /faq, /about, JSON-LD.
-import { site } from "@/content/site";
+import { site } from "../content/site.ts";
 
 const [plan, auto] = site.pricing.tiers;
 const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");

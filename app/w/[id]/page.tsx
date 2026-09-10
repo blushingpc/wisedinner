@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { fixtures, usd } from "@/data/fixtures";
+import { loadWeek } from "@/lib/shared-week";
 import { ShareCard } from "@/app/screens";
 import { StoreBadges } from "@/app/ui/store-badges";
 import { SITE } from "@/app/copy";
 
 // SHARE PAGE (REDESIGN-V4 §10.14): /w/<id> renders a fixture week as the S3 card at page width, then the five days and
-// the aisle list, with the store badges. Static: two example ids from the committed fixtures, no database.
+// the aisle list, with the store badges. The two example ids are static fixtures; any other id is read from
+// shared_weeks (POST /api/weeks) and rendered the same way.
 const AISLES = ["meat", "dairy", "pantry", "frozen", "produce"] as const;
 const AISLE_LABEL: Record<(typeof AISLES)[number], string> = { meat: "Meat", dairy: "Dairy", pantry: "Pantry", frozen: "Frozen", produce: "Produce" };
 const DAY: Record<string, string> = { mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday" };
@@ -16,11 +18,11 @@ const SLOT: Record<string, string> = { breakfast: "Breakfast", lunch: "Lunch", d
 export function generateStaticParams() {
   return Object.keys(fixtures).map((id) => ({ id }));
 }
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const w = fixtures[id];
+  const w = await loadWeek(id);
   if (!w) return {};
   const t = w.totals;
   return {
@@ -34,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function SharePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const w = fixtures[id];
+  const w = await loadWeek(id);
   if (!w) notFound();
   return (
     <main id="main">
@@ -102,9 +104,11 @@ export default async function SharePage({ params }: { params: Promise<{ id: stri
               <span className="font-semibold">Estimated in-store total</span>
               <span className="text-[1.25rem] font-semibold tnum">{usd(w.list.est_total_usd)}</span>
             </div>
-            <p className="mt-1 text-sm text-ink-2 tnum">
-              {w.list.delivery_label} {usd(w.list.delivery_est_usd)}. <span className="font-medium text-emerald">Walking in saves {usd(w.list.delivery_saves_usd)}.</span>
-            </p>
+            {w.list.delivery_est_usd > 0 && (
+              <p className="mt-1 text-sm text-ink-2 tnum">
+                {w.list.delivery_label} {usd(w.list.delivery_est_usd)}. <span className="font-medium text-emerald">Walking in saves {usd(w.list.delivery_saves_usd)}.</span>
+              </p>
+            )}
           </div>
           <p className="mt-6 text-center text-caption text-ink-2">Prices are shelf estimates with a buffer, labeled as estimates. The receipt is the proof.</p>
         </div>

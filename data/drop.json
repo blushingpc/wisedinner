@@ -1,4 +1,345 @@
 {
+  "generated_at": "2026-09-10",
+  "feasible": true,
+  "days": [
+    {
+      "day": "mon",
+      "items": [
+        {
+          "name": "Tofu and avocado breakfast wrap",
+          "unit": "breakfast",
+          "portion": "tofu 1/2 · flour tortillas 1/10 · avocado 1/2 · salsa 1/24",
+          "protein_g": 40,
+          "kcal": 562,
+          "recipe_id": "egg-and-avocado-breakfast-wrap-tofu",
+          "cost_usd": 2.11
+        },
+        {
+          "name": "Chicken burrito bowl",
+          "unit": "lunch",
+          "portion": "chicken breast 0.20 · white rice 0.03 · black beans 1/5 · salsa 1/12 · taco seasoning 0.18 · avocado 1/2",
+          "protein_g": 72,
+          "kcal": 717,
+          "recipe_id": "chicken-burrito-bowl",
+          "cost_usd": 3.03
+        },
+        {
+          "name": "Southwest chicken wrap",
+          "unit": "dinner",
+          "portion": "chicken breast 0.15 · flour tortillas 1/10 · black beans 1/5 · salsa 1/24 · taco seasoning 0.18 · avocado 1/2",
+          "protein_g": 57,
+          "kcal": 579,
+          "recipe_id": "southwest-chicken-wrap",
+          "cost_usd": 2.65
+        }
+      ],
+      "protein_g": 169,
+      "kcal": 1858
+    },
+    {
+      "day": "tue",
+      "items": [
+        {
+          "name": "Tofu and avocado breakfast wrap",
+          "unit": "breakfast",
+          "portion": "tofu 1/2 · flour tortillas 1/10 · avocado 1/2 · salsa 1/24",
+          "protein_g": 40,
+          "kcal": 562,
+          "recipe_id": "egg-and-avocado-breakfast-wrap-tofu",
+          "cost_usd": 2.11
+        },
+        {
+          "name": "Chicken fajita bowl",
+          "unit": "lunch",
+          "portion": "chicken breast 0.22 · frozen peppers and onions 5/16 · white rice 0.03 · taco seasoning 1/4 · salsa 1/12 · olive oil 0 pack",
+          "protein_g": 75,
+          "kcal": 640,
+          "recipe_id": "chicken-fajita-bowl",
+          "cost_usd": 3.33
+        },
+        {
+          "name": "Southwest tofu wrap",
+          "unit": "dinner",
+          "portion": "tofu 1/2 · flour tortillas 1/10 · black beans 1/5 · salsa 1/24 · taco seasoning 0.18 · avocado 1/2",
+          "protein_g": 46,
+          "kcal": 654,
+          "recipe_id": "southwest-chicken-wrap-tofu",
+          "cost_usd": 2.49
+        }
+      ],
+      "protein_g": 161,
+      "kcal": 1855
+    },
+    {
+      "day": "wed",
+      "items": [
+        {
+          "name": "Tofu and veggie scramble with toast",
+          "unit": "breakfast",
+          "portion": "tofu 1/2 · frozen peppers and onions 3/16 · whole wheat bread 1/10 · olive oil 0 pack",
+          "protein_g": 42,
+          "kcal": 485,
+          "recipe_id": "egg-white-and-veggie-scramble-with-toast-tofu",
+          "cost_usd": 1.83
+        },
+        {
+          "name": "Teriyaki chicken and broccoli rice bowl",
+          "unit": "lunch",
+          "portion": "chicken breast 0.24 · white rice 0.03 · frozen broccoli florets 1/3 · teriyaki sauce 1/10 · olive oil 0 pack",
+          "protein_g": 85,
+          "kcal": 689,
+          "recipe_id": "teriyaki-chicken-and-broccoli-rice-bowl",
+          "cost_usd": 3.12
+        },
+        {
+          "name": "Chicken burrito bowl",
+          "unit": "dinner",
+          "portion": "chicken breast 0.20 · white rice 0.03 · black beans 1/5 · salsa 1/12 · taco seasoning 0.18 · avocado 1/2",
+          "protein_g": 72,
+          "kcal": 717,
+          "recipe_id": "chicken-burrito-bowl",
+          "cost_usd": 3.03
+        }
+      ],
+      "protein_g": 199,
+      "kcal": 1891
+    },
+    {
+      "day": "thu",
+      "items": [
+        {
+          "name": "Tofu and veggie scramble with toast",
+          "unit": "breakfast",
+          "portion": "tofu 1/2 · frozen peppers and onions 3/16 · whole wheat bread 1/10 · olive oil 0 pack",
+          "protein_g": 42,
+          "kcal": 485,
+          "recipe_id": "egg-white-and-veggie-scramble-with-toast-tofu",
+          "cost_usd": 1.83
+        },
+        {
+          "name": "Teriyaki tofu and broccoli rice bowl",
+          "unit": "lunch",
+          "portion": "tofu 9/14 · white rice 0.03 · frozen broccoli florets 1/3 · teriyaki sauce 1/10 · olive oil 0 pack",
+          "protein_g": 54,
+          "kcal": 704,
+          "recipe_id": "teriyaki-chicken-and-broccoli-rice-bowl-tofu",
+          "cost_usd": 2.44
+        },
+        {
+          "name": "Teriyaki tofu and broccoli rice bowl",
+          "unit": "dinner",
+          "portion": "tofu 9/14 · white rice 0.03 · frozen broccoli florets 1/3 · teriyaki sauce 1/10 · olive oil 0 pack",
+          "protein_g": 54,
+          "kcal": 704,
+          "recipe_id": "teriyaki-chicken-and-broccoli-rice-bowl-tofu",
+          "cost_usd": 2.44
+        }
+      ],
+      "protein_g": 150,
+      "kcal": 1893
+    },
+    {
+      "day": "fri",
+      "items": [
+        {
+          "name": "Tofu and veggie scramble with toast",
+          "unit": "breakfast",
+          "portion": "tofu 1/2 · frozen peppers and onions 3/16 · whole wheat bread 1/10 · olive oil 0 pack",
+          "protein_g": 42,
+          "kcal": 485,
+          "recipe_id": "egg-white-and-veggie-scramble-with-toast-tofu",
+          "cost_usd": 1.83
+        },
+        {
+          "name": "Teriyaki tofu and broccoli rice bowl",
+          "unit": "lunch",
+          "portion": "tofu 9/14 · white rice 0.03 · frozen broccoli florets 1/3 · teriyaki sauce 1/10 · olive oil 0 pack",
+          "protein_g": 54,
+          "kcal": 704,
+          "recipe_id": "teriyaki-chicken-and-broccoli-rice-bowl-tofu",
+          "cost_usd": 2.44
+        },
+        {
+          "name": "Teriyaki tofu and broccoli rice bowl",
+          "unit": "dinner",
+          "portion": "tofu 9/14 · white rice 0.03 · frozen broccoli florets 1/3 · teriyaki sauce 1/10 · olive oil 0 pack",
+          "protein_g": 54,
+          "kcal": 704,
+          "recipe_id": "teriyaki-chicken-and-broccoli-rice-bowl-tofu",
+          "cost_usd": 2.44
+        }
+      ],
+      "protein_g": 150,
+      "kcal": 1893
+    }
+  ],
+  "list": [
+    {
+      "name": "avocado",
+      "unit": "1 avocado",
+      "qty": 3,
+      "price_usd": 3.3,
+      "perishable": true,
+      "eaten": 3,
+      "sku_id": "avocados",
+      "aisle": "produce",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "black beans, canned",
+      "unit": "15 oz can",
+      "qty": 1,
+      "price_usd": 1.07,
+      "perishable": false,
+      "eaten": 0.8,
+      "sku_id": "black-beans",
+      "aisle": "pantry",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "chicken breast, boneless skinless",
+      "unit": "3 lb family pack",
+      "qty": 1,
+      "price_usd": 8.55,
+      "perishable": true,
+      "eaten": 1,
+      "sku_id": "chicken-breast",
+      "aisle": "meat",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "flour tortillas",
+      "unit": "10 ct pack",
+      "qty": 1,
+      "price_usd": 3.15,
+      "perishable": false,
+      "eaten": 0.4,
+      "sku_id": "flour-tortillas",
+      "aisle": "bakery",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "frozen broccoli florets",
+      "unit": "12 oz bag",
+      "qty": 2,
+      "price_usd": 3.5,
+      "perishable": false,
+      "eaten": 1.67,
+      "sku_id": "frozen-broccoli",
+      "aisle": "frozen",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "frozen peppers and onions",
+      "unit": "16 oz bag",
+      "qty": 1,
+      "price_usd": 2.31,
+      "perishable": false,
+      "eaten": 0.88,
+      "sku_id": "frozen-peppers-onions",
+      "aisle": "frozen",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "olive oil",
+      "unit": "17 oz bottle",
+      "qty": 1,
+      "price_usd": 6.99,
+      "perishable": false,
+      "eaten": 0.09,
+      "sku_id": "olive-oil",
+      "aisle": "pantry",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "salsa",
+      "unit": "24 oz jar",
+      "qty": 1,
+      "price_usd": 3.51,
+      "perishable": false,
+      "eaten": 0.42,
+      "sku_id": "salsa",
+      "aisle": "pantry",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "taco seasoning",
+      "unit": "1 oz packet",
+      "qty": 1,
+      "price_usd": 0.99,
+      "perishable": false,
+      "eaten": 0.95,
+      "sku_id": "taco-seasoning",
+      "aisle": "pantry",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "teriyaki sauce",
+      "unit": "10 fl oz bottle",
+      "qty": 1,
+      "price_usd": 2.41,
+      "perishable": false,
+      "eaten": 0.5,
+      "sku_id": "teriyaki-sauce",
+      "aisle": "pantry",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "tofu, extra firm",
+      "unit": "14 oz block",
+      "qty": 6,
+      "price_usd": 13.14,
+      "perishable": false,
+      "eaten": 5.57,
+      "sku_id": "tofu",
+      "aisle": "produce",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "white rice, long grain",
+      "unit": "5 lb bag",
+      "qty": 1,
+      "price_usd": 4.93,
+      "perishable": false,
+      "eaten": 0.22,
+      "sku_id": "white-rice",
+      "aisle": "pantry",
+      "store": "kroger",
+      "pantry": false
+    },
+    {
+      "name": "whole wheat bread",
+      "unit": "20 oz loaf",
+      "qty": 1,
+      "price_usd": 2.29,
+      "perishable": false,
+      "eaten": 0.3,
+      "sku_id": "ww-bread",
+      "aisle": "bakery",
+      "store": "kroger",
+      "pantry": false
+    }
+  ],
+  "est_total": 56.14,
+  "protein_per_day": 150,
+  "kcal_per_day": 1878,
+  "protein_shortfall_g": 0,
+  "price_as_of": "2026-09-10",
+  "distinct_skus": 13,
+  "protein_sources": 4,
+  "seed": 37,
+  "why": [],
   "input": {
     "budget": 60,
     "protein_per_day": 150,
@@ -6,257 +347,22 @@
     "kcal_max": 2600,
     "diet": "none",
     "household": 1,
-    "seed": 36
+    "seed": 37,
+    "stores": [
+      "kroger"
+    ],
+    "zip": "43215"
   },
-  "generated_at": "2026-09-08",
-  "feasible": true,
-  "days": [
-    {
-      "day": "mon",
-      "items": [
-        {
-          "name": "peanut butter tortilla roll-ups",
-          "unit": "breakfast",
-          "portion": "peanut butter 1/6 · flour tortillas 1/5",
-          "protein_g": 25,
-          "kcal": 751
-        },
-        {
-          "name": "chicken breast and potatoes",
-          "unit": "lunch",
-          "portion": "chicken breast 1/5 · russet potatoes 1/6 · frozen mixed vegetables 1/2",
-          "protein_g": 75,
-          "kcal": 748
-        },
-        {
-          "name": "chicken breast and potatoes",
-          "unit": "dinner",
-          "portion": "chicken breast 1/5 · russet potatoes 1/6 · frozen mixed vegetables 1/2",
-          "protein_g": 75,
-          "kcal": 748
-        }
-      ],
-      "protein_g": 175,
-      "kcal": 2247
-    },
-    {
-      "day": "tue",
-      "items": [
-        {
-          "name": "peanut butter tortilla roll-ups",
-          "unit": "breakfast",
-          "portion": "peanut butter 1/6 · flour tortillas 1/5",
-          "protein_g": 25,
-          "kcal": 751
-        },
-        {
-          "name": "chicken breast pasta, tomato",
-          "unit": "lunch",
-          "portion": "chicken breast 1/5 · pasta 1/4 · canned diced tomatoes 1/2",
-          "protein_g": 77,
-          "kcal": 788
-        },
-        {
-          "name": "chicken breast pasta, tomato",
-          "unit": "dinner",
-          "portion": "chicken breast 1/5 · pasta 1/4 · canned diced tomatoes 1/2",
-          "protein_g": 77,
-          "kcal": 788
-        }
-      ],
-      "protein_g": 180,
-      "kcal": 2327
-    },
-    {
-      "day": "wed",
-      "items": [
-        {
-          "name": "peanut butter tortilla roll-ups",
-          "unit": "breakfast",
-          "portion": "peanut butter 1/6 · flour tortillas 1/5",
-          "protein_g": 25,
-          "kcal": 751
-        },
-        {
-          "name": "chicken breast pasta, tomato",
-          "unit": "lunch",
-          "portion": "chicken breast 1/5 · pasta 1/4 · canned diced tomatoes 1/2",
-          "protein_g": 77,
-          "kcal": 788
-        },
-        {
-          "name": "chickpea tuna salad, bread",
-          "unit": "dinner",
-          "portion": "chickpeas 1 pack · canned tuna in water 1 pack · whole wheat bread 1/10",
-          "protein_g": 56,
-          "kcal": 665
-        }
-      ],
-      "protein_g": 159,
-      "kcal": 2203
-    },
-    {
-      "day": "thu",
-      "items": [
-        {
-          "name": "peanut butter tortilla roll-ups",
-          "unit": "breakfast",
-          "portion": "peanut butter 1/6 · flour tortillas 1/5",
-          "protein_g": 25,
-          "kcal": 751
-        },
-        {
-          "name": "chickpea tuna salad, bread",
-          "unit": "lunch",
-          "portion": "chickpeas 1 pack · canned tuna in water 1 pack · whole wheat bread 1/10",
-          "protein_g": 56,
-          "kcal": 665
-        },
-        {
-          "name": "tuna rice bowl, edamame",
-          "unit": "dinner",
-          "portion": "canned tuna in water 2 packs · white rice 1/16 · frozen edamame 1/3",
-          "protein_g": 76,
-          "kcal": 888
-        }
-      ],
-      "protein_g": 158,
-      "kcal": 2303
-    },
-    {
-      "day": "fri",
-      "items": [
-        {
-          "name": "peanut butter tortilla roll-ups",
-          "unit": "breakfast",
-          "portion": "peanut butter 1/6 · flour tortillas 1/5",
-          "protein_g": 25,
-          "kcal": 751
-        },
-        {
-          "name": "tuna rice bowl, edamame",
-          "unit": "lunch",
-          "portion": "canned tuna in water 2 packs · white rice 1/16 · frozen edamame 1/3",
-          "protein_g": 76,
-          "kcal": 888
-        },
-        {
-          "name": "tuna rice bowl, edamame",
-          "unit": "dinner",
-          "portion": "canned tuna in water 2 packs · white rice 1/16 · frozen edamame 1/3",
-          "protein_g": 76,
-          "kcal": 888
-        }
-      ],
-      "protein_g": 178,
-      "kcal": 2526
-    }
+  "store_mode": "singleStore",
+  "modes_available": [
+    "singleStore"
   ],
-  "list": [
+  "stores": [
     {
-      "name": "canned diced tomatoes",
-      "unit": "14.5 oz can",
-      "qty": 2,
-      "price_usd": 2.02,
-      "perishable": false,
-      "eaten": 1.5
-    },
-    {
-      "name": "canned tuna in water",
-      "unit": "5 oz can",
-      "qty": 8,
-      "price_usd": 8.4,
-      "perishable": false,
-      "eaten": 8
-    },
-    {
-      "name": "chicken breast, boneless skinless",
-      "unit": "3 lb family pack",
-      "qty": 1,
-      "price_usd": 9.21,
-      "perishable": true,
-      "eaten": 1
-    },
-    {
-      "name": "chickpeas, canned",
-      "unit": "15 oz can",
-      "qty": 2,
-      "price_usd": 1.88,
-      "perishable": false,
-      "eaten": 2
-    },
-    {
-      "name": "flour tortillas",
-      "unit": "10 ct pack",
-      "qty": 1,
-      "price_usd": 2.18,
-      "perishable": false,
-      "eaten": 1
-    },
-    {
-      "name": "frozen edamame, shelled",
-      "unit": "12 oz bag",
-      "qty": 1,
-      "price_usd": 2.37,
-      "perishable": false,
-      "eaten": 1
-    },
-    {
-      "name": "frozen mixed vegetables",
-      "unit": "12 oz bag",
-      "qty": 1,
-      "price_usd": 1.25,
-      "perishable": false,
-      "eaten": 1
-    },
-    {
-      "name": "pasta, spaghetti",
-      "unit": "1 lb box",
-      "qty": 1,
-      "price_usd": 1.2,
-      "perishable": false,
-      "eaten": 0.75
-    },
-    {
-      "name": "peanut butter",
-      "unit": "16 oz jar",
-      "qty": 1,
-      "price_usd": 2.33,
-      "perishable": false,
-      "eaten": 0.83
-    },
-    {
-      "name": "russet potatoes",
-      "unit": "5 lb bag",
-      "qty": 1,
-      "price_usd": 3.62,
-      "perishable": false,
-      "eaten": 0.33
-    },
-    {
-      "name": "white rice, long grain",
-      "unit": "5 lb bag",
-      "qty": 1,
-      "price_usd": 3.84,
-      "perishable": false,
-      "eaten": 0.19
-    },
-    {
-      "name": "whole wheat bread",
-      "unit": "20 oz loaf",
-      "qty": 1,
-      "price_usd": 2.19,
-      "perishable": false,
-      "eaten": 0.2
+      "id": "kroger",
+      "banner": "Kroger",
+      "subtotal": 56.14,
+      "items": 13
     }
-  ],
-  "est_total": 40.49,
-  "protein_per_day": 157,
-  "kcal_per_day": 2321,
-  "protein_shortfall_g": 0,
-  "price_as_of": "2026-08-30",
-  "distinct_skus": 12,
-  "protein_sources": 3,
-  "seed": 36,
-  "why": []
+  ]
 }

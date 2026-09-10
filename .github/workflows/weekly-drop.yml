@@ -2,7 +2,7 @@ name: weekly drop
 
 on:
   schedule:
-    - cron: "0 10 * * 0" # sunday 10:00 UTC: the drop
+    - cron: "0 10 * * 0" # sunday 10:00 UTC: the data snapshot, then the drop
     - cron: "0 9 * * *" # daily 09:00 UTC: the supabase keep-alive only
   workflow_dispatch:
 
@@ -19,28 +19,47 @@ jobs:
       - name: select on the waitlist table via /api/status
         run: |
           body=$(curl -sS --max-time 30 https://www.wisedinner.com/api/status)
-          echo "$body" | jq '{db, last_commit}'
+          echo "$body" | jq '{db, snapshot, support, last_commit}'
           test "$(echo "$body" | jq -r '.db.ok')" = "true"
 
-  drop:
+  # BACKEND-V1 §2: the data pipeline (usda → kroger → walmart → instacart → index → snapshot). the snapshot guard
+  # (any solver profile infeasible, any sku's best price swung more than 30%) exits 1 and nothing is published.
+  # on success the new snapshot is in supabase storage + data_snapshots, and data/snapshot.json, the kroger map,
+  # the menu and the fixture weeks are committed so the site builds from the same numbers the app bundles.
+  data:
     if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 10 * * 0'
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      KROGER_CLIENT_ID: ${{ secrets.KROGER_CLIENT_ID }}
+      KROGER_CLIENT_SECRET: ${{ secrets.KROGER_CLIENT_SECRET }}
+      KROGER_SCOPE: ${{ secrets.KROGER_SCOPE }}
+      USDA_FDC_API_KEY: ${{ secrets.USDA_FDC_API_KEY }}
+      WALMART_API_KEY: ${{ secrets.WALMART_API_KEY }}
+      INSTACART_API_KEY: ${{ secrets.INSTACART_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+      - run: npm ci
+      - name: pipeline (guarded publish)
+        run: node scripts/data/run.ts
+      - name: menu + fixtures from the snapshot
+        run: node scripts/gen-fixtures.ts
       # gen-drop exits 1 (and writes nothing) if the week is infeasible or has fewer than 8 skus — the run fails loudly
       - run: node scripts/gen-drop.ts
+      - run: npm test
       - name: commit if changed
         run: |
-          if git diff --quiet -- data/drop.json; then
-            echo "drop unchanged"
+          git add data/snapshot.json data/kroger-map.json data/usda-map.json data/menu.json data/fixture-week.json data/fixture-week-2.json data/drop.json
+          if git diff --cached --quiet; then
+            echo "data unchanged"
             exit 0
           fi
           # Vercel Pro deploys only commits authored by the account owner
           git config user.name "blushingpc"
           git config user.email "293302513+blushingpc@users.noreply.github.com"
-          git add data/drop.json
-          git commit -m "weekly drop [skip ci-notes]"
+          git commit -m "weekly data drop [skip ci-notes]"
           git push

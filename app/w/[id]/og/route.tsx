@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
-import { fixtures, usd } from "@/data/fixtures";
+import { usd } from "@/data/fixtures";
+import { loadWeek } from "@/lib/shared-week";
 import { MARK_PATHS } from "@/app/lockup";
 
 export const runtime = "edge";
@@ -8,7 +9,7 @@ export const runtime = "edge";
 // the five dinners as tags (edge OG cannot reach next/image; photos are the page's job), one line of provenance.
 export async function GET(_: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const w = fixtures[id];
+  const w = await loadWeek(id);
   if (!w) return new Response("not found", { status: 404 });
   const [jakarta, inter] = await Promise.all([
     fetch(new URL("../../../og/jakarta-800.ttf", import.meta.url)).then((r) => r.arrayBuffer()),
