@@ -46,7 +46,8 @@ export function PhoneStage({ s1, s4, s1Label, s4Label, calloutMeal, calloutBudge
       </div>
 
       {/* callouts off S1 */}
-      <Callout className="top-[58%] right-[2%] rotate-[-2deg] lg:right-auto lg:left-[36%]">{calloutMeal}</Callout>
+      {/* right-anchored until xl: from lg the stage column is ~400px and a left-anchored callout ran past the section edge (audit A-03) */}
+      <Callout className="top-[58%] right-[2%] rotate-[-2deg] xl:right-auto xl:left-[36%]">{calloutMeal}</Callout>
       <Callout className="top-[66%] left-[-1%] rotate-[2deg]">{calloutBudget}</Callout>
 
       {/* hand-drawn arrow: S1's checks → S4's comparison */}

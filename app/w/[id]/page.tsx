@@ -52,7 +52,7 @@ export default async function SharePage({ params }: { params: Promise<{ id: stri
           </div>
           <StoreBadges placement="share" height={48} className="mt-8 justify-center" />
 
-          <h2 className="mt-16 text-center text-h2">Five days</h2>
+          <h2 className="mt-16 text-center text-h2 text-balance">Five days</h2>
           <ol className="mt-8 divide-y divide-border">
             {w.days.map((d) => (
               <li key={d.day} className="grid grid-cols-[minmax(0,1fr)] gap-3 py-5 sm:grid-cols-[120px_minmax(0,1fr)]">
@@ -67,7 +67,7 @@ export default async function SharePage({ params }: { params: Promise<{ id: stri
                     <li key={m.slot} className="flex items-center gap-3">
                       <Image src={m.img} alt="" width={168} height={168} quality={90} sizes="56px" className="size-14 shrink-0 rounded-[12px] object-cover" />
                       <div className="min-w-0">
-                        <p className="truncate text-[0.9375rem] font-medium">{m.name}</p>
+                        <p className="line-clamp-2 text-[0.9375rem] font-medium">{m.name}</p>
                         <p className="text-sm text-ink-2 tnum">
                           {SLOT[m.slot]}, {m.protein_g}g protein, {usd(m.cost_usd)}
                         </p>
@@ -79,7 +79,7 @@ export default async function SharePage({ params }: { params: Promise<{ id: stri
             ))}
           </ol>
 
-          <h2 className="mt-16 text-center text-h2">One list, {w.list.items.length} items</h2>
+          <h2 className="mt-16 text-center text-h2 text-balance">One list, {w.list.items.length} items</h2>
           <div className="mt-8 rounded-card border border-border bg-white p-6 shadow-card">
             {AISLES.map((aisle) => {
               const rows = w.list.items.filter((i) => i.aisle === aisle);

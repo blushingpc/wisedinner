@@ -10,7 +10,7 @@ export function Why() {
   return (
     <Section alt lazy>
       <SectionHeading sub={site.why.sub}>{site.why.h2}</SectionHeading>
-      <ul className="mt-10 grid gap-5 sm:grid-cols-3 lg:mt-14 lg:gap-6">
+      <ul className="mt-10 grid gap-5 lg:mt-14 lg:grid-cols-3 lg:gap-6">
         {site.why.items.map((it) => {
           const Icon = ICONS[it.icon as keyof typeof ICONS];
           return (
@@ -18,7 +18,7 @@ export function Why() {
               <span className="grid size-12 place-items-center rounded-[12px] bg-emerald-tint text-emerald">
                 <Icon size={26} weight="regular" aria-hidden="true" />
               </span>
-              <h3 className="mt-5 text-h3">{it.title}</h3>
+              <h3 className="mt-5 text-h3 text-balance">{it.title}</h3>
               <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-2">{it.body}</p>
             </li>
           );

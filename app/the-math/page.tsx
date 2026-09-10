@@ -24,7 +24,7 @@ export default function TheMath() {
       <div className="mx-auto max-w-[60ch]">
         {SECTIONS.map(([h, body]) => (
           <section key={h} className="mt-10 first:mt-0">
-            <h2 className="text-h3">{h}</h2>
+            <h2 className="text-h3 text-balance">{h}</h2>
             <p className="mt-3 text-ink-2">{body}</p>
           </section>
         ))}

@@ -55,8 +55,8 @@ export default function Home() {
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 pt-10 pb-12 lg:grid-cols-[1.2fr_1fr] lg:gap-10 lg:px-12 lg:py-12">
           <div>
-            <p className="rise-up inline-flex items-center gap-2 rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink">
-              <span aria-hidden="true" className="size-2 rounded-full bg-emerald" />
+            <p className="rise-up inline-flex items-start gap-2 rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink">
+              <span aria-hidden="true" className="mt-[0.4rem] size-2 shrink-0 rounded-full bg-emerald" />
               {site.hero.pill}
             </p>
             <h1 className="rise-up mt-5 text-h1 text-balance">{site.hero.h1}</h1>
