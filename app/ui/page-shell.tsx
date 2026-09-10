@@ -5,9 +5,10 @@ export function PageShell({ title, sub, children, wide = false, className = "" }
     <main id="main">
       <section className="bg-white py-band">
         <div className={`mx-auto px-6 lg:px-12 ${wide ? "max-w-[1200px]" : "max-w-[760px]"} ${className}`}>
-          <div className="mx-auto max-w-[40ch] text-center">
-            <h1 className="text-h1 text-balance">{title}</h1>
-            {sub && <p className="mt-5 text-lg text-ink-2">{sub}</p>}
+          <div className="text-center">
+            {/* the cap is in the H1's own ch so it scales with the type: 40ch of body text (~350px) forced three lines at desktop (audit A-16) */}
+            <h1 className="mx-auto max-w-[18ch] text-h1 text-balance">{title}</h1>
+            {sub && <p className="mx-auto mt-5 max-w-[40ch] text-lg text-ink-2">{sub}</p>}
           </div>
           <div className="mt-12 lg:mt-16">{children}</div>
         </div>

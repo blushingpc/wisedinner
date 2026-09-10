@@ -47,7 +47,7 @@ export function ReceiptReveal({ week }: { week: FixtureWeek }) {
             Receipt verified
           </span>
           <p className="mt-[0.9em] text-[0.6875em] font-medium text-ink-2">Accuracy</p>
-          <p className="text-[1.125em] font-semibold text-emerald-ink tnum">{r.accuracy_pct}% and climbing</p>
+          <p className="text-[1.125em] font-semibold text-emerald-ink tnum">{r.accuracy_pct}%</p>
         </div>
       </div>
       <TabBar active="Receipts" />
