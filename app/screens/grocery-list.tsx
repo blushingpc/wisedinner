@@ -44,7 +44,7 @@ export function GroceryList({ week }: { week: FixtureWeek }) {
           <span className="text-[1.25em] font-semibold tnum">{usd(list.est_total_usd)}</span>
         </div>
         <p className="mt-[0.25em] text-[0.75em] font-medium text-ink-2 tnum">
-          {list.delivery_label} {usd(list.delivery_est_usd)}. <span className="text-emerald">Walking in saves {usd(list.delivery_saves_usd)}.</span>
+          {list.delivery_label} {usd(list.delivery_est_usd)}. <span className="text-emerald-ink">Walking in saves {usd(list.delivery_saves_usd)}.</span>
         </p>
       </div>
       <TabBar active="List" />

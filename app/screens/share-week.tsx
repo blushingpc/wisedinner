@@ -36,7 +36,7 @@ export function ShareCard({ week, className = "", imgSizes = "64px" }: { week: F
         <span>
           {usd(week.totals.est_total_usd)}, {week.totals.protein_per_day_g}g a day
         </span>
-        <span className="inline-flex text-emerald" aria-label="under budget, protein hit, zero waste">
+        <span className="inline-flex text-emerald" role="img" aria-label="under budget, protein hit, zero waste">
           <Check size="0.9em" weight="bold" />
           <Check size="0.9em" weight="bold" />
           <Check size="0.9em" weight="bold" />

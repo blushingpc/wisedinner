@@ -39,7 +39,7 @@ export function ReceiptReveal({ week }: { week: FixtureWeek }) {
           <p className="text-[1.25em] leading-none font-semibold tnum">{usd(r.estimated_usd)}</p>
           <p className="mt-[0.7em] text-[0.6875em] font-medium text-ink-2">Actual</p>
           <p className="text-[1.25em] leading-none font-semibold tnum">{usd(r.actual_usd)}</p>
-          <p className={`mt-[0.6em] text-[0.8125em] font-semibold tnum ${under ? "text-emerald" : "text-danger"}`}>
+          <p className={`mt-[0.6em] text-[0.8125em] font-semibold tnum ${under ? "text-emerald-ink" : "text-danger"}`}>
             {Math.abs(r.delta_pct)}% {under ? "under" : "over"}
           </p>
           <span className="mt-[0.9em] inline-flex items-center gap-[0.35em] rounded-full bg-emerald-tint px-[0.7em] py-[0.4em] text-[0.6875em] font-semibold text-forest">
@@ -47,7 +47,7 @@ export function ReceiptReveal({ week }: { week: FixtureWeek }) {
             Receipt verified
           </span>
           <p className="mt-[0.9em] text-[0.6875em] font-medium text-ink-2">Accuracy</p>
-          <p className="text-[1.125em] font-semibold text-emerald tnum">{r.accuracy_pct}% and climbing</p>
+          <p className="text-[1.125em] font-semibold text-emerald-ink tnum">{r.accuracy_pct}% and climbing</p>
         </div>
       </div>
       <TabBar active="Receipts" />

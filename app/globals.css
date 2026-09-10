@@ -12,6 +12,7 @@
   --color-forest-press: #082e22;
   --color-emerald: #10b981; /* checks, progress, under budget, receipt verified, icon tiles */
   --color-emerald-tint: #e7f7f0;
+  --color-emerald-ink: #0a7c55; /* emerald for TEXT on white: 5.2:1 (the #10b981 accent is 2.5:1, icons and tints only) */
   --color-danger: #d64545; /* over-budget states only */
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif; /* body, UI, every number */

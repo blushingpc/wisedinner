@@ -34,7 +34,7 @@ export default function Pricing() {
     <PageShell title={site.pricing.h2} sub="These prices apply in the app at launch. Nothing is for sale on this page yet." wide>
       <script type="application/ld+json">{JSON.stringify(LD)}</script>
       <PageView event="pricing_view" />
-      <PricingCards />
+      <PricingCards heading="h2" />
       <div className="mx-auto mt-16 max-w-md border-t border-border pt-10 text-center">
         <h2 className="text-h3">Free to pre-order</h2>
         <p className="mt-2 text-ink-2">{site.hero.micro}</p>

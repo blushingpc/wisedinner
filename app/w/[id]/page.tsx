@@ -103,7 +103,7 @@ export default async function SharePage({ params }: { params: Promise<{ id: stri
               <span className="text-[1.25rem] font-semibold tnum">{usd(w.list.est_total_usd)}</span>
             </div>
             <p className="mt-1 text-sm text-ink-2 tnum">
-              {w.list.delivery_label} {usd(w.list.delivery_est_usd)}. <span className="font-medium text-emerald">Walking in saves {usd(w.list.delivery_saves_usd)}.</span>
+              {w.list.delivery_label} {usd(w.list.delivery_est_usd)}. <span className="font-medium text-emerald-ink">Walking in saves {usd(w.list.delivery_saves_usd)}.</span>
             </p>
           </div>
           <p className="mt-6 text-center text-caption text-ink-2">Prices are shelf estimates with a buffer, labeled as estimates. The receipt is the proof.</p>

@@ -6,7 +6,9 @@ const money = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 // SECTION 5 pricing (REDESIGN-V4 §6, FRONTEND-V4.1 §4): the pre-order build is free and complete; Protein Plan and
 // Autopilot are the launch tiers, each led by the one control it adds, with a 14-day trial in the app. Prices read
 // from content/site.ts and nowhere else (pricing law). No ratings language anywhere in this section.
-export function PricingCards({ compact = false }: { compact?: boolean }) {
+// heading: the homepage section already has an h2, so the tier names are h3 there; /pricing opens with the h1 and
+// needs them as h2 (heading order).
+export function PricingCards({ compact = false, heading: H = "h3" }: { compact?: boolean; heading?: "h2" | "h3" }) {
   const { tiers, intro, trial } = site.pricing;
   return (
     <div>
@@ -15,7 +17,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
         {tiers.map((t) => (
           <div key={t.name} className={`lift flex flex-col rounded-card bg-white p-6 sm:p-8 ${t.popular ? "shadow-card ring-2 ring-forest" : "border border-border"}`}>
             <div className="flex items-baseline justify-between gap-4">
-              <h3 className="text-h3">{t.name}</h3>
+              <H className="text-h3">{t.name}</H>
               {t.popular && <span className="shrink-0 rounded-full bg-forest px-3 py-1 text-caption font-semibold text-white">Most popular</span>}
             </div>
             <p className="mt-2 text-[0.9375rem] text-ink-2">{t.tagline}</p>

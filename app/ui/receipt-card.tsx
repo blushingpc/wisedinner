@@ -63,7 +63,7 @@ export function ReceiptCard({ week, variant, title = "Your week, solved", printe
       <div className="flex items-baseline py-1">
         <span>Protein a day</span>
         <span className="leader" />
-        <span className="font-medium text-emerald">{week.protein_per_day}g</span>
+        <span className="font-medium text-emerald-ink">{week.protein_per_day}g</span>
       </div>
       {variant === "drop" && <Row l="Calories a day" r={`${week.kcal_per_day}`} />}
       <Row l="Food wasted" r="0" />
