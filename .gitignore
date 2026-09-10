@@ -49,3 +49,8 @@ loop.log
 .loop-idle
 .loop-halt
 .devserver.log
+
+# front-end audit: the served probe copy (source scripts/audit-probe.js) and the full capture sets (~120 MB; the evidence subset is committed)
+public/_audit/
+design/shots/audit-*/before/
+design/shots/audit-*/after/
