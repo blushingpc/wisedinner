@@ -121,5 +121,5 @@ const S: LegalSection[] = [
 ];
 
 export default function Privacy() {
-  return <LegalLayout title="privacy policy" effective="September 9, 2026" sections={S} />;
+  return <LegalLayout title="Privacy policy" effective="September 9, 2026" sections={S} />;
 }

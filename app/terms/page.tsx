@@ -28,10 +28,10 @@ const S: LegalSection[] = [
         <p>Right now the service is two things.</p>
         <ul>
           <li>
-            <strong>Shared weeks.</strong> the WiseDinner app lets a user share a solved week as a card and a link on this site (WiseDinner.com/w/). A shared page shows the week&apos;s meals, its list and its estimated totals. It shows nothing about the person who shared it. The examples on this site today are fixtures, not real users&apos; weeks. The app itself has its own terms inside the app.
+            <strong>Shared weeks.</strong> The WiseDinner app lets a user share a solved week as a card and a link on this site (WiseDinner.com/w/). A shared page shows the week&apos;s meals, its list and its estimated totals. It shows nothing about the person who shared it. The examples on this site today are fixtures, not real users&apos; weeks. The app itself has its own terms inside the app.
           </li>
           <li>
-            <strong>Pre-order links.</strong> the Pre-order now button sends you to the App Store (iPhone) or Google Play (Android). The pre-order or pre-registration is a contract between you and that store under its terms. This site takes no email address, payment or account details for it.
+            <strong>Pre-order links.</strong> The Pre-order now button sends you to the App Store (iPhone) or Google Play (Android). The pre-order or pre-registration is a contract between you and that store under its terms. This site takes no email address, payment or account details for it.
           </li>
         </ul>
         <p>We can change, pause, or shut down the shared-week pages or the pre-order links at any time. It&apos;s pre-launch software and it will change.</p>
@@ -45,13 +45,13 @@ const S: LegalSection[] = [
       <div className="mt-4 rounded-[14px] border border-forest bg-surface p-6">
         <p className="mt-0 font-medium">Please read this part properly.</p>
         <p>
-          <strong>(a) prices are estimates.</strong> every price you see is an estimate built from public price data with a buffer added on top. Real prices in your store will differ, by region, by chain, by week, by what&apos;s on sale. We don&apos;t guarantee any total, and we don&apos;t guarantee that a plan fits your budget once you&apos;re at the register. Treat the number as a good guess, not a quote.
+          <strong>(a) Prices are estimates.</strong> Every price you see is an estimate built from public price data with a buffer added on top. Real prices in your store will differ, by region, by chain, by week, by what&apos;s on sale. We don&apos;t guarantee any total, and we don&apos;t guarantee that a plan fits your budget once you&apos;re at the register. Treat the number as a good guess, not a quote.
         </p>
         <p>
-          <strong>(b) nutrition figures are estimates, and none of this is advice.</strong> protein and calorie numbers come from a food database and rounded package sizes. They are planning figures, not measurements. Wisedinner is not medical, dietary, nutritional, or professional advice, and it isn&apos;t a substitute for it. Before you change how you eat, talk to a doctor or a registered dietitian, especially if you have a health condition, are pregnant, take medication, or have a history of disordered eating.
+          <strong>(b) Nutrition figures are estimates, and none of this is advice.</strong> Protein and calorie numbers come from a food database and rounded package sizes. They are planning figures, not measurements. Wisedinner is not medical, dietary, nutritional, or professional advice, and it isn&apos;t a substitute for it. Before you change how you eat, talk to a doctor or a registered dietitian, especially if you have a health condition, are pregnant, take medication, or have a history of disordered eating.
         </p>
         <p>
-          <strong>(c) &quot;projected savings&quot; compares two estimates.</strong> when we show a savings number, it is our estimated total compared with what <em>you</em> told us you currently spend. We didn&apos;t verify either side. It is a projection, not a measurement, and not a promise.
+          <strong>(c) Projected savings compares two estimates.</strong> When we show a savings number, it is our estimated total compared with what <em>you</em> told us you currently spend. We didn&apos;t verify either side. It is a projection, not a measurement, and not a promise.
         </p>
         <p className="mb-0">The service is provided &quot;as is&quot; and &quot;as available&quot;, without warranties of any kind, to the fullest extent the law allows.</p>
       </div>
@@ -149,5 +149,5 @@ const S: LegalSection[] = [
 ];
 
 export default function Terms() {
-  return <LegalLayout title="terms of service" effective="September 9, 2026" sections={S} />;
+  return <LegalLayout title="Terms of service" effective="September 9, 2026" sections={S} />;
 }
