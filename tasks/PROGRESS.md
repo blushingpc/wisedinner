@@ -3,6 +3,9 @@ Format per session: date · job taken · what shipped (1-2 lines) · deploy URL 
 
 ---
 
+## 2026-09-09 · A-16 + A-18 closed and PUBLISHED ("Close A-16 and A-18 … publish to main")
+d34ecd0: PageShell H1 capped at 18ch of its own type (was 40ch of body text, ~350px on desktop, which forced "Frequently asked questions" onto three lines from 1194); two lines at 390 and 1440, three at 320 (40px floor). S4 mock accuracy value is "96%" under the "Accuracy" label, "and climbing" gone. Gate: voice clean, 12/12 tests, build clean, dash grep 0; evidence shots in design/shots/audit-2026-09-09/evidence/after/ (faq 390/1440 folds, switcher 4 at 390, home fold 1440). main fast-forwarded 5e0d023 → d34ecd0, Vercel Ready, prod probe: /faq H1 with the 18ch cap, 0 "and climbing" on /. Founder steps left: store URLs in Vercel, official Pre-order badge, social hrefs.
+
 ## 2026-09-09 · PUBLISHED the audit fix pass on the founder's word ("push changes to main")
 main fast-forwarded 65aac5d → 5e0d023 (design-v4-1, 5 commits, no force), Vercel Production Ready. Gate on the head: voice clean, 12/12 tests, build clean, dash grep 0, after-run clean (docs/AUDIT-2026-09-09.md). Prod probe www.wisedinner.com: 200, "Privacy policy" H1, three h2 tiers on /pricing, emerald-ink token in the inlined CSS, hover rules behind (hover: hover), role=img on the share-card checks, line-clamp-2 meal names on /w/example. Founder steps left: store URLs in Vercel, official Pre-order badge, social hrefs, calls on A-16 and A-18.
 
