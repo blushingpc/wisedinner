@@ -140,6 +140,34 @@ test("loop guard: plain mail from the support address itself still classifies an
   assert.equal(status.get(threads[0].id), "auto_replied");
 });
 
+test("send gate: a draft with an em dash is never sent; the message escalates with reason voice-fail", async () => {
+  const inbox = [await fixture("pricing-question", 31)];
+  const { mail, sent, seen } = fakeMail(inbox);
+  const { store, threads, status } = fakeStore();
+  const dashy: Classifier = async () => ({ intent: "informational", category: "pricing", reason: "", reply: "The pre-order build is free — Protein Plan is $8.99 a month.\n\nWiseDinner support" });
+  const r = await handlePoll(mail, store, dashy, "founder@example.com");
+  assert.deepEqual({ replied: r.replied, escalated: r.escalated, skippedAuto: r.skippedAuto }, { replied: 0, escalated: 1, skippedAuto: 0 });
+  assert.equal(sent.length, 1, "only the digest goes out");
+  assert.equal(sent[0].to, "founder@example.com");
+  assert.match(sent[0].text, /voice-fail: em dash in "/);
+  assert.match(sent[0].text, /—/, "the offending text is quoted in the digest");
+  assert.deepEqual(seen, [], "left unread like any escalation");
+  assert.equal(status.get(threads[0].id), "escalated");
+});
+
+test("send gate: a draft ending in an exclamation point is never sent", async () => {
+  const inbox = [await fixture("pricing-question", 32)];
+  const { mail, sent } = fakeMail(inbox);
+  const { store, threads, status } = fakeStore();
+  const cheery: Classifier = async () => ({ intent: "informational", category: "pricing", reason: "", reply: "Yes, the pre-order build is free. Enjoy!" });
+  const r = await handlePoll(mail, store, cheery, "founder@example.com");
+  assert.deepEqual({ replied: r.replied, escalated: r.escalated }, { replied: 0, escalated: 1 });
+  assert.equal(sent.length, 1);
+  assert.equal(sent[0].to, "founder@example.com");
+  assert.match(sent[0].text, /voice-fail: exclamation point in "/);
+  assert.equal(status.get(threads[0].id), "escalated");
+});
+
 test("a reply to an earlier thread joins it by In-Reply-To; an already-logged unread message is skipped", async () => {
   const first = await fixture("refund-request", 12);
   const { store, threads, messages } = fakeStore();

@@ -1,4 +1,5 @@
 import { FOOTER } from "./kb.ts";
+import { voiceProblems } from "./voice.ts";
 import type { Classifier } from "./classify.ts";
 import type { Inbound, Mailbox } from "./mail.ts";
 
@@ -46,7 +47,12 @@ export async function handlePoll(mail: Mailbox, store: Store, classify: Classifi
     const thread = (await store.findThread(m.inReplyTo, m.from, stripRe(m.subject))) ?? (await store.createThread({ channel: "email", from_email: m.from, subject: stripRe(m.subject) || "(no subject)", message_id: m.messageId }));
     // triage before the inbound row is logged: hasMessage() is the dedupe, so a poll that dies mid-triage (function
     // timeout) must leave nothing behind, or the message would be skipped forever on the next poll
-    const triage = m.text.trim() ? await classify({ from: m.from, subject: m.subject, body: m.text }) : { intent: "escalate" as const, category: "other", reason: "empty message", reply: "" };
+    const draft = m.text.trim() ? await classify({ from: m.from, subject: m.subject, body: m.text }) : { intent: "escalate" as const, category: "other", reason: "empty message", reply: "" };
+    // send gate: only a confident informational verdict with a draft that passes the copy rules is ever sent; a draft
+    // that breaks a rule escalates exactly like a refund, with the offending text in the digest as reason "voice-fail"
+    const problems = draft.intent === "informational" && draft.reply.trim() ? voiceProblems(draft.reply) : [];
+    const triage = problems.length ? { ...draft, intent: "escalate" as const, reason: `voice-fail: ${problems.join("; ")}`, reply: "" } : draft;
+    if (problems.length) console.log(`support: voice-fail ${m.messageId}: ${problems.join("; ")}`);
     await store.logMessage({ thread_id: thread.id, direction: "in", body: m.text || "(empty)", ai: false, message_id: m.messageId });
     const capped = sent >= DAILY_SEND_CAP;
     if (triage.intent === "informational" && !capped) {
