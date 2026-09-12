@@ -3,6 +3,8 @@ Format per session: date · job taken · what shipped (1-2 lines) · deploy URL 
 
 ---
 
+## 2026-09-12 · APPLE PAYMENTS CLEARED · Paid Apps Agreement active (Sep 5 2026 to Sep 5 2027), W-9 active (submitted Sep 12), bank account active (SoFi, USD), DSA row active, legal name change to Ethan Pham complete; no outstanding Apple items, so paid subscriptions are unblocked for build 2.
+
 ## 2026-09-12 · REAL NUMBERS ON THE SITE (snapshot v4) · branch `web-real-numbers` from backend-v1 13103c7, merged into backend-v1, NOT on main
 Founder decisions applied, not relitigated: showcase week 150 g a day at $57; whole dollars rounded UP on marketing and showcase surfaces only; floor $45; the App Store listing carries no item count. Facts from snapshot v4 (sha256 03169aaf…2d35), not recomputed: week one $56.97, 154 g, 13 items; week two $56.73, 164 g, 15 items; drop $56.14, 150 g, 1878 kcal, 13 items, seed 37.
 - Rule as built (`lib/showcase.ts`): `wholeUsd` rounds to cents then up ($56.97 to "$57") for headline claims (pre-order band, share-page title, description and H1, share OG, drop sub); `budgetUsd` prints the whole-dollar budget exactly; `budgetPhrase` says "under a $57 budget" (or "on a $57 budget") in place of the under-budget amount, which is $0.03 at the showcase target and would overstate if rounded. Itemized rows, list totals, the receipt card and the app-screen mocks keep exact cents, as the app does.
