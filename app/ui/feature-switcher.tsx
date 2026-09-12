@@ -11,7 +11,8 @@ import { SectionHeading } from "./section";
 // flank the phone (FRONTEND-V4.1 §3) at 44px on every width, on the same state as the cards and dots; left/right keys
 // work from the phone side too; any interaction stops the auto-advance. On phones the active item's copy renders as
 // a titled card under the phone and the dots are 24px active, 8px inactive (MOBILE FIX PASS v2 §F). The section
-// is not content-visibility: auto: it sits right under the hero, and the placeholder left a blank strip on iOS.
+// stays content-visibility: auto (laying the phone frame out before first paint cost ~0.9s of mobile LCP); its
+// phone placeholder is sized to the real mobile height in globals.css so it never leaves a blank strip.
 // The four screens arrive server-rendered as `screens` so none of app/screens hydrates.
 
 // 44px round, white, hairline, forest icon (§3 shape: no shadow off a card)
@@ -51,7 +52,7 @@ export function FeatureSwitcher({ h2, items, screens }: { h2: string; items: { t
   };
 
   return (
-    <section id="how" className="bg-white py-band">
+    <section id="how" className="cv-auto bg-white py-band">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
         <SectionHeading>{h2}</SectionHeading>
         <div className="mt-10 grid items-center gap-8 lg:mt-14 lg:grid-cols-[5fr_6fr] lg:gap-16">
