@@ -123,6 +123,48 @@ owns; those packs stay on the list at $0 with `pantry: true`.
 Output fields the app may show: everything on `SolveOutput` except `input` (echo) and `seed`. `store_mode`,
 `modes_available`, `stores[]` (subtotal per store) and `alt_total` are display-ready.
 
+### Budget minimum
+
+The minimum weekly budget is **$45** (`MIN_BUDGET` in `packages/solver/src/engine.ts`, exported from the package
+index). The app enforces the same floor in its on-device copy of the solver (the budget control never offers a value
+under 45), and the solver enforces it again: for `budget < 45`, `solve()` does not search. It returns the ordinary
+`SolveOutput`. Verbatim output for `budget: 40`, 150 g, Kroger 43215 on snapshot v4:
+
+```json
+{
+  "feasible": false,
+  "days": [
+    { "day": "mon", "items": [], "protein_g": 0, "kcal": 0 },
+    { "day": "tue", "items": [], "protein_g": 0, "kcal": 0 },
+    { "day": "wed", "items": [], "protein_g": 0, "kcal": 0 },
+    { "day": "thu", "items": [], "protein_g": 0, "kcal": 0 },
+    { "day": "fri", "items": [], "protein_g": 0, "kcal": 0 }
+  ],
+  "list": [],
+  "est_total": 0,
+  "protein_per_day": 0,
+  "kcal_per_day": 0,
+  "protein_shortfall_g": 750,
+  "price_as_of": "2026-09-12",
+  "distinct_skus": 0,
+  "protein_sources": 0,
+  "seed": 0,
+  "why": ["budget below the $45 minimum"],
+  "input": { "budget": 40, "protein_per_day": 150, "kcal_min": 1800, "kcal_max": 2800, "diet": "none", "household": 1, "stores": ["kroger"], "zip": "43215" },
+  "store_mode": "singleStore",
+  "modes_available": ["singleStore"],
+  "stores": []
+}
+```
+
+`protein_shortfall_g` is `protein_per_day × 5` (the whole week's target is missing) and `price_as_of` is the
+snapshot's `generated_at`. `why` is the same plain-words field every infeasible week carries; there is no separate
+error shape and no exception. `regenerateSlot` on a week whose `input.budget` is under 45 returns it unchanged
+(`changed: false`, with the same `why` line); `swapCandidates` returns `[]`. `evaluateWeek(ids, input, snapshot)`
+prices a given list of recipe ids as-is (fixtures, tests) and does not apply the floor. At or above $45 a week can
+still come back `feasible: false` for the ordinary reasons (protein target, calorie band, variety floors), with those
+reasons in `why`.
+
 ## 5. Caching and refresh
 
 - Bundle `data/snapshot.json` at build. Offline always works on the bundled copy.

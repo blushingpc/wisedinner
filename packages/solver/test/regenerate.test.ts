@@ -47,7 +47,8 @@ test("returns changed:false with a plain-words why when nothing else fits", () =
 });
 
 test("an infeasible week never gets worse", () => {
-  const bad = solve({ ...BASE, budget: 25, protein_per_day: 200 }, snap);
+  // at the $45 floor with an out-of-reach protein target: infeasible for protein, not short-circuited by the floor
+  const bad = solve({ ...BASE, budget: 45, protein_per_day: 200 }, snap);
   assert.equal(bad.feasible, false);
   const out = regenerateSlot(bad, 8, 3, snap);
   assert.ok(out.est_total <= bad.est_total + 0.01 || out.protein_shortfall_g <= bad.protein_shortfall_g);

@@ -83,10 +83,12 @@ test("pantry sku is free and still eaten", () => {
 });
 
 test("infeasible budget: reports shortfall, never claims feasible", () => {
-  const out = solve({ ...BASE, budget: 20, protein_per_day: 220 }, snap);
+  // at the $45 floor, so the search runs (under the floor solve() short-circuits; floor.test.ts covers that path)
+  const out = solve({ ...BASE, budget: 45, protein_per_day: 220 }, snap);
   assert.equal(out.feasible, false);
-  assert.ok(out.protein_shortfall_g > 0 || out.est_total > 20);
+  assert.ok(out.protein_shortfall_g > 0 || out.est_total > 45);
   assert.ok(out.why.length > 0);
+  assert.ok(out.list.length > 0, "a real week was searched, not the floor's empty week");
 });
 
 test("kcal ceiling breached by the protein target is not feasible", () => {

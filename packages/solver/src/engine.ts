@@ -16,6 +16,13 @@ export const BAND = 1.03; // near-optimal band: feasible weeks within 3% of the 
 const CANDIDATES = 32;
 const STEPS = 1000;
 
+// the budget floor (founder decision 2026-09-12): below MIN_BUDGET a week does not exist at real shelf prices, so solve()
+// returns the ordinary infeasible SolveOutput (feasible: false, why: [MIN_BUDGET_WHY], empty week) instead of searching.
+// the app enforces the same floor in its on-device copy of this package; the API never rounds or clamps the budget.
+export const MIN_BUDGET = 45;
+export const MIN_BUDGET_WHY = `budget below the $${MIN_BUDGET} minimum`;
+export const belowMinimum = (input: SolveInput) => input.budget < MIN_BUDGET;
+
 // variety floors scale with budget: 8 skus / 2 protein sources at $30, 12 / 3 from $55 up
 export const floors = (budget: number) => {
   const t = Math.min(1, Math.max(0, (budget - 30) / 25));
@@ -365,8 +372,32 @@ export function fraction(f: number): string {
   return f.toFixed(2);
 }
 
+// the infeasible output for a budget under MIN_BUDGET: the same shape as every other SolveOutput, with an empty week
+function belowMinimumOutput(input: SolveInput, s: Snapshot): SolveOutput {
+  const book = buildPriceBook(s, input);
+  return {
+    feasible: false,
+    days: DAYS.map((day) => ({ day, items: [], protein_g: 0, kcal: 0 })),
+    list: [],
+    est_total: 0,
+    protein_per_day: 0,
+    kcal_per_day: 0,
+    protein_shortfall_g: input.protein_per_day * DAYS.length,
+    price_as_of: s.generated_at,
+    distinct_skus: 0,
+    protein_sources: 0,
+    seed: input.seed ?? 0,
+    why: [MIN_BUDGET_WHY],
+    input,
+    store_mode: book.mode,
+    modes_available: book.modesAvailable,
+    stores: [],
+  };
+}
+
 // one full solve: singleStore runs the search once per live store and keeps the cheapest feasible week
 export function solve(input: SolveInput, s: Snapshot): SolveOutput {
+  if (belowMinimum(input)) return belowMinimumOutput(input, s);
   const seed = input.seed ?? 0;
   const book = buildPriceBook(s, input);
   const templates = templatesOf(s);

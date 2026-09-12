@@ -1,5 +1,5 @@
 import type { Snapshot, SolveOutput } from "./types.ts";
-import { BAND, ctxFor, evaluate, options, rng, toOutput } from "./engine.ts";
+import { BAND, MIN_BUDGET_WHY, belowMinimum, ctxFor, evaluate, options, rng, toOutput } from "./engine.ts";
 
 // re-solve one slot (slotIndex = day * 3 + slot, 0..14) with the other fourteen fixed. every valid recipe for the
 // slot is tried; a feasible week only accepts substitutes that keep it feasible (budget, protein, calories, floors,
@@ -9,6 +9,8 @@ export function regenerateSlot(week: SolveOutput, slotIndex: number, seed: numbe
   const d = Math.floor(slotIndex / 3);
   const sl = slotIndex % 3;
   if (d < 0 || d > 4 || slotIndex < 0) throw new Error("slotIndex must be 0..14");
+  // under the floor nothing is re-solved; the plain-words why says so (a week re-priced under $45 may still carry items)
+  if (belowMinimum(week.input)) return { ...week, seed, why: week.why.includes(MIN_BUDGET_WHY) ? week.why : [...week.why, MIN_BUDGET_WHY], changed: false };
   const { ctx, book, internal } = ctxFor(week, s);
   const current = internal[d][sl];
   const base = evaluate(internal, ctx);

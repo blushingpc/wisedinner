@@ -48,7 +48,7 @@ S7 FINAL CTA (bg ink, text white): H2 `your protein. your budget. solved.` + inl
 Footer: wordmark · nav links · legal links · mono `built by a tiny team and a solver · © 2026 [WiseDinner LLC]`.
 done: 390px + desktop match spec; Lighthouse ≥90 perf ≥95 a11y; zero dead links.
 ### `/start` quiz (absorb existing WIP)
-6 steps: budget ($30–120 slider+input) → protein g/day (80–220) → calories band → diet (none/vegetarian/vegan/dairy-free/gluten-free) → household 1–4 → pantry multi-chip (top 12 from staples.json). One question/screen, mono `02 / 06`, thin accent progress rule, Enter advances, back link, sessionStorage persistence, inline validation, final POST /api/solve → /plan. done: keyboard-completable, refresh-safe, thumb-reach controls.
+6 steps: budget ($45–120 slider+input; $45 is the solver's MIN_BUDGET) → protein g/day (80–220) → calories band → diet (none/vegetarian/vegan/dairy-free/gluten-free) → household 1–4 → pantry multi-chip (top 12 from staples.json). One question/screen, mono `02 / 06`, thin accent progress rule, Enter advances, back link, sessionStorage persistence, inline validation, final POST /api/solve → /plan. done: keyboard-completable, refresh-safe, thumb-reach controls.
 ### `/plan` reveal
 Full ReceiptCard: day rows, dashed separators, aisle list grouped below, `EST. IN-STORE TOTAL` counted in receipt-red, `PROTEIN / DAY` accent, `printed [time]`. Below: projected monthly savings vs stated spend labeled `projected`. Sticky bottom bar: total + `get early access` → inline WaitlistForm storing quiz answers. `regenerate` (1 re-solve, then CTA only) · `see this week's free drop`. No session → friendly redirect to /start. done: totals byte-identical to solver; screenshot-worthy at 390px.
 ### `/drop` universal week (fixed-seed fixture via scripts/gen-drop.ts → data/drop.json committed): ReceiptCard + `refreshed every Sunday` + WaitlistForm(source=drop) + shareable OG.
@@ -67,7 +67,7 @@ create table if not exists support_messages (id uuid primary key default gen_ran
 alter table waitlist enable row level security; alter table support_messages enable row level security; -- no public policies; server routes use service role only.
 
 ## 10. BACKEND (Node runtime route handlers)
-POST /api/waitlist — validate email (regex + ≤254), lowercase, insert; unique violation → {status:"already"}; return position via count. POST /api/support — lengths (message ≤2000), honeypot reject, insert. /api/solve — add input clamps (budget 20–200, protein 60–250, household 1–4), 405 on GET. All: service key server-only; in-memory Map rate limit 10 req/min/IP (comment: fine at this scale).
+POST /api/waitlist — validate email (regex + ≤254), lowercase, insert; unique violation → {status:"already"}; return position via count. POST /api/support — lengths (message ≤2000), honeypot reject, insert. /api/solve — add input clamps (budget 45–200, protein 60–250, household 1–4), 405 on GET. All: service key server-only; in-memory Map rate limit 10 req/min/IP (comment: fine at this scale).
 
 ## 11. AUTOMATION
 scripts/gen-drop.ts (fixed seed + staples.json → data/drop.json). scripts/press-kit.ts. sitemap via Next sitemap.ts convention. No cron tonight (queue Idea: Sunday GitHub Action, [activation]).

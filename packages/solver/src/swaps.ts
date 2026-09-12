@@ -1,5 +1,5 @@
 import type { Snapshot, SolveOutput, SwapCandidate } from "./types.ts";
-import { ctxFor, evaluate, options } from "./engine.ts";
+import { belowMinimum, ctxFor, evaluate, options } from "./engine.ts";
 
 // ranked valid substitutes for one slot: every recipe not already in the week that keeps the week feasible (or,
 // for an infeasible week, does not make it worse), ranked by "uses what you already buy" first, then fewest new
@@ -8,6 +8,7 @@ export function swapCandidates(week: SolveOutput, slotIndex: number, s: Snapshot
   const d = Math.floor(slotIndex / 3);
   const sl = slotIndex % 3;
   if (d < 0 || d > 4 || slotIndex < 0) throw new Error("slotIndex must be 0..14");
+  if (belowMinimum(week.input)) return []; // an empty week under the floor has nothing to swap
   const { ctx, internal } = ctxFor(week, s);
   const current = internal[d][sl];
   const base = evaluate(internal, ctx);
