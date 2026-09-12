@@ -3,14 +3,14 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { simpleParser } from "mailparser";
 import { DAILY_SEND_CAP, handlePoll, type Store, type Thread } from "../handler.ts";
-import type { Inbound, Mailbox, Outbound } from "../mail.ts";
+import { autoSubmittedOf, type Inbound, type Mailbox, type Outbound } from "../mail.ts";
 import type { Classifier } from "../classify.ts";
 import { FOOTER } from "../kb.ts";
 
 // fixture emails (.eml) → Inbound, the way mail.ts parses them
 async function fixture(name: string, uid: number): Promise<Inbound> {
   const parsed = await simpleParser(readFileSync(`lib/support/test/fixtures/${name}.eml`));
-  return { uid, messageId: parsed.messageId!, inReplyTo: parsed.inReplyTo ?? undefined, from: parsed.from!.value[0].address!.toLowerCase(), subject: parsed.subject ?? "", text: (parsed.text ?? "").trim(), date: new Date().toISOString() };
+  return { uid, messageId: parsed.messageId!, inReplyTo: parsed.inReplyTo ?? undefined, from: parsed.from!.value[0].address!.toLowerCase(), subject: parsed.subject ?? "", text: (parsed.text ?? "").trim(), date: new Date().toISOString(), autoSubmitted: autoSubmittedOf(parsed.headers.get("auto-submitted")) };
 }
 
 function fakeMail(inbox: Inbound[]) {
@@ -103,6 +103,41 @@ test("refund request: left unread, thread escalated, one digest to the escalatio
   assert.match(sent[0].text, /refund/);
   assert.match(sent[0].text, /still unread/);
   assert.equal(status.get(threads[0].id), "escalated");
+});
+
+test("loop guard: a message with Auto-Submitted: auto-replied is marked read and never reaches the classifier", async () => {
+  const inbox = [await fixture("auto-reply", 21)];
+  assert.equal(inbox[0].autoSubmitted, "auto-replied", "fixture header parsed");
+  const { mail, sent, seen } = fakeMail(inbox);
+  const { store, threads, messages } = fakeStore();
+  let classified = 0;
+  const neverClassify: Classifier = async () => {
+    classified++;
+    throw new Error("classifier must not run for auto-submitted mail");
+  };
+  const r = await handlePoll(mail, store, neverClassify, "founder@example.com");
+  assert.deepEqual({ seen: r.seen, replied: r.replied, escalated: r.escalated, skipped: r.skipped, skippedAuto: r.skippedAuto }, { seen: 1, replied: 0, escalated: 0, skipped: 0, skippedAuto: 1 });
+  assert.equal(classified, 0);
+  assert.deepEqual(seen, [21], "marked read");
+  assert.equal(sent.length, 0, "nothing sent, no digest");
+  assert.equal(threads.length, 0);
+  assert.equal(messages.length, 0);
+  assert.equal(r.digest, undefined);
+});
+
+test("loop guard: plain mail from the support address itself still classifies and is answered", async () => {
+  const inbox = [await fixture("self-sent-plain", 22)];
+  assert.equal(inbox[0].autoSubmitted, undefined);
+  assert.equal(inbox[0].from, "wisedinnersupport@gmail.com");
+  const { mail, sent, seen } = fakeMail(inbox);
+  const { store, threads, status } = fakeStore();
+  const r = await handlePoll(mail, store, classify, "founder@example.com");
+  assert.deepEqual({ seen: r.seen, replied: r.replied, escalated: r.escalated, skipped: r.skipped, skippedAuto: r.skippedAuto }, { seen: 1, replied: 1, escalated: 0, skipped: 0, skippedAuto: 0 });
+  assert.equal(sent.length, 1);
+  assert.equal(sent[0].to, "wisedinnersupport@gmail.com");
+  assert.equal(sent[0].subject, "Re: what does the app cost");
+  assert.deepEqual(seen, [22]);
+  assert.equal(status.get(threads[0].id), "auto_replied");
 });
 
 test("a reply to an earlier thread joins it by In-Reply-To; an already-logged unread message is skipped", async () => {

@@ -20,16 +20,25 @@ export type Store = {
   hasMessage(messageId: string): Promise<boolean>;
 };
 
-export type PollResult = { seen: number; replied: number; escalated: number; skipped: number; digest?: string };
+// skippedAuto counts mail that declared itself machine-generated (Auto-Submitted other than "no", RFC 3834):
+// marked read and never classified, so two autoresponders cannot loop. sender address is never a reason to skip.
+export type PollResult = { seen: number; replied: number; escalated: number; skipped: number; skippedAuto: number; digest?: string };
 
 const stripRe = (s: string) => s.replace(/^\s*(re|fwd?):\s*/i, "").trim();
+const isAutoSubmitted = (m: Inbound) => Boolean(m.autoSubmitted) && m.autoSubmitted!.trim().toLowerCase() !== "no";
 
 export async function handlePoll(mail: Mailbox, store: Store, classify: Classifier, escalateTo: string): Promise<PollResult> {
   const inbox = await mail.unread();
-  const result: PollResult = { seen: inbox.length, replied: 0, escalated: 0, skipped: 0 };
+  const result: PollResult = { seen: inbox.length, replied: 0, escalated: 0, skipped: 0, skippedAuto: 0 };
   const digest: string[] = [];
   let sent = await store.sentLast24h();
   for (const m of inbox) {
+    if (isAutoSubmitted(m)) {
+      await mail.markSeen(m.uid);
+      result.skippedAuto++;
+      console.log(`support: skipped-auto ${m.messageId} (Auto-Submitted: ${m.autoSubmitted})`);
+      continue;
+    }
     if (await store.hasMessage(m.messageId)) {
       result.skipped++; // already logged on a previous poll (left unread on purpose)
       continue;
@@ -60,5 +69,5 @@ export async function handlePoll(mail: Mailbox, store: Store, classify: Classifi
   return result;
 }
 
-export const emptyResult = (): PollResult => ({ seen: 0, replied: 0, escalated: 0, skipped: 0 });
+export const emptyResult = (): PollResult => ({ seen: 0, replied: 0, escalated: 0, skipped: 0, skippedAuto: 0 });
 export type { Inbound };
