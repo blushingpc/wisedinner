@@ -19,6 +19,12 @@ const WIDTHS = [181, 205, 256, 260, 290, 300, 340, 362, 410, 512, 520, 543, 580,
 const srcset = (ext: string) => WIDTHS.map((w) => `/img/bezel/iphone-17-black-${w}.${ext} ${w}w`).join(", ");
 const AVIF = srcset("avif");
 const WEBP = srcset("webp");
+// the hero frame renders two pictures: one for phones (lazy), one from 640px (eager, high). each picture's sources
+// carry the other's media query and its fallback src is a blank pixel, so the picture that does not apply never
+// touches the network (Chrome fetches a display:none img's src).
+const DESKTOP = "(min-width: 640px)";
+const PHONE = "(max-width: 639px)";
+const BLANK = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 export function DeviceFrame({
   children,
@@ -41,10 +47,11 @@ export function DeviceFrame({
   sizes?: string; // the frame's rendered CSS width per breakpoint; drives which ladder file the browser picks
   ptClass?: string; // a .pt-* class from globals.css that states --pt in viewport units (first-paint fast path); cqw otherwise
 }) {
-  // the hero frame is the mobile LCP element since it grew to 78% of the stage (MOBILE FIX PASS v2 §D): it ships as
-  // WebP, not AVIF, because AVIF decode on a throttled phone CPU held its paint ~0.9s behind the headline (Lighthouse
-  // element render delay); the few extra kB cost nothing next to that. every other frame keeps the AVIF ladder.
-  if (priority) preload("/img/bezel/iphone-17-black.png", { as: "image", imageSrcSet: WEBP, imageSizes: sizes, type: "image/webp", fetchPriority: "high" });
+  // the hero frame (priority) is the desktop LCP element: preloaded at high priority from 640px up. on phones the
+  // stage sits below the fold (MOBILE FIX PASS v2 LCP follow-up), so there the bezel is a separate lazy, auto-priority
+  // picture and the hero text is the LCP again; the preload is media-gated so a phone never fetches it early. it ships
+  // as WebP because AVIF decode on a throttled phone CPU held its paint ~0.9s behind the headline.
+  if (priority) preload("/img/bezel/iphone-17-black.png", { as: "image", imageSrcSet: WEBP, imageSizes: sizes, type: "image/webp", fetchPriority: "high", media: DESKTOP });
   const persp = tilt === "left" ? "lg:[transform:perspective(1100px)_rotateY(-10deg)_rotateX(1.5deg)]" : tilt === "right" ? "lg:[transform:perspective(1100px)_rotateY(7deg)_rotateX(1deg)]" : "";
   const shadow = tilt === "left" ? "frame-shadow-left" : tilt === "right" ? "frame-shadow-right" : "frame-shadow";
   return (
@@ -63,11 +70,24 @@ export function DeviceFrame({
         {/* diagonal glare, ~6% white */}
         <div aria-hidden="true" className="frame-glare pointer-events-none absolute inset-0" />
       </div>
-      <picture>
-        {!priority && <source type="image/avif" srcSet={AVIF} sizes={sizes} />}
-        <source type="image/webp" srcSet={WEBP} sizes={sizes} />
-        <img src="/img/bezel/iphone-17-black.png" alt="" aria-hidden="true" width={BEZEL.w} height={BEZEL.h} decoding={priority ? "sync" : "async"} loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} className="pointer-events-none absolute inset-0 h-full w-full select-none" />
-      </picture>
+      {priority ? (
+        <>
+          <picture className="sm:hidden">
+            <source media={PHONE} type="image/webp" srcSet={WEBP} sizes={sizes} />
+            <img src={BLANK} alt="" aria-hidden="true" width={BEZEL.w} height={BEZEL.h} decoding="async" loading="lazy" fetchPriority="auto" className="pointer-events-none absolute inset-0 h-full w-full select-none" />
+          </picture>
+          <picture className="hidden sm:block">
+            <source media={DESKTOP} type="image/webp" srcSet={WEBP} sizes={sizes} />
+            <img src={BLANK} alt="" aria-hidden="true" width={BEZEL.w} height={BEZEL.h} decoding="sync" loading="eager" fetchPriority="high" className="pointer-events-none absolute inset-0 h-full w-full select-none" />
+          </picture>
+        </>
+      ) : (
+        <picture>
+          <source type="image/avif" srcSet={AVIF} sizes={sizes} />
+          <source type="image/webp" srcSet={WEBP} sizes={sizes} />
+          <img src="/img/bezel/iphone-17-black.png" alt="" aria-hidden="true" width={BEZEL.w} height={BEZEL.h} decoding="async" loading="lazy" fetchPriority="auto" className="pointer-events-none absolute inset-0 h-full w-full select-none" />
+        </picture>
+      )}
     </div>
   );
 }

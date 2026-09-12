@@ -51,12 +51,14 @@ export default function Home() {
       {/* HERO (REDESIGN-V4 §6, MOBILE FIX PASS v2 §C): two columns from 1024px, stacked below. left: pill, H1, sub,
           the pre-order button, the microline under it. right: the phone stage. on phones the pill, H1, sub and button
           all sit above the fold (24px top padding, the H1 stepped down so each sentence holds one line, the sub at
-          17px, the button full width) and the stage follows below it. every entrance here is transform-only
+          17px, the button full width) and the stage starts at or below the fold: the text column is at least the
+          Lighthouse mobile fold (823px) and the small viewport height, less header, padding and gap, so the hero
+          text stays the mobile LCP element and the bezel loads without priority there (device-frame.tsx). every entrance here is transform-only
           (rise-up): an opacity fade keeps the LCP candidate unpainted until it ends, which measured as 2.3s of
           element render delay on the sub paragraph. */}
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 pt-6 pb-10 sm:pt-10 sm:pb-12 lg:grid-cols-[1.2fr_1fr] lg:gap-10 lg:px-12 lg:py-12">
-          <div>
+          <div className="min-h-[max(699px,calc(100svh-124px))] sm:min-h-0">
             <p className="rise-up inline-flex items-start gap-2 rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink">
               <span aria-hidden="true" className="mt-[0.4rem] size-2 shrink-0 rounded-full bg-emerald" />
               {site.hero.pill}
