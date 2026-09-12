@@ -13,7 +13,7 @@ export function PricingCards({ compact = false, heading: H = "h3" }: { compact?:
   return (
     <div>
       <p className="mx-auto max-w-[60ch] text-center text-[1.0625rem] leading-relaxed text-ink-2">{intro}</p>
-      <div className={`mx-auto mt-10 grid max-w-[880px] gap-5 ${compact ? "md:grid-cols-2" : "md:grid-cols-2 md:gap-6"}`}>
+      <div className={`mx-auto mt-10 grid max-w-[880px] gap-4 sm:gap-5 ${compact ? "md:grid-cols-2" : "md:grid-cols-2 md:gap-6"}`}>
         {tiers.map((t) => (
           <div key={t.name} className={`lift flex flex-col rounded-card bg-white p-6 sm:p-8 ${t.popular ? "shadow-card ring-2 ring-forest" : "border border-border"}`}>
             <div className="flex items-baseline justify-between gap-4">

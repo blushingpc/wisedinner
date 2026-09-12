@@ -66,13 +66,21 @@
   }
 }
 
-/* band rhythm: sections are py-16 on phones and py-24 on desktop (§3), expressed once here as py-band */
+/* band rhythm: sections are 56px on phones (MOBILE FIX PASS v2 §G) and 96px on desktop (§3), once here as py-band */
 :root {
-  --band: 64px;
+  --band: 56px;
 }
 @media (min-width: 1024px) {
   :root {
     --band: 96px;
+  }
+}
+
+/* the hero H1 on phones (§C): stepped down so "Hit your protein." and "Spend way less." each hold one line at 360
+   and up (two lines total); the desktop clamp is untouched */
+@media (max-width: 639px) {
+  :root {
+    --text-h1: clamp(2.25rem, 10vw, 2.75rem);
   }
 }
 
@@ -98,10 +106,17 @@ html[data-scrolled] .header-bar {
   box-shadow: var(--shadow-card);
 }
 
-/* the homepage's mobile sticky bar needs the footer to end 9rem early so its last line stays readable */
+/* the homepage's mobile sticky bar (§E): 12px + 52px button + 6px + the 17px microline + 12px = 99px, plus the home
+   indicator. the footer, the last thing on the page, pads by the same amount so no content hides behind the bar. */
+:root {
+  --cta-bar: 99px;
+}
+.cta-bar {
+  min-height: calc(var(--cta-bar) + max(0px, env(safe-area-inset-bottom) - 0.75rem));
+}
 @media (max-width: 639px) {
   main:has(#hero-cta-end) + footer > div {
-    padding-bottom: 9rem;
+    padding-bottom: calc(3.5rem + var(--cta-bar) + max(0px, env(safe-area-inset-bottom) - 0.75rem));
   }
 }
 
@@ -358,6 +373,13 @@ html[data-scrolled] .header-bar {
 .cv-auto {
   content-visibility: auto;
   contain-intrinsic-size: auto 720px;
+}
+/* phones: the placeholder height tracks the real mobile bands (~1000px) so a section scrolling in never leaves a
+   blank strip while it lays out (the gap the founder saw under the switcher on iOS) */
+@media (max-width: 639px) {
+  .cv-auto {
+    contain-intrinsic-size: auto 1000px;
+  }
 }
 .frame-glare {
   background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0.06) 56%, transparent 62%);

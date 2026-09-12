@@ -8,8 +8,10 @@ import { SectionHeading } from "./section";
 // SECTION 2 (REDESIGN-V4 §6): centered H2, DeviceFrame left, four cards right (the active card is white with a forest
 // 2px border). Click or tap = 250ms crossfade; auto-advance every 5s until the first interaction; dots. Mobile: the
 // cards collapse to a chip row above the phone. Tabs pattern: arrow keys move, Home/End jump. Two round arrow buttons
-// flank the phone (FRONTEND-V4.1 §3), on the same state as the cards and dots; left/right keys work from the phone
-// side too; any interaction stops the auto-advance.
+// flank the phone (FRONTEND-V4.1 §3) at 44px on every width, on the same state as the cards and dots; left/right keys
+// work from the phone side too; any interaction stops the auto-advance. On phones the active item's copy renders as
+// a titled card under the phone and the dots are 24px active, 8px inactive (MOBILE FIX PASS v2 §F). The section
+// is not content-visibility: auto: it sits right under the hero, and the placeholder left a blank strip on iOS.
 // The four screens arrive server-rendered as `screens` so none of app/screens hydrates.
 
 // 44px round, white, hairline, forest icon (§3 shape: no shadow off a card)
@@ -49,7 +51,7 @@ export function FeatureSwitcher({ h2, items, screens }: { h2: string; items: { t
   };
 
   return (
-    <section id="how" className="cv-auto bg-white py-band">
+    <section id="how" className="bg-white py-band">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
         <SectionHeading>{h2}</SectionHeading>
         <div className="mt-10 grid items-center gap-8 lg:mt-14 lg:grid-cols-[5fr_6fr] lg:gap-16">
@@ -98,11 +100,14 @@ export function FeatureSwitcher({ h2, items, screens }: { h2: string; items: { t
                 <CaretRight size={20} weight="bold" aria-hidden="true" />
               </button>
             </div>
-            {/* the body under the phone on mobile, where the cards are chips */}
-            <p className="mx-auto mt-5 max-w-[44ch] text-center text-[0.9375rem] leading-relaxed text-ink-2 lg:hidden">{items[active].body}</p>
+            {/* the titled card under the phone on mobile, where the tabs are chips */}
+            <div className="mx-auto mt-5 max-w-[44ch] rounded-card border border-border bg-white p-5 lg:hidden">
+              <p className="font-display text-[1.0625rem] font-bold tracking-[-0.01em]">{items[active].title}</p>
+              <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink-2">{items[active].body}</p>
+            </div>
             <div className="mt-4 flex justify-center gap-2" aria-hidden="true">
               {items.map((it, i) => (
-                <span key={it.title} className={`h-1.5 rounded-full transition-[width,background-color] duration-200 ${i === active ? "w-6 bg-forest" : "w-1.5 bg-border"}`} />
+                <span key={it.title} className={`h-2 rounded-full transition-[width,background-color] duration-200 ${i === active ? "w-6 bg-forest" : "w-2 bg-border"}`} />
               ))}
             </div>
           </div>

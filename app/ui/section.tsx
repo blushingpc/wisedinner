@@ -1,4 +1,4 @@
-// SectionShell (REDESIGN-V4 §3): py-band rhythm (64px mobile, 96px desktop), 1200px container, optional gray surface.
+// SectionShell (REDESIGN-V4 §3): py-band rhythm (56px mobile, 96px desktop), 1200px container, optional gray surface.
 export function Section({ children, alt, id, className = "", lazy = false }: { children: React.ReactNode; alt?: boolean; id?: string; className?: string; lazy?: boolean }) {
   return (
     <section id={id} className={`${alt ? "bg-surface" : "bg-white"} ${lazy ? "cv-auto" : ""} py-band`}>
