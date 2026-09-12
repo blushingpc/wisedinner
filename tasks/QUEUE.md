@@ -31,6 +31,7 @@ E1. [x] funnel simplification: pre-sale removed end to end, /founders 301 → /t
 E2. BLOCKED (founder): App Store Connect listing exists → set NEXT_PUBLIC_APP_STORE_URL (+ NEXT_PUBLIC_RELEASE_DATE, e.g. "March 2027") in Vercel production + preview, drop Apple's official "Pre-order" badge over public/badges/app-store-black.svg, redeploy. done means: both badges link to the listings, every text CTA reads "Pre-order on the App Store", /ios 307s to the listing, the Release line shows.
 E2b. [x] REDESIGN v3 (docs/REDESIGN-V3.md) — PUBLISHED 2026-09-07 (main 0437bb6), prod probe green, prod Lighthouse 95/100/100/100.
 E2d. [x] REDESIGN v4 (docs/REDESIGN-V4.md) — PUBLISHED 2026-09-08 (main 8a3aa48), prod probe green, prod Lighthouse 93/100/100/100, issue #18.
+E2e. [x] MOBILE FIX PASS v2 (founder iPhone screenshots) — PUBLISHED 2026-09-12 (main 651a807), preview + prod probes green, prod Lighthouse mobile 90 to 92. Open founder calls in PROGRESS: mark size on phones, 56/56 rhythm vs the 64px blank cap, the mobile callout wording, the official Pre-order badge svg + NEXT_PUBLIC_APP_STORE_URL (badges return by themselves).
 E2c. BLOCKED (founder): Vercel Preview env for design review — NEXT_PUBLIC_APP_STORE_URL="#", NEXT_PUBLIC_PLAY_URL="#", NEXT_PUBLIC_SHOW_PLACEHOLDER_PROOF=true, NEXT_PUBLIC_RELEASE_DATE; official pre-order badge svg once the listing exists.
 E3. post-launch — WhatsApp outreach to new accounts, first 100 as S-tier testers. done means: outreach list + invite flow defined by the founder; nothing on the site.
 
