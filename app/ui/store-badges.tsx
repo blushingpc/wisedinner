@@ -1,31 +1,70 @@
-import { APP_STORE_IS_LIVE, APP_STORE_URL, PLAY_IS_LIVE, PLAY_URL, RELEASE_DATE } from "@/lib/links";
+import { APP_STORE_IS_LIVE, APP_STORE_URL, BADGES_LIVE, PLAY_IS_LIVE, PLAY_URL, RELEASE_DATE } from "@/lib/links";
+import { PreorderButton } from "./preorder-modal";
+import { BadgeImg } from "./badge-img";
 
-// STORE BADGES (REDESIGN-V4 §6): official artwork only, both served as static SVG with explicit dimensions. Apple's
-// black badge (the badge API SVG; the "Pre-order" wording lands from App Store Marketing Tools once the listing
-// exists, same path) and Google's Play badge. Apple first in any lineup. Never scaled non-uniformly, angled, animated
-// or recolored. Always visible; each links to "#" until its URL is set, then opens the listing in a new tab.
-const BADGE = {
-  apple: { src: "/badges/app-store-black.svg", w: 119.664, h: 40, alt: "Download on the App Store" },
-  play: { src: "/badges/google-play.svg", w: 180, h: 53.333, alt: "Get it on Google Play" },
-} as const;
+// STORE BADGES (REDESIGN-V4 §6, MOBILE FIX PASS v2 §A): official artwork only, both served as static SVG inside a
+// fixed-aspect box (never scaled non-uniformly, angled, animated or recolored). Apple's badge is the "Pre-order on the
+// App Store" artwork from App Store Marketing Tools (public/badges/app-store-preorder.svg, same dimensions as the
+// download badge); Google's is the Play badge. Apple first in any lineup.
+// The artwork renders only while BADGES_LIVE (lib/links.ts): until the listing URL is set and the pre-order svg
+// exists, every slot falls back to the forest "Pre-order now" button (`fallback="button"`), plain "App Store" and
+// "Google Play" text links (`fallback="links"`) or nothing. Setting the env var and dropping the svg restores the
+// badges everywhere in one deploy.
+const ext = (live: boolean) => (live ? { target: "_blank", rel: "noopener noreferrer" } : {});
 
-// one badge image at a given height, width from the artwork's own ratio (the pre-order modal composes its own links)
-export function BadgeImg({ kind, height }: { kind: keyof typeof BADGE; height: number }) {
-  const b = BADGE[kind];
-  const width = Math.round((b.w / b.h) * height);
-  // eslint-disable-next-line @next/next/no-img-element -- the store's own svg, served as-is
-  return <img src={b.src} alt={b.alt} width={width} height={height} style={{ height, width: "auto" }} />;
+// the text-link fallback (footer): "App Store" and "Google Play", "#" until the URLs exist
+export function StoreLinks({ placement, className = "" }: { placement: string; className?: string }) {
+  return (
+    <ul className={`flex flex-wrap gap-x-6 ${className}`}>
+      <li>
+        <a href={APP_STORE_URL} {...ext(APP_STORE_IS_LIVE)} data-placement={placement} className="text-link-quiet inline-flex min-h-11 items-center text-ink-2 transition-colors duration-200 hover:text-ink">
+          App Store
+        </a>
+      </li>
+      <li>
+        <a href={PLAY_URL} {...ext(PLAY_IS_LIVE)} data-placement={`${placement}-play`} className="text-link-quiet inline-flex min-h-11 items-center text-ink-2 transition-colors duration-200 hover:text-ink">
+          Google Play
+        </a>
+      </li>
+    </ul>
+  );
 }
 
-export function StoreBadges({ height = 40, placement, className = "", dark = false, release = true, play = true, playClassName = "", wrap = true }: { height?: number; placement?: string; className?: string; dark?: boolean; release?: boolean; play?: boolean; playClassName?: string; wrap?: boolean }) {
-  const ext = (live: boolean) => (live ? { target: "_blank", rel: "noopener noreferrer" } : {});
+export function StoreBadges({
+  height = 40,
+  placement,
+  className = "",
+  dark = false,
+  release = true,
+  play = true,
+  playClassName = "",
+  wrap = true,
+  fallback = "button",
+  buttonClassName = "cta",
+}: {
+  height?: number;
+  placement: string;
+  className?: string;
+  dark?: boolean;
+  release?: boolean;
+  play?: boolean;
+  playClassName?: string;
+  wrap?: boolean;
+  fallback?: "button" | "links" | "none";
+  buttonClassName?: string;
+}) {
+  if (!BADGES_LIVE) {
+    if (fallback === "button") return <PreorderButton placement={placement} className={`${buttonClassName} ${className}`} />;
+    if (fallback === "links") return <StoreLinks placement={placement} className={className} />;
+    return null;
+  }
   return (
     <div className={`flex items-center gap-x-3 gap-y-2 ${wrap ? "flex-wrap" : "flex-nowrap"} ${className}`}>
       <a href={APP_STORE_URL} {...ext(APP_STORE_IS_LIVE)} data-placement={placement} aria-label="Pre-order WiseDinner on the App Store" className="inline-block shrink-0 rounded-[8px]">
         <BadgeImg kind="apple" height={height} />
       </a>
       {play && (
-        <a href={PLAY_URL} {...ext(PLAY_IS_LIVE)} data-placement={placement ? `${placement}-play` : undefined} aria-label="Pre-register WiseDinner on Google Play" className={`${playClassName || "inline-block"} shrink-0 rounded-[8px]`}>
+        <a href={PLAY_URL} {...ext(PLAY_IS_LIVE)} data-placement={`${placement}-play`} aria-label="Pre-register WiseDinner on Google Play" className={`${playClassName || "inline-block"} shrink-0 rounded-[8px]`}>
           <BadgeImg kind="play" height={height} />
         </a>
       )}

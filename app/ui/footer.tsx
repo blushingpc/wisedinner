@@ -4,8 +4,9 @@ import { Lockup } from "@/app/lockup";
 import { site } from "@/content/site";
 import { StoreBadges } from "./store-badges";
 
-// FOOTER (REDESIGN-V4 §6): white; the forest lockup, the tagline, both badges, Company and Legal columns, TikTok and
-// Instagram (href "#" for now), the copyright line and the Apple and Google trademark line.
+// FOOTER (REDESIGN-V4 §6, MOBILE FIX PASS v2 §A): white; the forest lockup, the tagline, both badges (text links
+// "App Store" and "Google Play" until BADGES_LIVE), Company and Legal columns, TikTok and Instagram (href "#" for
+// now), the copyright line and the Apple and Google trademark line.
 const GROUPS: [string, [string, string][]][] = [
   [
     "Company",
@@ -30,7 +31,7 @@ export function Footer() {
         <div>
           <Lockup href="/" size={24} />
           <p className="mt-4 font-display text-[1.0625rem] font-bold tracking-[-0.01em]">{site.hero.h1}</p>
-          <StoreBadges placement="footer" height={40} className="mt-5" release={false} />
+          <StoreBadges placement="footer" height={40} className="mt-3" release={false} fallback="links" />
           <div className="mt-5 -ml-2 flex gap-1">
             <a href="#" aria-label="WiseDinner on TikTok" className="grid size-11 place-items-center rounded-[10px] text-ink-2 transition-colors duration-200 hover:bg-surface hover:text-ink">
               <TiktokLogo size={22} weight="regular" aria-hidden="true" />

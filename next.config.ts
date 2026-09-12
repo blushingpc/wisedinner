@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
+import { existsSync } from "node:fs";
+
+// MOBILE FIX PASS v2 §A: store badge artwork renders only when the listing URL is set AND Apple's official
+// "Pre-order" badge has landed at public/badges/app-store-preorder.svg. The file check runs here at build time so
+// client components can read one inlined flag (lib/links.ts BADGES_LIVE).
+const PREORDER_BADGE = existsSync("public/badges/app-store-preorder.svg") ? "1" : "";
 
 const nextConfig: NextConfig = {
+  env: { NEXT_PUBLIC_PREORDER_BADGE: PREORDER_BADGE },
   // REDESIGN-V4 §5C: every rendered photo width at 1x, 2x and 3x (thumbnails 56, share strip 64, cards 160) so
   // next/image serves an exact candidate for each DPR and nothing renders above its intrinsic size or soft at 3x
   images: { formats: ["image/avif", "image/webp"], imageSizes: [56, 64, 112, 128, 160, 168, 192, 320, 480], qualities: [75, 90] },

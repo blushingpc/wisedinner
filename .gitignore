@@ -54,3 +54,5 @@ loop.log
 public/_audit/
 design/shots/audit-*/before/
 design/shots/audit-*/after/
+design/shots/mobile-v2/before/
+design/shots/mobile-v2/after/

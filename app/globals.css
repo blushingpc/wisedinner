@@ -76,14 +76,26 @@
   }
 }
 
-/* anchors land below the 72px sticky header */
+/* anchors land below the sticky header (60px on phones, 72px from 1024) */
 html {
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 4.75rem;
+}
+@media (min-width: 1024px) {
+  html {
+    scroll-padding-top: 5.5rem;
+  }
 }
 
 /* chrome — the header and the mobile bar share one opaque white surface; nothing ghosts through */
 .chrome {
   background: var(--color-white);
+}
+/* the header: a hairline always, the one card shadow only once the page has scrolled (app/ui/header-shadow.tsx) */
+.header-bar {
+  transition: box-shadow 200ms var(--ease-press);
+}
+html[data-scrolled] .header-bar {
+  box-shadow: var(--shadow-card);
 }
 
 /* the homepage's mobile sticky bar needs the footer to end 9rem early so its last line stays readable */
@@ -166,11 +178,20 @@ html {
     background-color 200ms var(--ease-press),
     transform 200ms var(--ease-press);
 }
+/* the compact button: the header and the modal's option cards (44px, the tap floor) */
+.cta-sm {
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+}
 @media (max-width: 420px) {
   header .cta {
-    padding: 0.75rem;
+    padding: 0.5rem 0.75rem;
     font-size: 0.875rem;
   }
+}
+/* the hero and band buttons run full width on phones (§C) */
+@media (max-width: 639px) {
   .cta-wide {
     width: 100%;
     min-height: 54px;

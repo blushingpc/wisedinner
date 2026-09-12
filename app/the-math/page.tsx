@@ -29,7 +29,9 @@ export default function TheMath() {
           </section>
         ))}
       </div>
-      <StoreBadges placement="the-math" className="mt-14 justify-center" />
+      <div className="mt-14 flex justify-center">
+        <StoreBadges placement="the-math" className="justify-center" fallback="button" buttonClassName="cta cta-wide min-w-[200px]" />
+      </div>
     </PageShell>
   );
 }

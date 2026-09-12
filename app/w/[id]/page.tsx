@@ -50,7 +50,9 @@ export default async function SharePage({ params }: { params: Promise<{ id: stri
           <div className="screen-page mt-10">
             <ShareCard week={w} imgSizes="(min-width: 720px) 120px, 18vw" />
           </div>
-          <StoreBadges placement="share" height={48} className="mt-8 justify-center" />
+          <div className="mt-8 flex justify-center">
+            <StoreBadges placement="share" height={48} className="justify-center" fallback="button" buttonClassName="cta cta-wide min-w-[200px]" />
+          </div>
 
           <h2 className="mt-16 text-center text-h2 text-balance">Five days</h2>
           <ol className="mt-8 divide-y divide-border">
