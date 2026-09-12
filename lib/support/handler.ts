@@ -44,8 +44,10 @@ export async function handlePoll(mail: Mailbox, store: Store, classify: Classifi
       continue;
     }
     const thread = (await store.findThread(m.inReplyTo, m.from, stripRe(m.subject))) ?? (await store.createThread({ channel: "email", from_email: m.from, subject: stripRe(m.subject) || "(no subject)", message_id: m.messageId }));
-    await store.logMessage({ thread_id: thread.id, direction: "in", body: m.text || "(empty)", ai: false, message_id: m.messageId });
+    // triage before the inbound row is logged: hasMessage() is the dedupe, so a poll that dies mid-triage (function
+    // timeout) must leave nothing behind, or the message would be skipped forever on the next poll
     const triage = m.text.trim() ? await classify({ from: m.from, subject: m.subject, body: m.text }) : { intent: "escalate" as const, category: "other", reason: "empty message", reply: "" };
+    await store.logMessage({ thread_id: thread.id, direction: "in", body: m.text || "(empty)", ai: false, message_id: m.messageId });
     const capped = sent >= DAILY_SEND_CAP;
     if (triage.intent === "informational" && !capped) {
       const text = `${triage.reply.trim()}\n\n${FOOTER}`;

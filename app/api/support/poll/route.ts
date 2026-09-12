@@ -5,7 +5,9 @@ import { gmail, mailConfigured } from "@/lib/support/mail";
 import { dbStore } from "@/lib/support/store";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 60;
+// one poll is an IMAP round trip plus, per new message, one Claude call and three PostgREST calls (about 8 s each);
+// a backlog of seven took more than 60 s on the first live run and the function was cut off mid-triage
+export const maxDuration = 300;
 
 // the support cron (vercel.json: every 5 minutes). Vercel sends Authorization: Bearer <CRON_SECRET>; the same
 // header lets the pipeline exercise it locally. nothing here is public.
