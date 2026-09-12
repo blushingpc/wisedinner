@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10",
+  "generated_at": "2026-09-12",
   "feasible": true,
   "days": [
     {
@@ -335,7 +335,7 @@
   "protein_per_day": 150,
   "kcal_per_day": 1878,
   "protein_shortfall_g": 0,
-  "price_as_of": "2026-09-10",
+  "price_as_of": "2026-09-12",
   "distinct_skus": 13,
   "protein_sources": 4,
   "seed": 37,

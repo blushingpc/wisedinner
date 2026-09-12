@@ -1,5 +1,5 @@
 {
- "version": 3,
+ "version": 4,
  "generated_at": "2026-09-12",
  "stores": [
   {
@@ -1558,7 +1558,7 @@
    "region": "30303",
    "shelf_price": 4.49,
    "unit_price": 0.0032995878822083876,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "apples",
@@ -1566,7 +1566,7 @@
    "region": "43215",
    "shelf_price": 3.99,
    "unit_price": 0.0029321504788444247,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "apples",
@@ -1574,7 +1574,7 @@
    "region": "77002",
    "shelf_price": 3.49,
    "unit_price": 0.0025647130754804614,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "apples",
@@ -1582,7 +1582,7 @@
    "region": "98101",
    "shelf_price": 4.99,
    "unit_price": 0.0036670252855723505,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "apples",
@@ -1590,7 +1590,7 @@
    "region": "90012",
    "shelf_price": 4.99,
    "unit_price": 0.0036670252855723505,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "asparagus",
@@ -1598,7 +1598,7 @@
    "region": "30303",
    "shelf_price": 3.3,
    "unit_price": 0.007273740155971857,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "asparagus",
@@ -1606,7 +1606,7 @@
    "region": "43215",
    "shelf_price": 3.08,
    "unit_price": 0.006787202352896816,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "asparagus",
@@ -1614,7 +1614,7 @@
    "region": "77002",
    "shelf_price": 3.08,
    "unit_price": 0.006787202352896816,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "asparagus",
@@ -1622,7 +1622,7 @@
    "region": "98101",
    "shelf_price": 2.75,
    "unit_price": 0.006057395648284255,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "asparagus",
@@ -1630,7 +1630,7 @@
    "region": "90012",
    "shelf_price": 3.08,
    "unit_price": 0.006787202352896816,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "avocados",
@@ -1638,7 +1638,7 @@
    "region": "30303",
    "shelf_price": 1,
    "unit_price": 0.9975,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "avocados",
@@ -1646,7 +1646,7 @@
    "region": "43215",
    "shelf_price": 1,
    "unit_price": 0.9975,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "avocados",
@@ -1654,7 +1654,7 @@
    "region": "77002",
    "shelf_price": 1,
    "unit_price": 0.9975,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "avocados",
@@ -1662,7 +1662,7 @@
    "region": "98101",
    "shelf_price": 1.25,
    "unit_price": 1.2475,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "avocados",
@@ -1670,7 +1670,7 @@
    "region": "90012",
    "shelf_price": 1.25,
    "unit_price": 1.2475,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bananas",
@@ -1678,7 +1678,7 @@
    "region": "30303",
    "shelf_price": 1.65,
    "unit_price": 0.0012125434311010778,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bananas",
@@ -1686,7 +1686,7 @@
    "region": "43215",
    "shelf_price": 2.07,
    "unit_price": 0.0015211908499268064,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bananas",
@@ -1694,7 +1694,7 @@
    "region": "77002",
    "shelf_price": 1.65,
    "unit_price": 0.0012125434311010778,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bananas",
@@ -1702,7 +1702,7 @@
    "region": "98101",
    "shelf_price": 2.25,
    "unit_price": 0.001653468315137833,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bananas",
@@ -1710,7 +1710,7 @@
    "region": "90012",
    "shelf_price": 2.07,
    "unit_price": 0.0015211908499268064,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bbq-sauce",
@@ -1718,7 +1718,7 @@
    "region": "30303",
    "shelf_price": 1.79,
    "unit_price": 0.0035078024107812996,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bbq-sauce",
@@ -1726,7 +1726,7 @@
    "region": "43215",
    "shelf_price": 1.79,
    "unit_price": 0.0035078024107812996,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bbq-sauce",
@@ -1734,7 +1734,7 @@
    "region": "77002",
    "shelf_price": 1.79,
    "unit_price": 0.0035078024107812996,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bbq-sauce",
@@ -1742,7 +1742,7 @@
    "region": "98101",
    "shelf_price": 1.79,
    "unit_price": 0.0035078024107812996,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bbq-sauce",
@@ -1750,7 +1750,7 @@
    "region": "90012",
    "shelf_price": 2.39,
    "unit_price": 0.004683602101545981,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bell-peppers",
@@ -1758,7 +1758,7 @@
    "region": "30303",
    "shelf_price": 2.39,
    "unit_price": 0.798,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bell-peppers",
@@ -1766,7 +1766,7 @@
    "region": "43215",
    "shelf_price": 2.39,
    "unit_price": 0.798,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bell-peppers",
@@ -1774,7 +1774,7 @@
    "region": "77002",
    "shelf_price": 2.39,
    "unit_price": 0.798,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bell-peppers",
@@ -1782,7 +1782,7 @@
    "region": "98101",
    "shelf_price": 4.79,
    "unit_price": 1.598,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "bell-peppers",
@@ -1790,7 +1790,7 @@
    "region": "90012",
    "shelf_price": 2.97,
    "unit_price": 0.99,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "black-beans",
@@ -1798,7 +1798,7 @@
    "region": "30303",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "black-beans",
@@ -1806,7 +1806,7 @@
    "region": "43215",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "black-beans",
@@ -1814,7 +1814,7 @@
    "region": "77002",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "black-beans",
@@ -1822,7 +1822,7 @@
    "region": "98101",
    "shelf_price": 1.25,
    "unit_price": 0.0029357063246834305,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "black-beans",
@@ -1830,7 +1830,7 @@
    "region": "90012",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "breadcrumbs",
@@ -1838,7 +1838,7 @@
    "region": "30303",
    "shelf_price": 2.29,
    "unit_price": 0.010097179844441702,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "breadcrumbs",
@@ -1846,7 +1846,7 @@
    "region": "43215",
    "shelf_price": 2.29,
    "unit_price": 0.010097179844441702,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "breadcrumbs",
@@ -1854,7 +1854,7 @@
    "region": "77002",
    "shelf_price": 2.29,
    "unit_price": 0.010097179844441702,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "breadcrumbs",
@@ -1862,7 +1862,7 @@
    "region": "98101",
    "shelf_price": 2.29,
    "unit_price": 0.010097179844441702,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "breadcrumbs",
@@ -1870,7 +1870,7 @@
    "region": "90012",
    "shelf_price": 2.29,
    "unit_price": 0.010097179844441702,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "brown-rice",
@@ -1878,7 +1878,7 @@
    "region": "30303",
    "shelf_price": 1.79,
    "unit_price": 0.001973138856064481,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "brown-rice",
@@ -1886,7 +1886,7 @@
    "region": "43215",
    "shelf_price": 1.79,
    "unit_price": 0.001973138856064481,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "brown-rice",
@@ -1894,7 +1894,7 @@
    "region": "77002",
    "shelf_price": 1.79,
    "unit_price": 0.001973138856064481,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "brown-rice",
@@ -1902,7 +1902,7 @@
    "region": "98101",
    "shelf_price": 3.18,
    "unit_price": 0.0035053528280922066,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "brown-rice",
@@ -1910,7 +1910,7 @@
    "region": "90012",
    "shelf_price": 1.99,
    "unit_price": 0.0021936012980828586,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "buffalo-sauce",
@@ -1918,7 +1918,7 @@
    "region": "30303",
    "shelf_price": 2.99,
    "unit_price": 0.008425335745402697,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "buffalo-sauce",
@@ -1926,7 +1926,7 @@
    "region": "43215",
    "shelf_price": 2.99,
    "unit_price": 0.008425335745402697,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "buffalo-sauce",
@@ -1934,7 +1934,7 @@
    "region": "77002",
    "shelf_price": 2.99,
    "unit_price": 0.008425335745402697,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "buffalo-sauce",
@@ -1942,7 +1942,7 @@
    "region": "98101",
    "shelf_price": 3.37,
    "unit_price": 0.009489069606235313,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "buffalo-sauce",
@@ -1950,7 +1950,7 @@
    "region": "90012",
    "shelf_price": 3.49,
    "unit_price": 0.009834254766373049,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "butter",
@@ -1958,7 +1958,7 @@
    "region": "30303",
    "shelf_price": 3.35,
    "unit_price": 0.007395780054909845,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "butter",
@@ -1966,7 +1966,7 @@
    "region": "43215",
    "shelf_price": 3.19,
    "unit_price": 0.007043040147680441,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "butter",
@@ -1974,7 +1974,7 @@
    "region": "77002",
    "shelf_price": 3.19,
    "unit_price": 0.007043040147680441,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "butter",
@@ -1982,7 +1982,7 @@
    "region": "98101",
    "shelf_price": 3.99,
    "unit_price": 0.008796451436533273,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "butter",
@@ -1990,7 +1990,7 @@
    "region": "90012",
    "shelf_price": 3.99,
    "unit_price": 0.008806739683827463,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "caesar-dressing",
@@ -1998,7 +1998,7 @@
    "region": "30303",
    "shelf_price": 2.79,
    "unit_price": 0.005896326102760918,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "caesar-dressing",
@@ -2006,7 +2006,7 @@
    "region": "43215",
    "shelf_price": 2.79,
    "unit_price": 0.005896326102760918,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "caesar-dressing",
@@ -2014,7 +2014,7 @@
    "region": "77002",
    "shelf_price": 2.79,
    "unit_price": 0.005896326102760918,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "caesar-dressing",
@@ -2022,7 +2022,7 @@
    "region": "98101",
    "shelf_price": 3.49,
    "unit_price": 0.007375691074779787,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "caesar-dressing",
@@ -2030,7 +2030,7 @@
    "region": "90012",
    "shelf_price": 2.99,
    "unit_price": 0.006319001809052024,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-chicken",
@@ -2038,7 +2038,7 @@
    "region": "30303",
    "shelf_price": 3.11,
    "unit_price": 0.00878322369001217,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-chicken",
@@ -2046,7 +2046,7 @@
    "region": "43215",
    "shelf_price": 3.11,
    "unit_price": 0.00878322369001217,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-chicken",
@@ -2054,7 +2054,7 @@
    "region": "77002",
    "shelf_price": 3.11,
    "unit_price": 0.00878322369001217,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-chicken",
@@ -2062,7 +2062,7 @@
    "region": "98101",
    "shelf_price": 5.61,
    "unit_price": 0.015838021834600258,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-chicken",
@@ -2070,7 +2070,7 @@
    "region": "90012",
    "shelf_price": 4.74,
    "unit_price": 0.013368842483994427,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tomatoes",
@@ -2078,7 +2078,7 @@
    "region": "30303",
    "shelf_price": 0.98,
    "unit_price": 0.0023809943737984796,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tomatoes",
@@ -2086,7 +2086,7 @@
    "region": "43215",
    "shelf_price": 0.98,
    "unit_price": 0.0023809943737984796,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tomatoes",
@@ -2094,7 +2094,7 @@
    "region": "77002",
    "shelf_price": 0.93,
    "unit_price": 0.002255015835502264,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tomatoes",
@@ -2102,7 +2102,7 @@
    "region": "98101",
    "shelf_price": 1,
    "unit_price": 0.002426607292836765,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tomatoes",
@@ -2110,7 +2110,7 @@
    "region": "90012",
    "shelf_price": 1,
    "unit_price": 0.002426607292836765,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tuna",
@@ -2118,7 +2118,7 @@
    "region": "30303",
    "shelf_price": 0.97,
    "unit_price": 0.006843154200250445,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tuna",
@@ -2126,7 +2126,7 @@
    "region": "43215",
    "shelf_price": 0.97,
    "unit_price": 0.006843154200250445,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tuna",
@@ -2134,7 +2134,7 @@
    "region": "77002",
    "shelf_price": 0.97,
    "unit_price": 0.006843154200250445,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tuna",
@@ -2142,7 +2142,7 @@
    "region": "98101",
    "shelf_price": 1,
    "unit_price": 0.007054798144588088,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "canned-tuna",
@@ -2150,7 +2150,7 @@
    "region": "90012",
    "shelf_price": 1.29,
    "unit_price": 0.009100689606518634,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "carrots",
@@ -2158,7 +2158,7 @@
    "region": "30303",
    "shelf_price": 2,
    "unit_price": 0.00220021517134341,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "carrots",
@@ -2166,7 +2166,7 @@
    "region": "43215",
    "shelf_price": 1.88,
    "unit_price": 0.0020679377061323836,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "carrots",
@@ -2174,7 +2174,7 @@
    "region": "77002",
    "shelf_price": 1.88,
    "unit_price": 0.0020679377061323836,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "carrots",
@@ -2182,7 +2182,7 @@
    "region": "98101",
    "shelf_price": 2.2,
    "unit_price": 0.0024206776133617876,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "carrots",
@@ -2190,7 +2190,7 @@
    "region": "90012",
    "shelf_price": 1.88,
    "unit_price": 0.0020679377061323836,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chicken-breast",
@@ -2198,7 +2198,7 @@
    "region": "30303",
    "shelf_price": 7.77,
    "unit_price": 0.005709977248275984,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chicken-breast",
@@ -2206,7 +2206,7 @@
    "region": "43215",
    "shelf_price": 7.77,
    "unit_price": 0.005709977248275984,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chicken-breast",
@@ -2214,7 +2214,7 @@
    "region": "77002",
    "shelf_price": 7.77,
    "unit_price": 0.005709977248275984,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chicken-breast",
@@ -2222,7 +2222,7 @@
    "region": "98101",
    "shelf_price": 7.77,
    "unit_price": 0.005709977248275984,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chicken-breast",
@@ -2230,7 +2230,7 @@
    "region": "90012",
    "shelf_price": 14.97,
    "unit_price": 0.01100107585671705,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chickpeas",
@@ -2238,7 +2238,7 @@
    "region": "30303",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chickpeas",
@@ -2246,7 +2246,7 @@
    "region": "43215",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chickpeas",
@@ -2254,7 +2254,7 @@
    "region": "77002",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chickpeas",
@@ -2262,7 +2262,7 @@
    "region": "98101",
    "shelf_price": 1.25,
    "unit_price": 0.0029357063246834305,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "chickpeas",
@@ -2270,7 +2270,7 @@
    "region": "90012",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "corn-tortillas",
@@ -2278,7 +2278,7 @@
    "region": "30303",
    "shelf_price": 1.87,
    "unit_price": 0.062375,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "corn-tortillas",
@@ -2286,7 +2286,7 @@
    "region": "43215",
    "shelf_price": 1.8,
    "unit_price": 0.059875,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "corn-tortillas",
@@ -2294,7 +2294,7 @@
    "region": "77002",
    "shelf_price": 1.68,
    "unit_price": 0.056125,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "corn-tortillas",
@@ -2302,7 +2302,7 @@
    "region": "98101",
    "shelf_price": 2.29,
    "unit_price": 0.07633333333333334,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "corn-tortillas",
@@ -2310,7 +2310,7 @@
    "region": "90012",
    "shelf_price": 2.29,
    "unit_price": 0.07633333333333334,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cottage-cheese",
@@ -2318,7 +2318,7 @@
    "region": "30303",
    "shelf_price": 3,
    "unit_price": 0.004401900092300276,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cottage-cheese",
@@ -2326,7 +2326,7 @@
    "region": "43215",
    "shelf_price": 2.9,
    "unit_price": 0.004254925130954691,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cottage-cheese",
@@ -2334,7 +2334,7 @@
    "region": "77002",
    "shelf_price": 2.9,
    "unit_price": 0.004254925130954691,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cottage-cheese",
@@ -2342,7 +2342,7 @@
    "region": "98101",
    "shelf_price": 3.29,
    "unit_price": 0.004835476228269753,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cottage-cheese",
@@ -2350,7 +2350,7 @@
    "region": "90012",
    "shelf_price": 3.25,
    "unit_price": 0.004769337495664239,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cucumber",
@@ -2358,7 +2358,7 @@
    "region": "30303",
    "shelf_price": 1.58,
    "unit_price": 0.79,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cucumber",
@@ -2366,7 +2366,7 @@
    "region": "43215",
    "shelf_price": 1.58,
    "unit_price": 0.79,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cucumber",
@@ -2374,7 +2374,7 @@
    "region": "77002",
    "shelf_price": 1.58,
    "unit_price": 0.79,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cucumber",
@@ -2382,7 +2382,7 @@
    "region": "98101",
    "shelf_price": 1.98,
    "unit_price": 0.99,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "cucumber",
@@ -2390,15 +2390,15 @@
    "region": "90012",
    "shelf_price": 1.98,
    "unit_price": 0.99,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "deli-turkey",
    "store_id": "kroger",
    "region": "30303",
-   "shelf_price": 5.14,
-   "unit_price": 0.020131370419735294,
-   "as_of": "2026-09-10"
+   "shelf_price": 5.05,
+   "unit_price": 0.019797527293250322,
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "deli-turkey",
@@ -2406,7 +2406,7 @@
    "region": "43215",
    "shelf_price": 5.06,
    "unit_price": 0.01981957353745216,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "deli-turkey",
@@ -2414,7 +2414,7 @@
    "region": "77002",
    "shelf_price": 5.06,
    "unit_price": 0.01981957353745216,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "deli-turkey",
@@ -2422,7 +2422,7 @@
    "region": "98101",
    "shelf_price": 5.14,
    "unit_price": 0.02015656612739454,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "deli-turkey",
@@ -2430,7 +2430,7 @@
    "region": "90012",
    "shelf_price": 4.49,
    "unit_price": 0.017592902873066547,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "egg-whites",
@@ -2438,7 +2438,7 @@
    "region": "30303",
    "shelf_price": 6.99,
    "unit_price": 0.007705162348542302,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "egg-whites",
@@ -2446,7 +2446,7 @@
    "region": "43215",
    "shelf_price": 6.99,
    "unit_price": 0.007705162348542302,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "egg-whites",
@@ -2454,7 +2454,7 @@
    "region": "77002",
    "shelf_price": 6.99,
    "unit_price": 0.007705162348542302,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "egg-whites",
@@ -2462,7 +2462,7 @@
    "region": "98101",
    "shelf_price": 6.99,
    "unit_price": 0.007705162348542302,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "egg-whites",
@@ -2470,7 +2470,7 @@
    "region": "90012",
    "shelf_price": 6.99,
    "unit_price": 0.007705162348542302,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "eggs",
@@ -2478,7 +2478,7 @@
    "region": "30303",
    "shelf_price": 2.13,
    "unit_price": 0.17722222222222223,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "eggs",
@@ -2486,7 +2486,7 @@
    "region": "43215",
    "shelf_price": 1.99,
    "unit_price": 0.16555555555555557,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "eggs",
@@ -2494,7 +2494,7 @@
    "region": "77002",
    "shelf_price": 1.66,
    "unit_price": 0.13833333333333334,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "eggs",
@@ -2502,7 +2502,7 @@
    "region": "98101",
    "shelf_price": 3.46,
    "unit_price": 0.28833333333333333,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "eggs",
@@ -2510,7 +2510,7 @@
    "region": "90012",
    "shelf_price": 10.99,
    "unit_price": 0.9158333333333334,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "flour-tortillas",
@@ -2518,7 +2518,7 @@
    "region": "30303",
    "shelf_price": 2.86,
    "unit_price": 0.28625,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "flour-tortillas",
@@ -2526,7 +2526,7 @@
    "region": "43215",
    "shelf_price": 2.86,
    "unit_price": 0.28625,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "flour-tortillas",
@@ -2534,7 +2534,7 @@
    "region": "77002",
    "shelf_price": 2.74,
    "unit_price": 0.27375,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "flour-tortillas",
@@ -2542,7 +2542,7 @@
    "region": "98101",
    "shelf_price": 3.11,
    "unit_price": 0.31125,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "flour-tortillas",
@@ -2550,7 +2550,7 @@
    "region": "90012",
    "shelf_price": 3.11,
    "unit_price": 0.31125,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-berries",
@@ -2558,7 +2558,7 @@
    "region": "30303",
    "shelf_price": 2.82,
    "unit_price": 0.006222552425968712,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-berries",
@@ -2566,7 +2566,7 @@
    "region": "43215",
    "shelf_price": 2.75,
    "unit_price": 0.006057205594454929,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-berries",
@@ -2574,7 +2574,7 @@
    "region": "77002",
    "shelf_price": 2.75,
    "unit_price": 0.006057205594454929,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-berries",
@@ -2582,7 +2582,7 @@
    "region": "98101",
    "shelf_price": 2.62,
    "unit_price": 0.005781627541931957,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-berries",
@@ -2590,7 +2590,7 @@
    "region": "90012",
    "shelf_price": 3,
    "unit_price": 0.006608361699500873,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-broccoli",
@@ -2598,7 +2598,7 @@
    "region": "30303",
    "shelf_price": 1.59,
    "unit_price": 0.004673803770789609,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-broccoli",
@@ -2606,7 +2606,7 @@
    "region": "43215",
    "shelf_price": 1.59,
    "unit_price": 0.004673803770789609,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-broccoli",
@@ -2614,7 +2614,7 @@
    "region": "77002",
    "shelf_price": 1.59,
    "unit_price": 0.004673803770789609,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-broccoli",
@@ -2622,7 +2622,7 @@
    "region": "98101",
    "shelf_price": 1.99,
    "unit_price": 0.0058496034615542905,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-broccoli",
@@ -2630,7 +2630,7 @@
    "region": "90012",
    "shelf_price": 2.19,
    "unit_price": 0.006437503306936631,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-chicken-breast",
@@ -2638,7 +2638,7 @@
    "region": "30303",
    "shelf_price": 8,
    "unit_price": 0.005875324079789768,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-chicken-breast",
@@ -2646,7 +2646,7 @@
    "region": "43215",
    "shelf_price": 8,
    "unit_price": 0.005875324079789768,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-chicken-breast",
@@ -2654,7 +2654,7 @@
    "region": "77002",
    "shelf_price": 8,
    "unit_price": 0.005875324079789768,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-chicken-breast",
@@ -2662,7 +2662,7 @@
    "region": "98101",
    "shelf_price": 10.25,
    "unit_price": 0.0075287923949276005,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-chicken-breast",
@@ -2670,7 +2670,7 @@
    "region": "90012",
    "shelf_price": 8,
    "unit_price": 0.005875324079789768,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-edamame",
@@ -2678,7 +2678,7 @@
    "region": "30303",
    "shelf_price": 2.75,
    "unit_price": 0.00807774387555336,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-edamame",
@@ -2686,7 +2686,7 @@
    "region": "43215",
    "shelf_price": 2.75,
    "unit_price": 0.00807774387555336,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-edamame",
@@ -2694,7 +2694,7 @@
    "region": "77002",
    "shelf_price": 2.75,
    "unit_price": 0.00807774387555336,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-edamame",
@@ -2702,7 +2702,7 @@
    "region": "98101",
    "shelf_price": 4.55,
    "unit_price": 0.013368842483994427,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-edamame",
@@ -2710,7 +2710,7 @@
    "region": "90012",
    "shelf_price": 3.95,
    "unit_price": 0.011605142947847405,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-mixed-veg",
@@ -2718,7 +2718,7 @@
    "region": "30303",
    "shelf_price": 2.59,
    "unit_price": 0.007613302997701312,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-mixed-veg",
@@ -2726,7 +2726,7 @@
    "region": "43215",
    "shelf_price": 1.29,
    "unit_price": 0.003791954002716098,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-mixed-veg",
@@ -2734,7 +2734,7 @@
    "region": "77002",
    "shelf_price": 2.59,
    "unit_price": 0.007613302997701312,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-mixed-veg",
@@ -2742,7 +2742,7 @@
    "region": "98101",
    "shelf_price": 2.29,
    "unit_price": 0.006731453229627801,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-mixed-veg",
@@ -2750,7 +2750,7 @@
    "region": "90012",
    "shelf_price": 2.19,
    "unit_price": 0.006437503306936631,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-peppers-onions",
@@ -2758,7 +2758,7 @@
    "region": "30303",
    "shelf_price": 2.1,
    "unit_price": 0.004622362534318654,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-peppers-onions",
@@ -2766,7 +2766,7 @@
    "region": "43215",
    "shelf_price": 2.1,
    "unit_price": 0.004622362534318654,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-peppers-onions",
@@ -2774,7 +2774,7 @@
    "region": "77002",
    "shelf_price": 2.1,
    "unit_price": 0.004622362534318654,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-peppers-onions",
@@ -2782,7 +2782,7 @@
    "region": "98101",
    "shelf_price": 2.43,
    "unit_price": 0.00535723734104658,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-peppers-onions",
@@ -2790,7 +2790,7 @@
    "region": "90012",
    "shelf_price": 2.1,
    "unit_price": 0.004622362534318654,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-salmon",
@@ -2798,7 +2798,7 @@
    "region": "30303",
    "shelf_price": 8.74,
    "unit_price": 0.019279440554507133,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-salmon",
@@ -2806,7 +2806,7 @@
    "region": "43215",
    "shelf_price": 8.49,
    "unit_price": 0.01872828444946119,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-salmon",
@@ -2814,7 +2814,7 @@
    "region": "77002",
    "shelf_price": 8.49,
    "unit_price": 0.01872828444946119,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-salmon",
@@ -2822,7 +2822,7 @@
    "region": "98101",
    "shelf_price": 7.5,
    "unit_price": 0.016523660029277413,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-salmon",
@@ -2830,7 +2830,7 @@
    "region": "90012",
    "shelf_price": 7.5,
    "unit_price": 0.016523660029277413,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-shrimp",
@@ -2838,7 +2838,7 @@
    "region": "30303",
    "shelf_price": 8.99,
    "unit_price": 0.01981957353745216,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-shrimp",
@@ -2846,7 +2846,7 @@
    "region": "43215",
    "shelf_price": 8.99,
    "unit_price": 0.01981957353745216,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-shrimp",
@@ -2854,7 +2854,7 @@
    "region": "77002",
    "shelf_price": 8.99,
    "unit_price": 0.01981957353745216,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-shrimp",
@@ -2862,7 +2862,7 @@
    "region": "98101",
    "shelf_price": 8.99,
    "unit_price": 0.01981957353745216,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-shrimp",
@@ -2870,7 +2870,7 @@
    "region": "90012",
    "shelf_price": 8.99,
    "unit_price": 0.01981957353745216,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-stirfry-veg",
@@ -2878,7 +2878,7 @@
    "region": "30303",
    "shelf_price": 2.32,
    "unit_price": 0.005107379906759085,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-stirfry-veg",
@@ -2886,7 +2886,7 @@
    "region": "43215",
    "shelf_price": 2.32,
    "unit_price": 0.005107379906759085,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-stirfry-veg",
@@ -2894,7 +2894,7 @@
    "region": "77002",
    "shelf_price": 2.32,
    "unit_price": 0.005107379906759085,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-stirfry-veg",
@@ -2902,7 +2902,7 @@
    "region": "98101",
    "shelf_price": 3.82,
    "unit_price": 0.008414316537034752,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-stirfry-veg",
@@ -2910,7 +2910,7 @@
    "region": "90012",
    "shelf_price": 2.82,
    "unit_price": 0.0062096921168509735,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-tilapia",
@@ -2918,7 +2918,7 @@
    "region": "30303",
    "shelf_price": 10,
    "unit_price": 0.011023122100918888,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-tilapia",
@@ -2926,7 +2926,7 @@
    "region": "43215",
    "shelf_price": 10,
    "unit_price": 0.011023122100918888,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-tilapia",
@@ -2934,7 +2934,7 @@
    "region": "77002",
    "shelf_price": 10,
    "unit_price": 0.011023122100918888,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-tilapia",
@@ -2942,7 +2942,7 @@
    "region": "98101",
    "shelf_price": 11.99,
    "unit_price": 0.013216723399001746,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "frozen-tilapia",
@@ -2950,7 +2950,7 @@
    "region": "90012",
    "shelf_price": 11.99,
    "unit_price": 0.013216723399001746,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "gf-pasta",
@@ -2958,7 +2958,7 @@
    "region": "30303",
    "shelf_price": 1.99,
    "unit_price": 0.0058496034615542905,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "gf-pasta",
@@ -2966,7 +2966,7 @@
    "region": "43215",
    "shelf_price": 1.99,
    "unit_price": 0.0058496034615542905,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "gf-pasta",
@@ -2974,7 +2974,7 @@
    "region": "77002",
    "shelf_price": 1.99,
    "unit_price": 0.0058496034615542905,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "gf-pasta",
@@ -2982,7 +2982,7 @@
    "region": "98101",
    "shelf_price": 2.19,
    "unit_price": 0.006437503306936631,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "gf-pasta",
@@ -2990,7 +2990,7 @@
    "region": "90012",
    "shelf_price": 2.29,
    "unit_price": 0.006731453229627801,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "granola",
@@ -2998,7 +2998,7 @@
    "region": "30303",
    "shelf_price": 7.79,
    "unit_price": 0.02289869897764217,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "granola",
@@ -3006,7 +3006,7 @@
    "region": "43215",
    "shelf_price": 7.79,
    "unit_price": 0.02289869897764217,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "granola",
@@ -3014,7 +3014,7 @@
    "region": "77002",
    "shelf_price": 7.99,
    "unit_price": 0.023486598823024514,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "granola",
@@ -3022,7 +3022,7 @@
    "region": "98101",
    "shelf_price": 8.99,
    "unit_price": 0.026426098049936217,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "granola",
@@ -3030,7 +3030,7 @@
    "region": "90012",
    "shelf_price": 8.99,
    "unit_price": 0.026426098049936217,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "greek-yogurt",
@@ -3038,7 +3038,7 @@
    "region": "30303",
    "shelf_price": 4.29,
    "unit_price": 0.004728919381294203,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "greek-yogurt",
@@ -3046,7 +3046,7 @@
    "region": "43215",
    "shelf_price": 4.29,
    "unit_price": 0.004728919381294203,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "greek-yogurt",
@@ -3054,7 +3054,7 @@
    "region": "77002",
    "shelf_price": 4.29,
    "unit_price": 0.004728919381294203,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "greek-yogurt",
@@ -3062,7 +3062,7 @@
    "region": "98101",
    "shelf_price": 4.79,
    "unit_price": 0.005280075486340147,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "greek-yogurt",
@@ -3070,7 +3070,7 @@
    "region": "90012",
    "shelf_price": 5.49,
    "unit_price": 0.00605169403340447,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-beef",
@@ -3078,7 +3078,7 @@
    "region": "30303",
    "shelf_price": 7,
    "unit_price": 0.015425022193219165,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-beef",
@@ -3086,7 +3086,7 @@
    "region": "43215",
    "shelf_price": 7,
    "unit_price": 0.015425022193219165,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-beef",
@@ -3094,7 +3094,7 @@
    "region": "77002",
    "shelf_price": 6.65,
    "unit_price": 0.014660752394222121,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-beef",
@@ -3102,7 +3102,7 @@
    "region": "98101",
    "shelf_price": 7.49,
    "unit_price": 0.016512636907176494,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-beef",
@@ -3110,7 +3110,7 @@
    "region": "90012",
    "shelf_price": 7.16,
    "unit_price": 0.01579245959658313,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-turkey",
@@ -3118,7 +3118,7 @@
    "region": "30303",
    "shelf_price": 6.49,
    "unit_price": 0.014308012486992717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-turkey",
@@ -3126,7 +3126,7 @@
    "region": "43215",
    "shelf_price": 5.49,
    "unit_price": 0.01210338806680894,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-turkey",
@@ -3134,7 +3134,7 @@
    "region": "77002",
    "shelf_price": 5.49,
    "unit_price": 0.01210338806680894,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-turkey",
@@ -3142,7 +3142,7 @@
    "region": "98101",
    "shelf_price": 6.49,
    "unit_price": 0.014308012486992717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ground-turkey",
@@ -3150,7 +3150,7 @@
    "region": "90012",
    "shelf_price": 5,
    "unit_price": 0.01101577335285161,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "honey",
@@ -3158,7 +3158,7 @@
    "region": "30303",
    "shelf_price": 4,
    "unit_price": 0.011757996907646815,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "honey",
@@ -3166,7 +3166,7 @@
    "region": "43215",
    "shelf_price": 4,
    "unit_price": 0.011757996907646815,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "honey",
@@ -3174,7 +3174,7 @@
    "region": "77002",
    "shelf_price": 4,
    "unit_price": 0.011757996907646815,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "honey",
@@ -3182,7 +3182,7 @@
    "region": "98101",
    "shelf_price": 4.99,
    "unit_price": 0.014668101142289402,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "honey",
@@ -3190,7 +3190,7 @@
    "region": "90012",
    "shelf_price": 5.29,
    "unit_price": 0.015549950910362912,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "hummus",
@@ -3198,7 +3198,7 @@
    "region": "30303",
    "shelf_price": 4.33,
    "unit_price": 0.015261879986125564,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "hummus",
@@ -3206,7 +3206,7 @@
    "region": "43215",
    "shelf_price": 4.33,
    "unit_price": 0.015261879986125564,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "hummus",
@@ -3214,7 +3214,7 @@
    "region": "77002",
    "shelf_price": 4.33,
    "unit_price": 0.015261879986125564,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "hummus",
@@ -3222,7 +3222,7 @@
    "region": "98101",
    "shelf_price": 4.33,
    "unit_price": 0.015261879986125564,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "hummus",
@@ -3230,7 +3230,7 @@
    "region": "90012",
    "shelf_price": 4.33,
    "unit_price": 0.015261879986125564,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "kidney-beans",
@@ -3238,7 +3238,7 @@
    "region": "30303",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "kidney-beans",
@@ -3246,7 +3246,7 @@
    "region": "43215",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "kidney-beans",
@@ -3254,7 +3254,7 @@
    "region": "77002",
    "shelf_price": 0.97,
    "unit_price": 0.0022757413369638995,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "kidney-beans",
@@ -3262,7 +3262,7 @@
    "region": "98101",
    "shelf_price": 1.25,
    "unit_price": 0.0029357063246834305,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "kidney-beans",
@@ -3270,7 +3270,7 @@
    "region": "90012",
    "shelf_price": 1.69,
    "unit_price": 0.0039742029547846225,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "lentils",
@@ -3278,7 +3278,7 @@
    "region": "30303",
    "shelf_price": 1.33,
    "unit_price": 0.0029394992269117033,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "lentils",
@@ -3286,7 +3286,7 @@
    "region": "43215",
    "shelf_price": 1.33,
    "unit_price": 0.0029394992269117033,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "lentils",
@@ -3294,7 +3294,7 @@
    "region": "77002",
    "shelf_price": 1.33,
    "unit_price": 0.0029394992269117033,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "lentils",
@@ -3302,7 +3302,7 @@
    "region": "98101",
    "shelf_price": 2.12,
    "unit_price": 0.004679682769243431,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "lentils",
@@ -3310,7 +3310,7 @@
    "region": "90012",
    "shelf_price": 1.8,
    "unit_price": 0.0039742029547846225,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "marinara",
@@ -3318,7 +3318,7 @@
    "region": "30303",
    "shelf_price": 2,
    "unit_price": 0.0029394992269117038,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "marinara",
@@ -3326,7 +3326,7 @@
    "region": "43215",
    "shelf_price": 2,
    "unit_price": 0.0029394992269117038,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "marinara",
@@ -3334,7 +3334,7 @@
    "region": "77002",
    "shelf_price": 2,
    "unit_price": 0.0029394992269117038,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "marinara",
@@ -3342,7 +3342,7 @@
    "region": "98101",
    "shelf_price": 3.99,
    "unit_price": 0.0058643009576888495,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "marinara",
@@ -3350,7 +3350,7 @@
    "region": "90012",
    "shelf_price": 2.29,
    "unit_price": 0.0033657266148139006,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "milk",
@@ -3358,7 +3358,7 @@
    "region": "30303",
    "shelf_price": 3.39,
    "unit_price": 0.0008955441527042792,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "milk",
@@ -3366,7 +3366,7 @@
    "region": "43215",
    "shelf_price": 3.09,
    "unit_price": 0.0008162924577746969,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "milk",
@@ -3374,7 +3374,7 @@
    "region": "77002",
    "shelf_price": 3.29,
    "unit_price": 0.0008691269210610852,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "milk",
@@ -3382,7 +3382,7 @@
    "region": "98101",
    "shelf_price": 4.99,
    "unit_price": 0.0013182198589953844,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "milk",
@@ -3390,7 +3390,7 @@
    "region": "90012",
    "shelf_price": 4.99,
    "unit_price": 0.0013182198589953844,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "oats",
@@ -3398,7 +3398,7 @@
    "region": "30303",
    "shelf_price": 4.49,
    "unit_price": 0.003770957579666729,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "oats",
@@ -3406,7 +3406,7 @@
    "region": "43215",
    "shelf_price": 4.49,
    "unit_price": 0.003770957579666729,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "oats",
@@ -3414,7 +3414,7 @@
    "region": "77002",
    "shelf_price": 4.49,
    "unit_price": 0.003770957579666729,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "oats",
@@ -3422,7 +3422,7 @@
    "region": "98101",
    "shelf_price": 5.99,
    "unit_price": 0.0050307429626288876,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "oats",
@@ -3430,7 +3430,7 @@
    "region": "90012",
    "shelf_price": 4.79,
    "unit_price": 0.0040229146562591606,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "olive-oil",
@@ -3438,7 +3438,7 @@
    "region": "30303",
    "shelf_price": 6.55,
    "unit_price": 0.013033055636503685,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "olive-oil",
@@ -3446,7 +3446,7 @@
    "region": "43215",
    "shelf_price": 6.35,
    "unit_price": 0.012633677016386107,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "olive-oil",
@@ -3454,15 +3454,15 @@
    "region": "77002",
    "shelf_price": 6.35,
    "unit_price": 0.012633677016386107,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "olive-oil",
    "store_id": "qfc",
    "region": "98101",
-   "shelf_price": 8.25,
-   "unit_price": 0.016404790059463013,
-   "as_of": "2026-09-10"
+   "shelf_price": 9.04,
+   "unit_price": 0.017987477394352837,
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "olive-oil",
@@ -3470,7 +3470,7 @@
    "region": "90012",
    "shelf_price": 6.75,
    "unit_price": 0.013421196838584622,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "onions",
@@ -3478,7 +3478,7 @@
    "region": "30303",
    "shelf_price": 3.79,
    "unit_price": 0.0027851755174988393,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "onions",
@@ -3486,7 +3486,7 @@
    "region": "43215",
    "shelf_price": 3.79,
    "unit_price": 0.0027851755174988393,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "onions",
@@ -3494,7 +3494,7 @@
    "region": "77002",
    "shelf_price": 2.89,
    "unit_price": 0.002123788191443706,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "onions",
@@ -3502,7 +3502,7 @@
    "region": "98101",
    "shelf_price": 2.89,
    "unit_price": 0.002123788191443706,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "onions",
@@ -3510,7 +3510,7 @@
    "region": "90012",
    "shelf_price": 3.79,
    "unit_price": 0.0027851755174988393,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pancake-mix",
@@ -3518,7 +3518,7 @@
    "region": "30303",
    "shelf_price": 4.35,
    "unit_price": 0.009592565810488524,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pancake-mix",
@@ -3526,7 +3526,7 @@
    "region": "43215",
    "shelf_price": 4.35,
    "unit_price": 0.009592565810488524,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pancake-mix",
@@ -3534,7 +3534,7 @@
    "region": "77002",
    "shelf_price": 4.35,
    "unit_price": 0.009592565810488524,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pancake-mix",
@@ -3542,7 +3542,7 @@
    "region": "98101",
    "shelf_price": 7.19,
    "unit_price": 0.01585565882996173,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pancake-mix",
@@ -3550,7 +3550,7 @@
    "region": "90012",
    "shelf_price": 4.35,
    "unit_price": 0.009592565810488524,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "parmesan",
@@ -3558,7 +3558,7 @@
    "region": "30303",
    "shelf_price": 3.29,
    "unit_price": 0.014506428684809256,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "parmesan",
@@ -3566,7 +3566,7 @@
    "region": "43215",
    "shelf_price": 3.29,
    "unit_price": 0.014506428684809256,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "parmesan",
@@ -3574,7 +3574,7 @@
    "region": "77002",
    "shelf_price": 3.29,
    "unit_price": 0.014506428684809256,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "parmesan",
@@ -3582,15 +3582,15 @@
    "region": "98101",
    "shelf_price": 3.5,
    "unit_price": 0.015410324697084605,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "parmesan",
    "store_id": "ralphs",
    "region": "90012",
-   "shelf_price": 4,
-   "unit_price": 0.017614949117268384,
-   "as_of": "2026-09-10"
+   "shelf_price": 3.29,
+   "unit_price": 0.014506428684809256,
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pea-protein",
@@ -3598,7 +3598,7 @@
    "region": "30303",
    "shelf_price": 15.5,
    "unit_price": 0.034160655390747634,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pea-protein",
@@ -3606,7 +3606,7 @@
    "region": "43215",
    "shelf_price": 13,
    "unit_price": 0.028649094340288186,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pea-protein",
@@ -3614,7 +3614,7 @@
    "region": "77002",
    "shelf_price": 13.5,
    "unit_price": 0.029751406550380076,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pea-protein",
@@ -3622,7 +3622,7 @@
    "region": "98101",
    "shelf_price": 20,
    "unit_price": 0.04408146528157463,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pea-protein",
@@ -3630,7 +3630,7 @@
    "region": "90012",
    "shelf_price": 16.5,
    "unit_price": 0.03636527981093141,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "peanut-butter",
@@ -3638,7 +3638,7 @@
    "region": "30303",
    "shelf_price": 1.99,
    "unit_price": 0.004387202596165717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "peanut-butter",
@@ -3646,7 +3646,7 @@
    "region": "43215",
    "shelf_price": 1.99,
    "unit_price": 0.004387202596165717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "peanut-butter",
@@ -3654,7 +3654,7 @@
    "region": "77002",
    "shelf_price": 1.99,
    "unit_price": 0.004387202596165717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "peanut-butter",
@@ -3662,7 +3662,7 @@
    "region": "98101",
    "shelf_price": 2.19,
    "unit_price": 0.004828127480202473,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "peanut-butter",
@@ -3670,7 +3670,7 @@
    "region": "90012",
    "shelf_price": 1.99,
    "unit_price": 0.004387202596165717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "penne",
@@ -3678,7 +3678,7 @@
    "region": "30303",
    "shelf_price": 1.33,
    "unit_price": 0.0029321504788444243,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "penne",
@@ -3686,7 +3686,7 @@
    "region": "43215",
    "shelf_price": 1.33,
    "unit_price": 0.0029321504788444243,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "penne",
@@ -3694,7 +3694,7 @@
    "region": "77002",
    "shelf_price": 1.33,
    "unit_price": 0.0029321504788444243,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "penne",
@@ -3702,7 +3702,7 @@
    "region": "98101",
    "shelf_price": 1.33,
    "unit_price": 0.0029321504788444243,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "penne",
@@ -3710,7 +3710,7 @@
    "region": "90012",
    "shelf_price": 1.39,
    "unit_price": 0.0030644279440554508,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pesto",
@@ -3718,7 +3718,7 @@
    "region": "30303",
    "shelf_price": 1.3,
    "unit_price": 0.007030471254434336,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pesto",
@@ -3726,7 +3726,7 @@
    "region": "43215",
    "shelf_price": 1.25,
    "unit_price": 0.006787202352896816,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pesto",
@@ -3734,7 +3734,7 @@
    "region": "77002",
    "shelf_price": 1.25,
    "unit_price": 0.006787202352896816,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pesto",
@@ -3742,7 +3742,7 @@
    "region": "98101",
    "shelf_price": 1.34,
    "unit_price": 0.007273740155971857,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pesto",
@@ -3750,7 +3750,7 @@
    "region": "90012",
    "shelf_price": 1.56,
    "unit_price": 0.00849008466365946,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "plant-yogurt",
@@ -3758,7 +3758,7 @@
    "region": "30303",
    "shelf_price": 4.69,
    "unit_price": 0.006893125687107946,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "plant-yogurt",
@@ -3766,7 +3766,7 @@
    "region": "43215",
    "shelf_price": 4.99,
    "unit_price": 0.007334050571144701,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "plant-yogurt",
@@ -3774,7 +3774,7 @@
    "region": "77002",
    "shelf_price": 4.69,
    "unit_price": 0.006893125687107946,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pork-loin",
@@ -3782,7 +3782,7 @@
    "region": "30303",
    "shelf_price": 8.97,
    "unit_price": 0.006591827016349495,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pork-loin",
@@ -3790,7 +3790,7 @@
    "region": "43215",
    "shelf_price": 8.97,
    "unit_price": 0.006591827016349495,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pork-loin",
@@ -3798,7 +3798,7 @@
    "region": "77002",
    "shelf_price": 8.97,
    "unit_price": 0.006591827016349495,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pork-loin",
@@ -3806,7 +3806,7 @@
    "region": "98101",
    "shelf_price": 18.87,
    "unit_price": 0.013867087602955961,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "pork-loin",
@@ -3814,7 +3814,7 @@
    "region": "90012",
    "shelf_price": 23.97,
    "unit_price": 0.017614949117268384,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "quinoa",
@@ -3822,7 +3822,7 @@
    "region": "30303",
    "shelf_price": 4.79,
    "unit_price": 0.010560150972680295,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "quinoa",
@@ -3830,7 +3830,7 @@
    "region": "43215",
    "shelf_price": 4.29,
    "unit_price": 0.009457838762588405,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "quinoa",
@@ -3838,7 +3838,7 @@
    "region": "77002",
    "shelf_price": 4.49,
    "unit_price": 0.009898763646625161,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "quinoa",
@@ -3846,7 +3846,7 @@
    "region": "98101",
    "shelf_price": 5.44,
    "unit_price": 0.011985140029726353,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "quinoa",
@@ -3854,7 +3854,7 @@
    "region": "90012",
    "shelf_price": 4.79,
    "unit_price": 0.010560150972680295,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "romaine",
@@ -3862,7 +3862,7 @@
    "region": "30303",
    "shelf_price": 4.49,
    "unit_price": 1.495,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "romaine",
@@ -3870,7 +3870,7 @@
    "region": "43215",
    "shelf_price": 4.49,
    "unit_price": 1.495,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "romaine",
@@ -3878,7 +3878,7 @@
    "region": "77002",
    "shelf_price": 4.49,
    "unit_price": 1.495,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "romaine",
@@ -3886,7 +3886,7 @@
    "region": "98101",
    "shelf_price": 5.24,
    "unit_price": 1.745,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "romaine",
@@ -3894,7 +3894,7 @@
    "region": "90012",
    "shelf_price": 4.49,
    "unit_price": 1.495,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "russet-potatoes",
@@ -3902,7 +3902,7 @@
    "region": "30303",
    "shelf_price": 2.5,
    "unit_price": 0.0011023122100918888,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "russet-potatoes",
@@ -3910,7 +3910,7 @@
    "region": "43215",
    "shelf_price": 2.5,
    "unit_price": 0.0011023122100918888,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "russet-potatoes",
@@ -3918,7 +3918,7 @@
    "region": "77002",
    "shelf_price": 2.5,
    "unit_price": 0.0011023122100918888,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "russet-potatoes",
@@ -3926,7 +3926,7 @@
    "region": "98101",
    "shelf_price": 2.5,
    "unit_price": 0.0011023122100918888,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "russet-potatoes",
@@ -3934,7 +3934,7 @@
    "region": "90012",
    "shelf_price": 2.5,
    "unit_price": 0.001100107585671705,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "salsa",
@@ -3942,7 +3942,7 @@
    "region": "30303",
    "shelf_price": 3.19,
    "unit_price": 0.004688501266924167,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "salsa",
@@ -3950,7 +3950,7 @@
    "region": "43215",
    "shelf_price": 3.19,
    "unit_price": 0.004688501266924167,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "salsa",
@@ -3958,7 +3958,7 @@
    "region": "77002",
    "shelf_price": 3.19,
    "unit_price": 0.004688501266924167,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "salsa",
@@ -3966,7 +3966,7 @@
    "region": "98101",
    "shelf_price": 4.99,
    "unit_price": 0.007334050571144701,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "salsa",
@@ -3974,7 +3974,7 @@
    "region": "90012",
    "shelf_price": 3.79,
    "unit_price": 0.005570351034997679,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-cheddar",
@@ -3982,7 +3982,7 @@
    "region": "30303",
    "shelf_price": 1.82,
    "unit_price": 0.00803585601156987,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-cheddar",
@@ -3990,7 +3990,7 @@
    "region": "43215",
    "shelf_price": 1.82,
    "unit_price": 0.00803585601156987,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-cheddar",
@@ -3998,7 +3998,7 @@
    "region": "77002",
    "shelf_price": 1.82,
    "unit_price": 0.00803585601156987,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-cheddar",
@@ -4006,7 +4006,7 @@
    "region": "98101",
    "shelf_price": 2,
    "unit_price": 0.008807474558634192,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-cheddar",
@@ -4014,7 +4014,7 @@
    "region": "90012",
    "shelf_price": 2.25,
    "unit_price": 0.00990978676872608,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-mozzarella",
@@ -4022,7 +4022,7 @@
    "region": "30303",
    "shelf_price": 1.82,
    "unit_price": 0.00803585601156987,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-mozzarella",
@@ -4030,7 +4030,7 @@
    "region": "43215",
    "shelf_price": 1.82,
    "unit_price": 0.00803585601156987,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-mozzarella",
@@ -4038,7 +4038,7 @@
    "region": "77002",
    "shelf_price": 1.82,
    "unit_price": 0.00803585601156987,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-mozzarella",
@@ -4046,7 +4046,7 @@
    "region": "98101",
    "shelf_price": 2,
    "unit_price": 0.008807474558634192,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "shredded-mozzarella",
@@ -4054,7 +4054,7 @@
    "region": "90012",
    "shelf_price": 2.25,
    "unit_price": 0.00990978676872608,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "soy-sauce",
@@ -4062,7 +4062,7 @@
    "region": "30303",
    "shelf_price": 1.69,
    "unit_price": 0.005714575549055742,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "soy-sauce",
@@ -4070,7 +4070,7 @@
    "region": "43215",
    "shelf_price": 1.49,
    "unit_price": 0.005038294418989974,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "soy-sauce",
@@ -4078,7 +4078,7 @@
    "region": "77002",
    "shelf_price": 1.49,
    "unit_price": 0.005038294418989974,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "soy-sauce",
@@ -4086,7 +4086,7 @@
    "region": "98101",
    "shelf_price": 1.79,
    "unit_price": 0.006052716114088626,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "soy-sauce",
@@ -4094,7 +4094,7 @@
    "region": "90012",
    "shelf_price": 2.49,
    "unit_price": 0.008419700069318817,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "spaghetti",
@@ -4102,7 +4102,7 @@
    "region": "30303",
    "shelf_price": 1.33,
    "unit_price": 0.0029321504788444243,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "spaghetti",
@@ -4110,7 +4110,7 @@
    "region": "43215",
    "shelf_price": 1.33,
    "unit_price": 0.0029321504788444243,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "spaghetti",
@@ -4118,7 +4118,7 @@
    "region": "77002",
    "shelf_price": 1.33,
    "unit_price": 0.0029321504788444243,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "spaghetti",
@@ -4126,7 +4126,7 @@
    "region": "98101",
    "shelf_price": 1.33,
    "unit_price": 0.0029321504788444243,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "spaghetti",
@@ -4134,7 +4134,7 @@
    "region": "90012",
    "shelf_price": 1.39,
    "unit_price": 0.0030644279440554508,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "string-cheese",
@@ -4142,7 +4142,7 @@
    "region": "30303",
    "shelf_price": 2.82,
    "unit_price": 0.23520833333333332,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "string-cheese",
@@ -4150,7 +4150,7 @@
    "region": "43215",
    "shelf_price": 2.87,
    "unit_price": 0.239375,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "string-cheese",
@@ -4158,7 +4158,7 @@
    "region": "77002",
    "shelf_price": 2.75,
    "unit_price": 0.22895833333333335,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "string-cheese",
@@ -4166,7 +4166,7 @@
    "region": "98101",
    "shelf_price": 3.75,
    "unit_price": 0.3122916666666667,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "string-cheese",
@@ -4174,7 +4174,7 @@
    "region": "90012",
    "shelf_price": 3.37,
    "unit_price": 0.2810416666666667,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "sweet-potatoes",
@@ -4182,7 +4182,7 @@
    "region": "30303",
    "shelf_price": 3.99,
    "unit_price": 0.0029321504788444247,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "sweet-potatoes",
@@ -4190,7 +4190,7 @@
    "region": "43215",
    "shelf_price": 3.99,
    "unit_price": 0.0029321504788444247,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "sweet-potatoes",
@@ -4198,7 +4198,7 @@
    "region": "77002",
    "shelf_price": 3.99,
    "unit_price": 0.0029321504788444247,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "sweet-potatoes",
@@ -4206,7 +4206,7 @@
    "region": "98101",
    "shelf_price": 5.99,
    "unit_price": 0.004401900092300276,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "sweet-potatoes",
@@ -4214,7 +4214,7 @@
    "region": "90012",
    "shelf_price": 3.99,
    "unit_price": 0.0029321504788444247,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "taco-seasoning",
@@ -4222,7 +4222,7 @@
    "region": "30303",
    "shelf_price": 0.93,
    "unit_price": 0.03280481137233461,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "taco-seasoning",
@@ -4230,7 +4230,7 @@
    "region": "43215",
    "shelf_price": 0.9,
    "unit_price": 0.03162901168156993,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "taco-seasoning",
@@ -4238,7 +4238,7 @@
    "region": "77002",
    "shelf_price": 0.99,
    "unit_price": 0.034921250815711034,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "taco-seasoning",
@@ -4246,7 +4246,7 @@
    "region": "98101",
    "shelf_price": 1.25,
    "unit_price": 0.043916118450060854,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "taco-seasoning",
@@ -4254,7 +4254,7 @@
    "region": "90012",
    "shelf_price": 1.49,
    "unit_price": 0.05255824617718126,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tempeh",
@@ -4262,7 +4262,7 @@
    "region": "30303",
    "shelf_price": 4.39,
    "unit_price": 0.019356602409213566,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tempeh",
@@ -4270,7 +4270,7 @@
    "region": "43215",
    "shelf_price": 4.19,
    "unit_price": 0.018474752641140058,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tempeh",
@@ -4278,7 +4278,7 @@
    "region": "77002",
    "shelf_price": 4.19,
    "unit_price": 0.018474752641140058,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tempeh",
@@ -4286,7 +4286,7 @@
    "region": "98101",
    "shelf_price": 6.49,
    "unit_price": 0.028616024973985434,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tempeh",
@@ -4294,7 +4294,7 @@
    "region": "90012",
    "shelf_price": 5.99,
    "unit_price": 0.026411400553801655,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "teriyaki-sauce",
@@ -4302,7 +4302,7 @@
    "region": "30303",
    "shelf_price": 1.99,
    "unit_price": 0.006728997244154395,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "teriyaki-sauce",
@@ -4310,7 +4310,7 @@
    "region": "43215",
    "shelf_price": 2.19,
    "unit_price": 0.007405278374220163,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "teriyaki-sauce",
@@ -4318,7 +4318,7 @@
    "region": "77002",
    "shelf_price": 1.99,
    "unit_price": 0.006728997244154395,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "teriyaki-sauce",
@@ -4326,7 +4326,7 @@
    "region": "98101",
    "shelf_price": 2.5,
    "unit_price": 0.008445060611696281,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "teriyaki-sauce",
@@ -4334,7 +4334,7 @@
    "region": "90012",
    "shelf_price": 2.49,
    "unit_price": 0.008419700069318817,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tofu",
@@ -4342,7 +4342,7 @@
    "region": "30303",
    "shelf_price": 1.99,
    "unit_price": 0.005013945824189392,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tofu",
@@ -4350,7 +4350,7 @@
    "region": "43215",
    "shelf_price": 1.99,
    "unit_price": 0.005013945824189392,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tofu",
@@ -4358,7 +4358,7 @@
    "region": "77002",
    "shelf_price": 1.99,
    "unit_price": 0.005013945824189392,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tofu",
@@ -4366,7 +4366,7 @@
    "region": "98101",
    "shelf_price": 3.49,
    "unit_price": 0.008793301973075868,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tofu",
@@ -4374,7 +4374,7 @@
    "region": "90012",
    "shelf_price": 1.99,
    "unit_price": 0.005013945824189392,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tomatoes",
@@ -4382,7 +4382,7 @@
    "region": "30303",
    "shelf_price": 1.29,
    "unit_price": 0.0028439655020370733,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tomatoes",
@@ -4390,7 +4390,7 @@
    "region": "43215",
    "shelf_price": 1.29,
    "unit_price": 0.0028439655020370733,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tomatoes",
@@ -4398,7 +4398,7 @@
    "region": "77002",
    "shelf_price": 0.99,
    "unit_price": 0.0021825781759819396,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tomatoes",
@@ -4406,7 +4406,7 @@
    "region": "98101",
    "shelf_price": 1.99,
    "unit_price": 0.004387202596165717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tomatoes",
@@ -4414,7 +4414,7 @@
    "region": "90012",
    "shelf_price": 1.29,
    "unit_price": 0.0028439655020370733,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tzatziki",
@@ -4422,7 +4422,7 @@
    "region": "30303",
    "shelf_price": 6.49,
    "unit_price": 0.019077349982656956,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tzatziki",
@@ -4430,7 +4430,7 @@
    "region": "43215",
    "shelf_price": 6.49,
    "unit_price": 0.019077349982656956,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tzatziki",
@@ -4438,7 +4438,7 @@
    "region": "77002",
    "shelf_price": 6.49,
    "unit_price": 0.019077349982656956,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tzatziki",
@@ -4446,7 +4446,7 @@
    "region": "98101",
    "shelf_price": 5.99,
    "unit_price": 0.017607600369201105,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "tzatziki",
@@ -4454,7 +4454,7 @@
    "region": "90012",
    "shelf_price": 6.49,
    "unit_price": 0.019077349982656956,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "whey-protein",
@@ -4462,7 +4462,7 @@
    "region": "30303",
    "shelf_price": 37.04,
    "unit_price": 0.04083119136665983,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "whey-protein",
@@ -4470,7 +4470,7 @@
    "region": "43215",
    "shelf_price": 35.92,
    "unit_price": 0.03959350748164438,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "whey-protein",
@@ -4478,7 +4478,7 @@
    "region": "77002",
    "shelf_price": 35.92,
    "unit_price": 0.03959350748164438,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "whey-protein",
@@ -4486,7 +4486,7 @@
    "region": "98101",
    "shelf_price": 36.05,
    "unit_price": 0.03973292124038256,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "whey-protein",
@@ -4494,7 +4494,7 @@
    "region": "90012",
    "shelf_price": 35.92,
    "unit_price": 0.03959350748164438,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "white-rice",
@@ -4502,7 +4502,7 @@
    "region": "30303",
    "shelf_price": 4.48,
    "unit_price": 0.001973138856064481,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "white-rice",
@@ -4510,7 +4510,7 @@
    "region": "43215",
    "shelf_price": 4.48,
    "unit_price": 0.001973138856064481,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "white-rice",
@@ -4518,7 +4518,7 @@
    "region": "77002",
    "shelf_price": 4.48,
    "unit_price": 0.001973138856064481,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "white-rice",
@@ -4526,7 +4526,7 @@
    "region": "98101",
    "shelf_price": 7.48,
    "unit_price": 0.0032959135081747476,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "white-rice",
@@ -4534,7 +4534,7 @@
    "region": "90012",
    "shelf_price": 4.98,
    "unit_price": 0.0021936012980828586,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-bread",
@@ -4542,7 +4542,7 @@
    "region": "30303",
    "shelf_price": 2.08,
    "unit_price": 0.0036596765375050714,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-bread",
@@ -4550,7 +4550,7 @@
    "region": "43215",
    "shelf_price": 2.08,
    "unit_price": 0.0036596765375050714,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-bread",
@@ -4558,7 +4558,7 @@
    "region": "77002",
    "shelf_price": 2.91,
    "unit_price": 0.005129426150960923,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-bread",
@@ -4566,7 +4566,7 @@
    "region": "98101",
    "shelf_price": 2.91,
    "unit_price": 0.005129426150960923,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-bread",
@@ -4574,7 +4574,7 @@
    "region": "90012",
    "shelf_price": 2.74,
    "unit_price": 0.004835476228269753,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-buns",
@@ -4582,7 +4582,7 @@
    "region": "30303",
    "shelf_price": 1.99,
    "unit_price": 0.24875,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-buns",
@@ -4590,7 +4590,7 @@
    "region": "43215",
    "shelf_price": 1.99,
    "unit_price": 0.24875,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-buns",
@@ -4598,7 +4598,7 @@
    "region": "98101",
    "shelf_price": 1.99,
    "unit_price": 0.24875,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-buns",
@@ -4606,7 +4606,7 @@
    "region": "90012",
    "shelf_price": 1.99,
    "unit_price": 0.24875,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-spaghetti",
@@ -4614,7 +4614,7 @@
    "region": "30303",
    "shelf_price": 1.89,
    "unit_price": 0.004166740154147339,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-spaghetti",
@@ -4622,7 +4622,7 @@
    "region": "43215",
    "shelf_price": 1.99,
    "unit_price": 0.004387202596165717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-spaghetti",
@@ -4630,7 +4630,7 @@
    "region": "77002",
    "shelf_price": 1.99,
    "unit_price": 0.004387202596165717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-spaghetti",
@@ -4638,7 +4638,7 @@
    "region": "98101",
    "shelf_price": 2.29,
    "unit_price": 0.005048589922220851,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   },
   {
    "sku_id": "ww-spaghetti",
@@ -4646,7 +4646,7 @@
    "region": "90012",
    "shelf_price": 1.99,
    "unit_price": 0.004387202596165717,
-   "as_of": "2026-09-10"
+   "as_of": "2026-09-12"
   }
  ],
  "nutrition": [
