@@ -95,6 +95,17 @@ export async function upsert(table: string, rows: Record<string, unknown>[], onC
   }
 }
 
+// PATCH /rest/v1/<table>?<query> with a partial row. an upsert cannot do this: Postgres checks NOT NULL on the
+// proposed row before ON CONFLICT resolves, so {id, status} against a table with other required columns fails.
+export async function update(table: string, query: string, patch: Record<string, unknown>) {
+  const res = await fetch(`${url()}/rest/v1/${table}?${query}`, {
+    method: "PATCH",
+    headers: { ...H(), "content-type": "application/json", prefer: "return=minimal" },
+    body: JSON.stringify(patch),
+  });
+  if (!res.ok) throw new Error(`update ${table}: ${res.status} ${await res.text()}`);
+}
+
 export async function del(table: string, query: string) {
   const res = await fetch(`${url()}/rest/v1/${table}?${query}`, { method: "DELETE", headers: { ...H(), prefer: "return=minimal" } });
   if (!res.ok) throw new Error(`delete ${table}: ${res.status} ${await res.text()}`);

@@ -1,4 +1,4 @@
-import { insert, select, upsert } from "@/app/api/db";
+import { insert, select, update } from "@/app/api/db";
 import type { Store, Thread } from "./handler.ts";
 
 // support_threads / support_messages_v2 through the PostgREST helper (service key only)
@@ -26,7 +26,7 @@ export function dbStore(): Store {
       if (!res.ok && !res.duplicate) throw new Error(`support_messages_v2 insert ${res.status}: ${res.body}`);
     },
     async setStatus(threadId, status) {
-      await upsert("support_threads", [{ id: threadId, status, updated_at: new Date().toISOString() }], "id");
+      await update("support_threads", `id=eq.${threadId}`, { status, updated_at: new Date().toISOString() });
     },
     async sentLast24h() {
       const since = new Date(Date.now() - 86_400_000).toISOString();
