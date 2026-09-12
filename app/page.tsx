@@ -62,7 +62,7 @@ export default function Home() {
               {site.hero.pill}
             </p>
             <h1 className="rise-up mt-4 text-h1 sm:mt-5 sm:text-balance">{site.hero.h1}</h1>
-            <p className="rise-up mt-4 max-w-[52ch] text-[1.0625rem] text-ink-2 max-[399px]:text-[1rem] max-[374px]:text-[0.9375rem] [animation-delay:120ms] sm:mt-5 sm:text-lg">{site.hero.lede}</p>
+            <p className="rise-up mt-4 max-w-[52ch] text-[1.0625rem] text-ink-2 max-[399px]:text-[1rem] max-[374px]:text-sm [animation-delay:120ms] sm:mt-5 sm:text-lg">{site.hero.lede}</p>
             <div className="rise-up mt-6 sm:mt-8 [animation-delay:160ms]">
               <PreorderButton placement="hero" className="cta cta-wide min-w-[200px]" />
               <p className="mt-3 text-sm text-ink-2">{site.hero.micro}</p>
