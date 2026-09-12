@@ -48,20 +48,22 @@ export default function Home() {
       <script type="application/ld+json">{JSON.stringify(APP)}</script>
       <script type="application/ld+json">{JSON.stringify(faqLd(FAQ))}</script>
 
-      {/* HERO (REDESIGN-V4 §6): two columns from 1024px, stacked below. left: pill, H1, sub, the pre-order button, the
-          microline. right: the phone stage. nothing else above the fold. every entrance here is transform-only
+      {/* HERO (REDESIGN-V4 §6, MOBILE FIX PASS v2 §C): two columns from 1024px, stacked below. left: pill, H1, sub,
+          the pre-order button, the microline under it. right: the phone stage. on phones the pill, H1, sub and button
+          all sit above the fold (24px top padding, the H1 stepped down so each sentence holds one line, the sub at
+          17px, the button full width) and the stage follows below it. every entrance here is transform-only
           (rise-up): an opacity fade keeps the LCP candidate unpainted until it ends, which measured as 2.3s of
           element render delay on the sub paragraph. */}
       <section className="overflow-hidden">
-        <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 pt-10 pb-12 lg:grid-cols-[1.2fr_1fr] lg:gap-10 lg:px-12 lg:py-12">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 pt-6 pb-10 sm:pt-10 sm:pb-12 lg:grid-cols-[1.2fr_1fr] lg:gap-10 lg:px-12 lg:py-12">
           <div>
             <p className="rise-up inline-flex items-start gap-2 rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink">
               <span aria-hidden="true" className="mt-[0.4rem] size-2 shrink-0 rounded-full bg-emerald" />
               {site.hero.pill}
             </p>
-            <h1 className="rise-up mt-5 text-h1 text-balance">{site.hero.h1}</h1>
-            <p className="rise-up mt-5 max-w-[52ch] text-lg text-ink-2 [animation-delay:120ms]">{site.hero.lede}</p>
-            <div className="rise-up mt-8 [animation-delay:160ms]">
+            <h1 className="rise-up mt-4 text-h1 sm:mt-5 sm:text-balance">{site.hero.h1}</h1>
+            <p className="rise-up mt-4 max-w-[52ch] text-[1.0625rem] text-ink-2 max-[399px]:text-[1rem] max-[374px]:text-[0.9375rem] [animation-delay:120ms] sm:mt-5 sm:text-lg">{site.hero.lede}</p>
+            <div className="rise-up mt-6 sm:mt-8 [animation-delay:160ms]">
               <PreorderButton placement="hero" className="cta cta-wide min-w-[200px]" />
               <p className="mt-3 text-sm text-ink-2">{site.hero.micro}</p>
             </div>
@@ -78,6 +80,7 @@ export default function Home() {
               s4Label={`Phone showing the receipt reveal: estimated ${usd(fixtureWeek.receipt.estimated_usd)}, actual ${usd(fixtureWeek.receipt.actual_usd)}, receipt verified`}
               calloutMeal={`${LUNCH.name}, ${LUNCH.protein_g}g protein, ${usd(LUNCH.cost_usd)}`}
               calloutBudget={`Under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`}
+              calloutBudgetShort={`${usd(fixtureWeek.totals.under_budget_by_usd)} under`}
             />
           </div>
         </div>
