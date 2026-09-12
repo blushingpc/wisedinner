@@ -4,6 +4,7 @@ import { Accordion } from "./ui/accordion";
 import { PhoneStage } from "./ui/phone-stage";
 import { GroceryList, ReceiptReveal, ShareWeek, ThisWeek } from "./screens";
 import { fixtureWeek, usd } from "@/data/fixtures";
+import { budgetPhrase } from "@/lib/showcase";
 import { FeatureSwitcher } from "./ui/feature-switcher";
 import { Why } from "./ui/why";
 import { MOBILE_CTA_SENTINEL, MobileCtaBar } from "./ui/mobile-cta-bar";
@@ -37,9 +38,12 @@ const APP = {
   ]),
 };
 
-// hero fixture reads (REDESIGN-V4 §6): Tuesday's lunch is the chicken burrito bowl; its line feeds the callout
+// hero fixture reads (REDESIGN-V4 §6): the callout sits on the burrito-bowl cut-out, so it names Tuesday's chicken
+// burrito bowl whichever slot the fixture put it in, and falls back to Tuesday's lunch when a regenerated week drops it
 const TUE = fixtureWeek.days.find((d) => d.day === "tue") ?? fixtureWeek.days[0];
-const LUNCH = TUE.meals.find((m) => m.slot === "lunch") ?? TUE.meals[0];
+const LUNCH = TUE.meals.find((m) => m.menu === "chicken-burrito-bowl") ?? TUE.meals.find((m) => m.slot === "lunch") ?? TUE.meals[0];
+// "Under a $57 budget": the budget is a whole-dollar input; the under-budget amount is cents at the showcase target
+const BUDGET_LINE = budgetPhrase(fixtureWeek).replace(/^./, (c) => c.toUpperCase());
 
 export default function Home() {
   return (
@@ -74,10 +78,10 @@ export default function Home() {
             <PhoneStage
               s1={<ThisWeek week={fixtureWeek} active="tue" />}
               s4={<ReceiptReveal week={fixtureWeek} />}
-              s1Label={`Phone showing this week: ${TUE.meals.map((m) => m.name).join(", ")}; under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`}
+              s1Label={`Phone showing this week: ${TUE.meals.map((m) => m.name).join(", ")}; ${budgetPhrase(fixtureWeek)}`}
               s4Label={`Phone showing the receipt reveal: estimated ${usd(fixtureWeek.receipt.estimated_usd)}, actual ${usd(fixtureWeek.receipt.actual_usd)}, receipt verified`}
               calloutMeal={`${LUNCH.name}, ${LUNCH.protein_g}g protein, ${usd(LUNCH.cost_usd)}`}
-              calloutBudget={`Under budget by ${usd(fixtureWeek.totals.under_budget_by_usd)}`}
+              calloutBudget={BUDGET_LINE}
             />
           </div>
         </div>

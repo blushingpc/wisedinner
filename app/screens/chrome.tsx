@@ -22,7 +22,7 @@ export function Header({ title, right, sub }: { title: string; right?: ReactNode
   );
 }
 
-// the forest tag: the app's price motif ("$49.20, one trip")
+// the forest tag: the app's price motif (the week's total, then "one trip")
 export function Pill({ children, tone = "forest" }: { children: ReactNode; tone?: "forest" | "surface" | "emerald" }) {
   const t = tone === "forest" ? "bg-forest text-white" : tone === "emerald" ? "bg-emerald-tint text-forest" : "bg-surface text-ink";
   return <span className={`inline-flex shrink-0 items-center rounded-full px-[0.75em] py-[0.4em] text-[0.8125em] font-semibold whitespace-nowrap tnum ${t}`}>{children}</span>;

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { DeviceFrame } from "@/app/ui/device-frame";
 import { fixtureWeek, fixtureWeek2 } from "@/data/fixtures";
+import { budgetUsd } from "@/lib/showcase";
 import { GroceryList, Onboarding, ReceiptReveal, ShareWeek, ThisWeek } from "@/app/screens";
 
 export const metadata: Metadata = { title: "App screens", robots: { index: false, follow: false } };
 
 // design-review surface (REDESIGN-V4 §8): every app screen at frame width, plus the bare 390×844 screens. noindex; not linked.
 const SCREENS = [
-  ["S5 onboarding", <Onboarding key="s5" />],
+  ["S5 onboarding", <Onboarding key="s5" value={budgetUsd(fixtureWeek.budget_usd)} />],
   ["S1 this week", <ThisWeek key="s1" week={fixtureWeek} />],
   ["S2 grocery list", <GroceryList key="s2" week={fixtureWeek} />],
   ["S6 regenerate", <ThisWeek key="s6" week={fixtureWeek2} active="thu" />],
