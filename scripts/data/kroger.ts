@@ -4,7 +4,7 @@
 // data/kroger-map.json (committed); unmapped skus are listed for the founder. prices are normalised to our pack:
 // kroger unit price × our pack size, so an 8 lb bag prices our 3 lb bag correctly.
 // run: node scripts/data/kroger.ts  (needs KROGER_CLIENT_ID / KROGER_CLIENT_SECRET / KROGER_SCOPE)
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { log, required, today } from "./env.ts";
 import { SKUS, type AuthoredSku } from "./authored/skus.ts";
 import { packCanonical, toCanonical } from "../../packages/solver/src/units.ts";
@@ -212,6 +212,7 @@ export async function fetchKroger(): Promise<{ rows: PriceRow[]; map: KrogerMap;
   writeFileSync(MAP, JSON.stringify(map, null, 2) + "\n");
   const mapped = SKUS.filter((s) => map[s.id]).length;
   log("kroger", `${rows.length} price rows across ${Object.values(zips).filter((v) => v !== "no store").length} stores; ${mapped}/${SKUS.length} skus mapped; unmapped: ${[...unmapped].join(", ") || "none"}`);
+  mkdirSync("data/pipeline", { recursive: true }); // gitignored, so a fresh checkout (CI) has no such directory
   writeFileSync("data/pipeline/kroger-prices.json", JSON.stringify({ zips, rows, unmapped: [...unmapped] }, null, 2));
   return { rows, map, unmapped: [...unmapped], zips };
 }
