@@ -18,14 +18,14 @@ import { assemble, guard, nextVersion, previousSnapshot, publish, type ObservedR
 
 const CACHED = process.argv.includes("--cached");
 
+// a full skus row. Postgres checks NOT NULL on the proposed row before ON CONFLICT resolves, so every upsert of
+// skus (seed, usda id, kroger id) must send the whole row, never just the id and one column.
+const skuRow = (s: (typeof SKUS)[number]) => ({ id: s.id, name: s.name, aisle: s.aisle, perishable: s.perishable, pack_qty: s.pack_qty, pack_unit: s.pack_unit, canonical_unit: s.canonical_unit, grams_per_unit: s.grams_per_unit, diet_flags: s.diet_flags, baseline_price: s.baseline_usd });
+
 async function seed() {
   const { recipes, ingredients, variants } = expandRecipes(RECIPES);
   await upsert("stores", STORES, "id");
-  await upsert(
-    "skus",
-    SKUS.map((s) => ({ id: s.id, name: s.name, aisle: s.aisle, perishable: s.perishable, pack_qty: s.pack_qty, pack_unit: s.pack_unit, canonical_unit: s.canonical_unit, grams_per_unit: s.grams_per_unit, diet_flags: s.diet_flags, baseline_price: s.baseline_usd })),
-    "id",
-  );
+  await upsert("skus", SKUS.map(skuRow), "id");
   await upsert("recipes", recipes, "id");
   // ingredients are replaced per recipe so removed rows do not linger
   await del("recipe_ingredients", `recipe_id=in.(${recipes.map((r) => `"${r.id}"`).join(",")})`);
@@ -43,7 +43,7 @@ async function main() {
   const usda = await fetchUsda();
   if (!local) {
     await upsert("nutrition", nutritionRows(usda), "sku_id");
-    await upsert("skus", Object.entries(usda).map(([id, e]) => ({ id, usda_fdc_id: e.fdc_id ? String(e.fdc_id) : null })), "id");
+    await upsert("skus", SKUS.filter((s) => s.id in usda).map((s) => ({ ...skuRow(s), usda_fdc_id: usda[s.id].fdc_id ? String(usda[s.id].fdc_id) : null })), "id");
   }
 
   // a. kroger
@@ -55,7 +55,7 @@ async function main() {
   if (!local) {
     await upsert("prices", kroger.rows, "sku_id,store_id,region,source");
     const map = loadKrogerMap();
-    await upsert("skus", Object.entries(map).map(([id, e]) => ({ id, kroger_product_id: e.productId })), "id");
+    await upsert("skus", SKUS.filter((s) => s.id in map).map((s) => ({ ...skuRow(s), kroger_product_id: map[s.id].productId })), "id");
   }
 
   // b. walmart, c. instacart (both skip cleanly without keys)

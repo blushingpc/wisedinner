@@ -53,3 +53,6 @@ loop.log
 # data pipeline caches (maps are committed, raw fetch caches and tokens are not)
 /data/pipeline/
 /data/.kroger-token.json
+
+# supabase cli link state
+supabase/.temp/

@@ -69,11 +69,18 @@ export const configured = () => Boolean(url() && key());
 
 const H = () => ({ apikey: key(), authorization: `Bearer ${key()}` });
 
-// GET /rest/v1/<table>?<query> → rows (throws on a non-2xx so callers see the PostgREST message)
-export async function select<T = Record<string, unknown>>(table: string, query = ""): Promise<T[]> {
-  const res = await fetch(`${url()}/rest/v1/${table}${query ? `?${query}` : ""}`, { headers: H(), cache: "no-store" });
-  if (!res.ok) throw new Error(`select ${table}: ${res.status} ${await res.text()}`);
-  return (await res.json()) as T[];
+// GET /rest/v1/<table>?<query> → every row (throws on a non-2xx so callers see the PostgREST message).
+// PostgREST returns at most 1000 rows per request, so this pages with Range until a short page comes back.
+export async function select<T = Record<string, unknown>>(table: string, query = "", page = 1000): Promise<T[]> {
+  const out: T[] = [];
+  for (let from = 0; ; from += page) {
+    const res = await fetch(`${url()}/rest/v1/${table}${query ? `?${query}` : ""}`, { headers: { ...H(), range: `${from}-${from + page - 1}` }, cache: "no-store" });
+    if (res.status === 416) return out; // range starts past the last row: the previous page was the last one
+    if (!res.ok) throw new Error(`select ${table}: ${res.status} ${await res.text()}`);
+    const rows = (await res.json()) as T[];
+    out.push(...rows);
+    if (rows.length < page) return out;
+  }
 }
 
 // POST with merge-duplicates on the given conflict target; chunks large arrays
