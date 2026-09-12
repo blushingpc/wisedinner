@@ -41,7 +41,10 @@ export function DeviceFrame({
   sizes?: string; // the frame's rendered CSS width per breakpoint; drives which ladder file the browser picks
   ptClass?: string; // a .pt-* class from globals.css that states --pt in viewport units (first-paint fast path); cqw otherwise
 }) {
-  if (priority) preload("/img/bezel/iphone-17-black.png", { as: "image", imageSrcSet: AVIF, imageSizes: sizes, type: "image/avif", fetchPriority: "high" });
+  // the hero frame is the mobile LCP element since it grew to 78% of the stage (MOBILE FIX PASS v2 §D): it ships as
+  // WebP, not AVIF, because AVIF decode on a throttled phone CPU held its paint ~0.9s behind the headline (Lighthouse
+  // element render delay); the few extra kB cost nothing next to that. every other frame keeps the AVIF ladder.
+  if (priority) preload("/img/bezel/iphone-17-black.png", { as: "image", imageSrcSet: WEBP, imageSizes: sizes, type: "image/webp", fetchPriority: "high" });
   const persp = tilt === "left" ? "lg:[transform:perspective(1100px)_rotateY(-10deg)_rotateX(1.5deg)]" : tilt === "right" ? "lg:[transform:perspective(1100px)_rotateY(7deg)_rotateX(1deg)]" : "";
   const shadow = tilt === "left" ? "frame-shadow-left" : tilt === "right" ? "frame-shadow-right" : "frame-shadow";
   return (
@@ -61,7 +64,7 @@ export function DeviceFrame({
         <div aria-hidden="true" className="frame-glare pointer-events-none absolute inset-0" />
       </div>
       <picture>
-        <source type="image/avif" srcSet={AVIF} sizes={sizes} />
+        {!priority && <source type="image/avif" srcSet={AVIF} sizes={sizes} />}
         <source type="image/webp" srcSet={WEBP} sizes={sizes} />
         <img src="/img/bezel/iphone-17-black.png" alt="" aria-hidden="true" width={BEZEL.w} height={BEZEL.h} decoding={priority ? "sync" : "async"} loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} className="pointer-events-none absolute inset-0 h-full w-full select-none" />
       </picture>
