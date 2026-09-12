@@ -32,10 +32,11 @@ for (const m of menu) if (!existsSync(`public/img/menu/${m.id}.jpg`)) throw new 
 
 type Plan = { id: string; budget: number; goal: number; seedFrom: number; delivery: number; accuracy: number };
 
-// two solved weeks at $60 and 150 g (the founder's $45 to $55 band does not clear 150 g at Kroger shelf prices; see the PR report): the first feasible seed from seedFrom, and for the
-// "regenerate" week (S6) the first later seed whose dinners differ. deterministic per snapshot, honest by construction.
-const WEEK_1: Plan = { id: "example", budget: 60, goal: 150, seedFrom: 1, delivery: 68.9, accuracy: 96 };
-const WEEK_2: Plan = { id: "example-2", budget: 60, goal: 150, seedFrom: 2, delivery: 65.4, accuracy: 96 };
+// two solved weeks at the showcase targets, $57 and 150 g (founder decision 2026-09-12: the site shows one week at "$57", rounded up, so the
+// real week must solve at or under $57.00): the first feasible seed from seedFrom, and for the "regenerate" week (S6) the first later seed
+// whose dinners differ. deterministic per snapshot, honest by construction.
+const WEEK_1: Plan = { id: "example", budget: 57, goal: 150, seedFrom: 1, delivery: 68.9, accuracy: 96 };
+const WEEK_2: Plan = { id: "example-2", budget: 57, goal: 150, seedFrom: 2, delivery: 65.4, accuracy: 96 };
 
 const AISLE: Record<string, Aisle> = { meat: "meat", dairy: "dairy", pantry: "pantry", frozen: "frozen", produce: "produce", bakery: "pantry" };
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);

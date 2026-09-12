@@ -1,6 +1,6 @@
 {
   "id": "example-2",
-  "budget_usd": 60,
+  "budget_usd": 57,
   "protein_goal_g": 150,
   "generated_at": "2026-09-12",
   "days": [
@@ -12,59 +12,59 @@
           "menu": "egg-and-avocado-breakfast-wrap-tofu",
           "name": "Tofu and avocado breakfast wrap",
           "protein_g": 40,
-          "cost_usd": 3.67,
+          "cost_usd": 2.36,
           "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "turkey-taco-bowl-lentil",
-          "name": "Lentil taco bowl",
-          "protein_g": 42,
-          "cost_usd": 2.5,
-          "img": "/img/menu/turkey-taco-bowl.jpg"
+          "menu": "chicken-fajita-bowl-tortillas",
+          "name": "Chicken fajitas with flour tortillas",
+          "protein_g": 73,
+          "cost_usd": 5.81,
+          "img": "/img/menu/chicken-fajita-bowl.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "chicken-burrito-bowl",
-          "name": "Chicken burrito bowl",
-          "protein_g": 80,
-          "cost_usd": 4.06,
-          "img": "/img/menu/chicken-burrito-bowl.jpg"
+          "menu": "southwest-chicken-wrap",
+          "name": "Southwest chicken wrap",
+          "protein_g": 53,
+          "cost_usd": 3.62,
+          "img": "/img/menu/southwest-chicken-wrap.jpg"
         }
       ],
-      "protein_g": 163,
-      "cost_usd": 10.23
+      "protein_g": 166,
+      "cost_usd": 11.79
     },
     {
       "day": "tue",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "egg-white-and-veggie-scramble-with-toast-eggs",
-          "name": "Egg and veggie scramble with toast",
-          "protein_g": 33,
-          "cost_usd": 4.5,
-          "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
+          "menu": "egg-and-avocado-breakfast-wrap-tofu",
+          "name": "Tofu and avocado breakfast wrap",
+          "protein_g": 40,
+          "cost_usd": 2.36,
+          "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "teriyaki-chicken-and-broccoli-rice-bowl",
-          "name": "Teriyaki chicken and broccoli rice bowl",
-          "protein_g": 95,
-          "cost_usd": 4.65,
-          "img": "/img/menu/teriyaki-chicken-and-broccoli-rice-bowl.jpg"
+          "menu": "healthier-chicken-parmesan",
+          "name": "Healthier chicken parmesan",
+          "protein_g": 63,
+          "cost_usd": 3.21,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "turkey-taco-bowl-lentil",
-          "name": "Lentil taco bowl",
-          "protein_g": 42,
-          "cost_usd": 2.5,
-          "img": "/img/menu/turkey-taco-bowl.jpg"
+          "menu": "chicken-fajita-bowl-tortillas",
+          "name": "Chicken fajitas with flour tortillas",
+          "protein_g": 73,
+          "cost_usd": 5.81,
+          "img": "/img/menu/chicken-fajita-bowl.jpg"
         }
       ],
-      "protein_g": 171,
-      "cost_usd": 11.65
+      "protein_g": 176,
+      "cost_usd": 11.38
     },
     {
       "day": "wed",
@@ -74,28 +74,28 @@
           "menu": "egg-and-avocado-breakfast-wrap-tofu",
           "name": "Tofu and avocado breakfast wrap",
           "protein_g": 40,
-          "cost_usd": 3.67,
+          "cost_usd": 2.36,
           "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "teriyaki-chicken-and-broccoli-rice-bowl",
-          "name": "Teriyaki chicken and broccoli rice bowl",
-          "protein_g": 95,
-          "cost_usd": 4.65,
-          "img": "/img/menu/teriyaki-chicken-and-broccoli-rice-bowl.jpg"
+          "menu": "healthier-chicken-parmesan",
+          "name": "Healthier chicken parmesan",
+          "protein_g": 63,
+          "cost_usd": 3.21,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "chicken-burrito-bowl",
-          "name": "Chicken burrito bowl",
-          "protein_g": 80,
-          "cost_usd": 4.06,
-          "img": "/img/menu/chicken-burrito-bowl.jpg"
+          "menu": "chicken-fajita-bowl-tortillas",
+          "name": "Chicken fajitas with flour tortillas",
+          "protein_g": 73,
+          "cost_usd": 5.81,
+          "img": "/img/menu/chicken-fajita-bowl.jpg"
         }
       ],
-      "protein_g": 216,
-      "cost_usd": 12.38
+      "protein_g": 176,
+      "cost_usd": 11.38
     },
     {
       "day": "thu",
@@ -105,28 +105,28 @@
           "menu": "egg-white-and-veggie-scramble-with-toast-tofu",
           "name": "Tofu and veggie scramble with toast",
           "protein_g": 42,
-          "cost_usd": 3.51,
+          "cost_usd": 4.35,
           "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "teriyaki-chicken-and-broccoli-rice-bowl-tofu",
-          "name": "Teriyaki tofu and broccoli rice bowl",
-          "protein_g": 54,
-          "cost_usd": 3.81,
-          "img": "/img/menu/teriyaki-chicken-and-broccoli-rice-bowl.jpg"
+          "menu": "healthier-chicken-parmesan-tofu",
+          "name": "Healthier tofu parmesan",
+          "protein_g": 61,
+          "cost_usd": 3.38,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "teriyaki-chicken-and-broccoli-rice-bowl-tofu",
-          "name": "Teriyaki tofu and broccoli rice bowl",
-          "protein_g": 54,
-          "cost_usd": 3.81,
-          "img": "/img/menu/teriyaki-chicken-and-broccoli-rice-bowl.jpg"
+          "menu": "healthier-chicken-parmesan-tofu",
+          "name": "Healthier tofu parmesan",
+          "protein_g": 61,
+          "cost_usd": 3.38,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         }
       ],
-      "protein_g": 150,
-      "cost_usd": 11.13
+      "protein_g": 164,
+      "cost_usd": 11.11
     },
     {
       "day": "fri",
@@ -136,34 +136,34 @@
           "menu": "egg-white-and-veggie-scramble-with-toast-tofu",
           "name": "Tofu and veggie scramble with toast",
           "protein_g": 42,
-          "cost_usd": 3.51,
+          "cost_usd": 4.35,
           "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "teriyaki-chicken-and-broccoli-rice-bowl-tofu",
-          "name": "Teriyaki tofu and broccoli rice bowl",
-          "protein_g": 54,
-          "cost_usd": 3.81,
-          "img": "/img/menu/teriyaki-chicken-and-broccoli-rice-bowl.jpg"
+          "menu": "healthier-chicken-parmesan-tofu",
+          "name": "Healthier tofu parmesan",
+          "protein_g": 61,
+          "cost_usd": 3.38,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "teriyaki-chicken-and-broccoli-rice-bowl-tofu",
-          "name": "Teriyaki tofu and broccoli rice bowl",
-          "protein_g": 54,
-          "cost_usd": 3.79,
-          "img": "/img/menu/teriyaki-chicken-and-broccoli-rice-bowl.jpg"
+          "menu": "healthier-chicken-parmesan-tofu",
+          "name": "Healthier tofu parmesan",
+          "protein_g": 61,
+          "cost_usd": 3.34,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         }
       ],
-      "protein_g": 150,
-      "cost_usd": 11.11
+      "protein_g": 164,
+      "cost_usd": 11.07
     }
   ],
   "totals": {
-    "est_total_usd": 56.5,
-    "protein_per_day_g": 150,
-    "under_budget_by_usd": 3.5,
+    "est_total_usd": 56.73,
+    "protein_per_day_g": 164,
+    "under_budget_by_usd": 0.27,
     "waste_lb": 0,
     "items": 15
   },
@@ -208,13 +208,13 @@
       {
         "name": "Frozen peppers and onions, 16 oz bag",
         "aisle": "frozen",
-        "price_usd": 2.31,
+        "price_usd": 4.62,
         "checked": false
       },
       {
-        "name": "Lentils, 1 lb bag",
+        "name": "Marinara sauce, 24 oz jar",
         "aisle": "pantry",
-        "price_usd": 1.46,
+        "price_usd": 2.2,
         "checked": false
       },
       {
@@ -224,9 +224,21 @@
         "checked": false
       },
       {
+        "name": "Panko breadcrumbs, 8 oz box",
+        "aisle": "pantry",
+        "price_usd": 2.52,
+        "checked": false
+      },
+      {
         "name": "Salsa, 24 oz jar",
         "aisle": "pantry",
         "price_usd": 3.51,
+        "checked": false
+      },
+      {
+        "name": "Shredded mozzarella, 8 oz bag",
+        "aisle": "dairy",
+        "price_usd": 2,
         "checked": false
       },
       {
@@ -236,21 +248,9 @@
         "checked": false
       },
       {
-        "name": "Teriyaki sauce, 10 fl oz bottle",
-        "aisle": "pantry",
-        "price_usd": 2.41,
-        "checked": false
-      },
-      {
         "name": "Tofu, 14 oz block",
         "aisle": "produce",
         "price_usd": 10.95,
-        "checked": false
-      },
-      {
-        "name": "White rice, 5 lb bag",
-        "aisle": "pantry",
-        "price_usd": 4.93,
         "checked": false
       },
       {
@@ -260,14 +260,14 @@
         "checked": false
       }
     ],
-    "est_total_usd": 56.5,
+    "est_total_usd": 56.73,
     "delivery_est_usd": 65.4,
-    "delivery_saves_usd": 8.9,
+    "delivery_saves_usd": 8.67,
     "delivery_label": "Delivered from Kroger, estimated"
   },
   "receipt": {
-    "estimated_usd": 56.5,
-    "actual_usd": 55.77,
+    "estimated_usd": 56.73,
+    "actual_usd": 55.99,
     "delta_pct": -1,
     "accuracy_pct": 96,
     "verified": true

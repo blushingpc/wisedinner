@@ -1,6 +1,6 @@
 {
   "id": "example",
-  "budget_usd": 60,
+  "budget_usd": 57,
   "protein_goal_g": 150,
   "generated_at": "2026-09-12",
   "days": [
@@ -9,31 +9,31 @@
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "egg-white-and-veggie-scramble-with-toast-eggs",
-          "name": "Egg and veggie scramble with toast",
-          "protein_g": 33,
-          "cost_usd": 3.88,
-          "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
+          "menu": "egg-and-avocado-breakfast-wrap-tofu",
+          "name": "Tofu and avocado breakfast wrap",
+          "protein_g": 40,
+          "cost_usd": 2.86,
+          "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "healthier-chicken-parmesan-tofu",
-          "name": "Healthier tofu parmesan",
-          "protein_g": 61,
-          "cost_usd": 3.21,
-          "img": "/img/menu/healthier-chicken-parmesan.jpg"
+          "menu": "chicken-stir-fry-with-rice",
+          "name": "Chicken stir-fry with rice",
+          "protein_g": 89,
+          "cost_usd": 4.97,
+          "img": "/img/menu/chicken-stir-fry-with-rice.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "southwest-chicken-wrap-corn",
-          "name": "Southwest chicken tacos",
-          "protein_g": 68,
-          "cost_usd": 4.29,
+          "menu": "southwest-chicken-wrap",
+          "name": "Southwest chicken wrap",
+          "protein_g": 58,
+          "cost_usd": 3.48,
           "img": "/img/menu/southwest-chicken-wrap.jpg"
         }
       ],
-      "protein_g": 162,
-      "cost_usd": 11.38
+      "protein_g": 187,
+      "cost_usd": 11.31
     },
     {
       "day": "tue",
@@ -42,60 +42,60 @@
           "slot": "breakfast",
           "menu": "egg-and-avocado-breakfast-wrap-tofu",
           "name": "Tofu and avocado breakfast wrap",
-          "protein_g": 41,
-          "cost_usd": 2.92,
+          "protein_g": 40,
+          "cost_usd": 2.86,
           "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "healthier-chicken-parmesan",
-          "name": "Healthier chicken parmesan",
-          "protein_g": 78,
+          "menu": "southwest-chicken-wrap",
+          "name": "Southwest chicken wrap",
+          "protein_g": 58,
           "cost_usd": 3.48,
-          "img": "/img/menu/healthier-chicken-parmesan.jpg"
+          "img": "/img/menu/southwest-chicken-wrap.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "chicken-fajita-bowl-tortillas",
-          "name": "Chicken fajitas with flour tortillas",
-          "protein_g": 95,
-          "cost_usd": 7.48,
-          "img": "/img/menu/chicken-fajita-bowl.jpg"
+          "menu": "chicken-burrito-bowl",
+          "name": "Chicken burrito bowl",
+          "protein_g": 74,
+          "cost_usd": 4.44,
+          "img": "/img/menu/chicken-burrito-bowl.jpg"
         }
       ],
-      "protein_g": 214,
-      "cost_usd": 13.88
+      "protein_g": 172,
+      "cost_usd": 10.78
     },
     {
       "day": "wed",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "egg-and-avocado-breakfast-wrap-tofu",
-          "name": "Tofu and avocado breakfast wrap",
-          "protein_g": 41,
-          "cost_usd": 2.92,
-          "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
+          "menu": "egg-white-and-veggie-scramble-with-toast-tofu",
+          "name": "Tofu and veggie scramble with toast",
+          "protein_g": 42,
+          "cost_usd": 3.05,
+          "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "southwest-chicken-wrap-corn",
-          "name": "Southwest chicken tacos",
-          "protein_g": 68,
-          "cost_usd": 4.29,
-          "img": "/img/menu/southwest-chicken-wrap.jpg"
+          "menu": "chicken-stir-fry-with-rice",
+          "name": "Chicken stir-fry with rice",
+          "protein_g": 89,
+          "cost_usd": 4.97,
+          "img": "/img/menu/chicken-stir-fry-with-rice.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "southwest-chicken-wrap",
-          "name": "Southwest chicken wrap",
-          "protein_g": 68,
-          "cost_usd": 3.93,
+          "menu": "southwest-chicken-wrap-tofu",
+          "name": "Southwest tofu wrap",
+          "protein_g": 46,
+          "cost_usd": 3.38,
           "img": "/img/menu/southwest-chicken-wrap.jpg"
         }
       ],
-      "protein_g": 176,
-      "cost_usd": 11.14
+      "protein_g": 177,
+      "cost_usd": 11.4
     },
     {
       "day": "thu",
@@ -105,28 +105,28 @@
           "menu": "egg-white-and-veggie-scramble-with-toast-tofu",
           "name": "Tofu and veggie scramble with toast",
           "protein_g": 42,
-          "cost_usd": 4.13,
+          "cost_usd": 3.05,
           "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "healthier-chicken-parmesan-tofu",
-          "name": "Healthier tofu parmesan",
-          "protein_g": 61,
-          "cost_usd": 3.21,
-          "img": "/img/menu/healthier-chicken-parmesan.jpg"
+          "menu": "chicken-stir-fry-with-rice-tofu",
+          "name": "Tofu stir-fry with rice",
+          "protein_g": 56,
+          "cost_usd": 4.35,
+          "img": "/img/menu/chicken-stir-fry-with-rice.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "healthier-chicken-parmesan-tofu",
-          "name": "Healthier tofu parmesan",
-          "protein_g": 61,
-          "cost_usd": 3.21,
-          "img": "/img/menu/healthier-chicken-parmesan.jpg"
+          "menu": "chicken-stir-fry-with-rice-tofu",
+          "name": "Tofu stir-fry with rice",
+          "protein_g": 56,
+          "cost_usd": 4.35,
+          "img": "/img/menu/chicken-stir-fry-with-rice.jpg"
         }
       ],
-      "protein_g": 164,
-      "cost_usd": 10.55
+      "protein_g": 155,
+      "cost_usd": 11.75
     },
     {
       "day": "fri",
@@ -136,36 +136,36 @@
           "menu": "egg-white-and-veggie-scramble-with-toast-tofu",
           "name": "Tofu and veggie scramble with toast",
           "protein_g": 42,
-          "cost_usd": 4.13,
+          "cost_usd": 3.05,
           "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "healthier-chicken-parmesan-tofu",
-          "name": "Healthier tofu parmesan",
-          "protein_g": 61,
-          "cost_usd": 3.21,
-          "img": "/img/menu/healthier-chicken-parmesan.jpg"
+          "menu": "chicken-stir-fry-with-rice-tofu",
+          "name": "Tofu stir-fry with rice",
+          "protein_g": 56,
+          "cost_usd": 4.35,
+          "img": "/img/menu/chicken-stir-fry-with-rice.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "healthier-chicken-parmesan-tofu",
-          "name": "Healthier tofu parmesan",
-          "protein_g": 61,
-          "cost_usd": 3.21,
-          "img": "/img/menu/healthier-chicken-parmesan.jpg"
+          "menu": "chicken-stir-fry-with-rice-tofu",
+          "name": "Tofu stir-fry with rice",
+          "protein_g": 56,
+          "cost_usd": 4.33,
+          "img": "/img/menu/chicken-stir-fry-with-rice.jpg"
         }
       ],
-      "protein_g": 164,
-      "cost_usd": 10.55
+      "protein_g": 155,
+      "cost_usd": 11.73
     }
   ],
   "totals": {
-    "est_total_usd": 57.5,
-    "protein_per_day_g": 162,
-    "under_budget_by_usd": 2.5,
+    "est_total_usd": 56.97,
+    "protein_per_day_g": 154,
+    "under_budget_by_usd": 0.03,
     "waste_lb": 0,
-    "items": 16
+    "items": 13
   },
   "list": {
     "items": [
@@ -188,27 +188,9 @@
         "checked": true
       },
       {
-        "name": "Corn tortillas, 30 ct pack",
-        "aisle": "pantry",
-        "price_usd": 1.98,
-        "checked": false
-      },
-      {
-        "name": "Eggs, dozen",
-        "aisle": "dairy",
-        "price_usd": 2.19,
-        "checked": false
-      },
-      {
         "name": "Flour tortillas, 10 ct pack",
         "aisle": "pantry",
         "price_usd": 3.15,
-        "checked": false
-      },
-      {
-        "name": "Frozen broccoli florets, 12 oz bag",
-        "aisle": "frozen",
-        "price_usd": 3.5,
         "checked": false
       },
       {
@@ -218,9 +200,9 @@
         "checked": false
       },
       {
-        "name": "Marinara sauce, 24 oz jar",
-        "aisle": "pantry",
-        "price_usd": 2.2,
+        "name": "Frozen stir fry vegetables, 16 oz bag",
+        "aisle": "frozen",
+        "price_usd": 5.1,
         "checked": false
       },
       {
@@ -230,21 +212,15 @@
         "checked": false
       },
       {
-        "name": "Panko breadcrumbs, 8 oz box",
-        "aisle": "pantry",
-        "price_usd": 2.52,
-        "checked": false
-      },
-      {
         "name": "Salsa, 24 oz jar",
         "aisle": "pantry",
         "price_usd": 3.51,
         "checked": false
       },
       {
-        "name": "Shredded mozzarella, 8 oz bag",
-        "aisle": "dairy",
-        "price_usd": 2,
+        "name": "Soy sauce, 10 fl oz bottle",
+        "aisle": "pantry",
+        "price_usd": 1.64,
         "checked": false
       },
       {
@@ -256,7 +232,13 @@
       {
         "name": "Tofu, 14 oz block",
         "aisle": "produce",
-        "price_usd": 10.95,
+        "price_usd": 13.14,
+        "checked": false
+      },
+      {
+        "name": "White rice, 5 lb bag",
+        "aisle": "pantry",
+        "price_usd": 4.93,
         "checked": false
       },
       {
@@ -266,14 +248,14 @@
         "checked": false
       }
     ],
-    "est_total_usd": 57.5,
+    "est_total_usd": 56.97,
     "delivery_est_usd": 68.9,
-    "delivery_saves_usd": 11.4,
+    "delivery_saves_usd": 11.93,
     "delivery_label": "Delivered from Kroger, estimated"
   },
   "receipt": {
-    "estimated_usd": 57.5,
-    "actual_usd": 56.75,
+    "estimated_usd": 56.97,
+    "actual_usd": 56.23,
     "delta_pct": -1,
     "accuracy_pct": 96,
     "verified": true
