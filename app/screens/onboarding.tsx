@@ -4,7 +4,8 @@ import { StatusBar } from "@/app/ui/device-frame";
 const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "⌫"];
 
 // S5 ONBOARDING (REDESIGN-V4 §8): "Your weekly budget", one big Inter number over a number pad, Next. Step 1 of 6.
-export function Onboarding({ value = "$55", step = 1 }: { value?: string; step?: number }) {
+// `value` is the budget shown on the pad; callers pass the showcase fixture's budget so S5 and S1 agree
+export function Onboarding({ value, step = 1 }: { value: string; step?: number }) {
   return (
     <Screen>
       <StatusBar />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { fixtureWeek, fixtureWeek2 } from "@/data/fixtures";
+import { budgetUsd } from "@/lib/showcase";
 import { DeviceFrame } from "@/app/ui/device-frame";
 import { GroceryList, Onboarding, ReceiptReveal, ShareWeek, ThisWeek } from "@/app/screens";
 
@@ -10,7 +11,7 @@ export const metadata: Metadata = { title: "Store shot", robots: { index: false,
 // shot, laid out at 1290×2796 CSS px; scripts/store-shots.ts captures each at DPR 1 into public/store/. The phone is
 // 1000px wide, so one screen point is 2.29px and the 56pt thumbnails render at 128px (imgSizes below).
 const SHOTS = [
-  ["s5", "Two numbers in. A week out.", <Onboarding key="s5" value="$55" />],
+  ["s5", "Two numbers in. A week out.", <Onboarding key="s5" value={budgetUsd(fixtureWeek.budget_usd)} />],
   ["s1", "Plan the week in a minute.", <ThisWeek key="s1" week={fixtureWeek} imgSizes="128px" />],
   ["s2", "One list. One trip.", <GroceryList key="s2" week={fixtureWeek} />],
   ["s6", "Nothing goes to waste.", <ThisWeek key="s6" week={fixtureWeek2} active="thu" imgSizes="128px" />],

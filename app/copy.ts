@@ -33,7 +33,7 @@ export const FAQ = [
   },
   {
     q: "How does the weekly solve challenge work?",
-    a: "Solve a week, shop it, reveal the receipt. Only receipt-verified weeks count, so an estimate alone does not enter. The leaderboard is cost per gram of protein, which means a $40 week can beat a $60 one. It is a Protein Plan feature at launch.",
+    a: "Solve a week, shop it, reveal the receipt. Only receipt-verified weeks count, so an estimate alone does not enter. The leaderboard is cost per gram of protein, so the week that buys the most protein per dollar wins, not the smallest total. It is a Protein Plan feature at launch.",
   },
   {
     q: "What do you collect?",

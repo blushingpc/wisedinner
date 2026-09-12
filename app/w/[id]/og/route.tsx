@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { usd } from "@/data/fixtures";
+import { budgetPhrase, wholeUsd } from "@/lib/showcase";
 import { loadWeek } from "@/lib/shared-week";
 import { MARK_PATHS } from "@/app/lockup";
 
@@ -33,7 +33,7 @@ export async function GET(_: Request, ctx: { params: Promise<{ id: string }> }) 
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div style={{ display: "flex", alignItems: "baseline", gap: 24, fontSize: 68, fontWeight: 800, letterSpacing: -1.5 }}>
-            <span>{usd(t.est_total_usd)}</span>
+            <span>{wholeUsd(t.est_total_usd)}</span>
             <span style={{ color: "#6B6B6B", fontSize: 40, fontFamily: "Inter", fontWeight: 500 }}>{t.protein_per_day_g}g of protein a day</span>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
@@ -46,7 +46,7 @@ export async function GET(_: Request, ctx: { params: Promise<{ id: string }> }) 
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#0B3D2E", fontFamily: "Inter", fontWeight: 500 }}>
           <span>
-            Five dinners, one {t.items}-item list, under budget by {usd(t.under_budget_by_usd)}
+            Five dinners, one {t.items}-item list{budgetPhrase(w) ? `, ${budgetPhrase(w)}` : ""}
           </span>
           <span>wisedinner.com</span>
         </div>

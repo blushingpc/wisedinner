@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { fixtures, usd } from "@/data/fixtures";
+import { wholeUsd } from "@/lib/showcase";
 import { loadWeek } from "@/lib/shared-week";
 import { ShareCard } from "@/app/screens";
 import { StoreBadges } from "@/app/ui/store-badges";
@@ -26,8 +27,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   if (!w) return {};
   const t = w.totals;
   return {
-    title: `A solved week: ${usd(t.est_total_usd)}, ${t.protein_per_day_g}g a day`,
-    description: `Five dinners, one ${t.items}-item list, ${usd(t.est_total_usd)} at the shelf, ${t.protein_per_day_g}g of protein a day. Solved by WiseDinner.`,
+    title: `A solved week: ${wholeUsd(t.est_total_usd)}, ${t.protein_per_day_g}g a day`,
+    description: `Five dinners, one ${t.items}-item list, ${wholeUsd(t.est_total_usd)} at the shelf, ${t.protein_per_day_g}g of protein a day. Solved by WiseDinner.`,
     alternates: { canonical: `/w/${id}` },
     openGraph: { images: [`/w/${id}/og`], url: `${SITE}/w/${id}` },
     robots: { index: false, follow: true },
@@ -45,7 +46,7 @@ export default async function SharePage({ params }: { params: Promise<{ id: stri
           <div className="text-center">
             <p className="text-caption font-medium text-ink-2">A solved week, shared from the app</p>
             <h1 className="mt-3 text-h2 text-balance">
-              {usd(w.totals.est_total_usd)} for the week, {w.totals.protein_per_day_g}g of protein a day
+              {wholeUsd(w.totals.est_total_usd)} for the week, {w.totals.protein_per_day_g}g of protein a day
             </h1>
           </div>
           {/* the S3 card at page width: the screen's em sizing is re-based to the page font */}

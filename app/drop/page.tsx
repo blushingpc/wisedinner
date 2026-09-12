@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { drop } from "@/data/drop";
+import { wholeUsd } from "@/lib/showcase";
 import { PageView } from "@/app/ui/page-view";
 import { PageShell } from "@/app/ui/page-shell";
 import { ReceiptCard } from "@/app/ui/receipt-card";
@@ -16,7 +17,7 @@ const DAY: Record<string, string> = { mon: "Monday", tue: "Tuesday", wed: "Wedne
 
 export default function Drop() {
   return (
-    <PageShell title="This week's protein plan" sub={`One universal week: ${drop.input.protein_per_day}g of protein a day for one person, solved under $${drop.input.budget} at this week's estimated shelf prices. Refreshed every Sunday. No account, no card.`} wide>
+    <PageShell title="This week's protein plan" sub={`One universal week: ${drop.input.protein_per_day}g of protein a day for one person, ${wholeUsd(drop.est_total)} at this week's estimated shelf prices. Refreshed every Sunday. No account, no card.`} wide>
       <PageView event="drop_view" />
       <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
         <div data-reveal>

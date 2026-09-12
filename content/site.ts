@@ -8,14 +8,14 @@ export const site = {
     cta: "Pre-order now",
     micro: "Free to pre-order. iPhone first, Android next.",
   },
-  proof: { preorders: 0, demoWeeksThisMonth: 0, avgWeekUsd: 49.2 }, // counts show only when >= 100
+  proof: { preorders: 0, demoWeeksThisMonth: 0 }, // counts show only when >= 100
   launchWindow: process.env.NEXT_PUBLIC_RELEASE_DATE || "", // only when the date is firm; set with the App Store URL (lib/links.ts)
   // SECTION 2 switcher (§6 titles, §7 copy)
   include: {
     h2: "What does WiseDinner include?",
     items: [
       { title: "A solved week, not suggestions", body: "Give it two numbers. It returns five days of meals that share ingredients, so nothing you buy goes to waste. Regenerate a meal or the whole week." },
-      { title: "One short list with a real total", body: "About twelve items, grouped by aisle, with an estimated in-store total. You also see what the same list costs delivered from Kroger, estimated." },
+      { title: "One short list with a real total", body: "Everything for the week, grouped by aisle, with an estimated in-store total. You also see what the same list costs delivered from Kroger, estimated." },
       { title: "Share your week and beat a friend's", body: "Every solved week gets a card and a link. Send a friend your numbers and see who comes out cheaper." },
       { title: "Prove it with your receipt", body: "Photograph your receipt after you shop. You see the estimate next to what you actually paid, and the app gets more accurate every week." },
     ],
