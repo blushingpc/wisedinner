@@ -6,9 +6,9 @@
     "kcal_max": 2600,
     "diet": "none",
     "household": 1,
-    "seed": 37
+    "seed": 38
   },
-  "generated_at": "2026-09-13",
+  "generated_at": "2026-09-20",
   "feasible": true,
   "days": [
     {
@@ -22,22 +22,22 @@
           "kcal": 751
         },
         {
-          "name": "tuna rice bowl, edamame",
+          "name": "chicken breast pasta, tomato",
           "unit": "lunch",
-          "portion": "canned tuna in water 2 packs · white rice 1/16 · frozen edamame 1/3",
-          "protein_g": 76,
-          "kcal": 888
+          "portion": "chicken breast 1/5 · pasta 1/4 · canned diced tomatoes 1/2",
+          "protein_g": 77,
+          "kcal": 788
         },
         {
-          "name": "frozen chicken, broccoli, rice",
+          "name": "chicken breast and potatoes",
           "unit": "dinner",
-          "portion": "frozen chicken breast 1/6 · white rice 1/16 · frozen broccoli florets 1/2",
-          "protein_g": 66,
-          "kcal": 835
+          "portion": "chicken breast 1/5 · russet potatoes 1/6 · frozen mixed vegetables 1/2",
+          "protein_g": 75,
+          "kcal": 748
         }
       ],
-      "protein_g": 168,
-      "kcal": 2473
+      "protein_g": 178,
+      "kcal": 2287
     },
     {
       "day": "tue",
@@ -50,81 +50,25 @@
           "kcal": 751
         },
         {
-          "name": "frozen chicken, broccoli, rice",
+          "name": "chicken breast pasta, tomato",
           "unit": "lunch",
-          "portion": "frozen chicken breast 1/6 · white rice 1/16 · frozen broccoli florets 1/2",
-          "protein_g": 66,
-          "kcal": 835
+          "portion": "chicken breast 1/5 · pasta 1/4 · canned diced tomatoes 1/2",
+          "protein_g": 77,
+          "kcal": 788
         },
         {
-          "name": "lentil and chicken stew",
+          "name": "chicken breast pasta, tomato",
           "unit": "dinner",
-          "portion": "lentils 1/4 · canned chicken breast 1/2 · canned diced tomatoes 1/2 · carrots 1/4",
-          "protein_g": 62,
-          "kcal": 673
+          "portion": "chicken breast 1/5 · pasta 1/4 · canned diced tomatoes 1/2",
+          "protein_g": 77,
+          "kcal": 788
         }
       ],
-      "protein_g": 153,
-      "kcal": 2258
+      "protein_g": 180,
+      "kcal": 2327
     },
     {
       "day": "wed",
-      "items": [
-        {
-          "name": "peanut butter tortilla roll-ups",
-          "unit": "breakfast",
-          "portion": "peanut butter 1/6 · flour tortillas 1/5",
-          "protein_g": 25,
-          "kcal": 751
-        },
-        {
-          "name": "frozen chicken, broccoli, rice",
-          "unit": "lunch",
-          "portion": "frozen chicken breast 1/6 · white rice 1/16 · frozen broccoli florets 1/2",
-          "protein_g": 66,
-          "kcal": 835
-        },
-        {
-          "name": "frozen chicken, broccoli, rice",
-          "unit": "dinner",
-          "portion": "frozen chicken breast 1/6 · white rice 1/16 · frozen broccoli florets 1/2",
-          "protein_g": 66,
-          "kcal": 835
-        }
-      ],
-      "protein_g": 157,
-      "kcal": 2420
-    },
-    {
-      "day": "thu",
-      "items": [
-        {
-          "name": "peanut butter tortilla roll-ups",
-          "unit": "breakfast",
-          "portion": "peanut butter 1/6 · flour tortillas 1/5",
-          "protein_g": 25,
-          "kcal": 751
-        },
-        {
-          "name": "frozen chicken, broccoli, rice",
-          "unit": "lunch",
-          "portion": "frozen chicken breast 1/6 · white rice 1/16 · frozen broccoli florets 1/2",
-          "protein_g": 66,
-          "kcal": 835
-        },
-        {
-          "name": "lentil and chicken stew",
-          "unit": "dinner",
-          "portion": "lentils 1/4 · canned chicken breast 1/2 · canned diced tomatoes 1/2 · carrots 1/4",
-          "protein_g": 62,
-          "kcal": 673
-        }
-      ],
-      "protein_g": 153,
-      "kcal": 2258
-    },
-    {
-      "day": "fri",
       "items": [
         {
           "name": "peanut butter tortilla roll-ups",
@@ -141,11 +85,67 @@
           "kcal": 888
         },
         {
-          "name": "chickpea tuna salad, bread",
+          "name": "chicken breast pasta, tomato",
           "unit": "dinner",
+          "portion": "chicken breast 1/5 · pasta 1/4 · canned diced tomatoes 1/2",
+          "protein_g": 77,
+          "kcal": 788
+        }
+      ],
+      "protein_g": 179,
+      "kcal": 2426
+    },
+    {
+      "day": "thu",
+      "items": [
+        {
+          "name": "peanut butter tortilla roll-ups",
+          "unit": "breakfast",
+          "portion": "peanut butter 1/6 · flour tortillas 1/5",
+          "protein_g": 25,
+          "kcal": 751
+        },
+        {
+          "name": "chickpea tuna salad, bread",
+          "unit": "lunch",
           "portion": "chickpeas 1 pack · canned tuna in water 1 pack · whole wheat bread 1/10",
           "protein_g": 56,
           "kcal": 665
+        },
+        {
+          "name": "tuna rice bowl, edamame",
+          "unit": "dinner",
+          "portion": "canned tuna in water 2 packs · white rice 1/16 · frozen edamame 1/3",
+          "protein_g": 76,
+          "kcal": 888
+        }
+      ],
+      "protein_g": 158,
+      "kcal": 2303
+    },
+    {
+      "day": "fri",
+      "items": [
+        {
+          "name": "peanut butter tortilla roll-ups",
+          "unit": "breakfast",
+          "portion": "peanut butter 1/6 · flour tortillas 1/5",
+          "protein_g": 25,
+          "kcal": 751
+        },
+        {
+          "name": "chickpea tuna salad, bread",
+          "unit": "lunch",
+          "portion": "chickpeas 1 pack · canned tuna in water 1 pack · whole wheat bread 1/10",
+          "protein_g": 56,
+          "kcal": 665
+        },
+        {
+          "name": "tuna rice bowl, edamame",
+          "unit": "dinner",
+          "portion": "canned tuna in water 2 packs · white rice 1/16 · frozen edamame 1/3",
+          "protein_g": 76,
+          "kcal": 888
         }
       ],
       "protein_g": 158,
@@ -154,44 +154,36 @@
   ],
   "list": [
     {
-      "name": "canned chicken breast",
-      "unit": "12.5 oz can",
-      "qty": 1,
-      "price_usd": 2.96,
-      "perishable": false,
-      "eaten": 1
-    },
-    {
       "name": "canned diced tomatoes",
       "unit": "14.5 oz can",
-      "qty": 1,
-      "price_usd": 1.01,
+      "qty": 2,
+      "price_usd": 2.02,
       "perishable": false,
-      "eaten": 1
+      "eaten": 2
     },
     {
       "name": "canned tuna in water",
       "unit": "5 oz can",
-      "qty": 5,
-      "price_usd": 5.25,
+      "qty": 8,
+      "price_usd": 8.4,
       "perishable": false,
-      "eaten": 5
+      "eaten": 8
     },
     {
-      "name": "carrots",
-      "unit": "2 lb bag",
+      "name": "chicken breast, boneless skinless",
+      "unit": "3 lb family pack",
       "qty": 1,
-      "price_usd": 1.86,
-      "perishable": false,
-      "eaten": 0.5
+      "price_usd": 9.21,
+      "perishable": true,
+      "eaten": 1
     },
     {
       "name": "chickpeas, canned",
       "unit": "15 oz can",
-      "qty": 1,
-      "price_usd": 0.94,
+      "qty": 2,
+      "price_usd": 1.88,
       "perishable": false,
-      "eaten": 1
+      "eaten": 2
     },
     {
       "name": "flour tortillas",
@@ -202,36 +194,28 @@
       "eaten": 1
     },
     {
-      "name": "frozen broccoli florets",
-      "unit": "12 oz bag",
-      "qty": 3,
-      "price_usd": 4.14,
-      "perishable": false,
-      "eaten": 2.5
-    },
-    {
-      "name": "frozen chicken breast",
-      "unit": "3 lb bag",
-      "qty": 1,
-      "price_usd": 9.87,
-      "perishable": false,
-      "eaten": 0.83
-    },
-    {
       "name": "frozen edamame, shelled",
       "unit": "12 oz bag",
       "qty": 1,
       "price_usd": 2.37,
       "perishable": false,
-      "eaten": 0.67
+      "eaten": 1
     },
     {
-      "name": "lentils, dry",
-      "unit": "1 lb bag",
+      "name": "frozen mixed vegetables",
+      "unit": "12 oz bag",
       "qty": 1,
-      "price_usd": 1.63,
+      "price_usd": 1.25,
       "perishable": false,
       "eaten": 0.5
+    },
+    {
+      "name": "pasta, spaghetti",
+      "unit": "1 lb box",
+      "qty": 1,
+      "price_usd": 1.2,
+      "perishable": false,
+      "eaten": 1
     },
     {
       "name": "peanut butter",
@@ -242,12 +226,20 @@
       "eaten": 0.83
     },
     {
+      "name": "russet potatoes",
+      "unit": "5 lb bag",
+      "qty": 1,
+      "price_usd": 3.62,
+      "perishable": false,
+      "eaten": 0.17
+    },
+    {
       "name": "white rice, long grain",
       "unit": "5 lb bag",
       "qty": 1,
       "price_usd": 3.84,
       "perishable": false,
-      "eaten": 0.44
+      "eaten": 0.19
     },
     {
       "name": "whole wheat bread",
@@ -255,16 +247,16 @@
       "qty": 1,
       "price_usd": 2.19,
       "perishable": false,
-      "eaten": 0.1
+      "eaten": 0.2
     }
   ],
-  "est_total": 40.57,
-  "protein_per_day": 152,
-  "kcal_per_day": 2343,
+  "est_total": 40.49,
+  "protein_per_day": 157,
+  "kcal_per_day": 2329,
   "protein_shortfall_g": 0,
   "price_as_of": "2026-08-30",
-  "distinct_skus": 13,
-  "protein_sources": 5,
-  "seed": 37,
+  "distinct_skus": 12,
+  "protein_sources": 3,
+  "seed": 38,
   "why": []
 }
