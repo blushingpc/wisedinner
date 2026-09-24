@@ -1,4 +1,5 @@
-import { fixtureWeek, usd } from "@/data/fixtures";
+import { fixtureWeek } from "@/data/fixtures";
+import { wholeUsd } from "@/lib/showcase";
 import { site } from "@/content/site";
 import { PreorderButton } from "./preorder-modal";
 
@@ -15,7 +16,7 @@ export function PreorderBand() {
           <PreorderButton placement="final" className="cta cta-light cta-wide min-w-[200px]" />
         </div>
         <p className="mt-8 text-[0.9375rem] text-white/80 tnum">
-          This week&apos;s plan: {t.items} items, {usd(t.est_total_usd)}, {t.protein_per_day_g}g of protein a day
+          This week&apos;s plan: {t.items} items, {wholeUsd(t.est_total_usd)}, {t.protein_per_day_g}g of protein a day
         </p>
       </div>
     </section>

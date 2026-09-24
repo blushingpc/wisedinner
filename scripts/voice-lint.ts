@@ -3,17 +3,10 @@
 // applies to what renders, not to code comments. run: node scripts/voice-lint.ts  (exit 1 on any hit)
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { BANNED } from "../lib/support/voice.ts"; // one rule list: the support send gate uses the same one
 
 const ROOTS = ["app", "content"];
 const DATA = ["data/menu.json", "data/fixture-week.json", "data/fixture-week-2.json", "data/testers.json"]; // copy-bearing data only; ledgers are not copy
-const BANNED: [RegExp, string][] = [
-  [/—/g, "em dash"],
-  [/–/g, "en dash"],
-  [/·/g, "middot"],
-  [/…/g, "ellipsis"],
-  [/(?<![=!<>])!(?=[^=])/g, "exclamation point"],
-  [/\blowercase\b/g, "lowercase styling"],
-];
 
 function* walk(dir: string): Generator<string> {
   for (const f of readdirSync(dir)) {

@@ -1,256 +1,274 @@
 {
   "id": "example-2",
-  "budget_usd": 55,
+  "budget_usd": 57,
   "protein_goal_g": 150,
-  "generated_at": "2026-09-08",
+  "generated_at": "2026-09-12",
   "days": [
     {
       "day": "mon",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "egg-white-and-veggie-scramble-with-toast",
-          "name": "Egg white and veggie scramble with toast",
-          "protein_g": 38,
-          "cost_usd": 2.1,
-          "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
+          "menu": "egg-and-avocado-breakfast-wrap-tofu",
+          "name": "Tofu and avocado breakfast wrap",
+          "protein_g": 40,
+          "cost_usd": 2.36,
+          "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "turkey-taco-bowl",
-          "name": "Turkey taco bowl",
-          "protein_g": 50,
-          "cost_usd": 3.2,
-          "img": "/img/menu/turkey-taco-bowl.jpg"
+          "menu": "chicken-fajita-bowl-tortillas",
+          "name": "Chicken fajitas with flour tortillas",
+          "protein_g": 73,
+          "cost_usd": 5.81,
+          "img": "/img/menu/chicken-fajita-bowl.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "chicken-fajita-bowl",
-          "name": "Chicken fajita bowl",
-          "protein_g": 56,
-          "cost_usd": 3.7,
-          "img": "/img/menu/chicken-fajita-bowl.jpg"
+          "menu": "southwest-chicken-wrap",
+          "name": "Southwest chicken wrap",
+          "protein_g": 53,
+          "cost_usd": 3.62,
+          "img": "/img/menu/southwest-chicken-wrap.jpg"
         }
       ],
-      "protein_g": 144,
-      "cost_usd": 9
+      "protein_g": 166,
+      "cost_usd": 11.79
     },
     {
       "day": "tue",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "cottage-cheese-bowl-with-fruit-and-honey",
-          "name": "Cottage cheese bowl with fruit and honey",
+          "menu": "egg-and-avocado-breakfast-wrap-tofu",
+          "name": "Tofu and avocado breakfast wrap",
           "protein_g": 40,
-          "cost_usd": 2,
-          "img": "/img/menu/cottage-cheese-bowl-with-fruit-and-honey.jpg"
+          "cost_usd": 2.36,
+          "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "chicken-fajita-bowl",
-          "name": "Chicken fajita bowl",
-          "protein_g": 56,
-          "cost_usd": 3.7,
-          "img": "/img/menu/chicken-fajita-bowl.jpg"
+          "menu": "healthier-chicken-parmesan",
+          "name": "Healthier chicken parmesan",
+          "protein_g": 63,
+          "cost_usd": 3.21,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "turkey-meatballs-with-whole-wheat-spaghetti",
-          "name": "Turkey meatballs with whole wheat spaghetti",
-          "protein_g": 54,
-          "cost_usd": 3.6,
-          "img": "/img/menu/turkey-meatballs-with-whole-wheat-spaghetti.jpg"
+          "menu": "chicken-fajita-bowl-tortillas",
+          "name": "Chicken fajitas with flour tortillas",
+          "protein_g": 73,
+          "cost_usd": 5.81,
+          "img": "/img/menu/chicken-fajita-bowl.jpg"
         }
       ],
-      "protein_g": 150,
-      "cost_usd": 9.3
+      "protein_g": 176,
+      "cost_usd": 11.38
     },
     {
       "day": "wed",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "protein-oatmeal-with-peanut-butter-and-banana",
-          "name": "Protein oatmeal with peanut butter and banana",
+          "menu": "egg-and-avocado-breakfast-wrap-tofu",
+          "name": "Tofu and avocado breakfast wrap",
           "protein_g": 40,
-          "cost_usd": 1.8,
-          "img": "/img/menu/protein-oatmeal-with-peanut-butter-and-banana.jpg"
+          "cost_usd": 2.36,
+          "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "turkey-meatballs-with-whole-wheat-spaghetti",
-          "name": "Turkey meatballs with whole wheat spaghetti",
-          "protein_g": 54,
-          "cost_usd": 3.6,
-          "img": "/img/menu/turkey-meatballs-with-whole-wheat-spaghetti.jpg"
+          "menu": "healthier-chicken-parmesan",
+          "name": "Healthier chicken parmesan",
+          "protein_g": 63,
+          "cost_usd": 3.21,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "chicken-stir-fry-with-rice",
-          "name": "Chicken stir-fry with rice",
-          "protein_g": 56,
-          "cost_usd": 3.4,
-          "img": "/img/menu/chicken-stir-fry-with-rice.jpg"
+          "menu": "chicken-fajita-bowl-tortillas",
+          "name": "Chicken fajitas with flour tortillas",
+          "protein_g": 73,
+          "cost_usd": 5.81,
+          "img": "/img/menu/chicken-fajita-bowl.jpg"
         }
       ],
-      "protein_g": 150,
-      "cost_usd": 8.8
+      "protein_g": 176,
+      "cost_usd": 11.38
     },
     {
       "day": "thu",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "greek-yogurt-parfait-with-berries-and-granola",
-          "name": "Greek yogurt parfait with berries and granola",
-          "protein_g": 38,
-          "cost_usd": 2.2,
-          "img": "/img/menu/greek-yogurt-parfait-with-berries-and-granola.jpg"
+          "menu": "egg-white-and-veggie-scramble-with-toast-tofu",
+          "name": "Tofu and veggie scramble with toast",
+          "protein_g": 42,
+          "cost_usd": 4.35,
+          "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "mediterranean-chicken-bowl-with-tzatziki",
-          "name": "Mediterranean chicken bowl with tzatziki",
-          "protein_g": 54,
-          "cost_usd": 3.6,
-          "img": "/img/menu/mediterranean-chicken-bowl-with-tzatziki.jpg"
+          "menu": "healthier-chicken-parmesan-tofu",
+          "name": "Healthier tofu parmesan",
+          "protein_g": 61,
+          "cost_usd": 3.38,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "buffalo-chicken-bowl",
-          "name": "Buffalo chicken bowl",
-          "protein_g": 56,
-          "cost_usd": 3.6,
-          "img": "/img/menu/buffalo-chicken-bowl.jpg"
+          "menu": "healthier-chicken-parmesan-tofu",
+          "name": "Healthier tofu parmesan",
+          "protein_g": 61,
+          "cost_usd": 3.38,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         }
       ],
-      "protein_g": 148,
-      "cost_usd": 9.4
+      "protein_g": 164,
+      "cost_usd": 11.11
     },
     {
       "day": "fri",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "egg-and-avocado-breakfast-wrap",
-          "name": "Egg and avocado breakfast wrap",
-          "protein_g": 36,
-          "cost_usd": 2.2,
-          "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
+          "menu": "egg-white-and-veggie-scramble-with-toast-tofu",
+          "name": "Tofu and veggie scramble with toast",
+          "protein_g": 42,
+          "cost_usd": 4.35,
+          "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "buffalo-chicken-bowl",
-          "name": "Buffalo chicken bowl",
-          "protein_g": 56,
-          "cost_usd": 3.6,
-          "img": "/img/menu/buffalo-chicken-bowl.jpg"
+          "menu": "healthier-chicken-parmesan-tofu",
+          "name": "Healthier tofu parmesan",
+          "protein_g": 61,
+          "cost_usd": 3.38,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "healthier-chicken-parmesan",
-          "name": "Healthier chicken parmesan",
-          "protein_g": 62,
-          "cost_usd": 4.2,
+          "menu": "healthier-chicken-parmesan-tofu",
+          "name": "Healthier tofu parmesan",
+          "protein_g": 61,
+          "cost_usd": 3.34,
           "img": "/img/menu/healthier-chicken-parmesan.jpg"
         }
       ],
-      "protein_g": 154,
-      "cost_usd": 10
+      "protein_g": 164,
+      "cost_usd": 11.07
     }
   ],
   "totals": {
-    "est_total_usd": 46.5,
-    "protein_per_day_g": 149,
-    "under_budget_by_usd": 8.5,
+    "est_total_usd": 56.73,
+    "protein_per_day_g": 164,
+    "under_budget_by_usd": 0.27,
     "waste_lb": 0,
-    "items": 12
+    "items": 15
   },
   "list": {
     "items": [
       {
+        "name": "Avocado, 1 avocado",
+        "aisle": "produce",
+        "price_usd": 2.2,
+        "checked": false
+      },
+      {
+        "name": "Black beans, 15 oz can",
+        "aisle": "pantry",
+        "price_usd": 1.07,
+        "checked": false
+      },
+      {
         "name": "Chicken breast, 3 lb family pack",
         "aisle": "meat",
-        "price_usd": 9.47,
+        "price_usd": 8.55,
         "checked": true
       },
       {
-        "name": "Ground turkey 93/7, 2 lb",
-        "aisle": "meat",
-        "price_usd": 7.98,
-        "checked": true
-      },
-      {
-        "name": "Eggs, 18 ct",
+        "name": "Eggs, dozen",
         "aisle": "dairy",
-        "price_usd": 4.29,
+        "price_usd": 2.19,
         "checked": false
       },
       {
-        "name": "Greek yogurt, 32 oz",
+        "name": "Flour tortillas, 10 ct pack",
+        "aisle": "pantry",
+        "price_usd": 3.15,
+        "checked": false
+      },
+      {
+        "name": "Frozen broccoli florets, 12 oz bag",
+        "aisle": "frozen",
+        "price_usd": 3.5,
+        "checked": false
+      },
+      {
+        "name": "Frozen peppers and onions, 16 oz bag",
+        "aisle": "frozen",
+        "price_usd": 4.62,
+        "checked": false
+      },
+      {
+        "name": "Marinara sauce, 24 oz jar",
+        "aisle": "pantry",
+        "price_usd": 2.2,
+        "checked": false
+      },
+      {
+        "name": "Olive oil, 17 oz bottle",
+        "aisle": "pantry",
+        "price_usd": 6.99,
+        "checked": false
+      },
+      {
+        "name": "Panko breadcrumbs, 8 oz box",
+        "aisle": "pantry",
+        "price_usd": 2.52,
+        "checked": false
+      },
+      {
+        "name": "Salsa, 24 oz jar",
+        "aisle": "pantry",
+        "price_usd": 3.51,
+        "checked": false
+      },
+      {
+        "name": "Shredded mozzarella, 8 oz bag",
         "aisle": "dairy",
-        "price_usd": 4.49,
+        "price_usd": 2,
         "checked": false
       },
       {
-        "name": "Cottage cheese, 24 oz",
-        "aisle": "dairy",
-        "price_usd": 3.29,
-        "checked": false
-      },
-      {
-        "name": "Jasmine rice, 3 lb",
+        "name": "Taco seasoning, 1 oz packet",
         "aisle": "pantry",
-        "price_usd": 3.48,
+        "price_usd": 0.99,
         "checked": false
       },
       {
-        "name": "Whole wheat spaghetti, 16 oz",
-        "aisle": "pantry",
-        "price_usd": 1.48,
-        "checked": false
-      },
-      {
-        "name": "Marinara, 24 oz",
-        "aisle": "pantry",
-        "price_usd": 1.98,
-        "checked": false
-      },
-      {
-        "name": "Rolled oats, 18 oz",
-        "aisle": "pantry",
-        "price_usd": 2.98,
-        "checked": false
-      },
-      {
-        "name": "Bell peppers, 3 pack",
+        "name": "Tofu, 14 oz block",
         "aisle": "produce",
-        "price_usd": 2.98,
+        "price_usd": 10.95,
         "checked": false
       },
       {
-        "name": "Romaine hearts, 3 pack",
-        "aisle": "produce",
-        "price_usd": 2.48,
-        "checked": false
-      },
-      {
-        "name": "Bananas, bunch",
-        "aisle": "produce",
-        "price_usd": 1.6,
+        "name": "Whole wheat bread, 20 oz loaf",
+        "aisle": "pantry",
+        "price_usd": 2.29,
         "checked": false
       }
     ],
-    "est_total_usd": 46.5,
+    "est_total_usd": 56.73,
     "delivery_est_usd": 65.4,
-    "delivery_saves_usd": 18.9,
+    "delivery_saves_usd": 8.67,
     "delivery_label": "Delivered from Kroger, estimated"
   },
   "receipt": {
-    "estimated_usd": 46.5,
-    "actual_usd": 44.11,
-    "delta_pct": -5,
+    "estimated_usd": 56.73,
+    "actual_usd": 55.99,
+    "delta_pct": -1,
     "accuracy_pct": 96,
     "verified": true
   }

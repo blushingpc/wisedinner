@@ -8,20 +8,30 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test lib/solver.test.ts",
-    "lint:voice": "node scripts/voice-lint.ts"
+    "test": "node --test \"packages/**/*.test.ts\" \"lib/**/*.test.ts\" \"scripts/**/*.test.ts\"",
+    "lint:voice": "node scripts/voice-lint.ts",
+    "data:pipeline": "node --env-file-if-exists=.env.local scripts/data/run.ts",
+    "data:local": "node --env-file-if-exists=.env.local scripts/data/run.ts --local --cached",
+    "gen:fixtures": "node scripts/gen-fixtures.ts",
+    "gen:drop": "node scripts/gen-drop.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.124.0",
     "@phosphor-icons/react": "^2.1.10",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
+    "imapflow": "^2.0.0",
+    "mailparser": "^3.9.23",
     "next": "16.3.3",
+    "nodemailer": "^10.0.2",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/mailparser": "^3.4.6",
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

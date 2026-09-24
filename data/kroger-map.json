@@ -1,0 +1,548 @@
+{
+  "chicken-breast": {
+    "productId": "0028334900000",
+    "description": "Heritage Farm® Boneless Skinless Chicken Breasts",
+    "size": "1 lb",
+    "term": "boneless skinless chicken breast family pack",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-chicken-breast": {
+    "productId": "0001111097023",
+    "description": "Heritage Farm® Frozen Raw Boneless Skinless Chicken Breast Family Pack BIG DEAL!",
+    "size": "6 lb",
+    "term": "frozen boneless skinless chicken breast",
+    "matched_at": "2026-09-10"
+  },
+  "ground-turkey": {
+    "productId": "0001111096874",
+    "description": "Kroger® 93/7 Lean Fresh Ground Turkey - 1 LB",
+    "size": "1 lb",
+    "term": "ground turkey 93% lean",
+    "matched_at": "2026-09-10"
+  },
+  "ground-beef": {
+    "productId": "0001111097972",
+    "description": "Kroger® 80/20 Ground Beef Roll 3 LB",
+    "size": "3 lb",
+    "term": "ground beef 80/20",
+    "matched_at": "2026-09-10"
+  },
+  "pork-loin": {
+    "productId": "0020322450000",
+    "description": "Kroger® Fresh Natural Pork Loin Boneless",
+    "size": "1 lb",
+    "term": "pork loin",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-tilapia": {
+    "productId": "0001111086003",
+    "description": "Kroger® Farm Raised Tilapia Fillets Frozen BIG DEAL!",
+    "size": "32 ounces",
+    "term": "frozen tilapia fillets",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-shrimp": {
+    "productId": "0001111065386",
+    "description": "Kroger® Peeled & Deveined Tail Off White Raw Shrimp",
+    "size": "2 lb",
+    "term": "frozen raw shrimp peeled deveined",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-salmon": {
+    "productId": "0001111077990",
+    "description": "Kroger® Wild Caught Pink Salmon Fillets Frozen BIG DEAL!",
+    "size": "32 ounces",
+    "term": "frozen salmon fillets",
+    "matched_at": "2026-09-10"
+  },
+  "deli-turkey": {
+    "productId": "0024583000000",
+    "description": "Butterball Deli-Sliced Oven Roasted Turkey Breast Lunch Meat",
+    "size": "1 lb",
+    "term": "oven roasted turkey breast lunchmeat",
+    "matched_at": "2026-09-10"
+  },
+  "canned-tuna": {
+    "productId": "0001111089084",
+    "description": "Kroger® Wild Caught Chunk Light Tuna in Water",
+    "size": "5 oz",
+    "term": "chunk light tuna in water 5 oz",
+    "matched_at": "2026-09-10"
+  },
+  "canned-chicken": {
+    "productId": "0001111083921",
+    "description": "Kroger® Premium Chunk Chicken Breast in Water",
+    "size": "10 oz",
+    "term": "chunk chicken breast",
+    "matched_at": "2026-09-10"
+  },
+  "eggs": {
+    "productId": "0001111060933",
+    "description": "Kroger® Grade A Large White Eggs",
+    "size": "18 ct",
+    "term": "grade a large eggs",
+    "matched_at": "2026-09-10"
+  },
+  "egg-whites": {
+    "productId": "0007590097122",
+    "description": "Bob Evans 100% Liquid Egg Whites",
+    "size": "32 oz",
+    "term": "liquid egg whites 32 oz",
+    "matched_at": "2026-09-10"
+  },
+  "greek-yogurt": {
+    "productId": "0001111010717",
+    "description": "Kroger® Plain Nonfat Greek Yogurt Tub",
+    "size": "32 oz",
+    "term": "plain nonfat greek yogurt 32 oz",
+    "matched_at": "2026-09-10"
+  },
+  "cottage-cheese": {
+    "productId": "0001111044217",
+    "description": "Kroger® 4% Milkfat Small Curd Cottage Cheese BIG DEAL!",
+    "size": "48 oz",
+    "term": "2% cottage cheese 24 oz",
+    "matched_at": "2026-09-10"
+  },
+  "milk": {
+    "productId": "0001111041700",
+    "description": "Kroger® 2% Reduced Fat Milk Gallon",
+    "size": "1 gal",
+    "term": "2% reduced fat milk gallon",
+    "matched_at": "2026-09-10"
+  },
+  "string-cheese": {
+    "productId": "0001111012939",
+    "description": "Kroger® Mozzarella String Cheese BIG DEAL!",
+    "size": "48 ct / 1 oz",
+    "term": "mozzarella string cheese 12 count",
+    "matched_at": "2026-09-10"
+  },
+  "shredded-cheddar": {
+    "productId": "0001111015120",
+    "description": "Kroger® Sharp Cheddar Shredded Cheese Family Size",
+    "size": "32 oz",
+    "term": "shredded cheddar cheese 8 oz",
+    "matched_at": "2026-09-10"
+  },
+  "shredded-mozzarella": {
+    "productId": "0001111015028",
+    "description": "Kroger® Mozzarella Shredded Cheese Family Size",
+    "size": "32 oz",
+    "term": "shredded mozzarella cheese 8 oz",
+    "matched_at": "2026-09-10"
+  },
+  "parmesan": {
+    "productId": "0001111016337",
+    "description": "Kroger® Basil and Oregano Grated Parmesan Cheese",
+    "size": "8 oz",
+    "term": "grated parmesan cheese 8 oz",
+    "matched_at": "2026-09-10"
+  },
+  "butter": {
+    "productId": "0001111006497",
+    "description": "Kroger® Spreadable Butter with Olive Oil and Sea Salt Tub BIG DEAL!",
+    "size": "30 oz",
+    "term": "salted butter 1 lb",
+    "matched_at": "2026-09-10"
+  },
+  "plant-yogurt": {
+    "productId": "0001111010173",
+    "description": "Simple Truth® Vanilla Dairy Free Vegan Almond Milk Yogurt Alternative Tub",
+    "size": "24 oz",
+    "term": "almondmilk yogurt",
+    "matched_at": "2026-09-10"
+  },
+  "whey-protein": {
+    "productId": "0084026630049",
+    "description": "Body Fortress® Super Advanced Whey Orange Cream Protein Powder",
+    "size": "28.5 oz",
+    "term": "whey protein",
+    "matched_at": "2026-09-10"
+  },
+  "pea-protein": {
+    "productId": "0085178400765",
+    "description": "PB2® Performance Madagascar Vanilla Peanut Protein Plant Powder",
+    "size": "32 oz",
+    "term": "plant protein powder",
+    "matched_at": "2026-09-10"
+  },
+  "tofu": {
+    "productId": "0001111091342",
+    "description": "Simple Truth Organic® Extra Firm Tofu",
+    "size": "14 oz",
+    "term": "extra firm tofu 14 oz",
+    "matched_at": "2026-09-10"
+  },
+  "tempeh": {
+    "productId": "0004345403050",
+    "description": "Lightlife Original Organic Plant-Based Tempeh",
+    "size": "8 oz",
+    "term": "tempeh 8 oz",
+    "matched_at": "2026-09-10"
+  },
+  "black-beans": {
+    "productId": "0001111010647",
+    "description": "Kroger® Black Beans",
+    "size": "15.5 oz",
+    "term": "black beans 15 oz can",
+    "matched_at": "2026-09-10"
+  },
+  "chickpeas": {
+    "productId": "0001111010648",
+    "description": "Kroger® Garbanzo Beans",
+    "size": "15.5 oz",
+    "term": "garbanzo beans 15 oz can",
+    "matched_at": "2026-09-10"
+  },
+  "kidney-beans": {
+    "productId": "0001111010642",
+    "description": "Kroger® Dark Red Kidney Beans",
+    "size": "15.5 oz",
+    "term": "dark red kidney beans 15 oz can",
+    "matched_at": "2026-09-10"
+  },
+  "lentils": {
+    "productId": "0001111012108",
+    "description": "Simple Truth Organic® Low Sodium Lentils",
+    "size": "15 oz",
+    "term": "lentils",
+    "matched_at": "2026-09-10"
+  },
+  "peanut-butter": {
+    "productId": "0001111012319",
+    "description": "Smart Way™ Creamy Peanut Butter",
+    "size": "16 oz",
+    "term": "creamy peanut butter 16 oz",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-edamame": {
+    "productId": "0001450026453",
+    "description": "Birds Eye Steamfresh Shelled Edamame, Frozen Vegetables",
+    "size": "10 oz",
+    "term": "frozen shelled edamame 12 oz",
+    "matched_at": "2026-09-10"
+  },
+  "white-rice": {
+    "productId": "0001111089875",
+    "description": "Kroger® Enriched Long Grain White Rice",
+    "size": "32 oz",
+    "term": "long grain white rice",
+    "matched_at": "2026-09-10"
+  },
+  "brown-rice": {
+    "productId": "0001111089874",
+    "description": "Kroger® Long Grain Brown Rice",
+    "size": "32 oz",
+    "term": "brown rice",
+    "matched_at": "2026-09-10"
+  },
+  "quinoa": {
+    "productId": "0001111086094",
+    "description": "Kroger® Tri-Color Quinoa",
+    "size": "16 oz",
+    "term": "quinoa",
+    "matched_at": "2026-09-10"
+  },
+  "oats": {
+    "productId": "0001111076655",
+    "description": "Kroger® 100% Whole Grain Old Fashioned Oats",
+    "size": "42 oz",
+    "term": "old fashioned oats 42 oz",
+    "matched_at": "2026-09-10"
+  },
+  "granola": {
+    "productId": "0081058903121",
+    "description": "Purely Elizabeth Vanilla Chocolate Chip Gluten Free Ancient Grain Granola 12 oz",
+    "size": "12 oz",
+    "term": "granola 12 oz",
+    "matched_at": "2026-09-10"
+  },
+  "spaghetti": {
+    "productId": "0001111085004",
+    "description": "Kroger® Spaghetti",
+    "size": "16 oz",
+    "term": "spaghetti 16 oz",
+    "matched_at": "2026-09-10"
+  },
+  "ww-spaghetti": {
+    "productId": "0007680800584",
+    "description": "Barilla Whole Grain Spaghetti Non-GMO and Kosher Pasta Made With Whole Wheat",
+    "size": "16 oz",
+    "term": "whole wheat spaghetti 16 oz",
+    "matched_at": "2026-09-10"
+  },
+  "penne": {
+    "productId": "0001111085033",
+    "description": "Kroger® Penne Rigate Pasta",
+    "size": "16 oz",
+    "term": "penne rigate 16 oz",
+    "matched_at": "2026-09-10"
+  },
+  "gf-pasta": {
+    "productId": "0001111013340",
+    "description": "Kroger® Gluten Free Rotini Pasta",
+    "size": "12 oz",
+    "term": "gluten free pasta 12 oz",
+    "matched_at": "2026-09-10"
+  },
+  "ww-bread": {
+    "productId": "0001111008480",
+    "description": "Kroger® 100% Whole Wheat Bread",
+    "size": "24 oz",
+    "term": "100% whole wheat bread",
+    "matched_at": "2026-09-10"
+  },
+  "flour-tortillas": {
+    "productId": "0001111005266",
+    "description": "Kroger® Burrito Size Flour Tortillas",
+    "size": "8 ct / 20 oz",
+    "term": "flour tortillas burrito",
+    "matched_at": "2026-09-10"
+  },
+  "corn-tortillas": {
+    "productId": "0002733100038",
+    "description": "La Banderita White Corn Tortillas 80 Ct",
+    "size": "80 ct / 66.3 oz",
+    "term": "corn tortillas 30 count",
+    "matched_at": "2026-09-10"
+  },
+  "ww-buns": {
+    "productId": "0001111011471",
+    "description": "Kroger® 100% Whole Wheat Hamburger Buns",
+    "size": "8 ct / 14 oz",
+    "term": "whole wheat hamburger buns 8 count",
+    "matched_at": "2026-09-10"
+  },
+  "pancake-mix": {
+    "productId": "0070559901621",
+    "description": "Kodiak™ Power Cakes Protein Buttermilk Flapjack & Waffle Mix",
+    "size": "36 oz",
+    "term": "kodiak buttermilk power cakes",
+    "matched_at": "2026-09-10"
+  },
+  "russet-potatoes": {
+    "productId": "0001111091754",
+    "description": "Kroger® Russet Potatoes Bag BIG DEAL!",
+    "size": "10 lb",
+    "term": "russet potatoes",
+    "matched_at": "2026-09-10"
+  },
+  "sweet-potatoes": {
+    "productId": "0001111022299",
+    "description": "Kroger® Sweet Potato",
+    "size": "3 lb",
+    "term": "sweet potato",
+    "matched_at": "2026-09-10"
+  },
+  "bananas": {
+    "productId": "0000000004011",
+    "description": "Fresh Bunch of Bananas – 5-7 Bananas",
+    "size": "1 lb",
+    "term": "fresh bananas",
+    "matched_at": "2026-09-10"
+  },
+  "apples": {
+    "productId": "0001111091825",
+    "description": "Kroger® Gala Apples – 3 Pound Bag",
+    "size": "3 lb",
+    "term": "gala apples 3 lb bag",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-berries": {
+    "productId": "0001111016105",
+    "description": "Kroger® Frozen Blueberries BIG DEAL!",
+    "size": "4 lb",
+    "term": "frozen blueberries",
+    "matched_at": "2026-09-10"
+  },
+  "avocados": {
+    "productId": "0001111018180",
+    "description": "Kroger® Fresh Hass Avocados Bag",
+    "size": "4 ct",
+    "term": "hass avocado",
+    "matched_at": "2026-09-10"
+  },
+  "onions": {
+    "productId": "0001111091682",
+    "description": "Kroger® Yellow Onion 3 lb Bag",
+    "size": "3 lb",
+    "term": "yellow onions 3 lb bag",
+    "matched_at": "2026-09-10"
+  },
+  "carrots": {
+    "productId": "0003338366608",
+    "description": "Grimmway Farms® Peeled Baby Carrots Bag",
+    "size": "5 lb",
+    "term": "carrots 2 lb bag",
+    "matched_at": "2026-09-10"
+  },
+  "bell-peppers": {
+    "productId": "0001111067515",
+    "description": "Kroger® Bell Pepper and Onion Pork Grilling Links",
+    "size": "5 ct / 18 oz",
+    "term": "bell pepper",
+    "matched_at": "2026-09-10"
+  },
+  "romaine": {
+    "productId": "0001111060336",
+    "description": "Private Selection® Artisan Romaine Lettuce",
+    "size": "2 ct",
+    "term": "romaine lettuce",
+    "matched_at": "2026-09-10"
+  },
+  "tomatoes": {
+    "productId": "0000000004087",
+    "description": "Fresh Roma Tomato",
+    "size": "1 lb",
+    "term": "roma tomatoes",
+    "matched_at": "2026-09-10"
+  },
+  "cucumber": {
+    "productId": "0000000004062",
+    "description": "Cucumber",
+    "size": "1 ct",
+    "term": "cucumber",
+    "matched_at": "2026-09-10"
+  },
+  "asparagus": {
+    "productId": "0001111080126",
+    "description": "Kroger® Cut Asparagus Spears",
+    "size": "14.5 oz",
+    "term": "asparagus",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-broccoli": {
+    "productId": "0001111012883",
+    "description": "Kroger® Frozen Broccoli Florets",
+    "size": "12 oz",
+    "term": "frozen broccoli florets 12 oz",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-mixed-veg": {
+    "productId": "0001111089735",
+    "description": "Kroger® Frozen Mixed Vegetables",
+    "size": "12 oz",
+    "term": "frozen mixed vegetables 12 oz",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-stirfry-veg": {
+    "productId": "0071785415100",
+    "description": "Michelina's® Stir Fry Rice & Vegetables",
+    "size": "9.6 oz",
+    "term": "frozen stir fry vegetables 16 oz",
+    "matched_at": "2026-09-10"
+  },
+  "frozen-peppers-onions": {
+    "productId": "0001111012884",
+    "description": "Kroger® Frozen Fajita Blend Tricolor Pepper and Onion Mix BIG DEAL!",
+    "size": "48 oz",
+    "term": "frozen pepper onion blend",
+    "matched_at": "2026-09-10"
+  },
+  "canned-tomatoes": {
+    "productId": "0001111011616",
+    "description": "Kroger Diced Tomatoes",
+    "size": "28 oz",
+    "term": "diced tomatoes",
+    "matched_at": "2026-09-10"
+  },
+  "marinara": {
+    "productId": "0001111013416",
+    "description": "Kroger® Marinara Pasta Sauce",
+    "size": "24 oz",
+    "term": "marinara pasta sauce 24 oz",
+    "matched_at": "2026-09-10"
+  },
+  "salsa": {
+    "productId": "0001111001441",
+    "description": "Kroger® Mild Traditional Salsa",
+    "size": "24 oz",
+    "term": "salsa 24 oz",
+    "matched_at": "2026-09-10"
+  },
+  "pesto": {
+    "productId": "0005100028948",
+    "description": "Prego Creamy Basil Pesto Pasta Sauce, 14.5 oz Jar",
+    "size": "14.5 oz",
+    "term": "basil pesto 6.5 oz",
+    "matched_at": "2026-09-10"
+  },
+  "teriyaki-sauce": {
+    "productId": "0001111008998",
+    "description": "Kroger® Teriyaki Marinade and Sauce",
+    "size": "10 fl oz",
+    "term": "teriyaki sauce 10 oz",
+    "matched_at": "2026-09-10"
+  },
+  "soy-sauce": {
+    "productId": "0001111015474",
+    "description": "Kroger® Less Sodium Soy Sauce",
+    "size": "10 fl oz",
+    "term": "soy sauce 10 oz",
+    "matched_at": "2026-09-10"
+  },
+  "bbq-sauce": {
+    "productId": "0001111015424",
+    "description": "ORIGINAL BBQ SAUCE - KROGER - 18 OZ",
+    "size": "18 oz",
+    "term": "barbecue sauce 18 oz",
+    "matched_at": "2026-09-10"
+  },
+  "buffalo-sauce": {
+    "productId": "0001111001752",
+    "description": "Kroger® Spicy Garlic Buffalo Wing Sauce",
+    "size": "12 fl oz",
+    "term": "buffalo wing sauce",
+    "matched_at": "2026-09-10"
+  },
+  "caesar-dressing": {
+    "productId": "0001111004867",
+    "description": "Kroger® Classic Caesar Salad Dressing",
+    "size": "16 fl oz",
+    "term": "caesar dressing 16 oz",
+    "matched_at": "2026-09-10"
+  },
+  "tzatziki": {
+    "productId": "0004411512840",
+    "description": "Cedar's Cucumber Garlic Dill Tzatziki",
+    "size": "12 oz",
+    "term": "tzatziki 12 oz",
+    "matched_at": "2026-09-10"
+  },
+  "hummus": {
+    "productId": "0004082234631",
+    "description": "Sabra® Classic Hummus Party Size",
+    "size": "15 oz",
+    "term": "hummus classic 10 oz",
+    "matched_at": "2026-09-10"
+  },
+  "honey": {
+    "productId": "0001111086170",
+    "description": "Kroger® Clover Honey Bear",
+    "size": "12 oz",
+    "term": "honey 12 oz",
+    "matched_at": "2026-09-10"
+  },
+  "olive-oil": {
+    "productId": "0001111004415",
+    "description": "Kroger® Extra Virgin Olive Oil",
+    "size": "25.4 fl oz",
+    "term": "olive oil 17 oz",
+    "matched_at": "2026-09-10"
+  },
+  "taco-seasoning": {
+    "productId": "0004150153730",
+    "description": "Ortega Original Taco Seasoning Mix, Kosher",
+    "size": "3 pk / 1 oz",
+    "term": "taco seasoning mix",
+    "matched_at": "2026-09-10"
+  },
+  "breadcrumbs": {
+    "productId": "0001111016308",
+    "description": "Kroger® Japanese Style Panko Bread Crumbs",
+    "size": "8 oz",
+    "term": "panko bread crumbs 8 oz",
+    "matched_at": "2026-09-10"
+  }
+}

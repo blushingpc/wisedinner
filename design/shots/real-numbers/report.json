@@ -1,0 +1,217 @@
+{
+  "/": {
+    "status": 200,
+    "punct": [],
+    "old": [],
+    "numbers": [
+      "$56.97 , one trip",
+      "40 g protein, $2.86",
+      "58 g protein, $3.48",
+      "74 g protein, $4.44",
+      "by $0.03",
+      "154g",
+      "Chicken burrito bowl, 74g protein, $4.44",
+      "Under a $57 budget",
+      "$8.99",
+      "or $59 /year, $4.92 a month billed yearly",
+      "$12.99",
+      "or $89 /year, $7.42 a month billed yearly",
+      "The pre-order build is free and complete: onboarding, the offline solver, the week view, the three checks, whole-week regenerate, the aisle list with its total, share your week, beat this week. No account, nothing to buy. At launch, Protein Plan ($8.99 a month or $59 a year) adds regenerate for any single meal, the receipt reveal and the weekly solve challenge. Autopilot ($12.99 a month or $89 a year) adds a menu of substitutes so you pick your own replacement, and plans next week for you every Sunday at 5pm.",
+      "This week's plan: 13 items, $57 , 154 g of protein a day",
+      "Phone showing the receipt reveal: estimated $56.97, actual $56.23, receipt verified",
+      "Phone showing this week: Tofu and avocado breakfast wrap, Southwest chicken wrap, Chicken burrito bowl; under a $57 budget"
+    ]
+  },
+  "/pricing": {
+    "status": 200,
+    "punct": [],
+    "old": [],
+    "numbers": [
+      "$8.99",
+      "or $59 /year, $4.92 a month billed yearly",
+      "$12.99",
+      "or $89 /year, $7.42 a month billed yearly",
+      "What WiseDinner will cost when the app ships. The pre-order build is free. Protein Plan $8.99 a month or $59 a year, Autopilot $12.99 a month or $89 a year, 14-day free trial in the app. Nothing for sale here yet."
+    ]
+  },
+  "/faq": {
+    "status": 200,
+    "punct": [],
+    "old": [],
+    "numbers": [
+      "The pre-order build is free and complete: onboarding, the offline solver, the week view, the three checks, whole-week regenerate, the aisle list with its total, share your week, beat this week. No account, nothing to buy. At launch, Protein Plan ($8.99 a month or $59 a year) adds regenerate for any single meal, the receipt reveal and the weekly solve challenge. Autopilot ($12.99 a month or $89 a year) adds a menu of substitutes so you pick your own replacement, and plans next week for you every Sunday at 5pm."
+    ]
+  },
+  "/support": {
+    "status": 200,
+    "punct": [],
+    "old": [],
+    "numbers": []
+  },
+  "/privacy": {
+    "status": 200,
+    "punct": [],
+    "old": [],
+    "numbers": []
+  },
+  "/terms": {
+    "status": 200,
+    "punct": [],
+    "old": [
+      "twelve: Our total liability to you for anything connected to the site is capped at the greater of "
+    ],
+    "numbers": [
+      "Our total liability to you for anything connected to the site is capped at the greater of $50 or the fees you paid us in the twelve months before the claim. Right now that's $0, so the cap is $50."
+    ]
+  },
+  "/the-math": {
+    "status": 200,
+    "punct": [],
+    "old": [],
+    "numbers": []
+  },
+  "/drop": {
+    "status": 200,
+    "punct": [],
+    "old": [],
+    "numbers": [
+      "One universal week: 150g of protein a day for one person, $57 at this week's estimated shelf prices. Refreshed every Sunday. No account, no card.",
+      "169 g protein, 1858 kcal",
+      "161 g protein, 1855 kcal",
+      "199 g protein, 1891 kcal",
+      "150 g protein, 1893 kcal",
+      "$3.30",
+      "$8.55",
+      "$1.07",
+      "$3.15",
+      "$3.50",
+      "$2.31",
+      "$6.99",
+      "$3.51",
+      "$0.99",
+      "$2.41",
+      "$13.14",
+      "$4.93",
+      "$2.29",
+      "150 g",
+      "40 g",
+      "72 g",
+      "57 g",
+      "75 g",
+      "46 g",
+      "42 g",
+      "85 g",
+      "54 g"
+    ]
+  },
+  "/w/example": {
+    "status": 200,
+    "punct": [],
+    "old": [],
+    "numbers": [
+      "A solved week: $57, 154g a day | WiseDinner",
+      "$57 for the week, 154 g of protein a day",
+      "$56.97 , 154 g a day",
+      "Five dinners, one 13 -item list , under a $57 budget .",
+      "187 g, $11.31",
+      "Breakfast , 40 g protein, $2.86",
+      "Lunch , 89 g protein, $4.97",
+      "Dinner , 58 g protein, $3.48",
+      "172 g, $10.78",
+      "Lunch , 58 g protein, $3.48",
+      "Dinner , 74 g protein, $4.44",
+      "177 g, $11.40",
+      "Breakfast , 42 g protein, $3.05",
+      "Dinner , 46 g protein, $3.38",
+      "155 g, $11.75",
+      "Lunch , 56 g protein, $4.35",
+      "Dinner , 56 g protein, $4.35",
+      "155 g, $11.73",
+      "Dinner , 56 g protein, $4.33",
+      "One list, 13 items",
+      "$8.55",
+      "$1.07",
+      "$3.15",
+      "$6.99",
+      "$3.51",
+      "$1.64",
+      "$0.99",
+      "$4.93",
+      "$2.29",
+      "$2.31",
+      "$5.10",
+      "$3.30",
+      "$13.14",
+      "$56.97",
+      "Delivered from Kroger, estimated $68.90 .",
+      "Walking in saves $11.93 .",
+      "Five dinners, one 13-item list, $57 at the shelf, 154g of protein a day. Solved by WiseDinner."
+    ]
+  },
+  "/w/example-2": {
+    "status": 200,
+    "punct": [],
+    "old": [
+      "dozen: Eggs, dozen"
+    ],
+    "numbers": [
+      "A solved week: $57, 164g a day | WiseDinner",
+      "$57 for the week, 164 g of protein a day",
+      "$56.73 , 164 g a day",
+      "Five dinners, one 15 -item list , under a $57 budget .",
+      "166 g, $11.79",
+      "Breakfast , 40 g protein, $2.36",
+      "Lunch , 73 g protein, $5.81",
+      "Dinner , 53 g protein, $3.62",
+      "176 g, $11.38",
+      "Lunch , 63 g protein, $3.21",
+      "Dinner , 73 g protein, $5.81",
+      "164 g, $11.11",
+      "Breakfast , 42 g protein, $4.35",
+      "Lunch , 61 g protein, $3.38",
+      "Dinner , 61 g protein, $3.38",
+      "164 g, $11.07",
+      "Dinner , 61 g protein, $3.34",
+      "One list, 15 items",
+      "$8.55",
+      "$2.19",
+      "$2.00",
+      "$1.07",
+      "$3.15",
+      "$2.20",
+      "$6.99",
+      "$2.52",
+      "$3.51",
+      "$0.99",
+      "$2.29",
+      "$3.50",
+      "$4.62",
+      "$10.95",
+      "$56.73",
+      "Delivered from Kroger, estimated $65.40 .",
+      "Walking in saves $8.67 .",
+      "Five dinners, one 15-item list, $57 at the shelf, 164g of protein a day. Solved by WiseDinner."
+    ]
+  },
+  "/does-not-exist": {
+    "status": 404,
+    "punct": [],
+    "old": [],
+    "numbers": []
+  },
+  "links": {
+    "checked": [
+      "/",
+      "/apple-icon.png",
+      "/faq",
+      "/icon.png",
+      "/manifest.webmanifest",
+      "/pricing",
+      "/privacy",
+      "/support",
+      "/terms",
+      "/the-math"
+    ],
+    "dead": []
+  }
+}

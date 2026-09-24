@@ -64,3 +64,72 @@ export function rateLimited(req: Request, limit = 10) {
 export const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export const configured = () => Boolean(url() && key());
+
+// --- backend v1 additions: generic PostgREST reads/writes + storage, still three-line fetches, still service key only
+
+const H = () => ({ apikey: key(), authorization: `Bearer ${key()}` });
+
+// GET /rest/v1/<table>?<query> → every row (throws on a non-2xx so callers see the PostgREST message).
+// PostgREST returns at most 1000 rows per request, so this pages with Range until a short page comes back.
+export async function select<T = Record<string, unknown>>(table: string, query = "", page = 1000): Promise<T[]> {
+  const out: T[] = [];
+  for (let from = 0; ; from += page) {
+    const res = await fetch(`${url()}/rest/v1/${table}${query ? `?${query}` : ""}`, { headers: { ...H(), range: `${from}-${from + page - 1}` }, cache: "no-store" });
+    if (res.status === 416) return out; // range starts past the last row: the previous page was the last one
+    if (!res.ok) throw new Error(`select ${table}: ${res.status} ${await res.text()}`);
+    const rows = (await res.json()) as T[];
+    out.push(...rows);
+    if (rows.length < page) return out;
+  }
+}
+
+// POST with merge-duplicates on the given conflict target; chunks large arrays
+export async function upsert(table: string, rows: Record<string, unknown>[], onConflict: string, chunk = 500) {
+  for (let i = 0; i < rows.length; i += chunk) {
+    const res = await fetch(`${url()}/rest/v1/${table}?on_conflict=${onConflict}`, {
+      method: "POST",
+      headers: { ...H(), "content-type": "application/json", prefer: "resolution=merge-duplicates,return=minimal" },
+      body: JSON.stringify(rows.slice(i, i + chunk)),
+    });
+    if (!res.ok) throw new Error(`upsert ${table}: ${res.status} ${await res.text()}`);
+  }
+}
+
+// PATCH /rest/v1/<table>?<query> with a partial row. an upsert cannot do this: Postgres checks NOT NULL on the
+// proposed row before ON CONFLICT resolves, so {id, status} against a table with other required columns fails.
+export async function update(table: string, query: string, patch: Record<string, unknown>) {
+  const res = await fetch(`${url()}/rest/v1/${table}?${query}`, {
+    method: "PATCH",
+    headers: { ...H(), "content-type": "application/json", prefer: "return=minimal" },
+    body: JSON.stringify(patch),
+  });
+  if (!res.ok) throw new Error(`update ${table}: ${res.status} ${await res.text()}`);
+}
+
+export async function del(table: string, query: string) {
+  const res = await fetch(`${url()}/rest/v1/${table}?${query}`, { method: "DELETE", headers: { ...H(), prefer: "return=minimal" } });
+  if (!res.ok) throw new Error(`delete ${table}: ${res.status} ${await res.text()}`);
+}
+
+// storage: create a bucket if missing (idempotent) and upload an object (upsert)
+export async function ensureBucket(name: string, isPublic = true) {
+  const res = await fetch(`${url()}/storage/v1/bucket`, {
+    method: "POST",
+    headers: { ...H(), "content-type": "application/json" },
+    body: JSON.stringify({ id: name, name, public: isPublic }),
+  });
+  if (res.ok || res.status === 409) return;
+  const body = await res.text();
+  if (body.includes("already exists")) return;
+  throw new Error(`bucket ${name}: ${res.status} ${body}`);
+}
+
+export async function storagePut(bucket: string, path: string, body: string, contentType = "application/json") {
+  const res = await fetch(`${url()}/storage/v1/object/${bucket}/${path}`, {
+    method: "POST",
+    headers: { ...H(), "content-type": contentType, "x-upsert": "true" },
+    body,
+  });
+  if (!res.ok) throw new Error(`storage ${bucket}/${path}: ${res.status} ${await res.text()}`);
+  return `${url()}/storage/v1/object/public/${bucket}/${path}`;
+}

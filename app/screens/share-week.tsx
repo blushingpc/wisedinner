@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Check } from "@phosphor-icons/react/dist/ssr";
 import type { FixtureWeek } from "@/data/fixtures";
 import { usd } from "@/data/fixtures";
+import { budgetPhrase } from "@/lib/showcase";
 import { Button, Header, Lockup, Screen, TabBar } from "./chrome";
 import { StatusBar } from "@/app/ui/device-frame";
 
@@ -48,7 +49,7 @@ export function ShareCard({ week, className = "", imgSizes = "64px" }: { week: F
         ))}
       </div>
       <p className="mt-[0.75em] text-[0.75em] leading-snug text-ink-2">
-        Five dinners, one {week.totals.items}-item list, under budget by {usd(week.totals.under_budget_by_usd)}.
+        Five dinners, one {week.totals.items}-item list{budgetPhrase(week) ? `, ${budgetPhrase(week)}` : ""}.
       </p>
     </div>
   );
