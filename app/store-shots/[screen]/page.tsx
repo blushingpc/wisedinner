@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { fixtureWeek, fixtureWeek2 } from "@/data/fixtures";
 import { budgetUsd } from "@/lib/showcase";
 import { DeviceFrame } from "@/app/ui/device-frame";
-import { GroceryList, Onboarding, ReceiptReveal, ShareWeek, ThisWeek } from "@/app/screens";
+import { GroceryList, Onboarding, ReceiptReveal, ShareWeek, ThisWeek, TwoNumbers } from "@/app/screens";
 
 export const metadata: Metadata = { title: "Store shot", robots: { index: false, follow: false } };
 
@@ -17,6 +17,8 @@ const SHOTS = [
   ["s6", "Nothing goes to waste.", <ThisWeek key="s6" week={fixtureWeek2} active="thu" imgSizes="128px" />],
   ["s3", "Share it. Beat it.", <ShareWeek key="s3" week={fixtureWeek} imgSizes="128px" />],
   ["s4", "Prove it with your receipt.", <ReceiptReveal key="s4" week={fixtureWeek} />],
+  // S7 (SITE-V5 §2): the hero's left phone, the two numbers filled in and the solve button
+  ["s7", "Two numbers. Your week, solved.", <TwoNumbers key="s7" budget="$60" protein="150g" />],
 ] as const;
 
 export function generateStaticParams() {

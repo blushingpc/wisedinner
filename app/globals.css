@@ -76,11 +76,13 @@
   }
 }
 
-/* the hero H1 on phones (§C): stepped down so "Hit your protein." and "Spend way less." each hold one line at 360
-   and up (two lines total); the desktop clamp is untouched */
+/* the hero H1 on phones (SITE-V5 §2): Plus Jakarta 800, the largest size at which "Hit your protein." and "Spend
+   way less." each break with no single-word last line at 360, 390, 412 and 430 (scripts/v5-h1-fit.ts measures it);
+   line-height 1.02; the desktop clamp is untouched */
 @media (max-width: 639px) {
   :root {
-    --text-h1: clamp(2.25rem, 10vw, 2.75rem);
+    --text-h1: clamp(2.5rem, 11.1vw, 3.375rem);
+    --text-h1--line-height: 1.02;
   }
 }
 

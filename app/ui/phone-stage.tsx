@@ -1,85 +1,81 @@
 "use client";
 
-import Image from "next/image";
-import { Check } from "@phosphor-icons/react/dist/ssr";
 import { useEffect, useRef, useState } from "react";
 import { DeviceFrame } from "./device-frame";
 import type { ReactNode } from "react";
 
-// HERO PHONE STAGE (REDESIGN-V4 §6, MOBILE FIX PASS v2 §D): from 640px, S1 This week front-left at −6°, S4 Receipt
-// reveal back-right at +4° and 88%, two white callout cards with a small emerald check, a hand-drawn arrow from S1's
-// checks to S4's comparison that draws on first view, and the two cut-outs per §5D: lit from the top left like the
-// phone glare, overlapping the bezel edge, resting on a CSS contact shadow, never wider than 60% of a phone.
-// Under 640px the stage is one phone: S1 upright at 78% of the stage, the burrito bowl over its lower-left edge
-// (in front, on a contact shadow), one short budget callout ("$5.80 under") hanging off the upper-right bezel over
-// the status bar's right end (never over screen content: a two-line card reached the week's price tag), no parfait,
-// no arrow, no S4. The stage clips its own horizontal overflow below 1024px so
-// nothing ever reaches past the viewport edge. Every number is the fixture's. The two screens arrive as
-// server-rendered nodes so the client bundle carries only this stage.
-export function PhoneStage({ s1, s4, s1Label, s4Label, calloutMeal, calloutBudget, calloutBudgetShort }: { s1: ReactNode; s4: ReactNode; s1Label: string; s4Label: string; calloutMeal: string; calloutBudget: string; calloutBudgetShort: string }) {
+// HERO PHONE STAGE (SITE-V5 §2, Cal AI structure): two phones and one hand-drawn arrow, the same at every width.
+// Left: S7 two numbers ($60, 150g, the solve button), lower left, 58% of the stage, −7°, behind. Right: S1 this week
+// (the total pill, five days), upper right, 62% of the stage, +5°, in front, the priority frame. The arrow runs from
+// the left phone's solve button to the right phone's total; its two ends are measured off the rendered screens
+// ([data-solve], [data-total]) so it lands on them at any width. Nothing else sits in the stage: no cut-outs, no
+// callouts, no numbers outside the phones. The box has a fixed aspect, so nothing shifts when the bezels decode.
+//
+// geometry (stage units, width 100, height 153): right phone left 29.6, top 3 (its rotated top-left corner rises
+// 2.5); left phone left 4, top 30, so its solve button clears the right phone's rotated bottom edge. The rotated
+// corners reach 7 units past an upright phone's left edge and 5.4 past its right edge: the left phone's top corner
+// sits 3 units into the page gutter and the right phone leaves ~6 units for the arrow's run up the right margin.
+export const STAGE_SIZES = {
+  // stage = the phone column capped at 480px (from 528px viewport up the cap holds until lg); from lg the column is
+  // (min(100vw, 1200px) − 136px) / 2.2, capped at 480 again from 1192px
+  right: "(min-width: 1192px) 298px, (min-width: 1024px) calc((100vw - 136px) * 0.2818), (min-width: 528px) 298px, calc((100vw - 48px) * 0.62)",
+  left: "(min-width: 1192px) 278px, (min-width: 1024px) calc((100vw - 136px) * 0.2636), (min-width: 528px) 278px, calc((100vw - 48px) * 0.58)",
+};
+
+type Arrow = { d: string; head: string; w: number; h: number };
+
+export function PhoneStage({ left, right, leftLabel, rightLabel }: { left: ReactNode; right: ReactNode; leftLabel: string; rightLabel: string }) {
   const root = useRef<HTMLDivElement>(null);
-  const [drawn, setDrawn] = useState(false);
-  // the back phone's screen mounts after hydration: shaping the screens' text is half of the hero's first layout on a
-  // throttled phone (measured), and S4 sits behind S1 and mostly below the fold on mobile. its bezel paints at once.
-  const [late, setLate] = useState(false);
+  const [arrow, setArrow] = useState<Arrow | null>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- deliberate: S4's screen mounts one frame after hydration
-    setLate(true);
     const el = root.current;
     if (!el) return;
-    // reduced motion: the CSS already renders the arrow fully drawn
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setDrawn(true), { threshold: 0.4 });
-    io.observe(el);
-    return () => io.disconnect();
+    const measure = () => {
+      const s = el.getBoundingClientRect();
+      const solve = el.querySelector("[data-phone=left] [data-solve] > *")?.getBoundingClientRect();
+      const total = el.querySelector("[data-phone=right] [data-total]")?.getBoundingClientRect();
+      if (!solve || !total || !s.width) return;
+      // start: just past the solve button's right end (the part below the right phone's bottom edge); end: the
+      // total pill's right end, reached from the right. between them one C-shaped curve runs up the free margin right
+      // of the right phone, so the stroke never crosses a screen, only the bezel at the very end
+      const x0 = solve.right - s.left + 6;
+      const y0 = solve.top - s.top + solve.height * 0.5;
+      const x1 = total.right - s.left + 4;
+      const y1 = total.top - s.top + total.height * 0.75;
+      const c1 = [s.width * 1.02, y0 + s.height * 0.02];
+      const c2 = [s.width * 1.04, y1 + s.height * 0.08];
+      const d = `M ${x0.toFixed(1)} ${y0.toFixed(1)} C ${c1[0].toFixed(1)} ${c1[1].toFixed(1)}, ${c2[0].toFixed(1)} ${c2[1].toFixed(1)}, ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+      // open arrowhead along the end tangent (c2 to the end)
+      const a = Math.atan2(y1 - c2[1], x1 - c2[0]);
+      const L = Math.max(10, s.width * 0.035);
+      const p = (t: number) => `${(x1 - L * Math.cos(a + t)).toFixed(1)} ${(y1 - L * Math.sin(a + t)).toFixed(1)}`;
+      setArrow({ d, head: `M ${p(0.5)} L ${x1.toFixed(1)} ${y1.toFixed(1)} L ${p(-0.5)}`, w: s.width, h: s.height });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   return (
-    <div ref={root} className="relative isolate mx-auto aspect-[10/16] w-full max-w-[560px] select-none overflow-x-clip lg:aspect-[600/760] lg:overflow-visible">
-      {/* S4: back-right, +4°, 88%; from 640px only */}
-      <div className="absolute top-0 right-[1%] hidden w-[53%] sm:block">
-        <DeviceFrame label={s4Label} tilt="right" widthClass="w-full" className="rotate-[4deg]" chrome={false} sizes="(min-width: 1024px) 256px, (min-width: 608px) 297px, 0px">
-          {late ? s4 : null}
+    <div ref={root} className="relative isolate mx-auto aspect-[100/153] w-full max-w-[480px] select-none">
+      <div data-phone="left" className="absolute top-[19.6%] left-[4%] w-[58%]">
+        <DeviceFrame label={leftLabel} widthClass="w-full" className="rotate-[-7deg]" chrome={false} sizes={STAGE_SIZES.left}>
+          {left}
         </DeviceFrame>
       </div>
-      {/* S1: the one phone on mobile (78%, upright); front-left at −6° from 640px */}
-      <div className="absolute top-0 left-[8%] w-[78%] sm:top-[5%] sm:left-[4%] sm:w-[60%]">
-        <DeviceFrame label={s1Label} tilt="left" priority widthClass="w-full" className="sm:rotate-[-6deg]" chrome={false} sizes="(min-width: 1024px) 290px, (min-width: 640px) 336px, calc((100vw - 48px) * 0.78)">
-          {s1}
+      <div data-phone="right" className="absolute top-[2%] left-[29.6%] z-10 w-[62%]">
+        <DeviceFrame label={rightLabel} priority widthClass="w-full" className="rotate-[5deg]" chrome={false} sizes={STAGE_SIZES.right}>
+          {right}
         </DeviceFrame>
       </div>
-
-      {/* callouts off S1 */}
-      {/* right-anchored until xl: from lg the stage column is ~400px and a left-anchored callout ran past the section edge (audit A-03) */}
-      <Callout className="top-[58%] right-[2%] hidden rotate-[-2deg] whitespace-nowrap sm:inline-flex xl:right-auto xl:left-[36%]">{calloutMeal}</Callout>
-      {/* the one mobile card: one short line off the upper-right bezel */}
-      <Callout className="top-[2%] right-0 inline-flex whitespace-nowrap sm:hidden">{calloutBudgetShort}</Callout>
-      <Callout className="top-[66%] left-[-1%] hidden rotate-[2deg] whitespace-nowrap sm:inline-flex">{calloutBudget}</Callout>
-
-      {/* hand-drawn arrow: S1's checks → S4's comparison; from 640px only */}
-      <svg aria-hidden="true" viewBox="0 0 600 780" preserveAspectRatio="none" className={`pointer-events-none absolute inset-0 z-(--z-raised) hidden h-full w-full text-forest sm:block ${drawn ? "arrow-drawn" : ""}`} fill="none" stroke="currentColor" strokeWidth="3" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round">
-        <path className="arrow-path" d="M 310 452 C 400 446, 470 420, 470 350 C 470 300, 450 272, 432 250" />
-        <path className="arrow-head" d="M 416 270 L 432 250 L 448 272" />
-      </svg>
-
-      {/* cut-outs (§5D): the burrito bowl over S1's bottom-left edge (in front on mobile, 20% of the stage over the
-          phone; behind the phones from 640 to 1023; in front again on desktop), the parfait over S4's right edge */}
-      <div className="contact-shadow absolute bottom-[1%] left-0 z-(--z-decoration) w-[28%] sm:bottom-[3%] sm:left-[-3%] sm:-z-10 sm:w-[26%] lg:z-(--z-decoration) lg:w-[34%]">
-        <Image src="/img/cutout-burrito-bowl.png" alt="" width={900} height={756} quality={90} sizes="(min-width: 1024px) 164px, (min-width: 640px) 89px, calc((100vw - 48px) * 0.28)" className="h-auto w-full" />
-      </div>
-      <div className="contact-shadow absolute right-0 bottom-[46%] -z-10 hidden w-[20%] sm:block lg:right-[-5%] lg:z-(--z-decoration) lg:w-[26%]">
-        <Image src="/img/cutout-parfait.png" alt="" width={900} height={742} quality={90} sizes="(min-width: 1024px) 126px, 68px" className="h-auto w-full" />
-      </div>
+      {arrow && (
+        <svg aria-hidden="true" viewBox={`0 0 ${arrow.w} ${arrow.h}`} className="pointer-events-none absolute inset-0 z-20 h-full w-full overflow-visible text-forest" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <path d={arrow.d} />
+          <path d={arrow.head} />
+        </svg>
+      )}
     </div>
-  );
-}
-
-function Callout({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return (
-    <p className={`absolute z-(--z-raised) items-center gap-1.5 rounded-[10px] border border-border bg-white px-2.5 py-1.5 text-[0.75rem] font-medium shadow-card tnum sm:px-3 lg:text-[0.875rem] ${className}`}>
-      <Check size="1em" weight="bold" aria-hidden="true" className="shrink-0 text-emerald" />
-      {children}
-    </p>
   );
 }

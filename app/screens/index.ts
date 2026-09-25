@@ -5,3 +5,4 @@ export { GroceryList } from "./grocery-list";
 export { ShareWeek, ShareCard } from "./share-week";
 export { ReceiptReveal } from "./receipt-reveal";
 export { Onboarding } from "./onboarding";
+export { TwoNumbers } from "./two-numbers";
