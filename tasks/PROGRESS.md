@@ -3,6 +3,36 @@ Format per session: date · job taken · what shipped (1-2 lines) · deploy URL 
 
 ---
 
+## 2026-09-25 · SITE v5 (Courier plan, Cal AI mobile hero, two removals, source names) · branch `design-v5` from origin/main d92e28e · issue #22 · preview https://wisedinner-git-design-v5-wise-dinner.vercel.app · NOT PUBLISHED (main untouched, waiting on publish)
+Brief: docs/SITE-V5.md, steps 0 to 6 plus step 8. Commits: 4e1ca03 brief, 5de72d2 removals, 81cb212 hero, a385f46 Courier, 1109c00 source names, d8050f1 perf fallback, then the evidence commit.
+- Removals: the hero pill (inline in app/page.tsx plus site.hero.pill; nobody else read it) and the band's "This week's plan" line (preorder-band.tsx; nothing was derived for it, and the fixture fields keep their other readers). /drop keeps its own "This week's plan" card title, a different surface.
+- Hero: the H1 on phones is clamp(2.5rem, 11.1vw, 3.375rem) at line height 1.02, one line per sentence. scripts/v5-h1-fit.ts measured the one-line limit at 40.4, 44.4, 47.4 and 49.4 px for 360, 390, 412 and 430.
+  - The sub is 17px/1.5 and runs 5 lines at 390. Three lines needs a copy change or about 13px. This is a founder call.
+  - The text column's min height is gone, and the badges stack in place of the button once BADGES_LIVE.
+  - The stage has two phones. Left is S7 two numbers (new app/screens/two-numbers.tsx; $60, 150g, "Solve my week") at 58% and -7deg. Right is S1 at 62% and +5deg, in front, as the priority frame.
+  - The forest arrow's ends are measured from [data-solve] and [data-total]. It runs up the right margin so it never crosses a screen.
+  - public/store/07-two-numbers.png is new (store-shots --only). The bezel ladder is regenerated at the v5 widths, and the priority frame loads eagerly at every width.
+  - The stage stays beside the copy from lg, not md, which keeps the text column unchanged. At 768 the stage stacks.
+- Courier: site.ts tiers verbatim, with Protein Plan at $48 a year ($4) and Courier at $12.99 a month or $96 a year ($8). The lead renders as one paragraph. Also updated: the FAQ answer, the /pricing description, the support KB, the pricing OG (now $4, not $4.00), the test fixtures and the Stripe notes in chrome-tasks.md. That covers QUEUE C3, the copy rename.
+- Source names: "delivered" replaces "delivered from Kroger" everywhere a user reads it. The grocery screen and /w/* render "Delivered, estimated" instead of the fixture label. /staples says public price data. Store shot 03 is re-rendered, and CLAUDE.md has the rule.
+- Verify:
+  - tsc and eslint are clean (one existing warning in the support poll route), voice is clean, tests pass 82 of 82 and the build is clean.
+  - scripts/v5-html-grep.ts (141 built pages plus the live dynamic routes) finds 0 for Autopilot, Pre-order available now, $89, 4.92, 7.42, kroger, walmart, instacart, dashes and middots. "This week's plan" appears only on /drop, and the one "$59" is an RSC reference id on /screens-preview.
+  - scripts/v5-shots.ts ran 14 cells before and 14 after with 0 overflow, overlaps, small targets, small inputs and contrast failures. The copy stays above the fold minus 90 at all four phone sizes, and both phone tops are in the first viewport, 478 and 570 at 390×844.
+  - Evidence is in design/shots/v5/evidence.
+- Lighthouse mobile on the preview at d8050f1 scored 92, 92 and 92, with a11y 100 and BP 100. LCP is 3.0 to 3.1 s, and the LCP element is the right phone's bezel img. Before the fallback it scored 88 and 89 at LCP 3.3 to 3.4 s.
+  - Shrinking the left phone to 52% gave no gain and was reverted.
+  - Mounting the left phone after the load event was kept.
+  - The 1024px favicon (47KB, fetched before first paint) became 96px, which added about 2 points.
+  - Production main measured 93 in the same hour. The preview also carries Vercel's feedback script, which production doesn't.
+- Founder calls:
+  - the sub's 3-line cap versus 17px
+  - the phones' overlap (about 32 stage units at 58% and 62%, versus the brief's roughly 12%)
+  - md versus lg for the side-by-side stage
+  - the Stripe notes' 21-day trial versus the site's 14
+- Pre-existing bug: every store PNG, old and new, ends in a white strip about 70px tall at the bottom. This is a pipeline bug and is not fixed.
+- Next: the founder reads the preview and says "publish". Then fast-forward main to design-v5, verify production and close #22.
+
 ## 2026-09-24 · BACKEND v1 MERGED TO MAIN AND LIVE · merge 1801670 (backend-v1 → main, --no-ff) · PR #20 MERGED · prod deploy READY 23:10 UTC
 Verified before merging, twelve days after the last session: worktree = origin/backend-v1 (58f27a6); Supabase ACTIVE_HEALTHY (never paused: main's /api/status already pinged the waitlist table and the daily keepalive passed 09-13 to 09-24); 15 tables (13 backend + legacy waitlist, support_messages), RLS 15/15, 0 policies, store_prices 2051, snapshot v4; tests 76/76, build and voice clean; built-HTML scan 0 old numbers / 0 banned glyphs; derivation proof (seeds swapped in an untracked copy → home band 15 items, restored → 13); appstore.ts line 5 carries no item count.
 Merge ran in the backend worktree with main checked out (main lived nowhere; the main checkout sits on web-real-numbers with untracked shots that collide). Conflicts: .gitignore (both blocks), app/page.tsx (main's calloutBudgetShort slot kept, both callouts read budgetPhrase), app/w/[id]/page.tsx (branch's delivery guard + main's text-emerald-ink), data/drop.json (branch), PROGRESS.md (both sets by date). Merged tree: 76/76, tsc clean, build clean, voice clean, scan 0.
