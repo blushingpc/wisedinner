@@ -1,0 +1,14 @@
+home__360x640@3: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0 | h1 40px sub 5 lines, copy bottom 388 vs safe 550 OK, phones left@555 right@471
+pricing__360x640@3: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0
+home__390x844@3: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0 | h1 43.29px sub 5 lines, copy bottom 395 vs safe 754 OK, phones left@570 right@478
+pricing__390x844@3: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0
+home__412x915@3: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0 | h1 45.732px sub 4 lines, copy bottom 374 vs safe 825 OK, phones left@556 right@458
+pricing__412x915@3: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0
+home__430x932@3: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0 | h1 47.73px sub 4 lines, copy bottom 378 vs safe 842 OK, phones left@566 right@463
+pricing__430x932@3: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0
+home__768x1024@2: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0 | h1 42.24px sub 3 lines, copy bottom 372 vs safe 934 OK, phones left@589 right@460
+pricing__768x1024@2: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0
+home__1024x768@2: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0 | h1 56.32px sub 4 lines, copy bottom 577 vs safe 678 OK, phones left@242 right@133
+pricing__1024x768@2: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0
+home__1440x900@2: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0 | h1 68px sub 3 lines, copy bottom 634 vs safe 810 OK, phones left@265 right@136
+pricing__1440x900@2: overflow 0 overlaps 0 small 0 smallInputs 0 contrast 0

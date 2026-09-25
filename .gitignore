@@ -63,3 +63,9 @@ design/shots/mobile-v2/after/
 
 # supabase cli link state
 supabase/.temp/
+
+# SITE v5 capture sets (only design/shots/v5/evidence is committed)
+design/shots/v5/before/
+design/shots/v5/after/
+design/shots/v5/iter*/
+design/shots/v5/lighthouse/
