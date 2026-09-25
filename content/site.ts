@@ -2,7 +2,6 @@
 // proof counts show only when >= 100; nothing here may claim a number, quote or rating that is not real.
 export const site = {
   hero: {
-    pill: "Pre-order available now on the App Store",
     h1: "Hit your protein. Spend way less.",
     lede: "Tell WiseDinner your weekly grocery budget and your daily protein goal. It plans five days of meals, builds one short grocery list, and shows you the total before you shop.",
     cta: "Pre-order now",

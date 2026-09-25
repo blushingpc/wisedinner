@@ -63,11 +63,7 @@ export default function Home() {
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 pt-6 pb-10 sm:pt-10 sm:pb-12 lg:grid-cols-[1.2fr_1fr] lg:gap-10 lg:px-12 lg:py-12">
           <div className="min-h-[max(699px,calc(100svh-124px))] sm:min-h-0">
-            <p className="rise-up inline-flex items-start gap-2 rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink">
-              <span aria-hidden="true" className="mt-[0.4rem] size-2 shrink-0 rounded-full bg-emerald" />
-              {site.hero.pill}
-            </p>
-            <h1 className="rise-up mt-4 text-h1 sm:mt-5 sm:text-balance">{site.hero.h1}</h1>
+            <h1 className="rise-up text-h1 sm:text-balance">{site.hero.h1}</h1>
             <p className="rise-up mt-4 max-w-[52ch] text-[1.0625rem] text-ink-2 max-[399px]:text-[1rem] max-[374px]:text-sm [animation-delay:120ms] sm:mt-5 sm:text-lg">{site.hero.lede}</p>
             <div className="rise-up mt-6 sm:mt-8 [animation-delay:160ms]">
               <PreorderButton placement="hero" className="cta cta-wide min-w-[200px]" />
