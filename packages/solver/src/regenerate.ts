@@ -1,10 +1,12 @@
 import type { Snapshot, SolveOutput } from "./types.ts";
 import { BAND, MIN_BUDGET_WHY, belowMinimum, ctxFor, evaluate, options, rng, toOutput } from "./engine.ts";
+import { existingSkus, makeable } from "./makeable.ts";
 
-// re-solve one slot (slotIndex = day * 3 + slot, 0..14) with the other fourteen fixed. every valid recipe for the
-// slot is tried; a feasible week only accepts substitutes that keep it feasible (budget, protein, calories, floors,
-// repeat cap, waste rule); the seed picks inside the 3% band like a full solve. nothing fits → the week comes back
-// unchanged with changed: false and a plain-words why.
+// re-solve one slot (slotIndex = day * 3 + slot, 0..14) with the other fourteen fixed. every recipe for the slot
+// that is makeable from the week's existing list (no new sku; see makeable.ts) is tried; a feasible week only
+// accepts substitutes that keep it feasible (budget, protein, calories, floors, repeat cap, waste rule); the seed
+// picks inside the 3% band like a full solve. nothing fits → the week comes back unchanged with changed: false and
+// a plain-words why. this is Protein Plan's single-meal reroll (founder decision 2026-09-24).
 export function regenerateSlot(week: SolveOutput, slotIndex: number, seed: number, s: Snapshot): SolveOutput & { changed: boolean } {
   const d = Math.floor(slotIndex / 3);
   const sl = slotIndex % 3;
@@ -14,7 +16,8 @@ export function regenerateSlot(week: SolveOutput, slotIndex: number, seed: numbe
   const { ctx, book, internal } = ctxFor(week, s);
   const current = internal[d][sl];
   const base = evaluate(internal, ctx);
-  const cands = options(ctx, d, sl).filter((t) => t.id !== current.id);
+  const existing = existingSkus(week, ctx);
+  const cands = options(ctx, d, sl).filter((t) => t.id !== current.id && makeable(t, existing));
   const tried = cands.map((t) => {
     const w = internal.map((day, di) => (di === d ? day.map((x, si) => (si === sl ? t : x)) : day));
     return { week: w, ev: evaluate(w, ctx) };
@@ -33,7 +36,7 @@ export function regenerateSlot(week: SolveOutput, slotIndex: number, seed: numbe
   }
   if (!pick) {
     const kind = sl === 0 ? "breakfast" : sl === 1 ? "lunch" : "dinner";
-    return { ...week, seed, why: [...week.why, `no other ${kind} fits this week`], changed: false };
+    return { ...week, seed, why: [...week.why, `no other ${kind} can be made from this week's list`], changed: false };
   }
   return { ...toOutput(pick.week, pick.ev, ctx, seed, book, s), changed: true };
 }

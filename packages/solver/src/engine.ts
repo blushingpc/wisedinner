@@ -415,12 +415,19 @@ export function solve(input: SolveInput, s: Snapshot): SolveOutput {
 }
 
 // a fixed week (recipe ids [day][slot]) priced and scored without search (fixtures, tests)
-export function evaluateWeek(ids: string[][], input: SolveInput, s: Snapshot): SolveOutput {
+// ids as days × slots (string[5][3]) or flat by slotIndex (string[15], slotIndex = day * 3 + slot); the app applies a
+// swap with the flat form: ids[slotIndex] = candidate.recipe_id
+export function evaluateWeek(ids: string[][] | string[], input: SolveInput, s: Snapshot): SolveOutput {
+  if (ids.length && typeof ids[0] === "string") {
+    const flat = ids as string[];
+    if (flat.length !== 15) throw new Error("a flat ids list must have 15 recipe ids (5 days × 3 slots)");
+    ids = DAYS.map((_, d) => flat.slice(d * 3, d * 3 + 3));
+  }
   const seed = input.seed ?? 0;
   const book = buildPriceBook(s, input);
   const run = runStores(book)[0];
   const ctx = makeCtx(input, buildPool(s, book.maps.get(run.mapKey)!, input.diet, input.budget));
-  const week = weekFrom(ids, ctx);
+  const week = weekFrom(ids as string[][], ctx);
   return toOutput(week, evaluate(week, ctx), ctx, seed, book, s);
 }
 

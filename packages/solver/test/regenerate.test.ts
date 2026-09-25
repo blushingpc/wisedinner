@@ -9,13 +9,31 @@ const snap = loadSnapshot();
 const week = solve(BASE, snap);
 const ids = (w: typeof week) => w.days.map((d) => d.items.map((i) => i.recipe_id));
 
+// the reroll only offers dishes makeable from the week's list (no new sku), so which slots can move depends on the
+// week; the first slot that can is the one under test, and at least one slot must be able to
+const rerollable = Array.from({ length: 15 }, (_, s) => s).find((s) => regenerateSlot(week, s, 7, snap).changed);
+
 test("changes only the target slot and keeps every other recipe", () => {
-  const out = regenerateSlot(week, 5, 7, snap); // tue dinner
+  assert.notEqual(rerollable, undefined, "no slot of the base week can be rerolled from its own list");
+  const slot = rerollable!;
+  const out = regenerateSlot(week, slot, 7, snap);
   assert.ok(out.changed, out.why.join("; "));
   const a = ids(week);
   const b = ids(out);
-  for (let d = 0; d < 5; d++) for (let s = 0; s < 3; s++) if (d * 3 + s !== 5) assert.equal(b[d][s], a[d][s], `slot ${d * 3 + s} moved`);
-  assert.notEqual(b[1][2], a[1][2]);
+  for (let d = 0; d < 5; d++) for (let s = 0; s < 3; s++) if (d * 3 + s !== slot) assert.equal(b[d][s], a[d][s], `slot ${d * 3 + s} moved`);
+  assert.notEqual(b[Math.floor(slot / 3)][slot % 3], a[Math.floor(slot / 3)][slot % 3]);
+});
+
+test("a reroll never adds a sku the list did not already carry (makeable from the list)", () => {
+  const before = new Set(week.list.map((i) => i.sku_id));
+  for (let s = 0; s < 15; s++) {
+    const out = regenerateSlot(week, s, 7, snap);
+    if (!out.changed) {
+      assert.ok(out.why.some((x) => /can be made from this week's list/.test(x)), `slot ${s}: ${out.why.join("; ")}`);
+      continue;
+    }
+    for (const i of out.list) assert.ok(before.has(i.sku_id), `slot ${s} added ${i.sku_id}`);
+  }
 });
 
 test("keeps feasibility, budget and protein on every day", () => {
