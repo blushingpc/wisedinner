@@ -93,6 +93,14 @@ Errors are `{ error: string }` with 400 / 404 / 413 / 429 / 502 / 503.
 | `POST /api/receipts` | receipt calibration lines | `{ user_hash: hex64, store: storeId, region: zip5, observed_at?: iso, items: [{ sku: skuId, price: number }] }` ≤ 100 lines | `{ status: "ok", accepted: n }` |
 | `POST /api/support` | the site's support form (not for the app) | `{ name?, email, message }` | `{ status: "ok" }` |
 | `GET /api/status` | heartbeat | none | includes `snapshot: { version, created_at }` and `support: { open, escalated }` |
+| `GET /api/delivery?store=<storeId>&zip=<zip5>[&list_hash=<32hex>]` | the Delivery Gap for the list screen (Courier; gate in the app) | query only | `{ store, zip, list_hash, subtotal_usd, fees_usd, total_usd, quoted_at, estimate: true, label, exact_list }` (cache 1 h); 404 `{ error: "no quote yet" }` when no quote exists |
+
+`/api/delivery` reads `delivery_quotes`, the table `scripts/data/instacart.ts` fills from a priced Instacart cart
+(the only Delivery Gap source; there is no modeled markup). Without `list_hash` it returns the store's newest quote
+at that ZIP (`exact_list: false`); with it, the quote for that exact list. `list_hash` is the first 32 hex of
+sha256 over the sorted `[name.toLowerCase(), qty, unit]` triples of the list lines, as `listHash()` in
+`scripts/data/instacart.ts` computes it. Every figure is an estimate and the app labels it so. While no Instacart
+key exists the table is empty and the route answers 404; the list screen hides the line on 404.
 
 `DisplayWeek` for `/api/weeks` is the website's `FixtureWeek` shape (`data/fixtures.ts`): `days[5].meals[3]`
 with `{ slot, menu, name, protein_g, cost_usd, img }`, `totals`, `list.items[]`, `receipt`. The share page rejects
@@ -114,11 +122,48 @@ device (never an email, never a device id); receipt lines are stored unverified 
 | Tier | Calls | Notes |
 |---|---|---|
 | Free (pre-order build) | `solve(input, snapshot)`; whole-week regenerate = `solve({ ...input, seed: newSeed }, snapshot)` | `mode` may be omitted; the solver downgrades to what the data supports |
-| Protein Plan | + `regenerateSlot(week, slotIndex, seed, snapshot)` | `slotIndex = day * 3 + slot` (0..14); returns `changed: false` with a plain-words `why` when nothing else fits. Slot 0 takes breakfasts; slots 1 and 2 share the lunch + dinner pool |
-| Autopilot | + `swapCandidates(week, slotIndex, snapshot, n = 6)` | ranked substitutes with `deltaCost`, `deltaProtein`, `usesExisting`, `newItems`, `variantOf?`; apply one with `evaluateWeek(ids, week.input, snapshot)` |
+| Protein Plan | + `regenerateSlot(week, slotIndex, seed, snapshot)` | the random single-meal reroll. `slotIndex = day * 3 + slot` (0..14). Candidates are the dishes **makeable from the week's existing list** (every ingredient already on the list or in the pantry; a pack count may bump on re-consolidation, a new sku never appears); the seed picks inside the 3% cost band. Returns `changed: false` with `why` "no other dinner can be made from this week's list" when nothing fits. Slot 0 takes breakfasts; slots 1 and 2 share the lunch + dinner pool |
+| Courier (was Autopilot; renamed 2026-09-24) | + `swapCandidates(week, slotIndex, snapshot, n = 6)` and `GET /api/delivery` | the menu of substitutes for one slot. Candidates are (1) makeable from the week's list as above, (2) **protein-matched**: the candidate's `protein_g` (per person, as displayed) is within the tolerance below of the replaced meal's `protein_g`, (3) keep the week feasible. Ranked by fewest `extraPacks`, then `deltaCost`, then closest protein, then more protein. Apply one with `evaluateWeek(ids, week.input, snapshot)`. `usesExisting` is always `true` and `newItems` always `[]` now; both stay on the shape |
+
+**Protein-match tolerance** (`packages/solver/src/makeable.ts`): `tolerance(g) = max(5, round(0.15 × g))`, applied to
+the replaced meal's displayed `protein_g`. A 20 g breakfast accepts 15 to 25 g, a 40 g lunch 34 to 46 g, a 60 g
+dinner 51 to 69 g. Fixed percentages alone let a 20 g breakfast swing by 3 g, which reads as "the same" but blocks
+almost every option; 5 g is the floor a user notices on the day figure.
 
 Gating lives in the app. The solver has no notion of tiers. `pantry` on the input is a list of sku ids the user
 owns; those packs stay on the list at $0 with `pantry: true`.
+
+### Request and response shapes for the app (Courier work, 2026-09-24)
+
+On device, both functions take the `SolveOutput` the app already holds; nothing is sent to the server.
+
+```ts
+// Protein Plan: reroll one meal
+regenerateSlot(week: SolveOutput, slotIndex: number /* 0..14 */, seed: number, snapshot: Snapshot)
+  → SolveOutput & { changed: boolean }   // changed:false → same week, why[] gains one plain-words line
+
+// Courier: substitutes for one meal
+swapCandidates(week: SolveOutput, slotIndex: number /* 0..14 */, snapshot: Snapshot, n = 6)
+  → SwapCandidate[]                        // [] when nothing on the list makes a protein-matched dish
+SwapCandidate = {
+  recipe_id: string; name: string;
+  protein_g: number;        // the candidate meal, per person, as displayed
+  deltaCost: number;        // whole-list total after minus before (household)
+  deltaProtein: number;     // that day's protein after minus before
+  extraPacks: number;       // packs the list grows by (0 = same packs)
+  usesExisting: true; newItems: [];   // kept for shape stability
+  variantOf?: { recipe_id: string; kind: VariantKind };
+}
+
+// Courier: the Delivery Gap line on the list screen
+GET https://www.wisedinner.com/api/delivery?store=kroger&zip=43215            // newest quote for the store at the ZIP
+GET https://www.wisedinner.com/api/delivery?store=kroger&zip=43215&list_hash=<32hex>   // this exact list
+200 { store: "kroger", zip: "43215", list_hash: "…", subtotal_usd: 68.90, fees_usd: 0, total_usd: 68.90,
+      quoted_at: "2026-09-28T10:04:11Z", estimate: true, label: "Delivered, estimated", exact_list: false }
+404 { error: "no quote yet" }        // hide the line
+400 { error: "store and a 5-digit zip are required" } | { error: "list_hash must be 32 hex characters" }
+429 { error: "too many requests" }   // 60 per minute per IP
+```
 
 Output fields the app may show: everything on `SolveOutput` except `input` (echo) and `seed`. `store_mode`,
 `modes_available`, `stores[]` (subtotal per store) and `alt_total` are display-ready.

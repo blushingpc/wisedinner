@@ -134,10 +134,12 @@ export type SolveOutput = {
 export type SwapCandidate = {
   recipe_id: string;
   name: string;
+  protein_g: number; // the candidate meal's protein per person, as the app displays it (within tolerance of the replaced meal)
   deltaCost: number; // whole-list total after the swap minus before (household)
   deltaProtein: number; // that day's protein per person after minus before
-  usesExisting: boolean; // every ingredient is already on the list or in the pantry
-  newItems: string[]; // sku ids the swap would add to the list
+  usesExisting: boolean; // every ingredient is already on the list or in the pantry (always true since 2026-09-24; kept for the contract)
+  newItems: string[]; // sku ids the swap would add to the list (always [] since 2026-09-24)
+  extraPacks: number; // packs the list grows by after re-consolidation (0 = same packs, only quantities eaten move)
   variantOf?: { recipe_id: string; kind: VariantKind }; // when the candidate is a variant of the recipe in the slot
 };
 

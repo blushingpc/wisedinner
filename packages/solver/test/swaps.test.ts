@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { evaluateWeek, solve } from "../src/engine.ts";
 import { swapCandidates } from "../src/swaps.ts";
+import { proteinMatches, proteinTolerance } from "../src/makeable.ts";
 import { BASE } from "../src/profiles.ts";
 import { loadSnapshot } from "./helpers.ts";
 
@@ -43,12 +44,48 @@ test("usesExisting is true iff the candidate adds no new sku", () => {
   }
 });
 
-test("ranking: usesExisting first, then fewer new items, then cheaper, then more protein", () => {
-  const c = swapCandidates(week, 11, snap, 10);
+// Courier's filters leave few candidates on a tight week, so the property tests run over every slot of two weeks
+const tight = solve({ ...BASE, budget: 57, seed: 1 }, snap);
+const allSlots = [week, tight].flatMap((w) => Array.from({ length: 15 }, (_, s) => ({ w, s, c: swapCandidates(w, s, snap, 20) })));
+
+test("every candidate is makeable from the week's list: no new sku, usesExisting true", () => {
+  assert.ok(allSlots.some((x) => x.c.length > 0), "no slot of either week has a candidate");
+  for (const { w, s, c } of allSlots) {
+    const existing = new Set(w.list.map((i) => i.sku_id));
+    for (const x of c) {
+      const parts = snap.recipe_ingredients.filter((i) => i.recipe_id === x.recipe_id).map((i) => i.sku_id);
+      assert.ok(parts.every((id) => existing.has(id)), `slot ${s} ${x.recipe_id} needs a new sku`);
+      assert.equal(x.usesExisting, true);
+      assert.deepEqual(x.newItems, []);
+    }
+  }
+});
+
+test("every candidate lands within the protein tolerance of the meal it replaces, as displayed", () => {
+  for (const { w, s, c } of allSlots) {
+    const cur = w.days[Math.floor(s / 3)].items[s % 3].protein_g;
+    for (const x of c) {
+      assert.ok(proteinMatches(x.protein_g, cur), `slot ${s} ${x.recipe_id}: ${x.protein_g} g vs ${cur} g (±${proteinTolerance(cur)})`);
+      const ids = w.days.map((d, di) => d.items.map((i, si) => (di * 3 + si === s ? x.recipe_id : i.recipe_id)));
+      assert.equal(evaluateWeek(ids, w.input, snap).days[Math.floor(s / 3)].items[s % 3].protein_g, x.protein_g, `slot ${s} ${x.recipe_id} protein_g is not the displayed figure`);
+    }
+  }
+});
+
+test("tolerance: the larger of 5 g and 15% of the replaced meal", () => {
+  assert.equal(proteinTolerance(20), 5);
+  assert.equal(proteinTolerance(40), 6);
+  assert.equal(proteinTolerance(60), 9);
+  assert.ok(proteinMatches(25, 20) && !proteinMatches(26, 20));
+});
+
+test("ranking: fewest extra packs, then cheaper, then closest protein, then more protein", () => {
+  const { w, s, c } = allSlots.find((x) => x.c.length > 1) ?? { w: week, s: 11, c: swapCandidates(week, 11, snap, 10) };
+  const cur = w.days[Math.floor(s / 3)].items[s % 3].protein_g;
   for (let i = 1; i < c.length; i++) {
     const a = c[i - 1];
     const b = c[i];
-    const key = (x: typeof a) => [Number(!x.usesExisting), x.newItems.length, x.deltaCost, -x.deltaProtein, x.recipe_id] as const;
+    const key = (x: typeof a) => [x.extraPacks, x.deltaCost, Math.abs(x.protein_g - cur), -x.protein_g, x.recipe_id] as const;
     const ka = key(a);
     const kb = key(b);
     let cmp = 0;
