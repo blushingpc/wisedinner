@@ -36,6 +36,7 @@ E2c. BLOCKED (founder): Vercel Preview env for design review — NEXT_PUBLIC_APP
 E3. post-launch — WhatsApp outreach to new accounts, first 100 as S-tier testers. done means: outreach list + invite flow defined by the founder; nothing on the site.
 E4. switch support email to a transactional provider before volume (the Gmail IMAP/SMTP loop in app/api/support/poll is capped at 450 sends a day; BACKEND-V1 §8).
 E5. add Anthropic billing before launch (the support assistant runs on a $5 balance, enough for testing; BACKEND-V1 §8).
+E6. [ ] founders_invite_url: set the app_config row once the WhatsApp founders group exists (Table Editor → app_config → value, or one SQL update); /api/data/latest serves it live. done means: GET /api/data/latest shows the link.
 
 ## Backend v1 — docs/BACKEND-V1.md (founder spec 2026-09-09), branch backend-v1, PR #20
 B1. [x] backend v1: schema + pipeline + snapshot v1 + solver over the snapshot + API routes + AI support on Gmail + API contract — MERGED to main 1801670 and live 2026-09-24 (PR #20, prod verified: /api/data/latest v4, /api/status db ok, support cron registered).
