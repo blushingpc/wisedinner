@@ -87,12 +87,19 @@ Errors are `{ error: string }` with 400 / 404 / 413 / 429 / 502 / 503.
 
 | Route | Purpose | Request | Response |
 |---|---|---|---|
-| `GET /api/data/latest` | newest snapshot pointer | none | `{ version, url, sha256, created_at }` (cache 5 min) |
+| `GET /api/data/latest` | newest snapshot pointer + live app config | none | `{ version, url, sha256, created_at, config: { founders_invite_url } }` (cache 5 min) |
 | `GET /api/data/<version>` | a specific version | none | same shape (cache 1 day) |
 | `POST /api/weeks` | share a week | `{ budget, protein_target, diet, household, stores: string[], week: DisplayWeek }` ≤ 32 KB | `{ id, url }` → `https://www.wisedinner.com/w/<id>` |
 | `POST /api/receipts` | receipt calibration lines | `{ user_hash: hex64, store: storeId, region: zip5, observed_at?: iso, items: [{ sku: skuId, price: number }] }` ≤ 100 lines | `{ status: "ok", accepted: n }` |
 | `POST /api/support` | the site's support form (not for the app) | `{ name?, email, message }` | `{ status: "ok" }` |
 | `GET /api/status` | heartbeat | none | includes `snapshot: { version, created_at }` and `support: { open, escalated }` |
+
+`config` on `/api/data/latest` is read live from the `app_config` table on every request and changes with no
+redeploy; it is never part of the snapshot blob, and `/api/data/<version>` does not carry it. The founder edits it
+in the Supabase dashboard (Table Editor → `app_config` → `value` on the `founders_invite_url` row) or with one SQL
+update (`update app_config set value = '<url>', updated_at = now() where key = 'founders_invite_url'`). Build 1
+allows no network, so nothing in Build 1 reads it; it is for Build 2 and the website. A missing row or a failed
+config read yields `""`, never an error, so the snapshot pointer always comes through.
 
 `DisplayWeek` for `/api/weeks` is the website's `FixtureWeek` shape (`data/fixtures.ts`): `days[5].meals[3]`
 with `{ slot, menu, name, protein_g, cost_usd, img }`, `totals`, `list.items[]`, `receipt`. The share page rejects
@@ -171,6 +178,8 @@ reasons in `why`.
 - On launch (at most once per 24 h, and never in Build 1 where no network is allowed), `GET /api/data/latest`. If
   `version` is higher than the bundled or cached one, download `url`, verify `sha256`, run `validateSnapshot`, then
   swap atomically. Keep the last good snapshot if any step fails.
+- `config.founders_invite_url` rides on the same pointer: the app may cache it with the pointer and re-read it on
+  the same 24 h schedule (Build 2 only; Build 1 never calls the route). Treat `""` as "no invite link yet".
 - A week solved on version N stays valid on version N+1; re-solve only when the user asks.
 - Photos are `/img/menu/<base id>.jpg` on the website; the app ships them in its bundle (Metro needs static requires).
 
