@@ -11,7 +11,7 @@ const money = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: `What WiseDinner will cost when the app ships. The pre-order build is free. Protein Plan ${money(TIERS[0].monthly)} a month or ${money(TIERS[0].yearly)} a year, Autopilot ${money(TIERS[1].monthly)} a month or ${money(TIERS[1].yearly)} a year, 14-day free trial in the app. Nothing for sale here yet.`,
+  description: `What WiseDinner will cost when the app ships. The pre-order build is free. Protein Plan ${money(TIERS[0].monthly)} a month or ${money(TIERS[0].yearly)} a year, Courier ${money(TIERS[1].monthly)} a month or ${money(TIERS[1].yearly)} a year, 14-day free trial in the app. Nothing for sale here yet.`,
   alternates: { canonical: "/pricing" },
   openGraph: { images: ["/og?page=pricing"] },
 };

@@ -23,7 +23,7 @@ export const PRODUCT_FACTS = `Product facts:
 - WiseDinner is an iPhone app (Android next). You give it two numbers, a weekly grocery budget and a daily protein goal, and it returns a solved five day week of meals, one short grocery list and an estimated in-store total. There is no web version and no web demo.
 - Prices are shelf-price estimates from public price data with a buffer, refreshed weekly; the app can also show what the same list costs delivered from Kroger, as an estimate. Receipts revealed in the app tighten the estimate for that user.
 - Pre-order is open on the App Store. Release follows a few weeks after pre-order opens; there is no fixed date to promise.
-- The pre-order build is free and complete and needs no account. Paid tiers arrive at launch with a 14 day free trial in the app: Protein Plan (regenerate any single meal, receipt reveal, the weekly solve challenge) and Autopilot (a menu of substitutes to pick from, next week planned every Sunday at 5pm). Exact prices are in the pricing facts below.
+- The pre-order build is free and complete and needs no account. Paid tiers arrive at launch with a 14 day free trial in the app: Protein Plan (reroll any single meal into a different dish from what's already on the list, receipt reveal, the weekly solve challenge) and Courier (reroll opens a menu of dishes with the same protein to choose from, the whole list delivered from your store, next week planned every Sunday at 5pm). Exact prices are in the pricing facts below.
 - The weekly solve challenge counts only receipt-verified weeks; the leaderboard is cost per gram of protein.
 - The first version collects no data: no account, no sign-in, no tracking; weeks and receipts stay on the phone.`;
 

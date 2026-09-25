@@ -6,8 +6,8 @@ import { FOOTER } from "../kb.ts";
 test("voice gate: a clean reply passes, including prices, times, brands, abbreviations, links, bullets and the sign-off", () => {
   const reply = [
     "The pre-order build is free and complete: onboarding, the solver and the week view. Protein Plan is $8.99 a month with a 14-day trial.",
-    "iPhone launches first, e.g. through the App Store, and Android follows. Autopilot plans next week every Sunday at 5pm.",
-    "- Protein Plan adds single meal regenerate.\n- Autopilot adds a menu of substitutes.",
+    "iPhone launches first, e.g. through the App Store, and Android follows. Courier plans next week every Sunday at 5pm.",
+    "- Protein Plan adds single meal reroll.\n- Courier adds a menu of dishes to choose from.",
     "More on the site:\nhttps://www.wisedinner.com/pricing\nsupport@wisedinner.com",
     "Émile, the lowercase question is fine too.",
     "WiseDinner support",

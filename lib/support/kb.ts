@@ -9,7 +9,7 @@ export const FOOTER = "Reply to this email to reach a person.";
 const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 
 export function pricingFacts(): string {
-  const tiers = site.pricing.tiers.map((t) => `${t.name}: ${usd(t.monthly)} a month or ${usd(t.yearly)} a year. ${t.lead.title} ${t.rows.join(". ")}.`);
+  const tiers = site.pricing.tiers.map((t) => `${t.name}: ${usd(t.monthly)} a month or ${usd(t.yearly)} a year. ${t.lead} ${t.rows.join(". ")}.`);
   return `Pricing facts:\n- ${site.pricing.intro}\n- ${site.pricing.trial}\n- ${tiers.join("\n- ")}`;
 }
 

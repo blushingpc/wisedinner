@@ -3,8 +3,8 @@ import { site } from "@/content/site";
 
 const money = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 
-// SECTION 5 pricing (REDESIGN-V4 §6, FRONTEND-V4.1 §4): the pre-order build is free and complete; Protein Plan and
-// Autopilot are the launch tiers, each led by the one control it adds, with a 14-day trial in the app. Prices read
+// SECTION 5 pricing (REDESIGN-V4 §6, FRONTEND-V4.1 §4, SITE-V5 §3): the pre-order build is free and complete; Protein
+// Plan and Courier are the launch tiers, each led by the one control it adds, with a 14-day trial in the app. Prices read
 // from content/site.ts and nowhere else (pricing law). No ratings language anywhere in this section.
 // heading: the homepage section already has an h2, so the tier names are h3 there; /pricing opens with the h1 and
 // needs them as h2 (heading order).
@@ -28,10 +28,10 @@ export function PricingCards({ compact = false, heading: H = "h3" }: { compact?:
             <p className="mt-2 text-sm text-ink-2 tnum">
               or {money(t.yearly)}/year, {money(t.perMonth)} a month billed yearly
             </p>
-            {/* the lead: the control this tier hands you, on the emerald tint */}
+            {/* the lead: the control this tier hands you, on the emerald tint. one paragraph (SITE-V5 §3 gives each lead as
+                running copy, too long for a title line) */}
             <div className="mt-7 rounded-[12px] bg-emerald-tint p-4">
-              <p className="font-display text-[1.0625rem] font-bold tracking-[-0.01em]">{t.lead.title}</p>
-              <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink-2">{t.lead.body}</p>
+              <p className="text-[0.9375rem] leading-relaxed text-ink">{t.lead}</p>
             </div>
             <ul className="mt-6 grid gap-2.5 border-t border-border pt-6">
               {t.rows.map((r) => (

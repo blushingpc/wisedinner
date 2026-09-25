@@ -1,7 +1,7 @@
 // copy bank (REDESIGN-V4 §3 voice, §7 deck). used by /, /faq, /about, JSON-LD.
 import { site } from "../content/site.ts";
 
-const [plan, auto] = site.pricing.tiers;
+const [plan, courier] = site.pricing.tiers;
 const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 
 export const SUPPORT_EMAIL = "support@wisedinner.com";
@@ -16,7 +16,7 @@ export const FAQ = [
   },
   {
     q: "What is free and what is paid?",
-    a: `${site.pricing.intro} No account, nothing to buy. At launch, Protein Plan (${usd(plan.monthly)} a month or ${usd(plan.yearly)} a year) adds regenerate for any single meal, the receipt reveal and the weekly solve challenge. Autopilot (${usd(auto.monthly)} a month or ${usd(auto.yearly)} a year) adds a menu of substitutes so you pick your own replacement, and plans next week for you every Sunday at 5pm.`,
+    a: `${site.pricing.intro} No account, nothing to buy. At launch, Protein Plan (${usd(plan.monthly)} a month or ${usd(plan.yearly)} a year) lets you reroll any single meal into a different dish made from what's already on your list, and adds the receipt reveal and the weekly solve challenge. Courier (${usd(courier.monthly)} a month or ${usd(courier.yearly)} a year) opens a menu when you reroll, dishes that fit your list and hit the same protein as the meal you're replacing, so you choose. It also orders the whole list delivered from your store and plans next week for you every Sunday at 5pm.`,
   },
   {
     q: "What is the receipt reveal?",

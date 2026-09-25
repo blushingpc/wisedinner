@@ -35,32 +35,32 @@ export const site = {
   // pricing honesty law: change a price here and nowhere else
   pricing: {
     h2: "Simple pricing",
-    // the pre-order build is free; Protein Plan and Autopilot are the launch tiers (FRONTEND-V4.1 §4: the ladder is about
-    // control, never ratings). intro and every lead verbatim from the spec.
+    // the pre-order build is free; Protein Plan and Courier are the launch tiers (FRONTEND-V4.1 §4: the ladder is about
+    // control, never ratings; SITE-V5 §3: the second tier is Courier; taglines, prices, leads and rows verbatim).
     intro: "The pre-order build is free and complete: onboarding, the offline solver, the week view, the three checks, whole-week regenerate, the aisle list with its total, share your week, beat this week.",
     trial: "14-day free trial in the app. No account needed to see your first week.",
     tiers: [
       {
         name: "Protein Plan",
-        tagline: "Control any single meal.",
+        tagline: "Reroll any single meal.",
         monthly: 8.99,
-        yearly: 59,
-        perMonth: 4.92,
+        yearly: 48,
+        perMonth: 4,
         popular: true,
-        lead: { title: "Regenerate any single meal.", body: "Don't like Tuesday's dinner? Regenerate just that one and the week stays under budget and on protein." },
+        lead: "Don't like a meal? Reroll it. The app swaps in a different dish it can make from what's already on your list.",
         rows: ["Everything in the free build", "Receipt reveal", "The weekly solve challenge"],
       },
       {
-        name: "Autopilot",
-        tagline: "Choose the swap yourself, and let Sunday plan the rest.",
+        name: "Courier",
+        tagline: "Pick the swap yourself, get the list delivered, and let Sunday plan the rest.",
         monthly: 12.99,
-        yearly: 89,
-        perMonth: 7.42,
+        yearly: 96,
+        perMonth: 8,
         popular: false,
-        lead: { title: "Pick your replacement from a menu.", body: "Instead of the solver choosing for you, see a menu of substitutes built from what you're already buying and pick the one you want." },
-        rows: ["Everything in Protein Plan", "Next week planned for you every Sunday at 5pm"],
+        lead: "Reroll opens a menu of dishes that fit your list and hit the same protein as the meal you're replacing, so you choose. Order the whole list delivered from your store. Next week is planned for you every Sunday at 5pm.",
+        rows: ["Everything in Protein Plan", "Choose your replacement from a menu, same protein as the meal it replaces", "Delivery from your store, straight from the list", "Next week planned for you every Sunday at 5pm"],
       },
-    ] as { name: string; tagline: string; monthly: number; yearly: number; perMonth: number; popular: boolean; lead: { title: string; body: string }; rows: string[] }[],
+    ] as { name: string; tagline: string; monthly: number; yearly: number; perMonth: number; popular: boolean; lead: string; rows: string[] }[],
   },
   faq: { h2: "Frequently asked questions" },
   // SECTION 7 pre-order band (§6)
