@@ -72,6 +72,49 @@ test("every candidate lands within the protein tolerance of the meal it replaces
   }
 });
 
+test("an explicit tolerance widens or narrows the candidate set against the default", () => {
+  // the slot with the most default candidates across both weeks; a fixed 10 g window is wider than the default
+  // for any meal under 67 g, a 10% window is narrower than max(5 g, 15%) for every meal
+  const best = allSlots.reduce((a, b) => (b.c.length > a.c.length ? b : a));
+  const { w, s } = best;
+  const cur = w.days[Math.floor(s / 3)].items[s % 3].protein_g;
+  const dflt = swapCandidates(w, s, snap, 50);
+  const fixed = swapCandidates(w, s, snap, 50, 10);
+  const pct = swapCandidates(w, s, snap, 50, (g) => Math.round(g * 0.1));
+  const ids = (c: typeof dflt) => new Set(c.map((x) => x.recipe_id));
+  const subset = (a: typeof dflt, b: typeof dflt) => a.every((x) => ids(b).has(x.recipe_id));
+  // a fixed 10 g window is wider than the default under 67 g and narrower above; the set must follow the window
+  if (10 >= proteinTolerance(cur)) assert.ok(subset(dflt, fixed), `10 g window (wider than ${proteinTolerance(cur)} g) dropped a default candidate`);
+  else assert.ok(subset(fixed, dflt), `10 g window (narrower than ${proteinTolerance(cur)} g) added a candidate`);
+  // a 10% window is narrower than max(5 g, 15%) for every meal
+  assert.ok(Math.round(cur * 0.1) < proteinTolerance(cur));
+  assert.ok(subset(pct, dflt), "10% window added a candidate");
+  for (const x of fixed) assert.ok(Math.abs(x.protein_g - cur) <= 10, `${x.recipe_id} outside 10 g`);
+  for (const x of pct) assert.ok(Math.abs(x.protein_g - cur) <= Math.round(cur * 0.1), `${x.recipe_id} outside 10%`);
+  // the parameter is threaded: a zero window keeps only exact matches, a huge one keeps every feasible makeable dish
+  const none = swapCandidates(w, s, snap, 50, 0);
+  const all = swapCandidates(w, s, snap, 50, 1000);
+  for (const x of none) assert.equal(x.protein_g, cur);
+  assert.ok(subset(dflt, all) && subset(none, dflt));
+  assert.ok(all.length >= dflt.length && dflt.length >= none.length);
+  assert.deepEqual(swapCandidates(w, s, snap, 50, undefined), dflt, "undefined must be the default");
+  // and on the matcher itself
+  assert.equal(proteinMatches(26, 20), false);
+  assert.equal(proteinMatches(26, 20, 10), true);
+  assert.equal(proteinMatches(26, 20, (g) => Math.round(g * 0.1)), false);
+  assert.equal(proteinMatches(22, 20, (g) => Math.round(g * 0.1)), true);
+});
+
+test("evaluateWeek accepts the flat 15-id form the app uses to apply a swap", () => {
+  const { w, s, c } = allSlots.find((x) => x.c.length > 0)!;
+  const nested = w.days.map((d) => d.items.map((i) => i.recipe_id));
+  const flat = w.days.flatMap((d) => d.items.map((i) => i.recipe_id));
+  flat[s] = c[0].recipe_id;
+  nested[Math.floor(s / 3)][s % 3] = c[0].recipe_id;
+  assert.deepEqual(evaluateWeek(flat, w.input, snap), evaluateWeek(nested, w.input, snap));
+  assert.throws(() => evaluateWeek(flat.slice(0, 14), w.input, snap), /15 recipe ids/);
+});
+
 test("tolerance: the larger of 5 g and 15% of the replaced meal", () => {
   assert.equal(proteinTolerance(20), 5);
   assert.equal(proteinTolerance(40), 6);

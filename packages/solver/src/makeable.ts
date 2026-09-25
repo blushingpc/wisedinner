@@ -17,4 +17,9 @@ export const makeable = (t: Template, existing: Set<string>) => t.parts.every((p
 export const PROTEIN_MATCH_PCT = 0.15;
 export const PROTEIN_MATCH_MIN_G = 5;
 export const proteinTolerance = (proteinG: number) => Math.max(PROTEIN_MATCH_MIN_G, Math.round(proteinG * PROTEIN_MATCH_PCT));
-export const proteinMatches = (candidateG: number, currentG: number) => Math.abs(candidateG - currentG) <= proteinTolerance(currentG);
+
+// the app may pass its own window: a number is a fixed gram window, a function computes it from the replaced
+// meal's displayed protein_g; undefined is the default above, so existing callers are unchanged
+export type Tolerance = number | ((currentG: number) => number);
+export const toleranceFor = (currentG: number, tolerance?: Tolerance) => (tolerance === undefined ? proteinTolerance(currentG) : typeof tolerance === "number" ? tolerance : tolerance(currentG));
+export const proteinMatches = (candidateG: number, currentG: number, tolerance?: Tolerance) => Math.abs(candidateG - currentG) <= toleranceFor(currentG, tolerance);

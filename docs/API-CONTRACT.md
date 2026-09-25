@@ -123,12 +123,27 @@ device (never an email, never a device id); receipt lines are stored unverified 
 |---|---|---|
 | Free (pre-order build) | `solve(input, snapshot)`; whole-week regenerate = `solve({ ...input, seed: newSeed }, snapshot)` | `mode` may be omitted; the solver downgrades to what the data supports |
 | Protein Plan | + `regenerateSlot(week, slotIndex, seed, snapshot)` | the random single-meal reroll. `slotIndex = day * 3 + slot` (0..14). Candidates are the dishes **makeable from the week's existing list** (every ingredient already on the list or in the pantry; a pack count may bump on re-consolidation, a new sku never appears); the seed picks inside the 3% cost band. Returns `changed: false` with `why` "no other dinner can be made from this week's list" when nothing fits. Slot 0 takes breakfasts; slots 1 and 2 share the lunch + dinner pool |
-| Courier (was Autopilot; renamed 2026-09-24) | + `swapCandidates(week, slotIndex, snapshot, n = 6)` and `GET /api/delivery` | the menu of substitutes for one slot. Candidates are (1) makeable from the week's list as above, (2) **protein-matched**: the candidate's `protein_g` (per person, as displayed) is within the tolerance below of the replaced meal's `protein_g`, (3) keep the week feasible. Ranked by fewest `extraPacks`, then `deltaCost`, then closest protein, then more protein. Apply one with `evaluateWeek(ids, week.input, snapshot)`. `usesExisting` is always `true` and `newItems` always `[]` now; both stay on the shape |
+| Courier (was Autopilot; renamed 2026-09-24) | + `swapCandidates(week, slotIndex, snapshot, n = 6, tolerance?)` and `GET /api/delivery` | the menu of substitutes for one slot. Candidates are (1) makeable from the week's list as above, (2) **protein-matched**: the candidate's `protein_g` (per person, as displayed) is within the tolerance below of the replaced meal's `protein_g`, (3) keep the week feasible. Ranked by fewest `extraPacks`, then `deltaCost`, then closest protein, then more protein. Apply one with `evaluateWeek(ids, week.input, snapshot)`. `usesExisting` is always `true` and `newItems` always `[]` now; both stay on the shape |
 
 **Protein-match tolerance** (`packages/solver/src/makeable.ts`): `tolerance(g) = max(5, round(0.15 × g))`, applied to
 the replaced meal's displayed `protein_g`. A 20 g breakfast accepts 15 to 25 g, a 40 g lunch 34 to 46 g, a 60 g
 dinner 51 to 69 g. Fixed percentages alone let a 20 g breakfast swing by 3 g, which reads as "the same" but blocks
-almost every option; 5 g is the floor a user notices on the day figure.
+almost every option; 5 g is the floor a user notices on the day figure. The fifth argument overrides it:
+`tolerance?: number | ((currentG: number) => number)`, a number is a fixed gram window, a function computes the
+window from the replaced meal's displayed `protein_g`, `undefined` is the default above.
+
+**Who recomputes what.** `regenerateSlot` returns the whole recomputed `SolveOutput` (new `days`, `list`,
+`est_total`, everything). `swapCandidates` returns candidates only; the app applies one by recomputing with
+`evaluateWeek`, which takes the recipe ids either as days × slots (`string[5][3]`) or flat by `slotIndex`
+(`string[15]`):
+
+```ts
+const ids = week.days.flatMap((d) => d.items.map((i) => i.recipe_id)); // 15 ids, index = day * 3 + slot
+ids[slotIndex] = candidate.recipe_id;
+const next = evaluateWeek(ids, week.input, snapshot); // full SolveOutput: new list, new est_total, new days
+```
+
+`evaluateWeek` does not apply the $45 floor and does not search; it prices the given week as-is.
 
 Gating lives in the app. The solver has no notion of tiers. `pantry` on the input is a list of sku ids the user
 owns; those packs stay on the list at $0 with `pantry: true`.
@@ -142,9 +157,15 @@ On device, both functions take the `SolveOutput` the app already holds; nothing 
 regenerateSlot(week: SolveOutput, slotIndex: number /* 0..14 */, seed: number, snapshot: Snapshot)
   → SolveOutput & { changed: boolean }   // changed:false → same week, why[] gains one plain-words line
 
-// Courier: substitutes for one meal
-swapCandidates(week: SolveOutput, slotIndex: number /* 0..14 */, snapshot: Snapshot, n = 6)
+// Courier: substitutes for one meal (candidates only; apply with evaluateWeek below)
+swapCandidates(week: SolveOutput, slotIndex: number /* 0..14 */, snapshot: Snapshot, n = 6,
+               tolerance?: number | ((currentG: number) => number))   // default: max(5 g, round(15% × replaced meal's protein_g))
   → SwapCandidate[]                        // [] when nothing on the list makes a protein-matched dish
+
+// apply one candidate: the app recomputes the week
+const ids = week.days.flatMap((d) => d.items.map((i) => i.recipe_id));  // string[15], index = day * 3 + slot
+ids[slotIndex] = candidate.recipe_id;
+evaluateWeek(ids, week.input, snapshot)  → SolveOutput   // full week: new list, new est_total, new days (string[5][3] also accepted)
 SwapCandidate = {
   recipe_id: string; name: string;
   protein_g: number;        // the candidate meal, per person, as displayed

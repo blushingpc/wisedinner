@@ -1,14 +1,15 @@
 import type { Snapshot, SolveOutput, SwapCandidate } from "./types.ts";
 import { belowMinimum, ctxFor, evaluate, options, toOutput } from "./engine.ts";
-import { existingSkus, makeable, proteinMatches } from "./makeable.ts";
+import { existingSkus, makeable, proteinMatches, type Tolerance } from "./makeable.ts";
 
 // Courier's menu of substitutes for one slot (founder decision 2026-09-24): every recipe not already in the week
 // that (1) is makeable from the week's existing list, no new sku (makeable.ts), (2) lands on the same protein as
 // the meal it replaces, per person as displayed, within the tolerance in makeable.ts, and (3) keeps the week
 // feasible (or, for an infeasible week, does not make it worse). ranked by fewest extra packs, then cheapest, then
 // closest protein, then most protein. deterministic, no seed. usesExisting is always true now and stays on the
-// shape so the app's contract does not move.
-export function swapCandidates(week: SolveOutput, slotIndex: number, s: Snapshot, n = 6): SwapCandidate[] {
+// shape so the app's contract does not move. `tolerance` overrides the protein window: a number of grams, or a
+// function of the replaced meal's displayed protein_g; undefined = proteinTolerance (max(5 g, 15%)).
+export function swapCandidates(week: SolveOutput, slotIndex: number, s: Snapshot, n = 6, tolerance?: Tolerance): SwapCandidate[] {
   const d = Math.floor(slotIndex / 3);
   const sl = slotIndex % 3;
   if (d < 0 || d > 4 || slotIndex < 0) throw new Error("slotIndex must be 0..14");
@@ -28,7 +29,7 @@ export function swapCandidates(week: SolveOutput, slotIndex: number, s: Snapshot
     const ev = evaluate(w, ctx);
     if (base.penalty === 0 ? ev.penalty !== 0 : ev.score > base.score) continue;
     const protein_g = toOutput(w, ev, ctx, week.seed, book, s).days[d].items[sl].protein_g; // the figure the app shows
-    if (!proteinMatches(protein_g, currentProtein)) continue;
+    if (!proteinMatches(protein_g, currentProtein, tolerance)) continue;
     const newItems = t.parts.map((p) => p.sku).filter((id) => !existing.has(id)); // always [] after the makeable filter
     const v = variants.get(t.id);
     out.push({

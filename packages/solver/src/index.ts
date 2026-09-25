@@ -5,7 +5,7 @@ export { validateSnapshot, baseRecipes, templatesOf, toPublicSnapshot } from "./
 export { toCanonical, packCanonical, unitPrice, costOf, UnitError } from "./units.ts";
 export { PRICE_BUFFER, buildPriceBook, priceMapFor } from "./pricing.ts";
 export { solve, evaluateWeek, floors, isProteinSource, DAYS, SLOTS, buildPool, makeCtx, evaluate, options, fraction, MIN_BUDGET, MIN_BUDGET_WHY, belowMinimum } from "./engine.ts";
-export { existingSkus, makeable, proteinMatches, proteinTolerance, PROTEIN_MATCH_PCT, PROTEIN_MATCH_MIN_G } from "./makeable.ts";
+export { existingSkus, makeable, proteinMatches, proteinTolerance, toleranceFor, PROTEIN_MATCH_PCT, PROTEIN_MATCH_MIN_G, type Tolerance } from "./makeable.ts";
 export { regenerateSlot } from "./regenerate.ts";
 export { swapCandidates } from "./swaps.ts";
 export { servingCost, servingNutrition } from "./serving.ts";
