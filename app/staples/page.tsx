@@ -33,7 +33,7 @@ export default function Staples() {
       <header className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
         <span className="font-display text-lg font-extrabold tracking-[-0.02em]">WiseDinner</span>
         <span className="text-xs text-ink-2 tnum">
-          Sku pool v{snapshot.version}, {rows.length} SKUs, {store.banner} prices as of {asOf}, estimated in-store with a 10% buffer
+          Sku pool v{snapshot.version}, {rows.length} SKUs, public price data as of {asOf}, estimated in-store with a 10% buffer
         </span>
         {stale && <span className="text-xs text-danger tnum">Stale: some prices are older than {STALE_AFTER_DAYS} days</span>}
       </header>
