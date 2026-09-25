@@ -27,10 +27,31 @@ type Arrow = { d: string; head: string; w: number; h: number };
 export function PhoneStage({ left, right, leftLabel, rightLabel }: { left: ReactNode; right: ReactNode; leftLabel: string; rightLabel: string }) {
   const root = useRef<HTMLDivElement>(null);
   const [arrow, setArrow] = useState<Arrow | null>(null);
+  // the left phone mounts one frame after the load event (SITE-V5 §5 perf fallback: shrink it, then lazy-load it).
+  // the first paint carries the copy and the right phone only, so the right bezel is the LCP element with no second
+  // screen's style and layout in front of it; the left phone fades in after (no fade under reduced motion)
+  const [late, setLate] = useState(false);
+
+  useEffect(() => {
+    let raf = 0;
+    let t: ReturnType<typeof setTimeout> | undefined;
+    const go = () => {
+      raf = requestAnimationFrame(() => {
+        t = setTimeout(() => setLate(true), 0);
+      });
+    };
+    if (document.readyState === "complete") go();
+    else window.addEventListener("load", go, { once: true });
+    return () => {
+      window.removeEventListener("load", go);
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
+  }, []);
 
   useEffect(() => {
     const el = root.current;
-    if (!el) return;
+    if (!el || !late) return;
     const measure = () => {
       const s = el.getBoundingClientRect();
       const solve = el.querySelector("[data-phone=left] [data-solve] > *")?.getBoundingClientRect();
@@ -53,17 +74,20 @@ export function PhoneStage({ left, right, leftLabel, rightLabel }: { left: React
       setArrow({ d, head: `M ${p(0.5)} L ${x1.toFixed(1)} ${y1.toFixed(1)} L ${p(-0.5)}`, w: s.width, h: s.height });
     };
     measure();
+    document.fonts?.ready.then(measure);
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [late]);
 
   return (
     <div ref={root} className="relative isolate mx-auto aspect-[100/153] w-full max-w-[480px] select-none">
       <div data-phone="left" className="absolute top-[19.6%] left-[4%] w-[58%]">
-        <DeviceFrame label={leftLabel} widthClass="w-full" className="rotate-[-7deg]" chrome={false} sizes={STAGE_SIZES.left}>
-          {left}
-        </DeviceFrame>
+        {late && (
+          <DeviceFrame label={leftLabel} widthClass="w-full" className="fade-in rotate-[-7deg]" chrome={false} sizes={STAGE_SIZES.left}>
+            {left}
+          </DeviceFrame>
+        )}
       </div>
       <div data-phone="right" className="absolute top-[2%] left-[29.6%] z-10 w-[62%]">
         <DeviceFrame label={rightLabel} priority widthClass="w-full" className="rotate-[5deg]" chrome={false} sizes={STAGE_SIZES.right}>
@@ -71,7 +95,7 @@ export function PhoneStage({ left, right, leftLabel, rightLabel }: { left: React
         </DeviceFrame>
       </div>
       {arrow && (
-        <svg aria-hidden="true" viewBox={`0 0 ${arrow.w} ${arrow.h}`} className="pointer-events-none absolute inset-0 z-20 h-full w-full overflow-visible text-forest" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <svg aria-hidden="true" viewBox={`0 0 ${arrow.w} ${arrow.h}`} className="fade-in pointer-events-none absolute inset-0 z-20 h-full w-full overflow-visible text-forest" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
           <path d={arrow.d} />
           <path d={arrow.head} />
         </svg>

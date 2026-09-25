@@ -53,7 +53,9 @@ async function markPng(size: number, out: string, color = FOREST) {
 }
 
 async function main() {
-  await icon(1024, "app/icon.png");
+  // the favicon link (app/icon.png): 96px, a multiple of 48 for search results. 1024px here cost 47KB on every
+  // first load, fetched before the hero paints (SITE-V5 perf gate); the press kit keeps the 1024 master below
+  await icon(96, "app/icon.png");
   await icon(180, "app/apple-icon.png", false);
   await icon(192, "public/icons/icon-192.png");
   await icon(512, "public/icons/icon-512.png");
