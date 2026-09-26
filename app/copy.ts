@@ -16,7 +16,7 @@ export const FAQ = [
   },
   {
     q: "What is free and what is paid?",
-    a: `${site.pricing.intro} No account, nothing to buy. At launch, Protein Plan (${usd(plan.monthly)} a month or ${usd(plan.yearly)} a year) lets you reroll any single meal into a different dish made from what's already on your list, and adds the receipt reveal and the weekly solve challenge. Courier (${usd(courier.monthly)} a month or ${usd(courier.yearly)} a year) opens a menu when you reroll, dishes that fit your list and hit the same protein as the meal you're replacing, so you choose. It also orders the whole list delivered from your store and plans next week for you every Sunday at 5pm.`,
+    a: `${site.pricing.intro} No account, nothing to buy. At launch, Protein Plan (${usd(plan.monthly)} a month or ${usd(plan.yearly)} a year) lets you reroll any single meal into a different dish made from what's already on your list, and adds the receipt reveal and the weekly solve challenge. Courier (${usd(courier.monthly)} a month or ${usd(courier.yearly)} a year) opens a menu when you reroll, dishes that fit your list and hit the same protein as the meal you're replacing, so you choose. It also orders the whole list delivered from your store. Every Sunday at 5pm we remind you, and next week's plan is ready when you open the app. Courier arrives in an update after release.`,
   },
   {
     q: "What is the receipt reveal?",
@@ -37,7 +37,7 @@ export const FAQ = [
   },
   {
     q: "What do you collect?",
-    a: "The first version collects no data. No account, no sign-in, no tracking. Your weeks and receipts stay on your phone. When you share a week, the card and its numbers are the only things that leave.",
+    a: "Nothing for the free build. No account, no sign-in, no tracking. If you subscribe, Apple handles the payment and our subscription service, RevenueCat, receives an anonymous identifier the app generates plus your purchase history so your plan works and restores across devices. We never see your name, email or card.",
   },
   {
     q: "Why a 14-day trial?",

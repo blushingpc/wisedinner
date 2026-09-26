@@ -19,6 +19,7 @@ export function PricingCards({ compact = false, heading: H = "h3" }: { compact?:
             <div className="flex items-baseline justify-between gap-4">
               <H className="text-h3">{t.name}</H>
               {t.popular && <span className="shrink-0 rounded-full bg-forest px-3 py-1 text-caption font-semibold text-white">Most popular</span>}
+              {t.tag && <span className="shrink-0 rounded-full border border-border px-3 py-1 text-caption font-semibold text-ink-2">{t.tag}</span>}
             </div>
             <p className="mt-2 text-[0.9375rem] text-ink-2">{t.tagline}</p>
             <p className="mt-6 tnum">
@@ -28,6 +29,7 @@ export function PricingCards({ compact = false, heading: H = "h3" }: { compact?:
             <p className="mt-2 text-sm text-ink-2 tnum">
               or {money(t.yearly)}/year, {money(t.perMonth)} a month billed yearly
             </p>
+            {t.note && <p className="mt-1 text-sm font-medium text-ink">{t.note}</p>}
             {/* the lead: the control this tier hands you, on the emerald tint. one paragraph (SITE-V5 §3 gives each lead as
                 running copy, too long for a title line) */}
             <div className="mt-7 rounded-[12px] bg-emerald-tint p-4">

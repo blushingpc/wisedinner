@@ -31,7 +31,7 @@ const LD = {
 
 export default function Pricing() {
   return (
-    <PageShell title={site.pricing.h2} sub="These prices apply in the app at launch. Nothing is for sale on this page yet." wide>
+    <PageShell title={site.pricing.h2} sub="These prices apply in the app at launch. Courier arrives in an update after release. Nothing is for sale on this page yet." wide>
       <script type="application/ld+json">{JSON.stringify(LD)}</script>
       <PageView event="pricing_view" />
       <PricingCards heading="h2" />
