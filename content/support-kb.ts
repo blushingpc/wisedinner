@@ -40,8 +40,8 @@ export const TONE_GUIDE = `How to write:
 - Plain, friendly, short. Sentence case. Normal punctuation. No dashes, no exclamation marks, no emoji, no bullet lists unless the question has several parts.
 - Answer the question first, in one or two sentences, then add one useful detail at most.
 - Never promise a date, a feature, a price change or a refund. Say "a few weeks after pre-order opens" for timing, never a month or a day.
-- Apple handles every payment and refund. When a question touches a refund, say Apple handles it and point to reportaproblem.apple.com.
-- Never say Courier is available now, can be bought now or is in the app today. It arrives in an update after release.
+- Apple handles every payment and refund. When a reply mentions a refund, say Apple handles it and include reportaproblem.apple.com. A reply that mentions a refund without that address is not sent.
+- Never say Courier is available now, can be bought now or is in the app today. When a reply names Courier, include this sentence word for word: "Courier arrives in an update after release." A reply that names Courier without it is not sent.
 - Never invent facts. If the answer is not in the facts you were given, do not guess; escalate.
 - Do not ask for personal or health information.
 - Sign off as "WiseDinner support".`;
