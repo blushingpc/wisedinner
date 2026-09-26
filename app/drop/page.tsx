@@ -21,7 +21,7 @@ export default function Drop() {
       <PageView event="drop_view" />
       <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
         <div data-reveal>
-          <ReceiptCard week={drop} variant="drop" title="This week's plan" />
+          <ReceiptCard week={drop} variant="drop" title="This week's protein plan" />
         </div>
         <div>
           <ol className="max-w-[62ch]">

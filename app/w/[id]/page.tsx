@@ -109,7 +109,7 @@ export default async function SharePage({ params }: { params: Promise<{ id: stri
             </div>
             {w.list.delivery_est_usd > 0 && (
               <p className="mt-1 text-sm text-ink-2 tnum">
-                {w.list.delivery_label} {usd(w.list.delivery_est_usd)}. <span className="font-medium text-emerald-ink">Walking in saves {usd(w.list.delivery_saves_usd)}.</span>
+                Delivered, estimated {usd(w.list.delivery_est_usd)}. <span className="font-medium text-emerald-ink">Walking in saves {usd(w.list.delivery_saves_usd)}.</span>
               </p>
             )}
           </div>

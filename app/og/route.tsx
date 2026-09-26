@@ -10,7 +10,7 @@ export const runtime = "edge";
 const COPY: Record<string, [string, string]> = {
   home: ["Hit your protein. Spend way less.", site.hero.lede],
   drop: ["This week's protein plan.", "Refreshed every Sunday from real shelf prices."],
-  pricing: ["Simple pricing.", `Protein Plan from $${site.pricing.tiers[0].perMonth.toFixed(2)} a month billed yearly. 14-day free trial in the app.`],
+  pricing: ["Simple pricing.", `Protein Plan from $${site.pricing.tiers[0].perMonth.toFixed(2).replace(/\.00$/, "")} a month billed yearly. 14-day free trial in the app.`],
 };
 
 export async function GET(req: Request) {

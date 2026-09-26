@@ -34,6 +34,15 @@ const S: LegalSection[] = [
     ),
   },
   {
+    id: "purchases",
+    title: "Purchases",
+    body: (
+      <>
+        <p>If you subscribe, Apple processes the payment. We use RevenueCat to check your subscription status. RevenueCat receives an anonymous identifier the app generates, your purchase and renewal history, and basic device details such as iOS version. It does not receive your name, email or payment details. RevenueCat&apos;s privacy policy is at revenuecat.com/privacy. You can restore purchases on any device signed in to the same Apple ID.</p>
+      </>
+    ),
+  },
+  {
     id: "dont",
     title: "What we don't do",
     body: (
@@ -114,12 +123,12 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>If we change what we collect or why, we&apos;ll update this page with a new effective date, posted here at least 14 days before the change takes effect. Small wording fixes just get posted here.</p>
-        <p>Effective: September 9, 2026</p>
+        <p>Effective: September 24, 2026</p>
       </>
     ),
   },
 ];
 
 export default function Privacy() {
-  return <LegalLayout title="Privacy policy" effective="September 9, 2026" sections={S} />;
+  return <LegalLayout title="Privacy policy" effective="September 24, 2026" sections={S} />;
 }

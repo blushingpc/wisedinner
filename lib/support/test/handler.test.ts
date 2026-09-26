@@ -68,7 +68,7 @@ function fakeStore(sentToday = 0) {
 // a deterministic stand-in for Claude: pricing questions are informational, refunds escalate
 const classify: Classifier = async (e) => {
   if (/refund|charged|delete my|lawyer/i.test(e.body)) return { intent: "escalate", category: /refund|charged/i.test(e.body) ? "refund" : "data-deletion", reason: "money or data: a person decides", reply: "" };
-  return { intent: "informational", category: "pricing", reason: "", reply: "The pre-order build is free. Protein Plan is $8.99 a month or $59 a year at launch, with a 14 day trial.\n\nWiseDinner support" };
+  return { intent: "informational", category: "pricing", reason: "", reply: "The pre-order build is free. Protein Plan is $8.99 a month or $48 a year at launch, with a 14 day trial.\n\nWiseDinner support" };
 };
 
 test("pricing question: auto reply from the same mailbox, thread auto_replied, message marked read, both directions logged", async () => {

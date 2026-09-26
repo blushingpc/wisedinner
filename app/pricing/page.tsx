@@ -11,7 +11,7 @@ const money = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: `What WiseDinner will cost when the app ships. The pre-order build is free. Protein Plan ${money(TIERS[0].monthly)} a month or ${money(TIERS[0].yearly)} a year, Autopilot ${money(TIERS[1].monthly)} a month or ${money(TIERS[1].yearly)} a year, 14-day free trial in the app. Nothing for sale here yet.`,
+  description: `What WiseDinner will cost when the app ships. The pre-order build is free. Protein Plan ${money(TIERS[0].monthly)} a month or ${money(TIERS[0].yearly)} a year, Courier ${money(TIERS[1].monthly)} a month or ${money(TIERS[1].yearly)} a year, 14-day free trial in the app. Nothing for sale here yet.`,
   alternates: { canonical: "/pricing" },
   openGraph: { images: ["/og?page=pricing"] },
 };
@@ -31,7 +31,7 @@ const LD = {
 
 export default function Pricing() {
   return (
-    <PageShell title={site.pricing.h2} sub="These prices apply in the app at launch. Nothing is for sale on this page yet." wide>
+    <PageShell title={site.pricing.h2} sub="These prices apply in the app at launch. Courier arrives in an update after release. Nothing is for sale on this page yet." wide>
       <script type="application/ld+json">{JSON.stringify(LD)}</script>
       <PageView event="pricing_view" />
       <PricingCards heading="h2" />

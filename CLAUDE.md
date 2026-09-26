@@ -13,6 +13,7 @@ You are building WiseDinner: a budget+protein meal solver. Web app first (Next.j
 
 ## Design skills — roles + precedence (founder law, 2026-09-05; REDESIGN-V4 promoted 2026-09-08)
 - **docs/REDESIGN-V4.md** — the design source of truth, ABOVE everything else: brand (§2), tokens, type, shape, voice and motion (§3), menu (§4), imagery (§5), page structure (§6), copy deck (§7), app screens (§8), verification (§9). `npm run lint:voice` enforces §3's voice; the built HTML must carry no dashes, middots, ellipses or lowercase styling.
+- **Retailer and data source names never appear in user-facing copy.** Say delivered, in store, or public price data. (Founder law, SITE-V5 §8, 2026-09-24.) Code, data files, docs and API routes may name them.
 - **docs/DESIGN-AUDIT.md** — second: section grammar, hero concept, conversion audit and the §18.5 acceptance gate still apply; its token (§6) and typography (§7) sections are archived as superseded by REDESIGN-V4 §3. docs/archive/DESIGN-V2-PLAN.md and docs/archive/DESIGN.md are retired; SITE-SPEC §6 is superseded.
 - **ui-ux-pro-max** (.agents/skills) — design-system engine: radius, shadow scale, typography pairings, lush green surfaces.
 - **impeccable** (user plugin, pbakaus/impeccable — `/impeccable audit`, `/impeccable polish`, `/impeccable critique`, …) — design fluency, creative direction and the craft floors. It replaces the retired `human-design` and `frontend-design` skills.

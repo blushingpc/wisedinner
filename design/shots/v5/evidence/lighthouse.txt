@@ -1,0 +1,19 @@
+Lighthouse 13, mobile, / (npx lighthouse --form-factor=mobile --screenEmulation.mobile), 2026-09-25
+
+preview https://wisedinner-git-design-v5-wise-dinner.vercel.app/ at d8050f1 (final)
+run 1  perf 92  a11y 100  bp 100  seo 69 (preview is noindex)  LCP 3.1 s  FCP 1.3 s  TBT 60 ms  CLS 0
+run 2  perf 92  a11y 100  bp 100  seo 69                        LCP 3.0 s  FCP 1.3 s  TBT 50 ms  CLS 0
+run 3  perf 92  a11y 100  bp 100  seo 69                        LCP 3.1 s  FCP 1.3 s  TBT 70 ms  CLS 0
+LCP element: the right phone's bezel img (div[data-phone=right] picture > img, iphone-17-black-396.webp, 9 KB)
+
+preview at 1109c00 (two phones, before the perf fallback)
+run 1  perf 88  a11y 100  bp 100  LCP 3.4 s   run 2  perf 89  a11y 100  bp 100  LCP 3.3 s
+
+production main (www.wisedinner.com, same hour, for reference)
+run 1  perf 93  LCP 3.0 s (hero paragraph)   run 2  perf 93  LCP 3.0 s
+
+local next start, fallback steps in the brief's order
+two phones as built      90 / 90   LCP 3.6 s
+left phone shrunk to 52% 88 / 90   LCP 3.7 / 3.6 s  (no gain, reverted)
+left phone lazy-mounted  89 / 90   LCP 3.7 / 3.5 s  (kept)
+favicon 1024 to 96 px    89 / 92   LCP 3.4 s        (kept; 47 KB off the pre-paint window)

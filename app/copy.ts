@@ -1,7 +1,7 @@
 // copy bank (REDESIGN-V4 §3 voice, §7 deck). used by /, /faq, /about, JSON-LD.
 import { site } from "../content/site.ts";
 
-const [plan, auto] = site.pricing.tiers;
+const [plan, courier] = site.pricing.tiers;
 const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 
 export const SUPPORT_EMAIL = "support@wisedinner.com";
@@ -16,7 +16,7 @@ export const FAQ = [
   },
   {
     q: "What is free and what is paid?",
-    a: `${site.pricing.intro} No account, nothing to buy. At launch, Protein Plan (${usd(plan.monthly)} a month or ${usd(plan.yearly)} a year) adds regenerate for any single meal, the receipt reveal and the weekly solve challenge. Autopilot (${usd(auto.monthly)} a month or ${usd(auto.yearly)} a year) adds a menu of substitutes so you pick your own replacement, and plans next week for you every Sunday at 5pm.`,
+    a: `${site.pricing.intro} No account, nothing to buy. At launch, Protein Plan (${usd(plan.monthly)} a month or ${usd(plan.yearly)} a year) lets you reroll any single meal into a different dish made from what's already on your list, and adds the receipt reveal and the weekly solve challenge. Courier (${usd(courier.monthly)} a month or ${usd(courier.yearly)} a year) opens a menu when you reroll, dishes that fit your list and hit the same protein as the meal you're replacing, so you choose. It also orders the whole list delivered from your store. Every Sunday at 5pm we remind you, and next week's plan is ready when you open the app. Courier arrives in an update after release.`,
   },
   {
     q: "What is the receipt reveal?",
@@ -24,7 +24,7 @@ export const FAQ = [
   },
   {
     q: "How accurate are the prices?",
-    a: "We quote what the shelf says: averages from public price data with a buffer on top, labeled as estimates and refreshed weekly. Beside it sits what the same list costs delivered from Kroger, an estimate, so you can see the markup. Delivery apps run 15 to 25 percent higher before fees. Every receipt you reveal tightens the estimate for you.",
+    a: "We quote what the shelf says: averages from public price data with a buffer on top, labeled as estimates and refreshed weekly. Beside it sits what the same list costs delivered, an estimate, so you can see the markup. Delivery apps run 15 to 25 percent higher before fees. Every receipt you reveal tightens the estimate for you.",
     more: { label: "How the math works", href: "/the-math" },
   },
   {
@@ -37,7 +37,7 @@ export const FAQ = [
   },
   {
     q: "What do you collect?",
-    a: "The first version collects no data. No account, no sign-in, no tracking. Your weeks and receipts stay on your phone. When you share a week, the card and its numbers are the only things that leave.",
+    a: "Nothing for the free build. No account, no sign-in, no tracking. If you subscribe, Apple handles the payment and our subscription service, RevenueCat, receives an anonymous identifier the app generates plus your purchase history so your plan works and restores across devices. We never see your name, email or card.",
   },
   {
     q: "Why a 14-day trial?",
@@ -55,6 +55,6 @@ export const faqLd = (items: { q: string; a: string }[]) => ({
 export const ABOUT = [
   "Groceries got absurd. Protein got expensive. And every app we tried optimized macros, not money. It would hand you a perfect day of eating that cost more than your rent allowed, then shrug when half of it went bad on Thursday.",
   "WiseDinner is the other way round. You give it two numbers: what you can spend this week and how much protein you want a day. A solver returns one short list from a fixed pool of staples, five days of meals that share ingredients, and an estimated in-store total. The whole package gets eaten, by construction.",
-  "We refuse three things: fake reviews, sponsored picks in your list, and hidden delivery markups. When we show what the same list costs delivered from Kroger, it is an estimate and sits next to the shelf price with fees included.",
+  "We refuse three things: fake reviews, sponsored picks in your list, and hidden delivery markups. When we show what the same list costs delivered, it is an estimate and sits next to the shelf price with fees included.",
   "The receipt is the proof. We would rather be judged by it.",
 ];

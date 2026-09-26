@@ -14,7 +14,7 @@ export function ThisWeek({ week, active = "tue", priority = false, imgSizes }: {
   return (
     <Screen>
       <StatusBar />
-      <Header title="This week" right={<Pill>{usd(week.totals.est_total_usd)}, one trip</Pill>} />
+      <Header title="This week" right={<span data-total className="shrink-0"><Pill>{usd(week.totals.est_total_usd)}, one trip</Pill></span>} />
       <div className="mt-[1em] flex gap-[0.4em] px-[1.25em]">
         {DAYS.map((d) => (
           <span key={d} className={`flex-1 rounded-full py-[0.45em] text-center text-[0.8125em] font-semibold ${d === active ? "bg-forest text-white" : "bg-surface text-ink-2"}`}>
