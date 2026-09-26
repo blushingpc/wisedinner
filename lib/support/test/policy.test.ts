@@ -20,6 +20,9 @@ test("Courier: after release passes; available now escalates", () => {
   assert.ok(policyProblems("Courier is available now in the app. It arrives after release too.").some((p) => p.startsWith("says Courier is available now")));
   assert.ok(policyProblems("You can buy Courier today for $12.99 a month, after release pricing applies.").some((p) => p.startsWith("says Courier is available now")));
   assert.deepEqual(policyProblems("Courier is $12.99 a month."), ["names Courier without saying it arrives after release"]);
+  // the live draft of 2026-09-26 invented a timeline
+  assert.ok(policyProblems("Courier arrives in an update after release. When Courier ships a few weeks after launch, you can subscribe.").some((p) => p.startsWith("gives Courier a time frame")));
+  assert.deepEqual(policyProblems("Courier arrives in an update after release. Release follows a few weeks after pre-order opens."), [], "app release timing in its own sentence is fine");
 });
 
 test("a reply that names neither passes untouched", () => {
