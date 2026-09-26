@@ -1,5 +1,6 @@
 import { FOOTER } from "./kb.ts";
 import { voiceProblems } from "./voice.ts";
+import { policyProblems } from "./policy.ts";
 import type { Classifier } from "./classify.ts";
 import type { Inbound, Mailbox } from "./mail.ts";
 
@@ -50,9 +51,13 @@ export async function handlePoll(mail: Mailbox, store: Store, classify: Classifi
     const draft = m.text.trim() ? await classify({ from: m.from, subject: m.subject, body: m.text }) : { intent: "escalate" as const, category: "other", reason: "empty message", reply: "" };
     // send gate: only a confident informational verdict with a draft that passes the copy rules is ever sent; a draft
     // that breaks a rule escalates exactly like a refund, with the offending text in the digest as reason "voice-fail"
-    const problems = draft.intent === "informational" && draft.reply.trim() ? voiceProblems(draft.reply) : [];
-    const triage = problems.length ? { ...draft, intent: "escalate" as const, reason: `voice-fail: ${problems.join("; ")}`, reply: "" } : draft;
-    if (problems.length) console.log(`support: voice-fail ${m.messageId}: ${problems.join("; ")}`);
+    // (voice.ts), and one that makes a promise the assistant must never make (policy.ts) escalates as "policy-fail"
+    const drafted = draft.intent === "informational" && draft.reply.trim();
+    const problems = drafted ? voiceProblems(draft.reply) : [];
+    const broken = drafted ? policyProblems(draft.reply) : [];
+    const failed = broken.length ? `policy-fail: ${broken.join("; ")}` : problems.length ? `voice-fail: ${problems.join("; ")}` : "";
+    const triage = failed ? { ...draft, intent: "escalate" as const, reason: failed, reply: "" } : draft;
+    if (failed) console.log(`support: ${failed.split(":")[0]} ${m.messageId}: ${[...broken, ...problems].join("; ")}`);
     await store.logMessage({ thread_id: thread.id, direction: "in", body: m.text || "(empty)", ai: false, message_id: m.messageId });
     const capped = sent >= DAILY_SEND_CAP;
     if (triage.intent === "informational" && !capped) {

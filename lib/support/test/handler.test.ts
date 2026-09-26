@@ -202,3 +202,21 @@ test("empty message escalates without calling the classifier", async () => {
   assert.equal(called, 0);
   assert.equal(r.escalated, 1);
 });
+
+test("send gate: a draft that promises a refund or offers Courier now is never sent; it escalates with reason policy-fail", async () => {
+  for (const [uid, reply, rule] of [
+    [41, "No problem, we will refund you in full.\n\nWiseDinner support", /policy-fail: refund promise in "/],
+    [42, "Yes, Courier is available now for $12.99 a month.\n\nWiseDinner support", /policy-fail: says Courier is available now in "/],
+  ] as const) {
+    const { mail, sent, seen } = fakeMail([await fixture("pricing-question", uid)]);
+    const { store, threads, status } = fakeStore();
+    const promiser: Classifier = async () => ({ intent: "informational", category: "pricing", reason: "", reply });
+    const r = await handlePoll(mail, store, promiser, "founder@example.com");
+    assert.deepEqual({ replied: r.replied, escalated: r.escalated }, { replied: 0, escalated: 1 });
+    assert.equal(sent.length, 1, "only the digest goes out");
+    assert.equal(sent[0].to, "founder@example.com");
+    assert.match(sent[0].text, rule);
+    assert.deepEqual(seen, []);
+    assert.equal(status.get(threads[0].id), "escalated");
+  }
+});

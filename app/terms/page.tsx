@@ -1,6 +1,7 @@
 {/* <!-- draft for attorney review before paid launch --> */}
 import type { Metadata } from "next";
 import { LegalLayout, type LegalSection } from "@/app/ui/legal-layout";
+import { SUBSCRIPTIONS, TERMS_EFFECTIVE } from "@/content/legal";
 
 export const metadata: Metadata = {
   title: "Terms of service",
@@ -110,7 +111,7 @@ const S: LegalSection[] = [
     title: "Subscriptions",
     body: (
       <>
-        <p>Paid plans are sold in the app through Apple at the prices shown at the time of purchase. Subscriptions renew automatically at the end of each period until you cancel. You can cancel any time in iOS Settings under your Apple ID, Subscriptions. The 14-day free trial converts to a paid plan unless you cancel at least 24 hours before it ends. Payments, refunds and billing questions are handled by Apple under its terms.</p>
+        <p>{SUBSCRIPTIONS}</p>
       </>
     ),
   },
@@ -151,12 +152,12 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>We may update these terms. If the change matters, we&apos;ll post the new version here with a new effective date at least 14 days before it takes effect. Using the site after that date means you accept the new terms.</p>
-        <p>Effective: September 24, 2026</p>
+        <p>Effective: {TERMS_EFFECTIVE}</p>
       </>
     ),
   },
 ];
 
 export default function Terms() {
-  return <LegalLayout title="Terms of service" effective="September 24, 2026" sections={S} />;
+  return <LegalLayout title="Terms of service" effective={TERMS_EFFECTIVE} sections={S} />;
 }

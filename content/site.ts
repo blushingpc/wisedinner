@@ -38,6 +38,8 @@ export const site = {
     // the pre-order build is free; Protein Plan and Courier are the launch tiers (FRONTEND-V4.1 §4: the ladder is about
     // control, never ratings; SITE-V5 §3: the second tier is Courier; taglines, prices, leads and rows verbatim).
     intro: "The pre-order build is free and complete: onboarding, the offline solver, the week view, the three checks, whole-week regenerate, the aisle list with its total, share your week, beat this week.",
+    // the /pricing page intro (SITE-V5 step 9a); the support assistant quotes it too
+    pageIntro: "These prices apply in the app at launch. Courier arrives in an update after release. Nothing is for sale on this page yet.",
     trial: "14-day free trial in the app. No account needed to see your first week.",
     tiers: [
       {
