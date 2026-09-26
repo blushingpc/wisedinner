@@ -202,7 +202,7 @@ html[data-scrolled] .header-bar {
   font-size: 0.9375rem;
 }
 @media (max-width: 420px) {
-  header .cta {
+  header .cta-sm {
     padding: 0.5rem 0.75rem;
     font-size: 0.875rem;
   }

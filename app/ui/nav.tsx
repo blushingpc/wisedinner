@@ -3,12 +3,14 @@ import { List } from "@phosphor-icons/react/dist/ssr";
 import { Lockup } from "@/app/lockup";
 import { StoreBadges } from "./store-badges";
 import { HeaderShadow } from "./header-shadow";
+import { PreorderButton } from "./preorder-modal";
 
 // HEADER (REDESIGN-V4 §6, MOBILE FIX PASS v2 §A/§B): 72px on desktop, 60px on phones, white, hairline bottom, sticky;
-// a shadow only once the page has scrolled (HeaderShadow). Lockup left (mark 28px, 15px on phones so the wordmark
-// has room next to the button); nav centered in Inter 500; right: the store badges while BADGES_LIVE, otherwise the
-// forest "Pre-order now" button. Mobile: lockup, that button and a hamburger (native <details>: works without JS, Tab
-// reaches the summary, Enter/Space toggles).
+// a shadow only once the page has scrolled (HeaderShadow). Lockup left (mark 28px on desktop, 15px on tablets so the
+// wordmark has room next to the button, 24px on phones where the button is gone); nav centered in Inter 500; right:
+// the store badges while BADGES_LIVE, otherwise the forest "Pre-order now" button. Tablet: lockup, that button and a
+// hamburger (native <details>: works without JS, Tab reaches the summary, Enter/Space toggles). Phones (below md,
+// 2026-09-26): lockup and hamburger only; pre-order lives in the hero, the sticky bar and the top of the menu.
 const LINKS: [string, string][] = [
   ["How it works", "/#how"],
   ["Pricing", "/pricing"],
@@ -23,8 +25,11 @@ export function Nav() {
         <div className="hidden lg:block">
           <Lockup href="/" size={28} thin />
         </div>
-        <div className="lg:hidden">
+        <div className="hidden md:block lg:hidden">
           <Lockup href="/" size={15} thin />
+        </div>
+        <div className="md:hidden">
+          <Lockup href="/" size={24} thin />
         </div>
         <ul className="hidden items-center gap-8 lg:flex">
           {LINKS.map(([label, href]) => (
@@ -36,13 +41,18 @@ export function Nav() {
           ))}
         </ul>
         <div className="ml-auto flex items-center gap-x-1 lg:ml-0 lg:gap-x-3 lg:justify-self-end">
-          <StoreBadges placement="header" height={32} release={false} wrap={false} playClassName="hidden lg:inline-block" fallback="button" buttonClassName="cta cta-sm" />
+          <div className="hidden md:contents">
+            <StoreBadges placement="header" height={32} release={false} wrap={false} playClassName="hidden lg:inline-block" fallback="button" buttonClassName="cta cta-sm" />
+          </div>
           {/* mobile: the three links in a sheet under the bar */}
           <details className="group relative lg:hidden">
             <summary aria-label="Menu" className="grid size-11 cursor-pointer list-none place-items-center rounded-[10px] text-ink hover:bg-surface [&::-webkit-details-marker]:hidden">
               <List size={24} weight="bold" aria-hidden="true" />
             </summary>
             <ul className="sheet-drop absolute top-[calc(100%+0.75rem)] right-0 w-[220px] rounded-card border border-border bg-white p-2 shadow-card">
+              <li className="mb-1 md:hidden">
+                <PreorderButton placement="menu" className="cta w-full" />
+              </li>
               {LINKS.map(([label, href]) => (
                 <li key={href}>
                   <Link href={href} className="flex min-h-11 items-center rounded-[10px] px-3 font-medium hover:bg-surface">
