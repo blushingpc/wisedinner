@@ -5,7 +5,7 @@ import { simpleParser } from "mailparser";
 import { DAILY_SEND_CAP, handlePoll, type Store, type Thread } from "../handler.ts";
 import { autoSubmittedOf, type Inbound, type Mailbox, type Outbound } from "../mail.ts";
 import type { Classifier } from "../classify.ts";
-import { FOOTER } from "../kb.ts";
+import { FOOTER, SIGN_OFF, withSignOff } from "../kb.ts";
 
 // fixture emails (.eml) → Inbound, the way mail.ts parses them
 async function fixture(name: string, uid: number): Promise<Inbound> {
@@ -219,4 +219,40 @@ test("send gate: a draft that promises a refund or offers Courier now is never s
     assert.deepEqual(seen, []);
     assert.equal(status.get(threads[0].id), "escalated");
   }
+});
+
+// sign-off (2026-09-26): the mailer owns the last two lines; whatever closing the model wrote is stripped first
+const BODY = "Courier arrives in an update after release. It cannot be bought yet.";
+const ENDINGS = [
+  "",
+  "\n\nWiseDinner support",
+  "\n\nWiseDinner support\n",
+  "\n\nThanks,\nWiseDinner support",
+  "\n\nBest,\nThe WiseDinner team",
+  "\n\nKind regards,\nWiseDinner Support.",
+  "\n\nCheers",
+  `\n\nWiseDinner support\n${FOOTER}`,
+  `\n\nWiseDinner support\n\n${FOOTER}\n\n`,
+  "\r\n\r\nWiseDinner support\r\n",
+];
+
+test("every sent reply ends with exactly the sign-off and the footer, each once, whatever closing the model wrote", async () => {
+  let uid = 60;
+  for (const end of ENDINGS) {
+    const { mail, sent } = fakeMail([await fixture("pricing-question", uid++)]);
+    const { store } = fakeStore();
+    const signer: Classifier = async () => ({ intent: "informational", category: "pricing", reason: "", reply: BODY + end });
+    await handlePoll(mail, store, signer, "founder@example.com");
+    assert.equal(sent.length, 1, JSON.stringify(end));
+    const text = sent[0].text;
+    assert.equal(text, `${BODY}\n\n${SIGN_OFF}\n${FOOTER}`, JSON.stringify(end));
+    assert.deepEqual(text.split("\n").slice(-2), [SIGN_OFF, FOOTER]);
+    assert.equal(text.split(SIGN_OFF).length - 1, 1, "sign-off once");
+    assert.equal(text.split(FOOTER).length - 1, 1, "footer once");
+  }
+});
+
+test("sign-off stripping only touches trailing lines: thanks inside the body stays", () => {
+  const body = "Thanks for asking.\nProtein Plan is $8.99 a month.";
+  assert.equal(withSignOff(`${body}\n\nThanks,\nWiseDinner support`), `${body}\n\n${SIGN_OFF}\n${FOOTER}`);
 });

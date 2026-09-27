@@ -1,4 +1,4 @@
-import { FOOTER } from "./kb.ts";
+import { withSignOff } from "./kb.ts";
 import { voiceProblems } from "./voice.ts";
 import { policyProblems } from "./policy.ts";
 import type { Classifier } from "./classify.ts";
@@ -61,7 +61,7 @@ export async function handlePoll(mail: Mailbox, store: Store, classify: Classifi
     await store.logMessage({ thread_id: thread.id, direction: "in", body: m.text || "(empty)", ai: false, message_id: m.messageId });
     const capped = sent >= DAILY_SEND_CAP;
     if (triage.intent === "informational" && !capped) {
-      const text = `${triage.reply.trim()}\n\n${FOOTER}`;
+      const text = withSignOff(triage.reply);
       const out = await mail.send({ to: m.from, subject: m.subject ? `Re: ${stripRe(m.subject)}` : "Re: your question", text, inReplyTo: m.messageId, references: [m.messageId] });
       sent++;
       await store.logMessage({ thread_id: thread.id, direction: "out", body: text, ai: true, message_id: out.messageId });
