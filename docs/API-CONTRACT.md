@@ -1,5 +1,14 @@
 # API contract for the app (backend v1)
 
+Updated October 3, 2026. Build 1 is anonymous Free plus Protein Plan with RevenueCat and paid reroll. Anonymous
+snapshot fetching is allowed. No app accounts, notifications, delivery, web checkout, web demo or waitlist are added.
+Courier is after release. The promise is little waste, not no waste. This document distinguishes current code from
+unfinished integration work; it is not proof that the app has connected or purchases have passed.
+
+Production remains snapshot v5 with 82 recipes and September 27 observations. The local `codex/backend-readiness`
+branch contains an unpublished v6 draft with 83 recipes using the same observations. Do not bundle that private
+version or move the public pointer until the connection gates in `BACKEND-READINESS-2026-10-03.md` are satisfied.
+
 Everything the app needs from the website backend: the data snapshot, the three routes, the store picker, which
 solver function each tier calls, and the caching rules. No user-facing shape carries a `source` or `confidence`
 field; the solver and the app never see where a price came from beyond "this store has observed prices" (`live`).
@@ -20,7 +29,7 @@ type Snapshot = {
   skus: Sku[];
   store_prices: StorePrice[];  // observed shelf prices only (Kroger API today; Walmart, Instacart, receipts later)
   nutrition: Nutrition[];      // per 100 g from USDA FoodData Central
-  recipes: Recipe[];           // 27 bases + their variants (81 today)
+  recipes: Recipe[];           // base families + variants; derive counts from the actual bundle
   recipe_ingredients: RecipeIngredient[];
   recipe_variants: RecipeVariant[];
 };
@@ -39,13 +48,18 @@ type Unit = "g"|"kg"|"oz"|"lb"|"ml"|"l"|"fl_oz"|"cup"|"tbsp"|"tsp"|"each";
 Rules the app can rely on:
 
 - `store_prices` holds only observed prices. A store with at least one row is `live: true`. For any (sku, store)
-  without a row the solver prices `baseline_usd × price_index` itself (an estimate); the app never computes prices.
+  without a row the solver prices `baseline_usd × price_index` itself (a reference estimate); the app never computes prices.
+  `live` does not prove full-list coverage, a selected physical store, freshness or nationwide accuracy.
 - Prices are raw shelf prices. The +10% buffer is applied inside the solver (`PRICE_BUFFER` in
-  `packages/solver/src/pricing.ts`), once. Do not buffer again.
-- `recipes[].id` for the 27 bases equals the menu photo slug (`/img/menu/<id>.jpg`); a variant's photo is its base's
-  (`recipe_variants` maps variant → base).
+  `packages/solver/src/pricing.ts`), once. Do not buffer again. This buffer is not a measured nationwide error
+  guarantee. Preserve actual observation dates when recompiling from cached prices.
+- `recipes[].id` for the 27 bases equals the menu photo slug (`/img/menu/<id>.jpg`). `recipe_variants` maps a variant
+  to its family, not a guarantee that the base photo depicts it. Reuse only a representative image; otherwise use
+  an honest fallback. The new frozen-chicken stir-fry must not inherit a shrimp photo.
 - `recipes[].tags` carry `healthy`, `would_order`, `protein:<source>` and, on variants, `variant:<kind>`.
 - Diet eligibility of a recipe is the intersection of its ingredients' `diet_flags` (`templatesOf` in the solver).
+  The snapshot has no allergy metadata or allergy input. SKU-ID-keyed allergy coverage and fail-closed app
+  exclusions are required before wiring the catalog; unknown ingredients are not allergy-free.
 - `validateSnapshot(raw)` throws with every violation listed; call it once at load.
 
 ### Sample (trimmed)
@@ -98,7 +112,8 @@ Errors are `{ error: string }` with 400 / 404 / 413 / 429 / 502 / 503.
 redeploy; it is never part of the snapshot blob, and `/api/data/<version>` does not carry it. The founder edits it
 in the Supabase dashboard (Table Editor → `app_config` → `value` on the `founders_invite_url` row) or with one SQL
 update (`update app_config set value = '<url>', updated_at = now() where key = 'founders_invite_url'`). Build 1
-allows no network, so nothing in Build 1 reads it; it is for Build 2 and the website. A missing row or a failed
+may fetch the pointer anonymously. Show a founders link only after eligibility and the actual invite are verified.
+A missing row or a failed
 config read yields `""`, never an error, so the snapshot pointer always comes through.
 
 `DisplayWeek` for `/api/weeks` is the website's `FixtureWeek` shape (`data/fixtures.ts`): `days[5].meals[3]`
@@ -115,20 +130,40 @@ device (never an email, never a device id); receipt lines are stored unverified 
   could do: `modes_available` (`[]`, `["singleStore"]`, or both) and `store_mode` (`estimate` | `singleStore` |
   `bestPerItem`). Show a store's prices as estimates when the store is not `live`.
 - Region: the solver picks the observed region closest to the ZIP (exact match, else longest shared prefix, else any).
+  This is legacy fallback, not evidence of close local prices. A banner and ZIP are not a physical store ID.
+  Local pricing requires approved store/channel data and complete matched-pack coverage. Unsupported-area
+  behavior remains a founder choice; do not silently present reference prices as local prices.
 
 ## 4. Tiers and solver functions
 
 | Tier | Calls | Notes |
 |---|---|---|
-| Free (pre-order build) | `solve(input, snapshot)`; whole-week regenerate = `solve({ ...input, seed: newSeed }, snapshot)` | `mode` may be omitted; the solver downgrades to what the data supports |
-| Protein Plan | + `regenerateSlot(week, slotIndex, seed, snapshot)` | `slotIndex = day * 3 + slot` (0..14); returns `changed: false` with a plain-words `why` when nothing else fits. Slot 0 takes breakfasts; slots 1 and 2 share the lunch + dinner pool |
-| Autopilot | + `swapCandidates(week, slotIndex, snapshot, n = 6)` | ranked substitutes with `deltaCost`, `deltaProtein`, `usesExisting`, `newItems`, `variantOf?`; apply one with `evaluateWeek(ids, week.input, snapshot)` |
+| Free | `solve(input, snapshot)`; whole-week regenerate = `solve({ ...input, seed: newSeed }, snapshot)` | `mode` may be omitted; the solver downgrades to what the data supports |
+| Protein Plan, Build 1 | paid meal change; current helper `regenerateSlot(week, slotIndex, seed, snapshot)` | `slotIndex = day * 3 + slot` (0..14); returns `changed: false` with a plain-words `why` when nothing else fits. Breakfast pool for slot 0, main pool for slots 1 and 2. The grocery rule is not settled; do not enable unbounded additions |
+| Internal replacement helper | `swapCandidates(week, slotIndex, snapshot, n = 6)` | ranked substitutes with `deltaCost`, `deltaProtein`, `usesExisting`, `newItems`, `variantOf?`; apply with `evaluateWeek(ids, week.input, snapshot)`. Current main does not enforce the agreed protein tolerance; this helper is not ready as the paid app contract |
+
+The agreed replacement tolerance is `max(5 g, round(15% of the replaced meal's protein))`, with no app override.
+It remains an implementation gate. PR #21 is unmerged and its override must not be copied. The October 3 attempt
+to implement the fixed formula was blocked by automatic safety review; `swaps.ts` remains unchanged.
+The founder still needs to decide existing groceries only versus permitted additions and any weekly cap.
 
 Gating lives in the app. The solver has no notion of tiers. `pantry` on the input is a list of sku ids the user
 owns; those packs stay on the list at $0 with `pantry: true`.
 
 Output fields the app may show: everything on `SolveOutput` except `input` (echo) and `seed`. `store_mode`,
 `modes_available`, `stores[]` (subtotal per store) and `alt_total` are display-ready.
+All shown prices must be labeled estimates. Exact cents stay in the API and app; rounding up is marketing-only.
+
+### Little waste and planned nutrition
+
+On the local readiness branch, `qty` is the number of whole packs required for the household. `eaten` is the exact
+fractional number of packs planned for authored recipes, including household size, not proof of food eaten.
+Planned leftovers are `max(0, qty - eaten)` packs. Do not round `eaten` before calculations. Protein, calories and
+meal portions use authored quantities, never increased portions to consume purchased packs.
+The old allowance of at most one third of a perishable pack left over is retained, not a newly approved public
+definition of little waste. Shelf-stable food may carry over. Leftovers do not establish discarded waste or safe
+storage. Preserve the honest leftovers confirmation; do not claim an empty fridge or zero waste.
+The search has bounded, seeded recovery when normal search misses. Device timing is a separate acceptance gate.
 
 ### Budget minimum
 
@@ -168,24 +203,34 @@ under 45), and the solver enforces it again: for `budget < 45`, `solve()` does n
 snapshot's `generated_at`. `why` is the same plain-words field every infeasible week carries; there is no separate
 error shape and no exception. `regenerateSlot` on a week whose `input.budget` is under 45 returns it unchanged
 (`changed: false`, with the same `why` line); `swapCandidates` returns `[]`. `evaluateWeek(ids, input, snapshot)`
-prices a given list of recipe ids as-is (fixtures, tests) and does not apply the floor. At or above $45 a week can
+accepts a flat array of 15 recipe IDs in day/slot order on the local readiness branch. The legacy five arrays of
+three IDs remain supported; incomplete or ragged input throws. It prices the supplied week as-is (fixtures,
+tests) and does not apply the floor. At or above $45 a week can
 still come back `feasible: false` for the ordinary reasons (protein target, calorie band, variety floors), with those
 reasons in `why`.
 
 ## 5. Caching and refresh
 
 - Bundle `data/snapshot.json` at build. Offline always works on the bundled copy.
-- On launch (at most once per 24 h, and never in Build 1 where no network is allowed), `GET /api/data/latest`. If
+- On launch (at most once per 24 h, including Build 1 when anonymous refresh is enabled), `GET /api/data/latest`. If
   `version` is higher than the bundled or cached one, download `url`, verify `sha256`, run `validateSnapshot`, then
   swap atomically. Keep the last good snapshot if any step fails.
 - `config.founders_invite_url` rides on the same pointer: the app may cache it with the pointer and re-read it on
-  the same 24 h schedule (Build 2 only; Build 1 never calls the route). Treat `""` as "no invite link yet".
-- A week solved on version N stays valid on version N+1; re-solve only when the user asks.
+  the same 24 h schedule. Treat `""` as "no invite link yet"; a link alone is not founders eligibility.
+- Retain the snapshot version that created an existing week. Do not re-evaluate it silently against a new
+  catalog or pricing model, and do not fetch an unpublished local draft through the production pointer.
 - Photos are `/img/menu/<base id>.jpg` on the website; the app ships them in its bundle (Metro needs static requires).
 
 ## 6. Porting the solver
 
-Copy `packages/solver/src` into `src/solver/core` (relative `.ts` imports only, no dependencies) and delete the
+Only port after readiness gates, app backup and comparison tests pass. The older port plan below is not permission
+to remove app adapters or metadata before equivalent allergy and pantry behavior is proved.
+
+Copy `packages/solver/src` into `src/solver/core` (relative `.ts` imports only, no dependencies) and replace the
 app's `pricing.ts` (the buffer now lives in the package), `meal-display.json` (`recipe.name` is the display name,
 `recipe.id` the photo slug) and `aisles.json.byStaple` (`sku.aisle`). Templates are no longer a static import:
 `templatesOf(snapshot)` builds them from the snapshot.
+
+Rollback before publication: keep the production v5 pointer, last-good cache and current app bundle. Do not reset
+the database or touch shared `ce_` tables. Ship core and snapshot together only after a reviewed rollout; preserve
+allergy/pantry behavior and mixed old/new weeks before later removal of legacy formats.

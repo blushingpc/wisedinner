@@ -39,6 +39,12 @@ E5. add Anthropic billing before launch (the support assistant runs on a $5 bala
 E6. [ ] founders_invite_url: set the app_config row once the WhatsApp founders group exists (Table Editor → app_config → value, or one SQL update); /api/data/latest serves it live. done means: GET /api/data/latest shows the link.
 
 ## Backend v1 — docs/BACKEND-V1.md (founder spec 2026-09-09), branch backend-v1, PR #20
+Current authorized readiness work, October 3: local `codex/backend-readiness` contains verified portion, search,
+catalog-direction, input-compatibility and snapshot-continuity preparation. It is not published or app-ready.
+Read docs/BACKEND-READINESS-2026-10-03.md before continuation. Next independent technical slice is pinned
+nutrition and complete SKU-ID allergy coverage coordinated with the app; paid grocery rules and local-price
+fallback remain founder choices. B2 below, staged publication and native subscription proof are still open.
+
 B1. [x] backend v1: schema + pipeline + snapshot v1 + solver over the snapshot + API routes + AI support on Gmail + API contract — MERGED to main 1801670 and live 2026-09-24 (PR #20, prod verified: /api/data/latest v4, /api/status db ok, support cron registered).
 B2. [ ] database liveness alert (founder ask 2026-09-24, not built yet). Today nothing alerts: the daily keepalive and the 5-minute support cron are the only scheduled database activity, the poll reads Gmail before the database (a revoked app password or a rotated CRON_SECRET makes every poll 502/401 with zero db activity), and db.ok on /api/status is read by nobody but the keepalive. A week of silent failures pauses the free-tier project and the first symptom is a 502 on waitlist / data/latest. Do: `if: failure()` step on the keepalive and data jobs posting to the Telegram bot (TELEGRAM_BOT_TOKEN in the keys file) or the support address; the support cron writes a last-poll timestamp that /api/status surfaces; one external probe of /api/status asserting db.ok and a fresh poll timestamp; restore runbook (https://supabase.com/dashboard/project/zpvqxtklvjitofpbddrn). done means: a forced keepalive failure reaches the founder's phone within an hour, and /api/status shows the last poll time.
 
