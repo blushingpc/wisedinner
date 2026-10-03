@@ -1218,6 +1218,23 @@ export const RECIPES: AuthoredRecipe[] = [
           "white-rice": ["brown-rice", 65, "g"],
         },
       },
+      {
+        id: "shrimp-and-veggie-stir-fry-chicken",
+        name: "Chicken and veggie stir-fry",
+        kind: "protein_swap",
+        protein: "chicken breast",
+        minutes: 25,
+        swap: {
+          "frozen-shrimp": ["frozen-chicken-breast", 12, "oz"],
+        },
+        steps: [
+          "Thaw the needed chicken in the refrigerator ahead of cooking. Keep the rest frozen.",
+          "Cook the rice according to its package instructions.",
+          "Cut the chicken into bite-size pieces and cook it in the oil until a food thermometer reads 165 F.",
+          "Cook the vegetables and edamame according to their package instructions, then stir them into the chicken with the soy sauce.",
+          "Serve the chicken and vegetables over the rice.",
+        ],
+      },
     ],
   },
   {

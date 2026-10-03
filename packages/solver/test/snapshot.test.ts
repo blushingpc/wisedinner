@@ -69,3 +69,15 @@ test("the public snapshot carries no source or confidence fields", () => {
   const text = JSON.stringify(toPublicSnapshot(snap));
   assert.ok(!/"source"|"confidence"/.test(text));
 });
+
+test("the frozen chicken stir-fry fills late-week coverage with its own truthful instructions", () => {
+  const id = "shrimp-and-veggie-stir-fry-chicken";
+  const recipe = snap.recipes.find((row) => row.id === id)!;
+  assert.ok(recipe);
+  const parts = snap.recipe_ingredients.filter((row) => row.recipe_id === id);
+  assert.ok(parts.some((row) => row.sku_id === "frozen-chicken-breast" && row.qty === 12 && row.unit === "oz"));
+  assert.ok(!parts.some((row) => row.sku_id === "frozen-shrimp"));
+  assert.match(recipe.steps.join(" "), /165 F/);
+  assert.ok(!recipe.steps.some((step) => /shrimp/i.test(step)));
+  assert.ok(templates.find((template) => template.id === id)!.stable);
+});

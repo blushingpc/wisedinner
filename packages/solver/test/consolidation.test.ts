@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { evaluateWeek } from "../src/engine.ts";
 import { PRICE_BUFFER } from "../src/pricing.ts";
+import { servingNutrition } from "../src/serving.ts";
 import { miniSnapshot } from "./helpers.ts";
 import type { SolveInput } from "../src/types.ts";
 
@@ -52,14 +53,42 @@ test("pantry sku is on the list at $0, still eaten, still counted", () => {
   assert.equal(Math.round((without.est_total - withPantry.est_total) * 100) / 100, row(without, "rice").price_usd);
 });
 
-test("perishable stretch: a pack two thirds used finishes with no waste penalty; half used is penalised", () => {
-  // chicken 8 oz × 4 dinners = 32 oz of a 48 oz pack (2/3): stretched, eaten = qty, no waste line
+test("little waste: two thirds of a perishable pack is eaten and the rest stays left over", () => {
+  // Four 8 oz dinners consume 32 oz from a 48 oz pack, not the whole pack.
   const four = evaluateWeek(week(["tofu-rice"], ["chicken-rice", "chicken-rice", "chicken-rice", "chicken-rice", "tofu-rice"]), input, s);
   const c4 = row(four, "chicken");
   assert.equal(c4.qty, 1);
-  assert.equal(c4.eaten, c4.qty);
-  assert.ok(!four.why.some((w) => w.includes("waste")), four.why.join(";"));
+  assert.ok(Math.abs(c4.eaten - 2 / 3) < 0.000001);
+  assert.ok(Math.abs(c4.qty - c4.eaten - 1 / 3) < 0.000001);
+  assert.ok(!four.why.some((w) => w.includes("left over")), four.why.join(";"));
+  const meal = four.days[0].items[2];
+  const nutrition = servingNutrition("chicken-rice", s);
+  assert.equal(meal.protein_g, nutrition.protein_g);
+  assert.equal(meal.kcal, nutrition.kcal);
+  assert.ok(meal.portion.includes("chicken 1/6"), meal.portion);
   // 3 dinners = 24 oz of 48 (1/2): more than a third wasted
   const three = evaluateWeek(week(["tofu-rice"], ["chicken-rice", "chicken-rice", "chicken-rice", "tofu-rice", "tofu-rice"]), input, s);
-  assert.ok(three.why.some((w) => w.includes("waste")), three.why.join(";"));
+  assert.ok(three.why.some((w) => w.includes("left over")), three.why.join(";"));
+  assert.ok(Math.abs(row(three, "chicken").eaten - 0.5) < 0.000001);
+});
+
+test("uneaten pack contents never rescue a missed protein target", () => {
+  const ids = week(["tofu-rice"], ["chicken-rice", "chicken-rice", "chicken-rice", "chicken-rice", "tofu-rice"]);
+  const base = evaluateWeek(ids, input, s);
+  const target = base.days[0].protein_g + 1;
+  const out = evaluateWeek(ids, { ...input, protein_per_day: target }, s);
+  assert.equal(out.feasible, false);
+  assert.ok(out.why.includes("protein target"));
+  assert.ok(out.protein_shortfall_g > 0);
+});
+
+test("flat 15-id app weeks and nested legacy weeks evaluate identically", () => {
+  const ids = week(["tofu-rice"], ["chicken-rice"]);
+  assert.deepEqual(evaluateWeek(ids.flat(), input, s), evaluateWeek(ids, input, s));
+});
+
+test("fixed week input rejects incomplete or ragged shapes", () => {
+  for (const ids of [[], ["oatmeal"], Array(15), Array(5), Array(14).fill("oatmeal"), Array(16).fill("oatmeal"), [["oatmeal"]], [...week(["tofu-rice"], ["chicken-rice"]).slice(1), ["oatmeal", "tofu-rice"]]]) {
+    assert.throws(() => evaluateWeek(ids, input, s), /15 recipe ids/);
+  }
 });

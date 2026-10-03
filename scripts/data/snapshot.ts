@@ -16,6 +16,7 @@ import { loadUsdaMap, nutritionRows } from "./usda.ts";
 import { validateSnapshot } from "../../packages/solver/src/snapshot.ts";
 import { solve } from "../../packages/solver/src/engine.ts";
 import { PROFILES } from "../../packages/solver/src/profiles.ts";
+import { guardContinuity } from "./guards.ts";
 import type { Snapshot, StorePrice } from "../../packages/solver/src/types.ts";
 
 export const SNAPSHOT_FILE = "data/snapshot.json";
@@ -56,7 +57,7 @@ const bestPrices = (s: Snapshot) => {
 };
 
 export function guard(next: Snapshot, prev: Snapshot | null): string[] {
-  const problems: string[] = [];
+  const problems: string[] = guardContinuity(next, prev, MAX_SWING);
   for (const [name, input] of PROFILES) {
     const out = solve(input, next);
     if (!out.feasible) problems.push(`profile "${name}" infeasible: ${out.why.join("; ")}`);
@@ -68,7 +69,7 @@ export function guard(next: Snapshot, prev: Snapshot | null): string[] {
       const old = a.get(sku);
       if (old === undefined) continue;
       const swing = Math.abs(price - old) / old;
-      if (swing > MAX_SWING) problems.push(`${sku}: best price moved ${Math.round(swing * 100)}% ($${old} → $${price})`);
+      if (swing > MAX_SWING + 1e-12) problems.push(`${sku}: best price moved ${Math.round(swing * 100)}% ($${old} → $${price})`);
     }
   }
   return problems;

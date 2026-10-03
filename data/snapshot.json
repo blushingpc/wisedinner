@@ -1,6 +1,6 @@
 {
- "version": 5,
- "generated_at": "2026-09-27",
+ "version": 6,
+ "generated_at": "2026-10-03",
  "stores": [
   {
    "id": "walmart",
@@ -5314,9 +5314,9 @@
    "servings": 1,
    "minutes": 5,
    "steps": [
-    "Stir the whey into the yogurt until smooth.",
-    "Layer the yogurt with the berries in a bowl or jar.",
-    "Top with the granola and eat right away."
+    "Stir the pea protein into the almond yogurt until smooth.",
+    "Stir in the oats and let them soften in the yogurt.",
+    "Thaw the berries according to their package instructions and layer them with the yogurt."
    ]
   },
   {
@@ -5332,9 +5332,9 @@
    "servings": 1,
    "minutes": 5,
    "steps": [
-    "Stir the whey into the yogurt until smooth.",
-    "Layer the yogurt with the berries in a bowl or jar.",
-    "Top with the granola and eat right away."
+    "Stir the whey into the greek yogurt until smooth.",
+    "Stir in the oats and let them soften in the yogurt.",
+    "Thaw the berries according to their package instructions and layer them with the yogurt."
    ]
   },
   {
@@ -5367,8 +5367,8 @@
    "servings": 1,
    "minutes": 10,
    "steps": [
-    "Cook the oats in water on the stove or in the microwave until thick.",
-    "Let it cool for a minute, then stir in the whey until smooth.",
+    "Cook the oats in water according to the package instructions.",
+    "Let the oats cool slightly, then stir in the pea protein until smooth.",
     "Top with sliced banana and the peanut butter."
    ]
   },
@@ -5420,8 +5420,8 @@
    "servings": 1,
    "minutes": 10,
    "steps": [
-    "Heat the oil in a pan and cook the peppers and onions until soft.",
-    "Pour in the egg whites and stir gently until just set.",
+    "Heat the oil in a pan and cook the peppers and onions according to their package instructions.",
+    "Whisk all four eggs, add them to the pan and scramble until firm and a food thermometer reads 160 F.",
     "Toast the bread and serve it alongside the scramble."
    ]
   },
@@ -5562,9 +5562,9 @@
    "servings": 1,
    "minutes": 10,
    "steps": [
-    "Whisk the eggs and egg whites and scramble them in a hot pan.",
-    "Warm the tortilla for 20 seconds in the pan or microwave.",
-    "Fill with the eggs, sliced avocado and salsa, then roll it up."
+    "Whisk the eggs and egg whites and scramble them in a pan until firm and a food thermometer reads 160 F.",
+    "Warm both corn tortillas according to their package instructions.",
+    "Divide the scrambled eggs, sliced avocado and salsa between the tortillas."
    ]
   },
   {
@@ -5704,9 +5704,9 @@
    "servings": 1,
    "minutes": 15,
    "steps": [
-    "Dice the chicken, toss it with the taco seasoning and cook it in a hot pan.",
-    "Warm the black beans and the tortilla.",
-    "Fill the tortilla with the chicken, beans, salsa and sliced avocado, then roll it up."
+    "Drain the tofu, pat it dry, dice it and toss it with the taco seasoning.",
+    "Brown the tofu in a nonstick pan. Drain and warm the black beans, then warm the tortilla.",
+    "Fill the tortilla with tofu, beans, salsa and sliced avocado, then roll it up."
    ]
   },
   {
@@ -5758,10 +5758,10 @@
    "servings": 1,
    "minutes": 20,
    "steps": [
-    "Cook the rice.",
-    "Dice the chicken, toss it with the taco seasoning and cook it in a hot pan.",
-    "Warm the black beans.",
-    "Build the bowl with rice, chicken, beans, salsa and sliced avocado."
+    "Cook the rice according to its package instructions.",
+    "Drain the tofu, pat it dry, dice it and toss it with the taco seasoning. Brown it in a nonstick pan.",
+    "Drain and warm the black beans.",
+    "Build the bowl with rice, tofu, beans, salsa and sliced avocado."
    ]
   },
   {
@@ -5777,10 +5777,10 @@
    "servings": 1,
    "minutes": 20,
    "steps": [
-    "Cook the rice.",
-    "Dice the chicken, toss it with the taco seasoning and cook it in a hot pan.",
-    "Warm the black beans.",
-    "Build the bowl with rice, chicken, beans, salsa and sliced avocado."
+    "Rinse and cook the quinoa according to its package instructions.",
+    "Dice the chicken, toss it with the taco seasoning and cook it in a nonstick pan until a food thermometer reads 165 F.",
+    "Drain and warm the black beans.",
+    "Build the bowl with quinoa, chicken, beans, salsa and sliced avocado."
    ]
   },
   {
@@ -5866,9 +5866,9 @@
    "servings": 1,
    "minutes": 10,
    "steps": [
-    "Drain the tuna and mash it with the avocado and hummus.",
-    "Chop the romaine.",
-    "Spread the tuna salad over the tortilla, add the romaine and roll it up."
+    "Drain the canned chicken and mix it with the avocado and hummus.",
+    "Wash and chop the romaine.",
+    "Spread the chicken salad over the tortilla, add the romaine and roll it up."
    ]
   },
   {
@@ -5920,10 +5920,10 @@
    "servings": 1,
    "minutes": 20,
    "steps": [
-    "Rinse the quinoa and simmer it in water for 15 minutes until soft.",
-    "Dice the chicken and cook it in the oil until no longer pink.",
-    "Chop the cucumber and tomato.",
-    "Build the bowl with quinoa, chicken, vegetables and a spoon of tzatziki."
+    "Rinse and cook the quinoa according to its package instructions.",
+    "Drain the tofu, pat it dry, dice it and cook it in the oil until hot and lightly browned.",
+    "Wash and chop the cucumber and tomato.",
+    "Build the bowl with quinoa, tofu, vegetables and hummus."
    ]
   },
   {
@@ -5973,12 +5973,12 @@
     "variant:protein_swap"
    ],
    "servings": 1,
-   "minutes": 20,
+   "minutes": 35,
    "steps": [
-    "Cook the rice.",
-    "Brown the turkey in a hot pan and stir in the taco seasoning.",
-    "Warm the black beans.",
-    "Build the bowl with rice, turkey, beans and salsa."
+    "Rinse and cook the lentils in water according to their package instructions, then drain.",
+    "Cook the rice according to its package instructions.",
+    "Stir the taco seasoning into the cooked lentils. Drain and warm the black beans.",
+    "Build the bowl with rice, lentils, beans and salsa."
    ]
   },
   {
@@ -6030,9 +6030,9 @@
    "servings": 1,
    "minutes": 25,
    "steps": [
-    "Cook the rice.",
-    "Dice the chicken and cook it in the oil until browned.",
-    "Add the broccoli and teriyaki sauce and cook until the broccoli is hot and the sauce is sticky.",
+    "Cook the rice according to its package instructions.",
+    "Drain the tofu, pat it dry, dice it and brown it in the oil.",
+    "Cook the broccoli according to its package instructions, then toss it with the tofu and teriyaki sauce.",
     "Serve over the rice."
    ]
   },
@@ -6049,10 +6049,10 @@
    "servings": 1,
    "minutes": 25,
    "steps": [
-    "Cook the rice.",
-    "Dice the chicken and cook it in the oil until browned.",
-    "Add the broccoli and teriyaki sauce and cook until the broccoli is hot and the sauce is sticky.",
-    "Serve over the rice."
+    "Rinse and cook the quinoa according to its package instructions.",
+    "Dice the chicken and cook it in the oil until a food thermometer reads 165 F.",
+    "Cook the broccoli according to its package instructions, then toss it with the chicken and teriyaki sauce.",
+    "Serve over the quinoa."
    ]
   },
   {
@@ -6086,10 +6086,10 @@
    "servings": 1,
    "minutes": 25,
    "steps": [
-    "Cook the rice.",
-    "Slice the chicken into strips and toss it with the taco seasoning.",
-    "Cook the chicken in the oil over high heat, then add the peppers and onions and cook until charred.",
-    "Serve over the rice with the salsa."
+    "Thaw the needed shrimp in the refrigerator ahead of cooking. Keep the rest frozen.",
+    "Cook the rice according to its package instructions.",
+    "Cook the peppers and onions in the oil according to their package instructions. Add the shrimp and taco seasoning and cook until the shrimp are pearly and opaque.",
+    "Serve over the rice with salsa."
    ]
   },
   {
@@ -6158,9 +6158,9 @@
    "servings": 1,
    "minutes": 35,
    "steps": [
-    "Heat the oven to 425 F and cube the sweet potato.",
-    "Toss the sweet potato with half the oil on a sheet pan and roast for 15 minutes.",
-    "Add the chicken and broccoli tossed in the rest of the oil and roast 15 minutes more."
+    "Heat the oven to 425 F. Wash and cube the potatoes.",
+    "Toss the potatoes with half the oil on a sheet pan and roast until starting to soften.",
+    "Add the chicken and broccoli tossed in the remaining oil. Roast until the potatoes are tender, the broccoli is cooked according to its package and the chicken reaches 165 F on a food thermometer."
    ]
   },
   {
@@ -6247,9 +6247,10 @@
    "servings": 1,
    "minutes": 25,
    "steps": [
-    "Boil the pasta, adding the broccoli for the last 3 minutes, then drain.",
-    "Dice the chicken and cook it in a hot pan until no longer pink.",
-    "Toss the pasta, broccoli and chicken with the pesto and top with parmesan."
+    "Thaw the needed shrimp in the refrigerator ahead of cooking. Keep the rest frozen.",
+    "Cook the pasta and broccoli according to their package instructions, then drain.",
+    "Cook the shrimp in a nonstick pan until pearly and opaque.",
+    "Toss the pasta, broccoli and shrimp with the pesto and top with parmesan."
    ]
   },
   {
@@ -6265,9 +6266,9 @@
    "servings": 1,
    "minutes": 25,
    "steps": [
-    "Boil the pasta, adding the broccoli for the last 3 minutes, then drain.",
-    "Dice the chicken and cook it in a hot pan until no longer pink.",
-    "Toss the pasta, broccoli and chicken with the pesto and top with parmesan."
+    "Cook the gluten free pasta and broccoli according to their package instructions, then drain.",
+    "Dice the chicken and cook it in a nonstick pan until a food thermometer reads 165 F.",
+    "Toss the pasta, broccoli and chicken with pesto and top with parmesan."
    ]
   },
   {
@@ -6301,10 +6302,10 @@
    "servings": 1,
    "minutes": 35,
    "steps": [
-    "Mix the turkey with the breadcrumbs, egg and half the parmesan and roll into meatballs.",
-    "Brown the meatballs in a pan, add the marinara and simmer for 12 minutes.",
-    "Boil the spaghetti and drain.",
-    "Serve the meatballs and sauce over the spaghetti with the rest of the parmesan."
+    "Mix the beef with breadcrumbs, egg and half the parmesan, then roll into meatballs.",
+    "Brown the meatballs in a nonstick pan, add marinara and simmer until a food thermometer reads 160 F in the meatballs.",
+    "Cook and drain the whole wheat spaghetti according to its package instructions.",
+    "Serve the meatballs and sauce over the spaghetti with the remaining parmesan."
    ]
   },
   {
@@ -6320,10 +6321,10 @@
    "servings": 1,
    "minutes": 35,
    "steps": [
-    "Mix the turkey with the breadcrumbs, egg and half the parmesan and roll into meatballs.",
-    "Brown the meatballs in a pan, add the marinara and simmer for 12 minutes.",
-    "Boil the spaghetti and drain.",
-    "Serve the meatballs and sauce over the spaghetti with the rest of the parmesan."
+    "Crush the oats into crumbs. Mix them with turkey, egg and half the parmesan, then roll into meatballs.",
+    "Brown the meatballs in a nonstick pan, add marinara and simmer until a food thermometer reads 165 F in the meatballs.",
+    "Cook and drain the gluten free pasta according to its package instructions.",
+    "Serve the meatballs and sauce over the pasta with the remaining parmesan. Check every package label for gluten."
    ]
   },
   {
@@ -6357,9 +6358,9 @@
    "servings": 1,
    "minutes": 25,
    "steps": [
-    "Cook the rice.",
-    "Slice the chicken thin and cook it in the oil over high heat until browned.",
-    "Add the vegetables and stir fry until hot, then add the soy sauce.",
+    "Cook the rice according to its package instructions.",
+    "Drain the tofu, pat it dry, slice it and brown it in the oil.",
+    "Cook the vegetables according to their package instructions, then toss them with the tofu and soy sauce.",
     "Serve over the rice."
    ]
   },
@@ -6575,9 +6576,9 @@
    "servings": 1,
    "minutes": 35,
    "steps": [
-    "Heat the oven to 425 F and roast the chicken on a sheet pan for 20 minutes.",
-    "Brush the chicken with the barbecue sauce, add the vegetables tossed in the oil and roast 10 minutes more.",
-    "Cook the rice and serve everything over it."
+    "Heat the oven to 425 F. Toss the vegetables in the oil on a sheet pan.",
+    "Add the pork and roast, brushing it with barbecue sauce near the end. Cook the vegetables according to their package and the pork to 145 F on a food thermometer.",
+    "Rest the pork for at least 3 minutes before slicing. Cook the rice according to its package instructions and serve everything over it."
    ]
   },
   {
@@ -6629,10 +6630,10 @@
    "servings": 1,
    "minutes": 25,
    "steps": [
-    "Cook the rice.",
-    "Dice the chicken and cook it in a hot pan until browned, then toss with the buffalo sauce.",
-    "Chop the romaine, grate the carrot and slice the avocado.",
-    "Build the bowl with rice, chicken and the vegetables."
+    "Cook the rice according to its package instructions.",
+    "Dice and cook the tempeh according to its package instructions, then toss it with buffalo sauce.",
+    "Wash and chop the romaine, grate the carrot and slice the avocado.",
+    "Build the bowl with rice, tempeh and vegetables."
    ]
   },
   {
@@ -6704,10 +6705,30 @@
    "servings": 1,
    "minutes": 35,
    "steps": [
-    "Cook the rice.",
-    "Cook the vegetables and edamame in the oil over high heat until hot.",
-    "Add the shrimp and cook until pink, then add the soy sauce.",
-    "Serve over the rice."
+    "Thaw the needed shrimp in the refrigerator ahead of cooking. Keep the rest frozen.",
+    "Cook the brown rice according to its package instructions.",
+    "Cook the vegetables and edamame in the oil according to their package instructions. Add the shrimp and cook until pearly and opaque, then add the soy sauce.",
+    "Serve over the brown rice."
+   ]
+  },
+  {
+   "id": "shrimp-and-veggie-stir-fry-chicken",
+   "name": "Chicken and veggie stir-fry",
+   "meal_type": "dinner",
+   "tags": [
+    "healthy",
+    "would_order",
+    "protein:chicken breast",
+    "variant:protein_swap"
+   ],
+   "servings": 1,
+   "minutes": 25,
+   "steps": [
+    "Thaw the needed chicken in the refrigerator ahead of cooking. Keep the rest frozen.",
+    "Cook the rice according to its package instructions.",
+    "Cut the chicken into bite-size pieces and cook it in the oil until a food thermometer reads 165 F.",
+    "Cook the vegetables and edamame according to their package instructions, then stir them into the chicken with the soy sauce.",
+    "Serve the chicken and vegetables over the rice."
    ]
   },
   {
@@ -6741,9 +6762,9 @@
    "servings": 1,
    "minutes": 25,
    "steps": [
-    "Cook the rice.",
-    "Heat the oven to 400 F and lay the salmon and asparagus on a sheet pan drizzled with the oil.",
-    "Roast for 15 minutes until the salmon flakes.",
+    "Thaw the needed tilapia in the refrigerator ahead of cooking. Keep the rest frozen.",
+    "Cook the rice according to its package instructions. Heat the oven to 400 F.",
+    "Wash and trim the asparagus and place it with the tilapia on a sheet pan drizzled with oil. Roast until the asparagus is tender and a food thermometer reads 145 F in the fish.",
     "Serve over the rice."
    ]
   },
@@ -9210,6 +9231,42 @@
    "unit": "tbsp"
   },
   {
+   "recipe_id": "shrimp-and-veggie-stir-fry-chicken",
+   "sku_id": "frozen-chicken-breast",
+   "qty": 12,
+   "unit": "oz"
+  },
+  {
+   "recipe_id": "shrimp-and-veggie-stir-fry-chicken",
+   "sku_id": "frozen-stirfry-veg",
+   "qty": 6,
+   "unit": "oz"
+  },
+  {
+   "recipe_id": "shrimp-and-veggie-stir-fry-chicken",
+   "sku_id": "white-rice",
+   "qty": 65,
+   "unit": "g"
+  },
+  {
+   "recipe_id": "shrimp-and-veggie-stir-fry-chicken",
+   "sku_id": "frozen-edamame",
+   "qty": 2,
+   "unit": "oz"
+  },
+  {
+   "recipe_id": "shrimp-and-veggie-stir-fry-chicken",
+   "sku_id": "soy-sauce",
+   "qty": 2,
+   "unit": "tbsp"
+  },
+  {
+   "recipe_id": "shrimp-and-veggie-stir-fry-chicken",
+   "sku_id": "olive-oil",
+   "qty": 1,
+   "unit": "tbsp"
+  },
+  {
    "recipe_id": "salmon-with-rice-and-asparagus",
    "sku_id": "frozen-salmon",
    "qty": 8,
@@ -9547,6 +9604,11 @@
    "recipe_id": "shrimp-and-veggie-stir-fry",
    "variant_recipe_id": "shrimp-and-veggie-stir-fry-brown-rice",
    "kind": "carb_swap"
+  },
+  {
+   "recipe_id": "shrimp-and-veggie-stir-fry",
+   "variant_recipe_id": "shrimp-and-veggie-stir-fry-chicken",
+   "kind": "protein_swap"
   },
   {
    "recipe_id": "salmon-with-rice-and-asparagus",

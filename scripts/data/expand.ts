@@ -3,6 +3,7 @@
 import type { Recipe, RecipeIngredient, RecipeVariant, Sku } from "../../packages/solver/src/types.ts";
 import type { AuthoredRecipe, Ing } from "./authored/types.ts";
 import type { AuthoredSku } from "./authored/skus.ts";
+import { VARIANT_DIRECTIONS } from "./authored/variant-steps.ts";
 
 export const TAGS = ["healthy", "would_order"];
 
@@ -36,7 +37,10 @@ export function expandRecipes(authored: AuthoredRecipe[]) {
       }
       for (const k of Object.keys(v.swap)) if (!r.ingredients.some((row) => row[0] === k)) throw new Error(`${v.id}: swap target ${k} is not in ${r.id}`);
       rows.push(...(v.add ?? []));
-      push(v.id, v.name, r.meal_type, v.protein, v.minutes ?? r.minutes, v.steps ?? r.steps, rows, v.kind);
+      const reviewed = VARIANT_DIRECTIONS[v.id];
+      const steps = v.steps ?? reviewed?.steps;
+      if (!steps?.length) throw new Error(`${v.id}: explicit variant directions are required`);
+      push(v.id, v.name, r.meal_type, v.protein, v.minutes ?? reviewed?.minutes ?? r.minutes, steps, rows, v.kind);
       variants.push({ recipe_id: r.id, variant_recipe_id: v.id, kind: v.kind });
     }
   }

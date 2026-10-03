@@ -12,7 +12,7 @@ export type AuthoredVariant = {
   swap: Record<string, Ing | null>; // base sku id → replacement row (null removes the row)
   add?: Ing[]; // extra rows
   minutes?: number;
-  steps?: string[]; // when omitted the base steps are reused with the swapped names
+  steps?: string[]; // otherwise an explicit authored/variant-steps.ts entry is required; never inherit blindly
 };
 
 export type AuthoredRecipe = {

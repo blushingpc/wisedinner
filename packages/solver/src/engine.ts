@@ -6,7 +6,7 @@ import { packCanonical, round2 } from "./units.ts";
 export const DAYS = ["mon", "tue", "wed", "thu", "fri"];
 export const SLOTS = ["breakfast", "lunch", "dinner"] as const;
 const SHELF_STABLE_FROM = 3; // thu, fri: freezer + shelf only — perishables are eaten early in the week
-const MAX_STRETCH = 1.5; // a perishable pack is only bought if ≥ 2/3 of it is in the plan; the rest is spread over its servings
+const MAX_PACK_TO_USED = 1.5; // retain the existing limit of at most a third of a perishable pack left over
 const MAX_SKU_KCAL_SHARE = 0.35;
 const MAX_SAME_DINNER = 2;
 const MAX_SAME_BREAKFAST = 3; // tasks/QUEUE.md idea [activation]: one breakfast five days straight reads monotonous
@@ -15,6 +15,7 @@ const PREF_SAME_DAY = 2; // dollars-equivalent nudge against the same dish at lu
 export const BAND = 1.03; // near-optimal band: feasible weeks within 3% of the cheapest are all "right"; the seed picks one
 const CANDIDATES = 32;
 const STEPS = 1000;
+const RECOVERY_ATTEMPTS = 4; // bounded extra starts only when the usual search misses
 
 // the budget floor (founder decision 2026-09-12): below MIN_BUDGET a week does not exist at real shelf prices, so solve()
 // returns the ordinary infeasible SolveOutput (feasible: false, why: [MIN_BUDGET_WHY], empty week) instead of searching.
@@ -114,7 +115,7 @@ export type Evaluation = {
   score: number;
 };
 
-// evaluate a week: buy whole packs, stretch perishable portions to finish them, then score every constraint
+// Buy whole packs, but count only authored portions as eaten. Leftovers never inflate nutrition.
 export function evaluate(week: Week, ctx: Ctx): Evaluation {
   const { input, pantry } = ctx;
   const sku = ctx.pool.skus;
@@ -141,20 +142,19 @@ export function evaluate(week: Week, ctx: Ctx): Evaluation {
     packs.set(id, p);
     const paid = pantry.has(id) ? 0 : p;
     cost += paid * s.price_usd;
-    const eaten = s.perishable ? p : u;
-    if (s.perishable) fail(Math.max(0, p / u - MAX_STRETCH), `${label(s)}: more than a third of a pack would go to waste`);
+    const eaten = u;
+    if (s.perishable) fail(Math.max(0, p / u - MAX_PACK_TO_USED), `${label(s)}: more than a third of a pack would be left over`);
     kcalBySku.set(id, s.kcal * eaten);
     totalKcal += s.kcal * eaten;
   }
   cost = round2(cost);
-  const stretch = (id: string) => (sku.get(id)!.perishable ? packs.get(id)! / fracOf(id) : 1);
   const days = week.map((day) => {
     let protein = 0;
     let kcal = 0;
     for (const t of day) for (const p of t.parts) {
       const s = sku.get(p.sku)!;
-      protein += s.protein_g * p.frac * stretch(p.sku);
-      kcal += s.kcal * p.frac * stretch(p.sku);
+      protein += s.protein_g * p.frac;
+      kcal += s.kcal * p.frac;
     }
     return { protein, kcal };
   });
@@ -238,6 +238,18 @@ export function polish(r: Result, ctx: Ctx, passes = 3): Result {
   let { week, ev } = r;
   for (let pass = 0; pass < passes; pass++) {
     let improved = false;
+    // Reordering the same day's mains can repair dinner repeats without changing food, cost or nutrition.
+    for (let d = 0; d < DAYS.length; d++) {
+      const day = week[d];
+      if (day[1] === day[2]) continue;
+      const next = week.map((items, index) => index === d ? [items[0], items[2], items[1]] : items);
+      const nev = evaluate(next, ctx);
+      if (nev.score < ev.score) {
+        week = next;
+        ev = nev;
+        improved = true;
+      }
+    }
     for (let d = 0; d < DAYS.length; d++) {
       for (let s = 0; s < SLOTS.length; s++) {
         for (const t of options(ctx, d, s)) {
@@ -253,6 +265,27 @@ export function polish(r: Result, ctx: Ctx, passes = 3): Result {
       }
     }
     if (!improved) break;
+  }
+  return { week, ev };
+}
+
+// Single-slot repair can be trapped between the protein and calorie bands. Try a pair only on a missed day.
+// This never weakens a constraint or changes authored portions, and runs only after the normal search misses.
+export function repairMealPairs(result: Result, ctx: Ctx): Result {
+  let { week, ev } = result;
+  for (let d = 0; d < DAYS.length; d++) {
+    const macros = ev.days[d];
+    if (macros.protein >= ctx.input.protein_per_day && macros.kcal >= ctx.input.kcal_min && macros.kcal <= ctx.input.kcal_max) continue;
+    for (const [a, b] of [[0, 1], [0, 2], [1, 2]]) {
+      for (const first of options(ctx, d, a)) for (const second of options(ctx, d, b)) {
+        const next = week.map((items, index) => index === d ? items.map((item, slot) => slot === a ? first : slot === b ? second : item) : items);
+        const nev = evaluate(next, ctx);
+        if (nev.score < ev.score) {
+          week = next;
+          ev = nev;
+        }
+      }
+    }
   }
   return { week, ev };
 }
@@ -278,7 +311,6 @@ export function toOutput(week: Week, ev: Evaluation, ctx: Ctx, seed: number, boo
   const sku = ctx.pool.skus;
   const pantry = ctx.pantry;
   const fracOf = (id: string) => ev.used.get(id)! / sku.get(id)!.packCanonical;
-  const stretch = (id: string) => (sku.get(id)!.perishable ? ev.packs.get(id)! / fracOf(id) : 1);
   // per-serving cost share: paid packs spread over the servings that eat them
   const shareOf = (id: string) => {
     const k = sku.get(id)!;
@@ -295,14 +327,14 @@ export function toOutput(week: Week, ev: Evaluation, ctx: Ctx, seed: number, boo
       let cost = 0;
       for (const p of t.parts) {
         const k = sku.get(p.sku)!;
-        protein += k.protein_g * p.frac * stretch(p.sku);
-        kcal += k.kcal * p.frac * stretch(p.sku);
+        protein += k.protein_g * p.frac;
+        kcal += k.kcal * p.frac;
         cost += shareOf(p.sku) * p.frac;
       }
       return {
         name: t.name,
         unit: SLOTS[si],
-        portion: t.parts.map((p) => `${label(sku.get(p.sku)!)} ${fraction(p.frac * stretch(p.sku))}`).join(" · "),
+        portion: t.parts.map((p) => `${label(sku.get(p.sku)!)} ${fraction(p.frac)}`).join(", "),
         protein_g: Math.round(protein),
         kcal: Math.round(kcal),
         recipe_id: t.id,
@@ -322,7 +354,7 @@ export function toOutput(week: Week, ev: Evaluation, ctx: Ctx, seed: number, boo
         qty: p,
         price_usd: inPantry ? 0 : round2(p * k.price_usd),
         perishable: k.perishable,
-        eaten: round2(k.perishable ? p : fracOf(id)),
+        eaten: fracOf(id),
         sku_id: id,
         aisle: k.aisle,
         store: k.store,
@@ -363,7 +395,7 @@ export function toOutput(week: Week, ev: Evaluation, ctx: Ctx, seed: number, boo
   };
 }
 
-// "1/4" for quarter-packs, "1 pack" / "2 packs" for whole ones, "0.40" for odd stretched shares
+// "1/4" for quarter-packs, "1 pack" / "2 packs" for whole ones, "0.40" for other shares
 export function fraction(f: number): string {
   for (const d of [1, 2, 3, 4, 5, 6, 8, 10, 12, 14, 16, 20, 24, 30, 32, 40]) {
     const n = f * d;
@@ -406,16 +438,27 @@ export function solve(input: SolveInput, s: Snapshot): SolveOutput {
     const ctx = makeCtx(input, buildPool(s, book.maps.get(run.mapKey)!, input.diet, input.budget, templates));
     if (!ctx.pool.templates.length) continue;
     const results = anneal(ctx, seed).map((r) => polish(r, ctx));
-    const { week, ev } = choose(results, rng(seed ^ 0x5bd1e995));
+    let chosen = choose(results, rng(seed ^ 0x5bd1e995));
+    if (chosen.ev.penalty > 0) chosen = repairMealPairs(chosen, ctx);
+    // A local minimum is not proof that the catalog cannot meet a target. Keep a bounded, seeded recovery
+    // path and stop at the first feasible result; never report extra food as eaten to rescue a miss.
+    for (let attempt = 1; chosen.ev.penalty > 0 && attempt <= RECOVERY_ATTEMPTS; attempt++) {
+      const recoverySeed = (seed + attempt) >>> 0;
+      const recovery = anneal(ctx, recoverySeed).map((r) => polish(r, ctx));
+      let candidate = choose(recovery, rng(recoverySeed ^ 0x5bd1e995));
+      if (candidate.ev.penalty > 0) candidate = repairMealPairs(candidate, ctx);
+      if (candidate.ev.penalty === 0 || candidate.ev.score < chosen.ev.score) chosen = candidate;
+    }
+    const { week, ev } = chosen;
     const out = toOutput(week, ev, ctx, seed, book, s);
-    if (!best || ev.score < best.ev.score) best = { out, ev };
+    if (!best || (out.feasible && !best.out.feasible) || (out.feasible === best.out.feasible && ev.score < best.ev.score)) best = { out, ev };
   }
   if (!best) throw new Error("no recipe fits this diet at these stores");
   return best.out;
 }
 
 // a fixed week (recipe ids [day][slot]) priced and scored without search (fixtures, tests)
-export function evaluateWeek(ids: string[][], input: SolveInput, s: Snapshot): SolveOutput {
+export function evaluateWeek(ids: string[] | string[][], input: SolveInput, s: Snapshot): SolveOutput {
   const seed = input.seed ?? 0;
   const book = buildPriceBook(s, input);
   const run = runStores(book)[0];
@@ -424,9 +467,16 @@ export function evaluateWeek(ids: string[][], input: SolveInput, s: Snapshot): S
   return toOutput(week, evaluate(week, ctx), ctx, seed, book, s);
 }
 
-export function weekFrom(ids: string[][], ctx: Ctx): Week {
+export function weekFrom(ids: string[] | string[][], ctx: Ctx): Week {
+  // Accept the app's flat 15-id contract while retaining the existing five-day form during migration.
+  const nested = ids.length === 15 && [...ids].every((id) => typeof id === "string")
+    ? DAYS.map((_, d) => (ids as string[]).slice(d * 3, d * 3 + 3))
+    : ids as string[][];
+  if (nested.length !== DAYS.length || ![...nested].every((day) => Array.isArray(day) && day.length === SLOTS.length && [...day].every((id) => typeof id === "string"))) {
+    throw new Error("week must contain 15 recipe ids, flat or five days of three");
+  }
   const byId = new Map(ctx.pool.templates.map((t) => [t.id, t]));
-  return ids.map((day) =>
+  return nested.map((day) =>
     day.map((id) => {
       const t = byId.get(id);
       if (!t) throw new Error(`recipe ${id} is not in the pool for this diet, budget and store`);

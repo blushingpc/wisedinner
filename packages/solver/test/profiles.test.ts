@@ -4,6 +4,7 @@ import { floors, isProteinSource, solve, buildPool } from "../src/engine.ts";
 import { PROFILES, BASE } from "../src/profiles.ts";
 import { priceMapFor } from "../src/pricing.ts";
 import { templatesOf } from "../src/snapshot.ts";
+import { servingNutrition } from "../src/serving.ts";
 import { loadSnapshot } from "./helpers.ts";
 import type { SolveInput, SolveOutput } from "../src/types.ts";
 
@@ -34,7 +35,7 @@ function assertWeek(out: SolveOutput, input: SolveInput) {
   for (const [n, c] of dinners) assert.ok(c <= 2, `${n} served ${c}× for dinner`);
   for (const i of out.list) {
     assert.ok(i.eaten <= i.qty + 1e-9, `${i.name}: eaten ${i.eaten} > qty ${i.qty}`);
-    if (i.perishable) assert.equal(i.eaten, i.qty, `${i.name}: perishable not finished`);
+    if (i.perishable) assert.ok(i.qty - i.eaten <= i.qty / 3 + 1e-6, `${i.name}: too much left over`);
   }
   const listTotal = Math.round(out.list.reduce((a, i) => a + i.price_usd, 0) * 100) / 100;
   assert.equal(listTotal, out.est_total, "list lines sum to the total");
@@ -42,6 +43,11 @@ function assertWeek(out: SolveOutput, input: SolveInput) {
   const dayProtein = out.days.reduce((a, d) => a + d.protein_g, 0) * input.household;
   assert.ok(dayProtein <= listProtein + 5, `days claim ${dayProtein} g, list holds ${Math.round(listProtein)} g`);
   assert.ok(out.days.every((d) => d.items.every((i) => i.cost_usd >= 0)));
+  for (const day of out.days) for (const meal of day.items) {
+    const expected = servingNutrition(meal.recipe_id, snap);
+    assert.equal(meal.protein_g, expected.protein_g, `${meal.name}: recipe protein`);
+    assert.equal(meal.kcal, expected.kcal, `${meal.name}: recipe calories`);
+  }
 }
 
 for (const [name, input] of PROFILES) {
@@ -108,4 +114,15 @@ test("output carries no source or confidence fields", () => {
   const out = solve(BASE, snap);
   const text = JSON.stringify(out);
   assert.ok(!/"source"|"confidence"|"observed"/.test(text));
+});
+
+test("recovered floor and dairy-free weeks retain the caller seed and deterministic recipe portions", () => {
+  for (const index of [1, 5]) {
+    const input = { ...PROFILES[index][1], seed: 0 };
+    const first = solve(input, snap);
+    const second = solve(input, snap);
+    assertWeek(first, input);
+    assert.equal(first.seed, 0);
+    assert.deepEqual(first, second);
+  }
 });

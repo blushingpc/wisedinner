@@ -104,7 +104,7 @@ export type ListItem = {
   qty: number; // packs to buy
   price_usd: number; // buffered, whole packs; 0 when the sku is in the pantry
   perishable: boolean;
-  eaten: number; // packs consumed this week (shelf-stable leftovers carry over)
+  eaten: number; // exact packs consumed by recipe portions; qty - eaten is food left over
   sku_id: string;
   aisle: Aisle;
   store: string; // store id this pack is priced at
