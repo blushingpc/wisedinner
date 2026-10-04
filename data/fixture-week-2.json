@@ -2,7 +2,7 @@
   "id": "example-2",
   "budget_usd": 57,
   "protein_goal_g": 150,
-  "generated_at": "2026-09-27",
+  "generated_at": "2026-10-04",
   "days": [
     {
       "day": "mon",
@@ -11,29 +11,29 @@
           "slot": "breakfast",
           "menu": "egg-and-avocado-breakfast-wrap-tofu",
           "name": "Tofu and avocado breakfast wrap",
-          "protein_g": 40,
-          "cost_usd": 2.36,
+          "protein_g": 41,
+          "cost_usd": 2.6,
           "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "chicken-fajita-bowl-tortillas",
-          "name": "Chicken fajitas with flour tortillas",
-          "protein_g": 73,
-          "cost_usd": 5.81,
-          "img": "/img/menu/chicken-fajita-bowl.jpg"
+          "menu": "healthier-chicken-parmesan-tofu",
+          "name": "Healthier tofu parmesan",
+          "protein_g": 61,
+          "cost_usd": 3.21,
+          "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "southwest-chicken-wrap",
-          "name": "Southwest chicken wrap",
-          "protein_g": 53,
-          "cost_usd": 3.62,
-          "img": "/img/menu/southwest-chicken-wrap.jpg"
+          "menu": "chicken-fajita-bowl-tortillas",
+          "name": "Chicken fajitas with flour tortillas",
+          "protein_g": 83,
+          "cost_usd": 5.85,
+          "img": "/img/menu/chicken-fajita-bowl.jpg"
         }
       ],
-      "protein_g": 166,
-      "cost_usd": 11.79
+      "protein_g": 184,
+      "cost_usd": 11.66
     },
     {
       "day": "tue",
@@ -42,60 +42,60 @@
           "slot": "breakfast",
           "menu": "egg-and-avocado-breakfast-wrap-tofu",
           "name": "Tofu and avocado breakfast wrap",
-          "protein_g": 40,
-          "cost_usd": 2.36,
+          "protein_g": 41,
+          "cost_usd": 2.6,
           "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
         },
         {
           "slot": "lunch",
           "menu": "healthier-chicken-parmesan",
           "name": "Healthier chicken parmesan",
-          "protein_g": 63,
-          "cost_usd": 3.21,
+          "protein_g": 69,
+          "cost_usd": 3.24,
           "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
           "slot": "dinner",
           "menu": "chicken-fajita-bowl-tortillas",
           "name": "Chicken fajitas with flour tortillas",
-          "protein_g": 73,
-          "cost_usd": 5.81,
+          "protein_g": 83,
+          "cost_usd": 5.85,
           "img": "/img/menu/chicken-fajita-bowl.jpg"
         }
       ],
-      "protein_g": 176,
-      "cost_usd": 11.38
+      "protein_g": 192,
+      "cost_usd": 11.69
     },
     {
       "day": "wed",
       "meals": [
         {
           "slot": "breakfast",
-          "menu": "egg-and-avocado-breakfast-wrap-tofu",
-          "name": "Tofu and avocado breakfast wrap",
-          "protein_g": 40,
-          "cost_usd": 2.36,
-          "img": "/img/menu/egg-and-avocado-breakfast-wrap.jpg"
+          "menu": "egg-white-and-veggie-scramble-with-toast-eggs",
+          "name": "Egg and veggie scramble with toast",
+          "protein_g": 33,
+          "cost_usd": 3.38,
+          "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
           "slot": "lunch",
-          "menu": "healthier-chicken-parmesan",
-          "name": "Healthier chicken parmesan",
-          "protein_g": 63,
-          "cost_usd": 3.21,
-          "img": "/img/menu/healthier-chicken-parmesan.jpg"
+          "menu": "chicken-fajita-bowl-tortillas",
+          "name": "Chicken fajitas with flour tortillas",
+          "protein_g": 83,
+          "cost_usd": 5.85,
+          "img": "/img/menu/chicken-fajita-bowl.jpg"
         },
         {
           "slot": "dinner",
-          "menu": "chicken-fajita-bowl-tortillas",
-          "name": "Chicken fajitas with flour tortillas",
-          "protein_g": 73,
-          "cost_usd": 5.81,
-          "img": "/img/menu/chicken-fajita-bowl.jpg"
+          "menu": "southwest-chicken-wrap",
+          "name": "Southwest chicken wrap",
+          "protein_g": 59,
+          "cost_usd": 4.05,
+          "img": "/img/menu/southwest-chicken-wrap.jpg"
         }
       ],
-      "protein_g": 176,
-      "cost_usd": 11.38
+      "protein_g": 175,
+      "cost_usd": 13.28
     },
     {
       "day": "thu",
@@ -105,7 +105,7 @@
           "menu": "egg-white-and-veggie-scramble-with-toast-tofu",
           "name": "Tofu and veggie scramble with toast",
           "protein_g": 42,
-          "cost_usd": 4.35,
+          "cost_usd": 3.63,
           "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
@@ -113,7 +113,7 @@
           "menu": "healthier-chicken-parmesan-tofu",
           "name": "Healthier tofu parmesan",
           "protein_g": 61,
-          "cost_usd": 3.38,
+          "cost_usd": 3.21,
           "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
@@ -121,12 +121,12 @@
           "menu": "healthier-chicken-parmesan-tofu",
           "name": "Healthier tofu parmesan",
           "protein_g": 61,
-          "cost_usd": 3.38,
+          "cost_usd": 3.21,
           "img": "/img/menu/healthier-chicken-parmesan.jpg"
         }
       ],
       "protein_g": 164,
-      "cost_usd": 11.11
+      "cost_usd": 10.05
     },
     {
       "day": "fri",
@@ -136,7 +136,7 @@
           "menu": "egg-white-and-veggie-scramble-with-toast-tofu",
           "name": "Tofu and veggie scramble with toast",
           "protein_g": 42,
-          "cost_usd": 4.35,
+          "cost_usd": 3.63,
           "img": "/img/menu/egg-white-and-veggie-scramble-with-toast.jpg"
         },
         {
@@ -144,7 +144,7 @@
           "menu": "healthier-chicken-parmesan-tofu",
           "name": "Healthier tofu parmesan",
           "protein_g": 61,
-          "cost_usd": 3.38,
+          "cost_usd": 3.21,
           "img": "/img/menu/healthier-chicken-parmesan.jpg"
         },
         {
@@ -152,12 +152,12 @@
           "menu": "healthier-chicken-parmesan-tofu",
           "name": "Healthier tofu parmesan",
           "protein_g": 61,
-          "cost_usd": 3.34,
+          "cost_usd": 3.21,
           "img": "/img/menu/healthier-chicken-parmesan.jpg"
         }
       ],
       "protein_g": 164,
-      "cost_usd": 11.07
+      "cost_usd": 10.05
     }
   ],
   "totals": {

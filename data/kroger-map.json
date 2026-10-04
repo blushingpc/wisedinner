@@ -544,5 +544,12 @@
     "size": "8 oz",
     "term": "panko bread crumbs 8 oz",
     "matched_at": "2026-09-10"
+  },
+  "chicken-thighs": {
+    "productId": "0001111006979",
+    "description": "Private Selection® Shawarma Boneless Skinless Chicken Thighs",
+    "size": "21 oz",
+    "term": "fresh chicken thighs bone in",
+    "matched_at": "2026-10-04"
   }
 }
