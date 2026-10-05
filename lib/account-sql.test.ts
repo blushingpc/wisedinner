@@ -62,8 +62,10 @@ test("isolated PostgreSQL executes account migration/RLS, ownership, atomic retr
     await login("authenticated", A, 301);
     assert.equal((await command("begin_deletion", {}, A)).error, "invalid_command");
     await login("authenticated", A);
-    const deleted = await command("begin_deletion", {}, A); assert.equal(deleted.state, "deletion_pending");
-    assert.deepEqual(await command("begin_deletion", {}, A), deleted);
+    assert.equal((await command("begin_deletion", {}, A)).error,"invalid_command","direct authenticated RPC must require intentional confirmation too");
+    assert.equal((await command("begin_deletion", {confirmation:"yes"}, A)).error,"invalid_command");
+    const deleted = await command("begin_deletion", {confirmation:"DELETE MY ACCOUNT"}, A); assert.equal(deleted.state, "deletion_pending");
+    assert.deepEqual(await command("begin_deletion", {confirmation:"DELETE MY ACCOUNT"}, A), deleted);
     assert.equal((await command("initialize", {}, B)).error, "account_inactive");
     assert.equal((await command("read", {}, null)).error, "account_inactive");
     assert.equal((await db.query("select * from public.wd_saved_weeks")).rows.length, 0);

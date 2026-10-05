@@ -3,6 +3,10 @@ Format per session: date · job taken · what shipped (1-2 lines) · deploy URL 
 
 ---
 
+## 2026-10-05 overnight account confirmation correction
+
+Branch `codex/backend-readiness`, HEAD `5539096`. Direct authenticated RPC could bypass the HTTP deletion confirmation. A failing actual isolated SQL regression reproduced it; prepared migration 0006 now requires the exact intent independently and the route forwards confirmation, never a client provider list. Fifteen focused tests and all 213 backend tests pass (30.176 s), ordinary tsc, zero-warning lint, voice, build and diff check pass. Existing Edge warnings only. No migration, provider/deletion worker or external action activated. Owned account/SQL/test/docs/plan paths are inspected for a narrow local commit. Native handoff/report and final public-byte/security/memory checks are next; detailed checkpoint in `tasks/OVERNIGHT-BACKEND-PLAN.md`.
+
 ## 2026-10-04 overnight backend checkpoint 1, local only
 
 Started 22:47:35 America/New_York. Branch `codex/backend-readiness`, HEAD `6eddd9c`, initial tree clean; fresh baseline 151/151 tests passed in 24.213 s. Current account/trial/included-reroll/optional-notification instructions supersede older Free-tier scope. Required dossiers/backend/app/brain context and relevant Caveman, writing, SQL security/schema and Expo overview skills reloaded. No app changes or shared database access.

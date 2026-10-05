@@ -117,7 +117,9 @@ export function accountHandler(deps: { verify: (r: Request) => Promise<VerifiedA
           const now = (deps.now ?? Date.now)() / 1000;
           if (account.authenticatedAt === null || account.authenticatedAt > now || now - account.authenticatedAt > 300) throw new AccountError(401, "recent_auth_required");
           // Partial deletion is explicit. Provider deletion/revocation is a separate retryable worker.
-          body = { providers: account.providers }; action = "begin_deletion";
+          // The independently callable authenticated RPC must enforce the same intent, not just this route.
+          // Apple linkage remains a trusted provider-worker lookup, never a client-provided list.
+          body = { confirmation: "DELETE MY ACCOUNT" }; action = "begin_deletion";
         } else if (path === "weeks" && request.method === "POST") { keys(body, ["id", "revision", "week"]); if (typeof body.id !== "string" || !UUID.test(body.id)) throw new AccountError(400, "invalid_id"); body = { id: body.id, revision: integer(body.revision, 0, 2147483647), week: savedWeek(body.week, deps.pin) }; action = "save_week"; }
         else if (/^weeks\/[0-9a-f-]+$/i.test(path) && request.method === "DELETE") { keys(body, ["revision"]); const id = path.slice(6); if (!UUID.test(id)) throw new AccountError(400, "invalid_id"); body = { id, revision: integer(body.revision, 1, 2147483647) }; action = "delete_week"; }
         else throw new AccountError(404, "not_found");

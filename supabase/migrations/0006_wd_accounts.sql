@@ -62,7 +62,7 @@ declare
   u uuid := auth.uid(); a public.wd_accounts%rowtype; receipt public.wd_account_receipts%rowtype;
   result jsonb; requested jsonb := jsonb_build_object('action',p_action,'body',p_body); n integer; w public.wd_saved_weeks%rowtype;
 begin
-  if u is null or auth.role() <> 'authenticated' or coalesce((auth.jwt()->>'is_anonymous')::boolean, false) then return '{"error":"invalid_command"}'; end if;
+  if u is null or auth.role() is distinct from 'authenticated' or coalesce((auth.jwt()->>'is_anonymous')::boolean, false) then return '{"error":"invalid_command"}'; end if;
   if p_action not in ('initialize','read','update','list_weeks','save_week','delete_week','begin_deletion','deletion_status') or p_body is null or jsonb_typeof(p_body) <> 'object' or octet_length(p_body::text) > 16384 then return '{"error":"invalid_command"}'; end if;
   if p_action not in ('read','list_weeks','deletion_status') and p_key is null then return '{"error":"invalid_command"}'; end if;
   if p_action = 'initialize' then
@@ -123,6 +123,7 @@ begin
       result := jsonb_build_object('revision',coalesce(w.revision,0)+1,'nutritionalProof',false);
     end if;
   elsif p_action = 'begin_deletion' then
+    if p_body - 'confirmation' <> '{}'::jsonb or p_body->>'confirmation' is distinct from 'DELETE MY ACCOUNT' then return '{"error":"invalid_command"}';end if;
     -- Recent authentication is checked AGAIN in SQL; refreshed JWT iat is not proof.
     if not exists (select 1 from jsonb_array_elements(coalesce(auth.jwt()->'amr','[]'::jsonb)) m where m->>'method' in ('password','otp','oauth','totp','webauthn') and (m->>'timestamp')::bigint between extract(epoch from now())::bigint-300 and extract(epoch from now())::bigint) then return '{"error":"invalid_command"}'; end if;
     if a.state = 'active' then

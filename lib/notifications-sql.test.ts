@@ -35,7 +35,7 @@ test("actual isolated SQL enforces push owner/project/revision/dedup/opt-out and
  await login("authenticated",A);assert.equal((await push("register",{...body,revision:3,token:"ExpoPushToken[rotated-token-12345]"})).revision,4);
  await login("service_role");await delivery("receipt",{id:secondJob,ticket:secondJob,result:"disable"});assert.equal((await db.query<{enabled:boolean}>("select enabled from public.wd_push_tokens where user_id=$1",[A])).rows[0].enabled,true,"late receipt must not disable a rotated token");
  await login("authenticated",A);await account("update",{revision:2,preferences:prefs(false)});assert.equal((await push("register",{...body,revision:4})).error,"notifications_disabled");
- await account("begin_deletion");assert.equal((await push("register",{...body,revision:3})).error,"account_inactive");
+ await account("begin_deletion",{confirmation:"DELETE MY ACCOUNT"});assert.equal((await push("register",{...body,revision:3})).error,"account_inactive");
  await login("service_role");for(const table of ["wd_push_tokens","wd_push_jobs","wd_push_receipts"])assert.equal((await db.query(`select * from public.${table} where user_id=$1`,[A])).rows.length,0);
  }finally{await db.close();}
 });
