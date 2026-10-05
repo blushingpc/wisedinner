@@ -37,10 +37,9 @@ async function seed() {
 async function main() {
   const local = LOCAL || !dbConfigured();
   if (local && !LOCAL) log("run", "database not configured: running --local");
-  if (!local) await seed();
-
-  // e. usda
+  // Validate nutrition before any database seed or upsert. A wrong cached identity must fail without DB writes.
   const usda = await fetchUsda();
+  if (!local) await seed();
   if (!local) {
     await upsert("nutrition", nutritionRows(usda), "sku_id");
     await upsert("skus", SKUS.filter((s) => s.id in usda).map((s) => ({ ...skuRow(s), usda_fdc_id: usda[s.id].fdc_id ? String(usda[s.id].fdc_id) : null })), "id");

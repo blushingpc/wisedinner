@@ -32,7 +32,7 @@
   "ground-turkey": {
     "fdc_id": 172850,
     "description": "Turkey, ground, 93% lean, 7% fat, raw",
-    "protein_g": 18.7,
+    "protein_g": 18.73,
     "kcal": 150,
     "fat_g": 8.34,
     "carbs_g": 0,
@@ -41,7 +41,7 @@
   "ground-beef": {
     "fdc_id": 174036,
     "description": "Beef, ground, 80% lean meat / 20% fat, raw",
-    "protein_g": 17.2,
+    "protein_g": 17.17,
     "kcal": 254,
     "fat_g": 20,
     "carbs_g": 0,
@@ -115,7 +115,7 @@
   "eggs": {
     "fdc_id": 171287,
     "description": "Egg, whole, raw, fresh",
-    "protein_g": 12.6,
+    "protein_g": 12.56,
     "kcal": 143,
     "fat_g": 9.51,
     "carbs_g": 0.72,
@@ -279,10 +279,10 @@
   "lentils": {
     "fdc_id": 172420,
     "description": "Lentils, raw",
-    "protein_g": 24.6,
+    "protein_g": 24.63,
     "kcal": 352,
     "fat_g": 1.06,
-    "carbs_g": 63.4,
+    "carbs_g": 63.35,
     "matched_at": "2026-09-09"
   },
   "peanut-butter": {
@@ -297,7 +297,7 @@
   "frozen-edamame": {
     "fdc_id": 168410,
     "description": "Edamame, frozen, unprepared",
-    "protein_g": 11.2,
+    "protein_g": 11.22,
     "kcal": 109,
     "fat_g": 4.73,
     "carbs_g": 7.61,
@@ -309,7 +309,7 @@
     "protein_g": 7.13,
     "kcal": 365,
     "fat_g": 0.66,
-    "carbs_g": 80,
+    "carbs_g": 79.95,
     "matched_at": "2026-09-09"
   },
   "brown-rice": {
@@ -325,10 +325,10 @@
   "quinoa": {
     "fdc_id": 168874,
     "description": "Quinoa, uncooked",
-    "protein_g": 14.1,
+    "protein_g": 14.12,
     "kcal": 368,
     "fat_g": 6.07,
-    "carbs_g": 64.2,
+    "carbs_g": 64.16,
     "matched_at": "2026-09-09"
   },
   "oats": {
