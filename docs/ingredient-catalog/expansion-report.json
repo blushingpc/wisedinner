@@ -1,0 +1,1699 @@
+{
+  "counts": {
+    "generated": 4704,
+    "unique": 4704,
+    "validated": 4704,
+    "reviewReady": 66,
+    "eligible": 66,
+    "quarantined": 4638
+  },
+  "generation_ms": 32.675,
+  "validation_ms": 183.97889999999995,
+  "digest": "8dde534f03963638cd00e454edbcb251a7209c10539c5c616df529c25b773869",
+  "eligible_skus": [
+    "chicken-breast",
+    "white-rice",
+    "frozen-broccoli",
+    "ground-turkey",
+    "ground-beef",
+    "lentils",
+    "frozen-edamame",
+    "eggs",
+    "brown-rice",
+    "quinoa"
+  ],
+  "bases": 9,
+  "variants": 57,
+  "scope": "Offline ingredient/structure approval only; neutral photos, no kitchen taste/device/pricing proof. Whole-week feasibility not guaranteed. Standalone subset must never replace production coverage.",
+  "artifacts": "data/pipeline/ingredient-catalog",
+  "approved_recipes": [
+    {
+      "id": "catalog-chicken-breast-white-rice-frozen-broccoli-bowl",
+      "name": "Chicken breast with white rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "chicken-breast",
+          180,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-white-rice-frozen-broccoli-soup",
+      "name": "Chicken breast with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "chicken-breast",
+          180,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-brown-rice-frozen-broccoli-bowl",
+      "name": "Chicken breast with brown rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "chicken-breast",
+          180,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-brown-rice-frozen-broccoli-soup",
+      "name": "Chicken breast with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "chicken-breast",
+          180,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-quinoa-frozen-broccoli-bowl",
+      "name": "Chicken breast with quinoa and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "chicken-breast",
+          180,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-quinoa-frozen-broccoli-soup",
+      "name": "Chicken breast with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "chicken-breast",
+          180,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-white-rice-frozen-broccoli-bowl",
+      "name": "Ground turkey with white rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "ground-turkey",
+          180,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-white-rice-frozen-broccoli-soup",
+      "name": "Ground turkey with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "ground-turkey",
+          180,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-brown-rice-frozen-broccoli-bowl",
+      "name": "Ground turkey with brown rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "ground-turkey",
+          180,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-brown-rice-frozen-broccoli-soup",
+      "name": "Ground turkey with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "ground-turkey",
+          180,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-quinoa-frozen-broccoli-bowl",
+      "name": "Ground turkey with quinoa and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "ground-turkey",
+          180,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-quinoa-frozen-broccoli-soup",
+      "name": "Ground turkey with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "ground-turkey",
+          180,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-white-rice-frozen-broccoli-bowl",
+      "name": "Ground beef with white rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "ground-beef",
+          180,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-white-rice-frozen-broccoli-soup",
+      "name": "Ground beef with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "ground-beef",
+          180,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-brown-rice-frozen-broccoli-bowl",
+      "name": "Ground beef with brown rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "ground-beef",
+          180,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-brown-rice-frozen-broccoli-soup",
+      "name": "Ground beef with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "ground-beef",
+          180,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-quinoa-frozen-broccoli-bowl",
+      "name": "Ground beef with quinoa and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "ground-beef",
+          180,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-quinoa-frozen-broccoli-soup",
+      "name": "Ground beef with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "ground-beef",
+          180,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-white-rice-frozen-broccoli-bowl",
+      "name": "Eggs with white rice and broccoli bowl",
+      "meal_type": "breakfast",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "eggs",
+          3,
+          "each"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-white-rice-frozen-broccoli-soup",
+      "name": "Eggs with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "eggs",
+          3,
+          "each"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-brown-rice-frozen-broccoli-bowl",
+      "name": "Eggs with brown rice and broccoli bowl",
+      "meal_type": "breakfast",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "eggs",
+          3,
+          "each"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-brown-rice-frozen-broccoli-soup",
+      "name": "Eggs with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "eggs",
+          3,
+          "each"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-quinoa-frozen-broccoli-bowl",
+      "name": "Eggs with quinoa and broccoli bowl",
+      "meal_type": "breakfast",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "eggs",
+          3,
+          "each"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-quinoa-frozen-broccoli-soup",
+      "name": "Eggs with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "eggs",
+          3,
+          "each"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-white-rice-frozen-broccoli-bowl",
+      "name": "Lentils with white rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "lentils",
+          90,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-white-rice-frozen-broccoli-soup",
+      "name": "Lentils with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "lentils",
+          90,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-brown-rice-frozen-broccoli-bowl",
+      "name": "Lentils with brown rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "lentils",
+          90,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-brown-rice-frozen-broccoli-soup",
+      "name": "Lentils with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "lentils",
+          90,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-quinoa-frozen-broccoli-bowl",
+      "name": "Lentils with quinoa and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "lentils",
+          90,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-quinoa-frozen-broccoli-soup",
+      "name": "Lentils with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "lentils",
+          90,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-frozen-edamame-white-rice-frozen-broccoli-bowl",
+      "name": "Edamame with white rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "frozen-edamame",
+          180,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-frozen-edamame-white-rice-frozen-broccoli-soup",
+      "name": "Edamame with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "frozen-edamame",
+          180,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-frozen-edamame-brown-rice-frozen-broccoli-bowl",
+      "name": "Edamame with brown rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "frozen-edamame",
+          180,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-frozen-edamame-brown-rice-frozen-broccoli-soup",
+      "name": "Edamame with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "frozen-edamame",
+          180,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-frozen-edamame-quinoa-frozen-broccoli-bowl",
+      "name": "Edamame with quinoa and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "frozen-edamame",
+          180,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-frozen-edamame-quinoa-frozen-broccoli-soup",
+      "name": "Edamame with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "frozen-edamame",
+          180,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-lentils-white-rice-frozen-broccoli-bowl",
+      "name": "Chicken breast and lentils with white rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "chicken-breast",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-lentils-white-rice-frozen-broccoli-soup",
+      "name": "Chicken breast and lentils with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "chicken-breast",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-lentils-brown-rice-frozen-broccoli-bowl",
+      "name": "Chicken breast and lentils with brown rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "chicken-breast",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-lentils-brown-rice-frozen-broccoli-soup",
+      "name": "Chicken breast and lentils with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "chicken-breast",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-lentils-quinoa-frozen-broccoli-bowl",
+      "name": "Chicken breast and lentils with quinoa and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "chicken-breast",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-chicken-breast-lentils-quinoa-frozen-broccoli-soup",
+      "name": "Chicken breast and lentils with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "chicken-breast",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-lentils-white-rice-frozen-broccoli-bowl",
+      "name": "Ground turkey and lentils with white rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "ground-turkey",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-lentils-white-rice-frozen-broccoli-soup",
+      "name": "Ground turkey and lentils with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "ground-turkey",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-lentils-brown-rice-frozen-broccoli-bowl",
+      "name": "Ground turkey and lentils with brown rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "ground-turkey",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-lentils-brown-rice-frozen-broccoli-soup",
+      "name": "Ground turkey and lentils with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "ground-turkey",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-lentils-quinoa-frozen-broccoli-bowl",
+      "name": "Ground turkey and lentils with quinoa and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "ground-turkey",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-turkey-lentils-quinoa-frozen-broccoli-soup",
+      "name": "Ground turkey and lentils with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "ground-turkey",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-lentils-white-rice-frozen-broccoli-bowl",
+      "name": "Ground beef and lentils with white rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "ground-beef",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-lentils-white-rice-frozen-broccoli-soup",
+      "name": "Ground beef and lentils with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "ground-beef",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-lentils-brown-rice-frozen-broccoli-bowl",
+      "name": "Ground beef and lentils with brown rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "ground-beef",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-lentils-brown-rice-frozen-broccoli-soup",
+      "name": "Ground beef and lentils with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "ground-beef",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-lentils-quinoa-frozen-broccoli-bowl",
+      "name": "Ground beef and lentils with quinoa and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "ground-beef",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-ground-beef-lentils-quinoa-frozen-broccoli-soup",
+      "name": "Ground beef and lentils with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "ground-beef",
+          120,
+          "g"
+        ],
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-frozen-edamame-white-rice-frozen-broccoli-bowl",
+      "name": "Eggs and edamame with white rice and broccoli bowl",
+      "meal_type": "breakfast",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "eggs",
+          2,
+          "each"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-frozen-edamame-white-rice-frozen-broccoli-soup",
+      "name": "Eggs and edamame with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "eggs",
+          2,
+          "each"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-frozen-edamame-brown-rice-frozen-broccoli-bowl",
+      "name": "Eggs and edamame with brown rice and broccoli bowl",
+      "meal_type": "breakfast",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "eggs",
+          2,
+          "each"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-frozen-edamame-brown-rice-frozen-broccoli-soup",
+      "name": "Eggs and edamame with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "eggs",
+          2,
+          "each"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-frozen-edamame-quinoa-frozen-broccoli-bowl",
+      "name": "Eggs and edamame with quinoa and broccoli bowl",
+      "meal_type": "breakfast",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "eggs",
+          2,
+          "each"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-eggs-frozen-edamame-quinoa-frozen-broccoli-soup",
+      "name": "Eggs and edamame with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 30,
+      "ingredients": [
+        [
+          "eggs",
+          2,
+          "each"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-frozen-edamame-white-rice-frozen-broccoli-bowl",
+      "name": "Lentils and edamame with white rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-frozen-edamame-white-rice-frozen-broccoli-soup",
+      "name": "Lentils and edamame with white rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "white-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-frozen-edamame-brown-rice-frozen-broccoli-bowl",
+      "name": "Lentils and edamame with brown rice and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-frozen-edamame-brown-rice-frozen-broccoli-soup",
+      "name": "Lentils and edamame with brown rice and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 50,
+      "ingredients": [
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "brown-rice",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-frozen-edamame-quinoa-frozen-broccoli-bowl",
+      "name": "Lentils and edamame with quinoa and broccoli bowl",
+      "meal_type": "dinner",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    },
+    {
+      "id": "catalog-lentils-frozen-edamame-quinoa-frozen-broccoli-soup",
+      "name": "Lentils and edamame with quinoa and broccoli soup",
+      "meal_type": "lunch",
+      "minutes": 40,
+      "ingredients": [
+        [
+          "lentils",
+          50,
+          "g"
+        ],
+        [
+          "frozen-edamame",
+          120,
+          "g"
+        ],
+        [
+          "quinoa",
+          80,
+          "g"
+        ],
+        [
+          "frozen-broccoli",
+          140,
+          "g"
+        ]
+      ]
+    }
+  ]
+}

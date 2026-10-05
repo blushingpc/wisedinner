@@ -4,6 +4,8 @@ import type { Recipe, RecipeIngredient, RecipeVariant, Sku } from "../../package
 import type { AuthoredRecipe, Ing } from "./authored/types.ts";
 import type { AuthoredSku } from "./authored/skus.ts";
 import { VARIANT_DIRECTIONS } from "./authored/variant-steps.ts";
+import { SKUS } from "./authored/skus.ts";
+import { toCanonical } from "../../packages/solver/src/units.ts";
 
 export const TAGS = ["healthy", "would_order"];
 
@@ -14,10 +16,18 @@ export function expandRecipes(authored: AuthoredRecipe[]) {
   const seen = new Set<string>();
   const push = (id: string, name: string, meal_type: Recipe["meal_type"], protein: string, minutes: number, steps: string[], rows: Ing[], variantTag?: string) => {
     if (seen.has(id)) throw new Error(`duplicate recipe id ${id}`);
+    if (!id.trim() || !name.trim() || !["breakfast", "lunch", "dinner"].includes(meal_type)) throw new Error(`${id}: invalid identity or meal type`);
+    if (!Number.isFinite(minutes) || minutes <= 0) throw new Error(`${id}: invalid cooking time`);
+    if (!steps?.length || steps.some(s => typeof s !== "string" || !s.trim())) throw new Error(`${id}: explicit directions are required`);
+    if (!rows.length) throw new Error(`${id}: ingredients required`);
     seen.add(id);
     recipes.push({ id, name, meal_type, tags: [...TAGS, `protein:${protein}`, ...(variantTag ? [`variant:${variantTag}`] : [])], servings: 1, minutes, steps });
     const merged = new Map<string, Ing>();
     for (const r of rows) {
+      const sku = SKUS.find(s => s.id === r[0]);
+      if (!sku) throw new Error(`${id}: unknown ingredient ${r[0]}`);
+      if (!Number.isFinite(r[1]) || r[1] <= 0) throw new Error(`${id}: invalid quantity for ${r[0]}`);
+      toCanonical(r[1], r[2], sku);
       const prev = merged.get(r[0]);
       if (prev && prev[2] === r[2]) merged.set(r[0], [r[0], prev[1] + r[1], r[2]]);
       else if (prev) throw new Error(`${id}: ${r[0]} listed twice with different units`);
