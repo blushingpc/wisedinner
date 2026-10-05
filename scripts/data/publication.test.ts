@@ -9,6 +9,13 @@ import {supabasePublisher} from "./publication-adapter.ts";
 const checks:StageChecks={sources:()=>[],acceptance:async()=>[],fixtures:async s=>({synthetic:true,version:s.version})};
 const next=()=>({...miniSnapshot(),version:2});
 const staged=()=>stageSnapshot(next(),miniSnapshot(),checks);
+test("prepared stage-only workflow has no write permission, secret bindings or public commands",()=>{
+ const workflow=readFileSync(".github/workflows/weekly-drop.yml","utf8");
+ assert.match(workflow,/permissions:\s*contents: read/);
+ assert.doesNotMatch(workflow,/secrets\.|contents: write|git push|gen-fixtures|gen-drop|data:pipeline|data:local/);
+ assert.match(workflow,/scripts\/data\/run\.ts --stage=data\/pipeline\/staging\//);
+ assert.match(workflow,/run: npm test/);assert.match(workflow,/run: npx tsc --noEmit/);
+});
 function writer(){
  const objects=new Map<number,{url:string;bytes:Uint8Array;hash:string}>();let pointer=1,mirrors=0,failUpload=false,failPointer=false,failMirror=false;
  const w:Publisher={putIfAbsent:async(v,bytes)=>{if(failUpload)throw Error("upload");const h=createHash("sha256").update(bytes).digest("hex"),old=objects.get(v);if(old&&old.hash!==h)throw Error("immutable conflict");if(!old)objects.set(v,{url:`https://example.invalid/snapshots/v${v}.json`,bytes:bytes.slice(),hash:h});return {url:objects.get(v)!.url,storedBytes:objects.get(v)!.bytes.slice()};},commitPointer:async(expected,v)=>{if(failPointer)throw Error("pointer");if(pointer===v)return {currentVersion:pointer};if(pointer!==expected)throw Error("competing pointer");pointer=v;return {currentVersion:pointer};},mirror:async()=>{if(failMirror)throw Error("mirror");mirrors++;}};

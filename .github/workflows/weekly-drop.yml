@@ -2,12 +2,12 @@ name: weekly drop
 
 on:
   schedule:
-    - cron: "0 10 * * 0" # sunday 10:00 UTC: the data snapshot, then the drop
+    - cron: "0 10 * * 0" # sunday 10:00 UTC: isolated candidate, never publication
     - cron: "0 9 * * *" # daily 09:00 UTC: the supabase keep-alive only
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   # issue #16: supabase pauses a free-tier project after seven idle days and every waitlist insert then 502s.
@@ -22,22 +22,12 @@ jobs:
           echo "$body" | jq '{db, snapshot, support, last_commit}'
           test "$(echo "$body" | jq -r '.db.ok')" = "true"
 
-  # BACKEND-V1 §2: the data pipeline (usda → kroger → walmart → instacart → index → snapshot). the snapshot guard
-  # (any solver profile infeasible, any sku's best price swung more than 30%) exits 1 and nothing is published.
-  # on success the new snapshot is in supabase storage + data_snapshots, and data/snapshot.json, the kroger map,
-  # the menu and the fixture weeks are committed so the site builds from the same numbers the app bundles.
+  # Local forward proposal: cached collection -> private provenance/source gates -> isolated stage.
+  # No credentials, live collection, public storage/pointer, showcase fixture or Git writer.
+  # A separately authorized rollout must stop old publishers and validate the prepared CAS migration.
   data:
     if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 10 * * 0'
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-      KROGER_CLIENT_ID: ${{ secrets.KROGER_CLIENT_ID }}
-      KROGER_CLIENT_SECRET: ${{ secrets.KROGER_CLIENT_SECRET }}
-      KROGER_SCOPE: ${{ secrets.KROGER_SCOPE }}
-      USDA_FDC_API_KEY: ${{ secrets.USDA_FDC_API_KEY }}
-      WALMART_API_KEY: ${{ secrets.WALMART_API_KEY }}
-      INSTACART_API_KEY: ${{ secrets.INSTACART_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
