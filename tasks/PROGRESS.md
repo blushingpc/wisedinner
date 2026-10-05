@@ -3,6 +3,14 @@ Format per session: date · job taken · what shipped (1-2 lines) · deploy URL 
 
 ---
 
+## 2026-10-05 store-estimate and onboarding research, no release
+
+The founder clarified that he wants store/category/region-adjusted prices and measured error handling, not a fixed unused-budget reserve. The initial private reserve prototype passed 230 tests/36 experiments but was withdrawn using scoped owned patches. Source now exactly matches starting HEAD 22578f4; fresh restored tests pass 220/220 (35.963 s), no failures/skips. Generated private evidence remains historical; interrupted final evidence is partial. No public/app/website product or remote state changed.
+
+Direct HelloFresh US web onboarding inspection through registration, official Cal AI/MacroFactor and store-price research saved in app reports/WiseDinner onboarding and price logic.md with three cited notes. Exact Cal AI native questions were not observed. Existing eight questions/three store choices are retained. Proposed formula uses raw pack/store/category/region basket estimates plus a single calibrated one-sided error allowance, mutually exclusive with legacy 1.1. It is not fitted, implemented, connected or nationwide validated.
+
+Kroger public-use restrictions are a collection/model-permission gate. Its productId/locationId interaction is a documentary concern, and app bestPerItem generic fallback is a latent code-inspected integration concern; neither was provider/device reproduced or fixed. Next local fixture-only slice and precise gates: tasks/STORE-ESTIMATE-PLAN.md. Food source/pack breadth, six migrations and account/native/website/legal/operational launch proof remain open. No signup, trial/order, message, database/ce_ change, deployment, push or paid run.
+
 ## 2026-10-05 overnight verified handoff, local only
 
 Starting clean `6eddd9c`, ten verified implementation commits through `2526e53` on `codex/backend-readiness`. Current account/eligible trial/included-reroll/optional-push scope is implemented behind default-off local seams. Final 220/220 tests (30.555 s), ordinary tsc, zero-warning lint, voice/build/diff gates pass; eight actual compiled private routes refuse unconfigured access with 503/no-store. Six migrations remain unapplied; actual isolated SQL proof is not hosted Auth/native purchase proof.
