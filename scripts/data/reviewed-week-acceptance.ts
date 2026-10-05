@@ -87,16 +87,17 @@ export function independentArithmetic(out: SolveOutput, edible: Snapshot, basket
     leftovers_note:"Preparation refuse is removed only from portions being prepared. Unprepared carryover stays physical food; edible carryover is an estimated usable amount, not an extra consumed portion. Egg quantities are counts of edible contents, not shell grams."};
 }
 
-export function runAcceptance() {
-  const output="data/pipeline/reviewed-week", evidence="docs/ingredient-catalog/reviewed-week-acceptance.json";
+export function runAcceptance(options?: {output:string;evidence:string;approval:WeekApproval;basket:ReviewBundle;candidates:Parameters<typeof stageReviewed>[2]}) {
+  const output=options?.output??"data/pipeline/reviewed-week", evidence=options?.evidence??"docs/ingredient-catalog/reviewed-week-acceptance.json";
+  if(options && (!output.startsWith("data/pipeline/overnight/") || !evidence.startsWith("docs/ingredient-catalog/overnight-"))) throw new Error("Isolated overnight paths required");
   mkdirSync(output,{recursive:true});
-  const approval: WeekApproval=JSON.parse(readFileSync("docs/ingredient-catalog/reviewed-week-approval.json","utf8"));
-  const t=performance.now(),s=stageReviewed(approval),compileMs=performance.now()-t;
+  const approval: WeekApproval=options?.approval??JSON.parse(readFileSync("docs/ingredient-catalog/reviewed-week-approval.json","utf8"));
+  const t=performance.now(),s=stageReviewed(approval,options?.basket,options?.candidates),compileMs=performance.now()-t;
   const save=(path:string,value:unknown)=>writeFileSync(path,JSON.stringify(value,null,2)+"\n");
   save(`${output}/edible-catalog.json`,s.edible);
   save(`${output}/private-purchase-projection.json`,{warning:"INTERNAL ONLY. Nutrients are purchase-equivalent, not edible per-100-g. Never publish or connect to the app.",source_digest:s.basket.source_digest,snapshot:s.purchased});
   save(`${output}/authored.json`,s.compiled.authored);save(`${output}/quarantine.json`,s.quarantine);
-  save("docs/ingredient-catalog/reviewed-week-reviews.json",s.basket);
+  save(options?`${output}/reviews.json`:"docs/ingredient-catalog/reviewed-week-reviews.json",s.basket);
   const rows: object[]=[],baseline: object[]=[],restrictions: object[]=[];
   const environment={node:process.version,platform:platform(),os_release:release(),cpu:cpus()[0]?.model,logical_cpus:cpus().length,memory_mb:Math.round(totalmem()/1048576),
     note:"First solve in this process is cold-process (OS/file cache not cleared). Second is warm. Shared desktop RSS samples, not isolated peaks or iPhone proof."};
@@ -115,7 +116,7 @@ export function runAcceptance() {
     const re=evaluateWeek(out.days.flatMap(d=>d.items.map(i=>i.recipe_id)),input,s.purchased);
     if(digest(out)!==digest(re)) throw new Error("Evaluation differs from solve output");
     const arithmetic=independentArithmetic(out,s.edible,s.basket);
-    const substitutes=[0,7,14].map(slot=>{
+    const substitutes=(options?Array.from({length:15},(_,i)=>i):[0,7,14]).map(slot=>{
       const candidates=restrictedCandidates(out,slot,s.purchased,[],s.basket.safety);
       for(const c of candidates) {const ids=out.days.flatMap(d=>d.items.map(i=>i.recipe_id));ids[slot]=c.recipe_id; const swapped=evaluateWeek(ids,input,s.purchased);independentArithmetic(swapped,s.edible,s.basket);if(out.feasible&&!swapped.feasible)throw new Error("Substitute breaks hard constraint");}
       return {slot,candidates};
@@ -126,7 +127,7 @@ export function runAcceptance() {
     console.log(JSON.stringify({name,seed,feasible:out.feasible,cost:out.est_total,why:out.why,ms:Math.round(cold)}));
   }
   // Baseline runs AFTER the reviewed cold-process measurement, so they cannot warm its solver first.
-  if(existsSync(prior)) {
+  if(!options && existsSync(prior)) {
     const old:Snapshot=JSON.parse(readFileSync(prior,"utf8"));
     for(const seed of [0,7,19]) {const o=solveRestricted({...BASE,seed},old,[]);baseline.push({seed,feasible:o.feasible,cost:o.est_total,distinct_skus:o.distinct_skus,why:o.why,days:o.days});}
   }

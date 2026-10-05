@@ -32,7 +32,7 @@ export function directions(parts: Part[], method: Method, reviewedEdible = false
   const grain = parts.find(p => p.role === "grain")!.row;
   const steps = [grain[0] === "oats"
     ? `Weigh ${grain[1]} ${grain[2]} of plain rolled oats dry. Simmer in water for about 5 minutes, stirring until soft. Keep all oats and cooking water.`
-    : `Weigh ${grain[1]} ${grain[2]} of ${lower(grain[0])} dry. ${["white-rice", "brown-rice", "quinoa"].includes(grain[0]) ? `Rinse and simmer in water until tender, about ${grain[0] === "brown-rice" ? "45" : "20"} minutes. ${method === "bowl" ? "Use enough water to absorb into the grain without draining." : "Keep extra cooking water for a brothy soup."}` : "Boil in water until tender according to the package, reserving the cooking water."}`];
+    : `Weigh ${grain[1]} ${grain[2]} of ${lower(grain[0])} dry. ${["white-rice", "brown-rice", "quinoa"].includes(grain[0]) ? `Rinse and simmer in water until tender, about ${grain[0] === "brown-rice" ? "45" : "20"} minutes. ${method === "bowl" ? "Use enough water to absorb into the grain without draining." : "Keep extra cooking water for a brothy soup."}` : reviewedEdible ? "Break long pasta to fit the pan. Simmer in a shallow covered pan with enough water to soften, stirring and adding water as needed, until tender according to the package. Keep all pasta and cooking liquid; do not drain." : "Boil in water until tender according to the package, reserving the cooking water."}`];
   for (const { row: [id, qty, unit], role } of parts.filter(p => p.role !== "grain")) {
     const portion = `${qty} ${unit} of ${lower(id)}`;
     if (id === "lentils") steps.push(`Rinse ${portion}, weighed dry. Simmer separately in water for 25 to 35 minutes until soft, keeping the cooking liquid.`);

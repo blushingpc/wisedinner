@@ -1,0 +1,34 @@
+{
+  "reviewed_at": "2026-10-04",
+  "ww-spaghetti": {
+    "status": "reviewed-original-label",
+    "upc": "0007680800584",
+    "gtin": "00076808005844",
+    "pack": "16 oz",
+    "identity": "Barilla Whole Grain Spaghetti, US one-pound dry package",
+    "manufacturer": "https://www.barilla.com/en-us/products/pasta/whole-grain-pasta/whole-grain-spaghetti",
+    "panel": "https://www.connect.syncpdi.com/sync_pdi/servlet/ItemDynSpec?GTIN=00076808005844&ID=barillaretail&InstanceID=9c6e678cdec83538c880e1b567dd3ac9",
+    "serving_source": "https://www.kroger.com/p/barilla-whole-grain-spaghetti-non-gmo-and-kosher-pasta-made-with-whole-wheat/0007680800584",
+    "accessed": "2026-10-04",
+    "ingredients": ["Whole Grain Durum Wheat Flour"],
+    "serving_g": 56,
+    "protein_g": 8,
+    "kcal": 180,
+    "fat_g": 1.5,
+    "carbs_g": 39,
+    "conversion": "Each rounded label value multiplied by 100/56. Use labeled 56 g, not exact oz conversion, for nutrition. Physical 16 oz pack uses existing mass conversion independently.",
+    "yield": 1,
+    "yield_basis": "Whole dry pasta is usable. Weigh dry, cook by absorption and retain all cooking liquid; no cooked-volume yield or added water nutrients. Manufacturer identifies the dry one-pound package; retailer supplies 2 oz (56 g), eight servings. No trim or discarded liquid assumed.",
+    "allergens": ["wheat", "eggs"],
+    "diet": ["gluten"],
+    "limits": "Manufacturer ingredient statement and macro panel agree with mapped retailer panel. Retailer warns possible egg cross-contact despite manufacturer free-from text, so egg exclusions conservatively reject. Other package cross-contact remains unverified; no safety certification. Actual package may differ. No displayed price imported. Recipes are internal preparations, not kitchen tested."
+  },
+  "blocked": {
+    "spaghetti": "Original mapped Kroger 0001111085004 page has full macros/composition but six servings conflicts with 1/8 package in a 16 oz box. Original package image requests failed transport. No approval until quantity/label discrepancy is resolved.",
+    "tempeh": "Existing Lightlife mapped 0004345403050, 8 oz identified. Original manufacturer composition includes cultured soybeans, water and brown rice; full nutrition is an image not yet retrieved. Do not replace with generic soy tempeh values.",
+    "pea-protein": "Existing product map points to a flavored peanut-containing blend, not an established plain pea protein choice. Founder product identity remains unresolved.",
+    "plant-yogurt": "No established matching plain almond-yogurt product/label. Founder product choice remains unresolved.",
+    "russet-potatoes": "Raw whole unpeeled planning yield remains unverified; peeled/cooked yield cannot substitute.",
+    "chicken-breast": "Raw nutrition reviewed; claimed fixed 3 lb physical purchasable pack remains unverified."
+  }
+}
