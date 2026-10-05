@@ -67,6 +67,10 @@ Evidence directory: `C:/Users/borgh/.codex/.chatgpt-projects/g-p-6abe316af67c819
 
 The unchanged learning skill structurally validated using the requested bundled Python and child-only `PYTHONPATH`. Initial sandbox access to existing PyYAML files failed; the same reviewed validator retry returned exit 0. No tested recurring skill fault supports an update, so no skill change was adopted. No product dependencies, global settings, hooks or managed caches changed.
 
+### Deletion continuation verified, October 5, 2026
+
+Latest launch-critical checkpoint: [local durable account-deletion report](ACCOUNT-DELETION-LOCAL.md). Actual 0006/0007/0009/0013 SQL and fake-provider restart/failure tests prove the default-off private progress binding: 29 focused/267 full tests, ordinary typecheck/lint/voice/build pass. Known identity/Apple linkage, fenced dependency progress and completion prerequisites are local proof; real providers/hosted/native/retention/rollout remain open, eight migrations unapplied. Existing configuration/offer/ownership evidence here is preserved. Target October 6 at 4:50 PM EDT remains readiness only; this worker stops for independent review, proposing one disabled session/cache app integration slice without provider activation or policy invention.
+
 ### Support continuation verified, October 5, 2026
 
 The following historical next-job paragraphs are now superseded by the completed local dry support slice. [Fresh support outbox report](SUPPORT-OUTBOX-LOCAL.md) records default-off durable progress, frozen approved replies/digests, safe pre-send recovery and held uncertain sends. Final focused SQL/route/legacy tests pass 34/34, full suite 255/255; ordinary typecheck/lint/voice/build pass. Additive 0012 remains unapplied, alongside the preceding six migrations. Configuration and blocked ownership evidence above remains unchanged. This worker stops for independent supervisor review; proposed next slice is default-off account-deletion durable adapters with dry providers. No account activation, policy choice, real delivery, shared SQL or native proof is supplied by the support tests.
