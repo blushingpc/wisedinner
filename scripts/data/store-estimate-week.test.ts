@@ -38,6 +38,10 @@ test("profile edits must freeze/revalidate every rule; price pass is not protein
  assert.throws(()=>evaluatePricedWeek(ids,input,stage,[],[],args(input,[],[],r=>r.budgetCents++)),/budget/);
  const changed=args();changed[1][0].purchasedNeed=ratio(1);assert.throws(()=>evaluatePricedWeek(ids,input,stage,[],[],changed),/requirements/);
 });
+test("legacy dollar profile accepts exact decimal cents without floating comparison noise",()=>{
+ const profile={...input,budget:64.01};const quoted=evaluatePricedWeek(ids,profile,stage,[],[],args(profile));assert.equal(quoted.quotes.alternatives[0].scope.selectionRevision,weekSelectionRevision(profile,stage));
+ assert.throws(()=>evaluatePricedWeek(ids,{...input,budget:64.011},stage,[],[],args({...input,budget:64.011})),/budget/);
+});
 test("unapproved IDs, unknown safety, variant edits and missing/stale yield cannot become price-only successes",()=>{
  assert.throws(()=>reviewedRequirements(["not-approved",...ids.slice(1)],input,stage));
  const unknown=structuredClone(stage);unknown.basket.safety.onions.status="unreviewed";assert.throws(()=>reviewedRequirements(ids,input,unknown),/source|review/i);

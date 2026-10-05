@@ -46,7 +46,8 @@ export function reviewedRequirements(ids:string[],input:SolveInput,stage:Stage,o
     legacyReferenceTotalCents:checked.totalCents},sourceDigest:stage.basket.source_digest,catalogDigest:digest(stage.edible)};
 }
 export function evaluatePricedWeek(ids:string[],input:SolveInput,stage:Stage,owned:OwnedPack[],allergies:string[],quoteArgs:Parameters<typeof quoteBaskets>){
-  if(quoteArgs[0].budgetCents!==Math.round(input.budget*100)||input.budget*100!==quoteArgs[0].budgetCents)throw Error("Food profile and household quote budget differ");
+  const centsBudget=multiply(decimalQuantity(input.budget),ratio(100));
+  if(centsBudget.denominator!==1||quoteArgs[0].budgetCents!==centsBudget.numerator)throw Error("Food profile and household quote budget differ");
   if(quoteArgs[0].selectionRevision!==weekSelectionRevision(input,stage,allergies))throw Error("Frozen selection does not match profile/restrictions/catalog");
   const reviewed=reviewedRequirements(ids,input,stage,owned,allergies);
   if(digest(reviewed.requirements)!==digest(quoteArgs[1])||digest(reviewed.pantry)!==digest(quoteArgs[2]))throw Error("Quote requirements/pantry differ from selected reviewed week");
