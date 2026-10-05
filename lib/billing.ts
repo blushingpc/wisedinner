@@ -98,20 +98,21 @@ export function parseBillingEvent(value: unknown): BillingEvent {
   return { ...parsed, fingerprint: createHash("sha256").update(JSON.stringify(parsed)).digest("hex") };
 }
 export function webhookHandler(deps: { authorization: string; appId: string; environment: BillingEnvironment; repository: BillingRepository }) {
+  const noStore={headers:{"Cache-Control":"no-store"}};
   return async (request: Request) => {
     try {
       const supplied = request.headers.get("authorization") ?? "";
       const expectedBytes = Buffer.from(deps.authorization), suppliedBytes = Buffer.from(supplied);
       if (expectedBytes.length < 32 || expectedBytes.length > 512 || suppliedBytes.length !== expectedBytes.length || !timingSafeEqual(suppliedBytes, expectedBytes)) throw new AccountError(401, "webhook_unauthorized");
       const event = parseBillingEvent(await boundedJson(request, 65536));
-      if (event.appId !== deps.appId) return Response.json({ ignored: "different_app" });
-      if (event.type === "TEST") return Response.json({ ignored: "dashboard_test" });
-      if (event.environment !== "UNKNOWN" && event.environment !== deps.environment) return Response.json({ ignored: "different_environment" });
+      if (event.appId !== deps.appId) return Response.json({ ignored: "different_app" },noStore);
+      if (event.type === "TEST") return Response.json({ ignored: "dashboard_test" },noStore);
+      if (event.environment !== "UNKNOWN" && event.environment !== deps.environment) return Response.json({ ignored: "different_environment" },noStore);
       await deps.repository.enqueue(event); // Durable commit BEFORE 200; worker processing/activation is separate.
-      return Response.json({ accepted: true });
+      return Response.json({ accepted: true },noStore);
     } catch (error) {
       const safe = error instanceof AccountError ? error : new AccountError(503, "webhook_unavailable");
-      return Response.json({ error: safe.message }, { status: safe.status });
+      return Response.json({ error: safe.message }, { ...noStore,status: safe.status });
     }
   };
 }

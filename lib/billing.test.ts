@@ -68,14 +68,14 @@ test("authenticated webhook durably deduplicates, separates app/environment and 
   const r = repository(); const authorization = "fixture_".repeat(8);
   const handle = webhookHandler({ authorization, appId: "fixture_app", environment: "PRODUCTION", repository: r.repo });
   const request = (body: unknown, auth = authorization) => new Request("https://test.invalid/api/v1/billing/webhook", { method: "POST", headers: { "Content-Type": "application/json", Authorization: auth }, body: JSON.stringify(body) });
-  assert.equal((await handle(request(event(), "untrusted"))).status, 401);
+  const unauthorized=await handle(request(event(), "untrusted"));assert.equal(unauthorized.status,401);assert.equal(unauthorized.headers.get("cache-control"),"no-store");
   assert.equal((await handle(request(event({ environment: "SANDBOX" })))).status, 200); assert.equal(r.events.size, 0);
   assert.equal((await handle(request(event({ app_id: "other_app" })))).status, 200); assert.equal(r.events.size, 0);
   assert.equal((await handle(request(event()))).status, 200); assert.equal((await handle(request(event()))).status, 200); assert.equal(r.events.size, 1);
   assert.equal((await handle(request(event({ type: "EXPIRATION" })))).status, 409);
   assert.equal((await handle(request({ oversized: "x".repeat(66000) }))).status, 413);
   const unavailable = webhookHandler({ authorization, appId: "fixture_app", environment: "PRODUCTION", repository: { ...r.repo, enqueue: async () => { throw new Error("private DB detail"); } } });
-  const response = await unavailable(request(event())); assert.equal(response.status, 503); assert.equal((await response.text()).includes("private"), false);
+  const response = await unavailable(request(event())); assert.equal(response.status, 503);assert.equal(response.headers.get("cache-control"),"no-store"); assert.equal((await response.text()).includes("private"), false);
 });
 test("actual access handler derives ownership from verified session and denies client success/tier flags", async () => {
   const r = repository(); let fetched = false;
