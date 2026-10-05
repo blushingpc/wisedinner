@@ -10,7 +10,7 @@ import type { UsdaMap } from "./usda.ts";
 type Method = "bowl" | "soup";
 type Role = "protein" | "grain" | "vegetable";
 type Part = { row: Ing; role: Role };
-export type Candidate = { recipe: AuthoredRecipe; method: Method; parts: Part[]; photo: null };
+export type Candidate = { recipe: AuthoredRecipe; method: Method; parts: Part[]; photo: null; quantity_basis?: "reviewed-edible" };
 export type Approval = { candidate_digest: string; recipe_ids: string[]; reviewed_at: string };
 
 const PROTEINS = ["chicken-breast", "ground-turkey", "ground-beef", "eggs", "lentils", "frozen-edamame", "tofu", "tempeh", "canned-tuna"];
@@ -28,9 +28,11 @@ const label = (id: string) => LABELS[id] ?? id;
 const lower = (id: string) => label(id).toLowerCase();
 const grams = (id: string, paired: boolean): Ing => [id, id === "eggs" ? (paired ? 2 : 3) : id === "lentils" ? (paired ? 50 : 90) : paired ? 120 : 180, id === "eggs" ? "each" : "g"];
 
-function directions(parts: Part[], method: Method): string[] {
+export function directions(parts: Part[], method: Method, reviewedEdible = false): string[] {
   const grain = parts.find(p => p.role === "grain")!.row;
-  const steps = [`Weigh ${grain[1]} ${grain[2]} of ${lower(grain[0])} dry. ${["white-rice", "brown-rice", "quinoa"].includes(grain[0]) ? `Rinse and simmer in water until tender, about ${grain[0] === "brown-rice" ? "45" : "20"} minutes. ${method === "bowl" ? "Use enough water to absorb into the grain without draining." : "Keep extra cooking water for a brothy soup."}` : "Boil in water until tender according to the package, reserving the cooking water."}`];
+  const steps = [grain[0] === "oats"
+    ? `Weigh ${grain[1]} ${grain[2]} of plain rolled oats dry. Simmer in water for about 5 minutes, stirring until soft. Keep all oats and cooking water.`
+    : `Weigh ${grain[1]} ${grain[2]} of ${lower(grain[0])} dry. ${["white-rice", "brown-rice", "quinoa"].includes(grain[0]) ? `Rinse and simmer in water until tender, about ${grain[0] === "brown-rice" ? "45" : "20"} minutes. ${method === "bowl" ? "Use enough water to absorb into the grain without draining." : "Keep extra cooking water for a brothy soup."}` : "Boil in water until tender according to the package, reserving the cooking water."}`];
   for (const { row: [id, qty, unit], role } of parts.filter(p => p.role !== "grain")) {
     const portion = `${qty} ${unit} of ${lower(id)}`;
     if (id === "lentils") steps.push(`Rinse ${portion}, weighed dry. Simmer separately in water for 25 to 35 minutes until soft, keeping the cooking liquid.`);
@@ -40,7 +42,9 @@ function directions(parts: Part[], method: Method): string[] {
     else if (id === "canned-tuna") steps.push(`Measure ${portion} as drained edible solids. Warm gently in a covered pan with a little water. Purchased drained yield still requires package review.`);
     else if (id === "tofu" || id === "tempeh") steps.push(`Cut ${portion} into small cubes. Heat in a nonstick covered pan with a little water until steaming hot throughout.`);
     else if (id === "frozen-edamame") steps.push(`Measure ${portion} as frozen shelled beans. Simmer in a little water until tender and thoroughly heated, following the package minimum cooking directions. Keep the cooking liquid.`);
-    else if (role === "vegetable") steps.push(`Measure ${portion} as edible ${id.startsWith("frozen-") ? "frozen" : "washed and trimmed raw"} vegetables. Cut large pieces small and simmer until tender, following any package minimum cooking directions. Keep the cooking liquid.`);
+    else if (role === "vegetable") steps.push(reviewedEdible && ["carrots", "onions", "tomatoes"].includes(id)
+      ? `Wash ${lower(id)}. ${id === "carrots" ? "Remove the tops, trim and peel, then chop." : id === "onions" ? "Remove the skin and ends, then chop." : "Remove stems and core, then dice."} Weigh ${portion} after preparation, before cooking. Simmer in water until tender and retain all edible pieces and cooking liquid.`
+      : `Measure ${portion} as edible ${id.startsWith("frozen-") ? "frozen" : "washed and trimmed raw"} vegetables. Cut large pieces small and simmer until tender, following any package minimum cooking directions. Keep the cooking liquid.`);
     else throw new Error(`No preparation for ${id}`);
   }
   steps.push(method === "bowl" ? "Combine the cooked ingredients and retained juices with the grain. Reduce excess water briefly to a thick bowl and serve hot. No unlisted oil, sauce or seasoning is assumed."
@@ -87,12 +91,12 @@ export function compileCandidate(candidate: Candidate) {
   if (parts.filter(p => p.role === "grain").length !== 1 || !parts.some(p => p.role === "protein") || !parts.some(p => p.role === "vegetable")) throw new Error(`${recipe.id}: incomplete meal structure`);
   for (const part of parts) {
     const [id, qty, unit] = part.row;
-    const allowed = part.role === "grain" ? GRAINS : part.role === "protein" ? PROTEINS : VEGETABLES;
+    const allowed = part.role === "grain" ? [...GRAINS, "oats"] : part.role === "protein" ? PROTEINS : [...VEGETABLES, "onions"];
     if (!allowed.includes(id)) throw new Error(`${recipe.id}: ingredient contradicts preparation role`);
     const sku = SKUS.find(s => s.id === id);
     if (!sku || toCanonical(qty, unit, sku) <= 0) throw new Error(`${recipe.id}: invalid ingredient quantity`);
   }
-  if (JSON.stringify(recipe.steps) !== JSON.stringify(directions(parts, method))) throw new Error(`${recipe.id}: missing or contradictory ingredient directions`);
+  if (JSON.stringify(recipe.steps) !== JSON.stringify(directions(parts, method, candidate.quantity_basis === "reviewed-edible"))) throw new Error(`${recipe.id}: missing or contradictory ingredient directions`);
   if (recipe.minutes < (parts.some(p => p.row[0] === "brown-rice") ? 50 : parts.some(p => p.row[0] === "lentils") ? 40 : 30)) throw new Error(`${recipe.id}: cooking time contradicts ingredient preparation`);
   return expandRecipes([recipe]);
 }
