@@ -1,5 +1,9 @@
 # App integration handoff, October 5, 2026
 
+### Account client local continuation, October 5, 2026
+
+Later checkpoint: [app account client report](APP-ACCOUNT-CLIENT-LOCAL.md) records internal hard-default-off session/client/cache preparation with 19 dry app regressions and actual backend-handler/0006 ephemeral SQL contract proof. Native SDK binding, session resume, provider/phone/trial acceptance and lint/doctor remain unavailable/unrun; no dependency, UI, solver, anonymous state, snapshot or privacy copy was changed. New modules are absent from the fresh local iOS product bundle. Existing handoff history below remains valid where not superseded by dated evidence. Worker stops for independent review, no new activation or app integration authority.
+
 Backend-owned preparation only. App product code is unchanged. This document does not authorize provider activation, a database push, native builds, deployment or public food publication.
 
 ## Verified starting seam

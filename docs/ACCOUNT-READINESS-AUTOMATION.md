@@ -69,6 +69,8 @@ The unchanged learning skill structurally validated using the requested bundled 
 
 ### Deletion continuation verified, October 5, 2026
 
+Later account-client checkpoint: [local app preparation](APP-ACCOUNT-CLIENT-LOCAL.md) links hard-default-off injected session/client/cache boundary, actual handler/0006 ephemeral SQL and dry app tests. Native SDK binding remains unavailable; no login/trial/provider/shared schema or device acceptance is supplied. Existing configuration/deletion evidence is preserved, eight migrations unapplied. Exact app gates/failures/commits and next independent review are in that linked report.
+
 Latest launch-critical checkpoint: [local durable account-deletion report](ACCOUNT-DELETION-LOCAL.md). Actual 0006/0007/0009/0013 SQL and fake-provider restart/failure tests prove the default-off private progress binding: 29 focused/267 full tests, ordinary typecheck/lint/voice/build pass. Known identity/Apple linkage, fenced dependency progress and completion prerequisites are local proof; real providers/hosted/native/retention/rollout remain open, eight migrations unapplied. Existing configuration/offer/ownership evidence here is preserved. Target October 6 at 4:50 PM EDT remains readiness only; this worker stops for independent review, proposing one disabled session/cache app integration slice without provider activation or policy invention.
 
 ### Support continuation verified, October 5, 2026
