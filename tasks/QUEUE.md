@@ -3,6 +3,15 @@ Rules: one job in flight. Each job has a "done means" line — that is the test.
 Blocked jobs get `BLOCKED:` + one line on what's needed. New ideas go under
 Ideas with a metric tag [activation|conversion|price-accuracy|perf] or they get deleted.
 
+## Current scope and continuation, October 5, 2026
+
+The submitted overnight run supersedes older launch scope: accounts Apple/Google/email, verified eligible 14-day auto-renewable trial/existing access, included rerolls, optional notifications; unchanged $8.99/$48. No ongoing Free or separate reroll product. Older queue entries are history, not permission to activate delivery, checkout, waitlist, phone/SMS or publish.
+
+- Local backend slices verified: account/session/ownership/deletion, billing/access/inbox, reviewed restricted diets/physical pantry, exact pack/provenance and stage-before-publish, private push/operations/support with prepared durable send reservations. Six migrations remain unapplied; provider/native activation unverified. Full result/precise continuation: `docs/OVERNIGHT-BACKEND-REPORT.md` and `tasks/OVERNIGHT-BACKEND-PLAN.md`.
+- Reviewed acceptance now passes all six profiles at seeds 0/7/19: 108 approved of 132 distinct structures, 24 quarantine, 14 combined reviewed ingredients. Vegan four-cent price headroom and weak breakfast substitutions remain practical limits. Do not claim public coverage or kitchen testing.
+- Next recommended workstream: separately authorized app account/trial integration, preceded by read-only provider/product/SMTP/callback evidence and isolated Supabase-compatible Auth/PostgREST/RLS proof. Use `docs/OVERNIGHT-APP-HANDOFF.md`; no automatic core port, snapshot refresh, receipt exposure, provider activation or database push.
+- Founder blocked: email code versus link, reroll grocery/budget behavior, restore transfer policy, founders date interpretation/release date, unsupported-location price/accuracy policy, retention/privacy/legal and rollout authorization. Production email delivery, native purchases, App Store URL, monitoring and public food/price source coverage remain release gates. B2 has tested local dry infrastructure, not a working phone alert.
+
 ## MVP — SITE-SPEC v2 §19 (docs/SITE-SPEC.md). one sprint, push after each step.
 1. [x] foundation: SectionShell + token audit
 2. [x] DeviceFrame + ReceiptCard + MealCard + CountUp

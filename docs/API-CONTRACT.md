@@ -1,5 +1,15 @@
 # API contract for the app (backend v1)
 
+## October 5, 2026 override and local integration status
+
+The October 4 founder decisions supersede the historical anonymous Free/paid-reroll/no-account/no-notification launch prose below. Launch includes Apple/Google/email accounts, verified eligible fourteen-day auto-renewable trial or existing subscription access, included rerolls and optional notifications. Prices remain $8.99 monthly/$48 annually. Release date, email mode, reroll grocery/budget rule and founders interpretation are unresolved. Courier/receipt/delivery/web checkout/waitlist/chatbot remain outside this run.
+
+New private versioned account, billing/access and notification APIs are implemented and tested locally, default-off, with prepared unapplied `0006`–`0011` migrations, including the final durable support send guard. No public Snapshot or SolveInput field changed; the app is not connected. Exact shapes/errors, Auth ownership, trial eligibility, deletion and rollout are in `ACCOUNT-API-V1.md`, `BILLING-ACCESS-V1.md`, `NOTIFICATIONS-OPERATIONS-V1.md` and `OVERNIGHT-APP-HANDOFF.md`. Public downloaded recipes/on-device solving are not secret and backend access states are not a complete native wall.
+
+Fresh read-only public pointer/blob was **v6**, 82 recipes/79 SKUs, 163,016 bytes, SHA-256 matching `overnight-baseline.json`; its publication preceded this run. It is not the local 83-recipe draft or source-reviewed acceptance catalog. Public nutrition/price gaps remain unresolved and no public data was repaired. Private reviewed staging now has 108 approved preparations and passes all six profiles at seeds 0/7/19 under unchanged rules. True source nutrients and private purchase-equivalent projections must never be confused. Versioned safety/quantity envelope remains a compatibility proposal, not a public field addition.
+
+Pipeline now requires an explicit new isolated `--stage=data/pipeline/...` path; legacy `--local` is rejected rather than writing public data. Future price imports fail closed without original exact pack provenance. Prepared publication gates exact bytes/acceptance before immutable upload/pointer CAS/mirror, with separate failure boundaries. Remote weekly workflow and production remain untouched. Older implementation descriptions below are historical where they conflict with this checkpoint.
+
 Updated October 3, 2026. Build 1 is anonymous Free plus Protein Plan with RevenueCat and paid reroll. Anonymous
 snapshot fetching is allowed. No app accounts, notifications, delivery, web checkout, web demo or waitlist are added.
 Courier is after release. The promise is little waste, not no waste. This document distinguishes current code from

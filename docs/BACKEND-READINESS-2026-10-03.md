@@ -1,5 +1,17 @@
 # Backend connection checkpoint
 
+## October 5 overnight local result
+
+October 4 scope supersedes old anonymous Free/paid-reroll/no-account/no-notification claims: accounts, eligibility-aware verified fourteen-day trial/existing subscription access, included rerolls and optional notifications. No commercial/product ID, release, email-mode, founders or grocery-rule choice invented.
+
+Local implementation now provides verified account ownership/revisions/pinned saved IDs/deletion denial; opaque billing identity, authenticated durable webhook inbox/current entitlement reconciliation; private push ownership/rotation-safe receipts and disabled delivery; coarse liveness/support freshness/dry alerts; bounded/redacted support inputs/current facts and default-off durable send reservations; exact future-import packs and sealed stage/immutable/CAS publication preparation. Six migrations are unapplied. Actual disposable PostgreSQL RLS/grants tests use emulated Auth claims, not hosted/native proof. Providers/offers/workers/schedules are not activated.
+
+Reviewed food: 14 combined source/quantity-ready IDs; safety 27 reviewed/52 unknown; 132 distinct structures, 108 explicitly internally approved, 24 chicken quarantine, zero kitchen tested. All six existing profiles pass seeds 0/7/19 with independent consumed nutrients/pack/trim/carryover arithmetic, cap 96 unchanged. Vegan $49.96 has four-cent headroom and limited breakfast replacements. Physical partial pantry is private full re-evaluation, not a public/app contract or pantry-optimized search. Earlier evidence preserved.
+
+All 387 historical cached price rows lack immutable original provenance and are excluded from a real isolated public candidate; six nutrition cache guards still block assembly. No source/publish guard weakened to hide coverage. Public v6 pointer/blob existed before this run: matching exact checksum, 82 recipes/79 SKUs; prior v5 statements are historical. No public artifact, shared database/ce_ table, app code, website worktree, remote Git, production, spending or real message changed.
+
+Exact current proof, gates, local commits, compatibility/rollback and pending native/provider/price/privacy/rollout checks: `OVERNIGHT-BACKEND-REPORT.md`, `OVERNIGHT-APP-HANDOFF.md`, `tasks/OVERNIGHT-BACKEND-PLAN.md`. This is not launch readiness. Next safe workstream is configuration-evidenced native account/trial integration and isolated hosted-equivalent SQL/Auth proof, without enabling refresh or billing routes blindly. Older checkpoints below preserve history.
+
 October 3, 2026. Terminal-first work on local branch `codex/backend-readiness`. Not launch-ready, published or
 connected to the app. The founder's final product promise is little waste. Some leftovers are acceptable;
 prices remain estimates. Current Build 1 is anonymous Free plus Protein Plan, not a new user-account system.

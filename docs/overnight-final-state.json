@@ -1,0 +1,462 @@
+{
+  "checkedAt": "2026-10-05T04:55:56.040Z",
+  "branch": "codex/backend-readiness",
+  "head": "c9587a910a6a0d1bf4318ddff834a45be9798105",
+  "public": {
+    "pointerStatus": 200,
+    "blobStatus": 200,
+    "version": 6,
+    "createdAt": "2026-10-04T15:20:28.087449+00:00",
+    "bytes": 163016,
+    "declaredSha256": "a8700c74741c5f155b33dc3d7f2be1833b6165d98f38b1482390d6c208422668",
+    "actualSha256": "a8700c74741c5f155b33dc3d7f2be1833b6165d98f38b1482390d6c208422668",
+    "hashMatches": true,
+    "recipes": 82,
+    "skus": 79
+  },
+  "localSnapshot": {
+    "initialSha256": "ec91a506d37c4a340fede59e7568319c9fddbec462452cc254481be4e78c1f20",
+    "currentSha256": "ec91a506d37c4a340fede59e7568319c9fddbec462452cc254481be4e78c1f20",
+    "unchanged": true
+  },
+  "changedProtectedPaths": [],
+  "app": {
+    "head": "6db5a69aedf40d1b1a478f45720287762ac2a800",
+    "status": "M PROGRESS.md\n?? reports/\n?? research_notes/"
+  },
+  "websiteCommittedHead": "74b6f8bee1a0707c85dfd653ba879435f4eba49a",
+  "foodSummary": {
+    "counts": {
+      "generated": 132,
+      "unique": 132,
+      "validated": 132,
+      "reviewReady": 108,
+      "eligible": 108,
+      "quarantined": 24
+    },
+    "sourceDigest": "ff686106f0cdbf67195cb796f9eec3a96366256f76b2e65da87fccc29cb1dd3f",
+    "approvalDigest": "38f50a19f4badfcac3e7756da52bbd569eae9f046734a6cf61d8ffc7d37d5462",
+    "catalogDigest": "103d22c976376de3e6cb68b634bb0c61c8060caa8800c6e60c1d7c45a070e594",
+    "excludedIds": [
+      "chicken-breast",
+      "chicken-thighs",
+      "frozen-chicken-breast",
+      "pork-loin",
+      "frozen-tilapia",
+      "frozen-shrimp",
+      "frozen-salmon",
+      "deli-turkey",
+      "canned-tuna",
+      "canned-chicken",
+      "egg-whites",
+      "greek-yogurt",
+      "cottage-cheese",
+      "milk",
+      "string-cheese",
+      "shredded-cheddar",
+      "shredded-mozzarella",
+      "parmesan",
+      "butter",
+      "plant-yogurt",
+      "whey-protein",
+      "pea-protein",
+      "tofu",
+      "tempeh",
+      "black-beans",
+      "chickpeas",
+      "kidney-beans",
+      "peanut-butter",
+      "granola",
+      "spaghetti",
+      "penne",
+      "gf-pasta",
+      "ww-bread",
+      "flour-tortillas",
+      "corn-tortillas",
+      "ww-buns",
+      "pancake-mix",
+      "russet-potatoes",
+      "sweet-potatoes",
+      "bananas",
+      "apples",
+      "frozen-berries",
+      "avocados",
+      "bell-peppers",
+      "romaine",
+      "cucumber",
+      "asparagus",
+      "frozen-mixed-veg",
+      "frozen-stirfry-veg",
+      "frozen-peppers-onions",
+      "canned-tomatoes",
+      "marinara",
+      "salsa",
+      "pesto",
+      "teriyaki-sauce",
+      "soy-sauce",
+      "bbq-sauce",
+      "buffalo-sauce",
+      "caesar-dressing",
+      "tzatziki",
+      "hummus",
+      "honey",
+      "olive-oil",
+      "taco-seasoning",
+      "breadcrumbs"
+    ],
+    "quantityReadyIds": [
+      "ground-turkey",
+      "ground-beef",
+      "eggs",
+      "lentils",
+      "frozen-edamame",
+      "white-rice",
+      "brown-rice",
+      "quinoa",
+      "frozen-broccoli",
+      "onions",
+      "carrots",
+      "tomatoes",
+      "oats",
+      "ww-spaghetti"
+    ],
+    "profiles": [
+      {
+        "profile": "typical",
+        "seed": 0,
+        "costCents": 4932,
+        "proteinMinimum": 151.75657142857142,
+        "calorieRange": [
+          2508.385714285714,
+          2563.042857142857
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 412.9907,
+        "warmMs": 391.03679999999997,
+        "rssMb": 92.5703125
+      },
+      {
+        "profile": "typical",
+        "seed": 7,
+        "costCents": 4932,
+        "proteinMinimum": 152.42499999999998,
+        "calorieRange": [
+          2491.0428571428574,
+          2578.7
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 357.6472000000001,
+        "warmMs": 339.77690000000007,
+        "rssMb": 93.08984375
+      },
+      {
+        "profile": "typical",
+        "seed": 19,
+        "costCents": 5074,
+        "proteinMinimum": 151.79257142857142,
+        "calorieRange": [
+          2489.842857142857,
+          2597.9
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 336.8621999999998,
+        "warmMs": 331.25379999999996,
+        "rssMb": 110.03125
+      },
+      {
+        "profile": "floor budget",
+        "seed": 0,
+        "costCents": 3973,
+        "proteinMinimum": 109.794,
+        "calorieRange": [
+          2078.1714285714284,
+          2305.2714285714287
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 334.3666000000003,
+        "warmMs": 344.4033999999997,
+        "rssMb": 110.57421875
+      },
+      {
+        "profile": "floor budget",
+        "seed": 7,
+        "costCents": 3973,
+        "proteinMinimum": 106.586,
+        "calorieRange": [
+          2047.2428571428572,
+          2358.7428571428572
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 335.5284999999999,
+        "warmMs": 346.42819999999983,
+        "rssMb": 111.8203125
+      },
+      {
+        "profile": "floor budget",
+        "seed": 19,
+        "costCents": 4006,
+        "proteinMinimum": 109.735,
+        "calorieRange": [
+          2098.5714285714284,
+          2304.0714285714284
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 353.12900000000036,
+        "warmMs": 354.6863999999996,
+        "rssMb": 112.71875
+      },
+      {
+        "profile": "household of two",
+        "seed": 0,
+        "costCents": 8248,
+        "proteinMinimum": 151.79257142857142,
+        "calorieRange": [
+          2479.842857142857,
+          2550.7000000000003
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 444.16730000000007,
+        "warmMs": 443.6127000000006,
+        "rssMb": 112.5
+      },
+      {
+        "profile": "household of two",
+        "seed": 7,
+        "costCents": 8235,
+        "proteinMinimum": 151.79257142857142,
+        "calorieRange": [
+          2255.214285714286,
+          2576.9
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 435.3198000000002,
+        "warmMs": 444.71270000000004,
+        "rssMb": 112.85546875
+      },
+      {
+        "profile": "household of two",
+        "seed": 19,
+        "costCents": 8365,
+        "proteinMinimum": 151.46457142857145,
+        "calorieRange": [
+          2524.0428571428574,
+          2578.5
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 462.01890000000003,
+        "warmMs": 431.52810000000045,
+        "rssMb": 113.3125
+      },
+      {
+        "profile": "vegan",
+        "seed": 0,
+        "costCents": 4996,
+        "proteinMinimum": 112.19999999999999,
+        "calorieRange": [
+          2115.7714285714287,
+          2185.1000000000004
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 51,
+        "firstMs": 285.4890999999998,
+        "warmMs": 269.3617999999997,
+        "rssMb": 114.16796875
+      },
+      {
+        "profile": "vegan",
+        "seed": 7,
+        "costCents": 4996,
+        "proteinMinimum": 108.6,
+        "calorieRange": [
+          2097.5714285714284,
+          2187.4
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 51,
+        "firstMs": 278.77599999999984,
+        "warmMs": 272.91220000000067,
+        "rssMb": 147.62109375
+      },
+      {
+        "profile": "vegan",
+        "seed": 19,
+        "costCents": 4996,
+        "proteinMinimum": 109.63499999999999,
+        "calorieRange": [
+          2117.9714285714285,
+          2188.4
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 51,
+        "firstMs": 276.89350000000013,
+        "warmMs": 278.9451000000008,
+        "rssMb": 147.48828125
+      },
+      {
+        "profile": "vegetarian",
+        "seed": 0,
+        "costCents": 5047,
+        "proteinMinimum": 131.88757142857142,
+        "calorieRange": [
+          2336.942857142857,
+          2526.442857142857
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 60,
+        "firstMs": 290.47530000000006,
+        "warmMs": 303.4448999999986,
+        "rssMb": 149.33203125
+      },
+      {
+        "profile": "vegetarian",
+        "seed": 7,
+        "costCents": 5014,
+        "proteinMinimum": 131.596,
+        "calorieRange": [
+          2298.542857142857,
+          2546.0428571428574
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 60,
+        "firstMs": 278.17449999999917,
+        "warmMs": 287.88930000000073,
+        "rssMb": 148.390625
+      },
+      {
+        "profile": "vegetarian",
+        "seed": 19,
+        "costCents": 5047,
+        "proteinMinimum": 132.461,
+        "calorieRange": [
+          2317.7428571428572,
+          2546.0428571428574
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 60,
+        "firstMs": 279.78659999999945,
+        "warmMs": 287.6383000000005,
+        "rssMb": 148.70703125
+      },
+      {
+        "profile": "dairy-free, high protein",
+        "seed": 0,
+        "costCents": 5966,
+        "proteinMinimum": 180.18457142857142,
+        "calorieRange": [
+          2642.3999999999996,
+          2707.942857142857
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 475.9827000000005,
+        "warmMs": 470.9538999999986,
+        "rssMb": 149.390625
+      },
+      {
+        "profile": "dairy-free, high protein",
+        "seed": 7,
+        "costCents": 5845,
+        "proteinMinimum": 180.18457142857142,
+        "calorieRange": [
+          2499.042857142857,
+          2707.942857142857
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 453.91220000000067,
+        "warmMs": 444.163700000001,
+        "rssMb": 149.94921875
+      },
+      {
+        "profile": "dairy-free, high protein",
+        "seed": 19,
+        "costCents": 6108,
+        "proteinMinimum": 180.052,
+        "calorieRange": [
+          2600.4857142857145,
+          2745.2000000000003
+        ],
+        "feasible": true,
+        "deterministic": true,
+        "violations": [],
+        "shortlist": 96,
+        "firstMs": 431.9457000000002,
+        "warmMs": 448.97119999999995,
+        "rssMb": 150.28515625
+      }
+    ],
+    "example": {
+      "sku_id": "onions",
+      "pack_label": "3 lb bag",
+      "source": "https://fdc.nal.usda.gov/food-details/170000/nutrients",
+      "source_basis": "raw-edible",
+      "yield": 0.88,
+      "canonical_unit": "g",
+      "packs": 1,
+      "purchased": 1360.7759999999998,
+      "usedPurchased": 1000,
+      "edible": 880,
+      "usableEdibleCapacity": 1197.4828799999998,
+      "preparationRefuse": 120,
+      "unpreparedCarryover": 360.77599999999984,
+      "edibleCarryoverEstimate": 317.4828799999998,
+      "edible_grams": 880,
+      "nutrient_protein_household": 9.680000000000001,
+      "nutrient_kcal_household": 352,
+      "price_per_pack_cents": 373,
+      "cost_cents": 373,
+      "price_basis": "Retained dated identity/size-matched observation",
+      "as_of": "2026-09-27",
+      "limits": "Generic USDA reference and FBG planning estimate, not measured package yield. Weigh after peel/trim before cooking, retain juices. No cooked yield or water gain applied. Roma uses the generic ripe red tomato reference, not branded precision."
+    }
+  },
+  "proofLimits": [
+    "SQL executed only in ephemeral PostgreSQL WASM with emulated Auth claims; no hosted Supabase/PostgREST/multi-connection proof.",
+    "Billing and notification providers are synthetic adapters only; no real purchase, restore, deletion or delivery.",
+    "All meal prices remain dated reference estimates, not new local pack observations.",
+    "No app product integration, public publication, remote Git mutation or real message."
+  ]
+}

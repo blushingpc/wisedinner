@@ -3,6 +3,14 @@ Format per session: date · job taken · what shipped (1-2 lines) · deploy URL 
 
 ---
 
+## 2026-10-05 overnight verified handoff, local only
+
+Starting clean `6eddd9c`, ten verified implementation commits through `2526e53` on `codex/backend-readiness`. Current account/eligible trial/included-reroll/optional-push scope is implemented behind default-off local seams. Final 220/220 tests (30.555 s), ordinary tsc, zero-warning lint, voice/build/diff gates pass; eight actual compiled private routes refuse unconfigured access with 503/no-store. Six migrations remain unapplied; actual isolated SQL proof is not hosted Auth/native purchase proof.
+
+Reviewed food passes all six profiles at seeds 0/7/19: 132 unique/structural, 108 explicit internal approvals, 24 chicken quarantine, fourteen source/quantity-ready IDs, 27 reviewed safety/52 unknown, zero kitchen tests. Typical $49.32/$49.32/$50.74; vegan $49.96 has four-cent headroom. Source/approval/catalog/projection recompile matches evidence. Physical pantry accounting retains consumed nutrients/trim/carryover; reroll grocery policy and app connection remain unset. New exact price gate blocks all 387 unproven cached observations and six nutrition errors before any public writer.
+
+Public existing v6 bytes/hash, local snapshot, app/website product code, shared database/engine, remote Git, production, spending and real messages unchanged. Owned localhost smoke processes stopped precisely; no service remains. Relevant brain/current decisions and six-line October 5 log saved. Final owned documentation commit/clean-tree check is next. Report, full evidence/file list, rollback and native sequence: `docs/OVERNIGHT-BACKEND-REPORT.md`, `OVERNIGHT-APP-HANDOFF.md`, `overnight-session-evidence.json`, `tasks/OVERNIGHT-BACKEND-PLAN.md`. Next separately authorized workstream is configuration-evidenced native account/trial integration plus disposable Supabase-compatible Auth/PostgREST proof. Provider/SMTP/offer/retention/transfer/email/reroll/founders/release/price-policy/native gates remain; full support outbox is not claimed complete.
+
 ## 2026-10-05 overnight account confirmation correction
 
 Final support extension at `7e9e25e`: actual parallel handler calls reproduce the old cap race; default-off durable mailbox reservations now bound sends and hold uncertain outcomes. Six focused tests and ordinary tsc pass. New source/route/two tests/0011 SQL are run-owned and unapplied; full gates next. No SMTP, paid classifier, shared SQL or activation ran. This does not complete eventual-delivery outbox or distributed form/signup abuse protection. Exact next action and recovery are in the overnight plan.
