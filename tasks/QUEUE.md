@@ -44,6 +44,17 @@ catalog-direction, input-compatibility and snapshot-continuity preparation. It i
 Read docs/BACKEND-READINESS-2026-10-03.md before continuation. Next independent technical slice is pinned
 nutrition and complete SKU-ID allergy coverage coordinated with the app; paid grocery rules and local-price
 fallback remain founder choices. B2 below, staged publication and native subscription proof are still open.
+October 4: nutrition identity/import guards are verified locally (122 tests, type/lint/voice/build). Current soy
+proxies now block new assembly; reviewed replacement source values and SKU-ID allergy coverage are still open.
+October 4 terminal continuation: local ingredient/catalog work and all backend gates pass (141 tests).
+All 79 nutrition outcomes and safety IDs are saved; 10 generic nutrition references pass, 69 remain blocked;
+25 inherent safety identities are reviewed, 54 package-dependent entries remain unknown. Offline expansion
+has 4,704 structured drafts, 66 explicitly approved internal preparations and 4,638 quarantined. Runtime
+selection is bounded at 96; public API/app unconnected. Do not replace published coverage with the staging subset.
+Next within this workstream: matching package labels/identities and edible yields, starting with pea/almond,
+whole potato basis, pepper/onion blend, taco seasoning and bone-in/drained packs. Exact continuation and
+artifacts: tasks/INGREDIENT-CATALOG-PLAN.md and docs/ingredient-catalog/final-report.md. App port/device
+checks and other launch work need their separate workstream; no reroll choice, publication or database change.
 
 B1. [x] backend v1: schema + pipeline + snapshot v1 + solver over the snapshot + API routes + AI support on Gmail + API contract — MERGED to main 1801670 and live 2026-09-24 (PR #20, prod verified: /api/data/latest v4, /api/status db ok, support cron registered).
 B2. [ ] database liveness alert (founder ask 2026-09-24, not built yet). Today nothing alerts: the daily keepalive and the 5-minute support cron are the only scheduled database activity, the poll reads Gmail before the database (a revoked app password or a rotated CRON_SECRET makes every poll 502/401 with zero db activity), and db.ok on /api/status is read by nobody but the keepalive. A week of silent failures pauses the free-tier project and the first symptom is a 502 on waitlist / data/latest. Do: `if: failure()` step on the keepalive and data jobs posting to the Telegram bot (TELEGRAM_BOT_TOKEN in the keys file) or the support address; the support cron writes a last-poll timestamp that /api/status surfaces; one external probe of /api/status asserting db.ok and a fresh poll timestamp; restore runbook (https://supabase.com/dashboard/project/zpvqxtklvjitofpbddrn). done means: a forced keepalive failure reaches the founder's phone within an hour, and /api/status shows the last poll time.

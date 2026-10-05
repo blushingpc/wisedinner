@@ -4,6 +4,56 @@ October 3, 2026. Terminal-first work on local branch `codex/backend-readiness`. 
 connected to the app. The founder's final product promise is little waste. Some leftovers are acceptable;
 prices remain estimates. Current Build 1 is anonymous Free plus Protein Plan, not a new user-account system.
 
+## October 4 ingredient/catalog terminal continuation
+
+The scoped local workstream now has 79/79 nutrition outcomes (10 generic-reviewed, 69 blocked), 79/79 stable-ID
+safety rows (25 inherent identities reviewed, 54 package-dependent unknowns) and fail-closed offline restricted
+solve/substitute selection. All cross-contact remains unverified. The cache still fails assembly: five known
+identity errors plus invalid thigh carbohydrate. Seven raw references retain corrected original macro precision;
+missing source nutrients or energy are never invented. The earlier cache-untouched statement below is historical.
+
+Offline expansion generated/uniquely identified/structurally validated 4,704 drafts. A pinned explicit manifest
+approves 66 internal preparations, nine bases plus 57 variants; 4,638 remain quarantined. Staging is isolated in
+data/pipeline/ingredient-catalog, not a new public snapshot. The reviewed-only subset cannot satisfy the typical
+twelve-item floor. No recipe or source count is padded to hide that limit.
+
+All 141 tests, default incremental typecheck, lint, voice, production build and diff check pass. Lint retains one
+old support warning; build retains Edge warnings and required an approved network retry for existing fonts.
+Baseline 21 and scaling 85 cases are saved. All 72 expanded ordinary profile/seed cases were mathematically
+feasible and deterministic with a 96-recipe runtime cap; larger catalogs are synthetic stress, not source
+approvals. Desktop/device and substitution-coverage limits are documented, not claimed away.
+
+Public draft snapshot bytes, fixtures, app, APIs and production remain unchanged. No SQL/ce_ access, paid calls,
+messages, push or deployment. Exact source/package blockers and next work: docs/ingredient-catalog/final-report.md
+and tasks/INGREDIENT-CATALOG-PLAN.md. Next is original package/edible-yield review, before a separate app port.
+The older October 4 and October 3 checkpoints below preserve prior-run evidence, not current launch readiness.
+
+## October 4 nutrition safety update
+
+Local nutrition imports now reject the two confirmed identity errors below, including cached, pinned and manual
+entries. New search results need an exact normalized description match; a relevant but different food no longer
+becomes an automatic match. Missing/unknown SKU nutrition and invalid numeric values fail validation. Refreshed
+pins must return the requested source ID, and validation completes before cache persistence and database seeding.
+`nutritionRows` also enforces this gate, so local snapshot assembly cannot bypass it.
+
+The original regression failed before the change. Ten focused regressions and all 122 backend tests pass.
+Typecheck, voice and production build pass. ESLint has zero errors and its pre-existing support-poller warning;
+build retains its Edge Runtime warnings. The default incremental typecheck could not write its local cache under
+the sandbox, so the passing check used `--incremental false`. A read-only assembly probe rejected both known
+bad mappings. No end-to-end production pipeline or database mutation was run.
+
+This does not repair the underlying nutrition records or complete the catalog audit. Official USDA detail
+requests on October 4 confirmed [FDC 173181](https://fdc.nal.usda.gov/food-details/173181/nutrients) describes soy
+protein powder and [FDC 175227](https://fdc.nal.usda.gov/food-details/175227/nutrients) describes soy yogurt.
+The pea search query was corrected, but no verified replacement values were manufactured or selected from
+irrelevant search hits. The almond-yogurt survey candidate is not proof of a specific plain purchasable product.
+Until matching ingredient/package sources are reviewed, the current cache intentionally cannot create a new
+snapshot through the pipeline. Existing cache values and draft snapshot bytes remain untouched.
+
+API shape, existing application bundle and production are unchanged. Next is source and nutrient-basis review
+plus stable SKU-ID allergy coverage, then meaningful recipe expansion. The older verification below is historical,
+not evidence that these safety or launch gates have closed.
+
 ## Verified and prepared
 
 Production `/api/status` returned HTTP 200 and `db.ok: true`. The live snapshot pointer and its downloaded blob
