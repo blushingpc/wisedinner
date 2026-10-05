@@ -1,0 +1,1277 @@
+[
+  {
+    "sku_id": "chicken-breast",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [
+      "poultry"
+    ],
+    "known_allergens": [],
+    "known_diet": [
+      "poultry"
+    ],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "chicken-thighs",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [
+      "poultry"
+    ],
+    "known_allergens": [],
+    "known_diet": [
+      "poultry"
+    ],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-chicken-breast",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [
+      "poultry"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "ground-turkey",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [
+      "poultry"
+    ],
+    "known_allergens": [],
+    "known_diet": [
+      "poultry"
+    ],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "ground-beef",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [
+      "meat"
+    ],
+    "known_allergens": [],
+    "known_diet": [
+      "meat"
+    ],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "pork-loin",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [
+      "meat"
+    ],
+    "known_allergens": [],
+    "known_diet": [
+      "meat"
+    ],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-tilapia",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "fish"
+    ],
+    "known_diet": [
+      "fish"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-shrimp",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "shellfish"
+    ],
+    "known_diet": [
+      "shellfish"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-salmon",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "fish"
+    ],
+    "known_diet": [
+      "fish"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "deli-turkey",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [
+      "poultry"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "canned-tuna",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "fish"
+    ],
+    "known_diet": [
+      "fish"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "canned-chicken",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [
+      "poultry"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "eggs",
+    "status": "reviewed",
+    "allergens": [
+      "eggs"
+    ],
+    "diet": [
+      "eggs"
+    ],
+    "known_allergens": [
+      "eggs"
+    ],
+    "known_diet": [
+      "eggs"
+    ],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "egg-whites",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "eggs"
+    ],
+    "known_diet": [
+      "eggs"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "greek-yogurt",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "cottage-cheese",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "milk",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "string-cheese",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "shredded-cheddar",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "shredded-mozzarella",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "parmesan",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "butter",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "plant-yogurt",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "tree-nuts"
+    ],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "whey-protein",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "pea-protein",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "tofu",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "soy"
+    ],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "tempeh",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "soy"
+    ],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "black-beans",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "chickpeas",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "kidney-beans",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "lentils",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "peanut-butter",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "peanuts"
+    ],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-edamame",
+    "status": "reviewed",
+    "allergens": [
+      "soy"
+    ],
+    "diet": [],
+    "known_allergens": [
+      "soy"
+    ],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "white-rice",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "brown-rice",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "quinoa",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "oats",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "granola",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "spaghetti",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "wheat"
+    ],
+    "known_diet": [
+      "gluten"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "ww-spaghetti",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "wheat"
+    ],
+    "known_diet": [
+      "gluten"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "penne",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "wheat"
+    ],
+    "known_diet": [
+      "gluten"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "gf-pasta",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "ww-bread",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "wheat"
+    ],
+    "known_diet": [
+      "gluten"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "flour-tortillas",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "wheat"
+    ],
+    "known_diet": [
+      "gluten"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "corn-tortillas",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "ww-buns",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "wheat"
+    ],
+    "known_diet": [
+      "gluten"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "pancake-mix",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "wheat",
+      "dairy"
+    ],
+    "known_diet": [
+      "gluten",
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "russet-potatoes",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "sweet-potatoes",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "bananas",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "apples",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-berries",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "avocados",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "onions",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "carrots",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "bell-peppers",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "romaine",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "tomatoes",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "cucumber",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "asparagus",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-broccoli",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [],
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-mixed-veg",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-stirfry-veg",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "frozen-peppers-onions",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "canned-tomatoes",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "marinara",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "salsa",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "pesto",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy",
+      "tree-nuts"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "teriyaki-sauce",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "soy",
+      "wheat"
+    ],
+    "known_diet": [
+      "gluten"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "soy-sauce",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "soy",
+      "wheat"
+    ],
+    "known_diet": [
+      "gluten"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "bbq-sauce",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "buffalo-sauce",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "caesar-dressing",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "eggs",
+      "dairy",
+      "fish"
+    ],
+    "known_diet": [
+      "eggs",
+      "dairy",
+      "fish"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "tzatziki",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "dairy"
+    ],
+    "known_diet": [
+      "dairy"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "hummus",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "sesame"
+    ],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "honey",
+    "status": "reviewed",
+    "allergens": [],
+    "diet": [
+      "honey"
+    ],
+    "known_allergens": [],
+    "known_diet": [
+      "honey"
+    ],
+    "basis": "Inherent ingredient categories for the authored plain single ingredient only. Not a package cross-contact clearance.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "olive-oil",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "taco-seasoning",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [],
+    "known_diet": [],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  },
+  {
+    "sku_id": "breadcrumbs",
+    "status": "unreviewed",
+    "allergens": null,
+    "diet": null,
+    "known_allergens": [
+      "wheat"
+    ],
+    "known_diet": [
+      "gluten"
+    ],
+    "basis": "Original package ingredient statement not reviewed. Known tags are conservative clues, not a complete list; oats also need gluten/package review.",
+    "sources": [
+      "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies"
+    ],
+    "reviewed_at": "2026-10-04",
+    "package_cross_contact": "unverified"
+  }
+]

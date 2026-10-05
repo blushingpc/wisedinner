@@ -1,0 +1,15 @@
+# Ingredient safety compatibility handoff
+
+Backend branch: codex/backend-readiness. App is read-only in this run.
+
+Backend SAFETY uses authored stable SKU IDs and the app's nine allergen IDs: peanuts, tree-nuts, dairy, eggs, wheat, soy, fish, shellfish, sesame. Diet categories also match the app: meat, poultry, fish, shellfish, dairy, eggs, honey, gluten. Every current compiled ingredient, including additions and sauces, has a row: 25 reviewed inherent identities, 54 unreviewed package-dependent identities. All package cross-contact remains unverified. See safety-review.json for exact ID coverage and evidence basis.
+
+App files inspected: src/data/ingredient-tags.ts/json, src/solver/exclusions.ts, src/features/allergies.ts, src/features/diet.ts and src/solver/index.ts. Current name-based tagsOf returns EMPTY for unknown names; hasTags exists but exclusions does not use it to reject unknowns. The adapter filters before solveWeek, but later duplicate repair/substitution/regeneration paths also need selection verification. No app file, core solver copy or refresh switch was changed.
+
+Public snapshot has neither allergy metadata nor allergy input. No new Snapshot/SolveInput fields were added. The offline eligibleSnapshot/solveRestricted/restrictedCandidates functions require sidecar metadata explicitly, filter full compiled rows, reject unknown requested allergens, and reject a legacy week containing excluded ingredients before proposing substitutes. Unrestricted calls preserve the original snapshot and solve result. If a parent is excluded, its variants are excluded too, preserving original repeat groups rather than silently promoting them to new bases. These are NOT customer-facing protection or a claim that existing API diet routes use this sidecar.
+
+Later contract proposal, not implementation authorization: versioned SKU-ID sidecar with review status and source date; app maps stable snapshot IDs directly, not display names. Preserve legacy snapshot decoding but fail closed for restrictions when sidecar is absent/stale. An explicit package-label and cross-contact policy is required before allergy-clearance claims. A separate approval is needed before connecting any public field or input.
+
+Later integration checks: unknown names/IDs and missing/stale sidecars; reviewed [] versus null; every sauce/seasoning/variant addition; all nine allergens and four restricted diets; initial solve, duplicate repair, regenerate, paid candidate list and final accepted replacement; preserve untouched slots, original base repeat groups and exact cents. Do not import the app tolerance override or decide the paid grocery rule. Verify app unit adapters, raw/cooked/drained yields and ingredient-matched directions after the complete solver port.
+
+Device checks still required: iPhone memory peak, repeated cold/warm solves and swaps, responsiveness, offline behavior and crash/empty-pool handling using the bounded catalog-selection strategy. Desktop timing and backend tests are not iPhone proof. No Expo, EAS, RevenueCat or App Store action occurred here.
