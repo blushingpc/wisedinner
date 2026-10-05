@@ -68,7 +68,7 @@ function fakeStore(sentToday = 0) {
 // a deterministic stand-in for Claude: pricing questions are informational, refunds escalate
 const classify: Classifier = async (e) => {
   if (/refund|charged|delete my|lawyer/i.test(e.body)) return { intent: "escalate", category: /refund|charged/i.test(e.body) ? "refund" : "data-deletion", reason: "money or data: a person decides", reply: "" };
-  return { intent: "informational", category: "pricing", reason: "", reply: "The pre-order build is free. Protein Plan is $8.99 a month or $48 a year at launch, with a 14 day trial.\n\nWiseDinner support" };
+  return { intent: "informational", category: "pricing", reason: "", reply: "Protein Plan is $8.99 a month or $48 a year. Trial eligibility is determined by the store.\n\nWiseDinner support" };
 };
 
 test("pricing question: auto reply from the same mailbox, thread auto_replied, message marked read, both directions logged", async () => {
@@ -144,7 +144,7 @@ test("send gate: a draft with an em dash is never sent; the message escalates wi
   const inbox = [await fixture("pricing-question", 31)];
   const { mail, sent, seen } = fakeMail(inbox);
   const { store, threads, status } = fakeStore();
-  const dashy: Classifier = async () => ({ intent: "informational", category: "pricing", reason: "", reply: "The pre-order build is free — Protein Plan is $8.99 a month.\n\nWiseDinner support" });
+  const dashy: Classifier = async () => ({ intent: "informational", category: "pricing", reason: "", reply: "Protein Plan is $8.99 a month — trial eligibility is determined by the store.\n\nWiseDinner support" });
   const r = await handlePoll(mail, store, dashy, "founder@example.com");
   assert.deepEqual({ replied: r.replied, escalated: r.escalated, skippedAuto: r.skippedAuto }, { replied: 0, escalated: 1, skippedAuto: 0 });
   assert.equal(sent.length, 1, "only the digest goes out");
@@ -159,7 +159,7 @@ test("send gate: a draft ending in an exclamation point is never sent", async ()
   const inbox = [await fixture("pricing-question", 32)];
   const { mail, sent } = fakeMail(inbox);
   const { store, threads, status } = fakeStore();
-  const cheery: Classifier = async () => ({ intent: "informational", category: "pricing", reason: "", reply: "Yes, the pre-order build is free. Enjoy!" });
+  const cheery: Classifier = async () => ({ intent: "informational", category: "pricing", reason: "", reply: "Protein Plan is $8.99 a month. Enjoy!" });
   const r = await handlePoll(mail, store, cheery, "founder@example.com");
   assert.deepEqual({ replied: r.replied, escalated: r.escalated }, { replied: 0, escalated: 1 });
   assert.equal(sent.length, 1);
@@ -189,8 +189,8 @@ test("daily send cap: past the cap informational mail is escalated, not answered
   assert.equal(r.replied, 0);
   assert.equal(r.escalated, 1);
   assert.equal(status.get(threads[0].id), "escalated");
-  assert.equal(sent.length, 1); // only the digest
-  assert.match(sent[0].text, /daily send cap/);
+  assert.equal(sent.length, 0); // The digest is also outbound mail, so cannot bypass the daily cap.
+  assert.equal(r.digestDeferred,true);
 });
 
 test("empty message escalates without calling the classifier", async () => {
@@ -255,4 +255,22 @@ test("every sent reply ends with exactly the sign-off and the footer, each once,
 test("sign-off stripping only touches trailing lines: thanks inside the body stays", () => {
   const body = "Thanks for asking.\nProtein Plan is $8.99 a month.";
   assert.equal(withSignOff(`${body}\n\nThanks,\nWiseDinner support`), `${body}\n\n${SIGN_OFF}\n${FOOTER}`);
+});
+
+test("classifier outage leaves inbound dedupe unlogged so a retry can safely classify",async()=>{
+ const inbound=await fixture("pricing-question",80),{mail,sent}=fakeMail([inbound]),{store,messages}=fakeStore();
+ await assert.rejects(handlePoll(mail,store,async()=>{throw Error("provider unavailable");},""));
+ assert.equal(messages.length,0);assert.equal(sent.length,0);
+ assert.equal((await handlePoll(mail,store,classify,"")).replied,1);
+});
+
+test("last daily slot counts digest and prevents a later reply in the same poll",async()=>{
+ const refund=await fixture("refund-request",81),pricing=await fixture("pricing-question",82);
+ const {mail,sent}=fakeMail([pricing,refund]),{store,messages}=fakeStore(DAILY_SEND_CAP-1);
+ const result=await handlePoll(mail,store,classify,["operator","example.invalid"].join("@"));
+ assert.equal(sent.length,1);assert.equal(result.replied,1);assert.equal(result.digestDeferred,true);
+ assert.equal(messages.filter(m=>m.direction==="out").length,1);
+ const only=fakeMail([refund]),fresh=fakeStore(DAILY_SEND_CAP-1);
+ await handlePoll(only.mail,fresh.store,classify,["operator","example.invalid"].join("@"));
+ assert.equal(fresh.messages.filter(m=>m.direction==="out"&&!m.ai).length,1,"digest counted in next poll's persisted send total");
 });

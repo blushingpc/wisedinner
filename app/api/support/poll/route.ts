@@ -3,6 +3,7 @@ import { classifyWithClaude } from "@/lib/support/classify";
 import { handlePoll } from "@/lib/support/handler";
 import { gmail, mailConfigured } from "@/lib/support/mail";
 import { dbStore } from "@/lib/support/store";
+import {configuredOperations,observedOperation} from "../../../../lib/operations.ts";
 
 export const dynamic = "force-dynamic";
 // one poll is an IMAP round trip plus, per new message, one Claude call and three PostgREST calls (about 8 s each);
@@ -18,11 +19,12 @@ export async function GET(req: Request) {
   if (!mailConfigured()) return Response.json({ error: "mailbox not configured" }, { status: 503 });
   if (!process.env.ANTHROPIC_API_KEY) return Response.json({ error: "assistant not configured" }, { status: 503 });
   try {
-    const result = await handlePoll(gmail(), dbStore(), classifyWithClaude, process.env.SUPPORT_ESCALATION_TO ?? "");
+    const result = await observedOperation("support-poll",()=>handlePoll(gmail(), dbStore(), classifyWithClaude, process.env.SUPPORT_ESCALATION_TO ?? ""),configuredOperations());
     const { digest: _digest, ...counts } = result;
+    void _digest;
     return Response.json({ status: "ok", ...counts }, { headers: { "cache-control": "no-store" } });
-  } catch (e) {
-    console.error("support poll failed", (e as Error).message);
+  } catch {
+    console.error("support poll failed: provider unavailable");
     return Response.json({ error: "poll failed" }, { status: 502 });
   }
 }

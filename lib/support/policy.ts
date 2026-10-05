@@ -26,6 +26,10 @@ const snippet = (text: string, at: number) => text.slice(Math.max(0, at - 30), a
 
 export function policyProblems(text: string): string[] {
   const out: string[] = [];
+  if(/\b(?:ongoing free|free tier|free build|pre-order build is free|needs no account|no sign-in|collects nothing|collects no data)\b/i.test(text))out.push("retired accountless/Free/data-not-collected claim");
+  if(/\b(?:everyone|every customer|all customers|you always|guaranteed)[^.\n]{0,60}\b(?:trial|14 day|fourteen day)\b/i.test(text))out.push("unverified universal trial eligibility");
+  if(/\b(?:reroll|rerolls)[^.\n]{0,40}\b(?:charge|costs? \$|purchase|buy)\b/i.test(text)&&! /\b(?:no|not|never|without)\b/i.test(text))out.push("separate reroll charge contradicts included access");
+  if(/\bpre-order (?:is )?open\b|\bfew weeks after pre-order\b/i.test(text))out.push("unverified listing or release timeframe");
   if (REFUND.test(text)) {
     for (const re of REFUND_PROMISE) {
       const m = re.exec(text);

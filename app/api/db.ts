@@ -50,12 +50,14 @@ export async function ping(table = "waitlist") {
   }
 }
 
-// ponytail: in-memory map, per instance, resets on deploy — fine at this scale; move to a KV when it isn't
+// Bounded per-instance fallback only. Not durable serverless/signup/global abuse protection.
 const hits = new Map<string, number[]>();
 export function rateLimited(req: Request, limit = 10) {
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "local";
+  const ip = (req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "local").slice(0,80);
   const now = Date.now();
   const recent = (hits.get(ip) ?? []).filter((t) => now - t < 60_000);
+  if(!hits.has(ip)&&hits.size>=10000){for(const [key,times]of hits)if(!times.some(t=>now-t<60000))hits.delete(key);if(hits.size>=10000)return true;}
+  if(recent.length>=limit)return true;
   recent.push(now);
   hits.set(ip, recent);
   return recent.length > limit;

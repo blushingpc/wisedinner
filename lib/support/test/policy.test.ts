@@ -22,7 +22,11 @@ test("Courier: after release passes; available now escalates", () => {
   assert.deepEqual(policyProblems("Courier is $12.99 a month."), ["names Courier without saying it arrives after release"]);
   // the live draft of 2026-09-26 invented a timeline
   assert.ok(policyProblems("Courier arrives in an update after release. When Courier ships a few weeks after launch, you can subscribe.").some((p) => p.startsWith("gives Courier a time frame")));
-  assert.deepEqual(policyProblems("Courier arrives in an update after release. Release follows a few weeks after pre-order opens."), [], "app release timing in its own sentence is fine");
+  assert.ok(policyProblems("Courier arrives in an update after release. Release follows a few weeks after pre-order opens.").includes("unverified listing or release timeframe"), "October 4 decision leaves release timing unresolved");
+});
+test("current trial/account scope rejects retired claims without promising every customer's eligibility",()=>{
+ for(const text of ["The pre-order build is free.","Everyone gets a fourteen day trial.","Rerolls cost $1 per purchase.","Pre-order is open.","The app collects no data."])assert.ok(policyProblems(text).length>0,text);
+ assert.deepEqual(policyProblems("Trial eligibility is determined by the store. Rerolls are included with app access."),[]);
 });
 
 test("a reply that names neither passes untouched", () => {

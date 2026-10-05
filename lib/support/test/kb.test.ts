@@ -2,20 +2,16 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { FAQ } from "../../../app/copy.ts";
 import { DIGEST_REVIEWED } from "../../../content/support-kb.ts";
 import { PRIVACY_EFFECTIVE, PURCHASES, SUBSCRIPTIONS, TERMS_EFFECTIVE } from "../../../content/legal.ts";
 import { FOOTER, pricingFacts, systemPrompt } from "../kb.ts";
 import { site } from "../../../content/site.ts";
 
-test("the system prompt carries the FAQ, the pricing facts from content/site.ts, the legal digests and the tone guide", () => {
-  const p = systemPrompt();
-  assert.ok(p.includes("What is WiseDinner?"));
-  for (const t of site.pricing.tiers) assert.ok(p.includes(t.name) && p.includes(`$${t.monthly}`), t.name);
-  assert.ok(p.includes("Terms of service"));
-  assert.ok(p.includes("Privacy policy"));
-  assert.ok(p.includes("Never promise a date"));
-  assert.ok(p.includes("Escalate"));
+test("the support prompt carries current account/trial scope and exact source prices",()=>{
+ const p=systemPrompt();
+ assert.ok(p.includes("fourteen-day")&&p.includes("Rerolls are included")&&p.includes("Apple, Google or email"));
+ assert.ok(p.includes("$8.99")&&p.includes("$48.00"));
+ assert.ok(p.includes("Terms of service")&&p.includes("Privacy policy")&&p.includes("Never promise a date")&&p.includes("Escalate"));
 });
 
 test("pricing facts read the tiers, not hardcoded numbers", () => {
@@ -32,19 +28,12 @@ test("the footer is the one the spec asks for", () => {
 // hand-kept digest has been re-read against it.
 const src = (f: string) => readFileSync(f, "utf8").replace(/\r\n/g, "\n");
 const sha = (f: string) => createHash("sha256").update(src(f)).digest("hex");
-const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 
-test("the prompt quotes the live legal text, prices, FAQ answers and pricing intro verbatim", () => {
-  const p = systemPrompt();
-  for (const s of [PURCHASES, SUBSCRIPTIONS, `effective ${PRIVACY_EFFECTIVE}`, `effective ${TERMS_EFFECTIVE}`, site.pricing.pageIntro]) assert.ok(p.includes(s), s.slice(0, 60));
-  for (const t of site.pricing.tiers) {
-    assert.ok(p.includes(`${t.name}: ${usd(t.monthly)} a month or ${usd(t.yearly)} a year.`), t.name);
-    assert.ok(p.includes(t.lead), `${t.name} lead`);
-    for (const r of t.rows) assert.ok(p.includes(r), r);
-    if (t.note) assert.ok(p.includes(t.note), `${t.name} note`);
-  }
-  for (const f of FAQ) assert.ok(p.includes(f.a), f.q);
-  for (const stale of ["September 9, 2026", "planned for you every Sunday", "collects no data"]) assert.ok(!p.includes(stale), stale);
+test("old website legal/FAQ references cannot become app launch facts",()=>{
+ const p=systemPrompt();
+ for(const s of [PURCHASES,SUBSCRIPTIONS,`effective ${PRIVACY_EFFECTIVE}`,`effective ${TERMS_EFFECTIVE}`])assert.ok(p.includes(s));
+ assert.ok(p.includes("not the app's new policy")&&p.includes("store determines eligibility"));
+ assert.ok(!p.includes("The pre-order build is free and complete"));
 });
 
 test("the prompt carries the two never rules: no refund promises, Courier never available now", () => {

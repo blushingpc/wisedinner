@@ -1,6 +1,7 @@
 import blocked from "@/data/blocked.json" with { type: "json" };
 import status from "@/data/status.json" with { type: "json" };
 import { configured, ping, select } from "../db";
+import {configuredOperations,observedOperation,operationStatus} from "../../../lib/operations.ts";
 
 export const dynamic = "force-dynamic";
 
@@ -8,7 +9,10 @@ export const dynamic = "force-dynamic";
 // deploy, whether the waitlist table answers (a HEAD select; the daily keep-alive in weekly-drop.yml reads db.ok),
 // the latest data snapshot version and the support queue depth (counts only).
 export async function GET() {
-  const db = configured() ? await ping("waitlist") : { ok: false, status: 0, ms: 0, error: "not configured" };
+  const ops=configuredOperations();
+  const probe = configured() ? await observedOperation("database",()=>ping("waitlist"),ops,p=>p.ok) : { ok: false, status: 0, ms: 0 };
+  const db={ok:probe.ok,status:probe.status,ms:probe.ms,...(!probe.ok?{error:configured()?"unavailable":"not configured"}:{})};
+  const operations=await operationStatus(ops);
   let snapshot: { version: number; created_at: string } | null = null;
   let support: { open: number; escalated: number } | null = null;
   if (configured()) {
@@ -29,6 +33,7 @@ export async function GET() {
       db,
       snapshot,
       support,
+      operations,
       ...status,
       blocked_founder: blocked, // exported by the loop via gh each cycle and committed — no runtime github call, no token
     },

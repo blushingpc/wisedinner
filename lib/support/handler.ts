@@ -24,7 +24,7 @@ export type Store = {
 
 // skippedAuto counts mail that declared itself machine-generated (Auto-Submitted other than "no", RFC 3834):
 // marked read and never classified, so two autoresponders cannot loop. sender address is never a reason to skip.
-export type PollResult = { seen: number; replied: number; escalated: number; skipped: number; skippedAuto: number; digest?: string };
+export type PollResult = { seen: number; replied: number; escalated: number; skipped: number; skippedAuto: number; digest?: string; digestDeferred?: boolean };
 
 const stripRe = (s: string) => s.replace(/^\s*(re|fwd?):\s*/i, "").trim();
 const isAutoSubmitted = (m: Inbound) => Boolean(m.autoSubmitted) && m.autoSubmitted!.trim().toLowerCase() !== "no";
@@ -33,12 +33,13 @@ export async function handlePoll(mail: Mailbox, store: Store, classify: Classifi
   const inbox = await mail.unread();
   const result: PollResult = { seen: inbox.length, replied: 0, escalated: 0, skipped: 0, skippedAuto: 0 };
   const digest: string[] = [];
+  let digestThreadId:string|null=null;
   let sent = await store.sentLast24h();
   for (const m of inbox) {
     if (isAutoSubmitted(m)) {
       await mail.markSeen(m.uid);
       result.skippedAuto++;
-      console.log(`support: skipped-auto ${m.messageId} (Auto-Submitted: ${m.autoSubmitted})`);
+      console.log("support: skipped automatic message");
       continue;
     }
     if (await store.hasMessage(m.messageId)) {
@@ -57,7 +58,7 @@ export async function handlePoll(mail: Mailbox, store: Store, classify: Classifi
     const broken = drafted ? policyProblems(draft.reply) : [];
     const failed = broken.length ? `policy-fail: ${broken.join("; ")}` : problems.length ? `voice-fail: ${problems.join("; ")}` : "";
     const triage = failed ? { ...draft, intent: "escalate" as const, reason: failed, reply: "" } : draft;
-    if (failed) console.log(`support: ${failed.split(":")[0]} ${m.messageId}: ${[...broken, ...problems].join("; ")}`);
+    if (failed) console.log(`support: ${failed.split(":")[0]}`);
     await store.logMessage({ thread_id: thread.id, direction: "in", body: m.text || "(empty)", ai: false, message_id: m.messageId });
     const capped = sent >= DAILY_SEND_CAP;
     if (triage.intent === "informational" && !capped) {
@@ -71,13 +72,17 @@ export async function handlePoll(mail: Mailbox, store: Store, classify: Classifi
     } else {
       await store.setStatus(thread.id, "escalated");
       result.escalated++;
+      digestThreadId??=thread.id;
       digest.push(`${m.from} · ${m.subject || "(no subject)"} · ${triage.category}${capped ? " · daily send cap reached" : ""}\n  ${triage.reason || "needs a person"}\n  ${m.text.slice(0, 300).replace(/\s+/g, " ")}`);
     }
   }
-  if (digest.length && escalateTo) {
+  if (digest.length && escalateTo && sent<DAILY_SEND_CAP) {
     const text = `${digest.length} support email${digest.length === 1 ? "" : "s"} need a person. They are still unread in the support inbox.\n\n${digest.join("\n\n")}\n\nWiseDinner support`;
-    await mail.send({ to: escalateTo, subject: `Support: ${digest.length} to answer`, text });
+    const sentDigest=await mail.send({ to: escalateTo, subject: `Support: ${digest.length} to answer`, text });
+    await store.logMessage({thread_id:digestThreadId!,direction:"out",body:"Escalation digest sent (private content retained in mailbox)",ai:false,message_id:sentDigest.messageId});
     result.digest = text;
+  } else if(digest.length && escalateTo){
+    result.digestDeferred=true;
   }
   return result;
 }

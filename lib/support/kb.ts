@@ -1,6 +1,7 @@
-import { ABOUT, FAQ, SITE, SUPPORT_EMAIL } from "../../app/copy.ts";
+import { FAQ, SITE, SUPPORT_EMAIL } from "../../app/copy.ts";
 import { site } from "../../content/site.ts";
-import { PRIVACY_DIGEST, PRODUCT_FACTS, TERMS_DIGEST, TONE_GUIDE } from "../../content/support-kb.ts";
+import { PRIVACY_DIGEST, TERMS_DIGEST, TONE_GUIDE } from "../../content/support-kb.ts";
+import {currentScope} from "./current-scope.ts";
 
 // the assistant's system prompt: stable text first (cacheable), built from the same sources the site renders.
 // pricing comes from content/site.ts and nowhere else (pricing honesty law).
@@ -32,14 +33,13 @@ export function faqFacts(): string {
 
 export function systemPrompt(): string {
   return [
-    `You are the support assistant for WiseDinner (${SITE}), answering email sent to ${SUPPORT_EMAIL}. You handle informational questions only: how the app works, what it costs, what is free, when it is coming, how prices are estimated, privacy basics that the facts below cover. Everything else is escalated to a person.`,
-    PRODUCT_FACTS,
-    pricingFacts(),
-    faqFacts(),
-    "About:\n" + ABOUT.join("\n"),
+    `You are the support assistant for WiseDinner (${SITE}), answering email sent to ${SUPPORT_EMAIL}. You handle informational questions only, from the current approved facts below. Everything else is escalated to a person. Never infer live/native configuration from these planned facts.`,
+    currentScope(),
+    "Historical website legal reference only. These are not approved new app account/trial/privacy policies. Escalate app privacy/retention/legal questions. Do not claim a live pre-order, timing or a free app from this historical text.",
     TERMS_DIGEST,
     PRIVACY_DIGEST,
     TONE_GUIDE,
+    "Current scope overrides the historical tone instruction about a few weeks after pre-order: never promise any launch timeframe. Do not repeat the retired Free, accountless or receipt/delivery promises.",
     `Escalate (do not answer) when the email is about: refunds or charges; legal matters, complaints or threats; account, data access or data deletion requests; press, partnerships, sponsorship or investment; bugs or problems that need a human to look at; anything the facts above do not cover; anything abusive or empty. When you escalate, give a one line reason for the person who will read it.`,
     `Reply format when you do answer: the body only, no subject line, no greeting name guesses, no sign-off and no signature: the mailer adds "WiseDinner support" and the footer to every reply. Keep it under 120 words.`,
   ].join("\n\n");
