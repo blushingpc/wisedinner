@@ -56,6 +56,16 @@ whole potato basis, pepper/onion blend, taco seasoning and bone-in/drained packs
 artifacts: tasks/INGREDIENT-CATALOG-PLAN.md and docs/ingredient-catalog/final-report.md. App port/device
 checks and other launch work need their separate workstream; no reroll choice, publication or database change.
 
+October 4 reviewed-week continuation: minimum local outcome verified. Typical seeds 0/7/19 pass at $52.62
+reference whole-pack estimates using only the 63 newly approved preparations and thirteen combined reviewed
+IDs. Floor and household profiles pass; vegan/vegetarian variety and high-protein dairy-free remain misses.
+No legacy anchors, public snapshot refresh, price update, app port or contract change. Fresh 151 tests and all
+package gates pass with existing warnings. Source/quantity, quarantines and price-map limitations are in
+docs/ingredient-catalog/reviewed-week-report.md; persistent plan: tasks/REVIEWED-WEEK-PLAN.md.
+Next data workstream: obtain the full original existing dry-pasta panel and compatible dry-pack evidence,
+review a substantial plant-based preparation, then rerun the restricted profiles without changing floors,
+calorie-share or protein targets. Pea/almond product choices remain blocked; no automatic brand binding.
+
 B1. [x] backend v1: schema + pipeline + snapshot v1 + solver over the snapshot + API routes + AI support on Gmail + API contract — MERGED to main 1801670 and live 2026-09-24 (PR #20, prod verified: /api/data/latest v4, /api/status db ok, support cron registered).
 B2. [ ] database liveness alert (founder ask 2026-09-24, not built yet). Today nothing alerts: the daily keepalive and the 5-minute support cron are the only scheduled database activity, the poll reads Gmail before the database (a revoked app password or a rotated CRON_SECRET makes every poll 502/401 with zero db activity), and db.ok on /api/status is read by nobody but the keepalive. A week of silent failures pauses the free-tier project and the first symptom is a 502 on waitlist / data/latest. Do: `if: failure()` step on the keepalive and data jobs posting to the Telegram bot (TELEGRAM_BOT_TOKEN in the keys file) or the support address; the support cron writes a last-poll timestamp that /api/status surfaces; one external probe of /api/status asserting db.ok and a fresh poll timestamp; restore runbook (https://supabase.com/dashboard/project/zpvqxtklvjitofpbddrn). done means: a forced keepalive failure reaches the founder's phone within an hour, and /api/status shows the last poll time.
 

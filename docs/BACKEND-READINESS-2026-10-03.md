@@ -6,6 +6,20 @@ prices remain estimates. Current Build 1 is anonymous Free plus Protein Plan, no
 
 ## October 4 ingredient/catalog terminal continuation
 
+Later October 4 reviewed-week run: the narrow typical target now passes seeds 0/7/19 at $52.62 whole-pack
+reference estimates, through restricted solving and independent source arithmetic. Four targeted reviews add
+oats and raw-edible carrot/onion/tomato quantities. Withholding the unverified fixed chicken purchase leaves
+thirteen ready IDs. The separate targeted batch has 81 structures, 63 explicitly approved preparations and
+18 quarantined chicken drafts; no legacy anchors or synthetic acceptance meals. Historical counts below
+remain evidence of the earlier run, not this acceptance catalog. Floor/two-person profiles pass; vegan and
+vegetarian miss variety, high-protein dairy-free misses protein. Soy/gluten-free coverage remains limited.
+Fresh 151 tests, ordinary typecheck, lint, voice, production build and diff check pass with existing warnings.
+Public snapshot/fixtures, solver contract/core, app and original observations remain unchanged. Excluded
+wrong-form/size price observations and baseline reference estimates are explicit, not new local verification
+or a changed public price policy. Exact proof/limits: docs/ingredient-catalog/reviewed-week-report.md and
+reviewed-week-acceptance.json. Next safe data work is source-reviewed restricted-diet breadth; public quantity
+and allergy adapters, package policy, kitchen/device testing and launch remain separately unconnected.
+
 The scoped local workstream now has 79/79 nutrition outcomes (10 generic-reviewed, 69 blocked), 79/79 stable-ID
 safety rows (25 inherent identities reviewed, 54 package-dependent unknowns) and fail-closed offline restricted
 solve/substitute selection. All cross-contact remains unverified. The cache still fails assembly: five known
