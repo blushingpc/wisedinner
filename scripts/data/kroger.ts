@@ -1,14 +1,15 @@
 // Kroger Product API: client-credentials token cached for its TTL (data/.kroger-token.json, gitignored), one
 // /v1/locations call per ZIP to pick the nearest Kroger-family store, then /v1/products with filter.locationId
 // (product.compact alone has no prices). each sku is matched to one Kroger product once and remembered in
-// data/kroger-map.json (committed); unmapped skus are listed for the founder. prices are normalised to our pack:
-// kroger unit price × our pack size, so an 8 lb bag prices our 3 lb bag correctly.
+// data/kroger-map.json records historical searches, not approved matches. Future prices require an explicit
+// original form/physical-pack review; larger packs are never repriced as smaller packages.
 // run: node scripts/data/kroger.ts  (needs KROGER_CLIENT_ID / KROGER_CLIENT_SECRET / KROGER_SCOPE)
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { log, required, today } from "./env.ts";
 import { SKUS, type AuthoredSku } from "./authored/skus.ts";
-import { packCanonical, toCanonical } from "../../packages/solver/src/units.ts";
+import { toCanonical } from "../../packages/solver/src/units.ts";
 import type { Unit } from "../../packages/solver/src/types.ts";
+import { exactOffer, recordOffer, type Offer, type PackReview, type ExactPrice } from "./price-evidence.ts";
 
 export const ZIPS = ["43215", "90012", "77002", "30303", "98101"]; // Columbus, Los Angeles, Houston, Atlanta, Seattle (BACKEND-V1 addendum)
 const MAP = "data/kroger-map.json";
@@ -17,7 +18,7 @@ const API = "https://api.kroger.com/v1";
 
 type MapEntry = { productId: string; description: string; size: string; term: string; matched_at: string; pinned?: boolean };
 export type KrogerMap = Record<string, MapEntry>;
-export type PriceRow = { sku_id: string; store_id: string; region: string; shelf_price: number; unit_price: number; source: "kroger-api"; confidence: number; as_of: string };
+export type PriceRow = ExactPrice;
 
 // --- auth: one token per 30 minutes, shared across the run and across runs on the same machine
 let mem: { token: string; exp: number } | undefined;
@@ -84,7 +85,7 @@ export async function nearestStore(zip: string): Promise<{ locationId: string; s
 }
 
 // --- products
-type Product = { productId: string; description: string; brand?: string; items: { size?: string; price?: { regular?: number; promo?: number } }[] };
+type Product = Offer;
 
 // "8 lb" | "16 oz" | "12 ct" | "1 gal" | "32 fl oz" | "2 lb bag" → canonical qty in the sku's unit family
 export function parseSize(size: string | undefined, sku: AuthoredSku): number | null {
@@ -112,39 +113,10 @@ const STOP = new Set(["and", "the", "of", "in", "with", "pack", "family", "fresh
 const SYN: Record<string, string> = { bbq: "barbecue", barbeque: "barbecue", garbanzo: "chickpea", chickpeas: "chickpea", lentil: "lentils" };
 const words = (s: string) => s.toLowerCase().replace(/[^a-z0-9% ]+/g, " ").split(/\s+/).filter((w) => w && !STOP.has(w) && !/^\d/.test(w)).map((w) => SYN[w] ?? w);
 
-// off-category lines are never the product (hard exclusion); premium lines only lose a price handicap, so a
-// store that stocks nothing but organic tofu still prices tofu
-const OFF = /\b(soup|snaps?|crisps?|chips|refried|meal|kit|greens|smoothie|juice|bar|cookie|cereal|trail|dip|seltzer|sparkling|drink|soda|beverage|stage \d|baby food|pouch|puffs|dog|cat|pet|treats?|recipe|singles|thin.?sliced|tenderloins?|syrup|yams)\b|\d+\s*(pack|pk)\b/i;
-const PREMIUM = /\b(organic|pasture|cage.?free|free.?range|grass.?fed|seasoned|blackened|marinated|roasted|crusted|glazed|natural)\b/i;
-const PREMIUM_HANDICAP = 1.3;
-// a frozen item is off-target for a fresh sku and the other way round
-const FROZEN = /\bfrozen\b/i;
-
-// the value pick: every key word of the search term in the description, no premium words, pack size within
-// 4x of ours either way; among those the cheapest per canonical unit (ties: plain Kroger label, then closest size)
-export function pickProduct(products: Product[], sku: AuthoredSku): { p: Product; size: number; price: number } | null {
-  const cands: { p: Product; size: number; price: number; hit: number; premium: boolean; label: number; sizeGap: number; unit: number }[] = [];
-  const ours = packCanonical(sku);
-  const keys = words(sku.kroger);
-  for (const p of products) {
-    const it = p.items?.[0];
-    const price = it?.price?.regular;
-    const size = parseSize(it?.size, sku);
-    if (!price || !size) continue;
-    const desc = words(p.description);
-    const stem = (a: string, b: string) => a === b || (a.length > 3 && b.length > 3 && (a.startsWith(b) || b.startsWith(a))); // potato / potatoes
-    const hit = keys.filter((k) => desc.some((d) => stem(d, k))).length / Math.max(keys.length, 1);
-    const brand = (p.brand ?? "").toLowerCase();
-    const label = brand === "kroger" || p.description.startsWith("Kroger") ? 1 : 0;
-    if ((OFF.test(p.description) && !OFF.test(sku.kroger)) || (FROZEN.test(p.description) && sku.aisle !== "frozen")) continue; // frozen lines never price a fresh sku
-    const premium = PREMIUM.test(p.description) && !PREMIUM.test(sku.kroger);
-    cands.push({ p, size, price, hit, premium, label, sizeGap: Math.abs(Math.log(size / ours)), unit: (price / size) * (premium ? PREMIUM_HANDICAP : 1) });
-  }
-  const need = keys.length <= 2 ? 1 : 0.75; // every key word for short terms, three of four otherwise
-  const pool = cands.filter((c) => c.hit >= need && c.sizeGap <= Math.log(4));
-  if (!pool.length) return null;
-  pool.sort((a, b) => a.unit - b.unit || b.label - a.label || a.sizeGap - b.sizeGap);
-  return pool[0];
+// A search result is never an approval. Without an original-source review nothing is purchasable evidence.
+export function pickProduct(products: Product[], sku: AuthoredSku, review?: PackReview) {
+  for (const p of products) { const hit=exactOffer(p,sku,review); if(hit) return hit; }
+  return null;
 }
 
 // the full term, then the term without its qualifiers, then its first two words: results are pooled (by product
@@ -164,7 +136,10 @@ export function loadKrogerMap(): KrogerMap {
   return existsSync(MAP) ? (JSON.parse(readFileSync(MAP, "utf8")) as KrogerMap) : {};
 }
 
-export async function fetchKroger(): Promise<{ rows: PriceRow[]; map: KrogerMap; unmapped: string[]; zips: Record<string, string> }> {
+export async function fetchKroger(output = "data/pipeline/collection"): Promise<{ rows: PriceRow[]; map: KrogerMap; unmapped: string[]; zips: Record<string, string> }> {
+  if(!/^data\/pipeline\/(collection|staging)\/[a-zA-Z0-9_-]+$/.test(output)) throw new Error("Explicit isolated collection directory required");
+  const reviews: Record<string,PackReview> = JSON.parse(readFileSync("docs/ingredient-catalog/kroger-pack-reviews.json","utf8")).reviews;
+  const quarantine: object[] = [];
   const map = loadKrogerMap();
   const rows: PriceRow[] = [];
   const unmapped = new Set<string>();
@@ -185,36 +160,29 @@ export async function fetchKroger(): Promise<{ rows: PriceRow[]; map: KrogerMap;
       if (known) {
         // fetch the known product at this location for its price
         const j = await get<{ data: Product[] }>("/products", { "filter.productId": known.productId, "filter.locationId": loc.locationId });
-        const p = j.data?.[0];
-        const price = p?.items?.[0]?.price?.regular;
-        const size = p ? parseSize(p.items?.[0]?.size, sku) : null;
-        if (p && price && size) picked = { p, size, price };
+        picked = pickProduct(j.data??[],sku,reviews[sku.id]);
       }
       if (!picked) {
-        picked = pickProduct(await searchProducts(sku.kroger, loc.locationId), sku);
-        // the map remembers the first store's match; other banners re-search when that product is not sold there
-        if (picked && !known) map[sku.id] = { productId: picked.p.productId, description: picked.p.description, size: picked.p.items[0].size ?? "", term: sku.kroger, matched_at: asOf };
+        const products=await searchProducts(sku.kroger, loc.locationId);
+        picked = pickProduct(products,sku,reviews[sku.id]);
+        if(!picked) quarantine.push({sku_id:sku.id,zip,location_id:loc.locationId,observed_at:new Date().toISOString(),reason:"No exact original reviewed form/package/offer",candidate_ids:products.map(p=>p.productId)});
       }
-      } catch (e) {
-        log("kroger", `${sku.id} at ${zip}: ${(e as Error).message.slice(0, 120)}`);
+      } catch {
+        log("kroger", `${sku.id} at ${zip}: provider unavailable`);
         picked = null;
       }
       if (!picked) {
         unmapped.add(sku.id);
         continue;
       }
-      const ours = packCanonical(sku);
-      const unit_price = picked.price / picked.size;
-      rows.push({ sku_id: sku.id, store_id: loc.store_id, region: zip, shelf_price: Math.round(unit_price * ours * 100) / 100, unit_price, source: "kroger-api", confidence: 0.9, as_of: asOf });
+      rows.push(recordOffer(picked.p,sku,reviews[sku.id],{...loc,zip},new Date().toISOString()));
     }
-    writeFileSync(MAP, JSON.stringify(map, null, 2) + "\n"); // per store, so a crash keeps the matches so far
   }
-  writeFileSync(MAP, JSON.stringify(map, null, 2) + "\n");
   const mapped = SKUS.filter((s) => map[s.id]).length;
   log("kroger", `${rows.length} price rows across ${Object.values(zips).filter((v) => v !== "no store").length} stores; ${mapped}/${SKUS.length} skus mapped; unmapped: ${[...unmapped].join(", ") || "none"}`);
-  mkdirSync("data/pipeline", { recursive: true }); // gitignored, so a fresh checkout (CI) has no such directory
-  writeFileSync("data/pipeline/kroger-prices.json", JSON.stringify({ zips, rows, unmapped: [...unmapped] }, null, 2));
+  mkdirSync(output, { recursive: true });
+  writeFileSync(`${output}/kroger-prices.json`, JSON.stringify({ zips, rows, quarantine, unmapped: [...unmapped], collected_on:asOf }, null, 2));
   return { rows, map, unmapped: [...unmapped], zips };
 }
 
-if (process.argv[1]?.replace(/\\/g, "/").endsWith("scripts/data/kroger.ts")) fetchKroger().catch((e) => { console.error(e); process.exit(1); });
+if (process.argv[1]?.replace(/\\/g, "/").endsWith("scripts/data/kroger.ts")) fetchKroger(process.argv.find(a=>a.startsWith("--output="))?.slice(9)).catch((e) => { console.error(e); process.exit(1); });

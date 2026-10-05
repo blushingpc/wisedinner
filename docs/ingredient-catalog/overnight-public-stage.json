@@ -1,0 +1,2787 @@
+{
+  "status": "blocked",
+  "side_effects": "isolated local files only; no seed/upsert/storage/pointer/public fixture/Git write",
+  "output": "data/pipeline/overnight/public-candidate-20261005-0405",
+  "price_rows": 387,
+  "price_accepted": 0,
+  "price_quarantine": [
+    {
+      "sku_id": "chicken-breast",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-chicken-breast",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-turkey",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-beef",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pork-loin",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-tilapia",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-shrimp",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-salmon",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "deli-turkey",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tuna",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-chicken",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "eggs",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "egg-whites",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "greek-yogurt",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cottage-cheese",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "milk",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "string-cheese",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-cheddar",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-mozzarella",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "parmesan",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "butter",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "plant-yogurt",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "whey-protein",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pea-protein",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tofu",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tempeh",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "black-beans",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "chickpeas",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "kidney-beans",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "lentils",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "peanut-butter",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-edamame",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "white-rice",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "brown-rice",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "quinoa",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "oats",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "granola",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "spaghetti",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-spaghetti",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "penne",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "gf-pasta",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-bread",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "flour-tortillas",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "corn-tortillas",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-buns",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pancake-mix",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "russet-potatoes",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "sweet-potatoes",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bananas",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "apples",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-berries",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "avocados",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "onions",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "carrots",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bell-peppers",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "romaine",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tomatoes",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cucumber",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "asparagus",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-broccoli",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-mixed-veg",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-stirfry-veg",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-peppers-onions",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tomatoes",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "marinara",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "salsa",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pesto",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "teriyaki-sauce",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "soy-sauce",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bbq-sauce",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "buffalo-sauce",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "caesar-dressing",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tzatziki",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "hummus",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "honey",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "olive-oil",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "taco-seasoning",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "breadcrumbs",
+      "store_id": "kroger",
+      "region": "43215",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "chicken-breast",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-chicken-breast",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-turkey",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-beef",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pork-loin",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-tilapia",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-shrimp",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-salmon",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "deli-turkey",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tuna",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-chicken",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "eggs",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "egg-whites",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "greek-yogurt",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cottage-cheese",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "milk",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "string-cheese",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-cheddar",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-mozzarella",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "parmesan",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "butter",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "whey-protein",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pea-protein",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tofu",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tempeh",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "black-beans",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "chickpeas",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "kidney-beans",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "lentils",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "peanut-butter",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-edamame",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "white-rice",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "brown-rice",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "quinoa",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "oats",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "granola",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "spaghetti",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-spaghetti",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "penne",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "gf-pasta",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-bread",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "flour-tortillas",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "corn-tortillas",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-buns",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pancake-mix",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "russet-potatoes",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "sweet-potatoes",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bananas",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "apples",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-berries",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "avocados",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "onions",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "carrots",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bell-peppers",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "romaine",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tomatoes",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cucumber",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "asparagus",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-broccoli",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-mixed-veg",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-stirfry-veg",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-peppers-onions",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tomatoes",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "marinara",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "salsa",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pesto",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "teriyaki-sauce",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "soy-sauce",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bbq-sauce",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "buffalo-sauce",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "caesar-dressing",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tzatziki",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "hummus",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "honey",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "olive-oil",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "taco-seasoning",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "breadcrumbs",
+      "store_id": "ralphs",
+      "region": "90012",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "chicken-breast",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-chicken-breast",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-turkey",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-beef",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pork-loin",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-tilapia",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-shrimp",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-salmon",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "deli-turkey",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tuna",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-chicken",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "eggs",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "egg-whites",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "greek-yogurt",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cottage-cheese",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "milk",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "string-cheese",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-cheddar",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-mozzarella",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "parmesan",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "butter",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "plant-yogurt",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "whey-protein",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pea-protein",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tofu",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tempeh",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "black-beans",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "chickpeas",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "kidney-beans",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "lentils",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "peanut-butter",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-edamame",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "white-rice",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "brown-rice",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "quinoa",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "oats",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "granola",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "spaghetti",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-spaghetti",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "penne",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "gf-pasta",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-bread",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "flour-tortillas",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "corn-tortillas",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pancake-mix",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "russet-potatoes",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "sweet-potatoes",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bananas",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "apples",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-berries",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "avocados",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "onions",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "carrots",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bell-peppers",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "romaine",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tomatoes",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cucumber",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "asparagus",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-broccoli",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-mixed-veg",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-stirfry-veg",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-peppers-onions",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tomatoes",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "marinara",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "salsa",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pesto",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "teriyaki-sauce",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "soy-sauce",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bbq-sauce",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "buffalo-sauce",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "caesar-dressing",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tzatziki",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "hummus",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "honey",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "olive-oil",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "taco-seasoning",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "breadcrumbs",
+      "store_id": "kroger",
+      "region": "77002",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "chicken-breast",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-chicken-breast",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-turkey",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-beef",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pork-loin",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-tilapia",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-shrimp",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-salmon",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "deli-turkey",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tuna",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-chicken",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "eggs",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "egg-whites",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "greek-yogurt",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cottage-cheese",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "milk",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "string-cheese",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-cheddar",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-mozzarella",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "parmesan",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "butter",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "plant-yogurt",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "whey-protein",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pea-protein",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tofu",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tempeh",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "black-beans",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "chickpeas",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "kidney-beans",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "lentils",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "peanut-butter",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-edamame",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "white-rice",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "brown-rice",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "quinoa",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "oats",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "granola",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "spaghetti",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-spaghetti",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "penne",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "gf-pasta",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-bread",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "flour-tortillas",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "corn-tortillas",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-buns",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pancake-mix",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "russet-potatoes",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "sweet-potatoes",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bananas",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "apples",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-berries",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "avocados",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "onions",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "carrots",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bell-peppers",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "romaine",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tomatoes",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cucumber",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "asparagus",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-broccoli",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-mixed-veg",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-stirfry-veg",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-peppers-onions",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tomatoes",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "marinara",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "salsa",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pesto",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "teriyaki-sauce",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "soy-sauce",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bbq-sauce",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "buffalo-sauce",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "caesar-dressing",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tzatziki",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "hummus",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "honey",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "olive-oil",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "taco-seasoning",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "breadcrumbs",
+      "store_id": "kroger",
+      "region": "30303",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "chicken-breast",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-chicken-breast",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-turkey",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ground-beef",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pork-loin",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-tilapia",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-shrimp",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-salmon",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "deli-turkey",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tuna",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-chicken",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "eggs",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "egg-whites",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "greek-yogurt",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cottage-cheese",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "milk",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "string-cheese",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-cheddar",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "shredded-mozzarella",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "parmesan",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "butter",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "whey-protein",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pea-protein",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tofu",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tempeh",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "black-beans",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "chickpeas",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "kidney-beans",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "lentils",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "peanut-butter",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-edamame",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "white-rice",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "brown-rice",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "quinoa",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "oats",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "granola",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "spaghetti",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-spaghetti",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "penne",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "gf-pasta",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-bread",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "flour-tortillas",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "corn-tortillas",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "ww-buns",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pancake-mix",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "russet-potatoes",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "sweet-potatoes",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bananas",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "apples",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-berries",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "avocados",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "onions",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "carrots",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bell-peppers",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "romaine",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tomatoes",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "cucumber",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "asparagus",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-broccoli",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-mixed-veg",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-stirfry-veg",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "frozen-peppers-onions",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "canned-tomatoes",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "marinara",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "salsa",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "pesto",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "teriyaki-sauce",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "soy-sauce",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "bbq-sauce",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "buffalo-sauce",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "caesar-dressing",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "tzatziki",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "hummus",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "honey",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "olive-oil",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "taco-seasoning",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    },
+    {
+      "sku_id": "breadcrumbs",
+      "store_id": "qfc",
+      "region": "98101",
+      "as_of": "2026-09-10",
+      "reason": "Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."
+    }
+  ],
+  "source_revision": "ff686106f0cdbf67195cb796f9eec3a96366256f76b2e65da87fccc29cb1dd3f",
+  "unresolved_ids": [
+    "chicken-breast",
+    "chicken-thighs",
+    "frozen-chicken-breast",
+    "pork-loin",
+    "frozen-tilapia",
+    "frozen-shrimp",
+    "frozen-salmon",
+    "deli-turkey",
+    "canned-tuna",
+    "canned-chicken",
+    "egg-whites",
+    "greek-yogurt",
+    "cottage-cheese",
+    "milk",
+    "string-cheese",
+    "shredded-cheddar",
+    "shredded-mozzarella",
+    "parmesan",
+    "butter",
+    "plant-yogurt",
+    "whey-protein",
+    "pea-protein",
+    "tofu",
+    "tempeh",
+    "black-beans",
+    "chickpeas",
+    "kidney-beans",
+    "peanut-butter",
+    "granola",
+    "spaghetti",
+    "penne",
+    "gf-pasta",
+    "ww-bread",
+    "flour-tortillas",
+    "corn-tortillas",
+    "ww-buns",
+    "pancake-mix",
+    "russet-potatoes",
+    "sweet-potatoes",
+    "bananas",
+    "apples",
+    "frozen-berries",
+    "avocados",
+    "bell-peppers",
+    "romaine",
+    "cucumber",
+    "asparagus",
+    "frozen-mixed-veg",
+    "frozen-stirfry-veg",
+    "frozen-peppers-onions",
+    "canned-tomatoes",
+    "marinara",
+    "salsa",
+    "pesto",
+    "teriyaki-sauce",
+    "soy-sauce",
+    "bbq-sauce",
+    "buffalo-sauce",
+    "caesar-dressing",
+    "tzatziki",
+    "hummus",
+    "honey",
+    "olive-oil",
+    "taco-seasoning",
+    "breadcrumbs"
+  ],
+  "reason": "nutrition review required:\nchicken-thighs: invalid carbs_g\nplant-yogurt: nutrition identity does not match the authored ingredient; review the source record\npea-protein: nutrition identity does not match the authored ingredient; review the source record\nrusset-potatoes: nutrition identity does not match the authored ingredient; review the source record\nfrozen-peppers-onions: nutrition identity does not match the authored ingredient; review the source record\ntaco-seasoning: nutrition identity does not match the authored ingredient; review the source record"
+}

@@ -44,22 +44,15 @@ jobs:
         with:
           node-version: 24
       - run: npm ci
-      - name: pipeline (guarded publish)
-        run: node scripts/data/run.ts
-      - name: menu + fixtures from the snapshot
-        run: node scripts/gen-fixtures.ts
-      # gen-drop exits 1 (and writes nothing) if the week is infeasible or has fewer than 8 skus — the run fails loudly
-      - run: node scripts/gen-drop.ts
       - run: npm test
-      - name: commit if changed
-        run: |
-          git add data/snapshot.json data/kroger-map.json data/usda-map.json data/menu.json data/fixture-week.json data/fixture-week-2.json data/drop.json
-          if git diff --cached --quiet; then
-            echo "data unchanged"
-            exit 0
-          fi
-          # Vercel Pro deploys only commits authored by the account owner
-          git config user.name "blushingpc"
-          git config user.email "293302513+blushingpc@users.noreply.github.com"
-          git commit -m "weekly data drop [skip ci-notes]"
-          git push
+      - run: npx tsc --noEmit
+      - name: isolated candidate only (no public writer)
+        run: node scripts/data/run.ts --stage=data/pipeline/staging/run-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: preserve rejected or accepted stage evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: staged-candidate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/pipeline/staging/
+      # Publication intentionally unbound. Source/price coverage and versioned quantity contract remain blocked.
+      # No fixture showcase, storage, pointer, commit or push runs after this stage.

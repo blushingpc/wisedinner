@@ -5,9 +5,9 @@
 // guards (BACKEND-V1 §2h): every solver profile feasible, no sku's best price moved more than 30% vs the previous
 // snapshot. on a guard failure nothing is written and the process exits 1 so the workflow goes red.
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { log, today } from "./env.ts";
-import { ensureBucket, insert, select, storagePut } from "../../app/api/db.ts";
+import { existsSync, readFileSync } from "node:fs";
+import { today } from "./env.ts";
+import { select } from "../../app/api/db.ts";
 import { STORES } from "./authored/stores.ts";
 import { SKUS } from "./authored/skus.ts";
 import { RECIPES } from "./authored/recipes.ts";
@@ -77,19 +77,9 @@ export function guard(next: Snapshot, prev: Snapshot | null): string[] {
 
 export const sha256 = (s: string) => createHash("sha256").update(s).digest("hex");
 
-export async function publish(snap: Snapshot, local: boolean): Promise<{ version: number; url: string; sha256: string }> {
-  const body = JSON.stringify(snap);
-  const hash = sha256(body);
-  let url = `local://${SNAPSHOT_FILE}`;
-  if (!local) {
-    await ensureBucket("data", true);
-    url = await storagePut("data", `snapshots/v${snap.version}.json`, body);
-    const res = await insert("data_snapshots", { version: snap.version, url, sha256: hash });
-    if (!res.ok) throw new Error(`data_snapshots insert: ${res.status} ${res.body}`);
-  }
-  writeFileSync(SNAPSHOT_FILE, JSON.stringify(snap, null, 1) + "\n");
-  log("snapshot", `v${snap.version} ${local ? "written locally" : "published"} → ${url} (${(body.length / 1024).toFixed(0)} KB, sha256 ${hash.slice(0, 12)}…)`);
-  return { version: snap.version, url, sha256: hash };
+export async function publish(_snap: Snapshot, _local: boolean): Promise<{ version: number; url: string; sha256: string }> {
+  void _snap; void _local; // Preserve the old callable signature, but never its writes.
+  throw new Error("Legacy publish disabled. Stage and verify exact bytes first; immutable writer/CAS rollout requires separate authorization.");
 }
 
 export async function nextVersion(local: boolean): Promise<number> {
