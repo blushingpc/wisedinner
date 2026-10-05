@@ -1,4 +1,20 @@
 # Progress log — newest entry on top
+
+## 2026-10-05 store-estimate verified completion
+
+Final cent-boundary follow-up: local commit 5289f64 after 5f860e0 fixes reproduced $64.01 floating-comparison rejection with exact rational dollars-to-cents, still rejecting fractional cents. Latest focused 17/17 in 1814.6541 ms; full 237/237 in 43235.4873 ms; ordinary tsc, zero-warning lint, voice/build/diff pass. All eighteen frozen acceptance weeks replay identically under final code; source/approval/model/calibration evidence unchanged. HQ completion note updated; final documentation commit and clean status are the only remaining terminal actions. The earlier 236-test result below is the preceding checkpoint, not the final total.
+
+Branch codex/backend-readiness, verified source commit 5f860e0 after f572d29. Private exact-cent physical-pack quotes, explicit single/split intent, one frozen full-basket allowance and reviewed food bridge pass all eighteen primary profile/seed cases with synthetic prices; 1,270 full-week substitute cases pass. Unchanged 108 internal-approved / 24 quarantine / fourteen source-ready ingredients. Soy and empty metadata restrictions fail food coverage; no fallback or approval fabricated. Adverse synthetic held-out errors: 48/72 allowance overruns, maximum 141 cents, not measured launch accuracy. Focused 16/16; final npm test 236/236 in 41806.6746 ms, ordinary tsc, zero-warning lint, voice/build/diff pass. Existing Edge Runtime warnings only. Evidence data/pipeline/store-estimates/2026-10-05-cli-final/report.json; contract/rollback/app handoff docs/STORE-ESTIMATES-LOCAL.md. Earlier failed folders preserved, no public/core/app/website/shared database/engine/remote/provider/paid/message changes. HQ memory/log saved. Code and acceptance complete; this checkpoint is included in the final docs commit, followed by clean status verification and stop. Next separate workstream follows queue; no pricing activation before permitted evidence, calibration and founder policy decisions.
+
+## 2026-10-05 store-estimator implementation started, local only
+
+Founder authorized the proposed local pricing slice. Starting clean f572d29, branch codex/backend-readiness. Building raw whole-pack selected-store quotes, joint-cell model fitting, independent basket calibration/evaluation and reviewed-week revalidation. Existing production solver/1.1 buffer stays unchanged. Fixture sample/risk/freshness parameters are not approved national policy. Exact owned files and gates are pinned in tasks/STORE-ESTIMATE-PLAN.md. No collection, app/website/public API/schema/ce_ change, paid/provider action or remote push.
+
+Founder clarified terminal execution. Desktop implementation paused after one untested scripts/data/store-estimate-model.ts file and checkpoint docs; no new tests are claimed. Complete Codex CLI continuation/launcher saved outside Git in the project workspace terminal-runs/store-estimates-2026-10-05-01. CLI login status confirms ChatGPT authentication and local help confirms workspace-write/automatic approval flags. Desktop will be read-only once the sole terminal worker starts. No global config/hook/model override or sandbox bypass.
+
+Launch rejected before execution by automatic approval review: explicit founder approval is requested for the separate CLI session's dossier/HQ context and scoped autonomous execution. Launcher syntax passes; no worker started and no test/build ran on the partial model. Saved LAUNCH-BLOCKED.md beside the prompt. Parent is requesting approval, not bypassing or continuing app implementation.
+
+Founder explicitly approved the handoff. Windows Terminal opened, but attempt 01 exited code 2 before thread creation: --approve-for-me cannot be combined with --sandbox. No backend work or context-loading worker ran. Prepared separate attempt 02 with only --approve-for-me (installed help specifies workspace-write and automatic review), preserving old logs and all task limits. Parent remains the handoff operator only; pricing acceptance is still unrun.
 Format per session: date · job taken · what shipped (1-2 lines) · deploy URL state · what's next / blockers.
 
 ---
@@ -282,6 +298,14 @@ BLOCKED (founder): publish design-v4 → main · Vercel Preview env (NEXT_PUBLIC
 # Overnight optional operations checkpoint, October 5, 2026
 
 `codex/backend-readiness`, HEAD `c2892a5`. Notification registration/cleanup, default-disabled delivery seam and coarse operations/dry alerts implemented; 25 focused tests pass including actual disposable PostgreSQL ownership, revisions, deletion, stale completions and recovery dedupe. Support digests counted toward existing cap; bounded real form path and redacted failures tested. No real messages, reminder choice, provider activation or schedule. Public `/ios` redirects home; no verified listing. Current support cap/transport-log boundary and per-instance limiter still need durable operational protection. Owned paths/rollback in overnight plan; detail `docs/NOTIFICATIONS-OPERATIONS-V1.md`. Next exact command: full npm test and ordinary tsc/lint/voice/build/diff, then inspect local M5 commit and private partial-pantry quantity path/native handoff.
+
+# Store-estimate reviewed bridge checkpoint, October 5, 2026
+
+Branch codex/backend-readiness, HEAD f572d29. Fifteen focused tests pass in 1,499.9876 ms and ordinary typecheck passes. Owned price/bridge/fixture/runner/test files only; stale source/approval, full profile/allergy revision and calibration pins enforced. Real reviewed weeks are checked independently of fictional prices. Preserved partial first/second staging attempts (floating-point pack input; shortened floor profile-name lookup); corrected final candidate running in data/pipeline/store-estimates/2026-10-05-cli-verified. Eighteen primary cases in the earlier partial run passed food/price math, not real local-price accuracy. Final acceptance extras and package gates remain incomplete; next collect runner then focused/full checks. Public/core/app/website/database/providers unchanged.
+
+# Store-estimate private arithmetic checkpoint, October 5, 2026
+
+Branch codex/backend-readiness, HEAD f572d29; inspected starting dirty model/plan/progress belonged to this workstream. Full required reads completed. Current baseline 220/220 passes in 35,262.9089 ms. Eleven focused new tests pass in 250.4314 ms; raw whole-pack quotes, exact rational physical pantry, bounded split search and frozen basket calibration implemented privately. Ordinary typecheck found BigInt syntax incompatible with target ES2017, corrected without target changes; recheck/final gates unfinished. Owned additions are store-estimate-model.ts, store-estimates.ts, store-estimate-week.ts, store-estimate-fixtures.ts, store-estimates.test.ts plus checkpoint docs. No public artifacts, source collection, external writes or other workstreams. Next: isolated independent calibration/held-out acceptance and actual reviewed-week bridge tests.
 
 # Overnight plant and pantry checkpoint, October 5, 2026
 
