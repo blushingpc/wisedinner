@@ -1,5 +1,13 @@
 # Progress log — newest entry on top
 
+## 2026-10-05 account readiness automation checkpoint
+
+One scoped account/payment configuration and isolated ownership preparation job verified from `97572b2` on `codex/backend-readiness`. Read-only Supabase/Apple GETs returned 200: Apple/Google disabled and provider IDs/secrets absent; email enabled/confirmation required; no callback allowlist/custom SMTP. Complete Apple inventory has only monthly $8.99, MISSING_METADATA, no introductory offer; annual absent. RevenueCat tools/credential unavailable, offline CLI probe ENOTCACHED. No provider activation, mail, purchase, shared schema/data, ce_, app/website product edit or push.
+
+Source-only local commit `589abf4` prepares an explicit external-manifest/server-marker harness that rejects the shared project before requests, never applies schema and uses only disposable synthetic users/billing if subsequently run. Hosted Auth/PostgREST/concurrency remains UNRUN because no verified disposable runtime exists. Four guard cases and existing account/billing SQL tests pass 36/36; full tests 241/241, ordinary typecheck/lint/voice/build/diff pass. Six actual flags absent/disabled. Learning review adopted no change; unchanged skill validation passed after scoped helper access. Existing queue note preserved unstaged. Full configuration/evidence/rollback/continuation: `docs/ACCOUNT-READINESS-AUTOMATION.md`; external run `2026-10-05T20-09-19-064Z-5f11c119`.
+
+Exact next unblocked job for the supervisor: dry support inbound/outbound outbox closure. First reproduce accepted SMTP result followed by log-write failure and interrupted inbound replay using fake transports in handler/send-ledger tests; then implement only demonstrated local reservation/replay correction, failure-inject, verify and save the next handoff. Real provider, hosted/device, missing policy and unapplied migration gates remain. Never interpret this local checkpoint as launch readiness.
+
 ## 2026-10-05 store-estimate verified completion
 
 Final cent-boundary follow-up: local commit 5289f64 after 5f860e0 fixes reproduced $64.01 floating-comparison rejection with exact rational dollars-to-cents, still rejecting fractional cents. Latest focused 17/17 in 1814.6541 ms; full 237/237 in 43235.4873 ms; ordinary tsc, zero-warning lint, voice/build/diff pass. All eighteen frozen acceptance weeks replay identically under final code; source/approval/model/calibration evidence unchanged. HQ completion note updated; final documentation commit and clean status are the only remaining terminal actions. The earlier 236-test result below is the preceding checkpoint, not the final total.

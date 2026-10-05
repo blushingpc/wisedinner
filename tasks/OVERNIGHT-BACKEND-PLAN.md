@@ -1,5 +1,11 @@
 # Overnight backend readiness
 
+## Latest continuation, October 5 account readiness automation
+
+Starting `97572b2`, source harness commit `589abf4`, branch `codex/backend-readiness`. Read-only configuration inventory and guarded isolated harness preparation completed; exact facts, unavailable fields, six-migration/worker trace, evidence and rollback: `docs/ACCOUNT-READINESS-AUTOMATION.md`. 36 focused and 241 full tests pass, ordinary typecheck/lint/voice/build/diff pass. Real hosted Auth/PostgREST/concurrent and native/provider proof remain unrun; no disposable target/runtime was found. All actual local activation flags remain absent/disabled. Existing queue authorization note is preserved unstaged. No app/website product, shared schema/data, ce_, provider, mail, purchase, paid or remote change.
+
+Next one scoped unblocked local job: support inbound/outbound outbox reservation/replay closure with dry transports. Start `git status --short`, read this report and current queue/progress, inspect `lib/support/handler.ts`, `send-ledger.ts` and their tests. Reproduce accepted-send/log-write failure and interrupted inbound replay before editing. Preserve known queue dirtiness and supervisor ownership; collect each repository gate's final exit before starting the next. Keep shared migrations, real delivery and schedules off. This dated continuation supersedes the old next-command history below.
+
 Started October 4, 2026 at 22:47:35 America/New_York (2026-10-05 02:47:35 UTC).
 Branch `codex/backend-readiness`; starting HEAD `6eddd9c`; inspected clean tree.
 
