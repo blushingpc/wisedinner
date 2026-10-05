@@ -4,6 +4,7 @@ import { handlePoll } from "@/lib/support/handler";
 import { gmail, mailConfigured } from "@/lib/support/mail";
 import { dbStore } from "@/lib/support/store";
 import {configuredOperations,observedOperation} from "../../../../lib/operations.ts";
+import {configuredSendLedger,guardedMailbox} from "../../../../lib/support/send-ledger.ts";
 
 export const dynamic = "force-dynamic";
 // one poll is an IMAP round trip plus, per new message, one Claude call and three PostgREST calls (about 8 s each);
@@ -19,7 +20,10 @@ export async function GET(req: Request) {
   if (!mailConfigured()) return Response.json({ error: "mailbox not configured" }, { status: 503 });
   if (!process.env.ANTHROPIC_API_KEY) return Response.json({ error: "assistant not configured" }, { status: 503 });
   try {
-    const result = await observedOperation("support-poll",()=>handlePoll(gmail(), dbStore(), classifyWithClaude, process.env.SUPPORT_ESCALATION_TO ?? ""),configuredOperations());
+    const result = await observedOperation("support-poll",()=>{
+      const mail=gmail(),ledger=configuredSendLedger();
+      return handlePoll(ledger?guardedMailbox(mail,ledger):mail, dbStore(), classifyWithClaude, process.env.SUPPORT_ESCALATION_TO ?? "");
+    },configuredOperations());
     const { digest: _digest, ...counts } = result;
     void _digest;
     return Response.json({ status: "ok", ...counts }, { headers: { "cache-control": "no-store" } });
