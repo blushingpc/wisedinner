@@ -1,0 +1,25 @@
+{
+  "startedAtUtc": "2026-10-05T02:47:35Z",
+  "startedAtNewYork": "2026-10-04T22:47:35-04:00",
+  "branch": "codex/backend-readiness",
+  "head": "6eddd9c",
+  "startingTree": "clean",
+  "baselineTests": { "passed": 151, "failed": 0, "durationMs": 24212.5521 },
+  "authSettings": { "http": 200, "apple": false, "google": false, "email": true, "signupDisabled": false, "smtpVerified": false, "oauthIdentifiersVerified": false },
+  "publicPointerRead": {
+    "url": "https://www.wisedinner.com/api/data/latest",
+    "accessDateUtc": "2026-10-05",
+    "pointerHttp": 200,
+    "blobHttp": 200,
+    "version": 6,
+    "createdAt": "2026-10-04T15:20:28.087449+00:00",
+    "declaredSha256": "a8700c74741c5f155b33dc3d7f2be1833b6165d98f38b1482390d6c208422668",
+    "actualSha256": "a8700c74741c5f155b33dc3d7f2be1833b6165d98f38b1482390d6c208422668",
+    "bytes": 163016,
+    "recipes": 82,
+    "skus": 79,
+    "interpretation": "Fresh read supersedes historical v5 pointer assumption. Hash integrity is not food-source, price or app-connection validation. This run performed no publication."
+  },
+  "optionalTools": { "context7": "not callable", "serena": "retrieval tools present but required initialization tool absent; unused", "revenuecatMcp": "not callable", "revenuecatCli": "not callable", "psql": "not callable", "docker": "not callable" },
+  "sqlTarget": "explicit isolated ephemeral PostgreSQL WASM memory; no connection string"
+}

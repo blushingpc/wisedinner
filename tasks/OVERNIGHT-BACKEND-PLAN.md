@@ -1,0 +1,39 @@
+# Overnight backend readiness
+
+Started October 4, 2026 at 22:47:35 America/New_York (2026-10-05 02:47:35 UTC).
+Branch `codex/backend-readiness`; starting HEAD `6eddd9c`; inspected clean tree.
+
+## Current authority and decisions
+
+Local implementation only. Accounts through Supabase Apple/Google/email, verified eligible 14-day subscription trial or existing access, included rerolls and optional notifications supersede older Free-tier scope. Prices remain $8.99 monthly/$48 annual, pending provider configuration verification. Email mode, release date, founders date interpretation and reroll grocery/budget mechanics remain unset.
+No app product edits, website worktree access, shared database mutation, provider activation, publication, remote Git write, paid call/build or real message. Never touch engine tables or media. Only checked isolated disposable database targets may execute SQL.
+
+## Milestones and proof
+
+1. Verified-session account API, bounded preferences/saved weeks, atomic revisions and deletion lifecycle. Additive backend-owned migrations with explicit grants/RLS. Test authentication, ownership, payload bounds, concurrent edits, retries and deletion denial. Actual SQL/RLS proof is separate from mocked repositories.
+2. Stable billing identity, verified entitlement reconciliation and authenticated durable webhook handling. Test trial/renewal/cancellation/expiry/revocation/outage/order/retries/environment/account isolation. Synthetic provider fixtures never establish real Apple purchases or production IDs.
+3. Targeted original-source plant staple review and source-ready preparations. Preserve earlier food evidence; all eighteen profile/seed runs, independent arithmetic and restricted substitutions. No weakened constraints or bulk approval.
+4. Exact future-import pack provenance and stage-before-publish lifecycle. Fake fault injection, exact-byte hashes, immutable versions, pointer concurrency and last-good preservation. Isolated candidate manifest only, no public regeneration.
+5. Optional private push registration, disabled delivery, operations freshness/dry alerts, mocked support regression and committed website destination audit. No reminder campaign, real mail/push or schedule activation.
+6. Backend-owned endpoint/schema/native handoff, privacy/rollout dependencies and final gates: npm test, ordinary tsc, lint, voice, sequential build, diff/security review. Exact local commits and memory checkpoint.
+
+## Compatibility and recovery
+
+Account APIs use `/api/v1/` and new `wd_`-owned tables/functions, leaving anonymous snapshot/solve clients unchanged. Migrations remain unapplied until isolated SQL proof and a separately authorized deployment. Rollback disables new routes/configuration and retains existing data; do not drop data or change engine grants. Billing and notification adapters fail closed until configured. Food staging remains private, additive and source-pinned; retain the prior reviewed week. Publication stages must validate before any external writer and use immutable storage plus compare-and-set pointer semantics; failed pointer writes may leave an orphan, never delete it automatically.
+
+## Checkpoint 0
+
+Required context reloaded in bounded reads after detecting truncation. New scope overrides historical instructions. Git branch/HEAD and six commits match; no dirty files or concurrent ownership discovered. Caveman investigate-first/lean-build/migration/verify-and-stop, humanize-writing, Supabase skill/security/schema references and Expo overview read. Installed Next route-handler guide read. Context7 not callable; Serena lookup tools lack required initial-instructions tool, so unused. No browser/Expo service launched.
+Fresh baseline npm test passed 151/151 in 24.213 seconds. Final gates pending. Existing reviewed evidence: 63 approved/18 quarantined, thirteen ready IDs; do not count legacy anchors.
+Next exact action: finish baseline test, inspect current app seams and auth/database ownership, then implement the narrow versioned account path. At 01:47:35 local save a usable three-hour handoff; reserve final verification before the six-hour ceiling.
+
+## Checkpoint 1, account foundation
+
+Branch/HEAD unchanged at `codex/backend-readiness`/`6eddd9c`. Run-owned dirty paths: this plan, `lib/account.ts`, `lib/account.test.ts`, `app/api/v1/account/[[...path]]/route.ts`, `supabase/migrations/0006_wd_accounts.sql`, progress. Eight initial HTTP/adapter tests and ordinary typecheck passed; catalog-pin and partial-deletion worker regressions added next. The default-off versioned route uses Supabase Auth server verification before signed claim checks, never client ownership/tier. Atomic account RPC owns revisions/idempotency and bounded saved weeks; immutable catalog pins are server-only writes. Deletion wipes owned preferences/weeks and denies resurrection immediately, but explicitly remains pending external Auth/Apple cleanup. No live deletion worker or provider activation.
+App SDK 57.0.21/RN 0.86.3 inspected without edits: legacy snapshot parser, inert refresh, hardcoded Free and name-based unknown tags confirmed. `psql`/Docker not callable: actual SQL/RLS execution unavailable, not replaced by mock proof. Migration remains unapplied, deployment disabled. Actual route regression reproduced incorrect 503 for invalid authentication, then corrected and passed 11/11 focused tests plus ordinary typecheck. Earlier full suite 161/161 and lint/voice/build passed; updated full suite/build rerun before commit. Only old `_digest` warning and Edge runtime warnings seen. Read-only Auth settings HTTP 200: Apple/Google disabled, email enabled, signup enabled; SMTP and OAuth IDs not verified. RevenueCat MCP/CLI unavailable, no live product/entitlement verification. Exact source/endpoint/deletion rollout and recovery: `docs/ACCOUNT-API-V1.md`. Next: finish current final slice gates and inspect exact staged files, then local account commit and billing state/reconciliation.
+
+SQL blocker partly resolved: authorized minimal test-only PGlite 0.5.8 added, one package, install scripts/audit/funding disabled. Actual 0006 SQL runs in explicit ephemeral PostgreSQL WASM memory with anon/A/B/service roles and emulated verified Auth claims. RLS/grants/direct-write denial, immutable pins, revisions/retries/deletion and unchanged unrelated grants pass. This is not hosted Supabase or multi-connection/native proof. Eleven HTTP tests plus one SQL test pass. No connection string or shared database touched. Dependency and SQL test are run-owned; full package gates rerun after addition before account commit.
+
+Fresh public pointer/blob read is HTTP 200, **v6**, created October 4 15:20:28 UTC, 163,016 exact bytes, 82 recipes/79 SKUs. Declared and downloaded SHA-256 agree (`a8700c74741c5f155b33dc3d7f2be1833b6165d98f38b1482390d6c208422668`). This supersedes the historical v5 assumption, not source validation. No publication/repair by this run. Durable baseline: `docs/overnight-baseline.json`. Do not replace the private reviewed catalog with these public rows.
+
+Account slice final gates: 163/163 tests (25.613 s), ordinary `npx tsc --noEmit`, lint (zero errors/one old warning), voice, build and diff check pass. Exact owned account/SQL/dependency/docs/checkpoint files inspected for local commit. Next safe slice: billing identity, provider truth reconciliation and durable authenticated webhook inbox; production IDs, transfer policy and native Apple proof remain blockers, not assumed values.
