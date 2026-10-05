@@ -1,4 +1,4 @@
-import { insert, select, update } from "@/app/api/db";
+import { insert, select, update } from "../../app/api/db.ts";
 import type { Store, Thread } from "./handler.ts";
 
 // support_threads / support_messages_v2 through the PostgREST helper (service key only)

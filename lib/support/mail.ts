@@ -13,7 +13,7 @@ export type Outbound = { to: string; subject: string; text: string; inReplyTo?: 
 export const AUTO_HEADERS = { "Auto-Submitted": "auto-replied", "X-Auto-Response-Suppress": "All" } as const;
 
 export type Mailbox = {
-  unread(): Promise<Inbound[]>;
+  unread(limit?: number): Promise<Inbound[]>;
   markSeen(uid: number): Promise<void>;
   send(mail: Outbound): Promise<{ messageId: string }>;
 };
@@ -25,7 +25,7 @@ export const mailConfigured = () => Boolean(addr() && pass());
 export function gmail(): Mailbox {
   const client = () => new ImapFlow({ host: "imap.gmail.com", port: 993, secure: true, auth: { user: addr(), pass: pass() }, logger: false });
   return {
-    async unread() {
+    async unread(limit) {
       const c = client();
       await c.connect();
       const out: Inbound[] = [];
@@ -47,6 +47,7 @@ export function gmail(): Mailbox {
               date: (parsed.date ?? new Date()).toISOString(),
               autoSubmitted: autoSubmittedOf(parsed.headers.get("auto-submitted")),
             });
+            if (limit !== undefined && out.length >= limit) break;
           }
         } finally {
           lock.release();
