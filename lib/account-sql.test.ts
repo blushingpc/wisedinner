@@ -71,3 +71,53 @@ test("isolated PostgreSQL executes account migration/RLS, ownership, atomic retr
     assert.equal((await command("deletion_status", {}, null)).state, "deletion_pending");
   } finally { await db.close(); }
 });
+test("isolated PostgreSQL billing binds opaque identities, excludes clients, serializes events and preserves environment/ownership", async () => {
+  const db = await PGlite.create("memory://");
+  try {
+    await db.exec(`create role anon; create role authenticated; create role service_role bypassrls;
+      create schema auth; grant usage on schema public,auth to anon,authenticated,service_role;
+      create function auth.jwt() returns jsonb language sql stable as $$ select coalesce(nullif(current_setting('request.jwt.claims',true),''),'{}')::jsonb $$;
+      create function auth.uid() returns uuid language sql stable as $$ select (auth.jwt()->>'sub')::uuid $$;
+      create function auth.role() returns text language sql stable as $$ select auth.jwt()->>'role' $$;`);
+    for (const migration of ["0006_wd_accounts.sql", "0007_wd_billing.sql"]) await db.exec(await readFile(new URL(`../supabase/migrations/${migration}`, import.meta.url), "utf8"));
+    const login = async (role: string, id?: string) => { await db.exec("reset role"); await db.query("select set_config('request.jwt.claims',$1,false)", [JSON.stringify({ role, sub: id })]); await db.exec(`set role ${role}`); };
+    const bill = async (action: string, body: unknown) => (await db.query<{ result: Record<string, unknown> }>("select public.wd_billing_command($1,$2::jsonb) as result", [action, JSON.stringify(body)])).rows[0].result;
+    await login("authenticated", A);
+    await db.query("select public.wd_account_command('initialize','{}',$1)", [K]);
+    for (const table of ["wd_billing_bindings", "wd_billing_states", "wd_billing_transactions", "wd_billing_events"]) await assert.rejects(db.query(`select * from public.${table}`), /permission denied/);
+    await assert.rejects(bill("bind", { userId: A }), /permission denied/);
+    await login("authenticated", B); await db.query("select public.wd_account_command('initialize','{}',$1)", [K]);
+    await login("service_role");
+    const a = await bill("bind", { userId: A }); const b = await bill("bind", { userId: B });
+    assert.match(a.appUserId as string, /^wd_[0-9a-f-]{36}$/); assert.notEqual(a.appUserId, `wd_${A}`);
+    assert.notEqual(a.appUserId,b.appUserId); assert.deepEqual(await bill("bind", { userId: A }),a);
+    const begin = () => bill("begin", { userId: A, environment: "PRODUCTION" });
+    const old = await begin(), fresh = await begin(); const now = Date.now();
+    const revoked = { state: "revoked", expiresAt: null, observedAt: now, reason: "provider_refund" };
+    assert.equal((await bill("commit", { userId: A, environment: "PRODUCTION", generation: fresh.generation, state: revoked })).state, "revoked");
+    const active = { state: "active", expiresAt: now+86400000, observedAt: now, reason: "provider_verified", transactionHash: "a".repeat(64) };
+    assert.equal((await bill("commit", { userId: A, environment: "PRODUCTION", generation: old.generation, state: active })).state, "revoked");
+    const next = await begin(); assert.equal((await bill("commit", { userId: A, environment: "PRODUCTION", generation: next.generation, state: active })).state, "active");
+    const event = { id: "event-one", type: "CANCELLATION", environment: "PRODUCTION", timestamp: now, appUserIds: [a.appUserId], identityHold: false, fingerprint: "b".repeat(64) };
+    assert.equal((await bill("enqueue", event)).status, "queued"); assert.equal((await bill("enqueue", event)).status, "queued");
+    assert.equal((await bill("enqueue", { ...event, fingerprint: "c".repeat(64) })).error, "idempotency_conflict");
+    const claimed = (await bill("claim_events", { environment: "PRODUCTION", limit: 5 })).events as Array<{ id: string; attempt: number }>;
+    assert.equal(claimed.length,1); assert.equal(((await bill("claim_events", { environment: "PRODUCTION", limit: 5 })).events as unknown[]).length,0);
+    await bill("finish_event", { ...claimed[0], environment: "PRODUCTION", status: "retry" });
+    const retry = (await bill("claim_events", { environment: "PRODUCTION", limit: 5 })).events as Array<{ id: string; attempt: number }>;
+    assert.equal(retry[0].attempt,2);
+    // Stale lease holder cannot complete a newer attempt.
+    await bill("finish_event", { ...claimed[0], environment: "PRODUCTION", status: "processed" });
+    assert.equal((await db.query<{ status: string }>("select status from public.wd_billing_events")).rows[0].status,"leased");
+    await bill("finish_event", { ...retry[0], environment: "PRODUCTION", status: "processed" });
+    await bill("enqueue", { ...event, id: "sandbox-transfer", environment: "SANDBOX", type: "TRANSFER", identityHold: true });
+    assert.equal((await begin()).binding && ((await begin()).binding as { held: boolean }).held, false);
+    assert.equal(((await bill("begin", { userId: A, environment: "SANDBOX" })).binding as { held: boolean }).held,true);
+    const other = await bill("begin", { userId: B, environment: "PRODUCTION" });
+    assert.equal((await bill("commit", { userId: B, environment: "PRODUCTION", generation: other.generation, state: active })).state,"unknown");
+    assert.equal(((await begin()).binding as { held: boolean }).held,true);
+    await db.query("update public.wd_accounts set state='deleted' where user_id=$1",[A]);
+    assert.equal((await begin()).error,"account_inactive");
+    assert.equal((await bill("bind", { userId: A })).error,"account_inactive");
+  } finally { await db.close(); }
+});

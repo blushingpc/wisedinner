@@ -1,0 +1,43 @@
+# Subscription access foundation, October 4, 2026
+
+Implemented and tested locally with synthetic provider fixtures and isolated PostgreSQL WASM. No RevenueCat account/product/entitlement, Apple price point, trial offer, native purchase or restore was verified. RevenueCat MCP and CLI are not callable. Migration `0007_wd_billing.sql` remains unapplied to shared/hosted databases; new routes default off. No separate reroll product exists in this new contract.
+
+## Identity and endpoints
+
+Verified Supabase account ownership is mandatory. GET `/api/v1/billing/identity` returns an opaque stable `wd_<random UUID>` App User ID from a server-only binding. It is not an email, sequential ID or client-supplied account ID. The account must remain active; service-role RPCs independently check it. Get identity **before** configuring/purchasing in the native SDK. Login, logout, support, account deletion, restore and subscription management are not paid-only operations.
+
+GET `/api/v1/access` and POST `/api/v1/access` with `{}` reconcile current provider truth for the verified account. Client purchase-success/tier/expiry/user-ID fields are rejected. Result example uses synthetic identity/state:
+
+```json
+{"apiVersion":1,"appUserId":"<opaque bound identity>","state":"trial","expiresAt":2000086400000,"observedAt":2000000000000,"reason":"provider_verified","allowed":true,"rerollsIncluded":true,"stale":false}
+```
+
+Access is trial/active only until explicit verified expiry. Cancellation alone stays active. Expired/refunded/revoked/unknown/pending-unverified states cannot grant. Verified provider/store grace can extend access only when both entitlement and subscription explicitly agree; there is no locally invented grace or fourteen-day timer. On provider outage, an existing verified cached state may remain usable only through its recorded expiry, marked stale. No cache means unknown/denied. A malformed or mismatched response is not a new entitlement. Sandbox never grants production access. Transaction hashes are private and never returned to the app.
+
+Provider response must match the configured entitlement and monthly/annual products, App Store, environment, purchased ownership, finite source dates and transaction identity. Original RevenueCat identity must match the bound opaque account. Anonymous legacy aliases, family sharing, transfer conflicts and another account's transaction remain review-blocked. No transfer policy is activated. Durable transaction ownership prevents one observed transaction from granting two backend accounts; a new transfer/root-transaction policy and native restore tests remain required before activation.
+
+Current [RevenueCat identity documentation](https://www.revenuecat.com/docs/customers/identifying-customers) permits direct switching between identified users; installed skill examples incorrectly say this necessarily aliases accounts. Use current vendor behavior, serialize transitions and suppress old CustomerInfo/cached access during switching. Do not configure an anonymous purchasing identity for this account-required launch. Logout must clear app-owned state and disable purchasing/private use even if the SDK retains a prior identity until the next verified login. Exact SDK teardown/logOut behavior needs native acceptance, not a speculative code port.
+
+## Webhook and worker lifecycle
+
+POST `/api/v1/billing/webhook` verifies the configured Authorization header in constant time, exact app ID, supported envelope/schema and 65,536-byte JSON limit. This uses [RevenueCat's documented configurable Authorization header](https://www.revenuecat.com/docs/integrations/webhooks), not an invented signature. Current docs also describe optional HMAC signing; it was not configured or assumed. Production route ignores sandbox/other-app/dashboard test events. Provider attributes/emails/raw transaction IDs are never saved.
+
+Durable inbox commits normalized event ID/environment/fingerprint before HTTP 200. Same event retries deduplicate; changed content with the same key conflicts. Events never directly grant/revoke. A bounded worker seam leases at most five events, re-fetches current provider entitlement state, and uses generation/source-time checks to prevent stale commits. Stale lease holders cannot finish newer attempts. Provider outage retries; deleted accounts are consumed without bootstrap. Ten failed attempts hold the event for operational review. No real worker, webhook configuration or schedule is activated.
+
+Transfers/multi-account aliases are held at receipt, not after worker delay. Known sandbox holds stay sandbox-only. Environment-unknown transfer is quarantined and conservatively held, not inferred to be production. A SQL regression reproduced sandbox contamination of production hold state, then passed after environment-scoped correction. RLS and grants deny authenticated/anon access to all billing tables/functions; only explicit server-role code can write. Hosted Auth/PostgREST and concurrent connections remain separate proof.
+
+## Configuration and trial wall, not activated
+
+Names only: `WD_BILLING_API_ENABLED`, `WD_REVENUECAT_CONFIGURATION_VERIFIED`, `REVENUECAT_SECRET_API_KEY`, `REVENUECAT_WEBHOOK_AUTHORIZATION`, `REVENUECAT_APP_ID`, `REVENUECAT_PROTEIN_ENTITLEMENT_ID`, `REVENUECAT_MONTHLY_PRODUCT_ID`, `REVENUECAT_ANNUAL_PRODUCT_ID`, plus existing Supabase URL/anon/service names. No fallback entitlement/product identifiers or historical product IDs are treated as verified. No provider call was run with a real customer ID. Vendor `GET /subscribers/{id}` [can create a missing customer](https://www.revenuecat.com/docs/api-v1/customers), so it is not used for read-only configuration discovery. Adapter calls here are mocks only.
+
+Prepare the existing Protein Plan monthly $8.99 and annual $48 offer with an eligible two-week free trial in the existing subscription group, after authenticated product/price verification. Exact $48 Apple annual price availability is still unverified; do not substitute a nearest price point. Ineligible customers see the real localized purchase/restore state, not another promised trial or a new discount. [Apple permits one introductory offer per subscription group](https://developer.apple.com/help/app-store-connect/manage-subscriptions/set-up-introductory-offers-for-auto-renewable-subscriptions). Use real SDK/store eligibility and localized post-trial total/period, auto-renewal disclosure, restore, manage/cancel, terms and privacy links. The trial uses Apple's purchase flow; provider activation requires separate authority.
+
+[RevenueCat Expo Go preview is JavaScript mock purchase behavior](https://www.revenuecat.com/docs/getting-started/installation/expo), not Apple sandbox proof. Actual installed app is Expo 57.0.21 without RevenueCat SDK/auth wiring. Match native SDK versions in the later integration job; do not upgrade here. Native purchase/relaunch/account switch/restore/cancel/grace/refund/expiry and offline transitions remain pending. Public downloaded food data/on-device solving are not secret; this is private API ownership/access-state protection, not a complete native wall or DRM.
+
+Founders eligibility remains unset: [CustomerInfo and EntitlementInfo reference definitions](https://www.revenuecat.com/docs/customers/customer-info) distinguish the app's original purchase/download date from the first purchase date of that entitlement. The founder must choose the intended interpretation and release/window; neither field is silently substituted. No founders badge/invite is enabled. Apple IAP key is distinct from the App Store submission key.
+
+## Rollout and recovery
+
+First verify provider/offer IDs, restore/transfer/retention policy, hosted isolated SQL/Auth and native flow. Then separately authorize migration/flags/webhook/worker. Failed enqueue returns non-200 for provider retry; failed reconcile cannot invent access; failed pointer/food publication is unrelated. Disable new billing flags and worker to recover, retain inbox/ownership/tombstones, never drop data or revive old Free/reroll commercial terms. No app or website product code changed.
+
+Local slice gates: 183/183 tests (32.167 s), ordinary typecheck, lint (zero errors/one existing warning), voice, build and diff check pass. Nineteen provider/endpoint tests use synthetic data only; two SQL tests run real ephemeral PostgreSQL. No real Apple sandbox proof. SDK-57 [Expo Apple authentication reference](https://docs.expo.dev/versions/v57.0.0/sdk/apple-authentication/) is accessible for later integration; native module/configuration is not installed or changed here.

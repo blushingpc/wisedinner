@@ -28,7 +28,7 @@ function strings(value: unknown, max: number): string[] {
   return value as string[];
 }
 export async function boundedJson(request: Request, limit = 16384): Promise<Record<string, unknown>> {
-  if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) throw new AccountError(415, "json_required");
+  if (request.headers.get("content-type")?.split(";")[0].trim().toLowerCase() !== "application/json") throw new AccountError(415, "json_required");
   const length = request.headers.get("content-length");
   if (length && (!/^\d+$/.test(length) || Number(length) > limit)) throw new AccountError(413, "payload_too_large");
   const reader = request.body?.getReader();
