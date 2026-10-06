@@ -1,5 +1,13 @@
 # Progress log — newest entry on top
 
+## October 5, 2026: private food coverage checkpoint
+
+- Starting ad900b6, sole backend writer; app 8a0618b read-only and existing QUEUE additions preserved. Actual graph regression failed before implementation (exit 1): 51 ingredient-reviewed soy-free preparations/3 breakfasts became zero after parent exclusion.
+- New offline reviewed-selection seam regenerates trusted approval/source graph, preserves original parent/kind, seals separate projection provenance and proves pairwise repeat-family equivalence. Core/public/app/source/approval data unchanged; 96 cap unchanged.
+- Focused first gate passed 24/24, exit 0 (12.876 s), including actual staged graph and unchanged existing restriction/pool/source tests. Next: exclusive full-profile/restriction/substitution acceptance, then sequential repository gates. Evidence run 2026-10-05T23-36-09-703Z-4fa3c971; no launch/live-price/kitchen proof yet.
+- Final pinned acceptance exit 0: 43 cases, 28 feasible weeks, six explicit constraint misses and nine empty breakfast/main cases; 420 feasible slots, 1,949 returned candidates all independently valid, 35 zero slots and 262 six-result caps. All 18 primary weeks match legacy output; six soy typical/household weeks now pass. Soy high-protein maximum from existing portions is 178.894143 g/day, below 180. Soy floor search returns $48.55, not a proved minimum. Source/approval/recipes unchanged. Final focused 24/24 exit 0; next sequential full gates.
+- Verified source commit 47196ab2b349c1193de22a173171d90dd0ec1970, no push. Sequential full npm test 271/271 (47.318 s), ordinary typecheck, lint/no warnings, voice, build and source diff pass, all final exits 0. Build retains existing Edge deprecation. Exact coverage/pins/rollback/remaining gates: docs/FOOD-COVERAGE-LOCAL.md; evidence remains external. Index clean after source commit; plan/report/progress save follows, known queue changes remain unstaged and app read-only. Proposed next private quote-bridge binding requires independent review, not self-approval; no supported skill change.
+
 ## October 5, 2026: account client local checkpoint
 
 - Backend codex/backend-readiness dd9b74f unchanged product source; app main source1c79da7 has isolated owned src/account modules/tests/task plan. Existing backend QUEUE additions and app PROGRESS/reports/research_notes preserved by hash comparison; root progress/queue remain unstaged.
