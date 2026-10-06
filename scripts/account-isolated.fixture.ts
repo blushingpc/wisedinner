@@ -104,6 +104,7 @@ export async function memoryLifecycleFixture(inventory: MigrationPin[], scenario
       providers: { verifyIdentity: async userId => { trace.push("fake_identity_verified"); return { userId, identityHash: DRY_HASH, evidenceHash: "b".repeat(64), apple: scenario === "none" || scenario === "absent_auth" ? "none" : scenario === "unknown_linkage" ? "unknown" : "linked" }; }, apple: adapter("apple"), auth: adapter("auth") },
       outbox: supportOutboxRepository("https://dry.invalid", "synthetic", request),
       mail: { unread: async () => seen.has(1) ? [] : [{ uid: 1, messageId: "dry-inbound", from: "synthetic@example.invalid", subject: "Fixture", text: "Question", date: "2000-01-01" }], markSeen: async uid => { seen.add(uid); trace.push("fake_seen"); }, send: async payload => {
+        assert.deepEqual(payload, (await query("bootstrap", null, "select payload from public.wd_support_work"))[0].payload, "send_matches_frozen_SQL_payload");
         sends.push(structuredClone(payload)); effects.smtp++; trace.push("fake_smtp_effect");
         if (scenario === "smtp_unknown") throw Error("synthetic_SMTP_unknown");
         return { messageId: "dry-smtp-1" };

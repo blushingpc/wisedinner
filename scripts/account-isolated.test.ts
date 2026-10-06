@@ -101,7 +101,7 @@ for (const scenario of ["normal", "completion_ack", "unknown_apple", "none", "un
     if (scenario === "completion_ack") assert.equal(observed.deletionFirst.state, "deletion_pending");
     assert.equal(f.effects.apple, ["none", "unknown_linkage", "missing_material", "absent_auth"].includes(scenario) ? 0 : 1);
     assert.equal(f.effects.auth, heldDeletion || scenario === "absent_auth" ? 0 : 1);
-    if (scenario === "unknown_apple") assert.equal(f.trace.filter(s => s === "fake_apple_run").length, 1);
+    if (scenario === "unknown_apple") { assert.equal(f.trace.filter(s => s === "fake_apple_run").length, 1); assert(observed.cases.includes("held worker operation/identity mismatch refused without progress")); }
     if (scenario === "missing_material") { assert.equal(f.targets.length, 2); assert.equal(new Set(f.targets.map(t => t.operationId)).size, 1); }
     if (scenario === "unknown_linkage") assert.equal(f.targets.length, 0);
     if (scenario === "absent_auth") assert(f.trace.includes("fake_auth_verified_absent"));

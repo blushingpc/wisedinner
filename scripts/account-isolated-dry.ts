@@ -95,9 +95,19 @@ export async function runDryPrepared(target: Target, options?: DryOptions) {
     await denied(() => p.deletion.command("proof", { ...context, dependency: "apple", operationId: randomUUID(), identityHash: DRY_HASH, evidenceHash: DRY_HASH, outcome: "confirmed" }), "invalid_progress");
     await p.deletion.command("release", context);
     await denied(() => p.deletion.command("cleanup", context), "stale_claim");
-    cases.push("competing/stale deletion claims and premature/mismatched proof refused");
+    cases.push("competing/stale deletion claims and premature unbound proof refused");
     // Fresh worker instances reuse persisted SQL, never local worker object state.
     const deletionFirst = await accountDeletionWorker(p.deletion, p.providers)(DRY_A);
+    const firstProgress = (await p.query("service_role", null, "select apple_state from public.wd_deletion_work where user_id=$1", [DRY_A]))[0];
+    if (firstProgress.apple_state === "held") {
+      // Exercise wrong pins after real worker identity/begin/proof persistence, not just an unbound refusal.
+      const held = await p.deletion.command("claim", { userId: DRY_A, owner: randomUUID() });
+      const heldContext = { userId: DRY_A, owner: held.work.owner, attempt: held.work.attempt, dependency: "apple", evidenceHash: DRY_HASH, outcome: "confirmed" };
+      await denied(() => p.deletion.command("proof", { ...heldContext, operationId: randomUUID(), identityHash: held.work.identity_hash }), "invalid_progress");
+      await denied(() => p.deletion.command("proof", { ...heldContext, operationId: held.work.apple_operation, identityHash: "b".repeat(64) }), "invalid_progress");
+      await p.deletion.command("release", { userId: DRY_A, owner: held.work.owner, attempt: held.work.attempt });
+      cases.push("held worker operation/identity mismatch refused without progress");
+    }
     const deletionRestart = await accountDeletionWorker(p.deletion, p.providers)(DRY_A);
     const progress = (await p.query("service_role", null, "select apple_state,auth_state,complete from public.wd_deletion_work where user_id=$1", [DRY_A]))[0];
     const status = await result(await call(DRY_A, "GET", undefined, randomUUID(), "/deletion"));
