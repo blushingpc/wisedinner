@@ -1,5 +1,12 @@
 # Progress log — newest entry on top
 
+## October 6, 2026: local launch-gap audit checkpoint
+
+- Starting backend e44fdc5/app 9883731b; audit and outside-Git dry probes only. Website design-v5 74b6f8b read-only. No runtime/schema/dependency/UI/flag/provider change; known queue/app history preserved.
+- Fresh sequential backend 281/281 and app 139/139 tests, ordinary typechecks, backend lint/voice, app source greps and diff checks exit 0. Previous final HBC/source hashes/control/private-marker checks reverified without another build. Native/provider/hosted checks remain unrun; local app lint/doctor/native SDKs absent.
+- Actual injected coordinator refresh regression is red (3/4, exit 1): verified TOKEN_REFRESHED resets private cache readiness without rebind. Actual legacy app probes also expose portion stretching/unknown safety and receipt fixture reachability if tiers alone are flipped; no fixes or production incident claims.
+- Source pins and saved food/quote counts revalidated: 43 food cases/28 feasible/6 misses/9 missing slots; 24 quote weeks/72 pantry cases/381 candidates; fictional adverse overruns 64/96/max137c. Exact matrix, website owner files, migration order, founder/access gates and proposed narrow refresh-recovery job: docs/LAUNCH-READINESS-AUDIT-2026-10-06.md. Launch-ready NO. Checkpoint/preflight/owned commits follow; no self-approved continuation or supported skill change.
+
 ## October 6, 2026: app account-deletion client checkpoint
 
 Starting backendd30cf5c/app984877b. Only backend test/docs are owned here; product source/migrations unchanged. App optional injected deletion boundary has64 focused passes including46 existing cases. Actual baseline status route denial and first fixture call-count failure retained in run2026-10-06T02-18-42-641Z-9f0fb42d. Current actual account handler/unchanged0006/0007/0009/0013 memory SQL dry proof running; no credentials/hosted operations. Next sequential app full/typecheck/greps/export and accepted report/preflight. Native/provider/hosted/retention/rollout remain gates; this checkpoint cannot authorize the next job.
