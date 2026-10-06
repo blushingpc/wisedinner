@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { randomUUID } from "node:crypto";
-import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+import { createHash, randomUUID } from "node:crypto";
+import { mkdir, readFile, realpath, stat, writeFile } from "node:fs/promises";
 import { isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { accountHandler, supabaseAccountRepository, supabaseVerifier, UUID } from "../lib/account.ts";
@@ -8,48 +8,102 @@ import { supabaseBillingRepository } from "../lib/billing.ts";
 
 const PURPOSE = "wisedinner-disposable-account-acceptance";
 const SHARED = "zpvqxtklvjitofpbddrn";
-type Target = { purpose: string; disposable: boolean; projectRef: string; url: string; nonce: string; credentialFile: string; outputDir: string };
+export type Target = { purpose: string; disposable: boolean; projectRef: string; url: string; nonce: string; credentialFile: string; outputDir: string };
 type Credentials = { anonKey: string; serviceRoleKey: string };
+export const SCHEMA_REVISION = "0006-0013";
+const MIGRATIONS = ["0006_wd_accounts.sql", "0007_wd_billing.sql", "0008_wd_publication.sql", "0009_wd_notifications.sql", "0010_wd_operations.sql", "0011_wd_support_sends.sql", "0012_wd_support_outbox.sql", "0013_wd_account_deletion.sql"] as const;
+export type MigrationPin = { file: string; sha256: string; bytes: number };
+export async function migrationInventory(): Promise<MigrationPin[]> {
+  const pins = [];
+  for (const file of MIGRATIONS) {
+    const bytes = await readFile(new URL(`../supabase/migrations/${file}`, import.meta.url));
+    pins.push({ file, sha256: createHash("sha256").update(bytes).digest("hex"), bytes: bytes.length });
+  }
+  return pins;
+}
+function requireSafe(condition: unknown, code: string): asserts condition { if (!condition) throw Error(code); }
 
 // No env fallbacks, shared credentials, schema changes, reset, mail or provider calls.
 export function isolatedTarget(value: unknown): Target {
   assert(value && typeof value === "object" && !Array.isArray(value), "manifest_required");
   const t = value as Target;
-  assert.deepEqual(Object.keys(t).sort(), ["purpose", "disposable", "projectRef", "url", "nonce", "credentialFile", "outputDir"].sort(), "manifest_fields");
-  assert.equal(t.purpose, PURPOSE, "purpose_required");
-  assert.equal(t.disposable, true, "disposable_required");
+  requireSafe(Object.keys(t).sort().join() === ["purpose", "disposable", "projectRef", "url", "nonce", "credentialFile", "outputDir"].sort().join(), "manifest_fields");
+  requireSafe(t.purpose === PURPOSE, "purpose_required");
+  requireSafe(t.disposable === true, "disposable_required");
   assert(typeof t.projectRef === "string" && /^[a-z]{20}$/.test(t.projectRef) && t.projectRef !== SHARED, "shared_or_invalid_target");
-  assert.equal(t.url, `https://${t.projectRef}.supabase.co`, "exact_https_target_required");
+  requireSafe(t.url === `https://${t.projectRef}.supabase.co`, "exact_https_target_required");
   assert(typeof t.nonce === "string" && UUID.test(t.nonce), "target_nonce_required");
   assert(typeof t.credentialFile === "string" && isAbsolute(t.credentialFile), "external_credentials_required");
   assert(typeof t.outputDir === "string" && isAbsolute(t.outputDir), "exclusive_output_required");
-  return t;
+  return Object.freeze({ ...t });
 }
 
-export async function verifyIsolatedTarget(target: Target, serviceKey: string, request: typeof fetch = fetch) {
+export async function verifyIsolatedTarget(target: Target, serviceKey: string, request: typeof fetch = fetch, deadlineMs = 8000) {
   // Recheck before the first network request even when called outside the CLI.
-  isolatedTarget(target);
-  const response = await request(`${target.url}/rest/v1/wd_readiness_target?id=eq.${target.nonce}&select=id,purpose,disposable,project_ref,schema_revision`, {
-    method: "GET", headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
-    redirect: "error", cache: "no-store", signal: AbortSignal.timeout(8000),
-  });
-  assert.equal(response.status, 200, "target_marker_unavailable");
-  assert.deepEqual(await response.json(), [{ id: target.nonce, purpose: PURPOSE, disposable: true, project_ref: target.projectRef, schema_revision: "0006-0011" }], "target_marker_mismatch");
+  target = isolatedTarget(target);
+  requireSafe(typeof serviceKey === "string" && serviceKey.length > 0 && serviceKey.length <= 16384, "marker_credential_required");
+  requireSafe(Number.isInteger(deadlineMs) && deadlineMs > 0 && deadlineMs <= 8000 && typeof request === "function", "target_verifier_required");
+  const inventory = await migrationInventory(), controller = new AbortController();
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
+  const work = async () => {
+    const response = await request(`${target.url}/rest/v1/wd_readiness_target?id=eq.${target.nonce}&select=id,purpose,disposable,project_ref,schema_revision,migration_digests`, {
+      method: "GET", headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
+      redirect: "error", cache: "no-store", signal: controller.signal,
+    });
+    requireSafe(response.status === 200 && !response.redirected && (!response.url || response.url === `${target.url}/rest/v1/wd_readiness_target?id=eq.${target.nonce}&select=id,purpose,disposable,project_ref,schema_revision,migration_digests`), "target_marker_unavailable");
+    requireSafe(response.headers.get("content-type")?.split(";")[0].trim() === "application/json", "target_marker_malformed");
+    const length = response.headers.get("content-length");
+    requireSafe(!length || /^\d+$/.test(length) && Number(length) <= 16384, "target_marker_size");
+    reader = response.body?.getReader(); requireSafe(reader, "target_marker_malformed");
+    let size = 0; const chunks: Uint8Array[] = [];
+    while (true) {
+      const part = await reader.read(); if (part.done) break;
+      size += part.value.byteLength; requireSafe(size <= 16384, "target_marker_size"); chunks.push(part.value);
+    }
+    const value = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+    const expected = [{ id: target.nonce, purpose: PURPOSE, disposable: true, project_ref: target.projectRef, schema_revision: SCHEMA_REVISION, migration_digests: inventory }];
+    // Comparison is strict, but failure never carries the private response or assertion diff.
+    requireSafe(typeof value === "object" && value !== null, "target_marker_mismatch");
+    try { assert.deepEqual(value, expected); } catch { throw Error("target_marker_mismatch"); }
+    return inventory;
+  };
+  try {
+    return await Promise.race([work(), new Promise<never>((_, reject) => {
+      timer = setTimeout(() => { controller.abort(); reject(Error("target_marker_unavailable")); }, deadlineMs);
+    })]);
+  } catch { throw Error("target_marker_refused"); }
+  finally { clearTimeout(timer); controller.abort(); void reader?.cancel().catch(() => {}); }
 }
 
 function outsideRepo(path: string, repo: string) {
   const r = relative(repo, path);
   assert(r === ".." || r.startsWith(`..${sep}`) || isAbsolute(r), "file_must_be_outside_repo");
 }
+async function externalJson(path: string): Promise<unknown> {
+  try {
+    const info = await stat(path);
+    requireSafe(info.isFile() && info.size <= 16384, "external_json_refused");
+    const bytes = await readFile(path);
+    requireSafe(bytes.length <= 16384, "external_json_refused");
+    return JSON.parse(bytes.toString("utf8"));
+  } catch { throw Error("external_json_refused"); }
+}
 
 export async function runIsolated(manifest: string) {
+  requireSafe(typeof manifest === "string" && isAbsolute(manifest), "external_manifest_required");
   const repo = await realpath(fileURLToPath(new URL("..", import.meta.url)));
   const manifestPath = await realpath(manifest); outsideRepo(manifestPath, repo);
-  const target = isolatedTarget(JSON.parse(await readFile(manifestPath, "utf8")));
+  const target = isolatedTarget(await externalJson(manifestPath));
   const credentialPath = await realpath(target.credentialFile); outsideRepo(credentialPath, repo);
   const outputRoot = await realpath(target.outputDir); outsideRepo(outputRoot, repo);
-  const credentials = JSON.parse(await readFile(credentialPath, "utf8")) as Credentials;
-  assert.deepEqual(Object.keys(credentials).sort(), ["anonKey", "serviceRoleKey"].sort(), "credential_fields");
+  for (const sibling of ["wisedinner-app", "wisedinner"]) {
+    const root = await realpath(resolve(repo, "..", sibling));
+    for (const path of [manifestPath, credentialPath, outputRoot]) outsideRepo(path, root);
+  }
+  const credentials = await externalJson(credentialPath) as Credentials;
+  requireSafe(credentials && typeof credentials === "object" && !Array.isArray(credentials), "credential_fields");
+  requireSafe(Object.keys(credentials).sort().join() === ["anonKey", "serviceRoleKey"].sort().join(), "credential_fields");
   assert(typeof credentials.anonKey === "string" && credentials.anonKey.length > 20 && typeof credentials.serviceRoleKey === "string" && credentials.serviceRoleKey.length > 20, "credentials_required");
   // Exclusive per-attempt directory preserves failed evidence and prevents replay overwrite.
   const output = resolve(outputRoot, `account-acceptance-${randomUUID()}`);
@@ -61,7 +115,8 @@ export async function runIsolated(manifest: string) {
   const save = () => writeFile(resolve(output, "checkpoint.json"), `${JSON.stringify(evidence, null, 2)}\n`);
   await save();
   try {
-    await verifyIsolatedTarget(target, credentials.serviceRoleKey);
+    const inventory = await verifyIsolatedTarget(target, credentials.serviceRoleKey);
+    await writeFile(resolve(output, "migration-attestation.json"), `${JSON.stringify({ revision: SCHEMA_REVISION, inventory, executedSchemaProof: "unrun" }, null, 2)}\n`, { flag: "wx" });
     evidence.cases.push("exact disposable marker verified before writes"); await save();
     async function api(path: string, token: string, method = "GET", body?: unknown, service = false) {
       const response = await fetch(`${target.url}${path}`, { method, headers: { apikey: service ? credentials.serviceRoleKey : credentials.anonKey, Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, ...(body === undefined ? {} : { body: JSON.stringify(body) }), redirect: "error", cache: "no-store", signal: AbortSignal.timeout(15000) });
@@ -79,6 +134,8 @@ export async function runIsolated(manifest: string) {
       assert.equal(verified.id, created.value.id, "auth_subject_match");
       return verified;
     }
+    const publicMarker = await api(`/rest/v1/wd_readiness_target?id=eq.${target.nonce}&select=id`, credentials.anonKey);
+    requireSafe([401, 403].includes(publicMarker.status), "server_only_marker_required");
     evidence.lastStep = "synthetic_auth_users"; await save();
     const a = await user(), b = await user();
     const handler = accountHandler({ verify: supabaseVerifier(target.url, credentials.anonKey), repository: supabaseAccountRepository(target.url, credentials.anonKey) });
@@ -130,14 +187,14 @@ export async function runIsolated(manifest: string) {
     const deletion = await call(a.token, "DELETE", { confirmation: "DELETE MY ACCOUNT" });
     assert.equal(deletion.status, 200); assert.equal((await deletion.json()).result.subscriptionCancelled, false);
     assert.equal((await call(a.token, "GET")).status, 410, "old_session_tombstone_denied");
-    const removed = await api(`/auth/v1/admin/users/${a.id}`, credentials.serviceRoleKey, "DELETE", undefined, true);
-    assert.equal(removed.status, 200, "synthetic_auth_deletion");
-    await assert.rejects(supabaseVerifier(target.url, credentials.anonKey)(new Request("https://acceptance.invalid/", { headers: { Authorization: `Bearer ${a.token}` } })), "removed_auth_user_denied");
     assert.equal((await call(b.token, "GET")).status, 200, "B_survives_A_deletion");
-    evidence.cases.push("intentional deletion, immediate tombstone denial, real synthetic Auth removal and B isolation");
-    evidence.status = "passed"; evidence.lastStep = "complete"; await save();
+    evidence.cases.push("intentional deletion, immediate tombstone denial and B isolation");
+    // A future hosted operator must separately bind/authorize verified durable 0013 adapters.
+    // Direct admin Auth removal is not durable lifecycle acceptance and is never run here.
+    evidence.status = "unavailable"; evidence.lastStep = "durable_hosted_adapters_unbound"; await save();
     await writeFile(resolve(output, "result.json"), `${JSON.stringify(evidence, null, 2)}\n`, { flag: "wx" });
-    console.log(`Isolated acceptance passed. Evidence: ${output}`);
+    console.log(`Isolated ownership checks passed; durable hosted acceptance unavailable. Evidence: ${output}`);
+    process.exitCode = 1;
   } catch {
     evidence.status = "failed"; await save();
     // Never stringify exceptions/assertions: they may contain credentials, JWTs or user data.
