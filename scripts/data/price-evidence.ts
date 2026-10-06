@@ -1,6 +1,7 @@
 import {createHash} from "node:crypto";
 import {packCanonical} from "../../packages/solver/src/units.ts";
 import type {AuthoredSku} from "./authored/skus.ts";
+import {STORES} from "./authored/stores.ts";
 export const hash=(v:unknown)=>createHash("sha256").update(JSON.stringify(v)).digest("hex");
 export const normalize=(v:string)=>v.normalize("NFKC").replace(/[®™]/g,"").toLowerCase().replace(/\s+/g," ").trim();
 export const packFingerprint=(s:AuthoredSku)=>hash([s.id,s.name,s.pack_qty,s.pack_unit,s.canonical_unit,s.grams_per_unit]);
@@ -33,8 +34,46 @@ export function observationValid(row:ExactPrice,s:AuthoredSku):boolean {
  return exactOffer({productId:p.product_id,description:p.description,items:[{itemId:p.offer_id,size:p.pack_size,soldBy:"UNIT",fulfillment:{instore:true},price:{regular:row.shelf_price}}]},s,p.review)!==null;
  }catch{return false;}
 }
-export function quarantinePrices(rows:ExactPrice[],skus:AuthoredSku[]) {
+// Historical integrity above does not certify current usefulness. The caller must
+// supply a trusted clock and a reviewed policy; neither is inferred from a cache.
+export type PriceLocation={store_id:string;location_id:string;zip:string;channel:"instore"};
+export type PriceAdmissionContext={now:string;requested:PriceLocation;policy:{revision:string;max_age_ms:number;locations:PriceLocation[]}};
+const own=(v:unknown,key:string):unknown=>{try{if(!v||typeof v!=="object")return undefined;const d=Object.getOwnPropertyDescriptor(v,key);return d&&"value" in d?d.value:undefined;}catch{return undefined;}};
+const identity=(v:unknown):v is string=>typeof v==="string"&&v.length>0&&v.trim()===v;
+function instant(v:unknown):number|null {
+ if(typeof v!=="string"||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/.test(v))return null;
+ const time=Date.parse(v);return Number.isFinite(time)&&new Date(time).toISOString()===(v.length===20?v.slice(0,-1)+".000Z":v)?time:null;
+}
+function location(v:unknown):PriceLocation|null {
+ const store_id=own(v,"store_id"),location_id=own(v,"location_id"),zip=own(v,"zip"),channel=own(v,"channel");
+ if(!identity(store_id)||!STORES.some(s=>s.id===store_id&&s.data_source==="kroger-api")||!identity(location_id)||typeof zip!=="string"||!/^\d{5}$/.test(zip)||channel!=="instore")return null;
+ return {store_id,location_id,zip,channel};
+}
+const locationKey=(v:PriceLocation)=>JSON.stringify([v.store_id,v.location_id,v.zip,v.channel]);
+function admissionContext(v:unknown){
+ try {
+ const now=instant(own(v,"now")),requested=location(own(v,"requested")),policy=own(v,"policy"),revision=own(policy,"revision"),age=own(policy,"max_age_ms"),locations=own(policy,"locations");
+ if(now===null||!requested||!identity(revision)||typeof age!=="number"||!Number.isSafeInteger(age)||age<0||!Array.isArray(locations)||!locations.length)return null;
+ const keys=new Set<string>();
+ for(let i=0;i<locations.length;i++){const l=location(own(locations,String(i)));if(!l||keys.has(locationKey(l)))return null;keys.add(locationKey(l));}
+ return keys.has(locationKey(requested))?{now,requested,max_age_ms:age}:null;
+ }catch{return null;}
+}
+function currentlyUsable(r:ExactPrice,s:AuthoredSku,c:NonNullable<ReturnType<typeof admissionContext>>):boolean {
+ try {
+ const p=r.provenance,l=location(p),observed=instant(p.observed_at);
+ return !!l&&locationKey(l)===locationKey(c.requested)&&observed!==null&&observed<=c.now&&c.now-observed<=c.max_age_ms&&Number.isSafeInteger(p.regular_cents)&&p.regular_cents>0&&identity(r.sku_id)&&identity(p.product_id)&&identity(p.offer_id)&&identity(p.mapping_revision)&&identity(p.review.revision)&&observationValid(r,s);
+ }catch{return false;}
+}
+export function quarantinePrices(rows:ExactPrice[],skus:AuthoredSku[],context?:unknown) {
  const accepted:ExactPrice[]=[],quarantine:{sku_id:string;store_id:string;region:string;as_of:string;reason:string}[]=[];
- for(const r of rows){const s=skus.find(s=>s.id===r.sku_id);if(s&&observationValid(r,s))accepted.push(r);else quarantine.push({sku_id:r.sku_id,store_id:r.store_id,region:r.region,as_of:r.as_of,reason:"Original immutable identity/form/physical-pack/location/channel/observation review missing or stale. Today's map does not certify this history."});}
- return {accepted,quarantine};
+ const c=admissionContext(context),counts=new Map<unknown,number>();
+ const input:unknown[]=Array.isArray(rows)?Array.from(rows):[undefined];
+ // One requested physical location: duplicate SKU observations are ambiguous,
+ // including a valid row paired with an invalid or differently located row.
+ for(const r of input){const id=own(r,"sku_id");counts.set(id,(counts.get(id)??0)+1);}
+ for(const value of input){const r=value as ExactPrice,id=own(r,"sku_id"),matches=skus.filter(s=>s.id===id);
+ if(c&&counts.get(id)===1&&matches.length===1&&currentlyUsable(r,matches[0],c))accepted.push(r);
+ else {const text=(key:string)=>{const v=own(r,key);return typeof v==="string"?v:"";};quarantine.push({sku_id:text("sku_id"),store_id:text("store_id"),region:text("region"),as_of:text("as_of"),reason:"Held: explicit clock/policy, exact supported requested location, unique observation and immutable identity/pack/integer cents are required; historical integrity alone is insufficient."});}}
+ return {accepted,quarantine,context_valid:c!==null};
 }

@@ -5,7 +5,7 @@ import {assemble,guard,previousSnapshot} from "./snapshot.ts";
 import {SKUS} from "./authored/skus.ts";
 import {overnightBasket} from "./overnight-food.ts";
 import {digest,type ReviewBundle} from "./reviewed-week.ts";
-import {quarantinePrices,type ExactPrice} from "./price-evidence.ts";
+import {quarantinePrices,type ExactPrice,type PriceAdmissionContext} from "./price-evidence.ts";
 import {stageSnapshot} from "./publication.ts";
 import {solve,evaluateWeek} from "../../packages/solver/src/engine.ts";
 import {PROFILES} from "../../packages/solver/src/profiles.ts";
@@ -18,7 +18,7 @@ export function sourceProblems(s:Snapshot,b:ReviewBundle){
  else if(digest(s.nutrition.filter(n=>n.sku_id===sku.id))!==digest([q.nutrition]))errors.push(`${sku.id}: source nutrients differ or duplicate`);}
  return errors;
 }
-export async function stagedPipeline(output:string){
+export async function stagedPipeline(output:string,priceContext?:PriceAdmissionContext){
  if(!/^data\/pipeline\/(overnight|staging)\/[a-zA-Z0-9_-]+$/.test(output))throw new Error("Explicit isolated stage path required");
  const parent=resolve(output,".."),root=realpathSync(".");mkdirSync(parent,{recursive:true});
  if(!realpathSync(parent).startsWith(root+sep))throw new Error("Stage target outside workspace");
@@ -26,8 +26,9 @@ export async function stagedPipeline(output:string){
  const manifest:Record<string,unknown>={status:"blocked",side_effects:"isolated local files only; no seed/upsert/storage/pointer/public fixture/Git write",output};
  try {
   const cache=existsSync("data/pipeline/kroger-prices.json")?JSON.parse(readFileSync("data/pipeline/kroger-prices.json","utf8")):{rows:[]};
-  const prices=quarantinePrices(cache.rows as ExactPrice[],SKUS);
-  manifest.price_rows=cache.rows.length;manifest.price_accepted=prices.accepted.length;manifest.price_quarantine=prices.quarantine;
+  const prices=quarantinePrices(cache.rows as ExactPrice[],SKUS,priceContext);
+  manifest.price_rows=Array.isArray(cache.rows)?cache.rows.length:0;manifest.price_accepted=prices.accepted.length;manifest.price_quarantine=prices.quarantine;manifest.price_context_valid=prices.context_valid;
+  if(!prices.context_valid||prices.quarantine.length||!prices.accepted.length)throw new Error("Price admission held before assembly: explicit reviewed time/location policy and unambiguous current observations required");
   const previous=previousSnapshot(),b=overnightBasket();manifest.source_revision=b.source_digest;manifest.unresolved_ids=b.blocked;
   const snapshot=assemble(prices.accepted,(previous?.version??0)+1);
   const staged=await stageSnapshot(snapshot,previous,{sources:s=>sourceProblems(s,b),acceptance:async s=>guard(s,previous),fixtures:async s=>{
