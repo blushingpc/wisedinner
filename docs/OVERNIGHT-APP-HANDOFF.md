@@ -1,5 +1,7 @@
 # App integration handoff, October 5, 2026
 
+October6 continuation: [app billing/access dry checkpoint](../../wisedinner-app/reports/APP-BILLING-ACCESS-CLIENT-LOCAL.md) prepares the optional internal server-bound identity/access seam only. Strict flat DTOs, current SDK identity, held uncertain transitions, transient expiry and account-generation fences have46 focused/120 app and22 backend handler/SQL passes. Native factory remains hard-off/unavailable, no UI/SDK/dependency/flags activated; current bundle excludes these modules. Follow the report's native/provider/hosted/time/lifecycle/offer/restore/policy prerequisites before any later wiring; old history is not authorization. Management/support/deletion remain outside future premium gating.
+
 ### Account client local continuation, October 5, 2026
 
 Later checkpoint: [app account client report](APP-ACCOUNT-CLIENT-LOCAL.md) records internal hard-default-off session/client/cache preparation with 19 dry app regressions and actual backend-handler/0006 ephemeral SQL contract proof. Native SDK binding, session resume, provider/phone/trial acceptance and lint/doctor remain unavailable/unrun; no dependency, UI, solver, anonymous state, snapshot or privacy copy was changed. New modules are absent from the fresh local iOS product bundle. Existing handoff history below remains valid where not superseded by dated evidence. Worker stops for independent review, no new activation or app integration authority.

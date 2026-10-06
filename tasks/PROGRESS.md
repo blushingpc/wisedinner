@@ -1,5 +1,14 @@
 # Progress log — newest entry on top
 
+## October 6, 2026: app billing/access boundary checkpoint in progress
+
+- Reviewed backend 6f5506b and app 8a0618b; preserved existing backend QUEUE and app PROGRESS/reports/research_notes. App isolated preparation only, hard default-off and unavailable native binding; no dependency/UI/core/provider/schema changes.
+- Actual old transport rejects the billing path before fetch; separate strict flat identity/access path added. Current ID is verified, identified transitions serialized/fenced and uncertain SDK outcomes held. Server-only transient access expires exactly; cache access/push remain null.
+- 46 focused app tests (19 existing) and 22 affected backend access/SQL tests pass. Preserved initial Windows import-path failure, meaningful baseline path denial, two failing drift/late-refresh cases and a synchronous test assertion fix. Real SQL is PGlite memory:// with emulated Auth, one queued connection, not hosted contention or native proof.
+- Evidence: external run 2026-10-06T01-17-59-987Z-a8799dc5; app docs/BILLING-ACCESS-CLIENT-PLAN.md. Workflow enabled. Next sequential ordinary typechecks/final focused/full app tests/greps/local tooling/export, then exact report/preflight and independent review. Native/provider/trial/hosted/policy/food/store and eight unapplied migrations remain launch gates.
+
+- LOCAL boundary closed: final46 app focused/120 full,22 actual backend access/SQL and ordinary app/backend typechecks/greps pass, sequential final exits collected. Exclusive local Hermes export passes after scoped permission review; original failed sandbox export preserved. Fresh4,311,925-byte bundle/import scan excludes new modules/SQL/tour/private markers. Offline dependency check limited, ESLint/doctor absent, no download. Source app377cd9c, backend testbf534a8, report app/reports/APP-BILLING-ACCESS-CLIENT-LOCAL.md. No native/provider/hosted/production proof, backend279 broad gates previous only. Owned docs/learning/HQ/preservation/validator checkpoint follows; proposed final local release-gate audit needs independent review.
+
 ## October 5, 2026: reviewed quote binding in progress
 
 - Starting 3f05db2074b4cedd3ba0d904b195352d1dc53455; app read-only, existing QUEUE additions preserved. Actual accepted soy week fails legacy pantry bridge before implementation, exit 1; evidence pre-fix.log in run 2026-10-06T00-19-42-894Z-33a64672.
