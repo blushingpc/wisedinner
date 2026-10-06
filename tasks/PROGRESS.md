@@ -1,5 +1,11 @@
 # Progress log — newest entry on top
 
+## October 6, 2026: app account-deletion client checkpoint
+
+Starting backendd30cf5c/app984877b. Only backend test/docs are owned here; product source/migrations unchanged. App optional injected deletion boundary has64 focused passes including46 existing cases. Actual baseline status route denial and first fixture call-count failure retained in run2026-10-06T02-18-42-641Z-9f0fb42d. Current actual account handler/unchanged0006/0007/0009/0013 memory SQL dry proof running; no credentials/hosted operations. Next sequential app full/typecheck/greps/export and accepted report/preflight. Native/provider/hosted/retention/rollout remain gates; this checkpoint cannot authorize the next job.
+
+Final LOCAL/dry verification:65 focused/139 app tests,26 affected actual handler/SQL cases, ordinary typechecks/greps and fresh one-worker offline export pass; thrown-status regression corrected, failed attempts preserved. App source2e8f465, backend test-only3626535, accepted app/reports/APP-ACCOUNT-DELETION-CLIENT-LOCAL.md. Unchanged backend279/broad gates are previous proof. No UI/dependency/provider/shared schema activation; eight migrations and native/hosted/policy/food/store gates remain. Final docs heads/index/user-preservation/preflight are external run evidence. Proposed next release-gate/owner audit awaits independent review, worker stops here.
+
 ## October 6, 2026: app billing/access boundary checkpoint in progress
 
 - Reviewed backend 6f5506b and app 8a0618b; preserved existing backend QUEUE and app PROGRESS/reports/research_notes. App isolated preparation only, hard default-off and unavailable native binding; no dependency/UI/core/provider/schema changes.
