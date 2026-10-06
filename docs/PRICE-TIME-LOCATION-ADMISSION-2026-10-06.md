@@ -1,3 +1,51 @@
+# Verified continuation: price time and requested-location admission
+
+October 6, 2026. LOCAL acceptance passed. Source/test commit `066b41dcfa249351b7dd7b8bae1d48d936b1e9fb` closes the current-use price admission gap and default-off local staging bypass. Launch-ready remains NO. This does not configure a production freshness duration, authenticate a clock, establish real physical-store coverage or prove measured prices.
+
+Current evidence: `C:/Users/borgh/.codex/.chatgpt-projects/g-p-6abe316af67c8191ad1f0305474b416f/backend-loop/lanes/A/runs/2026-10-06T22-18-35-693Z-e794db71/price-admission-evidence`. The initial HEAD was report-only `3b45397b3dd9827c08607cee08250bd77a162a86`, branch `codex/backend-readiness`, empty index. The coordinator's independently tested resource lifecycle recovery was read, not modified. The current source/test bytes equal the prepared prior patch; no verification-driven product edit was needed. Original first-run failures and all 34 prior sealed artifacts remain hash-equal and read-only.
+
+## Current behavior and exact local proof
+
+Historical `observationValid` is byte-identical to its original implementation. It still verifies immutable observation/mapping/pack integrity independently of current freshness. The new admission context requires canonical UTC time supplied by a trusted caller, an explicit nonblank policy revision, nonnegative safe-integer maximum age and exact supported store/physical-location/ZIP/instore registry. Observations must be no later than that clock and no older than the supplied age. Exact age equality and zero-age same-instant controls admit; one millisecond beyond either bound holds. Missing/invalid policy or clock, unsupported/mismatched identity, malformed mapping/pack/cents, unknown SKU and duplicate observations hold. No date or identity is rewritten, no cents are rounded, and no alternate location is selected.
+
+The single requested physical-location seam rejects all ambiguous duplicate SKU observations, including mixed-location records. Original accepted inputs and supplied context remain unchanged. Policy revision and support entries are declarations requiring outside review and authentic source evidence; they are not proof of either. A valid caller-supplied future clock cannot be independently authenticated by this pure layer. The clock trust binding remains a production requirement.
+
+The actual compiled `stagedPipeline` calls this gate before assembly. Missing context, future/stale/other-location rows and duplicates produce assembly0/staging0/core0 in explicit synthetic ports and only the blocked local manifest write1. The valid control produces assembly1/staging1/file-write3; it intentionally uses mocked assembly/publication and is NOT actual solver/publication acceptance. Unexpected imports and core execution are trapped. The existing CLI supplies no context and remains held. The snapshot DTO, legacy assembler, public/private shared API contracts and all activation flags are unchanged. Mixed-location cache grouping, reviewed policy and trusted clock/location binding are not activated by this job.
+
+All fixture prices, source references and one-day policy values are synthetic test inputs. These checks do not certify retailer/source accuracy, legal price freshness promises, real kitchen/food data or compatible backend-v6/app content.
+
+## Fresh commands and results
+
+Every test/compiler/lint/suite command used `C:/Program Files/nodejs/node.exe backend-loop/lane-driver.mjs --resource A --` with the exact child executable and arguments recorded in the named JSON. No wrapper bypass, lock/control edit, install, configuration bootstrap, process stop or extra service occurred.
+
+| Check | Start / finish UTC | Result | Exact log / command record |
+| --- | --- | --- | --- |
+| `node --test scripts/data/price-admission.test.ts scripts/data/price-evidence.test.ts packages/solver/test/snapshot.test.ts` | 22:19:43.169 / 22:19:46.164 | 23/23, exit0 | `focused-1.log`, `focused-1.json` |
+| Installed `node node_modules/typescript/bin/tsc --noEmit`, unchanged project configuration | 22:20:03.308 / 22:20:13.585 | exit0 | `typecheck-1.log`, `typecheck-1.json` |
+| Installed ESLint, only the three owned source/test files | 22:20:25.699 / 22:21:09.175 | exit0, no diagnostics | `lint-1.log`, `lint-1.json` |
+| Existing ordinary `npm test` through bundled pwsh | 22:21:33.804 / 22:22:51.564 | 310/310, exit0 | `suite-1.log`, `suite-1.json` |
+| Scoped diff/index and exact-byte preservation review | Before commits and final handoff | exit0; index empty | `preservation.json`, final checkpoint and scoped diffs |
+
+The 23 focused tests include 11 new admission tests, 3 existing price-integrity tests and 9 snapshot tests. The original six red-test assertions are retained, not weakened. No new product/test failure or resource hold occurred during this continuation. The original five failures and prior inventory/exit75 attempts below remain historical evidence. The full suite's SQL/provider orchestration tests use local isolated/synthetic infrastructure and do not prove real hosted Auth/PostgREST/contention, native behavior or provider activation. Build/voice/native/device/export/hosted/provider checks were not rerun; no broad build was required for this narrow source gate. Compiler and scoped lint were available, not bootstrapped.
+
+## Preservation, commits and recovery
+
+Verified 1,062 unowned backend file pins, including core, authored data, dependencies, snapshots, contracts and migration bytes; four supplied cross-lane API pins match. Existing queue bytes remain exact and unstaged. The entire prepared progress prefix remains exact; this continuation appends only its owned checkpoint. Source/test bytes remained exact throughout verification. Original report and prepared source/test/progress bytes are frozen in current-run evidence; original red source/tests/logs are separate. Final file hashes, command exits, exact branch/HEAD/index/diff and closed evidence index are recorded outside Git after writers finish. No app, website, engine, shared notes/HQ, managed skill or controller file was written. No push/merge/external action occurred.
+
+Owned runtime/test files are `scripts/data/price-evidence.ts`, `scripts/data/staged-pipeline.ts` and `scripts/data/price-admission.test.ts`. The current report commit and exact final HEAD are recorded in `checkpoint-final.json` outside the self-referential report commit. Original report-only checkpoint commit `3b45397` remains history. Existing progress/queue dirt is kept unstaged; source/test and report commits contain no evidence/media/secrets/user-file additions.
+
+Rollback: independently review a scoped revert of `066b41dcfa249351b7dd7b8bae1d48d936b1e9fb` affecting only its three files, plus a separate reviewed report-only revert if needed. This restores the reproduced unsafe historic-only admission behavior; keep publication unbound. Revert only the owned progress addition using the saved prefix, never reset/stash/rewrite history or include user queue changes. No migration, provider or external operation requires replay/rollback because none ran.
+
+Learning: no supported original-skill decision defect. The coordinator repaired its proven operational lifecycle issue separately; this worker neither changed controls nor adopted a skill/cache supplement. Normal, boundary, refusal and no-context authority cases pass locally. See current run `learning-result.md`.
+
+## Remaining gates and proposed handoff
+
+Production admission still needs a reviewed duration and authentic location/source registry with a trusted clock binding. Synthetic hash integrity is not measured accuracy; fictional pricing/calibration evidence and authentic real-store price coverage stay separate. Native accounts/secure persistence/RevenueCat/recent-auth and real login/purchase/restore/deletion, provider callbacks/SMTP/products/eligible trial, hosted Auth/PostgREST/contention and eight unapplied migrations, food/package/yield/kitchen/cross-contact/restricted coverage, content compatibility, legal/listing/device and rollout acceptance remain open. Newer email/reroll/restore decisions are settled delegation, not repeated generic choice requests. No current deadline, suite count or local gate is a release certification.
+
+Stop for independent supervisor review. One specific unblocked proposal is a read-only official-source freshness/location policy and trust-binding brief for this existing seam, reconciling `docs/PRICE-PUBLICATION-SAFETY.md`, `scripts/data/price-evidence.ts` and the default-off staging caller. Separate evidence-supported policy choices from unavailable measured coverage; do not activate providers/publication, bind a production clock or choose unsupported accuracy promises. That proposed job has not started and needs its own review.
+
+## Original blocked checkpoint, preserved as history
+
 # Price time and requested-location admission, October 6, 2026
 
 Status: BLOCKED checkpoint. The original bug is reproduced; the narrow implementation and expanded tests are pending verification. No launch gate is closed by this checkpoint. Verification level is local original-code tests only, with synthetic prices and policy. Launch-ready remains NO.
