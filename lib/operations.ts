@@ -26,6 +26,8 @@ function timestamp(value:unknown):bigint|null{
  if(micros>BigInt(timeLimit)*BigInt(1000)||micros< -BigInt(timeLimit)*BigInt(1000))throw Error("operations_unavailable");
  return micros;
 }
+// Server-internal shared temporal decoding; not a public status field or policy.
+export {timestamp as operationTimestamp};
 function probe(value:unknown,publicProjection=false):Probe{
  const keys=["check","lastAttempt","lastSuccess","error","generation"];
  // The independent observer rechecks the existing public projection. Its

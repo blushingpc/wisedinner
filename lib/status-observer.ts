@@ -1,4 +1,4 @@
-import {freshness, type Probe} from "./operations.ts";
+import {freshness, operationTimestamp, type Probe} from "./operations.ts";
 
 // Server-internal, finite and unbound. No env, fetch, DB, schedule or destination fallback.
 export const OBSERVER_LIMITS = Object.freeze({bytes:65536, depth:8, nodes:1024, string:4096, events:8, timeoutMs:5000});
@@ -49,11 +49,6 @@ function clock(ports:ObserverPorts,c:Config){
  need(integer(v.utcMs)&&v.utcMs<=8640000000000000&&integer(v.sampledAtMs)&&v.sampledAtMs<=v.utcMs&&v.utcMs-v.sampledAtMs<=c.timeoutMs);
  return v.utcMs;
 }
-function timestamp(value:unknown):{ms:number;subMs:number}|null {
- if(value===null)return null;need(typeof value==="string"&&value.length<=40&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|\+00:00)$/.test(value));
- const t=Date.parse(value);need(integer(t)&&new Date(t).toISOString().slice(0,19)===value.slice(0,19));
- return {ms:t,subMs:Number((value.match(/\.(\d+)/)?.[1]??"").padEnd(6,"0").slice(3))};
-}
 export function inspectStatus(value:unknown,now:unknown):Observation {
  try{
   need(integer(now)&&now<=8640000000000000);const body=object(data(value)),db=object(body.db);
@@ -70,10 +65,11 @@ export function inspectStatus(value:unknown,now:unknown):Observation {
    const p=object(row);fields(p,["check","lastAttempt","lastSuccess","error","healthy","stale","attemptInFuture"]);
    need((p.check==="database"||p.check==="support-poll")&&!seen.has(p.check));seen.add(p.check);
    need(["none","configuration","unavailable","interrupted"].includes(p.error as string)&&[p.healthy,p.stale,p.attemptInFuture].every(x=>typeof x==="boolean"));
-   const attempt=timestamp(p.lastAttempt),success=timestamp(p.lastSuccess);
+   const attempt=operationTimestamp(p.lastAttempt),success=operationTimestamp(p.lastSuccess);
    if(attempt===null||success===null)return {health:"failure",reason:"stale"};
-   if([attempt,success].some(t=>t.ms>now||t.ms===now&&t.subMs>0))return {health:"failure",reason:"future"};
-   need(success.ms<attempt.ms||success.ms===attempt.ms&&success.subMs<=attempt.subMs);
+   if([attempt,success].some(t=>t>BigInt(now)*BigInt(1000)))return {health:"failure",reason:"future"};
+   // Successful SQL finish normally follows begin; freshness and errors decide
+   // health, without a fabricated ordering requirement between the two facts.
    const computed=freshness({...p,generation:0} as Probe,now,p.check==="support-poll"?15*60000:26*3600000);
    if(computed.stale)return {health:"failure",reason:"stale"};
    if(!computed.healthy||!p.healthy||p.stale||p.attemptInFuture)return {health:"failure",reason:"check_error"};

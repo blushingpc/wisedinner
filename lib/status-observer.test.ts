@@ -3,8 +3,45 @@ import assert from "node:assert/strict";
 import {inspectStatus,observeStatus,deliverObserverEvent,OBSERVER_LIMITS,type ObserverPorts,type ObserverState} from "./status-observer.ts";
 import {operationStatus} from "./operations.ts";
 const NOW=Date.parse("2026-10-07T01:00:00Z"),target="https://observer-fixture.invalid/api/status",cfg={enabled:true,target,timeoutMs:100};
+async function projection(attempt:string,success:string){return {db:{ok:true,status:200,ms:1},operations:await operationStatus({command:async()=>({checks:["database","support-poll"].map(check=>({check,lastAttempt:attempt,lastSuccess:success,error:"none",generation:1}))})},NOW)};}
 async function status(){return {db:{ok:true,status:200,ms:1},operations:await operationStatus({command:async()=>({checks:["database","support-poll"].map(check=>({check,lastAttempt:new Date(NOW).toISOString(),lastSuccess:new Date(NOW).toISOString(),error:"none",generation:1}))})},NOW)};}
 function response(body:unknown,url=target){const r=Response.json(body);Object.defineProperty(r,"url",{value:url});return r;}
+test("producer projection preserves valid success before/equal/after attempt and original strings",async()=>{
+ for(const success of ["2026-10-07T00:58:00Z","2026-10-07T00:59:00Z","2026-10-07T00:59:30.000001Z"]){
+  const body=await projection("2026-10-07T00:59:00Z",success),before=structuredClone(body),f=fixture(body);
+  assert.deepEqual(inspectStatus(body,NOW),{health:"healthy",reason:"current"});assert.deepEqual((await observeStatus(cfg,f.ports)).observation,{health:"healthy",reason:"current"});
+  assert.equal(body.operations.checks[0].lastSuccess,success);assert.deepEqual(body,before);assert.equal(f.counts().sends,0);
+ }
+});
+test("all current producer PostgreSQL offset/fraction spellings are equivalent without temporal guessing",async()=>{
+ const values=["2026-10-07T00:59:30Z","2026-10-07T00:59:30z","2026-10-07T00:59:30.1Z","2026-10-07T00:59:30.12Z","2026-10-07T00:59:30.123Z","2026-10-07T00:59:30.1234Z","2026-10-07T00:59:30.12345Z","2026-10-07T00:59:30.123456Z","2026-10-07T00:59:30.123456+00:00","2026-10-07 00:59:30.123456+00","2026-10-07T00:59:30.123456+0000","2026-10-07T00:59:30.123456+000000","2026-10-07T00:59:30.123456+00:00:00","2026-10-06T20:59:30.123456-04:00","2026-10-07T06:29:30.123456+05:30","2026-10-07T01:00:00.123456+00:00:30"];
+ for(const success of values){const body=await projection("2026-10-07T00:59:00Z",success);assert(body.operations.checks.every(p=>p.healthy));assert.equal(inspectStatus(body,NOW).health,"healthy");assert.equal(body.operations.checks[0].lastSuccess,success);}
+ const before=await projection("2026-10-06T20:59:30.123456-04:00","2026-10-07T06:29:30.123456+05:30");assert.equal(inspectStatus(before,NOW).health,"healthy");
+});
+test("inclusive age and microsecond stale/future checks use raw offset facts even with forged healthy flags",async()=>{
+ for(const [index,age]of [[0,26*3600000],[1,15*60000]]){
+  const body=await projection("2026-10-07T01:00:00Z","2026-10-07T00:59:00Z"),boundary=new Date(NOW-age).toISOString();body.operations.checks[index].lastSuccess=boundary;
+  assert.equal(inspectStatus(body,NOW).health,"healthy");
+  body.operations.checks[index].lastSuccess=new Date(NOW-age-1).toISOString().replace(".999Z",".999999Z");assert.equal(inspectStatus(body,NOW).reason,"stale");
+  for(const field of ["lastAttempt","lastSuccess"]as const){const fresh=await projection("2026-10-07T00:59:00Z","2026-10-07T00:59:00Z");fresh.operations.checks[index][field]="2026-10-06T21:00:00.000001-04:00";assert.equal(inspectStatus(fresh,NOW).reason,"future");}
+ }
+});
+test("bad timezone/calendar/range/offset/fraction refuses coarsely without private leakage",async()=>{
+ for(const field of ["lastAttempt","lastSuccess"]as const)for(const stamp of ["2026-10-07T00:59:00","2026-02-30T00:59:00Z","2026-13-01T00:59:00Z","2026-10-07T24:00:00Z","2026-10-07T00:59:60Z","2026-10-07T00:59:00.1234567Z","2026-10-07T00:59:00+99:00","2026-10-07T00:59:00+00:99","999999-01-01T00:00:00Z","synthetic private invalid timestamp".repeat(3)]){
+  const body=await projection("2026-10-07T00:59:00Z","2026-10-07T00:59:00Z");body.operations.checks[0][field]=stamp;
+  const result=inspectStatus(body,NOW);assert.equal(result.health,"held");assert(!JSON.stringify(result).includes("private"));
+ }
+});
+test("negative/fractional/out-of-Date-range/stale/future independent clock holds before request/store",async()=>{
+ for(const sample of [{utcMs:NaN,sampledAtMs:NOW},{utcMs:Infinity,sampledAtMs:NOW},{utcMs:-1,sampledAtMs:-1},{utcMs:NOW+0.5,sampledAtMs:NOW},{utcMs:8640000000000001,sampledAtMs:8640000000000001},{utcMs:NOW,sampledAtMs:NOW-101},{utcMs:NOW,sampledAtMs:NOW+1}]){
+  const f=fixture(await projection("2026-10-07T00:59:00Z","2026-10-07T00:59:30Z"));f.ports.clock=()=>sample;
+  assert.equal((await observeStatus(cfg,f.ports)).state,"clock_held");assert.deepEqual(f.counts(),{requests:0,sends:0,reads:0,saves:0});
+ }
+});
+test("newer attempt/HTTP/derived flags cannot hide stale successful work or coarse operation errors",async()=>{
+ for(const error of ["interrupted","unavailable","configuration"]as const){const body=await projection("2026-10-07T01:00:00Z","2026-10-07T00:59:30Z");body.operations.checks[1].error=error;assert.equal(inspectStatus(body,NOW).reason,"check_error");}
+ const stale=await projection("2026-10-07T01:00:00Z","2026-10-07T00:59:30Z");stale.operations.checks[1].lastSuccess="2026-10-06T20:44:59.999999-04:00";assert.equal(inspectStatus(stale,NOW).reason,"stale");
+});
 function fixture(body:unknown){
  let state:ObserverState|null=null,requests=0,sends=0,reads=0,saves=0;let now=NOW;
  const ports:ObserverPorts={clock:()=>({utcMs:now,sampledAtMs:now}),request:async()=>{requests++;return response(body);},store:{read:()=>{reads++;return structuredClone(state);},compareAndSwap:(revision,next)=>{saves++;if(revision!==(state?.revision??0))return false;state=structuredClone(next);return true;}},transport:async()=>{sends++;return "acknowledged";}};

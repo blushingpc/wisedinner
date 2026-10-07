@@ -1,6 +1,6 @@
 import {test} from "node:test";
 import assert from "node:assert/strict";
-import {freshness,observedOperation,operationStatus,dryRunAlerts,operationsRepository,configuredOperations,type OpsRepository,type Probe} from "./operations.ts";
+import {freshness,operationTimestamp,observedOperation,operationStatus,dryRunAlerts,operationsRepository,configuredOperations,type OpsRepository,type Probe} from "./operations.ts";
 test("last attempt cannot replace last success or certify stale/future support polling",()=>{
  const now=Date.parse("2026-10-05T04:00:00Z"),p={check:"support-poll" as const,lastAttempt:new Date(now).toISOString(),lastSuccess:new Date(now-16*60_000).toISOString(),generation:3,error:"none" as const};
  assert.equal(freshness(p,now,15*60_000).healthy,false);assert.equal(freshness({...p,lastSuccess:new Date(now+1).toISOString()},now,15*60_000).healthy,false);assert.equal(freshness({...p,lastSuccess:new Date(now-1000).toISOString()},now,15*60_000).healthy,true);
@@ -19,6 +19,12 @@ test("dry alerts acknowledge after transport only; repeated consumption deduplic
 const NOW=Date.parse("2026-10-06T12:00:00Z"),SUPPORT_AGE=15*60_000,DB_AGE=26*60*60_000;
 const healthyProbe=(check:Probe["check"]):Probe=>({check,lastAttempt:"2026-10-06T11:59:00+00:00",lastSuccess:"2026-10-06T11:59:30.000001+00:00",error:"none",generation:1});
 const read=(checks:unknown,now=NOW)=>operationStatus({command:async()=>({checks})},now);
+test("server-internal shared parser preserves exact offset microseconds and coarse refusal",()=>{
+ const expected=BigInt(Date.parse("2026-10-06T11:59:30Z"))*BigInt(1000)+BigInt(123456);
+ for(const value of ["2026-10-06T11:59:30.123456Z","2026-10-06T07:59:30.123456-04:00","2026-10-06T17:29:30.123456+05:30"])assert.equal(operationTimestamp(value),expected);
+ assert.equal(operationTimestamp(null),null);
+ for(const value of [undefined,"2026-02-30T12:00:00Z","2026-10-06T12:00:00","2026-10-06T12:00:00+99:00","2026-10-06T12:00:00.1234567Z","999999-01-01T00:00:00Z"])assert.throws(()=>operationTimestamp(value),/^Error: operations_unavailable$/);
+});
 test("NaN clock cannot certify healthy freshness",()=>assert.equal(freshness(healthyProbe("database"),NaN,DB_AGE).healthy,false));
 test("read refuses missing support-poll",async()=>assert.deepEqual(await read([healthyProbe("database")]),{state:"unavailable",checks:[]}));
 test("read refuses duplicate database",async()=>assert.deepEqual(await read([healthyProbe("database"),healthyProbe("database")]),{state:"unavailable",checks:[]}));
