@@ -10,8 +10,9 @@ import { supportOutboxRepository } from "../lib/support/outbox.ts";
 import type { Outbound } from "../lib/support/mail.ts";
 import { DRY_A, DRY_B, DRY_HASH, type DryPorts } from "./account-isolated-dry.ts";
 import { migrationInventory, type MigrationPin } from "./account-isolated.ts";
+import type { RestoreIntent } from "../lib/billing-restore.ts";
 
-export type DryScenario = "normal" | "completion_ack" | "unknown_apple" | "none" | "unknown_linkage" | "missing_material" | "absent_auth" | "outbox_accept_ack" | "outbox_begin_ack" | "outbox_accept_before" | "smtp_unknown";
+export type DryScenario = "normal" | "completion_ack" | "unknown_apple" | "none" | "unknown_linkage" | "missing_material" | "absent_auth" | "outbox_accept_ack" | "outbox_begin_ack" | "outbox_accept_before" | "smtp_unknown" | "restore_unbound" | "restore_unknown" | "restore_unrevoked" | "restore_commit_ack";
 export async function memoryLifecycleFixture(inventory: MigrationPin[], scenario: DryScenario = "normal") {
   assert.deepEqual(inventory, await migrationInventory(), "trusted_migration_inventory_required");
   const db = await PGlite.create("memory://");
@@ -100,6 +101,21 @@ export async function memoryLifecycleFixture(inventory: MigrationPin[], scenario
       target: "memory://", query,
       account: accountHandler({ verify, repository: supabaseAccountRepository("https://dry.invalid", "synthetic", request), pin: { version: 5, sha256: DRY_HASH, solverRevision: "dry", catalogRevision: "dry", recipeIds: new Set(["main"]) } }),
       billing: supabaseBillingRepository("https://dry.invalid", "synthetic", request),
+      restoreVerify: async r => ({ ...await verify(r), providers: ["apple"] }), // Emulated signed-in subject only, not Auth proof.
+      restore: { execute: async (action, body) => {
+        trace.push(`wd_restore_command:${action}`);
+        const rows = await query("service_role", null, "select public.wd_restore_command($1,$2::jsonb) r", [action, JSON.stringify(body)]);
+        const result = rows[0].r as Record<string, unknown>;
+        if (result.error) throw Error(result.error as string);
+        if (scenario === "restore_commit_ack" && action === "commit" && !injected) { injected = true; trace.push("synthetic_restore_commit_ack_loss"); throw Error("synthetic_boundary_failure"); }
+        return result;
+      } },
+      ...(scenario === "restore_unbound" ? {} : { restoreProof: { observe: async (i: Readonly<RestoreIntent>, mode: "inspect" | "reconcile") => {
+        trace.push(`fake_restore_observe:${mode}`);
+        if (scenario === "restore_unknown") throw Error("synthetic_restore_unknown");
+        const source = await supabaseBillingRepository("https://dry.invalid", "synthetic", request).bind(DRY_A);
+        return { operation: i.operation, sourceBinding: source.appUserId, targetBinding: i.targetBinding, environment: i.environment, app: i.app, product: i.product, entitlement: i.entitlement, store: "app_store", sourceRoot: "c".repeat(64), targetRoot: "c".repeat(64), sourceTransaction: DRY_HASH, targetTransaction: "d".repeat(64), originalPurchaseAt: 946684800000, observedAt: Date.now(), expiresAt: Date.now() + 86400000, ownership: "PURCHASED", sourceRevoked: scenario !== "restore_unrevoked", state: "active", refunded: false };
+      } } }),
       deletion: deletionRepository("https://dry.invalid", "synthetic", request),
       providers: { verifyIdentity: async userId => { trace.push("fake_identity_verified"); return { userId, identityHash: DRY_HASH, evidenceHash: "b".repeat(64), apple: scenario === "none" || scenario === "absent_auth" ? "none" : scenario === "unknown_linkage" ? "unknown" : "linked" }; }, apple: adapter("apple"), auth: adapter("auth") },
       outbox: supportOutboxRepository("https://dry.invalid", "synthetic", request),

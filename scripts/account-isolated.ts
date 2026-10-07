@@ -10,8 +10,8 @@ const PURPOSE = "wisedinner-disposable-account-acceptance";
 const SHARED = "zpvqxtklvjitofpbddrn";
 export type Target = { purpose: string; disposable: boolean; projectRef: string; url: string; nonce: string; credentialFile: string; outputDir: string };
 type Credentials = { anonKey: string; serviceRoleKey: string };
-export const SCHEMA_REVISION = "0006-0013";
-const MIGRATIONS = ["0006_wd_accounts.sql", "0007_wd_billing.sql", "0008_wd_publication.sql", "0009_wd_notifications.sql", "0010_wd_operations.sql", "0011_wd_support_sends.sql", "0012_wd_support_outbox.sql", "0013_wd_account_deletion.sql"] as const;
+export const SCHEMA_REVISION = "0006-0014";
+const MIGRATIONS = ["0006_wd_accounts.sql", "0007_wd_billing.sql", "0008_wd_publication.sql", "0009_wd_notifications.sql", "0010_wd_operations.sql", "0011_wd_support_sends.sql", "0012_wd_support_outbox.sql", "0013_wd_account_deletion.sql", "0014_wd_billing_restore.sql"] as const;
 export type MigrationPin = { file: string; sha256: string; bytes: number };
 export async function migrationInventory(): Promise<MigrationPin[]> {
   const pins = [];

@@ -6,7 +6,9 @@ import { handleOutboxPoll, type SupportOutbox } from "../lib/support/outbox.ts";
 import type { Mailbox } from "../lib/support/mail.ts";
 import type { Classifier } from "../lib/support/classify.ts";
 import type { BillingRepository } from "../lib/billing.ts";
-import { isolatedTarget, verifyIsolatedTarget, type Target, type MigrationPin } from "./account-isolated.ts";
+import type { VerifiedAccount } from "../lib/account.ts";
+import { requestExplicitRestore, reconcileExplicitRestore, type RestoreRepository, type RestoreProofAdapter } from "../lib/billing-restore.ts";
+import { SCHEMA_REVISION, isolatedTarget, verifyIsolatedTarget, type Target, type MigrationPin } from "./account-isolated.ts";
 
 export const DRY_A = "10000000-0000-4000-8000-000000000001", DRY_B = "10000000-0000-4000-8000-000000000002";
 export const DRY_WEEK = "30000000-0000-4000-8000-000000000001", DRY_HASH = "a".repeat(64);
@@ -14,6 +16,9 @@ export type DryPorts = {
   target: "memory://";
   account: (request: Request) => Promise<Response>;
   billing: BillingRepository;
+  restore: RestoreRepository;
+  restoreVerify: (request: Request) => Promise<VerifiedAccount>;
+  restoreProof?: RestoreProofAdapter;
   deletion: DeletionRepository;
   providers: DeletionProviders;
   outbox: SupportOutbox;
@@ -72,6 +77,36 @@ export async function runDryPrepared(target: Target, options?: DryOptions) {
     cases.push("A/B actual handler ownership, saved metadata and private SQL grants");
     const bindings = [await p.billing.bind(DRY_A), await p.billing.bind(DRY_B)];
     check(bindings[0].appUserId !== bindings[1].appUserId, "binding_isolation_failed");
+    // Existing private runtime and applied memory SQL only. Supplied proof is fictional;
+    // no adapter can initiate a store restore/purchase or establish hosted ownership here.
+    for (const role of ["anon", "authenticated"] as const) {
+      for (const table of ["wd_restore_intents", "wd_restore_lineages", "wd_restore_aliases", "wd_restore_fences"])
+        await denied(() => p.query(role, role === "anon" ? null : DRY_B, `select * from public.${table}`));
+      await denied(() => p.query(role, role === "anon" ? null : DRY_B, "select public.wd_restore_command('read',$1::jsonb)", [JSON.stringify({ operation: randomUUID() })]));
+    }
+    const scope = { environment: "SANDBOX" as const, app: "dry_app", product: "dry_monthly", entitlement: "dry_pro" };
+    const started = await p.billing.begin(DRY_A, scope.environment), restoreNow = Date.now();
+    await p.billing.commit(DRY_A, scope.environment, started.generation, { state: "active", expiresAt: restoreNow + 86400000, observedAt: restoreNow, reason: "synthetic_acceptance", transactionHash: DRY_HASH });
+    const restoreOperation = randomUUID();
+    const restoreRequest = () => new Request("https://dry.invalid/internal", { method: "POST", headers: { Authorization: `Bearer synthetic-${DRY_B}`, "Content-Type": "application/json" }, body: JSON.stringify({ intent: "restore" }) });
+    const deps = { verify: p.restoreVerify, repository: p.restore, scope };
+    const restoreIntent = await requestExplicitRestore(restoreRequest(), restoreOperation, deps);
+    check(restoreIntent.targetBinding === bindings[1].appUserId, "verified_restore_target_failed");
+    assert.deepEqual(await requestExplicitRestore(restoreRequest(), restoreOperation, deps), restoreIntent);
+    await denied(() => p.restore.execute("intent", { operation: restoreOperation, target: DRY_A, ...scope }), "idempotency_conflict");
+    const restoreFirst = await reconcileExplicitRestore(restoreOperation, p.restore, p.restoreProof);
+    const restoreRestart = await reconcileExplicitRestore(restoreOperation, p.restore, p.restoreProof);
+    const restoreStates = await p.query("bootstrap", null, "select user_id,state from public.wd_billing_states where environment='SANDBOX' order by user_id");
+    const activeOwners = restoreStates.filter(r => ["active", "trial"].includes((r.state as { state: string }).state));
+    check(activeOwners.length === 1, "single_restore_owner_failed");
+    const lineage = await p.query("bootstrap", null, "select owner_id,original_purchase_ms from public.wd_restore_lineages where environment='SANDBOX'");
+    if (restoreRestart.status === "completed") {
+      check(activeOwners[0].user_id === DRY_B && (restoreStates.find(r => r.user_id === DRY_A)!.state as { state: string }).state === "revoked", "restore_revocation_required");
+      check(lineage.length === 1 && lineage[0].owner_id === DRY_B && Number(lineage[0].original_purchase_ms) === 946684800000, "original_restore_lineage_failed");
+    } else {
+      check(restoreRestart.status === "held" && activeOwners[0].user_id === DRY_A && lineage.length === 0, "held_restore_granted_access");
+    }
+    cases.push("nine-file memory SQL explicit restore, private RPC denial, verified target/idempotency, one owner and read-only reconciliation retry");
     const intent = randomUUID(), confirmation = { confirmation: "DELETE MY ACCOUNT" };
     check((await call(DRY_A, "DELETE", confirmation, intent, "", true)).status === 401, "recent_AMR_required");
     // Direct SQL checks independently enforce AMR, not a refreshed iat or local claim.
@@ -140,6 +175,6 @@ export async function runDryPrepared(target: Target, options?: DryOptions) {
     check(supportStates.length === 1 && ["done", "held"].includes(supportStates[0].state as string), "support_outcome_missing");
     cases.push("actual durable outbox first/restart with injected mailbox/classifier");
     const deletionOutcome = deletionRestart.state === "deleted" ? "confirmed" : [progress.apple_state, progress.auth_state].includes("held") ? "held" : "unavailable";
-    return { status: "local_dry_observed", outcomes: { deletion: deletionOutcome, support: supportStates[0].state === "done" ? "confirmed" : "held" }, schemaRevision: "0006-0013", executedMigrations: inventory, cases, deletionFirst, deletionRestart, accountStatus: status, supportFirst, supportRestart, supportState: supportStates[0].state, frozenPayloadDigest: createHash("sha256").update(JSON.stringify(frozen)).digest("hex") };
+    return { status: "local_dry_observed", outcomes: { deletion: deletionOutcome, support: supportStates[0].state === "done" ? "confirmed" : "held" }, schemaRevision: SCHEMA_REVISION, executedMigrations: inventory, cases, restoreFirst, restoreRestart, deletionFirst, deletionRestart, accountStatus: status, supportFirst, supportRestart, supportState: supportStates[0].state, frozenPayloadDigest: createHash("sha256").update(JSON.stringify(frozen)).digest("hex") };
   } finally { await p.close(); }
 }
