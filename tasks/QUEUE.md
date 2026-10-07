@@ -97,3 +97,8 @@ V. Variety + truth sprint: template solver, variety floors, seeded regenerate, f
 3. Solver: `/api/solve` deterministic greedy + repair, two-bucket week, 7 unit tests. — done 2026-08-30, live
 2. Staple price data v0: `data/staples.json` — 41 SKUs, typed loader, hidden /staples debug page. — done 2026-08-30, live at https://wisedinner.vercel.app/staples
 1. Scaffold: Next.js App Router + TS strict + Tailwind with the human-design tokens; deploy pipeline to Vercel working. — done 2026-08-30, live at https://wisedinner.vercel.app
+
+## October 7, 2026: Terminal A four-recipe successor checkpoint
+
+- LOCAL source2d1b9b5 commits the existing four-recipe preparation/equipment/optional-seasoning slice; fresh16 focused/types/scoped lint/voice/one build pass, matching374 full tests reused. The old21:31 failed report/history and inherited note bodies remain untouched; owned suffixes only are committed. New report ../docs/RECIPE-PREPARATION-SUCCESSOR-LOCAL-2026-10-07.md;79 exact held IDs remain open, no shared adoption or kitchen/food/price acceptance.
+- Unapproved next group: Greek yogurt parfait base, plant and oats variants, with individual ingredient/method/equipment evidence. Coordinator independently selects the next job; account/provider/hosted/native/food/measured-price/submission/G gates remain open. No new recipe count, activation, spending, public promise or self-dispatch.
