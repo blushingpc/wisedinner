@@ -101,7 +101,8 @@ export const RECIPES: AuthoredRecipe[] = [
     ],
     steps: [
       "Heat the oil in a pan and cook the peppers and onions until soft.",
-      "Pour in the egg whites and stir gently until just set.",
+      "Whisk the two eggs with the egg whites.",
+      "Pour the egg mixture into the pan and stir until firm and a food thermometer reads 160 F. Follow stricter package directions.",
       "Toast the bread and serve it alongside the scramble.",
     ],
     variants: [
@@ -122,8 +123,8 @@ export const RECIPES: AuthoredRecipe[] = [
           "egg-whites": ["tofu", 7, "oz"], "eggs": null,
         },
         steps: [
-          "Heat the oil in a pan and cook the peppers and onions until soft.",
-          "Crumble in the tofu and cook until hot and lightly browned.",
+          "Drain and pat dry the tofu. Heat the measured oil in a nonstick pan and cook the peppers and onions according to their package directions.",
+          "Crumble in the tofu and cook according to its package directions until hot and lightly browned.",
           "Toast the bread and serve it alongside the scramble.",
         ],
       },
@@ -137,9 +138,9 @@ export const RECIPES: AuthoredRecipe[] = [
           "ww-bread": ["russet-potatoes", 6, "oz"],
         },
         steps: [
-          "Dice the potatoes and microwave them for 4 minutes until tender.",
+          "Wash and dice the potatoes. Microwave them in a covered microwave-safe bowl with water until tender; follow the appliance directions and check with a fork.",
           "Heat the oil in a pan and brown the potatoes with the peppers and onions.",
-          "Pour in the egg whites and stir gently until just set.",
+          "Whisk the two eggs with the egg whites, pour them into the pan and stir until firm and a food thermometer reads 160 F. Follow stricter package directions.",
         ],
       },
     ],

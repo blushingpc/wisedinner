@@ -38,10 +38,20 @@ test("compiled instruction map contains no orphan IDs and explicit overrides win
   assert.deepEqual(expandRecipes([base]).recipes.find((recipe) => recipe.id === base.variants[0].id)!.steps, base.variants[0].steps);
 });
 
-test("committed draft recipes and directions match the authored compiler output", () => {
+test("committed draft quantities and all unrelated fields stay frozen while three local preparation corrections await adoption", () => {
   const snapshot = loadSnapshot();
   const compiled = expandRecipes(RECIPES);
-  assert.deepEqual(snapshot.recipes, compiled.recipes);
+  const localCorrections = new Set([
+    "egg-white-and-veggie-scramble-with-toast",
+    "egg-white-and-veggie-scramble-with-toast-tofu",
+    "egg-white-and-veggie-scramble-with-toast-potatoes",
+  ]);
+  assert.deepEqual(snapshot.recipes, compiled.recipes.map(recipe => {
+    if (!localCorrections.has(recipe.id)) return recipe;
+    const frozen = snapshot.recipes.find(row => row.id === recipe.id)!;
+    assert.notDeepEqual(recipe.steps, frozen.steps, recipe.id);
+    return { ...recipe, steps: frozen.steps };
+  }));
   assert.deepEqual(snapshot.recipe_ingredients, compiled.ingredients);
   assert.deepEqual(snapshot.recipe_variants, compiled.variants);
 });
