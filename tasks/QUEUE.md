@@ -157,3 +157,8 @@ V. Variety + truth sprint: template solver, variety floors, seeded regenerate, f
 - Finite CURRENT producer freezes all91 existing methods across83 recipe IDs/81 authored records without editing installed source or original candidate. LOCAL124 controls plus independent profile/reparse proof passed;80 all-tools compatible/3 held.
 - Next independent B4/A5 dependency: consume the exact full-method-registry and producer-manifest bytes after the current B recipe job ends naturally, review decoder/source/profile/parent closure before any separate adoption authorization. No future instruction queued by A.
 - Report docs/PREPARED-METHOD-REGISTRY-LOCAL-2026-10-08.md. A4/A5/A2/B2/G and genuine food/price/hosted/native/provider/store gates remain open; withholding uninstalled artifact is rollback. $0, flagsOFF, original target unchanged.
+
+## October 8, 2026: reviewed A4/A5 chicken-thigh source dependency checkpoint
+
+Finite exact source job completed as ORIGINALSOURCE-STILLHELD quarantine evidence, not corrected food/product adoption. One documented USDA read, no further fetch or installed data change. Frozen source/affected83/unchanged80+3 handoff and manifest in A07:09 CURRENT; exact report docs/CHICKEN-THIGH-NUTRITION-SOURCE-LOCAL-2026-10-08.md.
+Independent next dependency is explicit inactive-source quarantine consumer review against these same bytes, preserving two bone-in thigh holds/pork closure and other catalog failures. No implicit source filtering, whole-catalog grant, parent acceptance or automatic next instruction. A4/A5/A2/B2/G and hosted/native/food/price/release gates remain open.
