@@ -1,7 +1,8 @@
 import test from'node:test';import assert from'node:assert/strict';import{EventEmitter}from'node:events';
 import{Pool}from'pg';
 import{ownerPlanPostgres,CONNECTION_PREFLIGHT,type OwnerPlanConnection,type PoolFactory}from'./owner-plan-postgres.ts';
-import{ownerPlanRepository}from'./owner-plan-server.ts';import{setup,A,B,key,owner,command,empty,draft,admitState,memoryRepository,claims,rpc}from'./owner-plan.fixture.ts';
+import{ownerPlanRepository}from'./owner-plan-server.ts';import{setup,A,B,key,owner,command,empty,draft,claims,rpc}from'./owner-plan.fixture.ts';
+import{narrowSql,sqlDriver,currentAdmission}from'./owner-plan-postgres.fixture.ts';
 const config:OwnerPlanConnection={enabled:true,host:'fixture.invalid',port:5432,database:'fixture',user:'wd_owner_plan_login',password:'synthetic-only',mode:'transaction',max:1,connectionTimeoutMs:100,statementTimeoutMs:100,lockTimeoutMs:50,transactionTimeoutMs:500,disposeTimeoutMs:1000};
 function dry(failAt='',permitted=true){
  const calls:{sql:string;args?:unknown[]}[]=[],releases:boolean[]=[],client=new EventEmitter(),pool=new EventEmitter();let ends=0,connects=0;
@@ -43,17 +44,52 @@ test('callback deadline and delayed outstanding query never commit/release befor
 test('narrow staging policy composes actual repository/admission/SQL; forged owner/transaction and Auth replay denied',async()=>{
  const db=await setup();try{
   const preflight=await db.query<{permitted:boolean}>(CONNECTION_PREFLIGHT);assert.equal(preflight.rows[0]!.permitted,false,'emulated administrator is never the production login');
-  const repo=memoryRepository(db);const ack=await repo.save(owner(),key(),command(empty(),0));assert.equal(ack.serverRevision,1);assert.deepEqual((await repo.read(owner())).state,empty());
+  const repo=ownerPlanRepository({admit:currentAdmission,transactions:{transaction:async f=>db.transaction(tx=>f(tx))}});const ack=await repo.save(owner(),key(),command(empty(),0));assert.equal(ack.serverRevision,1);assert.deepEqual((await repo.read(owner())).state,empty());
   await db.exec('reset role');await db.query("select set_config('request.jwt.claims',$1,false)",[JSON.stringify({sub:A,role:'wd_owner_plan_stage'})]);await db.exec('set role wd_owner_plan_stage');
   await assert.rejects(db.query('insert into public.wd_proposal_plan_replay values($1,$2,$3::jsonb,txid_current())',[B,key(),'{}']),/row-level security/);
   await assert.rejects(db.query('insert into public.wd_proposal_plan_replay values($1,$2,$3::jsonb,0)',[A,key(),'{}']),/row-level security/);
   await assert.rejects(db.query('select * from public.wd_proposal_plan_replay'),/permission denied/);
   await claims(db,'authenticated',A);assert.equal((await rpc(db,'save',command(draft(),1),key())).error,'replay_required');
-  await db.exec('reset role');const factory=ownerPlanRepository({admit:admitState,transactions:{transaction:async f=>db.transaction(tx=>f(tx))}});await assert.rejects(factory.save(owner(),key(),command(empty(),0)),/revision_conflict/);
+  await db.exec('reset role');const factory=ownerPlanRepository({admit:currentAdmission,transactions:{transaction:async f=>db.transaction(tx=>f(tx))}});await assert.rejects(factory.save(owner(),key(),command(empty(),0)),/revision_conflict/);
  }finally{await db.close();}
 });
 test('idle client faults, disposal timeout and release errors stay safe and never retry',async()=>{
  const d=dry();let settle!:(v:void)=>void,entered!:()=>void;const entry=new Promise<void>(r=>{entered=r;});const p=d.adapter.transaction(async()=>{entered();await new Promise<void>(r=>{settle=r;});});void p.catch(()=>{});await entry;d.client.emit('error',Error('synthetic client secret'));settle();await assert.rejects(p,/transaction_failed/);assert.deepEqual(d.releases,[true]);await d.adapter.dispose();await d.adapter.dispose();assert.equal(d.ends,1);
  const h=dry();let finish!:()=>void;Object.assign(h.pool,{end:()=>new Promise<void>(r=>{finish=r;})});await h.adapter.transaction(async()=>{});await assert.rejects(h.adapter.dispose(),/dispose_timeout/);finish();
  const r=dry();Object.assign(r.client,{release(){throw Error('synthetic release private');}});await assert.rejects(r.adapter.transaction(async()=>{}),/release_failed/);await r.adapter.dispose();
+});
+
+test('actual SQL intended narrow login and installed driver/repository commit before release',async()=>{
+ const f=await narrowSql(),d=sqlDriver(f.db,config);try{
+  assert.equal((await f.db.query<{permitted:boolean}>(CONNECTION_PREFLIGHT)).rows[0]!.permitted,true);
+  const repo=ownerPlanRepository({admit:currentAdmission,transactions:d.adapter});
+  const c=command(draft(),0),id=key();assert.equal((await repo.save(owner(),id,c)).serverRevision,1);
+  assert.deepEqual((await repo.read(owner())).state,draft());assert.equal((await repo.save(owner(),id,c)).serverRevision,1);
+  assert.deepEqual((await repo.read(owner(B))).state,null);
+  assert.equal(d.calls[0],CONNECTION_PREFLIGHT);assert.equal(d.calls[1],'BEGIN');assert.equal(d.calls.at(-1),'COMMIT');
+  assert.equal(d.releases.length,4);assert.equal(d.calls.filter(sql=>sql==='BEGIN').length,4);assert.ok(d.releases.every(v=>v===false));
+ }finally{await d.adapter.dispose();await f.db.close();}
+});
+
+test('effective member/PUBLIC/inherited ACL and ownership excess refuse before BEGIN/body',async t=>{
+ const f=await narrowSql();let bodies=0;
+ const refused=async()=>{assert.equal((await f.db.query<{permitted:boolean}>(CONNECTION_PREFLIGHT)).rows[0]!.permitted,false);const d=sqlDriver(f.db,config);try{await assert.rejects(d.adapter.transaction(async()=>{bodies++;}),/privilege_refused/);assert.deepEqual(d.calls,[CONNECTION_PREFLIGHT]);assert.deepEqual(d.releases,[false]);assert.equal(bodies,0);}finally{await d.adapter.dispose();}};
+ const scenario=async(name:string,grant:string,revoke:string)=>t.test(name,async()=>{await f.admin(grant);try{await refused();}finally{await f.admin(revoke);}assert.equal((await f.db.query<{permitted:boolean}>(CONNECTION_PREFLIGHT)).rows[0]!.permitted,true,'normal fixture restored');});
+ try{
+  for(const role of ['wd_owner_plan_login','authenticated','wd_owner_plan_stage']){
+   for(const p of ['CREATE','TEMP'])await scenario(role+' database '+p,`grant ${p} on database ${f.quoted} to ${role}`,`revoke ${p} on database ${f.quoted} from ${role}`);
+   await scenario(role+' schema CREATE',`grant create on schema fixture_check to ${role}`,`revoke create on schema fixture_check from ${role}`);
+   for(const p of ['USAGE','SELECT','UPDATE'])await scenario(role+' sequence '+p,`grant ${p} on sequence fixture_check.number to ${role}`,`revoke ${p} on sequence fixture_check.number from ${role}`);
+  }
+  await scenario('effective PUBLIC database TEMP',`grant temp on database ${f.quoted} to public`,`revoke temp on database ${f.quoted} from public`);
+  await scenario('effective PUBLIC schema CREATE','grant create on schema fixture_check to public','revoke create on schema fixture_check from public');
+  await scenario('effective PUBLIC sequence USAGE','grant usage on sequence fixture_check.number to public','revoke usage on sequence fixture_check.number from public');
+  await scenario('explicit inherited ACL despite stage NOINHERIT attribute','grant select on sequence fixture_check.number to authenticated;grant authenticated to wd_owner_plan_stage with inherit true','revoke authenticated from wd_owner_plan_stage;revoke select on sequence fixture_check.number from authenticated');
+  await scenario('stage sequence ownership cannot reclaim revoked ACL','alter sequence fixture_check.number owner to wd_owner_plan_stage;revoke all on sequence fixture_check.number from wd_owner_plan_stage','alter sequence fixture_check.number owner to postgres;revoke all on sequence fixture_check.number from wd_owner_plan_stage');
+  await scenario('stage schema ownership cannot reclaim revoked ACL','alter schema fixture_check owner to wd_owner_plan_stage;revoke all on schema fixture_check from wd_owner_plan_stage','alter schema fixture_check owner to postgres;revoke all on schema fixture_check from wd_owner_plan_stage');
+  await scenario('stage database ownership cannot reclaim revoked ACL',`alter database ${f.quoted} owner to wd_owner_plan_stage;revoke all on database ${f.quoted} from wd_owner_plan_stage`,`alter database ${f.quoted} owner to postgres;revoke all on database ${f.quoted} from wd_owner_plan_stage`);
+  await scenario('allowed RPC ownership is not a permitted privilege','alter function public.wd_proposal_plan_command(text,jsonb,uuid) owner to wd_owner_plan_stage;revoke all on function public.wd_proposal_plan_command(text,jsonb,uuid) from wd_owner_plan_stage','alter function public.wd_proposal_plan_command(text,jsonb,uuid) owner to postgres;revoke all on function public.wd_proposal_plan_command(text,jsonb,uuid) from wd_owner_plan_stage');
+  await scenario('nested service role membership refuses','grant service_role to authenticated','revoke service_role from authenticated');
+  await scenario('missing SET capability refuses','grant wd_owner_plan_stage to wd_owner_plan_login with set false','grant wd_owner_plan_stage to wd_owner_plan_login with set true');
+ }finally{await f.db.close();}
 });

@@ -37,9 +37,19 @@ select session_user='wd_owner_plan_login'
    or rolsuper or rolbypassrls or rolcreatedb or rolcreaterole or rolreplication
    or (rolname='wd_owner_plan_login' and (not rolcanlogin or rolinherit))
    or (rolname='wd_owner_plan_stage' and (rolcanlogin or rolinherit)))
- and not has_database_privilege(session_user,current_database(),'CREATE,TEMP')
- and not exists(select 1 from pg_namespace n where n.nspname not like 'pg_%' and n.nspname<>'information_schema'
-   and has_schema_privilege(session_user,n.oid,'CREATE'))
+ and pg_has_role(session_user,'authenticated','SET') and pg_has_role(session_user,'wd_owner_plan_stage','SET')
+ -- NOINHERIT login checks alone do not constrain a role after SET ROLE.
+ -- CONNECT/schema USAGE are permitted; creation, TEMP, sequences and ownership are not.
+ and not exists(select 1 from members x where has_database_privilege(x.oid,current_database(),'CREATE,TEMP')
+   or x.oid=(select datdba from pg_database where datname=current_database()))
+ and not exists(select 1 from pg_namespace n cross join members x
+   where n.nspname not like 'pg_%' and n.nspname<>'information_schema'
+   and (has_schema_privilege(x.oid,n.oid,'CREATE') or n.nspowner=x.oid))
+ and not exists(select 1 from pg_class t join pg_namespace n on n.oid=t.relnamespace cross join members x
+   where n.nspname not like 'pg_%' and n.nspname<>'information_schema' and t.relkind in ('r','p','v','m','S','f')
+   and (t.relowner=x.oid or (t.relkind='S' and has_sequence_privilege(x.oid,t.oid,'USAGE,SELECT,UPDATE'))))
+ and not exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace join members x on x.oid=p.proowner
+   where n.nspname not like 'pg_%' and n.nspname<>'information_schema')
  and not exists(select 1 from pg_class t join pg_namespace n on n.oid=t.relnamespace
    where n.nspname not like 'pg_%' and n.nspname<>'information_schema' and t.relkind in ('r','p','v','m','S','f')
    and (t.relowner=(select oid from pg_roles where rolname=session_user)
