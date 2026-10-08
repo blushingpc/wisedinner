@@ -100,7 +100,7 @@ export function ownerPlanPostgres(config:OwnerPlanConnection,factory:PoolFactory
   let expire!:(e:AccountError)=>void;const deadline=new Promise<never>((_r,reject)=>{expire=reject;});void deadline.catch(()=>{});
   const timer=setTimeout(()=>{expired=true;open=false;expire(new AccountError(503,'postgres_transaction_timeout'));},settings.transactionTimeoutMs);
   try{
-   const proof=await client.query(CONNECTION_PREFLIGHT);if(proof.rows.length!==1||proof.rows[0].permitted!==true)fail('postgres_privilege_refused');
+   const proof=await client.query(CONNECTION_PREFLIGHT),row=proof.rows[0];if(proof.rows.length!==1||row?.permitted!==true)fail('postgres_privilege_refused');
    try{await client.query('BEGIN');begun=true;}catch{broken=true;fail('postgres_begin_failed');}
    await client.query("select set_config('statement_timeout',$1,true),set_config('lock_timeout',$2,true),set_config('idle_in_transaction_session_timeout',$3,true)",[String(settings.statementTimeoutMs),String(settings.lockTimeoutMs),String(settings.transactionTimeoutMs)]);
    const callback=nesting.run(true,()=>body(tx));void callback.catch(()=>{});

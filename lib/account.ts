@@ -28,7 +28,8 @@ function strings(value: unknown, max: number): string[] {
   return value as string[];
 }
 export async function boundedJson(request: Request, limit = 16384): Promise<Record<string, unknown>> {
-  if (request.headers.get("content-type")?.split(";")[0].trim().toLowerCase() !== "application/json") throw new AccountError(415, "json_required");
+  const mediaType = request.headers.get("content-type")?.split(";")[0];
+  if (mediaType?.trim().toLowerCase() !== "application/json") throw new AccountError(415, "json_required");
   const length = request.headers.get("content-length");
   if (length && (!/^\d+$/.test(length) || Number(length) > limit)) throw new AccountError(413, "payload_too_large");
   const reader = request.body?.getReader();
@@ -63,7 +64,9 @@ export function supabaseVerifier(url: string, key: string, fetchImpl: typeof fet
     if (!response.ok) throw new AccountError(response.status >= 500 || response.status === 429 ? 503 : 401, "invalid_session");
     try {
       const user = object(await response.json());
-      const claims = object(JSON.parse(Buffer.from(token.split(".")[1], "base64url").toString("utf8")));
+      const payload = token.split(".")[1];
+      if (typeof payload !== "string" || !payload) throw new Error("invalid");
+      const claims = object(JSON.parse(Buffer.from(payload, "base64url").toString("utf8")));
       if (typeof user.id !== "string" || !UUID.test(user.id) || user.is_anonymous !== false || claims.sub !== user.id || claims.iss !== `${origin.origin}/auth/v1` || claims.aud !== "authenticated" || claims.role !== "authenticated" || typeof claims.exp !== "number" || claims.exp * 1000 <= now()) throw new Error("invalid");
       const amr = Array.isArray(claims.amr) ? claims.amr : [];
       const times = amr.filter(x => x && typeof x === "object" && ["password", "otp", "oauth", "totp", "webauthn"].includes(x.method) && Number.isSafeInteger(x.timestamp) && x.timestamp * 1000 <= now()).map(x => x.timestamp as number);
