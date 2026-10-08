@@ -152,3 +152,8 @@ V. Variety + truth sprint: template solver, variety floors, seeded regenerate, f
 - CURRENT-only producer successor manifest461efe6f029181f5350fada0b26d0e8be3e43989836a316a4612835d86a6fa68 fixes two confirmed refusal failures; original producer/B evidence unchanged. 86 distinct LOCAL controls composed from recorded passes/recovery; failed runs retained. No runtime source commit/activation.
 - Next prerequisite: independent B consumes SAME successor bytes after its current job ends naturally. Both-side acceptance/install/hosted and parent A2/G remain open; deletion adapter's lineage/lease race remains held. Fresh review selects subsequent minimum-tree work, no self-dispatch.
 - Exact report docs/OWNER-PLAN-V2-RECEIPT-REPAIR-LOCAL-2026-10-08.md; $0, flagsOFF, October9 target unchanged.
+
+### 2026-10-08: full method handoff checkpoint
+- Finite CURRENT producer freezes all91 existing methods across83 recipe IDs/81 authored records without editing installed source or original candidate. LOCAL124 controls plus independent profile/reparse proof passed;80 all-tools compatible/3 held.
+- Next independent B4/A5 dependency: consume the exact full-method-registry and producer-manifest bytes after the current B recipe job ends naturally, review decoder/source/profile/parent closure before any separate adoption authorization. No future instruction queued by A.
+- Report docs/PREPARED-METHOD-REGISTRY-LOCAL-2026-10-08.md. A4/A5/A2/B2/G and genuine food/price/hosted/native/provider/store gates remain open; withholding uninstalled artifact is rollback. $0, flagsOFF, original target unchanged.
