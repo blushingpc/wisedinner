@@ -6,7 +6,7 @@ import type { Ing } from "./types.ts";
 
 export const PREPARATION_VERSION = "wd-authored-preparation-1";
 export const SAFETY_SOURCE = "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures";
-export const EQUIPMENT = ["stovetop", "nonstick-pan", "spatula", "mixing-bowl", "whisk", "food-thermometer", "toaster", "microwave", "microwave-safe-bowl", "microwave-safe-cover", "knife", "cutting-board", "saucepan", "strainer", "bowl", "spoon", "measuring-tools", "blender", "tongs", "clean-serving-plate", "raw-poultry-board", "can-opener", "saucepan-lid"] as const;
+export const EQUIPMENT = ["stovetop", "nonstick-pan", "spatula", "mixing-bowl", "whisk", "food-thermometer", "toaster", "microwave", "microwave-safe-bowl", "microwave-safe-cover", "knife", "cutting-board", "saucepan", "strainer", "bowl", "spoon", "measuring-tools", "blender", "tongs", "clean-serving-plate", "raw-poultry-board", "can-opener", "saucepan-lid", "oven", "sheet-pan", "oven-mitts", "fork", "raw-seafood-board"] as const;
 type Equipment = typeof EQUIPMENT[number];
 type Method = { id: string; equipment: Equipment[]; steps: string[] };
 const baseId = "egg-white-and-veggie-scramble-with-toast";
@@ -191,6 +191,154 @@ const wrapsBowls: Definition[] = [
   ] }
 ];
 definitions.push(...wrapsBowls);
+// Six existing families only. Each variant has an explicit method and exact rows.
+// No materialized source, nutrition, pack or price facts are changed by this adjunct.
+const nextSix: Definition[] = [
+  { id: "turkey-and-avocado-sandwich-on-whole-wheat", sourceMethod: false, seasoning: "Black pepper", rows: [["deli-turkey", 7, "oz"], ["ww-bread", 2, "oz"], ["avocados", 0.5, "each"], ["tomatoes", 2, "oz"], ["hummus", 1, "oz"]], methods: [
+    { id: "pan-toast-deli-sandwich", equipment: ["stovetop", "nonstick-pan", "spatula", "knife", "cutting-board", "clean-serving-plate", "spoon", "measuring-tools"], steps: [
+      "Wash the avocado skin and tomatoes under running water. Remove pit and skin from the declared half avocado and slice its edible flesh; slice all 2 oz tomatoes on the clean board.",
+      "Toast 2 oz whole-wheat bread in the dry nonstick pan, turning until lightly browned, then set it on the clean plate. No extra oil is required.",
+      "Measure 7 oz packaged ready-to-eat deli turkey and 1 oz ready-to-eat hummus. Follow their package handling directions; this cold assembly requires ready-to-eat products, not raw turkey.",
+      "Spread all the hummus on the bread, stack all the turkey, avocado flesh and tomatoes between the bread and serve."
+    ] }
+  ] },
+  { id: "turkey-and-avocado-sandwich-on-whole-wheat-tempeh", sourceMethod: false, seasoning: "Black pepper", rows: [["tempeh", 6, "oz"], ["ww-bread", 2, "oz"], ["avocados", 0.5, "each"], ["tomatoes", 2, "oz"], ["hummus", 1, "oz"]], methods: [
+    { id: "pan-toast-tempeh-sandwich", equipment: ["stovetop", "nonstick-pan", "spatula", "knife", "cutting-board", "clean-serving-plate", "spoon", "measuring-tools", "food-thermometer"], steps: [
+      "Wash the avocado skin and tomatoes under running water. Remove pit and skin from the declared half avocado and slice its edible flesh; slice all 2 oz tomatoes. Measure 1 oz ready-to-eat hummus.",
+      "Toast 2 oz whole-wheat bread in the dry nonstick pan and set it on the clean plate.",
+      "Measure 6 oz tempeh before cooking and slice into thin slabs. Cook in the nonstick pan with water as needed, satisfying the tempeh package cooking and any temperature requirements, then let the water evaporate and brown lightly. No unlisted oil or raw-turkey method is used.",
+      "Spread all the hummus on the bread and fill with all the cooked tempeh, avocado flesh and tomatoes. Serve without substituting a cooked tempeh weight."
+    ] }
+  ] },
+  { id: "turkey-and-avocado-sandwich-on-whole-wheat-wrap", sourceMethod: false, seasoning: "Black pepper", rows: [["deli-turkey", 7, "oz"], ["flour-tortillas", 1, "each"], ["avocados", 0.5, "each"], ["tomatoes", 2, "oz"], ["hummus", 1, "oz"]], methods: [
+    { id: "ready-deli-wrap", equipment: ["knife", "cutting-board", "clean-serving-plate", "spoon", "measuring-tools"], steps: [
+      "Wash the avocado skin and tomatoes under running water. Remove pit and skin from the declared half avocado and slice its edible flesh; slice all 2 oz tomatoes on the clean board.",
+      "Measure 7 oz packaged ready-to-eat deli turkey and 1 oz ready-to-eat hummus. Follow their package handling directions; no raw turkey is used.",
+      "Use one packaged ready-to-eat flour tortilla whose directions permit eating without heating. Spread with all the hummus, add all the turkey, avocado flesh and tomatoes, roll and serve. No bread, oil or appliance is required."
+    ] }
+  ] },
+  { id: "tuna-salad-wrap", sourceMethod: false, seasoning: "Black pepper", rows: [["canned-tuna", 5, "oz"], ["avocados", 0.5, "each"], ["hummus", 1, "oz"], ["flour-tortillas", 1, "each"], ["romaine", 0.25, "each"]], methods: [
+    { id: "ready-tuna-wrap", equipment: ["can-opener", "strainer", "knife", "cutting-board", "bowl", "fork", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Wash the avocado skin and the declared quarter head of romaine under running water. Remove pit and skin from the half avocado; chop all the quarter romaine on the clean board.",
+      "Clean the can lid, open and drain the canned tuna. Measure 5 oz drained ready-to-eat tuna, not 5 oz packing liquid or unopened can weight; one nominal 5 oz can is not proof of this drained yield. Follow package handling directions.",
+      "Mash all the tuna and the half avocado edible flesh with all 1 oz ready-to-eat hummus in the bowl.",
+      "Use one packaged ready-to-eat flour tortilla whose directions permit eating without heating. Fill with all the salad and chopped romaine, roll and serve. No extra dressing or oil is needed."
+    ] }
+  ] },
+  { id: "tuna-salad-wrap-chicken", sourceMethod: false, seasoning: "Black pepper", rows: [["canned-chicken", 6, "oz"], ["avocados", 0.5, "each"], ["hummus", 1, "oz"], ["flour-tortillas", 1, "each"], ["romaine", 0.25, "each"]], methods: [
+    { id: "ready-canned-chicken-wrap", equipment: ["can-opener", "strainer", "knife", "cutting-board", "bowl", "fork", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Wash the avocado skin and the declared quarter head of romaine under running water. Remove pit and skin from the half avocado; chop all the quarter romaine on the clean board.",
+      "Clean the can lid, open and drain the packaged fully cooked ready-to-eat canned chicken. Measure 6 oz chicken meat after draining, not can or broth weight; follow package handling directions. This is canned chicken, not raw chicken breast or tuna.",
+      "Mash all the chicken meat and half avocado edible flesh with all 1 oz ready-to-eat hummus in the bowl.",
+      "Use one packaged ready-to-eat flour tortilla whose directions permit eating without heating. Fill with all the chicken salad and romaine, roll and serve without extra dressing or oil."
+    ] }
+  ] },
+  { id: "tuna-salad-wrap-rice", sourceMethod: false, seasoning: "Black pepper", rows: [["canned-tuna", 5, "oz"], ["avocados", 0.5, "each"], ["hummus", 1, "oz"], ["white-rice", 60, "g"], ["romaine", 0.25, "each"]], methods: [
+    { id: "stovetop-tuna-rice", equipment: ["stovetop", "saucepan", "saucepan-lid", "can-opener", "strainer", "knife", "cutting-board", "bowl", "fork", "spoon", "measuring-tools"], steps: [
+      "Measure 60 g dry rice and cook in water in the saucepan, covering as its package directs, until tender. Do not substitute a cooked rice weight or a tortilla.",
+      "Wash the avocado skin and the declared quarter head of romaine under running water. Remove pit and skin from the half avocado and chop all the quarter romaine on the clean board.",
+      "Clean the can lid, open and drain the canned tuna. Measure 5 oz drained ready-to-eat tuna, not packing liquid or unopened can weight; one nominal 5 oz can is not proof of drained yield. Follow package handling directions. Mash with all the half avocado edible flesh and 1 oz ready-to-eat hummus.",
+      "Serve all the cooked rice topped with all the tuna salad and chopped romaine. No extra oil or dressing is needed."
+    ] }
+  ] },
+  { id: "turkey-taco-bowl", sourceMethod: false, seasoning: "Black pepper", rows: [["ground-turkey", 6, "oz"], ["white-rice", 60, "g"], ["black-beans", 4, "oz"], ["taco-seasoning", 7, "g"], ["salsa", 2, "oz"]], methods: [
+    { id: "stovetop-ground-turkey-rice", equipment: ["stovetop", "saucepan", "saucepan-lid", "nonstick-pan", "spatula", "food-thermometer", "can-opener", "bowl", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Measure 60 g dry rice and cook in water in the saucepan, covering as its package directs, until tender. Do not substitute cooked weight.",
+      "Clean the bean can lid and open it. Measure 4 oz canned black beans including any packing liquid, warm the entire measured portion in the pan as its package directs and set on the clean plate. Measure 2 oz ready-to-eat salsa; do not substitute dry beans.",
+      "Measure 6 oz raw ground turkey before cooking. Keep it separate from cooked rice, beans and salsa. Cook in the nonstick pan without added oil, breaking it up with all 7 g taco seasoning and a little water if needed, until a food thermometer reads 165 F throughout; stricter package directions win. Wash hands and clean raw-contact utensils; time or browning alone is not doneness.",
+      "With clean utensils, serve all the rice, cooked turkey and seasoning, beans and salsa in the bowl. Do not replace the raw turkey quantity with a cooked weight."
+    ] }
+  ] },
+  { id: "turkey-taco-bowl-lentil", sourceMethod: false, seasoning: "Black pepper", rows: [["lentils", 120, "g"], ["white-rice", 60, "g"], ["black-beans", 4, "oz"], ["taco-seasoning", 7, "g"], ["salsa", 2, "oz"]], methods: [
+    { id: "stovetop-dry-lentil-rice", equipment: ["stovetop", "saucepan", "saucepan-lid", "strainer", "nonstick-pan", "spatula", "can-opener", "bowl", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Measure 120 g dry lentils, sort and rinse in the strainer, then simmer in water in the saucepan as the lentil package directs until fully tender. Drain any excess water and keep all the cooked lentils in the bowl; 120 g cooked lentils is not a substitute.",
+      "In the saucepan, cook the measured 60 g dry rice in water, covering as its package directs, until tender. Keep all the cooked rice on the clean plate; no cooked-weight shortcut.",
+      "Clean the bean can lid and open it. Measure 4 oz canned black beans including any packing liquid and warm the entire measured portion in the nonstick pan as its package directs. Add all the cooked lentils and 7 g taco seasoning with water if needed and stir until hot. No turkey method, poultry temperature or extra oil is used.",
+      "Serve all the rice, lentils and seasoning, beans and 2 oz ready-to-eat salsa in the bowl. Do not discard lentils to force a claimed portion or yield."
+    ] }
+  ] },
+  { id: "turkey-taco-bowl-tacos", sourceMethod: false, seasoning: "Black pepper", rows: [["ground-turkey", 6, "oz"], ["corn-tortillas", 3, "each"], ["black-beans", 4, "oz"], ["taco-seasoning", 7, "g"], ["salsa", 2, "oz"]], methods: [
+    { id: "stovetop-ground-turkey-tacos", equipment: ["stovetop", "nonstick-pan", "spatula", "food-thermometer", "can-opener", "bowl", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Warm all three corn tortillas in the dry pan as their package directs and keep them on the clean plate. No rice is used.",
+      "Clean the bean can lid and open it. Measure 4 oz canned black beans including any packing liquid and warm the entire measured portion in the pan as its package directs; keep in the bowl with 2 oz ready-to-eat salsa, away from raw turkey.",
+      "Measure 6 oz raw ground turkey before cooking and keep separate from ready food. Cook in the nonstick pan without added oil, breaking it up with all 7 g taco seasoning and water if needed, until a food thermometer reads 165 F throughout; stricter package directions win. Wash hands and clean raw-contact utensils; time or color is not proof.",
+      "With clean utensils, fill all three tortillas with all the cooked turkey and seasoning, beans and salsa. Do not substitute a cooked turkey weight."
+    ] }
+  ] },
+  { id: "teriyaki-chicken-and-broccoli-rice-bowl", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 10, "oz"], ["white-rice", 65, "g"], ["frozen-broccoli", 4, "oz"], ["teriyaki-sauce", 2, "tbsp"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "stovetop-teriyaki-chicken-rice", equipment: ["stovetop", "saucepan", "saucepan-lid", "nonstick-pan", "spatula", "tongs", "food-thermometer", "knife", "raw-poultry-board", "bowl", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Measure 65 g dry rice and cook in water in the saucepan, covering as its package directs, until tender. Do not substitute cooked weight.",
+      "Cook the measured 4 oz frozen broccoli in the nonstick pan with water as needed, satisfying its package cooking directions; keep all on the clean plate away from raw poultry.",
+      "Measure 10 oz raw chicken before cooking; do not wash it. Dice on the raw-poultry board, wash hands and clean raw-contact utensils. Heat the measured 1 tsp olive oil in the pan and cook all the chicken until a food thermometer reads 165 F throughout; stricter package directions win. Time or browning is not proof.",
+      "Using clean utensils, return all the broccoli to the cooked chicken and measured pan oil, add all 2 tbsp teriyaki sauce and heat as the sauce package directs. Serve everything over all the cooked rice without adding unlisted sauce or substituting a cooked chicken weight."
+    ] }
+  ] },
+  { id: "teriyaki-chicken-and-broccoli-rice-bowl-tofu", sourceMethod: false, seasoning: "Black pepper", rows: [["tofu", 9, "oz"], ["white-rice", 65, "g"], ["frozen-broccoli", 4, "oz"], ["teriyaki-sauce", 2, "tbsp"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "stovetop-teriyaki-tofu-rice", equipment: ["stovetop", "saucepan", "saucepan-lid", "nonstick-pan", "spatula", "knife", "cutting-board", "bowl", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Measure 65 g dry rice and cook in water in the saucepan, covering as its package directs, until tender. Do not substitute cooked weight.",
+      "Cook the measured 4 oz frozen broccoli in the nonstick pan with water as needed, satisfying its package directions; keep all on the clean plate.",
+      "Measure 9 oz tofu before cooking, pat dry and dice on the clean board. Heat the measured 1 tsp olive oil in the pan and cook all the tofu until hot and lightly browned, satisfying its package cooking requirements. No chicken or poultry temperature is used.",
+      "Return all the broccoli to the tofu and measured pan oil, add all 2 tbsp teriyaki sauce and heat as the sauce package directs. Serve everything over all the rice without unlisted sauce or a cooked tofu weight substitution."
+    ] }
+  ] },
+  { id: "teriyaki-chicken-and-broccoli-rice-bowl-quinoa", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 10, "oz"], ["quinoa", 60, "g"], ["frozen-broccoli", 4, "oz"], ["teriyaki-sauce", 2, "tbsp"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "stovetop-teriyaki-chicken-quinoa", equipment: ["stovetop", "saucepan", "saucepan-lid", "strainer", "nonstick-pan", "spatula", "tongs", "food-thermometer", "knife", "raw-poultry-board", "bowl", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Measure 60 g dry quinoa, rinse in the strainer and cook in water in the saucepan, covering as its package directs, until tender. Do not substitute rice or cooked weight.",
+      "Cook the measured 4 oz frozen broccoli in the nonstick pan with water as needed, satisfying its package cooking directions; keep all on the clean plate away from raw poultry.",
+      "Measure 10 oz raw chicken before cooking; do not wash it. Dice on the raw-poultry board, wash hands and clean raw-contact utensils. Heat the measured 1 tsp olive oil in the pan and cook all the chicken until a food thermometer reads 165 F throughout; stricter package directions win. Time or browning is not proof.",
+      "Using clean utensils, return all the broccoli to the cooked chicken and measured pan oil, add all 2 tbsp teriyaki sauce and heat as its package directs. Serve everything over all the quinoa without unlisted sauce or a cooked chicken weight substitution."
+    ] }
+  ] },
+  { id: "chicken-fajita-bowl", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 9, "oz"], ["frozen-peppers-onions", 5, "oz"], ["white-rice", 60, "g"], ["taco-seasoning", 7, "g"], ["salsa", 2, "oz"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "stovetop-chicken-fajita-rice", equipment: ["stovetop", "saucepan", "saucepan-lid", "nonstick-pan", "spatula", "tongs", "food-thermometer", "knife", "raw-poultry-board", "bowl", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Measure 60 g dry rice and cook in water in the saucepan, covering as its package directs, until tender. Do not substitute cooked weight.",
+      "Cook all 5 oz frozen peppers and onions in the nonstick pan with water as needed, satisfying their package cooking directions; keep on the clean plate. Measure 2 oz ready-to-eat salsa and keep away from raw poultry.",
+      "Measure 9 oz raw chicken before cooking; do not wash it. Slice on the raw-poultry board, wash hands and clean raw-contact utensils. Heat the measured 1 tsp olive oil and cook the chicken with all 7 g taco seasoning until a food thermometer reads 165 F throughout; stricter package directions win. Time or charring alone is not proof.",
+      "Using clean utensils, return all the vegetables to the cooked chicken and measured pan oil and stir until hot. Serve all over all the rice with all the salsa; no cooked chicken weight substitution or extra oil."
+    ] }
+  ] },
+  { id: "chicken-fajita-bowl-shrimp", sourceMethod: false, seasoning: "Black pepper", rows: [["frozen-shrimp", 8, "oz"], ["frozen-peppers-onions", 5, "oz"], ["white-rice", 60, "g"], ["taco-seasoning", 7, "g"], ["salsa", 2, "oz"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "stovetop-shrimp-fajita-rice", equipment: ["stovetop", "saucepan", "saucepan-lid", "nonstick-pan", "spatula", "tongs", "food-thermometer", "raw-seafood-board", "bowl", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Thaw the peeled raw shrimp in the refrigerator as its package directs, then measure 8 oz thawed raw edible shrimp before cooking, excluding ice glaze or discarded liquid; do not substitute a cooked weight. Keep on the raw-seafood board away from ready food and follow package handling directions.",
+      "Measure 60 g dry rice and cook in water in the saucepan, covering as its package directs, until tender. Cook all 5 oz frozen peppers and onions in the nonstick pan with water as needed, satisfying their package cooking directions; keep on the clean plate. Measure 2 oz ready-to-eat salsa.",
+      "Heat the measured 1 tsp olive oil in the pan and cook all the shrimp with all 7 g taco seasoning until the flesh is pearly or white and opaque throughout, meeting any stricter package cooking and thermometer temperature requirements. Wash hands and clean raw-contact utensils. Time alone is not proof; no poultry temperature or chicken method is used.",
+      "Using clean utensils, return all the vegetables to the cooked shrimp and measured pan oil and stir until hot. Serve all over all the rice with all the salsa, without extra oil."
+    ] }
+  ] },
+  { id: "chicken-fajita-bowl-tortillas", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 9, "oz"], ["frozen-peppers-onions", 5, "oz"], ["flour-tortillas", 2, "each"], ["taco-seasoning", 7, "g"], ["salsa", 2, "oz"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "stovetop-chicken-fajita-tortillas", equipment: ["stovetop", "nonstick-pan", "spatula", "tongs", "food-thermometer", "knife", "raw-poultry-board", "bowl", "spoon", "clean-serving-plate", "measuring-tools"], steps: [
+      "Warm both flour tortillas in the dry pan as their package directs and keep on the clean plate. No rice is used.",
+      "Cook all 5 oz frozen peppers and onions in the pan with water as needed, satisfying their package cooking directions; keep in the bowl. Measure 2 oz ready-to-eat salsa and keep away from raw poultry.",
+      "Measure 9 oz raw chicken before cooking; do not wash it. Slice on the raw-poultry board, wash hands and clean raw-contact utensils. Heat the measured 1 tsp olive oil and cook all the chicken with all 7 g taco seasoning until a food thermometer reads 165 F throughout; stricter package directions win. Time or charring alone is not proof.",
+      "Using clean utensils, return all the vegetables to the cooked chicken and measured pan oil and stir until hot. Fill both tortillas with all the chicken, vegetables and salsa; do not substitute cooked chicken weight or add extra oil."
+    ] }
+  ] },
+  { id: "sheet-pan-chicken-with-sweet-potato-and-broccoli", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 10, "oz"], ["sweet-potatoes", 8, "oz"], ["frozen-broccoli", 4, "oz"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "oven-chicken-sweet-potato", equipment: ["oven", "sheet-pan", "oven-mitts", "knife", "cutting-board", "raw-poultry-board", "tongs", "spoon", "measuring-tools", "food-thermometer", "fork", "clean-serving-plate"], steps: [
+      "Heat the oven to 425 F unless stricter package cooking directions require otherwise. Wash and scrub the sweet potato, measure 8 oz raw edible potato before cooking and cube on the clean produce board. Keep edible skin; do not substitute cooked weight.",
+      "Measure 1 tbsp olive oil total. Toss all the sweet potato with half on the sheet pan and start roasting until beginning to soften; this is an intermediate texture check, not a fixed cooking time.",
+      "Measure 10 oz raw chicken before cooking; do not wash it. Cut on the separate raw-poultry board, wash hands and clean raw-contact utensils. Add all the chicken and 4 oz frozen broccoli with the remaining half oil to the sheet pan, keeping raw-contact tools separate from serving tools.",
+      "Continue roasting until chicken measures 165 F throughout with a food thermometer, the potato is fork-tender and the broccoli satisfies its package cooking requirements; stricter package directions win. Time alone is not proof. Use oven mitts and clean utensils to serve all the chicken, potato, broccoli and measured pan oil on the clean plate."
+    ] }
+  ] },
+  { id: "sheet-pan-chicken-with-sweet-potato-and-broccoli-tofu", sourceMethod: false, seasoning: "Black pepper", rows: [["tofu", 9, "oz"], ["sweet-potatoes", 8, "oz"], ["frozen-broccoli", 4, "oz"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "oven-tofu-sweet-potato", equipment: ["oven", "sheet-pan", "oven-mitts", "knife", "cutting-board", "spatula", "spoon", "measuring-tools", "fork", "clean-serving-plate", "food-thermometer"], steps: [
+      "Heat the oven to 425 F unless stricter package cooking directions require otherwise. Wash and scrub the sweet potato, measure 8 oz raw edible potato before cooking and cube on the clean board. Keep edible skin; do not substitute cooked weight.",
+      "Measure 1 tbsp olive oil total. Toss all the potato with half on the sheet pan and start roasting until beginning to soften. Measure 9 oz tofu before cooking, pat dry and cube.",
+      "Add all the tofu and 4 oz frozen broccoli with the remaining half oil to the sheet pan. Roast until the potato is fork-tender and tofu and broccoli meet their package cooking and any thermometer temperature requirements; time or browning alone is not proof. No chicken, raw-poultry board or poultry temperature is used.",
+      "Use oven mitts and clean utensils to serve all the tofu, potato, broccoli and measured pan oil on the clean plate. Do not substitute cooked potato or tofu weights."
+    ] }
+  ] },
+  { id: "sheet-pan-chicken-with-sweet-potato-and-broccoli-potatoes", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 10, "oz"], ["russet-potatoes", 8, "oz"], ["frozen-broccoli", 4, "oz"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "oven-chicken-russet-potato", equipment: ["oven", "sheet-pan", "oven-mitts", "knife", "cutting-board", "raw-poultry-board", "tongs", "spoon", "measuring-tools", "food-thermometer", "fork", "clean-serving-plate"], steps: [
+      "Heat the oven to 425 F unless stricter package cooking directions require otherwise. Wash and scrub the russet potato, measure 8 oz raw edible potato before cooking and cube on the clean produce board. Keep edible skin; no sweet potato or cooked-weight substitute is used.",
+      "Measure 1 tbsp olive oil total. Toss all the russet potato with half on the sheet pan and start roasting until beginning to soften; this is not a fixed cooking time.",
+      "Measure 10 oz raw chicken before cooking; do not wash it. Cut on the separate raw-poultry board, wash hands and clean raw-contact utensils. Add all the chicken and 4 oz frozen broccoli with the remaining half oil to the sheet pan, keeping raw-contact tools separate from serving tools.",
+      "Continue roasting until chicken measures 165 F throughout with a food thermometer, the russet potato is fork-tender and broccoli satisfies its package cooking requirements; stricter package directions win. Time alone is not proof. Use oven mitts and clean utensils to serve all the chicken, potato, broccoli and measured pan oil on the clean plate."
+    ] }
+  ] }
+];
+definitions.push(...nextSix);
 const records = definitions.map(definition => {
   const recipe = compiled.recipes.find(recipe => recipe.id === definition.id)!;
   const primaryEquipment: Equipment[] = definition.id.endsWith("-potatoes")
