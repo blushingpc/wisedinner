@@ -202,3 +202,10 @@ Recipe-ID/source/equipment bridge and original-inventory reroll stay held. Provi
 - [OPEN] Compatible accepted recipe/source/quantity/equipment bridge and original-inventory reroll; current legacy/prepared IDs and snapshot formats do not match.
 - [OPEN] Exact isolated PostgreSQL target/security/backup/rollback and real hosted/native/provider/store verification, historical-state/deletion races, actual food/prices and J1/J2/J3/G acceptance.
 - Next independent work needs those genuine acceptance inputs or an exact target-scoped proof job. No routine auditor approval wait, invented acceptance, shared engine change or external replay.
+
+## October 8, 2026: Confirmed deferred repairs completed locally
+
+- [DONE LOCAL] Confirmed pg_type ownership omission repaired; enum/domain/composite closure-member ownership refuses before BEGIN/body. Candidate remains unbound/unapplied.
+- [DONE LOCAL] Four strict joined compiler diagnostics and the demonstrated fifth adapter-row diagnostic have green current-source successors under unchanged strict rules. Historical failures stay failed.
+- [OPEN] Genuine compatible accepted recipe/source/equipment/eight-answer/whole-pack/pantry bridge and actual deterministic reroll; legacy/prepared IDs and strict snapshot mismatch remain.
+- [OPEN] Exact isolated physical DB/security/backup/rollback, hosted/provider/native/store/deletion/historical-data, real food/prices/device/submission and J1/J2/J3/G gates. No unreviewed external execution or optional guard-only work.
