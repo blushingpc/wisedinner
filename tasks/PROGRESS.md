@@ -528,3 +528,9 @@ Parents A2/B2/G and hosted/native/provider/deletion/food/measured-price/content 
 Source35129b7e4bfc43a8e30f359b24bf09416c1ef29a adds unbound pg8.23.1 adapter and unapplied0017 narrow staging role. 33 distinct final leaf checks, ordinary types, effective lint, voice and diff pass; dry driver and memory SQL only. Original failures and inherited note prefixes preserved.
 Report docs/OWNER-PLAN-POSTGRES-CONNECTION-LOCAL-2026-10-08.md. No physical connection/grant/provider operation; real least-privilege target and trusted admission remain gated. Parents and launch remain open,$0; October9 targets unchanged.
 Single-writer combined flow advances directly to B2-durable without routine audit/approval wait. No activation or self-dispatch.
+
+## October8 2026: combined flow natural resource boundary
+
+A2-pg DONE LOCAL source35129b7/report0bfda556,33 final leaf checks/types/lint/voice. B2 advanced in same turn; durable journal source remains unverified/uncommitted with original15/1 failed then15/0 repaired attempts; later18 checks/regressions unrun.
+Exact closed local cd1c16de reservation retained due old Python numeric-parent reuse, no live test or controller change. Standing-safe coordinator recovery after natural absent writer proof then fresh exact-source A continuation, no founder routine approval.
+Aggregate docs/SINGLE-WRITER-MINIMUM-FLOW-2026-10-08.md; remaining methods/rerolls/reachable integration/local composition and hosted/provider/native/food/store/parents OPEN. $0,both October9 targets unchanged.
