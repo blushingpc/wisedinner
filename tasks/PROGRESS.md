@@ -513,3 +513,11 @@ Next independent security/coordinator review of exact local repair/history hold,
 One official FDC2727567 read still reports carbohydrate -0.17255 g per100g for the same raw meat-and-skin identity. ORIGINALSOURCE-STILLHELD; no correction, cache/runtime change or catalog admission. Exact raw/source/affected-recipe handoff frozen in A07:09 CURRENT; 28 distinct controls, independent reparse, CURRENT/ordinary types and effective scoped lint pass. Original admission red and failed attempts remain preserved.
 Both direct 10 oz thigh recipes and pork parent closure already match the original three holds; the 80 equipment-eligible structures remain exact. Other whole-cache identity failures, physical/yield/food/price and cross-lane acceptance remain open. Launch gate closed; A4/A5 and parents open. Report: docs/CHICKEN-THIGH-NUTRITION-SOURCE-LOCAL-2026-10-08.md.
 Next independent dependency: review exact inactive-source quarantine handling for the B consumer, retaining complete source facts and refusing trusted nutrition grants. No implicit filtering, source fetch chain, activation or self-dispatch. Receipt/deletion/history/hosted/native/store gates remain; $0, factories off, original October9 19:39:35UTC target unchanged.
+
+
+## October8 2026: resumed owner-plan server verification, LOCAL
+
+Source441da63c165f3ef5ce42c19ee25b136dece7ee7d installs only unbound codec/server/test fixture/tests and unapplied0016. Confirmed UUID/deferred test failure repaired; original blocked/unknown-exit evidence and standing-recovery archive retained, no command replay or process stop.
+169 distinct leaf controls, final ordinary types, effective scoped lint, voice/diff passed; memory SQL/dry Auth only. All protected app/public/private/source/history pins preserved; inherited note prefix and untracked reports remain unstaged.
+Fresh report docs/OWNER-PLAN-SERVER-VERIFICATION-RESUMED-LOCAL-2026-10-08.md. Next independent exact-source/app durable-install review and trusted production admission/least-privilege physical transaction binding acceptance; no self-dispatch/activation.
+Parents A2/B2/G and hosted/native/provider/deletion/food/measured-price/content join/store/release remain open; launch gate closed. Factories off,$0/externalwrites0, October9 12:06UTC and19:39:35UTC retained.
