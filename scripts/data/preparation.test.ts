@@ -19,7 +19,7 @@ test("every existing base and variant materializes independently; coverage holds
   const actual = source(), coverage = preparationCoverage();
   assert.equal(actual.recipes.length, RECIPES.length + RECIPES.reduce((sum, base) => sum + base.variants.length, 0));
   assert.deepEqual(coverage.map(row => row.id), actual.recipes.map(row => row.id));
-  assert.equal(coverage.filter(row => row.state === "authored-local").length, 4);
+  assert.equal(coverage.filter(row => row.state === "authored-local").length, 22);
   for (const entry of coverage) {
     const result = resolvePreparation(actual, entry.id, EQUIPMENT);
     assert.equal(result.state === "authored-local", entry.state === "authored-local", entry.id);
@@ -115,4 +115,145 @@ test("optional seasoning omission keeps complete instructions and cannot certify
   assert.equal(JSON.stringify(actual), before);
   assert.equal("totalCents" in result, false);
   assert.equal("protein" in result, false);
+});
+
+const families = ["greek-yogurt-parfait-with-berries-and-granola", "protein-oatmeal-with-peanut-butter-and-banana", "protein-pancakes-with-berries", "egg-and-avocado-breakfast-wrap", "cottage-cheese-bowl-with-fruit-and-honey", "chicken-caesar-wrap"];
+const batchIds = RECIPES.filter(recipe => families.includes(recipe.id)).flatMap(recipe => [recipe.id, ...recipe.variants.map(variant => variant.id)]);
+test("six-family batch resolves all18 exact existing row sets with independent overrides and leaves61 held", () => {
+  const actual = source(), before = JSON.stringify(actual);
+  assert.equal(batchIds.length, 18);
+  for (const recipeId of batchIds) {
+    const result = resolvePreparation(actual, recipeId, EQUIPMENT);
+    assert.equal(result.state, "authored-local", recipeId);
+    if (result.state !== "authored-local") throw Error("missing batch method");
+    assert.deepEqual(result.ingredients, actual.ingredients.filter(row => row.recipe_id === recipeId).map(row => [row.sku_id, row.qty, row.unit]));
+    assert.notEqual(result.method.id, "authored-primary");
+    assert.notDeepEqual(result.method.steps, actual.recipes.find(row => row.id === recipeId)!.steps);
+    assert.equal(result.crossLaneAccepted, false);
+    assert.equal(result.restrictionAdmission, false);
+    assert.equal(result.timing.measured, false);
+    assert.equal(result.timing.declaredMinutesAppliesToMethod, false);
+    assert.equal(result.timing.methodMinutes, null);
+    assert.equal(resolvePreparation(actual, recipeId, EQUIPMENT, PREPARATION_VERSION, "authored-primary").state, "held");
+    assert.equal(resolvePreparation(actual, recipeId, null).state, "held");
+    assert.equal(resolvePreparation(actual, recipeId, []).state, "held");
+    for (const tool of result.method.equipment) {
+      assert.equal(resolvePreparation(actual, recipeId, result.method.equipment.filter(item => item !== tool), PREPARATION_VERSION, result.method.id).state, "held", recipeId + " needs " + tool);
+    }
+  }
+  assert.equal(preparationCoverage().filter(row => row.state === "held-unprepared").length, 61);
+  for (const row of preparationCoverage().filter(row => row.state === "held-unprepared")) assert.equal(resolvePreparation(actual, row.id, EQUIPMENT).state, "held", row.id);
+  assert.equal(JSON.stringify(actual), before);
+});
+test("grain, protein and fruit variants account for dry quantities and edible banana without a cooked-weight shortcut", () => {
+  const checks: [string, RegExp[]][] = [
+    [families[0], [/15 g whey/, /8 oz Greek yogurt/, /1\.5 oz.*granola/, /3 oz frozen berries/]],
+    [families[0] + "-plant", [/35 g pea/, /8 oz plant yogurt/, /1\.5 oz dry oats/, /Cook them.*package/, /3 oz frozen berries/]],
+    [families[0] + "-oats", [/15 g whey/, /8 oz Greek yogurt/, /1\.5 oz dry oats/, /not a cooked-weight/]],
+    [families[1], [/60 g dry oats/, /30 g whey/, /100 g edible/, /1 oz peanut butter/]],
+    [families[1] + "-pea", [/60 g dry oats/, /30 g pea/, /100 g edible/, /1 oz peanut butter/]],
+    [families[1] + "-quinoa", [/50 g dry quinoa/, /rinse/, /30 g whey/, /100 g edible/, /1 oz peanut butter/]],
+    [families[4], [/11 oz.*cottage cheese/, /100 g edible/, /0\.5 oz honey/, /3 oz frozen berries/]],
+    [families[4] + "-plant", [/30 g pea/, /8 oz plant yogurt/, /100 g edible/, /1 oz peanut butter/]],
+    [families[4] + "-toast", [/2 oz bread/, /11 oz.*cottage cheese/, /0\.5 oz honey/, /3 oz frozen berries/]]
+  ];
+  for (const [recipeId, patterns] of checks) {
+    const result = resolvePreparation(source(), recipeId, EQUIPMENT);
+    if (result.state !== "authored-local") throw Error(recipeId);
+    for (const pattern of patterns) assert.match(result.method.steps.join(" "), pattern, recipeId);
+  }
+});
+test("pancake methods consume both eggs or banana replacement and do not demand unlisted oil/milk or time-only doneness", () => {
+  for (const recipeId of [families[2], families[2] + "-oat", families[2] + "-vegan"]) {
+    const result = resolvePreparation(source(), recipeId, EQUIPMENT);
+    if (result.state !== "authored-local") throw Error(recipeId);
+    const steps = result.method.steps.join(" ");
+    assert.match(steps, /60 g dry/);
+    assert.match(steps, /without added oil/);
+    assert.match(steps, /raw batter/);
+    if (recipeId.endsWith("-vegan")) {
+      assert.match(steps, /100 g peeled edible banana/);
+      assert.match(steps, /30 g pea/);
+      assert.match(steps, /centers are fully set.*package cooking/);
+      assert.equal(result.ingredients.some(row => row[0] === "eggs" || row[0] === "whey-protein"), false);
+    } else {
+      assert.match(steps, /both eggs/);
+      assert.match(steps, /20 g whey/);
+      assert.match(steps, /thermometer reads at least 160 F/);
+    }
+    if (recipeId !== families[2]) assert.equal(resolvePreparation(source(), recipeId, EQUIPMENT.filter(tool => tool !== "blender")).state, "held");
+  }
+});
+test("wraps preserve all eggs/whites or tofu, half avocado flesh, salsa and the exact tortilla choice", () => {
+  for (const recipeId of [families[3], families[3] + "-tofu", families[3] + "-corn"]) {
+    const result = resolvePreparation(source(), recipeId, EQUIPMENT);
+    if (result.state !== "authored-local") throw Error(recipeId);
+    const steps = result.method.steps.join(" ");
+    assert.match(steps, /half.*(edible flesh|avocado)/);
+    assert.match(steps, /1 oz salsa/);
+    if (recipeId.endsWith("-tofu")) {
+      assert.match(steps, /7 oz tofu.*cooked weight/);
+      assert.match(steps, /tofu package/);
+      assert.equal(result.ingredients.some(row => row[0] === "eggs" || row[0] === "egg-whites"), false);
+    } else {
+      assert.match(steps, /all three eggs with 5 oz egg whites/);
+      assert.match(steps, /thermometer reads 160 F/);
+    }
+    assert.match(steps, recipeId.endsWith("-corn") ? /both corn tortillas/ : /one flour tortilla/);
+  }
+});
+test("Caesar methods distinguish raw poultry, ready-to-eat deli and dry rice, preserving measured dressing and Parmesan", () => {
+  for (const recipeId of [families[5], families[5] + "-turkey", families[5] + "-bowl"]) {
+    const result = resolvePreparation(source(), recipeId, EQUIPMENT);
+    if (result.state !== "authored-local") throw Error(recipeId);
+    const steps = result.method.steps.join(" ");
+    assert.match(steps, /half romaine/);
+    assert.match(steps, /2 tbsp Caesar dressing and 0\.5 oz Parmesan/);
+    if (recipeId.endsWith("-turkey")) {
+      assert.match(steps, /6 oz packaged cooked ready-to-eat deli turkey/);
+      assert.match(steps, /raw turkey is unsupported/);
+      assert.equal(result.method.equipment.includes("raw-poultry-board"), false);
+    } else {
+      assert.match(steps, /6 oz raw chicken before cooking/);
+      assert.match(steps, /Do not wash it/);
+      assert.match(steps, /separate raw-poultry board/);
+      assert.match(steps, /thermometer reads 165 F/);
+      assert.match(steps, /clean utensils/i);
+      assert.equal(resolvePreparation(source(), recipeId, EQUIPMENT.filter(tool => tool !== "raw-poultry-board")).state, "held");
+    }
+    if (recipeId.endsWith("-bowl")) assert.match(steps, /60 g dry rice before cooking.*not replace it with 60 g cooked rice/);
+  }
+});
+test("explicit berry/oat/toast alternatives work only with their actual owned tools; no unowned microwave or toaster is guessed", () => {
+  const actual = source();
+  const cases: [string, string][] = [[families[0], "microwave-berries"], [families[1], "microwave"], [families[1] + "-pea", "microwave"], [families[4], "microwave-berries"], [families[4] + "-plant", "microwave-berries"], [families[4] + "-toast", "toaster"]];
+  for (const [recipeId, method] of cases) {
+    const result = resolvePreparation(actual, recipeId, EQUIPMENT, PREPARATION_VERSION, method);
+    if (result.state !== "authored-local") throw Error(recipeId);
+    assert.equal(resolvePreparation(actual, recipeId, result.method.equipment, PREPARATION_VERSION, method).state, "authored-local");
+    assert.equal(resolvePreparation(actual, recipeId, result.method.equipment.filter(tool => tool !== (method === "toaster" ? "toaster" : "microwave")), PREPARATION_VERSION, method).state, "held");
+  }
+  const toast = resolvePreparation(actual, families[4] + "-toast", EQUIPMENT.filter(tool => tool !== "toaster"));
+  assert.equal(toast.state, "authored-local");
+  if (toast.state === "authored-local") assert.equal(toast.method.id, "pan-toast");
+});
+test("every batch method keeps optional seasoning/package/allergy/price uncertainty and refuses changed rows or methods", () => {
+  for (const recipeId of batchIds) {
+    const actual = source(), before = JSON.stringify(actual), result = resolvePreparation(actual, recipeId, EQUIPMENT);
+    if (result.state !== "authored-local") throw Error(recipeId);
+    assert.equal(result.seasoning.optional, true);
+    assert.equal(result.seasoning.prompt, "Seasoning of your choice");
+    assert.equal(result.seasoning.recommended, recipeId.startsWith(families[3]) || recipeId.startsWith(families[5]) ? "Black pepper" : "Cinnamon");
+    assert.equal(result.seasoning.allergenStatus, "unknown");
+    assert.equal(result.seasoning.includedInQuotedTotal, false);
+    assert.equal(result.seasoning.includedInNutrients, false);
+    assert.equal(result.safety.allergySafe, false);
+    assert.equal(result.safety.kitchenVerified, false);
+    assert.equal(result.safety.stricterPackageDirectionsWin, true);
+    assert.doesNotMatch(result.method.steps.join(" "), /\b(?:cinnamon|seasoning of your choice|black pepper)\b/i);
+    assert.equal(JSON.stringify(actual), before);
+    actual.ingredients.find(row => row.recipe_id === recipeId)!.qty += 1;
+    assert.equal(resolvePreparation(actual, recipeId, EQUIPMENT).state, "held");
+    assert.equal(resolvePreparation(source(), recipeId, EQUIPMENT, PREPARATION_VERSION, "guessed-air-fryer").state, "held");
+  }
 });
