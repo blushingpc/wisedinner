@@ -521,3 +521,10 @@ Source441da63c165f3ef5ce42c19ee25b136dece7ee7d installs only unbound codec/serve
 169 distinct leaf controls, final ordinary types, effective scoped lint, voice/diff passed; memory SQL/dry Auth only. All protected app/public/private/source/history pins preserved; inherited note prefix and untracked reports remain unstaged.
 Fresh report docs/OWNER-PLAN-SERVER-VERIFICATION-RESUMED-LOCAL-2026-10-08.md. Next independent exact-source/app durable-install review and trusted production admission/least-privilege physical transaction binding acceptance; no self-dispatch/activation.
 Parents A2/B2/G and hosted/native/provider/deletion/food/measured-price/content join/store/release remain open; launch gate closed. Factories off,$0/externalwrites0, October9 12:06UTC and19:39:35UTC retained.
+
+
+## October8 2026: physical connection prerequisite, LOCAL
+
+Source35129b7e4bfc43a8e30f359b24bf09416c1ef29a adds unbound pg8.23.1 adapter and unapplied0017 narrow staging role. 33 distinct final leaf checks, ordinary types, effective lint, voice and diff pass; dry driver and memory SQL only. Original failures and inherited note prefixes preserved.
+Report docs/OWNER-PLAN-POSTGRES-CONNECTION-LOCAL-2026-10-08.md. No physical connection/grant/provider operation; real least-privilege target and trusted admission remain gated. Parents and launch remain open,$0; October9 targets unchanged.
+Single-writer combined flow advances directly to B2-durable without routine audit/approval wait. No activation or self-dispatch.
