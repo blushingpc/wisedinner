@@ -142,3 +142,8 @@ V. Variety + truth sprint: template solver, variety floors, seeded regenerate, f
 
 - Sourceb9f18c1 locally closes direct save_week nested extra/type/bounds acceptance through unapplied0015, retaining original RPC/ownership/receipt/deletion behavior.120 focused/ordinary types/effective scoped lint/voice pass; original red/failures/busy UNRUN preserved. Historical incompatible row/receipt treatment and any installation/validation need separate independent review; no full-state or cloud grant.
 - Exact report ../docs/ACCOUNT-WEEK-SQL-BOUNDARY-LOCAL-2026-10-08.md and CURRENT manifestae65c12326a358dc0f1aeceb36ba4de57bdb2c6c476e624196242d1083ef733f bind source/frozen v2/candidate/42 B/121 public graph. Next independently selected work: security review then same-byte producer/B2 proposal or other minimum-tree task. A2/B2/G/hosted/native/provider/food/prices/adoption/store/release open; deadline/$0/flagsOFF unchanged, no self-dispatch.
+
+### 2026-10-08 reviewed A2 adapter checkpoint
+- Trusted server-only Auth adapter prerequisite prepared and LOCAL tested in e8b02a2662bc5801ca6edc904525f0668220097f; remains unbound/default-off. No migration, provider or route action.
+- Independent security/coordinator review must resolve activation-safe lineage/lease sequencing before genuine hosted binding. Apple revocation remains separate; no fake completion.
+- Report docs/ACCOUNT-DELETION-AUTH-ADAPTER-LOCAL-2026-10-08.md. Next unblocked minimum-tree job requires fresh review; A2/G and all real acceptance gates remain open.

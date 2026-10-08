@@ -489,3 +489,9 @@ Sourceb9f18c1b0e266644bbd8f02778f9a1a4764fa48d adds only unapplied0015 and focus
 Final120 focused/regression checks, ordinary types/effective scoped lint113rules/voice pass. Correct actual-parser normal control and unchanged refusal assertion red against old SQL, green against0015. Fixture/query/syntax/parser/lint failures and busy child UNRUN retained.42 B/121 public graph exact; no new full suite/build or hosted/native proof. New spending$0 and all flagsOFF.
 Report ../docs/ACCOUNT-WEEK-SQL-BOUNDARY-LOCAL-2026-10-08.md; CURRENT A2026-10-08T05-09-23-942Z-76c43ed7 manifestae65c12326a358dc0f1aeceb36ba4de57bdb2c6c476e624196242d1083ef733f records source/dependencies/commands/rollback/seal/reopen. Only owned suffix staged over HEAD; inherited working prefix/equipment report/history/frozen proposal preserved.
 Next independent security/coordinator review of exact local repair/history hold, then separate B2 same-byte fullstate proposal review or minimum-tree task. A2/B2/G, hosted/provider/native/food/measured-price/content adoption/store/release remainopen; original October9 19:39:35UTC unchanged. Natural stop, no self-dispatch/activation.
+
+### 2026-10-08: unbound trusted Auth deletion adapter, LOCAL
+- Source e8b02a2662bc5801ca6edc904525f0668220097f adds only explicit dry-tested adapter/test; real worker, routes, migrations and contracts unchanged.
+- Original missing-path red then same green; final 61 focused/regression checks, ordinary types, effective scoped lint and voice passed. Fixture HTTP and memory SQL only.
+- No-Apple tombstone completion and lost-ack restart reconciliation proven locally; Apple/unknown held. No real Auth action or binding; conditional lineage/lease race needs independent review.
+- Report docs/ACCOUNT-DELETION-AUTH-ADAPTER-LOCAL-2026-10-08.md; CURRENT manifest 6d3087d4df18029fac17c9fa21f6a8a3c43237ebceb4e71c9e1ec8eaa55416f4. A2/hosted/provider/native/food/prices/release remain open. Await independent next instruction.
