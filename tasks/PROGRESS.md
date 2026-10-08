@@ -560,3 +560,11 @@ Current local submission complete; recipe/equipment/inventory bridge and real na
 - Actual existing backend account/billing/verifier/repository and isolated memory SQL compose with explicit app restore; SDK result hints confer no entitlement or purchase transfer. Backend production source/contracts/migrations remain unchanged.
 - Factories remain off. Physical DB, hosted/provider/native, deletion/historical-state, accepted recipe/equipment/inventory, food/pricing/device and J1/J2/J3/G gates remain open.
 - Aggregate: docs/NATIVE-OWNER-TRANSITION-AND-RESTORE-LOCAL-2026-10-08.md. Next is exact compatible catalog acceptance or independently scoped disposable target/native/provider proof; no unreviewed external operation or new spending.
+
+## October 8, 2026: Deferred minimum repairs, LOCAL
+
+- [DONE LOCAL] A2-pg-type-ownership-repair adds read-only pg_type owner refusal to the unbound adapter; source fc34e85/report2473068. Existing privilege and joined memory-SQL checks pass.
+- [DONE LOCAL] A6-J1-strict-joined-type-repair adds explicit fail-closed account/RPC/preflight row guards; source e312044/reportc084b66. Exact saved strict config and affected-source superset now pass; original failed logs remain.
+- Final current graph has96 distinct test leaf paths, with60 predecessor leaves counted once; source-level ownership and strict type fixes do not certify physical/native/hosted targets. Scoped types/lint/voice/greps/diff pass.
+- App source, private APIs, core/data/packages/lock/migrations remain unchanged; factories OFF, physical/hosted/provider/native/catalog/equipment/reroll/food/prices/device/release parents OPEN,$0.
+- Aggregate docs/MINIMUM-DEFERRED-REPAIRS-LOCAL-2026-10-08.md. Next requires genuine compatible catalog/equipment/quantity inputs or exact independently scoped isolated target/native/provider proof; both October9 targets unchanged.
