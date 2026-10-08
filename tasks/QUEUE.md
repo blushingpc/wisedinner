@@ -183,3 +183,9 @@ Single-writer combined flow advances directly to B2-durable without routine audi
 A2-pg DONE LOCAL source35129b7/report0bfda556,33 final leaf checks/types/lint/voice. B2 advanced in same turn; durable journal source remains unverified/uncommitted with original15/1 failed then15/0 repaired attempts; later18 checks/regressions unrun.
 Exact closed local cd1c16de reservation retained due old Python numeric-parent reuse, no live test or controller change. Standing-safe coordinator recovery after natural absent writer proof then fresh exact-source A continuation, no founder routine approval.
 Aggregate docs/SINGLE-WRITER-MINIMUM-FLOW-2026-10-08.md; remaining methods/rerolls/reachable integration/local composition and hosted/provider/native/food/store/parents OPEN. $0,both October9 targets unchanged.
+
+## October8 2026: resumed single-writer initial flow boundary
+
+B2 durable current176 LOCAL controls committed; recipe/equipment consumption held on exact zero-ID join and missing equipment admission/source proof. Safe reroll refusal, same-coordinator native preparation and unpaid account management verified LOCAL in app reports.
+Joined actual app durable client/server handler/memory SQL and deletion pending flow verified: six scenarios plus22 current fixture regressions, types/effective lint/voice passed. Backend test09ad02d/report84748f5; app fixture3707a78. No physical/provider/native activation or fake food proof.
+Aggregate docs/SINGLE-WRITER-MINIMUM-FLOW-RESUMED-2026-10-08.md. Initial flow reached verified checkpoints or evidence-backed branch holds; next capable deferred-audit review/confirmed repair, then exact owned target/provider/source/native gates. All parents/G OPEN, $0, both targets retained.
