@@ -195,3 +195,10 @@ Aggregate docs/SINGLE-WRITER-MINIMUM-FLOW-RESUMED-2026-10-08.md. Initial flow re
 DONE LOCAL privilege repair a47026c/report99293a3,42 focused controls/six joined scenarios and gates passed; independent repair/physical target acceptance stays OPEN.
 Next actual minimum: current B3 native identity source verification after coordinator recovers only exact closed exit0 unreleased install nonce7fb05693 under standing-safe authority and absent-ownership admission. No routine founder permission, reinstall/replay or new writer. Current app package/adapter/tests UNVERIFIED; immutable blocked report57fcd1b retained.
 Recipe-ID/source/equipment bridge and original-inventory reroll stay held. Provider/native/hosted/deletion/food/store/release gates OPEN, flagsOFF,$0, both October9 targets unchanged.
+
+## October 8, 2026: Minimum-flow successor boundary
+
+- [DONE LOCAL] B3 native custom-owner lifecycle and explicit B3/B6 restore preparation are committed with current source-composed checks; hard-off activation and original transaction ownership remain.
+- [OPEN] Compatible accepted recipe/source/quantity/equipment bridge and original-inventory reroll; current legacy/prepared IDs and snapshot formats do not match.
+- [OPEN] Exact isolated PostgreSQL target/security/backup/rollback and real hosted/native/provider/store verification, historical-state/deletion races, actual food/prices and J1/J2/J3/G acceptance.
+- Next independent work needs those genuine acceptance inputs or an exact target-scoped proof job. No routine auditor approval wait, invented acceptance, shared engine change or external replay.
