@@ -50,6 +50,8 @@ select session_user='wd_owner_plan_login'
    and (t.relowner=x.oid or (t.relkind='S' and has_sequence_privilege(x.oid,t.oid,'USAGE,SELECT,UPDATE'))))
  and not exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace join members x on x.oid=p.proowner
    where n.nspname not like 'pg_%' and n.nspname<>'information_schema')
+ and not exists(select 1 from pg_type t join pg_namespace n on n.oid=t.typnamespace join members x on x.oid=t.typowner
+   where n.nspname not like 'pg_%' and n.nspname<>'information_schema')
  and not exists(select 1 from pg_class t join pg_namespace n on n.oid=t.relnamespace
    where n.nspname not like 'pg_%' and n.nspname<>'information_schema' and t.relkind in ('r','p','v','m','S','f')
    and (t.relowner=(select oid from pg_roles where rolname=session_user)
