@@ -147,3 +147,8 @@ V. Variety + truth sprint: template solver, variety floors, seeded regenerate, f
 - Trusted server-only Auth adapter prerequisite prepared and LOCAL tested in e8b02a2662bc5801ca6edc904525f0668220097f; remains unbound/default-off. No migration, provider or route action.
 - Independent security/coordinator review must resolve activation-safe lineage/lease sequencing before genuine hosted binding. Apple revocation remains separate; no fake completion.
 - Report docs/ACCOUNT-DELETION-AUTH-ADAPTER-LOCAL-2026-10-08.md. Next unblocked minimum-tree job requires fresh review; A2/G and all real acceptance gates remain open.
+
+### 2026-10-08 reviewed receipt-ordering repair handoff
+- CURRENT-only producer successor manifest461efe6f029181f5350fada0b26d0e8be3e43989836a316a4612835d86a6fa68 fixes two confirmed refusal failures; original producer/B evidence unchanged. 86 distinct LOCAL controls composed from recorded passes/recovery; failed runs retained. No runtime source commit/activation.
+- Next prerequisite: independent B consumes SAME successor bytes after its current job ends naturally. Both-side acceptance/install/hosted and parent A2/G remain open; deletion adapter's lineage/lease race remains held. Fresh review selects subsequent minimum-tree work, no self-dispatch.
+- Exact report docs/OWNER-PLAN-V2-RECEIPT-REPAIR-LOCAL-2026-10-08.md; $0, flagsOFF, October9 target unchanged.

@@ -495,3 +495,9 @@ Next independent security/coordinator review of exact local repair/history hold,
 - Original missing-path red then same green; final 61 focused/regression checks, ordinary types, effective scoped lint and voice passed. Fixture HTTP and memory SQL only.
 - No-Apple tombstone completion and lost-ack restart reconciliation proven locally; Apple/unknown held. No real Auth action or binding; conditional lineage/lease race needs independent review.
 - Report docs/ACCOUNT-DELETION-AUTH-ADAPTER-LOCAL-2026-10-08.md; CURRENT manifest 6d3087d4df18029fac17c9fa21f6a8a3c43237ebceb4e71c9e1ec8eaa55416f4. A2/hosted/provider/native/food/prices/release remain open. Await independent next instruction.
+
+### 2026-10-08: owner-plan receipt ordering successor, LOCAL
+- CURRENT-only successor refuses lower cloud revisions and equal changed full state after admission/session checks; no installed source/SQL/contract/flag change.
+- Two immutable B required refusals reproduced red against original then green. 86 distinct controls covered by65 passes plus two output recoveries and19 producer controls; original aggregate failures remain failed. Proposal types, effective scoped lint and voice passed.
+- Manifest461efe6f029181f5350fada0b26d0e8be3e43989836a316a4612835d86a6fa68/executable3ebd0a524d92a1adfb41f662eddcce1d22908430f35968ddac0518e8dcd8326f frozen for fresh independent B same-byte review.
+- Report docs/OWNER-PLAN-V2-RECEIPT-REPAIR-LOCAL-2026-10-08.md. A2/B2/G/hosted/native/provider/food/prices/release and deletion lineage/lease race remain open. $0, flagsOFF, original target unchanged; natural stop, no self-dispatch.
