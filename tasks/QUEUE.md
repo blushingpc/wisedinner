@@ -189,3 +189,9 @@ Aggregate docs/SINGLE-WRITER-MINIMUM-FLOW-2026-10-08.md; remaining methods/rerol
 B2 durable current176 LOCAL controls committed; recipe/equipment consumption held on exact zero-ID join and missing equipment admission/source proof. Safe reroll refusal, same-coordinator native preparation and unpaid account management verified LOCAL in app reports.
 Joined actual app durable client/server handler/memory SQL and deletion pending flow verified: six scenarios plus22 current fixture regressions, types/effective lint/voice passed. Backend test09ad02d/report84748f5; app fixture3707a78. No physical/provider/native activation or fake food proof.
 Aggregate docs/SINGLE-WRITER-MINIMUM-FLOW-RESUMED-2026-10-08.md. Initial flow reached verified checkpoints or evidence-backed branch holds; next capable deferred-audit review/confirmed repair, then exact owned target/provider/source/native gates. All parents/G OPEN, $0, both targets retained.
+
+## October8 2026: privilege repair and native identity boundary
+
+DONE LOCAL privilege repair a47026c/report99293a3,42 focused controls/six joined scenarios and gates passed; independent repair/physical target acceptance stays OPEN.
+Next actual minimum: current B3 native identity source verification after coordinator recovers only exact closed exit0 unreleased install nonce7fb05693 under standing-safe authority and absent-ownership admission. No routine founder permission, reinstall/replay or new writer. Current app package/adapter/tests UNVERIFIED; immutable blocked report57fcd1b retained.
+Recipe-ID/source/equipment bridge and original-inventory reroll stay held. Provider/native/hosted/deletion/food/store/release gates OPEN, flagsOFF,$0, both October9 targets unchanged.
