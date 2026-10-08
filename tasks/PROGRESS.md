@@ -546,3 +546,9 @@ Aggregate docs/SINGLE-WRITER-MINIMUM-FLOW-RESUMED-2026-10-08.md. Initial flow re
 Verified LOCAL privilege repair a47026c/report99293a3: actual narrow SQL positive plus28 adverse effective role grants;42 focused controls and six joined scenarios, current types/effective lint/voice/diff pass. Original red and count/fixture failures remain; physical/security target acceptance OPEN.
 Exact RevenueCat10.12.1 installed in app; five native identity/package/test files are UNCOMMITTED/UNVERIFIED. Both focused invocations refused before dispatch by closed exit0 unreleased LOCAL nonce7fb05693; current exact processes absent, no writer stop/lock edit/replay.
 Fresh aggregate OWNER-PLAN-PRIVILEGE-AND-NATIVE-BINDING-LOCAL-2026-10-08.md. Natural resource ownership boundary: coordinator standing-safe exact recovery, then same-thread current B3 verification with fresh labels. All flagsOFF, native/provider/source/reroll/food/prices/parents OPEN,$0, targets unchanged.
+
+## October8 2026: resumed native billing and actual joined LOCAL proof
+
+App d9e4e2c/674c1d2 closes dormant root-listener and nested timeout gaps, with actual native Auth/BillingClient/root/durable planner joined to installed backend billing/account/plan handlers and isolated SQL.128 distinct leaves total, disclosed synthetic SDK/Auth/provider/storage; no native/hosted/physical acceptance.
+Source/report/checkpoint hashes and failures are in docs/NATIVE-BILLING-IDENTITY-RESUMED-LOCAL-2026-10-08.md and current A evidence. Accepted A2 privilege repair reused unchanged; no DB candidate binding or migration install. All activation OFF.
+Current local submission complete; recipe/equipment/inventory bridge and real native/provider/physical target gates remain OPEN. Prepare exact owned disposable target/current consumers/least privilege/backup/rollback review before external proof. Preserve original failures and inherited dirt,$0,October9 targets unchanged.
