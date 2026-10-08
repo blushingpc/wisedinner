@@ -568,3 +568,10 @@ Current local submission complete; recipe/equipment/inventory bridge and real na
 - Final current graph has96 distinct test leaf paths, with60 predecessor leaves counted once; source-level ownership and strict type fixes do not certify physical/native/hosted targets. Scoped types/lint/voice/greps/diff pass.
 - App source, private APIs, core/data/packages/lock/migrations remain unchanged; factories OFF, physical/hosted/provider/native/catalog/equipment/reroll/food/prices/device/release parents OPEN,$0.
 - Aggregate docs/MINIMUM-DEFERRED-REPAIRS-LOCAL-2026-10-08.md. Next requires genuine compatible catalog/equipment/quantity inputs or exact independently scoped isolated target/native/provider proof; both October9 targets unchanged.
+
+## October 8, 2026: Owner equipment persistence LOCAL
+
+- B2/B4 owner equipment adjunct and actual durable controller/store lifetime verified LOCAL; eight answers, planner week/checks and v2 journals retained.
+- A2/B2 matching explicit new-family codec/mapping candidate committed on both roots, plus an unapplied separate database persistence proposal. Structural mapping never grants account/food/server-save authority.
+- 137 distinct LOCAL test leaves; strict both-side checks and scoped lint/greps/diff passed. Original timeout/type failures and successor fixture-directory error are preserved.
+- Reports: docs/OWNER-EQUIPMENT-VERSIONED-MAPPING-LOCAL-2026-10-08.md and docs/OWNER-EQUIPMENT-PERSISTENCE-LOCAL-2026-10-08.md. UI/native/shared activation and genuine compatible food/physical/hosted/provider/release remain OPEN; four factories OFF,$0.
