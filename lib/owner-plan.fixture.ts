@@ -38,6 +38,7 @@ export async function setup(){
    create table public.unrelated_sentinel(id integer primary key);insert into public.unrelated_sentinel values(7);`);
   for(const m of ['0006_wd_accounts.sql','0007_wd_billing.sql','0009_wd_notifications.sql','0013_wd_account_deletion.sql','0014_wd_billing_restore.sql','0015_wd_week_metadata_boundary.sql'])await db.exec(await readFile(new URL('../supabase/migrations/'+m,import.meta.url),'utf8'));
   await db.exec(await readFile(new URL('../supabase/migrations/0016_wd_owner_plan.sql',import.meta.url),'utf8'));
+  await db.exec(await readFile(new URL('../supabase/migrations/0017_wd_owner_plan_connection.sql',import.meta.url),'utf8'));
   await db.query('insert into public.wd_proposal_plan_policy(policy,environment)values($1::jsonb,$2)',[canonical(sqlPolicy()),'PRODUCTION']);
   for(const id of [A,B]){await claims(db,'authenticated',id);await rpc(db,'initialize',{},key(),'wd_account_command');await eligible(db,id);}
   await db.exec('reset role');return db;

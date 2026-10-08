@@ -10,9 +10,9 @@ export type OwnerPlanRepository={read(account:VerifiedAccount):Promise<Receipt>;
 const errors:Record<string,number>={account_inactive:410,account_missing:404,eligibility_required:403,invalid_command:400,revision_conflict:409,idempotency_conflict:409,replay_required:409,rate_limited:429};
 function owner(a:VerifiedAccount){if(!a||typeof a.id!=='string'||!UUID.test(a.id))throw new AccountError(401,'invalid_session');return a.id;}
 function result(value:unknown){const r=ownCopy(value) as Record<string,unknown>;if(r&&typeof r.error==='string'){if(Object.keys(r).length!==1||!Object.hasOwn(errors,r.error))throw new AccountError(503,'owner_plan_unavailable');throw new AccountError(errors[r.error],r.error);}return r;}
-const context=async(tx:SqlTransaction,id:string,role:'authenticated'|'service_role')=>{
+const context=async(tx:SqlTransaction,id:string,role:'authenticated'|'wd_owner_plan_stage')=>{
  await tx.query("select set_config('request.jwt.claims',$1,true)",[JSON.stringify({sub:id,role,is_anonymous:false})]);
- await tx.query(role==='authenticated'?'set local role authenticated':'set local role service_role');
+ await tx.query(role==='authenticated'?'set local role authenticated':'set local role wd_owner_plan_stage');
 };
 const rpc=async(tx:SqlTransaction,action:'read'|'save',command:string,key:string|null)=>{
  const rows=(await tx.query<{result:unknown}>('select public.wd_proposal_plan_command($1,$2::jsonb,$3::uuid) as result',[action,command,key])).rows;
@@ -32,7 +32,7 @@ export function ownerPlanRepository(deps:{admit:CanonicalAdmission;transactions:
    // Independent exact canonical admission, not a caller-provided validation boolean.
    const checked=await codec.decodeCommand(c,id),bytes=canonical(checked);
    return transact(async tx=>{
-    await context(tx,id,'service_role');
+    await context(tx,id,'wd_owner_plan_stage');
     await tx.query('insert into public.wd_proposal_plan_replay(user_id,id,command,transaction_id) values($1,$2,$3::jsonb,txid_current())',[id,key,bytes]);
     await context(tx,id,'authenticated');
     const ack=await codec.decodeReceipt(await rpc(tx,'save',bytes,key),id);
