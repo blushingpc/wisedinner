@@ -6,7 +6,7 @@ import type { Ing } from "./types.ts";
 
 export const PREPARATION_VERSION = "wd-authored-preparation-1";
 export const SAFETY_SOURCE = "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures";
-export const EQUIPMENT = ["stovetop", "nonstick-pan", "spatula", "mixing-bowl", "whisk", "food-thermometer", "toaster", "microwave", "microwave-safe-bowl", "microwave-safe-cover", "knife", "cutting-board", "saucepan", "strainer", "bowl", "spoon", "measuring-tools", "blender", "tongs", "clean-serving-plate", "raw-poultry-board"] as const;
+export const EQUIPMENT = ["stovetop", "nonstick-pan", "spatula", "mixing-bowl", "whisk", "food-thermometer", "toaster", "microwave", "microwave-safe-bowl", "microwave-safe-cover", "knife", "cutting-board", "saucepan", "strainer", "bowl", "spoon", "measuring-tools", "blender", "tongs", "clean-serving-plate", "raw-poultry-board", "can-opener", "saucepan-lid"] as const;
 type Equipment = typeof EQUIPMENT[number];
 type Method = { id: string; equipment: Equipment[]; steps: string[] };
 const baseId = "egg-white-and-veggie-scramble-with-toast";
@@ -116,6 +116,81 @@ const batch: Definition[] = [
   ] }
 ];
 definitions.push(...batch);
+const wrapsBowls: Definition[] = [
+  { id: "southwest-chicken-wrap", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 6, "oz"], ["flour-tortillas", 1, "each"], ["black-beans", 3, "oz"], ["salsa", 1, "oz"], ["taco-seasoning", 5, "g"], ["avocados", 0.5, "each"]], methods: [
+    { id: "stovetop-wrap", equipment: ["stovetop", "nonstick-pan", "spatula", "tongs", "food-thermometer", "knife", "cutting-board", "raw-poultry-board", "can-opener", "bowl", "spoon", "measuring-tools", "clean-serving-plate"], steps: [
+      "Wash the avocado skin before cutting. Remove the pit and skin from the declared half avocado and slice its edible flesh on the produce board. Measure 1 oz salsa and keep both away from raw poultry.",
+      "Open the bean can. Measure 3 oz canned black beans including any packing liquid, and warm the whole measured portion in the nonstick pan according to its package. Keep it in the clean bowl; do not substitute 3 oz dry beans or discard part of the measured portion. Warm one flour tortilla in the dry pan according to its package and set it on the clean plate.",
+      "Measure 6 oz raw chicken before cooking; do not wash it. Dice it on the separate raw-poultry board, wash hands and clean raw-contact utensils. Cook it with all 5 g declared taco seasoning in the nonstick pan, using a little water as needed without added oil, until a food thermometer reads 165 F throughout. Stricter package directions win; minutes or color alone are not proof.",
+      "Using clean utensils, fill the tortilla with all the cooked chicken and seasoning, beans, salsa and avocado flesh. Roll and serve. Do not substitute a cooked chicken weight."
+    ] }
+  ] },
+  { id: "southwest-chicken-wrap-tofu", sourceMethod: false, seasoning: "Black pepper", rows: [["tofu", 7, "oz"], ["flour-tortillas", 1, "each"], ["black-beans", 3, "oz"], ["salsa", 1, "oz"], ["taco-seasoning", 5, "g"], ["avocados", 0.5, "each"]], methods: [
+    { id: "stovetop-tofu-wrap", equipment: ["stovetop", "nonstick-pan", "spatula", "knife", "cutting-board", "can-opener", "bowl", "spoon", "measuring-tools", "clean-serving-plate"], steps: [
+      "Wash the avocado skin, remove pit and skin from the declared half and slice the edible flesh. Measure 1 oz salsa.",
+      "Open the bean can. Measure 3 oz canned black beans including any packing liquid, warm the whole measured portion in the pan according to its package and keep it in the bowl. Do not substitute dry beans or discard part of the measured portion. Warm one flour tortilla in the dry pan according to its package and set it on the clean plate.",
+      "Measure 7 oz tofu before cooking, pat it dry and dice it without substituting a cooked weight. Cook it with all 5 g declared taco seasoning in the nonstick pan without added oil, using a little water if needed, until hot and the tofu package cooking requirements are satisfied. No raw-chicken method, poultry temperature or chicken is used.",
+      "Fill the tortilla with all the tofu and seasoning, beans, salsa and avocado flesh. Roll and serve."
+    ] }
+  ] },
+  { id: "southwest-chicken-wrap-corn", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 6, "oz"], ["corn-tortillas", 3, "each"], ["black-beans", 3, "oz"], ["salsa", 1, "oz"], ["taco-seasoning", 5, "g"], ["avocados", 0.5, "each"]], methods: [
+    { id: "stovetop-corn-tacos", equipment: ["stovetop", "nonstick-pan", "spatula", "tongs", "food-thermometer", "knife", "cutting-board", "raw-poultry-board", "can-opener", "bowl", "spoon", "measuring-tools", "clean-serving-plate"], steps: [
+      "Wash the avocado skin, remove pit and skin from the declared half and slice its edible flesh on the produce board. Measure 1 oz salsa and keep both away from raw poultry.",
+      "Open the bean can. Measure 3 oz canned black beans including any packing liquid, warm the whole measured portion in the pan according to its package and keep it in the bowl. Do not substitute dry beans or discard part of the measured portion. Warm all three corn tortillas in the dry pan according to their package and set them on the clean plate.",
+      "Measure 6 oz raw chicken before cooking; do not wash it. Dice it on the separate raw-poultry board, wash hands and clean raw-contact utensils. Cook with all 5 g declared taco seasoning in the pan without added oil, using a little water if needed, until a food thermometer reads 165 F throughout; stricter package directions win. Time or color alone is not proof.",
+      "Use clean utensils to divide all the chicken and seasoning, beans, salsa and avocado flesh between the three corn tortillas and serve. No flour tortilla or cooked-weight substitution is used."
+    ] }
+  ] },
+  { id: "chicken-burrito-bowl", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 8, "oz"], ["white-rice", 60, "g"], ["black-beans", 3, "oz"], ["salsa", 2, "oz"], ["taco-seasoning", 5, "g"], ["avocados", 0.5, "each"]], methods: [
+    { id: "stovetop-rice-bowl", equipment: ["stovetop", "saucepan", "saucepan-lid", "nonstick-pan", "tongs", "food-thermometer", "knife", "cutting-board", "raw-poultry-board", "can-opener", "bowl", "spoon", "measuring-tools", "clean-serving-plate"], steps: [
+      "Measure 60 g dry rice before cooking. Cook in water in the saucepan, covering as its package directs, until tender; do not substitute 60 g cooked rice. Wash the avocado skin, remove pit and skin from the declared half, slice its edible flesh on the produce board and measure 2 oz salsa. Keep them away from raw poultry.",
+      "Open the bean can. Measure 3 oz canned black beans including any packing liquid, warm the whole measured portion in the nonstick pan according to its package and keep it on the clean plate. Do not substitute dry beans or discard part of the measured portion.",
+      "Measure 8 oz raw chicken before cooking; do not wash it. Dice it on the separate raw-poultry board, wash hands and clean raw-contact utensils. Cook with all 5 g declared taco seasoning in the nonstick pan without added oil, using a little water if needed, until a food thermometer reads 165 F throughout; stricter package directions win. Time or color alone is not proof.",
+      "Using clean utensils, serve all the cooked rice, chicken and seasoning, beans, salsa and avocado flesh in the bowl. Do not substitute a cooked chicken weight."
+    ] }
+  ] },
+  { id: "chicken-burrito-bowl-tofu", sourceMethod: false, seasoning: "Black pepper", rows: [["tofu", 7, "oz"], ["white-rice", 60, "g"], ["black-beans", 3, "oz"], ["salsa", 2, "oz"], ["taco-seasoning", 5, "g"], ["avocados", 0.5, "each"]], methods: [
+    { id: "stovetop-tofu-rice-bowl", equipment: ["stovetop", "saucepan", "saucepan-lid", "nonstick-pan", "spatula", "knife", "cutting-board", "can-opener", "bowl", "spoon", "measuring-tools", "clean-serving-plate"], steps: [
+      "Measure 60 g dry rice and cook it in water in the saucepan, covering as its package directs, until tender; do not substitute a cooked weight. Wash the avocado skin, remove pit and skin from the declared half, slice its edible flesh and measure 2 oz salsa.",
+      "Open the bean can. Measure 3 oz canned black beans including any packing liquid, warm the whole measured portion in the nonstick pan according to its package and keep it on the clean plate. Do not substitute dry beans or discard part of the measured portion.",
+      "Measure 7 oz tofu before cooking, pat it dry and dice it without substituting a cooked weight. Cook with all 5 g declared taco seasoning in the nonstick pan without added oil, using a little water as needed, until hot and the tofu package cooking requirements are satisfied. No chicken, raw-poultry handling or poultry temperature is used.",
+      "Serve all the rice, tofu and seasoning, beans, salsa and avocado flesh in the bowl."
+    ] }
+  ] },
+  { id: "chicken-burrito-bowl-quinoa", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 8, "oz"], ["quinoa", 50, "g"], ["black-beans", 3, "oz"], ["salsa", 2, "oz"], ["taco-seasoning", 5, "g"], ["avocados", 0.5, "each"]], methods: [
+    { id: "stovetop-quinoa-burrito-bowl", equipment: ["stovetop", "saucepan", "saucepan-lid", "strainer", "nonstick-pan", "tongs", "food-thermometer", "knife", "cutting-board", "raw-poultry-board", "can-opener", "bowl", "spoon", "measuring-tools", "clean-serving-plate"], steps: [
+      "Measure 50 g dry quinoa, rinse it in a fine strainer and cook in water in the saucepan, covering as the package directs, until tender. Do not substitute 50 g cooked quinoa or rice. Wash the avocado skin, remove pit and skin from the declared half, slice its edible flesh on the produce board and measure 2 oz salsa; keep both away from raw poultry.",
+      "Open the bean can. Measure 3 oz canned black beans including any packing liquid, warm the whole measured portion in the nonstick pan according to its package and keep it on the clean plate. Do not substitute dry beans or discard part of the measured portion.",
+      "Measure 8 oz raw chicken before cooking; do not wash it. Dice it on the separate raw-poultry board, wash hands and clean raw-contact utensils. Cook with all 5 g declared taco seasoning in the nonstick pan without added oil, using a little water if needed, until a food thermometer reads 165 F throughout; stricter package directions win. Time or color alone is not proof.",
+      "Using clean utensils, serve all the quinoa, cooked chicken and seasoning, beans, salsa and avocado flesh in the bowl. Do not substitute a cooked chicken weight."
+    ] }
+  ] },
+  { id: "mediterranean-chicken-bowl-with-tzatziki", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 6, "oz"], ["quinoa", 60, "g"], ["tzatziki", 2, "oz"], ["cucumber", 0.25, "each"], ["tomatoes", 2, "oz"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "stovetop-quinoa-tzatziki-bowl", equipment: ["stovetop", "saucepan", "saucepan-lid", "strainer", "nonstick-pan", "tongs", "food-thermometer", "knife", "cutting-board", "raw-poultry-board", "bowl", "spoon", "measuring-tools"], steps: [
+      "Measure 60 g dry quinoa, rinse it in a fine strainer and cook in water in the saucepan, covering as the package directs, until tender; do not substitute a cooked weight.",
+      "Wash the cucumber and tomatoes under running water. Chop the declared quarter cucumber and 2 oz tomatoes on the clean produce board and put them in the bowl. Measure all 2 oz packaged ready-to-eat tzatziki and keep it and the vegetables away from raw poultry.",
+      "Measure 6 oz raw chicken before cooking; do not wash it. Dice it on the separate raw-poultry board, wash hands and clean raw-contact utensils. Heat the measured 1 tsp olive oil in the nonstick pan and cook all the chicken until a food thermometer reads 165 F throughout; stricter package directions win. Time or color alone is not proof.",
+      "Using clean utensils, add all the quinoa and cooked chicken with the measured pan oil to the vegetables, top with all the tzatziki and serve. Do not substitute a cooked chicken weight or add unlisted dressing."
+    ] }
+  ] },
+  { id: "mediterranean-chicken-bowl-with-tzatziki-tofu", sourceMethod: false, seasoning: "Black pepper", rows: [["tofu", 7, "oz"], ["quinoa", 60, "g"], ["hummus", 2, "oz"], ["cucumber", 0.25, "each"], ["tomatoes", 2, "oz"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "stovetop-quinoa-hummus-bowl", equipment: ["stovetop", "saucepan", "saucepan-lid", "strainer", "nonstick-pan", "spatula", "knife", "cutting-board", "bowl", "spoon", "measuring-tools"], steps: [
+      "Measure 60 g dry quinoa, rinse it in a fine strainer and cook in water in the saucepan, covering as the package directs, until tender; do not substitute a cooked weight.",
+      "Wash the cucumber and tomatoes under running water. Chop the declared quarter cucumber and 2 oz tomatoes on the clean board and put them in the bowl. Measure 2 oz packaged ready-to-eat hummus; no tzatziki is used.",
+      "Measure 7 oz tofu before cooking, pat it dry and dice it without substituting a cooked weight. Heat the measured 1 tsp olive oil in the nonstick pan and cook the tofu until hot and lightly browned, satisfying its package cooking requirements. No chicken, raw-poultry method or poultry temperature is used.",
+      "Add all the quinoa and tofu with the measured pan oil to the vegetables, top with all the hummus and serve. Do not add unlisted dressing."
+    ] }
+  ] },
+  { id: "mediterranean-chicken-bowl-with-tzatziki-wrap", sourceMethod: false, seasoning: "Black pepper", rows: [["chicken-breast", 6, "oz"], ["flour-tortillas", 1, "each"], ["tzatziki", 2, "oz"], ["cucumber", 0.25, "each"], ["tomatoes", 2, "oz"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "stovetop-tzatziki-wrap", equipment: ["stovetop", "nonstick-pan", "spatula", "tongs", "food-thermometer", "knife", "cutting-board", "raw-poultry-board", "bowl", "spoon", "measuring-tools", "clean-serving-plate"], steps: [
+      "Wash the cucumber and tomatoes under running water. Chop the declared quarter cucumber and 2 oz tomatoes on the produce board and put them in the bowl. Measure 2 oz packaged ready-to-eat tzatziki and keep it and the vegetables away from raw poultry.",
+      "Warm one flour tortilla in the dry nonstick pan according to its package and set it on the clean plate. No quinoa is cooked or added.",
+      "Measure 6 oz raw chicken before cooking; do not wash it. Dice it on the separate raw-poultry board, wash hands and clean raw-contact utensils. Heat the measured 1 tsp olive oil in the pan and cook all the chicken until a food thermometer reads 165 F throughout; stricter package directions win. Time or color alone is not proof.",
+      "Using clean utensils, spread all the tzatziki on the tortilla and fill with all the cooked chicken with the measured pan oil and all the vegetables. Roll and serve. Do not substitute a cooked chicken weight or add unlisted dressing."
+    ] }
+  ] }
+];
+definitions.push(...wrapsBowls);
 const records = definitions.map(definition => {
   const recipe = compiled.recipes.find(recipe => recipe.id === definition.id)!;
   const primaryEquipment: Equipment[] = definition.id.endsWith("-potatoes")
