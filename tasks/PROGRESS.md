@@ -552,3 +552,11 @@ Fresh aggregate OWNER-PLAN-PRIVILEGE-AND-NATIVE-BINDING-LOCAL-2026-10-08.md. Nat
 App d9e4e2c/674c1d2 closes dormant root-listener and nested timeout gaps, with actual native Auth/BillingClient/root/durable planner joined to installed backend billing/account/plan handlers and isolated SQL.128 distinct leaves total, disclosed synthetic SDK/Auth/provider/storage; no native/hosted/physical acceptance.
 Source/report/checkpoint hashes and failures are in docs/NATIVE-BILLING-IDENTITY-RESUMED-LOCAL-2026-10-08.md and current A evidence. Accepted A2 privilege repair reused unchanged; no DB candidate binding or migration install. All activation OFF.
 Current local submission complete; recipe/equipment/inventory bridge and real native/provider/physical target gates remain OPEN. Prepare exact owned disposable target/current consumers/least privilege/backup/rollback review before external proof. Preserve original failures and inherited dirt,$0,October9 targets unchanged.
+
+## October 8, 2026: Native owner transition and explicit restore, LOCAL
+
+- Sole A writer completed app nodes B3-native-custom-owner-lifecycle and B3-B6-explicit-native-restore-binding. Source snapshots f743bc90/8cf30529; reports e0eaabb2/c40e450f.
+- Current affected graph passes 142 distinct LOCAL leaves, configured native/app and backend-option types, effective scoped syntax lint, voice/greps and diff. Original failures and stricter cross-backend diagnostics remain preserved.
+- Actual existing backend account/billing/verifier/repository and isolated memory SQL compose with explicit app restore; SDK result hints confer no entitlement or purchase transfer. Backend production source/contracts/migrations remain unchanged.
+- Factories remain off. Physical DB, hosted/provider/native, deletion/historical-state, accepted recipe/equipment/inventory, food/pricing/device and J1/J2/J3/G gates remain open.
+- Aggregate: docs/NATIVE-OWNER-TRANSITION-AND-RESTORE-LOCAL-2026-10-08.md. Next is exact compatible catalog acceptance or independently scoped disposable target/native/provider proof; no unreviewed external operation or new spending.
