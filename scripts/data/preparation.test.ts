@@ -19,7 +19,7 @@ test("every existing base and variant materializes independently; coverage holds
   const actual = source(), coverage = preparationCoverage();
   assert.equal(actual.recipes.length, RECIPES.length + RECIPES.reduce((sum, base) => sum + base.variants.length, 0));
   assert.deepEqual(coverage.map(row => row.id), actual.recipes.map(row => row.id));
-  assert.equal(coverage.filter(row => row.state === "authored-local").length, 49);
+  assert.equal(coverage.filter(row => row.state === "authored-local").length, 81);
   for (const entry of coverage) {
     const result = resolvePreparation(actual, entry.id, EQUIPMENT);
     assert.equal(result.state === "authored-local", entry.state === "authored-local", entry.id);
@@ -141,7 +141,7 @@ test("six-family batch resolves all18 exact existing row sets with independent o
       assert.equal(resolvePreparation(actual, recipeId, result.method.equipment.filter(item => item !== tool), PREPARATION_VERSION, result.method.id).state, "held", recipeId + " needs " + tool);
     }
   }
-  assert.equal(preparationCoverage().filter(row => row.state === "held-unprepared").length, 34);
+  assert.equal(preparationCoverage().filter(row => row.state === "held-unprepared").length, 2);
   for (const row of preparationCoverage().filter(row => row.state === "held-unprepared")) assert.equal(resolvePreparation(actual, row.id, EQUIPMENT).state, "held", row.id);
   assert.equal(JSON.stringify(actual), before);
 });
@@ -278,9 +278,9 @@ test("nine wrap/bowl overrides match actual rows without changing83 materialized
     assert.equal(resolvePreparation(actual, recipeId, result.method.equipment).state, "authored-local");
     for (const tool of result.method.equipment) assert.equal(resolvePreparation(actual, recipeId, result.method.equipment.filter(item => item !== tool)).state, "held", recipeId + " needs " + tool);
   }
-  assert.equal(preparationCoverage().filter(row => row.state === "authored-local").length, 49);
+  assert.equal(preparationCoverage().filter(row => row.state === "authored-local").length, 81);
   const held = preparationCoverage().filter(row => row.state === "held-unprepared");
-  assert.equal(held.length, 34);
+  assert.equal(held.length, 2);
   for (const row of held) assert.equal(resolvePreparation(actual, row.id, EQUIPMENT).state, "held", row.id);
   assert.equal(JSON.stringify(actual), before);
 });
@@ -411,7 +411,7 @@ const nextPreparation = (recipeId: string) => {
   if (result.state !== "authored-local") throw Error(recipeId);
   return result;
 };
-test("18 exact existing methods preserve rows and admit only their required equipment;49 prepared34 held83 total", () => {
+test("18 exact existing methods preserve rows and admit only their required equipment;81 prepared2 held83 total", () => {
   const actual = source(), before = JSON.stringify(actual);
   assert.equal(nextIds.length, 18);
   assert.equal(actual.recipes.length, 83);
@@ -425,9 +425,9 @@ test("18 exact existing methods preserve rows and admit only their required equi
     for (const tool of result.method.equipment) assert.equal(resolvePreparation(actual, recipeId, result.method.equipment.filter(item => item !== tool)).state, "held", recipeId + " requires " + tool);
     assert.equal(resolvePreparation(actual, recipeId, EQUIPMENT, PREPARATION_VERSION, "authored-primary").state, "held");
   }
-  assert.equal(preparationCoverage().filter(row => row.state === "authored-local").length, 49);
+  assert.equal(preparationCoverage().filter(row => row.state === "authored-local").length, 81);
   const held = preparationCoverage().filter(row => row.state === "held-unprepared");
-  assert.equal(held.length, 34);
+  assert.equal(held.length, 2);
   for (const row of held) assert.equal(resolvePreparation(actual, row.id, EQUIPMENT).state, "held");
   assert.equal(JSON.stringify(actual), before);
 });
@@ -598,6 +598,183 @@ test("all18 optional recommended extras may be omitted without changing material
     assert.equal(result.timing.measured, false);
     assert.equal(result.timing.declaredMinutesAppliesToMethod, false);
     assert.equal(result.timing.methodMinutes, null);
+    assert.equal("totalCents" in result, false);
+    assert.equal("protein" in result, false);
+    assert.equal(JSON.stringify(actual), before);
+  }
+});
+
+const remainingFamilies = ["turkey-chili", "pesto-chicken-pasta", "turkey-meatballs-with-whole-wheat-spaghetti", "chicken-stir-fry-with-rice", "healthier-chicken-parmesan", "turkey-burgers-with-sweet-potato-wedges", "ground-turkey-lettuce-wraps", "bbq-chicken-with-roasted-vegetables-and-rice", "buffalo-chicken-bowl", "shrimp-and-veggie-stir-fry", "salmon-with-rice-and-asparagus"];
+const heldThighIds = ["bbq-chicken-with-roasted-vegetables-and-rice", "bbq-chicken-with-roasted-vegetables-and-rice-potatoes"];
+const remainingIds = RECIPES.filter(recipe => remainingFamilies.includes(recipe.id)).flatMap(recipe => [recipe.id, ...recipe.variants.map(variant => variant.id)]);
+const newlyPreparedIds = remainingIds.filter(id => !heldThighIds.includes(id));
+const remainingPreparation = (recipeId: string) => {
+  const result = resolvePreparation(source(), recipeId, EQUIPMENT);
+  if (result.state !== "authored-local") throw Error(recipeId);
+  return result;
+};
+// Expectations come from the existing ingredient rows and safety sources, not a
+// regenerated method string. Removing a food/quantity/cooking rule must fail.
+const remainingChecks: Record<string, RegExp[]> = {
+  "turkey-chili": [/8 oz raw ground turkey/, /4 oz drained solids/, /7 oz canned tomatoes/, /2 oz edible onion/, /half bell pepper/, /10 g taco seasoning/],
+  "turkey-chili-lentil": [/130 g dry lentils, sort and rinse/, /fully tender/, /5 oz drained solids/, /7 oz canned tomatoes/, /2 oz edible onion/, /half bell pepper/, /10 g taco seasoning/],
+  "turkey-chili-potato": [/8 oz raw ground turkey/, /8 oz raw edible potato/, /russet potato/, /fork-tender/, /7 oz tomatoes/, /2 oz edible onion/, /half bell pepper/, /10 g taco seasoning/],
+  "pesto-chicken-pasta": [/6 oz raw chicken/, /70 g dry penne/, /3 oz frozen broccoli/, /all 2 oz pesto/, /all 0\.5 oz Parmesan/],
+  "pesto-chicken-pasta-shrimp": [/7 oz raw edible shrimp/, /70 g dry penne/, /3 oz frozen broccoli/, /2 oz pesto/, /0\.5 oz Parmesan/],
+  "pesto-chicken-pasta-gf": [/6 oz raw chicken/, /70 g dry gluten-free pasta/, /3 oz frozen broccoli/, /all 2 oz pesto/, /all 0\.5 oz Parmesan/],
+  "turkey-meatballs-with-whole-wheat-spaghetti": [/7 oz raw ground turkey/, /70 g dry whole-wheat spaghetti/, /all 4 oz marinara/, /0\.5 oz breadcrumbs/, /entire one egg/, /half.*0\.5 oz Parmesan/, /remaining half Parmesan/],
+  "turkey-meatballs-with-whole-wheat-spaghetti-beef": [/7 oz raw ground beef/, /70 g dry whole-wheat spaghetti/, /all 4 oz marinara/, /0\.5 oz breadcrumbs/, /entire one egg/, /half.*0\.5 oz Parmesan/, /remaining half Parmesan/],
+  "turkey-meatballs-with-whole-wheat-spaghetti-gf": [/7 oz raw ground turkey/, /70 g dry gluten-free pasta/, /all 4 oz marinara/, /0\.5 oz dry oats/, /entire one egg/, /half.*0\.5 oz Parmesan/, /remaining half Parmesan/],
+  "chicken-stir-fry-with-rice": [/10 oz raw chicken/, /65 g dry white rice/, /5 oz frozen stir-fry vegetables/, /all 2 tbsp soy sauce/, /all 1 tbsp olive oil/, /measured pan oil/],
+  "chicken-stir-fry-with-rice-tofu": [/9 oz tofu before cooking/, /65 g dry white rice/, /5 oz frozen stir-fry vegetables/, /all 2 tbsp soy sauce/, /all 1 tbsp olive oil/, /measured pan oil/],
+  "chicken-stir-fry-with-rice-noodles": [/10 oz raw chicken/, /70 g dry spaghetti/, /5 oz frozen stir-fry vegetables/, /all 2 tbsp soy sauce/, /all 1 tbsp olive oil/, /all cooked spaghetti/],
+  "healthier-chicken-parmesan": [/6 oz raw chicken/, /all 1 oz breadcrumbs/, /entire one egg/, /all 4 oz marinara/, /1 oz shredded mozzarella/, /all 4 oz frozen broccoli/, /all chicken, cooked coating/],
+  "healthier-chicken-parmesan-tofu": [/8 oz tofu before cooking/, /all 1 oz breadcrumbs/, /entire one egg/, /all 4 oz marinara/, /1 oz shredded mozzarella/, /all 4 oz frozen broccoli/, /all tofu, cooked coating/],
+  "healthier-chicken-parmesan-oat": [/6 oz raw chicken/, /all 1 oz dry oats/, /entire one egg/, /all 4 oz marinara/, /1 oz shredded mozzarella/, /all 4 oz frozen broccoli/, /all chicken, cooked coating/],
+  "turkey-burgers-with-sweet-potato-wedges": [/8 oz raw ground turkey/, /one.*whole-wheat bun/, /8 oz raw edible potato/, /sweet potato/, /all 1 tbsp olive oil/, /quarter head of romaine/],
+  "turkey-burgers-with-sweet-potato-wedges-tempeh": [/8 oz tempeh before cooking/, /one.*whole-wheat bun/, /8 oz raw edible potato/, /sweet potato/, /all 1 tbsp olive oil/, /quarter head of romaine/],
+  "turkey-burgers-with-sweet-potato-wedges-bunless": [/8 oz raw ground turkey/, /no bun/, /8 oz raw edible potato/, /sweet potato/, /all 1 tbsp olive oil/, /quarter head of romaine/],
+  "ground-turkey-lettuce-wraps": [/8 oz raw ground turkey/, /half head of romaine/, /2 oz raw edible carrots/, /all 3 oz frozen shelled edamame/, /2 tbsp soy sauce/, /all 1 tsp olive oil/],
+  "ground-turkey-lettuce-wraps-tofu": [/9 oz tofu before cooking/, /half head of romaine/, /2 oz raw edible carrots/, /all 3 oz frozen shelled edamame/, /2 tbsp soy sauce/, /all 1 tsp olive oil/],
+  "ground-turkey-lettuce-wraps-rice": [/8 oz raw ground turkey/, /65 g dry white rice/, /2 oz raw edible carrots/, /all 3 oz frozen shelled edamame/, /2 tbsp soy sauce/, /all 1 tsp olive oil/, /No romaine/],
+  "bbq-chicken-with-roasted-vegetables-and-rice-pork": [/8 oz raw edible boneless lean pork loin/, /70 g dry white rice/, /all 5 oz frozen mixed vegetables/, /all 2 oz barbecue sauce/, /all 1 tsp olive oil/],
+  "buffalo-chicken-bowl": [/10 oz raw chicken/, /60 g dry white rice/, /all 2 tbsp buffalo sauce/, /quarter head of romaine/, /2 oz edible carrots/, /half avocado/, /half's edible flesh/],
+  "buffalo-chicken-bowl-tempeh": [/8 oz tempeh before cooking/, /60 g dry white rice/, /all 2 tbsp buffalo sauce/, /quarter head of romaine/, /2 oz edible carrots/, /half avocado/, /half's edible flesh/],
+  "buffalo-chicken-bowl-sweet-potato": [/10 oz raw chicken/, /8 oz raw edible potato/, /sweet potato/, /all 2 tbsp buffalo sauce/, /quarter head of romaine/, /2 oz edible carrots/, /half avocado/, /half's edible flesh/],
+  "shrimp-and-veggie-stir-fry": [/8 oz raw edible shrimp/, /65 g dry white rice/, /all 6 oz frozen stir-fry vegetables/, /2 oz frozen shelled edamame/, /2 tbsp soy sauce/, /all 1 tbsp olive oil/],
+  "shrimp-and-veggie-stir-fry-pork": [/8 oz raw edible boneless lean pork loin/, /65 g dry white rice/, /all 6 oz frozen stir-fry vegetables/, /2 oz frozen shelled edamame/, /2 tbsp soy sauce/, /all 1 tbsp olive oil/],
+  "shrimp-and-veggie-stir-fry-brown-rice": [/8 oz raw edible shrimp/, /65 g dry brown rice/, /brown rice's own package/, /all 6 oz frozen stir-fry vegetables/, /2 oz frozen shelled edamame/, /2 tbsp soy sauce/, /all 1 tbsp olive oil/],
+  "shrimp-and-veggie-stir-fry-chicken": [/12 oz thawed raw edible boneless skinless chicken/, /65 g dry white rice/, /all 6 oz frozen stir-fry vegetables/, /2 oz frozen shelled edamame/, /2 tbsp soy sauce/, /all 1 tbsp olive oil/],
+  "salmon-with-rice-and-asparagus": [/8 oz raw edible salmon/, /65 g dry white rice/, /5 oz raw edible asparagus/, /2 tsp olive oil total/, /half the oil/],
+  "salmon-with-rice-and-asparagus-tilapia": [/8 oz raw edible tilapia/, /65 g dry white rice/, /5 oz raw edible asparagus/, /2 tsp olive oil total/, /half each/],
+  "salmon-with-rice-and-asparagus-sweet-potato": [/8 oz raw edible salmon/, /8 oz raw edible potato/, /sweet potato/, /5 oz raw edible asparagus/, /2 tsp olive oil total/, /remaining half oil/, /No rice/]
+};
+for (const recipeId of newlyPreparedIds) test("remaining exact ingredient quantities and required tools: " + recipeId, () => {
+  const actual = source(), before = JSON.stringify(actual), result = remainingPreparation(recipeId);
+  assert.deepEqual(result.ingredients, actual.ingredients.filter(row => row.recipe_id === recipeId).map(row => [row.sku_id, row.qty, row.unit]));
+  assert.ok(remainingChecks[recipeId]?.length);
+  for (const expected of remainingChecks[recipeId]) assert.match(result.method.steps.join(" "), expected);
+  assert.ok(result.method.steps.length >= 3 && result.method.steps.length <= 5);
+  assert.notDeepEqual(result.method.steps, actual.recipes.find(row => row.id === recipeId)!.steps);
+  assert.notEqual(result.method.id, "authored-primary");
+  assert.equal(new Set(result.method.equipment).size, result.method.equipment.length);
+  assert.equal(resolvePreparation(actual, recipeId, result.method.equipment).state, "authored-local");
+  for (const tool of result.method.equipment) assert.equal(resolvePreparation(actual, recipeId, result.method.equipment.filter(item => item !== tool)).state, "held", recipeId + " requires " + tool);
+  assert.equal(resolvePreparation(actual, recipeId, EQUIPMENT, PREPARATION_VERSION, "authored-primary").state, "held");
+  assert.equal(resolvePreparation(actual, recipeId, ["microwave", "microwave-safe-bowl", "microwave-safe-cover"]).state, "held");
+  assert.equal(resolvePreparation(actual, recipeId, EQUIPMENT, PREPARATION_VERSION, "guessed-alternative").state, "held");
+  assert.equal(JSON.stringify(actual), before);
+});
+test("all34 IDs accounted for; bone-in thigh rows stay held without inventing edible yield;81 prepared2 held83 total", () => {
+  assert.equal(remainingIds.length, 34);
+  assert.equal(newlyPreparedIds.length, 32);
+  assert.deepEqual(Object.keys(remainingChecks).sort(), [...newlyPreparedIds].sort());
+  assert.equal(preparationCoverage().length, 83);
+  assert.equal(preparationCoverage().filter(row => row.state === "authored-local").length, 81);
+  assert.deepEqual(preparationCoverage().filter(row => row.state === "held-unprepared").map(row => row.id).sort(), [...heldThighIds].sort());
+  for (const recipeId of heldThighIds) {
+    const result = resolvePreparation(source(), recipeId, EQUIPMENT);
+    assert.equal(result.state, "held");
+    if (result.state !== "held") throw Error(recipeId);
+    assert.equal(result.reason, "unprepared-or-unknown-recipe");
+    assert.equal(result.crossLaneAccepted, false);
+    assert.equal(source().ingredients.find(row => row.recipe_id === recipeId && row.sku_id === "chicken-thighs")!.qty, 10);
+  }
+  assert.equal(resolvePreparation(source(), "invented-recipe", EQUIPMENT).state, "held");
+});
+test("poultry, ground beef, whole pork, egg coating, fish and shrimp retain distinct safety and raw quantity rules", () => {
+  for (const recipeId of newlyPreparedIds) {
+    const result = remainingPreparation(recipeId), steps = result.method.steps.join(" "), skus = result.ingredients.map(row => row[0]);
+    assert.match(steps, /package/);
+    if (skus.some(sku => ["chicken-breast", "frozen-chicken-breast", "ground-turkey"].includes(sku))) {
+      assert.match(steps, /food thermometer reads 165 F/);
+      assert.match(steps, /raw.*before cooking|raw ground turkey/);
+      assert.match(steps, /clean raw-contact utensils/i);
+    }
+    if (skus.includes("ground-beef")) { assert.match(steps, /food thermometer reads 160 F/); assert.doesNotMatch(steps, /165 F|145 F/); }
+    if (skus.includes("pork-loin")) {
+      assert.match(steps, /food thermometer reads at least 145 F/);
+      assert.match(steps, /[Rr]est.*at least 3 minutes/);
+      assert.equal(result.method.equipment.includes("raw-meat-board"), true);
+      assert.doesNotMatch(steps, /165 F|160 F/);
+    }
+    if (skus.includes("frozen-shrimp")) {
+      assert.match(steps, /pearly or white and opaque throughout/);
+      assert.match(steps, /stricter package thermometer temperature requirement/);
+      assert.match(steps, /refrigerator/);
+      assert.match(steps, /ice glaze.*discarded liquid/);
+      assert.doesNotMatch(steps, /145 F|165 F/);
+    }
+    if (skus.includes("frozen-salmon") || skus.includes("frozen-tilapia")) {
+      assert.match(steps, /food thermometer reads 145 F throughout/);
+      assert.match(steps, /refrigerator/);
+      assert.match(steps, /raw edible.*before cooking/);
+      assert.doesNotMatch(steps, /165 F|pearly or white/);
+    }
+    if (skus.includes("tofu") || skus.includes("tempeh") || skus.includes("lentils")) assert.doesNotMatch(steps, /165 F/);
+  }
+  const eggTofu = remainingPreparation("healthier-chicken-parmesan-tofu");
+  assert.match(eggTofu.method.steps.join(" "), /160 F throughout the coating/);
+  assert.deepEqual(eggTofu.ingredients.find(row => row[0] === "eggs"), ["eggs", 1, "each"]);
+});
+test("breading consumes every measured egg/crumb/oat; plain sheet pan cannot silently substitute for no-oil nonstick method", () => {
+  for (const recipeId of newlyPreparedIds.filter(id => id.startsWith("healthier-chicken-parmesan"))) {
+    const result = remainingPreparation(recipeId), steps = result.method.steps.join(" ");
+    assert.match(steps, /entire one egg/);
+    assert.match(steps, /loose coating/);
+    assert.match(steps, /discarded|rather than discard/);
+    assert.match(steps, /no unlisted oil|No added oil/i);
+    assert.equal(result.method.equipment.includes("nonstick-oven-safe-sheet-pan"), true);
+    assert.equal(resolvePreparation(source(), recipeId, EQUIPMENT.filter(tool => tool !== "nonstick-oven-safe-sheet-pan")).state, "held");
+    if (recipeId.endsWith("-oat")) {
+      assert.equal(result.method.equipment.includes("blender"), true);
+      assert.match(steps, /1 oz dry oats/);
+    }
+  }
+  assert.equal(remainingPreparation("turkey-meatballs-with-whole-wheat-spaghetti-gf").method.equipment.includes("blender"), true);
+});
+test("all32 refuse sparse/accessor/unknown/duplicate equipment without getter effects and refuse stale source/row/time/version", () => {
+  let reads = 0;
+  const accessor: string[] = [];
+  Object.defineProperty(accessor, "0", { get() { reads++; return "oven"; } });
+  for (const recipeId of newlyPreparedIds) {
+    for (const equipment of [null, [], ["air-fryer"], ["oven", "oven"], new Array<string>(2), accessor]) assert.equal(resolvePreparation(source(), recipeId, equipment).state, "held");
+    assert.equal(resolvePreparation(source(), recipeId, EQUIPMENT, "stale-preparation-version").state, "held");
+    for (const mutate of [
+      (s: ReturnType<typeof source>) => { s.ingredients.find(row => row.recipe_id === recipeId)!.qty++; },
+      (s: ReturnType<typeof source>) => { s.ingredients.find(row => row.recipe_id === recipeId)!.sku_id = "unlisted-sauce"; },
+      (s: ReturnType<typeof source>) => { s.ingredients = s.ingredients.filter(row => !(row.recipe_id === recipeId && row.sku_id === remainingPreparation(recipeId).ingredients[0][0])); },
+      (s: ReturnType<typeof source>) => { s.recipes.find(row => row.id === recipeId)!.steps.push("Add unlisted oil."); },
+      (s: ReturnType<typeof source>) => { s.recipes.find(row => row.id === recipeId)!.minutes++; },
+      (s: ReturnType<typeof source>) => { s.recipes.push(structuredClone(s.recipes.find(row => row.id === recipeId)!)); }
+    ]) { const changed = source(); mutate(changed); assert.equal(resolvePreparation(changed, recipeId, EQUIPMENT).state, "held"); }
+    const first = remainingPreparation(recipeId); first.method.steps[0] = "Unlisted sauce"; first.ingredients[0][1]++;
+    const next = remainingPreparation(recipeId);
+    assert.notEqual(next.method.steps[0], "Unlisted sauce");
+    assert.notDeepEqual(next.ingredients, first.ingredients);
+  }
+  assert.equal(reads, 0);
+});
+test("all32 optional seasoning omission preserves complete methods/quote/nutrients and all closed admissions", () => {
+  for (const recipeId of newlyPreparedIds) {
+    const actual = source(), before = JSON.stringify(actual), result = remainingPreparation(recipeId);
+    assert.equal(result.seasoning.prompt, "Seasoning of your choice");
+    assert.equal(result.seasoning.recommended, "Black pepper");
+    assert.equal(result.seasoning.optional, true);
+    assert.equal(result.seasoning.status, "unpriced-unverified-extra");
+    assert.equal(result.seasoning.includedInQuotedTotal, false);
+    assert.equal(result.seasoning.includedInNutrients, false);
+    assert.equal(result.seasoning.allergenStatus, "unknown");
+    assert.doesNotMatch(result.method.steps.join(" "), /black pepper|seasoning of your choice/i);
+    assert.equal(result.crossLaneAccepted, false);
+    assert.equal(result.restrictionAdmission, false);
+    assert.equal(result.safety.allergySafe, false);
+    assert.equal(result.safety.kitchenVerified, false);
+    assert.equal(result.safety.timeAloneProvesDoneness, false);
+    assert.equal(result.safety.stricterPackageDirectionsWin, true);
+    assert.equal(result.timing.measured, false);
+    assert.equal(result.timing.methodMinutes, null);
+    assert.equal(result.timing.declaredMinutesAppliesToMethod, false);
     assert.equal("totalCents" in result, false);
     assert.equal("protein" in result, false);
     assert.equal(JSON.stringify(actual), before);

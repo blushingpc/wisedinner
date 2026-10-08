@@ -6,7 +6,7 @@ import type { Ing } from "./types.ts";
 
 export const PREPARATION_VERSION = "wd-authored-preparation-1";
 export const SAFETY_SOURCE = "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures";
-export const EQUIPMENT = ["stovetop", "nonstick-pan", "spatula", "mixing-bowl", "whisk", "food-thermometer", "toaster", "microwave", "microwave-safe-bowl", "microwave-safe-cover", "knife", "cutting-board", "saucepan", "strainer", "bowl", "spoon", "measuring-tools", "blender", "tongs", "clean-serving-plate", "raw-poultry-board", "can-opener", "saucepan-lid", "oven", "sheet-pan", "oven-mitts", "fork", "raw-seafood-board"] as const;
+export const EQUIPMENT = ["stovetop", "nonstick-pan", "spatula", "mixing-bowl", "whisk", "food-thermometer", "toaster", "microwave", "microwave-safe-bowl", "microwave-safe-cover", "knife", "cutting-board", "saucepan", "strainer", "bowl", "spoon", "measuring-tools", "blender", "tongs", "clean-serving-plate", "raw-poultry-board", "can-opener", "saucepan-lid", "oven", "sheet-pan", "oven-mitts", "fork", "raw-seafood-board", "raw-meat-board", "nonstick-oven-safe-sheet-pan"] as const;
 type Equipment = typeof EQUIPMENT[number];
 type Method = { id: string; equipment: Equipment[]; steps: string[] };
 const baseId = "egg-white-and-veggie-scramble-with-toast";
@@ -339,6 +339,273 @@ const nextSix: Definition[] = [
   ] }
 ];
 definitions.push(...nextSix);
+// Remaining finite methods. Bone-in thigh barbecue rows stay held: their edible
+// quantity basis is unresolved. No pack/bone yield is inferred by this adjunct.
+const panTools: Equipment[] = ["stovetop", "nonstick-pan", "spatula", "knife", "cutting-board", "measuring-tools", "clean-serving-plate"];
+const grainTools: Equipment[] = ["saucepan", "saucepan-lid", "spoon"];
+const poultryTools: Equipment[] = ["raw-poultry-board", "food-thermometer"];
+const seafoodTools: Equipment[] = ["raw-seafood-board", "food-thermometer"];
+const roastTools: Equipment[] = ["oven", "sheet-pan", "oven-mitts", "knife", "cutting-board", "tongs", "measuring-tools", "food-thermometer", "fork", "clean-serving-plate"];
+const breadingTools: Equipment[] = [...roastTools.filter(tool => tool !== "sheet-pan" && tool !== "fork"), "nonstick-oven-safe-sheet-pan"];
+const remaining: Definition[] = [
+  { id: "turkey-chili", sourceMethod: false, rows: [["ground-turkey", 8, "oz"], ["kidney-beans", 4, "oz"], ["canned-tomatoes", 7, "oz"], ["onions", 2, "oz"], ["bell-peppers", 0.5, "each"], ["taco-seasoning", 10, "g"]], methods: [
+    { id: "turkey-chili-pan", equipment: [...panTools, "food-thermometer", "can-opener", "strainer", "spoon"], steps: [
+      "Wash the half bell pepper, remove stem and seeds and dice its edible flesh. Peel and dice 2 oz edible onion. Clean can lids, open and drain the canned kidney beans, then measure 4 oz drained solids. Measure 7 oz canned tomatoes including their tomato juice; no drained-yield conversion is certified.",
+      "Measure 8 oz raw ground turkey before cooking. Cook in a nonstick pan without added oil, breaking it up with the spatula until a food thermometer reads 165 F throughout. Wash hands and clean raw-contact utensils; do not use cooked weight or drain away measured meat juices.",
+      "Add all the onion, pepper, tomatoes, beans and 10 g taco seasoning. Add water as needed to prevent sticking and simmer until the vegetables are tender and all package cooking requirements are met; stricter package directions win, not a fixed time.",
+      "Use clean utensils to serve all the chili, including the sauce. No optional seasoning is needed to complete it."
+    ] }
+  ] },
+  { id: "turkey-chili-lentil", sourceMethod: false, rows: [["lentils", 130, "g"], ["kidney-beans", 5, "oz"], ["canned-tomatoes", 7, "oz"], ["onions", 2, "oz"], ["bell-peppers", 0.5, "each"], ["taco-seasoning", 10, "g"]], methods: [
+    { id: "lentil-chili", equipment: ["stovetop", ...grainTools, "strainer", "knife", "cutting-board", "can-opener", "measuring-tools", "bowl"], steps: [
+      "Measure 130 g dry lentils, sort and rinse, then cook in water in the saucepan according to their package until fully tender. This is not 130 g cooked lentils. Reserve all cooked lentils; do not infer a cooked yield.",
+      "Wash and dice the edible flesh of the half bell pepper. Peel and dice 2 oz edible onion. Clean can lids, open and drain kidney beans, then measure 5 oz drained solids. Measure 7 oz canned tomatoes including their juice; package draining yield remains unverified.",
+      "Add all the vegetables, beans, tomatoes and 10 g taco seasoning to the lentils. Simmer with enough water to prevent sticking until the onion and pepper are tender and stricter package cooking directions are met. No turkey or unlisted oil is used.",
+      "Spoon all the chili and sauce into the bowl and serve; the dry lentil quantity has not been replaced with a cooked weight."
+    ] }
+  ] },
+  { id: "turkey-chili-potato", sourceMethod: false, rows: [["ground-turkey", 8, "oz"], ["russet-potatoes", 8, "oz"], ["canned-tomatoes", 7, "oz"], ["onions", 2, "oz"], ["bell-peppers", 0.5, "each"], ["taco-seasoning", 10, "g"]], methods: [
+    { id: "turkey-potato-chili", equipment: [...panTools, ...grainTools, "strainer", "fork", "food-thermometer", "can-opener"], steps: [
+      "Wash and scrub the russet potato, measure 8 oz raw edible potato with edible skin and dice. Simmer in water in a saucepan until fork-tender, then drain. Wash and dice the edible half bell pepper; peel and dice 2 oz edible onion. Clean the tomato can lid and measure 7 oz tomatoes including their juice.",
+      "Measure 8 oz raw ground turkey before cooking. Break it up in the nonstick pan without added oil until a food thermometer reads 165 F throughout; retain the measured meat juices. Wash hands and clean raw-contact utensils.",
+      "Add all the cooked potato, onion, pepper, tomatoes and 10 g taco seasoning. Add water as needed and simmer until the vegetables are tender and stricter package cooking directions are met. No kidney beans or microwave are required.",
+      "Serve all the chili and sauce with clean utensils. Do not substitute 8 oz cooked potato or infer trim yield."
+    ] }
+  ] },
+  { id: "pesto-chicken-pasta", sourceMethod: false, rows: [["chicken-breast", 6, "oz"], ["penne", 70, "g"], ["pesto", 2, "oz"], ["frozen-broccoli", 3, "oz"], ["parmesan", 0.5, "oz"]], methods: [
+    { id: "chicken-penne", equipment: [...panTools, ...grainTools, ...poultryTools, "strainer"], steps: [
+      "Measure 70 g dry penne and boil in water according to its package until tender, then drain and reserve all the pasta. Cook 3 oz frozen broccoli separately in the saucepan according to its package cooking directions and reserve it; thawing alone is not cooking.",
+      "Measure 6 oz raw chicken before cooking; do not wash it. Cut small pieces on the separate raw-poultry board, wash hands and clean raw-contact utensils. Cook in the nonstick pan with water as needed, without added oil, until a food thermometer reads 165 F throughout; stricter package directions win.",
+      "Using clean utensils, combine all the chicken, penne and broccoli with all 2 oz pesto. Warm according to the sauce package, adding water if needed rather than unlisted oil.",
+      "Serve all the pasta and sauce topped with all 0.5 oz Parmesan. The dry pasta and raw chicken quantities are not cooked weights."
+    ] }
+  ] },
+  { id: "pesto-chicken-pasta-shrimp", sourceMethod: false, rows: [["frozen-shrimp", 7, "oz"], ["penne", 70, "g"], ["pesto", 2, "oz"], ["frozen-broccoli", 3, "oz"], ["parmesan", 0.5, "oz"]], methods: [
+    { id: "shrimp-penne", equipment: [...panTools, ...grainTools, ...seafoodTools, "strainer"], steps: [
+      "Thaw shrimp in the refrigerator following its package directions, including any packaging removal. Measure 7 oz raw edible shrimp before cooking, excluding ice glaze, shells or discarded liquid; do not infer a bag's edible yield. Keep seafood and its board away from ready-to-eat food.",
+      "Measure 70 g dry penne, boil in water according to the package until tender and drain. Cook all 3 oz frozen broccoli separately according to its package cooking requirements and reserve it.",
+      "Cook all the shrimp in the nonstick pan with water as needed, without added oil, until flesh is pearly or white and opaque throughout and any stricter package thermometer temperature requirement is met. Clean raw-contact utensils before combining with all the pasta, broccoli and 2 oz pesto; warm as the sauce package requires.",
+      "Serve all the shrimp pasta, pesto and 0.5 oz Parmesan with clean utensils. No chicken or poultry temperature is used."
+    ] }
+  ] },
+  { id: "pesto-chicken-pasta-gf", sourceMethod: false, rows: [["chicken-breast", 6, "oz"], ["gf-pasta", 70, "g"], ["pesto", 2, "oz"], ["frozen-broccoli", 3, "oz"], ["parmesan", 0.5, "oz"]], methods: [
+    { id: "chicken-gf-pasta", equipment: [...panTools, ...grainTools, ...poultryTools, "strainer"], steps: [
+      "Measure 70 g dry gluten-free pasta, boil in water using its own package directions until tender, then drain. Cook 3 oz frozen broccoli separately according to its package cooking requirements and reserve it. This ingredient name does not certify restriction safety.",
+      "Measure 6 oz raw chicken before cooking; do not wash it. Cut on the separate raw-poultry board, wash hands and clean raw-contact utensils. Cook in the nonstick pan with water as needed and no added oil until a food thermometer reads 165 F throughout; stricter package directions win.",
+      "Combine all the cooked chicken, pasta and broccoli with all 2 oz pesto using clean utensils. Warm according to sauce package directions, adding water if needed.",
+      "Serve all the pasta and sauce topped with all 0.5 oz Parmesan; no penne or cooked-weight substitution is used."
+    ] }
+  ] },
+  { id: "turkey-meatballs-with-whole-wheat-spaghetti", sourceMethod: false, rows: [["ground-turkey", 7, "oz"], ["ww-spaghetti", 70, "g"], ["marinara", 4, "oz"], ["breadcrumbs", 0.5, "oz"], ["eggs", 1, "each"], ["parmesan", 0.5, "oz"]], methods: [
+    { id: "turkey-meatballs", equipment: [...panTools, ...grainTools, "food-thermometer", "strainer", "mixing-bowl"], steps: [
+      "Measure 70 g dry whole-wheat spaghetti and boil in water according to the package until tender, then drain and reserve all the pasta.",
+      "Mix 7 oz raw ground turkey, the entire one egg, 0.5 oz breadcrumbs and half of the measured 0.5 oz Parmesan in the mixing bowl. Shape all the mixture into small meatballs; do not taste it raw. Wash hands and keep raw egg and meat utensils separate from serving utensils.",
+      "Place all meatballs in the nonstick pan with all 4 oz marinara and enough water to prevent sticking. Simmer gently, turning with the spatula, until a food thermometer reads 165 F in the centers of the meatballs; stricter package cooking directions win. Retain all the sauce and cooked meat juices.",
+      "Clean raw-contact utensils and serve all the meatballs and sauce over all the spaghetti, topped with the remaining half Parmesan. No added oil or discarded egg mixture is required."
+    ] }
+  ] },
+  { id: "turkey-meatballs-with-whole-wheat-spaghetti-beef", sourceMethod: false, rows: [["ground-beef", 7, "oz"], ["ww-spaghetti", 70, "g"], ["marinara", 4, "oz"], ["breadcrumbs", 0.5, "oz"], ["eggs", 1, "each"], ["parmesan", 0.5, "oz"]], methods: [
+    { id: "beef-meatballs", equipment: [...panTools, ...grainTools, "food-thermometer", "strainer", "mixing-bowl"], steps: [
+      "Measure 70 g dry whole-wheat spaghetti, boil in water according to its package until tender and drain. Reserve all the cooked pasta.",
+      "Mix 7 oz raw ground beef with the entire one egg, 0.5 oz breadcrumbs and half of the measured 0.5 oz Parmesan. Shape all the mixture into small meatballs; do not taste raw egg or meat. Wash hands and separate raw-contact utensils from serving utensils.",
+      "Simmer all the meatballs in a nonstick pan with all 4 oz marinara and enough water to prevent sticking, turning gently until a food thermometer reads 160 F in the centers; stricter package cooking directions win. Do not drain away the measured meat juices or sauce.",
+      "Clean raw-contact utensils and serve all meatballs and sauce over all the spaghetti with the remaining half Parmesan. No turkey, added oil or discarded egg mixture is used."
+    ] }
+  ] },
+  { id: "turkey-meatballs-with-whole-wheat-spaghetti-gf", sourceMethod: false, rows: [["ground-turkey", 7, "oz"], ["gf-pasta", 70, "g"], ["marinara", 4, "oz"], ["oats", 0.5, "oz"], ["eggs", 1, "each"], ["parmesan", 0.5, "oz"]], methods: [
+    { id: "turkey-oat-meatballs", equipment: [...panTools, ...grainTools, "food-thermometer", "strainer", "mixing-bowl", "blender"], steps: [
+      "Measure 70 g dry gluten-free pasta and cook in water according to its own package until tender, then drain. Pulse 0.5 oz dry oats into coarse crumbs in a blender, following appliance directions. The ingredient names do not establish allergy or cross-contact safety.",
+      "Mix 7 oz raw ground turkey, the entire one egg, all oat crumbs and half of the measured 0.5 oz Parmesan. Shape all the mixture into small meatballs; do not taste it raw. Wash hands and keep raw-contact utensils separate.",
+      "Simmer all meatballs in the nonstick pan with all 4 oz marinara and water as needed, turning gently until a food thermometer reads 165 F in their centers and oat and other package cooking requirements are satisfied. Stricter package directions win; retain all cooked meat juices and sauce.",
+      "Clean raw-contact utensils and serve all the meatballs and sauce over all the pasta with the remaining half Parmesan. No breadcrumbs, extra oil or cooked-weight substitution is used."
+    ] }
+  ] },
+  { id: "chicken-stir-fry-with-rice", sourceMethod: false, rows: [["chicken-breast", 10, "oz"], ["frozen-stirfry-veg", 5, "oz"], ["white-rice", 65, "g"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "chicken-rice-pan", equipment: [...panTools, ...grainTools, ...poultryTools], steps: [
+      "Measure 65 g dry white rice, cook in water with the saucepan lid according to its package until tender and reserve all cooked rice. Do not substitute cooked rice weight.",
+      "Measure 10 oz raw chicken before cooking; do not wash it. Cut on the separate raw-poultry board, wash hands and clean raw-contact utensils. Heat all 1 tbsp olive oil in the nonstick pan and cook all chicken until a food thermometer reads 165 F throughout.",
+      "Add all 5 oz frozen stir-fry vegetables and cook according to their package, using water as needed. Add all 2 tbsp soy sauce and heat as its package requires; stricter package directions win, not minutes alone.",
+      "Use clean utensils to serve all the chicken, vegetables, sauce and measured pan oil over all the rice. No unlisted seasoning is needed."
+    ] }
+  ] },
+  { id: "chicken-stir-fry-with-rice-tofu", sourceMethod: false, rows: [["tofu", 9, "oz"], ["frozen-stirfry-veg", 5, "oz"], ["white-rice", 65, "g"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "tofu-rice-pan", equipment: [...panTools, ...grainTools, "food-thermometer"], steps: [
+      "Measure 65 g dry white rice, cook in water with the saucepan lid according to its package until tender and reserve all cooked rice; this is not cooked rice weight.",
+      "Measure 9 oz tofu before cooking, pat dry and cube on the clean board. Heat all 1 tbsp olive oil in the nonstick pan and cook all tofu according to its package cooking requirements.",
+      "Add all 5 oz frozen stir-fry vegetables and cook according to their package, adding water as needed. Add all 2 tbsp soy sauce and heat as required; meet any package thermometer temperature requirements. Stricter package directions win.",
+      "Serve all tofu, vegetables, sauce and measured pan oil over all the rice. No chicken or poultry cooking rule is used."
+    ] }
+  ] },
+  { id: "chicken-stir-fry-with-rice-noodles", sourceMethod: false, rows: [["chicken-breast", 10, "oz"], ["frozen-stirfry-veg", 5, "oz"], ["spaghetti", 70, "g"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "chicken-spaghetti-pan", equipment: [...panTools, ...grainTools, ...poultryTools, "strainer"], steps: [
+      "Measure 70 g dry spaghetti, boil in water according to its package until tender and drain. Reserve all the noodles; no rice or cooked-weight substitution is used.",
+      "Measure 10 oz raw chicken before cooking; do not wash it. Cut on the separate raw-poultry board, wash hands and clean raw-contact utensils. Heat all 1 tbsp olive oil in the nonstick pan and cook the chicken until a food thermometer reads 165 F throughout.",
+      "Add all 5 oz frozen stir-fry vegetables and satisfy their package cooking requirements, adding water as needed. Add all 2 tbsp soy sauce and heat as required; stricter package directions win.",
+      "Using clean utensils, toss all cooked spaghetti with all the chicken, vegetables, sauce and measured pan oil, then serve."
+    ] }
+  ] },
+  { id: "healthier-chicken-parmesan", sourceMethod: false, rows: [["chicken-breast", 6, "oz"], ["breadcrumbs", 1, "oz"], ["eggs", 1, "each"], ["marinara", 4, "oz"], ["shredded-mozzarella", 1, "oz"], ["frozen-broccoli", 4, "oz"]], methods: [
+    { id: "oven-chicken-breading", equipment: [...breadingTools, "raw-poultry-board", "mixing-bowl", "whisk", "spoon", "stovetop", "saucepan", "saucepan-lid"], steps: [
+      "Heat the oven to 425 F unless stricter package cooking directions require otherwise. Measure 6 oz raw chicken before cooking; do not wash it. Cut into thin pieces on the separate raw-poultry board. Wash hands and clean raw-contact utensils.",
+      "Whisk the entire one egg in the bowl and mix in all 1 oz breadcrumbs to form a thick coating. Spread all the coating over all the chicken on a suitable nonstick oven-safe sheet pan; bake any loose coating beside it rather than discard measured egg or crumbs. Do not taste raw coating; no unlisted oil is required.",
+      "Bake until a food thermometer reads 165 F throughout the chicken and all the coating, satisfying stricter package directions. With clean utensils add all 4 oz marinara and 1 oz shredded mozzarella, then return to the oven until sauce meets its package heating requirements and cheese melts. Minutes alone are not proof.",
+      "Cook all 4 oz frozen broccoli separately in water in the saucepan according to its package. Use oven mitts and clean utensils to serve all chicken, cooked coating, sauce, cheese and broccoli. No cooked-weight substitution or nutrition improvement is claimed."
+    ] }
+  ] },
+  { id: "healthier-chicken-parmesan-tofu", sourceMethod: false, rows: [["tofu", 8, "oz"], ["breadcrumbs", 1, "oz"], ["eggs", 1, "each"], ["marinara", 4, "oz"], ["shredded-mozzarella", 1, "oz"], ["frozen-broccoli", 4, "oz"]], methods: [
+    { id: "oven-tofu-egg-breading", equipment: [...breadingTools, "mixing-bowl", "whisk", "spoon", "stovetop", "saucepan", "saucepan-lid"], steps: [
+      "Heat the oven to 425 F unless stricter package cooking directions require otherwise. Measure 8 oz tofu before cooking, pat dry and slice on the clean board. No chicken is used, but the declared egg remains in this variant.",
+      "Whisk the entire one egg and mix in all 1 oz breadcrumbs into a thick coating. Spread all coating over all tofu on a suitable nonstick oven-safe sheet pan, with any loose coating beside it; none of the measured egg or crumbs is discarded. Do not taste raw coating and clean raw-egg utensils before serving. No added oil is required.",
+      "Bake until the egg coating is set and a food thermometer reads at least 160 F throughout the coating, satisfying any stricter tofu and other package cooking requirements. Add all 4 oz marinara and 1 oz shredded mozzarella with clean utensils, then return to the oven until sauce meets its package heating requirements and cheese melts.",
+      "Cook all 4 oz frozen broccoli separately in water in the saucepan according to its package. Use oven mitts and clean utensils to serve all tofu, cooked coating, sauce, cheese and broccoli. Time alone is not proof; this is not egg-free or allergy certification."
+    ] }
+  ] },
+  { id: "healthier-chicken-parmesan-oat", sourceMethod: false, rows: [["chicken-breast", 6, "oz"], ["oats", 1, "oz"], ["eggs", 1, "each"], ["marinara", 4, "oz"], ["shredded-mozzarella", 1, "oz"], ["frozen-broccoli", 4, "oz"]], methods: [
+    { id: "oven-chicken-oat-breading", equipment: [...breadingTools, "raw-poultry-board", "mixing-bowl", "whisk", "spoon", "blender", "stovetop", "saucepan", "saucepan-lid"], steps: [
+      "Heat the oven to 425 F unless stricter package cooking directions require otherwise. Pulse all 1 oz dry oats into coarse crumbs in a blender following appliance directions. Measure 6 oz raw chicken before cooking; do not wash it. Slice thinly on the separate raw-poultry board, wash hands and clean raw-contact utensils.",
+      "Whisk the entire one egg, mix in all oat crumbs and spread all the thick coating over all chicken on a suitable nonstick oven-safe sheet pan. Bake any loose coating beside the chicken; no measured egg or oats is discarded. Do not taste it raw; no unlisted oil or breadcrumbs are used.",
+      "Bake until a food thermometer reads 165 F throughout the chicken and coating and oat and other package cooking requirements are met. Add all 4 oz marinara and 1 oz shredded mozzarella with clean utensils, then return to the oven until sauce meets package heating requirements and cheese melts; stricter package directions win.",
+      "Cook all 4 oz frozen broccoli separately in water in the saucepan according to its package. Use oven mitts and clean utensils to serve all chicken, cooked coating, sauce, cheese and broccoli. Do not substitute cooked chicken weight or use time alone as proof."
+    ] }
+  ] },
+  { id: "turkey-burgers-with-sweet-potato-wedges", sourceMethod: false, rows: [["ground-turkey", 8, "oz"], ["ww-buns", 1, "each"], ["sweet-potatoes", 8, "oz"], ["olive-oil", 1, "tbsp"], ["romaine", 0.25, "each"]], methods: [
+    { id: "turkey-burger-oven-wedges", equipment: [...roastTools, "stovetop", "nonstick-pan", "spatula"], steps: [
+      "Heat the oven to 425 F unless stricter package cooking directions require otherwise. Wash and scrub the sweet potato, measure 8 oz raw edible potato with edible skin and cut wedges. Toss all wedges with all 1 tbsp olive oil on the sheet pan and roast, turning with tongs, until fork-tender. No cooked-weight or trim-yield conversion is implied.",
+      "Wash the quarter head of romaine under running water and separate its edible leaves, keeping them away from raw turkey. Measure 8 oz raw ground turkey before cooking and shape all of it into two thin patties; wash hands afterward.",
+      "Cook both patties in a dry nonstick pan, turning with the spatula until a food thermometer reads 165 F in their centers. Retain the cooked meat juices; stricter package directions win and time alone is not proof. Clean raw-contact utensils.",
+      "Use clean utensils to put both patties and all romaine on the one packaged ready-to-eat whole-wheat bun. Use oven mitts to serve all wedges and measured pan oil beside the burger; no extra oil or bun is required."
+    ] }
+  ] },
+  { id: "turkey-burgers-with-sweet-potato-wedges-tempeh", sourceMethod: false, rows: [["tempeh", 8, "oz"], ["ww-buns", 1, "each"], ["sweet-potatoes", 8, "oz"], ["olive-oil", 1, "tbsp"], ["romaine", 0.25, "each"]], methods: [
+    { id: "tempeh-burger-oven-wedges", equipment: [...roastTools, "stovetop", "nonstick-pan", "spatula"], steps: [
+      "Heat the oven to 425 F unless stricter package directions require otherwise. Wash and scrub the sweet potato, measure 8 oz raw edible potato with edible skin and cut wedges. Toss all wedges with all 1 tbsp olive oil on the sheet pan and roast until fork-tender, turning with tongs; this is not cooked potato weight.",
+      "Wash the quarter head of romaine under running water and separate its edible leaves. Measure 8 oz tempeh before cooking and cut into thin slabs on the clean board.",
+      "Cook all tempeh in the nonstick pan with water as needed, following its package cooking directions and any thermometer temperature requirement. No poultry temperature or unlisted oil is assumed; all declared oil is on the wedges.",
+      "Put all cooked tempeh and romaine on the one packaged ready-to-eat whole-wheat bun. Use oven mitts to serve all wedges and measured pan oil beside it. No turkey or cooked-weight substitution is used."
+    ] }
+  ] },
+  { id: "turkey-burgers-with-sweet-potato-wedges-bunless", sourceMethod: false, rows: [["ground-turkey", 8, "oz"], ["sweet-potatoes", 8, "oz"], ["olive-oil", 1, "tbsp"], ["romaine", 0.25, "each"]], methods: [
+    { id: "turkey-lettuce-burger-oven-wedges", equipment: [...roastTools, "stovetop", "nonstick-pan", "spatula"], steps: [
+      "Heat the oven to 425 F unless stricter package directions require otherwise. Wash and scrub the sweet potato, measure 8 oz raw edible potato with edible skin and cut wedges. Toss all wedges with all 1 tbsp olive oil on the sheet pan and roast, turning with tongs, until fork-tender.",
+      "Wash the quarter head of romaine under running water and separate its edible leaves away from raw meat. Measure 8 oz raw ground turkey before cooking, shape all of it into two thin patties and wash hands afterward.",
+      "Cook both patties in a dry nonstick pan, turning until a food thermometer reads 165 F in their centers; retain cooked meat juices. Stricter package directions win, not time or color alone. Clean raw-contact utensils.",
+      "Use clean utensils to serve both patties over all romaine with no bun. Use oven mitts to serve all wedges and measured pan oil beside them; raw potato and meat quantities are not cooked weights."
+    ] }
+  ] },
+  { id: "ground-turkey-lettuce-wraps", sourceMethod: false, rows: [["ground-turkey", 8, "oz"], ["romaine", 0.5, "each"], ["carrots", 2, "oz"], ["frozen-edamame", 3, "oz"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "turkey-lettuce-pan", equipment: [...panTools, ...grainTools, "food-thermometer"], steps: [
+      "Wash the half head of romaine under running water and separate its edible leaves. Wash and finely slice 2 oz raw edible carrots on the clean board. Cook all 3 oz frozen shelled edamame in water in the saucepan according to its package; thawing alone is insufficient.",
+      "Measure 8 oz raw ground turkey before cooking. Heat all 1 tsp olive oil in the nonstick pan and break up all the turkey, cooking until a food thermometer reads 165 F throughout. Keep raw meat away from lettuce, wash hands and clean raw-contact utensils.",
+      "Add all carrots, cooked edamame and 2 tbsp soy sauce to the pan. Cook until carrots are tender and sauce and edamame meet any stricter package cooking requirements, adding water if needed.",
+      "Use clean utensils to divide all filling, sauce and measured pan oil among all the lettuce leaves and serve; no rice or unlisted sauce is required."
+    ] }
+  ] },
+  { id: "ground-turkey-lettuce-wraps-tofu", sourceMethod: false, rows: [["tofu", 9, "oz"], ["romaine", 0.5, "each"], ["carrots", 2, "oz"], ["frozen-edamame", 3, "oz"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "tofu-lettuce-pan", equipment: [...panTools, ...grainTools, "food-thermometer"], steps: [
+      "Wash the half head of romaine under running water and separate edible leaves. Wash and finely slice 2 oz raw edible carrots. Cook all 3 oz frozen shelled edamame in water in the saucepan according to its package cooking requirements.",
+      "Measure 9 oz tofu before cooking, pat dry and crumble. Heat all 1 tsp olive oil in the nonstick pan and cook all tofu according to its package, adding water as needed.",
+      "Add all carrots, cooked edamame and 2 tbsp soy sauce. Cook until carrots are tender and tofu, edamame and sauce satisfy stricter package cooking and any thermometer temperature requirements; no turkey or poultry rule is used.",
+      "Divide all filling, sauce and measured pan oil among all edible lettuce leaves and serve. No rice, cooked tofu weight or unlisted sauce is substituted."
+    ] }
+  ] },
+  { id: "ground-turkey-lettuce-wraps-rice", sourceMethod: false, rows: [["ground-turkey", 8, "oz"], ["white-rice", 65, "g"], ["carrots", 2, "oz"], ["frozen-edamame", 3, "oz"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "turkey-carrot-rice-pan", equipment: [...panTools, ...grainTools, "food-thermometer"], steps: [
+      "Measure 65 g dry white rice and cook in water with the saucepan lid according to its package until tender; reserve all cooked rice. Wash and finely slice 2 oz raw edible carrots. Cook all 3 oz frozen shelled edamame separately in water according to its package.",
+      "Measure 8 oz raw ground turkey before cooking. Heat all 1 tsp olive oil in the nonstick pan and break up all turkey, cooking until a food thermometer reads 165 F throughout. Wash hands and clean raw-contact utensils.",
+      "Add all carrots, cooked edamame and 2 tbsp soy sauce to the pan. Cook until carrots are tender and all stricter package requirements are met, adding water if needed.",
+      "Use clean utensils to serve all filling, sauce and measured pan oil over all rice. No romaine is used, and 65 g cooked rice is not a substitute for the dry quantity."
+    ] }
+  ] },
+  { id: "bbq-chicken-with-roasted-vegetables-and-rice-pork", sourceMethod: false, rows: [["pork-loin", 8, "oz"], ["white-rice", 70, "g"], ["frozen-mixed-veg", 5, "oz"], ["bbq-sauce", 2, "oz"], ["olive-oil", 1, "tsp"]], methods: [
+    { id: "oven-pork-rice", equipment: [...roastTools, "raw-meat-board", "stovetop", ...grainTools], steps: [
+      "Measure 70 g dry white rice and cook in water with the saucepan lid according to its package until tender. Heat the oven to 425 F unless stricter package directions require otherwise; do not substitute cooked rice weight.",
+      "Measure 8 oz raw edible boneless lean pork loin before cooking, not bone or trim weight. Keep it on the separate raw-contact board away from ready-to-eat food, wash hands and clean raw-contact utensils. Place all pork on the sheet pan with all 5 oz frozen mixed vegetables tossed in all 1 tsp olive oil, keeping vegetables separate from the pork juices.",
+      "Roast until a food thermometer reads at least 145 F throughout the whole-cut pork and vegetables satisfy their package cooking requirements; stricter package directions win. Rest pork at least 3 minutes before cutting. With clean utensils put all 2 oz barbecue sauce on the cooked pork, return to heat as the sauce package requires, then rest again at least 3 minutes before cutting.",
+      "Use oven mitts and clean utensils to serve all pork, vegetables, barbecue sauce and measured pan oil over all rice. Do not reuse raw-contact utensils or claim a bone/trim yield; no chicken is used."
+    ] }
+  ] },
+  { id: "buffalo-chicken-bowl", sourceMethod: false, rows: [["chicken-breast", 10, "oz"], ["white-rice", 60, "g"], ["buffalo-sauce", 2, "tbsp"], ["romaine", 0.25, "each"], ["carrots", 2, "oz"], ["avocados", 0.5, "each"]], methods: [
+    { id: "buffalo-chicken-rice", equipment: [...panTools, ...grainTools, ...poultryTools], steps: [
+      "Measure 60 g dry white rice and cook in water with the saucepan lid according to its package until tender. Wash the quarter head of romaine, 2 oz edible carrots and the half avocado skin under running water. Slice carrots and edible lettuce; remove avocado pit and skin and slice all the half's edible flesh on the clean produce board.",
+      "Measure 10 oz raw chicken before cooking; do not wash it. Cut on the separate raw-poultry board, wash hands and clean raw-contact utensils. Cook all chicken in a nonstick pan with water as needed, without added oil, until a food thermometer reads 165 F throughout; stricter package directions win.",
+      "Add all 2 tbsp buffalo sauce to the cooked chicken and heat as its package requires, using clean utensils. Keep raw-contact utensils away from lettuce, carrots and avocado.",
+      "Serve all sauced chicken over all rice with all lettuce, carrots and avocado flesh. No hidden oil, cooked-weight substitution or optional seasoning is needed."
+    ] }
+  ] },
+  { id: "buffalo-chicken-bowl-tempeh", sourceMethod: false, rows: [["tempeh", 8, "oz"], ["white-rice", 60, "g"], ["buffalo-sauce", 2, "tbsp"], ["romaine", 0.25, "each"], ["carrots", 2, "oz"], ["avocados", 0.5, "each"]], methods: [
+    { id: "buffalo-tempeh-rice", equipment: [...panTools, ...grainTools, "food-thermometer"], steps: [
+      "Measure 60 g dry white rice and cook in water with the saucepan lid according to its package until tender. Wash the quarter head of romaine, 2 oz edible carrots and the half avocado skin under running water. Slice carrots and edible lettuce, remove avocado pit and skin and slice all the half's edible flesh.",
+      "Measure 8 oz tempeh before cooking and cut into thin pieces on the clean board. Cook all tempeh in the nonstick pan with water as needed according to its package cooking and any thermometer temperature requirements; no added oil is used.",
+      "Add all 2 tbsp buffalo sauce and heat as its package requires; stricter package directions win, not a poultry temperature or fixed time.",
+      "Serve all sauced tempeh over all rice with all lettuce, carrots and avocado flesh. No chicken or cooked-weight substitution is used."
+    ] }
+  ] },
+  { id: "buffalo-chicken-bowl-sweet-potato", sourceMethod: false, rows: [["chicken-breast", 10, "oz"], ["sweet-potatoes", 8, "oz"], ["buffalo-sauce", 2, "tbsp"], ["romaine", 0.25, "each"], ["carrots", 2, "oz"], ["avocados", 0.5, "each"]], methods: [
+    { id: "buffalo-chicken-boiled-potato", equipment: [...panTools, ...grainTools, ...poultryTools, "strainer", "fork"], steps: [
+      "Wash and scrub the sweet potato, measure 8 oz raw edible potato with edible skin, cube and simmer in water in the saucepan until fork-tender, then drain. Wash the quarter head of romaine, 2 oz edible carrots and the half avocado skin under running water. Slice carrots and edible lettuce, remove avocado pit and skin and slice all the half's edible flesh.",
+      "Measure 10 oz raw chicken before cooking; do not wash it. Cut on the separate raw-poultry board, wash hands and clean raw-contact utensils. Cook all chicken in the nonstick pan with water as needed and no added oil until a food thermometer reads 165 F throughout; stricter package directions win.",
+      "Add all 2 tbsp buffalo sauce to the cooked chicken and heat as its package requires with clean utensils. Keep raw-contact utensils away from ready-to-eat produce.",
+      "Serve all sauced chicken over all cooked sweet potato with all lettuce, carrots and avocado flesh. No rice, microwave or cooked potato weight is substituted."
+    ] }
+  ] },
+  { id: "shrimp-and-veggie-stir-fry", sourceMethod: false, rows: [["frozen-shrimp", 8, "oz"], ["frozen-stirfry-veg", 6, "oz"], ["white-rice", 65, "g"], ["frozen-edamame", 2, "oz"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "shrimp-white-rice", equipment: [...panTools, ...grainTools, ...seafoodTools], steps: [
+      "Thaw shrimp in the refrigerator following package directions, including packaging removal. Measure 8 oz raw edible shrimp before cooking, excluding ice glaze, shells or discarded liquid; no bag yield is inferred. Keep raw seafood and its board separate from ready-to-eat food.",
+      "Measure 65 g dry white rice and cook in water with the saucepan lid according to its package until tender. Reserve all cooked rice. Cook all 6 oz frozen stir-fry vegetables and 2 oz frozen shelled edamame separately in water according to their package cooking requirements.",
+      "Heat all 1 tbsp olive oil in the nonstick pan. Cook all shrimp until flesh is pearly or white and opaque throughout and any stricter package thermometer temperature requirement is met. Clean raw-contact utensils; add all cooked vegetables, edamame and 2 tbsp soy sauce and heat as their packages require.",
+      "Serve all shrimp, vegetables, edamame, sauce and measured pan oil over all rice with clean utensils. No cooked-weight substitute or poultry temperature is used."
+    ] }
+  ] },
+  { id: "shrimp-and-veggie-stir-fry-pork", sourceMethod: false, rows: [["pork-loin", 8, "oz"], ["frozen-stirfry-veg", 6, "oz"], ["white-rice", 65, "g"], ["frozen-edamame", 2, "oz"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "pork-white-rice", equipment: [...panTools, ...grainTools, "raw-meat-board", "food-thermometer"], steps: [
+      "Measure 65 g dry white rice and cook in water with the saucepan lid according to its package until tender. Reserve all rice; cook all 6 oz frozen stir-fry vegetables and 2 oz frozen shelled edamame separately in water according to their package cooking requirements.",
+      "Measure 8 oz raw edible boneless lean pork loin before cooking, not bone or trim weight. Slice thinly on the separate raw-contact board, wash hands and clean raw-contact utensils. Heat all 1 tbsp olive oil in the nonstick pan and cook all whole-cut pork slices until a food thermometer reads at least 145 F throughout; stricter package directions win. Rest at least 3 minutes before continuing.",
+      "Use clean utensils to add all cooked vegetables, edamame and 2 tbsp soy sauce, heating as their packages require. Rest the pork at least 3 minutes after final heating before serving; do not substitute the ground-meat or poultry rule.",
+      "Serve all pork, vegetables, edamame, sauce and measured pan oil over all rice. No shrimp, cooked-weight shortcut or bone yield is implied."
+    ] }
+  ] },
+  { id: "shrimp-and-veggie-stir-fry-brown-rice", sourceMethod: false, rows: [["frozen-shrimp", 8, "oz"], ["frozen-stirfry-veg", 6, "oz"], ["brown-rice", 65, "g"], ["frozen-edamame", 2, "oz"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "shrimp-brown-rice", equipment: [...panTools, ...grainTools, ...seafoodTools], steps: [
+      "Thaw shrimp in the refrigerator following its package directions, including packaging removal. Measure 8 oz raw edible shrimp before cooking, excluding ice glaze, shells or discarded liquid; keep raw seafood and its board separate. Package edible yield remains unverified.",
+      "Measure 65 g dry brown rice and cook in water with the saucepan lid using brown rice's own package directions until tender, not a white-rice time or cooked weight. Reserve all cooked rice. Cook all 6 oz frozen stir-fry vegetables and 2 oz frozen shelled edamame separately in water according to their packages.",
+      "Heat all 1 tbsp olive oil in the nonstick pan and cook all shrimp until flesh is pearly or white and opaque throughout and any stricter package thermometer temperature requirement is met. Clean raw-contact utensils and add all cooked vegetables, edamame and 2 tbsp soy sauce, heating as their packages require.",
+      "Serve all shrimp, vegetables, edamame, sauce and measured pan oil over all brown rice with clean utensils. No white rice or poultry temperature is used."
+    ] }
+  ] },
+  { id: "shrimp-and-veggie-stir-fry-chicken", sourceMethod: false, rows: [["frozen-chicken-breast", 12, "oz"], ["frozen-stirfry-veg", 6, "oz"], ["white-rice", 65, "g"], ["frozen-edamame", 2, "oz"], ["soy-sauce", 2, "tbsp"], ["olive-oil", 1, "tbsp"]], methods: [
+    { id: "thawed-chicken-white-rice", equipment: [...panTools, ...grainTools, ...poultryTools], steps: [
+      "Thaw frozen chicken breast in the refrigerator according to its package. Measure 12 oz thawed raw edible boneless skinless chicken before cooking, excluding ice glaze or discarded liquid; do not infer a bag yield or wash the chicken. Cut on the separate raw-poultry board, wash hands and clean raw-contact utensils.",
+      "Measure 65 g dry white rice and cook in water with the saucepan lid according to its package until tender. Reserve all cooked rice. Cook all 6 oz frozen stir-fry vegetables and 2 oz frozen shelled edamame separately in water according to their package cooking requirements.",
+      "Heat all 1 tbsp olive oil in the nonstick pan and cook all chicken until a food thermometer reads 165 F throughout; stricter package directions win, not time or color alone. Clean raw-contact utensils and add all cooked vegetables, edamame and 2 tbsp soy sauce, heating as their packages require.",
+      "Serve all chicken, vegetables, edamame, sauce and measured pan oil over all rice with clean utensils. No shrimp or cooked chicken weight is substituted."
+    ] }
+  ] },
+  { id: "salmon-with-rice-and-asparagus", sourceMethod: false, rows: [["frozen-salmon", 8, "oz"], ["white-rice", 65, "g"], ["asparagus", 5, "oz"], ["olive-oil", 2, "tsp"]], methods: [
+    { id: "oven-salmon-rice", equipment: [...roastTools, "raw-seafood-board", "stovetop", ...grainTools], steps: [
+      "Thaw salmon in the refrigerator following its package directions, including packaging removal. Check for bones and measure 8 oz raw edible salmon before cooking, excluding ice glaze, bones or discarded liquid; no package bone/skin/trim yield is certified. Keep raw fish and its board separate from ready-to-eat food.",
+      "Measure 65 g dry white rice and cook in water with the saucepan lid according to its package until tender. Heat the oven to 400 F unless stricter package directions require otherwise. Wash asparagus, remove woody ends and measure 5 oz raw edible asparagus, without inferring trimming yield.",
+      "Measure 2 tsp olive oil total; put all salmon and asparagus on the sheet pan and coat each with half the oil. Roast until a food thermometer reads 145 F throughout the fish and asparagus is fork-tender, satisfying stricter package cooking directions; minutes or flaking alone are not proof.",
+      "Wash hands and clean raw-contact utensils. Use oven mitts and clean utensils to serve all edible salmon, asparagus and measured pan oil over all rice. No cooked-weight substitution is used."
+    ] }
+  ] },
+  { id: "salmon-with-rice-and-asparagus-tilapia", sourceMethod: false, rows: [["frozen-tilapia", 8, "oz"], ["white-rice", 65, "g"], ["asparagus", 5, "oz"], ["olive-oil", 2, "tsp"]], methods: [
+    { id: "oven-tilapia-rice", equipment: [...roastTools, "raw-seafood-board", "stovetop", ...grainTools], steps: [
+      "Thaw tilapia in the refrigerator following its package directions, including packaging removal. Check for bones and measure 8 oz raw edible tilapia before cooking, excluding ice glaze, bones or discarded liquid; no package edible yield is certified. Keep raw fish and its board separate.",
+      "Measure 65 g dry white rice and cook in water with the saucepan lid according to its package until tender. Heat the oven to 400 F unless stricter package directions require otherwise. Wash asparagus, remove woody ends and measure 5 oz raw edible asparagus without inferring trim yield.",
+      "Measure 2 tsp olive oil total and coat all tilapia and asparagus with half each on the sheet pan. Roast until a food thermometer reads 145 F throughout the tilapia and asparagus is fork-tender, meeting stricter package cooking directions; minutes or visual flaking alone are not proof.",
+      "Wash hands and clean raw-contact utensils. Use oven mitts and clean utensils to serve all edible tilapia, asparagus and measured pan oil over all rice. No salmon or cooked-weight substitution is used."
+    ] }
+  ] },
+  { id: "salmon-with-rice-and-asparagus-sweet-potato", sourceMethod: false, rows: [["frozen-salmon", 8, "oz"], ["sweet-potatoes", 8, "oz"], ["asparagus", 5, "oz"], ["olive-oil", 2, "tsp"]], methods: [
+    { id: "oven-salmon-potato", equipment: [...roastTools, "raw-seafood-board"], steps: [
+      "Thaw salmon in the refrigerator following its package directions, including packaging removal. Check for bones and measure 8 oz raw edible salmon before cooking, excluding ice glaze, bones or discarded liquid; package bone/skin/trim yield remains unverified. Keep raw fish and its board separate.",
+      "Heat the oven to 400 F unless stricter package directions require otherwise. Wash and scrub sweet potato, measure 8 oz raw edible potato with edible skin and cube. Measure 2 tsp olive oil total, toss all potato with half on the sheet pan and start roasting until beginning to soften. Wash and trim asparagus, then measure 5 oz raw edible asparagus without inferring trim yield.",
+      "Add all salmon and asparagus with the remaining half oil. Roast until a food thermometer reads 145 F throughout salmon and potato and asparagus are fork-tender, meeting stricter package directions. Time or visual flaking alone is not proof.",
+      "Wash hands and clean raw-contact utensils. Use oven mitts and clean utensils to serve all edible salmon, potato, asparagus and measured pan oil. No rice or cooked potato weight is substituted."
+    ] }
+  ] }
+];
+definitions.push(...remaining);
 const records = definitions.map(definition => {
   const recipe = compiled.recipes.find(recipe => recipe.id === definition.id)!;
   const primaryEquipment: Equipment[] = definition.id.endsWith("-potatoes")
