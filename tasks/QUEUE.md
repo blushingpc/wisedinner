@@ -209,3 +209,10 @@ Recipe-ID/source/equipment bridge and original-inventory reroll stay held. Provi
 - [DONE LOCAL] Four strict joined compiler diagnostics and the demonstrated fifth adapter-row diagnostic have green current-source successors under unchanged strict rules. Historical failures stay failed.
 - [OPEN] Genuine compatible accepted recipe/source/equipment/eight-answer/whole-pack/pantry bridge and actual deterministic reroll; legacy/prepared IDs and strict snapshot mismatch remain.
 - [OPEN] Exact isolated physical DB/security/backup/rollback, hosted/provider/native/store/deletion/historical-data, real food/prices/device/submission and J1/J2/J3/G gates. No unreviewed external execution or optional guard-only work.
+
+## October 8, 2026: Equipment prerequisite successor
+
+- [DONE LOCAL] B2-B4-owner-equipment-durable-profile and A2-B2-equipment-versioned-mapping-local-candidate have source/report commits and immutable checkpoints; no parent completion.
+- [OPEN] Existing UI equipment capture with actual design/native verification; independent both-side activation review; genuine recipe/SKU/nutrient/package/yield/allergy/physical pantry/cooking/cost compatibility and original-inventory reroll.
+- [OPEN] A1-A6, B1-B6, J1-J3 and G acceptance: isolated physical target/privileges/migrations, hosted Auth/mail/billing/native stores, deletion/recovery, food/prices/device/submission/rollout.
+- Next exact dependency is a scoped UI capture/shared-format review or independently reviewed isolated target/food proof job. No unchanged access reprobe, fake ID/equipment admission, per-node routine wait or unreviewed external action.
