@@ -291,3 +291,9 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - Original required owner-plan plus affected account/security/durable/deletion suite passes68 distinct leaves; strict types, scoped lint/voice and diff pass. Prior failures remain preserved.
 - Next: current-source held email package, then isolated Auth/TLS/credential/recipient review. Activation OFF, all15 parents/G OPEN, spending $0.
 - Report: docs/LEGACY-OWNER-PLAN-SOURCE-BINDING-COMPATIBILITY-LOCAL-2026-10-09.md
+
+### 2026-10-09 Current-source email Auth successor LOCAL
+- Explicit held package binds repaired account/current compatible fixture and app; original eleven-field policy/rollback and historical before bytes unchanged.
+- 19 unique policy/successor leaves plus backend types/scoped lint/voice/diff pass; original compiler failure preserved. No fresh provider request or credential/mail operation.
+- Next: exact isolated Auth/shared-consumer/current config/TLS/credential/owned-recipient execution review. Activation OFF, all15 parents/G OPEN, spending $0.
+- Report: docs/EMAIL-AUTH-CURRENT-SOURCE-SUCCESSOR-LOCAL-2026-10-09.md
