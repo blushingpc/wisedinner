@@ -582,3 +582,11 @@ Current local submission complete; recipe/equipment/inventory bridge and real na
 - App source 33ce4b249110ee2f4ec861070915757c641d1d99 exposes current durable equipment capture inside existing owner kitchen/Have routes; legacy answers/v2/SQL/solver/data/package bytes remain unchanged. Known tool availability is user-stated and must be reacknowledged after plan revisions.
 - Report docs/OWNER-EQUIPMENT-KITCHEN-INTEGRATION-LOCAL-2026-10-09.md records current node checks/failures and immutable evidence. No backend runtime delta, shared format activation or native capture. Four factories OFF; launch parents remain OPEN.
 - Continue with actual compatible accepted food/recipe/source/cost inputs and exact both-side integration scope, or separately reviewed physical/provider/native proof target. No optional guard repeat, routine permission wait, external replay or spending. Both October9 targets unchanged.
+
+
+## October 9, 2026: inactive source-bound owner preview candidate
+
+- Backend source 45a8c8a1233857f99a58e73a9974e56187c3da7a and app source fa66496c119b750d0146a23f79c53e98ba6a78ab join the real63 reviewed recipes/13 foods to current issued owner/equipment captures and exact reference meal/list outputs, without installing or activating a plan.
+- 63 distinct current LOCAL runtime leaves pass (36 new plus27 existing), scoped lint/greps/voice and app production strict/backend ordinary types pass. Required full joined strict graph FAILS exit2 with81 unchanged protected diagnostics; node remains blocked-local, never verified-local. Original failures/inherited bytes preserved.
+- Current report SOURCE-BOUND-REVIEWED-CATALOG-JOIN-LOCAL-2026-10-09.md and node evidence bind exact source/outputs/resources; four factories OFF and all parents/G OPEN. No new dependencies, SQL/provider/native operation, spending or publication.
+- Next genuine dependency: narrowly scoped protected joined-type repair and both-side candidate/method review, then explicit durable original-pack/pantry/source-aware format and admission before recipe/reroll runtime. Physical/food/pricing/hosted/store/device/cooking/submission gates stay open; both October9 targets unchanged.
