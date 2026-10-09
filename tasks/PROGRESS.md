@@ -575,3 +575,10 @@ Current local submission complete; recipe/equipment/inventory bridge and real na
 - A2/B2 matching explicit new-family codec/mapping candidate committed on both roots, plus an unapplied separate database persistence proposal. Structural mapping never grants account/food/server-save authority.
 - 137 distinct LOCAL test leaves; strict both-side checks and scoped lint/greps/diff passed. Original timeout/type failures and successor fixture-directory error are preserved.
 - Reports: docs/OWNER-EQUIPMENT-VERSIONED-MAPPING-LOCAL-2026-10-08.md and docs/OWNER-EQUIPMENT-PERSISTENCE-LOCAL-2026-10-08.md. UI/native/shared activation and genuine compatible food/physical/hosted/provider/release remain OPEN; four factories OFF,$0.
+
+
+## October 9, 2026: owner kitchen equipment LOCAL integration
+
+- App source 33ce4b249110ee2f4ec861070915757c641d1d99 exposes current durable equipment capture inside existing owner kitchen/Have routes; legacy answers/v2/SQL/solver/data/package bytes remain unchanged. Known tool availability is user-stated and must be reacknowledged after plan revisions.
+- Report docs/OWNER-EQUIPMENT-KITCHEN-INTEGRATION-LOCAL-2026-10-09.md records current node checks/failures and immutable evidence. No backend runtime delta, shared format activation or native capture. Four factories OFF; launch parents remain OPEN.
+- Continue with actual compatible accepted food/recipe/source/cost inputs and exact both-side integration scope, or separately reviewed physical/provider/native proof target. No optional guard repeat, routine permission wait, external replay or spending. Both October9 targets unchanged.

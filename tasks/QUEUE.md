@@ -216,3 +216,10 @@ Recipe-ID/source/equipment bridge and original-inventory reroll stay held. Provi
 - [OPEN] Existing UI equipment capture with actual design/native verification; independent both-side activation review; genuine recipe/SKU/nutrient/package/yield/allergy/physical pantry/cooking/cost compatibility and original-inventory reroll.
 - [OPEN] A1-A6, B1-B6, J1-J3 and G acceptance: isolated physical target/privileges/migrations, hosted Auth/mail/billing/native stores, deletion/recovery, food/prices/device/submission/rollout.
 - Next exact dependency is a scoped UI capture/shared-format review or independently reviewed isolated target/food proof job. No unchanged access reprobe, fake ID/equipment admission, per-node routine wait or unreviewed external action.
+
+
+## October 9, 2026: owner kitchen equipment LOCAL integration
+
+- App source 33ce4b249110ee2f4ec861070915757c641d1d99 exposes current durable equipment capture inside existing owner kitchen/Have routes; legacy answers/v2/SQL/solver/data/package bytes remain unchanged. Known tool availability is user-stated and must be reacknowledged after plan revisions.
+- Report docs/OWNER-EQUIPMENT-KITCHEN-INTEGRATION-LOCAL-2026-10-09.md records current node checks/failures and immutable evidence. No backend runtime delta, shared format activation or native capture. Four factories OFF; launch parents remain OPEN.
+- Continue with actual compatible accepted food/recipe/source/cost inputs and exact both-side integration scope, or separately reviewed physical/provider/native proof target. No optional guard repeat, routine permission wait, external replay or spending. Both October9 targets unchanged.
