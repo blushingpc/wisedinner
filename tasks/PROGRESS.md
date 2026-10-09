@@ -590,3 +590,11 @@ Current local submission complete; recipe/equipment/inventory bridge and real na
 - 63 distinct current LOCAL runtime leaves pass (36 new plus27 existing), scoped lint/greps/voice and app production strict/backend ordinary types pass. Required full joined strict graph FAILS exit2 with81 unchanged protected diagnostics; node remains blocked-local, never verified-local. Original failures/inherited bytes preserved.
 - Current report SOURCE-BOUND-REVIEWED-CATALOG-JOIN-LOCAL-2026-10-09.md and node evidence bind exact source/outputs/resources; four factories OFF and all parents/G OPEN. No new dependencies, SQL/provider/native operation, spending or publication.
 - Next genuine dependency: narrowly scoped protected joined-type repair and both-side candidate/method review, then explicit durable original-pack/pantry/source-aware format and admission before recipe/reroll runtime. Physical/food/pricing/hosted/store/device/cooking/submission gates stay open; both October9 targets unchanged.
+
+
+## October 9, 2026: reviewed catalog strict joined repair, LOCAL
+
+- Backend 138108125b7678d9f1f19b5e847a844bcb35b8ec and app 4f246794fa66fe7515683db505cf180e18909d80 repair only the ten authorized imported dependencies and identical inactive hash maps. Original full joined strict and both ordinary repository typechecks pass; no configuration or verbatim app core change.
+- Final174 distinct LOCAL runtime leaves and19 exact valid/held parity cases pass. Original failures and inherited bytes remain; exact evidence/report/checkpoint bind current sources. Four factories OFF; all parents/G OPEN.
+- Next actual dependency is lossless reviewed-source/original-pack/finite-pantry owner durable admission and whole-week consumption for B5. Current read-only preview cannot be installed into legacy-certified v2; no unreviewed activation, provider/SQL/native/food/price acceptance, spending or publication.
+- Report REVIEWED-CATALOG-STRICT-JOIN-REPAIR-LOCAL-2026-10-09.md; October9 12:06UTC and original19:39:35UTC targets unchanged.
