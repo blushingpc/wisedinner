@@ -1,0 +1,253 @@
+{
+  "version": 1,
+  "canonicalRoot": "packages/solver/src",
+  "sourceAssetSha256": "272bb3a868ab5b25a347d3c133e7a510ad79a5eda0f0fd27efe5b84792fff362",
+  "runtimeSourceVerification": "module-private full canonical correspondence; no runtime SHA claim",
+  "mappings": [
+    {
+      "source": "packages/solver/src/types.ts",
+      "sourceSha256": "fe3c13c67e267d475431ef52eb4de824369aab61ab962ac8887cf6fc8756b8a2",
+      "normalizedSourceSha256": "fe3c13c67e267d475431ef52eb4de824369aab61ab962ac8887cf6fc8756b8a2",
+      "distribution": "core/types.ts",
+      "distributionSha256": "fe3c13c67e267d475431ef52eb4de824369aab61ab962ac8887cf6fc8756b8a2",
+      "kind": "LF-identical"
+    },
+    {
+      "source": "packages/solver/src/units.ts",
+      "sourceSha256": "3899f7493200d9f91921ed2b8691183c478a10df65e0059d3fff2b5a04457ab7",
+      "normalizedSourceSha256": "3899f7493200d9f91921ed2b8691183c478a10df65e0059d3fff2b5a04457ab7",
+      "distribution": "core/units.ts",
+      "distributionSha256": "3899f7493200d9f91921ed2b8691183c478a10df65e0059d3fff2b5a04457ab7",
+      "kind": "LF-identical"
+    },
+    {
+      "source": "packages/solver/src/snapshot.ts",
+      "sourceSha256": "28d6a475f31522d41dd5716e027b60f632f9c71cd4a6c841219692a9db99c018",
+      "normalizedSourceSha256": "28d6a475f31522d41dd5716e027b60f632f9c71cd4a6c841219692a9db99c018",
+      "distribution": "core/snapshot.ts",
+      "distributionSha256": "28d6a475f31522d41dd5716e027b60f632f9c71cd4a6c841219692a9db99c018",
+      "kind": "LF-identical"
+    },
+    {
+      "source": "packages/solver/src/pricing.ts",
+      "sourceSha256": "d6aa64570b14ca5d43af3a2bcb3d50a62ce095b06f7ab25914523665fc1a2794",
+      "normalizedSourceSha256": "d6aa64570b14ca5d43af3a2bcb3d50a62ce095b06f7ab25914523665fc1a2794",
+      "distribution": "core/pricing.ts",
+      "distributionSha256": "d6aa64570b14ca5d43af3a2bcb3d50a62ce095b06f7ab25914523665fc1a2794",
+      "kind": "LF-identical"
+    },
+    {
+      "source": "packages/solver/src/engine.ts",
+      "sourceSha256": "550f61e51741c4f333a786ba9deaf75bc2ba9c6da50323c514c2e00428f6871e",
+      "normalizedSourceSha256": "550f61e51741c4f333a786ba9deaf75bc2ba9c6da50323c514c2e00428f6871e",
+      "distribution": "core/engine.ts",
+      "distributionSha256": "550f61e51741c4f333a786ba9deaf75bc2ba9c6da50323c514c2e00428f6871e",
+      "kind": "LF-identical"
+    },
+    {
+      "source": "packages/solver/src/swaps.ts",
+      "sourceSha256": "04bbb18f66e55c409b3f6debc6558cdd61527b1a3248d45242f17b1c9a097f74",
+      "normalizedSourceSha256": "04bbb18f66e55c409b3f6debc6558cdd61527b1a3248d45242f17b1c9a097f74",
+      "distribution": "core/swaps.ts",
+      "distributionSha256": "04bbb18f66e55c409b3f6debc6558cdd61527b1a3248d45242f17b1c9a097f74",
+      "kind": "LF-identical"
+    },
+    {
+      "source": "scripts/data/catalog-pool.ts",
+      "sourceSha256": "75118a10faa90817d8231d4d7d51bd7154c1159fdf62e88f66e51d265bf586d3",
+      "normalizedSourceSha256": "75118a10faa90817d8231d4d7d51bd7154c1159fdf62e88f66e51d265bf586d3",
+      "distribution": "catalog-pool.ts",
+      "distributionSha256": "c553c63ec7b1c3abd671286768dda2556650becf4792e2fa3c08c0470ffba3b7",
+      "kind": "import-relocation"
+    },
+    {
+      "source": "scripts/data/ingredient-safety.ts",
+      "sourceSha256": "0289c947f2ccdef4f320ef0d9b63a36f3cf037b5aaa3c97a632c320d0330a763",
+      "normalizedSourceSha256": "0289c947f2ccdef4f320ef0d9b63a36f3cf037b5aaa3c97a632c320d0330a763",
+      "distribution": "ingredient-safety.ts",
+      "distributionSha256": "1e03aae2de095bc07728bebd48f13b8439f1fa9a8e00344e245ffd4dcb3ef64d",
+      "kind": "import-relocation"
+    },
+    {
+      "source": "scripts/data/authored/skus.ts",
+      "sourceSha256": "7b3b4341d48ba019d7283ff8d86479394ec49ee63b8abcac3c6ade506d15be71",
+      "normalizedSourceSha256": "7b3b4341d48ba019d7283ff8d86479394ec49ee63b8abcac3c6ade506d15be71",
+      "distribution": "authored/skus.ts",
+      "distributionSha256": "3f48df2b18c906361aa5b6ef2d8db1c70beb311476f5f5c52191b90f4b215466",
+      "kind": "import-relocation"
+    },
+    {
+      "source": "scripts/data/catalog-selection.ts",
+      "sourceSha256": "c961d6ce13e28f0f54d32006119cf6f3260c89f249ebfc38d1535f68e5f4b17e",
+      "normalizedSourceSha256": "c961d6ce13e28f0f54d32006119cf6f3260c89f249ebfc38d1535f68e5f4b17e",
+      "distribution": "catalog-selection.ts",
+      "distributionSha256": "cfba3455e5c876a6564659b8ae13abaeb0b948ef819a0a005b98a6027325b890",
+      "kind": "unsupported unrelated 83-registry preparation context; undefined branch unchanged"
+    },
+    {
+      "source": "scripts/data/reviewed-week.ts",
+      "sourceSha256": "6be6221880da1f655aaa8370125c5f5d0f38668224cbe473225859cf95e99e66",
+      "normalizedSourceSha256": "6be6221880da1f655aaa8370125c5f5d0f38668224cbe473225859cf95e99e66",
+      "distribution": "quantity.ts",
+      "distributionSha256": "7e70bd0f648993b290ab00ef0b9edfe7f731cabf3fe4f0241ad9a33d314e33d9",
+      "kind": "exact projectPurchased/purchaseArithmetic/canonicalRow bodies; static tuple correspondence replaces Node SHA equality seam"
+    },
+    {
+      "source": "scripts/data/reviewed-week-acceptance.ts",
+      "sourceSha256": "d9b5c80c182be296e6b9105cdc79b558e936068d054adbb90f6e7fbdc36f0293",
+      "normalizedSourceSha256": "d9b5c80c182be296e6b9105cdc79b558e936068d054adbb90f6e7fbdc36f0293",
+      "distribution": "arithmetic.ts",
+      "distributionSha256": "94046871190f4798ced304acbff33c1f4b88c3622ad2f26304c9b14741248ad5",
+      "kind": "exact independentArithmetic body; import-only extraction"
+    },
+    {
+      "source": "scripts/data/reviewed-owner-catalog.ts",
+      "sourceSha256": "e1484006dd9b069143e54e62afa157bc57e0de2e8195ad280f25ad7819a3cf5d",
+      "normalizedSourceSha256": "e1484006dd9b069143e54e62afa157bc57e0de2e8195ad280f25ad7819a3cf5d",
+      "distribution": "catalog.ts",
+      "distributionSha256": "2f94cd2dee8ab084c26c7a5fadd01bf118543d27d1418305a7a32ca081c7e913",
+      "kind": "exact solve method body; native static staging seam"
+    },
+    {
+      "source": "scripts/data/reviewed-owner-inventory.ts",
+      "sourceSha256": "25efc46f097890e9692b961cf16d02e8d7acf86fdeefd45cffe9b1c3c4b27f61",
+      "normalizedSourceSha256": "25efc46f097890e9692b961cf16d02e8d7acf86fdeefd45cffe9b1c3c4b27f61",
+      "distribution": "inventory.ts",
+      "distributionSha256": "f80757276e3353c0aca94690a0898acfc81007279f8a2bd9515c7c2d4c0b032d",
+      "kind": "exact install body and portable physical validation"
+    },
+    {
+      "source": "scripts/data/reviewed-owner-reroll.ts",
+      "sourceSha256": "bd68b1efab11294b2f4ea9c7c1cc3e8ed96323b4f35a2695c7b86b3586b9d497",
+      "normalizedSourceSha256": "bd68b1efab11294b2f4ea9c7c1cc3e8ed96323b4f35a2695c7b86b3586b9d497",
+      "distribution": "reroll.ts",
+      "distributionSha256": "e21d6d20c685b386ae35e7d6f62f8c25a00d1196dc998f5aa01032af906bb5fc",
+      "kind": "exact single-slot candidate loop body"
+    },
+    {
+      "source": "scripts/data/reviewed-pantry.ts",
+      "sourceSha256": "818e97c752958d6c6a82c74f0a8422653f6c21d945ae34339cffac8d133fe79b",
+      "normalizedSourceSha256": "818e97c752958d6c6a82c74f0a8422653f6c21d945ae34339cffac8d133fe79b",
+      "distribution": "pantry.ts",
+      "distributionSha256": "8bd26f7843ebd74e461d049acd0730ef63ff12ac81eb4668c034b4eeee7718e5",
+      "kind": "exact purchaseBalance and owned accounting arithmetic; immutable static-stage seam; alternate strategy unexposed"
+    }
+  ],
+  "runtimeFiles": [
+    {
+      "path": "arithmetic.ts",
+      "backendSha256": "94046871190f4798ced304acbff33c1f4b88c3622ad2f26304c9b14741248ad5",
+      "appSha256": "94046871190f4798ced304acbff33c1f4b88c3622ad2f26304c9b14741248ad5"
+    },
+    {
+      "path": "authored/skus.ts",
+      "backendSha256": "3f48df2b18c906361aa5b6ef2d8db1c70beb311476f5f5c52191b90f4b215466",
+      "appSha256": "3f48df2b18c906361aa5b6ef2d8db1c70beb311476f5f5c52191b90f4b215466"
+    },
+    {
+      "path": "catalog-pool.ts",
+      "backendSha256": "c553c63ec7b1c3abd671286768dda2556650becf4792e2fa3c08c0470ffba3b7",
+      "appSha256": "c553c63ec7b1c3abd671286768dda2556650becf4792e2fa3c08c0470ffba3b7"
+    },
+    {
+      "path": "catalog-selection.ts",
+      "backendSha256": "cfba3455e5c876a6564659b8ae13abaeb0b948ef819a0a005b98a6027325b890",
+      "appSha256": "cfba3455e5c876a6564659b8ae13abaeb0b948ef819a0a005b98a6027325b890"
+    },
+    {
+      "path": "catalog.ts",
+      "backendSha256": "2f94cd2dee8ab084c26c7a5fadd01bf118543d27d1418305a7a32ca081c7e913",
+      "appSha256": "2f94cd2dee8ab084c26c7a5fadd01bf118543d27d1418305a7a32ca081c7e913"
+    },
+    {
+      "path": "core/engine.ts",
+      "backendSha256": "550f61e51741c4f333a786ba9deaf75bc2ba9c6da50323c514c2e00428f6871e",
+      "appSha256": "550f61e51741c4f333a786ba9deaf75bc2ba9c6da50323c514c2e00428f6871e"
+    },
+    {
+      "path": "core/pricing.ts",
+      "backendSha256": "d6aa64570b14ca5d43af3a2bcb3d50a62ce095b06f7ab25914523665fc1a2794",
+      "appSha256": "d6aa64570b14ca5d43af3a2bcb3d50a62ce095b06f7ab25914523665fc1a2794"
+    },
+    {
+      "path": "core/snapshot.ts",
+      "backendSha256": "28d6a475f31522d41dd5716e027b60f632f9c71cd4a6c841219692a9db99c018",
+      "appSha256": "28d6a475f31522d41dd5716e027b60f632f9c71cd4a6c841219692a9db99c018"
+    },
+    {
+      "path": "core/swaps.ts",
+      "backendSha256": "04bbb18f66e55c409b3f6debc6558cdd61527b1a3248d45242f17b1c9a097f74",
+      "appSha256": "04bbb18f66e55c409b3f6debc6558cdd61527b1a3248d45242f17b1c9a097f74"
+    },
+    {
+      "path": "core/types.ts",
+      "backendSha256": "fe3c13c67e267d475431ef52eb4de824369aab61ab962ac8887cf6fc8756b8a2",
+      "appSha256": "fe3c13c67e267d475431ef52eb4de824369aab61ab962ac8887cf6fc8756b8a2"
+    },
+    {
+      "path": "core/units.ts",
+      "backendSha256": "3899f7493200d9f91921ed2b8691183c478a10df65e0059d3fff2b5a04457ab7",
+      "appSha256": "3899f7493200d9f91921ed2b8691183c478a10df65e0059d3fff2b5a04457ab7"
+    },
+    {
+      "path": "index.ts",
+      "backendSha256": "8d9a2958e9a1caea361d55e73f9321dafe82d59cd0c922226e026a92e787a6ac",
+      "appSha256": "8d9a2958e9a1caea361d55e73f9321dafe82d59cd0c922226e026a92e787a6ac"
+    },
+    {
+      "path": "ingredient-safety.ts",
+      "backendSha256": "1e03aae2de095bc07728bebd48f13b8439f1fa9a8e00344e245ffd4dcb3ef64d",
+      "appSha256": "1e03aae2de095bc07728bebd48f13b8439f1fa9a8e00344e245ffd4dcb3ef64d"
+    },
+    {
+      "path": "inventory-model.ts",
+      "backendSha256": "495ecbfcf8efa3c00104ed4253081ecf6d7a9f6dc918cbab9fb65e5c91c9fd09",
+      "appSha256": "11c12c0fad72c3253c2db9eefa6504cf874fefd72073e116881421a5bae069ed"
+    },
+    {
+      "path": "inventory.ts",
+      "backendSha256": "f80757276e3353c0aca94690a0898acfc81007279f8a2bd9515c7c2d4c0b032d",
+      "appSha256": "f80757276e3353c0aca94690a0898acfc81007279f8a2bd9515c7c2d4c0b032d"
+    },
+    {
+      "path": "model.ts",
+      "backendSha256": "f92fe91ba74474c9b98b28a180c56dbca463d08b1dab875d46abd482e7c69458",
+      "appSha256": "359d6431860d520b8e3e7810e57cadc25e0fbaae65e64a3ad0138110ccc537c9"
+    },
+    {
+      "path": "pantry.ts",
+      "backendSha256": "8bd26f7843ebd74e461d049acd0730ef63ff12ac81eb4668c034b4eeee7718e5",
+      "appSha256": "8bd26f7843ebd74e461d049acd0730ef63ff12ac81eb4668c034b4eeee7718e5"
+    },
+    {
+      "path": "quantity.ts",
+      "backendSha256": "7e70bd0f648993b290ab00ef0b9edfe7f731cabf3fe4f0241ad9a33d314e33d9",
+      "appSha256": "7e70bd0f648993b290ab00ef0b9edfe7f731cabf3fe4f0241ad9a33d314e33d9"
+    },
+    {
+      "path": "reroll.ts",
+      "backendSha256": "e21d6d20c685b386ae35e7d6f62f8c25a00d1196dc998f5aa01032af906bb5fc",
+      "appSha256": "e21d6d20c685b386ae35e7d6f62f8c25a00d1196dc998f5aa01032af906bb5fc"
+    },
+    {
+      "path": "reviews.ts",
+      "backendSha256": "bf0c4c34a3dbf4d2ccecb7f3734eda687476a6288da2d69185f8674ee31ad9ab",
+      "appSha256": "bf0c4c34a3dbf4d2ccecb7f3734eda687476a6288da2d69185f8674ee31ad9ab"
+    },
+    {
+      "path": "source-correspondence.ts",
+      "backendSha256": "779ce0df9a8ea643a6efbf9c8c5094c92b043e08bd00cb602c09e0f9eb8397a6",
+      "appSha256": "779ce0df9a8ea643a6efbf9c8c5094c92b043e08bd00cb602c09e0f9eb8397a6"
+    },
+    {
+      "path": "source.ts",
+      "backendSha256": "1288da16722cd513eda4bc733b83577aa962ac504749227fb291f3a223241ece",
+      "appSha256": "e5f98f3f5bc5efff46be010ce2ca1ac962ff74aae1d838dcbd74c899739d7662"
+    },
+    {
+      "path": "stage.ts",
+      "backendSha256": "b2c19a5582d011ba6f3d0b7787b77f4287c1376999d30d75e99f786140a5f75b",
+      "appSha256": "b2c19a5582d011ba6f3d0b7787b77f4287c1376999d30d75e99f786140a5f75b"
+    }
+  ]
+}

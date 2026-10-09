@@ -1,0 +1,12 @@
+// Build-time verification only. Never imported by the native runtime index.
+import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';import assert from 'node:assert/strict';
+const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../..'),app=path.resolve(root,'../wisedinner-app'),ts=createRequire(root+'/package.json')('typescript'),sha=b=>createHash('sha256').update(b).digest('hex'),read=p=>fs.readFileSync(p,'utf8').replaceAll('\r\n','\n');
+const mirror=app+'/src/solver/reviewed-owner-native',manifest=JSON.parse(read(here+'/distribution.json'));
+assert.equal(sha(fs.readFileSync(root+'/scripts/data/reviewed-owner-source.json')),manifest.sourceAssetSha256);assert.equal(sha(fs.readFileSync(app+'/src/data/reviewed-owner-source.json')),manifest.sourceAssetSha256);
+for(const m of manifest.mappings){assert.equal(sha(fs.readFileSync(root+'/'+m.source)),m.sourceSha256);assert.equal(sha(read(root+'/'+m.source)),m.normalizedSourceSha256);if(m.kind==='LF-identical')for(const dir of [here,mirror])assert.equal(read(dir+'/'+m.distribution),read(root+'/'+m.source));}
+function body(file,name){const text=read(file),ast=ts.createSourceFile(file,text,ts.ScriptTarget.Latest,true);const node=ast.statements.find(v=>ts.isFunctionDeclaration(v)&&v.name?.text===name);assert(node?.body,'Function missing '+name);return node.body.getText(ast);}
+for(const name of ['projectPurchased','purchaseArithmetic','canonicalRow'])for(const dir of [here,mirror])assert.equal(body(dir+'/quantity.ts',name),body(root+'/scripts/data/reviewed-week.ts',name));
+for(const dir of [here,mirror])assert.equal(body(dir+'/arithmetic.ts','independentArithmetic'),body(root+'/scripts/data/reviewed-week-acceptance.ts','independentArithmetic'));
+for(const name of ['catalog-pool','ingredient-safety'])for(const dir of [here,mirror])assert.equal(read(dir+'/'+name+'.ts').trimEnd(),read(root+'/scripts/data/'+name+'.ts').replaceAll('../../packages/solver/src/','./core/').trimEnd());
+for(const f of manifest.runtimeFiles){assert.equal(sha(fs.readFileSync(here+'/'+f.path)),f.backendSha256);assert.equal(sha(fs.readFileSync(mirror+'/'+f.path)),f.appSha256);}
+console.log(JSON.stringify({sourceAssetSha256:manifest.sourceAssetSha256,canonicalModules:6,exactAccountingBodies:4,sourceMappings:manifest.mappings.length,runtimeFiles:manifest.runtimeFiles.length,proof:'LOCAL source correspondence; no native/runtime SHA claim'}));
