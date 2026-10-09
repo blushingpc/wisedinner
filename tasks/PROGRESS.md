@@ -613,3 +613,9 @@ LOCAL actual owner single-meal replacement and durable whole-week recovery verif
 ### 2026-10-09 A5/B4 reviewed owner meal/list consumption
 
 LOCAL actual acknowledged candidate now renders original instructions and purchased/finite-pantry list in existing owner tabs.94 current affected leaves pass,205 unique passing names across three nodes; strict joined/ordinary app types and scoped lint/voice/diff pass. Activation OFF, parents OPEN; native captures UNRUN. Next: exact native-supported candidate producer/admission/shared-source review or independently scoped isolated provider/database/native proof target. Report: docs/REVIEWED-OWNER-MEAL-LIST-CONSUMPTION-LOCAL-2026-10-09.md
+
+### 2026-10-09 Native reviewed producer LOCAL
+- Canonical solver distribution and original source/accounting parity committed; 14 distinct tests and strict/current types passed.
+- Actual iOS JavaScript producer bundle passed 144 desktop VM comparisons. iPhone, physical food/current prices and all parents remain open; activation OFF.
+- Next: concrete prepared owner binding with current verified account/equipment and existing durable inventory/retry seam.
+- Report: docs/NATIVE-REVIEWED-OWNER-PRODUCER-LOCAL-2026-10-09.md
