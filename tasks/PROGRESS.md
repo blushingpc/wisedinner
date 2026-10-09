@@ -663,3 +663,8 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - LOCAL29 distinct controls and raw packet roundtrip pass. Actual inStore versus installed instore schema and original pack/form reviews remain held; all current candidates unadmitted.
 - Next: exact independent original-form/physical-pack/schema correspondence review and separately scoped price adoption. All15parents/G OPEN, factories OFF, spending $0.
 - Report: docs/CURRENT-REFERENCE-OFFER-EVIDENCE-2026-10-09.md
+
+### 2026-10-09 Provider fulfillment compatibility, LOCAL
+- Strict own inStore/instore correspondence repaired; real reviews and price admission remain held.
+- 43 distinct LOCAL leaves, strict types, effective scoped lint/voice/diff pass; original red and compiler errors preserved.
+- Next: saved original-offer correspondence; all parents OPEN, activation OFF, hosted/native/physical acceptance unverified.
