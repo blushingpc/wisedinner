@@ -321,3 +321,10 @@ Authentic Seapoint/Goya original pages and two label images inspected;13 exact r
 Goya warns soybean/wheat cross-contact; Seapoint exact offer UPC remains unbound. Four fresh LOCAL provenance leaves pass; all13 real rows NONE and proposed reviews0. Product/data/source/flags unchanged.
 Independent exact pack/form review, accessible original retailer labels and precise location/freshness/source-family adoption scope remain required. All15 parents/G OPEN; physical/native/hosted proof unverified.
 Report: ORIGINAL-PRODUCT-LABEL-EVIDENCE-HELD-2026-10-09.md; CURRENT node evidence retained.
+
+
+## 2026-10-09 original pack/form source binding, A68
+Saved genuine public extracts and exact API items bind eight PROPOSED_ONLY pack/form candidates; five rows held, all13 admission NONE. No fresh network, review/price/source adoption or activation.
+Seven distinct LOCAL leaves, strict types, scoped effective lint and voice pass; original parser/copy/test failures preserved. Public excerpts are not raw origin HTTP or physical proof.
+Next: independent exact proposals/current location-freshness/fresh-read/source-family adoption scope; all15 parents/G OPEN, factories OFF, $0.
+Report: ORIGINAL-PACK-FORM-SOURCE-BINDING-2026-10-09.md; CURRENT sealed evidence retained.
