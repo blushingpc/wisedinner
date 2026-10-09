@@ -5,12 +5,26 @@ import {STORES} from "./authored/stores.ts";
 export const hash=(v:unknown)=>createHash("sha256").update(JSON.stringify(v)).digest("hex");
 export const normalize=(v:string)=>v.normalize("NFKC").replace(/[®™]/g,"").toLowerCase().replace(/\s+/g," ").trim();
 export const packFingerprint=(s:AuthoredSku)=>hash([s.id,s.name,s.pack_qty,s.pack_unit,s.canonical_unit,s.grams_per_unit]);
-export type Offer={productId:string;description:string;items:{itemId?:string;size?:string;soldBy?:string;fulfillment?:{instore?:boolean};price?:{regular?:number;promo?:number}}[]};
+export type Offer={productId:string;description:string;items:{itemId?:string;size?:string;soldBy?:string;fulfillment?:{instore?:boolean;inStore?:boolean};price?:{regular?:number;promo?:number}}[]};
 export type PackReview={status:"reviewed";sku_id:string;product_id:string;description:string;item_id:string;pack_size:string;pack_canonical:number;sku_fingerprint:string;form_basis:string;source_urls:string[];reviewed_at:string;revision:string;sold_by:"UNIT"};
 export type Evidence={product_id:string;offer_id:string;description:string;pack_size:string;pack_canonical:number;location_id:string;store_id:string;zip:string;channel:"instore";observed_at:string;regular_cents:number;mapping_revision:string;review:PackReview;observation_digest:string};
 export type ExactPrice={sku_id:string;store_id:string;region:string;shelf_price:number;unit_price:number;source:"kroger-api";confidence:number;as_of:string;provenance:Evidence};
 export function reviewValid(s:AuthoredSku,r:PackReview|undefined):r is PackReview {
  return !!r && r.status==="reviewed" && r.sku_id===s.id && r.sku_fingerprint===packFingerprint(s) && r.sold_by==="UNIT" && typeof r.item_id==="string" && !!r.item_id && r.form_basis?.length>10 && Array.isArray(r.source_urls) && r.source_urls.length>0 && r.source_urls.every(u=>/^https:\/\//.test(u)) && Number.isFinite(Date.parse(r.reviewed_at)) && !!r.revision && r.pack_canonical===packCanonical(s);
+}
+// Provider inStore and historical instore indicate a channel, never physical stock.
+function instoreIndication(item:Offer["items"][number]):boolean {
+ try {
+  const d=Object.getOwnPropertyDescriptor(item,"fulfillment"),v=d&&"value" in d?d.value:undefined;
+  if(!v||typeof v!=="object"||Array.isArray(v))return false;
+  const proto=Object.getPrototypeOf(v);
+  if(proto!==null&&proto!==Object.prototype)return false;
+  if(proto&&["instore","inStore"].some(k=>Object.getOwnPropertyDescriptor(proto,k)))return false;
+  const a=Object.getOwnPropertyDescriptor(v,"instore"),b=Object.getOwnPropertyDescriptor(v,"inStore");
+  if(!a&&!b)return false;
+  if([a,b].some(d=>d&&(!("value" in d)||typeof d.value!=="boolean")))return false;
+  return a&&b?a.value===true&&b.value===true:(a??b)!.value===true;
+ }catch{return false;}
 }
 export function exactOffer(p:Offer,s:AuthoredSku,r:PackReview|undefined):{p:Offer;size:number;price:number}|null {
  if(!reviewValid(s,r) || p.productId!==r.product_id || normalize(p.description)!==normalize(r.description)) return null;
@@ -18,7 +32,7 @@ export function exactOffer(p:Offer,s:AuthoredSku,r:PackReview|undefined):{p:Offe
  if(/\b(pack|pk)\b|\d\s*[x×]|\b(about|approx|average|variable|per|weight)\b|\d\s*[-–]\s*\d/i.test(r.pack_size)) return null;
  const item=p.items.find(i=>i.itemId===r.item_id && normalize(i.size??"")===normalize(r.pack_size));
  const price=item?.price?.regular;
- if(!item || item.soldBy!=="UNIT" || item.fulfillment?.instore!==true || !Number.isFinite(price) || price!<=0 || Math.abs(price!*100-Math.round(price!*100))>1e-7) return null;
+ if(!item || item.soldBy!=="UNIT" || !instoreIndication(item) || !Number.isFinite(price) || price!<=0 || Math.abs(price!*100-Math.round(price!*100))>1e-7) return null;
  return {p:{...p,items:[item]},size:r.pack_canonical,price:price!};
 }
 export function recordOffer(p:Offer,s:AuthoredSku,r:PackReview,location:{locationId:string;store_id:string;zip:string},observedAt:string):ExactPrice {
