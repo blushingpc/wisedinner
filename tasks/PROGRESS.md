@@ -710,3 +710,8 @@ Next: independent exact original-source/source-family/price-adoption scope or re
 ## 2026-10-09 aggregate staging correction, A69
 Final preservation check found an own node2 suffix duplicated in aggregate committed notes, while working copies retained one copy. Successor commit corrects only the exact owned duplicated bytes; original commits/failed check retained.
 True-clock assessment 2026-10-09T13:44:28.439Z accepts0 current reference rows; eight historical genuine observations preserved. Product/source/flags unchanged,31 inherited paths retained, all parents/G OPEN, $0.
+
+
+## 2026-10-09 Original food source resolution, LOCAL
+Original enriched dry rice panel correction and original La Preferida dry single-ingredient correspondence proposed; turkey and carrot net mass held. Three distinct LOCAL leaves pass, initial type exit2 preserved; eleven public operations, no authenticated request or data adoption.
+Report: ORIGINAL-FOOD-SOURCE-RESOLUTION-NODE-LOCAL-2026-10-09.md. All15parents/G OPEN; factories OFF; $0.
