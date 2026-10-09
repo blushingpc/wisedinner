@@ -285,3 +285,9 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - 44 distinct final LOCAL leaves, strict backend types, scoped lint and voice pass. Required legacy owner-plan suite remains failed on two stale fixture pins, reproduced with the original verifier.
 - Node held for exact source-binding compatibility review; prior provider package is stale after this repair. No provider/mail/SQL/activation, spending $0, parents/G OPEN.
 - Report: docs/VERIFIED-EMAIL-ACCOUNT-BOUNDARY-LOCAL-2026-10-09.md
+
+### 2026-10-09 Legacy owner-plan source-binding compatibility LOCAL
+- Two test-only pins updated after byte-identical legacy parser and actual state compatibility proof; product source unchanged.
+- Original required owner-plan plus affected account/security/durable/deletion suite passes68 distinct leaves; strict types, scoped lint/voice and diff pass. Prior failures remain preserved.
+- Next: current-source held email package, then isolated Auth/TLS/credential/recipient review. Activation OFF, all15 parents/G OPEN, spending $0.
+- Report: docs/LEGACY-OWNER-PLAN-SOURCE-BINDING-COMPATIBILITY-LOCAL-2026-10-09.md
