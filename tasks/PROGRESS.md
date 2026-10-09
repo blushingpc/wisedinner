@@ -693,3 +693,9 @@ Report: ORIGINAL-PACK-FORM-SOURCE-BINDING-2026-10-09.md; CURRENT sealed evidence
 One bounded15-attempt batch observed13 original products and eight exact regular-price rows at verified reference01600569/43215; only CURRENT research evidence, no product adoption.
 Eight SYNTHETIC controls and one authentic roundtrip pass; strict complete types/effective lint/voice pass. Five foods and full family remain held, all parents/G OPEN, factories OFF, $0.
 Next: held original-item reconciliation; report FRESH-REVIEWED-REFERENCE-PRICES-NODE-LOCAL-2026-10-09.md. Original failures retained.
+
+
+## 2026-10-09 held original item reconciliation, A69 node2
+New genuine quinoa original dry-form page supports one PROPOSED_ONLY pack correspondence; four factual holds and all five unadmitted prices remain. Carrot exact91622 item bound, required net mass missing.
+Two distinct LOCAL runtime leaves and final strict types/effective scoped lint/voice pass; initial type failure and public unavailable results retained. No additional authenticated batch, product/source/price adoption or activation.
+Next: independently reviewed quinoa/original source-family adoption scope and remaining authentic food/item evidence. All15 parents/G OPEN, factories OFF, $0. Report HELD-ORIGINAL-ITEM-RECONCILIATION-2026-10-09.md.
