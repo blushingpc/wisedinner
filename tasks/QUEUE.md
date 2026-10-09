@@ -249,3 +249,8 @@ LOCAL source/controller/storage-port installation and recovery verified. Separat
 ### 2026-10-09 B5 reviewed owner included replacement
 
 LOCAL actual owner single-meal replacement and durable whole-week recovery verified. Other14 meals, original purchased packs/cents/budget and finite pantry preserved. 108 distinct current affected leaves pass; 181 unique passing names this turn, with overlap excluded. Activation OFF, parents OPEN. Next: source-family meal/list instruction consumption and genuine activation/food/native/hosted prerequisites. Report: docs/REVIEWED-OWNER-INCLUDED-REROLL-LOCAL-2026-10-09.md
+
+
+### 2026-10-09 A5/B4 reviewed owner meal/list consumption
+
+LOCAL actual acknowledged candidate now renders original instructions and purchased/finite-pantry list in existing owner tabs.94 current affected leaves pass,205 unique passing names across three nodes; strict joined/ordinary app types and scoped lint/voice/diff pass. Activation OFF, parents OPEN; native captures UNRUN. Next: exact native-supported candidate producer/admission/shared-source review or independently scoped isolated provider/database/native proof target. Report: docs/REVIEWED-OWNER-MEAL-LIST-CONSUMPTION-LOCAL-2026-10-09.md
