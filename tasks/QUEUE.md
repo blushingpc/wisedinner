@@ -279,3 +279,9 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - Single permitted nonsecret Auth GET matched pinned state. No provider write/mail/activation; parents/G OPEN, spending $0.
 - Next: exact isolated Auth/shared-consumer review, encrypted credential correspondence, Enforced TLS and owned-recipient send scope.
 - Report: docs/EMAIL-AUTH-COMPATIBLE-CHANGE-PLAN-LOCAL-2026-10-09.md
+
+### 2026-10-09 Verified email account boundary LOCAL
+- Backend HTTP verifier requires independent server email confirmation; app native guard remains unchanged.
+- 44 distinct final LOCAL leaves, strict backend types, scoped lint and voice pass. Required legacy owner-plan suite remains failed on two stale fixture pins, reproduced with the original verifier.
+- Node held for exact source-binding compatibility review; prior provider package is stale after this repair. No provider/mail/SQL/activation, spending $0, parents/G OPEN.
+- Report: docs/VERIFIED-EMAIL-ACCOUNT-BOUNDARY-LOCAL-2026-10-09.md
