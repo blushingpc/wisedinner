@@ -297,3 +297,10 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - 19 unique policy/successor leaves plus backend types/scoped lint/voice/diff pass; original compiler failure preserved. No fresh provider request or credential/mail operation.
 - Next: exact isolated Auth/shared-consumer/current config/TLS/credential/owned-recipient execution review. Activation OFF, all15 parents/G OPEN, spending $0.
 - Report: docs/EMAIL-AUTH-CURRENT-SOURCE-SUCCESSOR-LOCAL-2026-10-09.md
+
+
+### 2026-10-09 Current reference offer evidence
+- Bounded read-only Kroger collection:28 requests,13 historical offers and13 original-term searches at referenceZIP43215; no provider/config/product data write.
+- LOCAL29 distinct controls and raw packet roundtrip pass. Actual inStore versus installed instore schema and original pack/form reviews remain held; all current candidates unadmitted.
+- Next: exact independent original-form/physical-pack/schema correspondence review and separately scoped price adoption. All15parents/G OPEN, factories OFF, spending $0.
+- Report: docs/CURRENT-REFERENCE-OFFER-EVIDENCE-2026-10-09.md
