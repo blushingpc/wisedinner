@@ -28,7 +28,7 @@ test("dry deletion client -> actual Auth verifier/account handler/0006 SQL; AMR,
     const verify = supabaseVerifier("https://auth.invalid", "synthetic-public", async (_url, init) => {
       const token = new Headers(init!.headers).get("authorization")!.slice(7);
       const c = JSON.parse(Buffer.from(token.split(".")[1]!, "base64url").toString());
-      return Response.json({ id: c.sub, is_anonymous: false, identities: [] });
+      return Response.json({ id: c.sub, is_anonymous: false, email_confirmed_at: new Date(now() - 60000).toISOString(), identities: [] });
     }, now);
     const repository: AccountRepository = { async execute(u, command) {
       return db.transaction(async tx => {

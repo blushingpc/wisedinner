@@ -64,6 +64,12 @@ export function supabaseVerifier(url: string, key: string, fetchImpl: typeof fet
     if (!response.ok) throw new AccountError(response.status >= 500 || response.status === 429 ? 503 : 401, "invalid_session");
     try {
       const user = object(await response.json());
+      // Only the independent Auth user's email confirmation is authority here.
+      // confirmed_at can mean phone confirmation; metadata/claims are not substitutes.
+      const confirmation = typeof user.email_confirmed_at === "string" ? user.email_confirmed_at : "";
+      if (confirmation.trim() !== confirmation || !/^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d{1,9})?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)$/.test(confirmation)) throw new Error("invalid");
+      const confirmedAt = Date.parse(confirmation), checkedAt = now();
+      if (!Number.isFinite(confirmedAt) || confirmedAt <= 0 || !Number.isFinite(checkedAt) || confirmedAt > checkedAt || new Date(`${confirmation.slice(0, 10)}T00:00:00Z`).toISOString().slice(0, 10) !== confirmation.slice(0, 10)) throw new Error("invalid");
       const payload = token.split(".")[1];
       if (typeof payload !== "string" || !payload) throw new Error("invalid");
       const claims = object(JSON.parse(Buffer.from(payload, "base64url").toString("utf8")));

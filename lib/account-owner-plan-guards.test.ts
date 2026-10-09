@@ -17,7 +17,7 @@ test('content-type empty/missing/invalid segments refuse; normalized valid JSON 
  assert.deepEqual(await boundedJson(new Request('https://fixture.invalid',{method:'POST',headers:{'Content-Type':'APPLICATION/JSON ; charset=utf8'},body:'{}'})),{});
 });
 test('empty/malformed JWT segments never authorize; verified good server claims retain behavior',async()=>{
- let calls=0;const now=2000000000000,verify=supabaseVerifier('https://auth.invalid','synthetic',async()=>{calls++;return Response.json({id:owner().id,is_anonymous:false,identities:[{provider:'email'}]});},()=>now);
+ let calls=0;const now=2000000000000,verify=supabaseVerifier('https://auth.invalid','synthetic',async()=>{calls++;return Response.json({id:owner().id,is_anonymous:false,email_confirmed_at:new Date(now-60000).toISOString(),identities:[{provider:'email'}]});},()=>now);
  for(const header of ['Bearer','Bearer e30..c2ln','Bearer .e30.c2ln','Bearer e30.c2ln.'])await assert.rejects(verify(new Request('https://fixture.invalid',{headers:{Authorization:header}})),/invalid_session/);
  assert.equal(calls,0);
  for(const payload of ['not-json',JSON.stringify({sub:owner().id})]){

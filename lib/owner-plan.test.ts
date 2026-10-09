@@ -65,7 +65,7 @@ test('memory-only SQL, route and actual app restored state. Claims and provider 
   const token=(id:string)=>[Buffer.from('{}').toString('base64url'),Buffer.from(JSON.stringify({sub:id,iss:'https://auth.invalid/auth/v1',aud:'authenticated',role:'authenticated',exp:now+3600,amr:[{method:'otp',timestamp:now}]})).toString('base64url'),'c2ln'].join('.');
   const verify=supabaseVerifier('https://auth.invalid','synthetic-public-key',async(_url,init)=>{
    verifiedCalls++;const bearer=new Headers(init!.headers).get('authorization')!.slice(7),id=JSON.parse(Buffer.from(bearer.split('.')[1]!,'base64url').toString()).sub;
-   return Response.json({id,is_anonymous:false,identities:[{provider:'email'}]});
+   return Response.json({id,is_anonymous:false,email_confirmed_at:new Date((now-60)*1000).toISOString(),identities:[{provider:'email'}]});
   });
   const route=proposalHandler({verify,repository});
   const request=(method:string,id=A,body:unknown=null,k:string|null=null)=>new Request('https://fixture.invalid/proposal/owner-plan-v2',{method,headers:{Authorization:'Bearer '+token(id),...(body?{'Content-Type':'application/json'}:{}),...(k?{'Idempotency-Key':k}:{})},...(body?{body:JSON.stringify(body)}:{})});

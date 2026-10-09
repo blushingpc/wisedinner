@@ -33,7 +33,7 @@ function fakeRepository(): AccountRepository {
 }
 function harness(account = user(), repository = fakeRepository()) { return accountHandler({ verify: async () => account, repository, pin, now: () => now }); }
 function jwt(patch: Record<string, unknown> = {}) { return `e30.${Buffer.from(JSON.stringify({ sub: A, iss: "https://project.supabase.co/auth/v1", aud: "authenticated", role: "authenticated", exp: now / 1000 + 100, amr: [{ method: "oauth", timestamp: now / 1000 - 20 }], ...patch })).toString("base64url")}.synthetic`; }
-const authUser = { id: A, is_anonymous: false, identities: [{ provider: "apple" }] };
+const authUser = { id: A, is_anonymous: false, email_confirmed_at: new Date(now - 60000).toISOString(), identities: [{ provider: "apple" }] };
 test("Auth server must verify signature/session before decoded claims can authorize", async () => {
   let calls = 0;
   const verify = supabaseVerifier("https://project.supabase.co", "synthetic-key", async (_url, options) => { calls++; assert.equal(new Headers(options?.headers).get("apikey"), "synthetic-key"); return Response.json(authUser); }, () => now);
