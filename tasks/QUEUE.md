@@ -260,3 +260,9 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - Actual iOS JavaScript producer bundle passed 144 desktop VM comparisons. iPhone, physical food/current prices and all parents remain open; activation OFF.
 - Next: concrete prepared owner binding with current verified account/equipment and existing durable inventory/retry seam.
 - Report: docs/NATIVE-REVIEWED-OWNER-PRODUCER-LOCAL-2026-10-09.md
+
+### 2026-10-09 Prepared native owner binding LOCAL
+- Concrete issued owner-controller actions now use the canonical native producer with current account/equipment and the existing durable inventory/retry boundary.
+- 84 distinct affected runtime names, strict joined/ordinary types, scoped lint/voice and reachable iOS JavaScript binding closure pass. Original cancellation harness failure preserved.
+- All factories OFF, parents/G OPEN; real iPhone, physical food/current prices and hosted/provider proof UNRUN. Next: all-node minimum dependency handoff with exact genuine gates.
+- Report: docs/NATIVE-REVIEWED-OWNER-BINDING-LOCAL-2026-10-09.md
