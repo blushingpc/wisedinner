@@ -328,3 +328,9 @@ Saved genuine public extracts and exact API items bind eight PROPOSED_ONLY pack/
 Seven distinct LOCAL leaves, strict types, scoped effective lint and voice pass; original parser/copy/test failures preserved. Public excerpts are not raw origin HTTP or physical proof.
 Next: independent exact proposals/current location-freshness/fresh-read/source-family adoption scope; all15 parents/G OPEN, factories OFF, $0.
 Report: ORIGINAL-PACK-FORM-SOURCE-BINDING-2026-10-09.md; CURRENT sealed evidence retained.
+
+
+## 2026-10-09 fresh reviewed reference observations, A69 node1
+One bounded15-attempt batch observed13 original products and eight exact regular-price rows at verified reference01600569/43215; only CURRENT research evidence, no product adoption.
+Eight SYNTHETIC controls and one authentic roundtrip pass; strict complete types/effective lint/voice pass. Five foods and full family remain held, all parents/G OPEN, factories OFF, $0.
+Next: held original-item reconciliation; report FRESH-REVIEWED-REFERENCE-PRICES-NODE-LOCAL-2026-10-09.md. Original failures retained.
