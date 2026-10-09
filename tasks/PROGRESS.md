@@ -668,3 +668,8 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - Strict own inStore/instore correspondence repaired; real reviews and price admission remain held.
 - 43 distinct LOCAL leaves, strict types, effective scoped lint/voice/diff pass; original red and compiler errors preserved.
 - Next: saved original-offer correspondence; all parents OPEN, activation OFF, hosted/native/physical acceptance unverified.
+
+### 2026-10-09 Original-offer correspondence, held
+- Saved13 historical and124 bounded search products compared with original form/pack sources; every real row NONE, product data unchanged.
+- Ten current LOCAL leaves and strict types/effective scoped lint/voice pass; both nodes53 leaf identities total, original failures retained.
+- Next: independently reviewed genuine PackReviews/current location-freshness/source-family adoption. All15parents/G OPEN, factories OFF, spending $0.
