@@ -598,3 +598,8 @@ Current local submission complete; recipe/equipment/inventory bridge and real na
 - Final174 distinct LOCAL runtime leaves and19 exact valid/held parity cases pass. Original failures and inherited bytes remain; exact evidence/report/checkpoint bind current sources. Four factories OFF; all parents/G OPEN.
 - Next actual dependency is lossless reviewed-source/original-pack/finite-pantry owner durable admission and whole-week consumption for B5. Current read-only preview cannot be installed into legacy-certified v2; no unreviewed activation, provider/SQL/native/food/price acceptance, spending or publication.
 - Report REVIEWED-CATALOG-STRICT-JOIN-REPAIR-LOCAL-2026-10-09.md; October9 12:06UTC and original19:39:35UTC targets unchanged.
+
+
+### 2026-10-09 B5 reviewed owner durable inventory
+
+LOCAL source/controller/storage-port installation and recovery verified. Separate candidate family/key only; activation OFF and parents OPEN. 160 distinct runtime leaves and final strict/ordinary type gates pass. Original failures preserved. Next: included single-meal replacement with original purchased packs and finite pantry. Report: docs/REVIEWED-OWNER-DURABLE-INVENTORY-LOCAL-2026-10-09.md
