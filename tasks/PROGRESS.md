@@ -701,13 +701,12 @@ Two distinct LOCAL runtime leaves and final strict types/effective scoped lint/v
 Next: independently reviewed quinoa/original source-family adoption scope and remaining authentic food/item evidence. All15 parents/G OPEN, factories OFF, $0. Report HELD-ORIGINAL-ITEM-RECONCILIATION-2026-10-09.md.
 
 
-## 2026-10-09 held original item reconciliation, A69 node2
-New genuine quinoa original dry-form page supports one PROPOSED_ONLY pack correspondence; four factual holds and all five unadmitted prices remain. Carrot exact91622 item bound, required net mass missing.
-Two distinct LOCAL runtime leaves and final strict types/effective scoped lint/voice pass; initial type failure and public unavailable results retained. No additional authenticated batch, product/source/price adoption or activation.
-Next: independently reviewed quinoa/original source-family adoption scope and remaining authentic food/item evidence. All15 parents/G OPEN, factories OFF, $0. Report HELD-ORIGINAL-ITEM-RECONCILIATION-2026-10-09.md.
-
-
 ## 2026-10-09 fresh reference prices aggregate, A69
 Both factual nodes committed/sealed.15 genuine bounded requests, eight exact regular reference observations; one new PROPOSED_ONLY quinoa correspondence and four factual holds, five prices unadmitted. Product/source/data/flags unchanged.
 Eleven distinct LOCAL leaves; original failures and31 inherited paths retained. True-clock research assessment 2026-10-09T13:40:23.048Z accepts8 rows; expiry never reset.
 Next: independent exact original-source/source-family/price-adoption scope or real isolated provider/native target. All15 parents/G OPEN, factories OFF, $0. Report FRESH-REVIEWED-REFERENCE-PRICES-2026-10-09.md.
+
+
+## 2026-10-09 aggregate staging correction, A69
+Final preservation check found an own node2 suffix duplicated in aggregate committed notes, while working copies retained one copy. Successor commit corrects only the exact owned duplicated bytes; original commits/failed check retained.
+True-clock assessment 2026-10-09T13:44:28.439Z accepts0 current reference rows; eight historical genuine observations preserved. Product/source/flags unchanged,31 inherited paths retained, all parents/G OPEN, $0.

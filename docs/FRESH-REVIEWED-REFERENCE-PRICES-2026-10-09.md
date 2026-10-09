@@ -98,3 +98,9 @@ Remaining parents A1,A2,A3,A4,A5,A6,B1,B2,B3,B4,B5,B6,J1,J2,J3 and G all OPEN. F
 $0, no credentials/customer exposure, new grants/config/Auth/SQL/billing/package/store/native/publication/push or ce_/engine/media/website/HQ/controller/queue/dashboard changes. Existing Codex/computer/settings continue.12:06UTC target passed incomplete, original19:39:35UTC retained, no new clock/public/native/Apple guarantee.
 
 Rollback: withhold CURRENT reviewed/proposed evidence; only independently reviewed additive owned report/note revert, preserving every historical and inherited byte. Final handoff/result preflight validates unchanged backend/docs report root; genuine turn.completed/exit0/absent-owner acceptance belongs to coordinator after natural turn completion and is not asserted here.
+
+## Final successor correction and expiry
+
+The final preservation check failed because aggregate staging used the before-node2 working prefix with the after-node2 committed base, duplicating only the owned node2 suffix in committed notes. Working prefixes were unchanged. A fresh successor removes exactly that proven owned duplicate, preserves the failed aggregate commits/logs and verifies the complete current working/committed distinction. No inherited byte or completed node file changes.
+
+True current reassessment 2026-10-09T13:44:28.439Z: 0 observations remain usable under the15-minute research bound. Eight genuine reference observations are now historical only; no clock reset, new collection or stale admission. Final-handoff records the current assessment and corrected aggregate commit/report hashes.
