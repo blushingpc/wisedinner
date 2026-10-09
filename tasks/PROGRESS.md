@@ -673,3 +673,10 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - Saved13 historical and124 bounded search products compared with original form/pack sources; every real row NONE, product data unchanged.
 - Ten current LOCAL leaves and strict types/effective scoped lint/voice pass; both nodes53 leaf identities total, original failures retained.
 - Next: independently reviewed genuine PackReviews/current location-freshness/source-family adoption. All15parents/G OPEN, factories OFF, spending $0.
+
+
+## 2026-10-09 original product label evidence held, A67
+Authentic Seapoint/Goya original pages and two label images inspected;13 exact retailer labels unavailable after26 bounded transport attempts.30 total public GET attempts, zero authenticated/provider writes.
+Goya warns soybean/wheat cross-contact; Seapoint exact offer UPC remains unbound. Four fresh LOCAL provenance leaves pass; all13 real rows NONE and proposed reviews0. Product/data/source/flags unchanged.
+Independent exact pack/form review, accessible original retailer labels and precise location/freshness/source-family adoption scope remain required. All15 parents/G OPEN; physical/native/hosted proof unverified.
+Report: ORIGINAL-PRODUCT-LABEL-EVIDENCE-HELD-2026-10-09.md; CURRENT node evidence retained.
