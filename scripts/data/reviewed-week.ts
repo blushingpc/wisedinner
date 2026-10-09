@@ -40,10 +40,12 @@ export function reviewedBasket(): ReviewBundle {
   for (const review of reviewNutrition(map, prior).filter(r => r.status === "generic-reviewed")) {
     // The source is correct, but a variable-weight fresh pack cannot be claimed as a fixed purchasable 3 lb offer.
     if (review.sku_id === "chicken-breast") continue;
+    const entry = map[review.sku_id];
+    if (!entry) throw new Error(`${review.sku_id}: cached nutrient source unavailable`);
     quantities[review.sku_id] = { sku_id: review.sku_id, source: review.source!, identity: review.description,
       accessed: review.accessed!, source_basis: review.sku_id === "eggs" ? "piece-edible" : ["lentils", "white-rice", "brown-rice", "quinoa"].includes(review.sku_id) ? "dry" : review.sku_id.startsWith("frozen-") ? "frozen-edible" : "raw-edible",
       edible_per_purchased: 1, yield_source: review.source!, yield_row: review.basis, limits: "Previously reviewed plain food, unchanged raw pack basis; retain juices. Egg count buys whole eggs, 50 g edible contents each, not shell mass.",
-      nutrition: { sku_id: review.sku_id, per: "100g", protein_g: map[review.sku_id].protein_g, kcal: map[review.sku_id].kcal, fat_g: map[review.sku_id].fat_g, carbs_g: map[review.sku_id].carbs_g } };
+      nutrition: { sku_id: review.sku_id, per: "100g", protein_g: entry.protein_g, kcal: entry.kcal, fat_g: entry.fat_g, carbs_g: entry.carbs_g } };
   }
   const rows: [string, number, number, string][] = [
     ["onions", 170000, .88, "Printed page 2-34: mature fresh whole, all sizes, raw chopped; 1 lb AP = 0.88 lb ready-to-serve/cook raw onion."],
@@ -52,7 +54,8 @@ export function reviewedBasket(): ReviewBundle {
   ];
   for (const [sku_id, fdc, yieldValue, yield_row] of rows) {
     const food = fresh.find(f => f.fdcId === fdc);
-    if (!food || food.description !== map[sku_id].description || food.dataType !== "SR Legacy") throw new Error(`${sku_id}: source identity unavailable`);
+    const entry = map[sku_id];
+    if (!entry || !food || food.description !== entry.description || food.dataType !== "SR Legacy") throw new Error(`${sku_id}: source identity unavailable`);
     const macros = sourceMacros(food);
     if (Object.values(macros).some(n => n === undefined || !Number.isFinite(n) || n < 0)) throw new Error(`${sku_id}: original nutrient missing`);
     quantities[sku_id] = { sku_id, source: food.url, identity: food.description, accessed: food.accessed,
@@ -69,7 +72,9 @@ export function reviewedBasket(): ReviewBundle {
     limits: "Original online label, rounding retained. Actual package can differ; cross-contact unverified. NOT certified gluten-free. No newly fetched price used.",
     nutrition: labelNutrition("oats",labels.oats) };
   const safety = structuredClone(SAFETY);
-  safety.oats = { ...safety.oats, status: "reviewed", allergens: [], diet: ["gluten"], known_allergens: [], known_diet: ["gluten"], sources: [OATS_LABEL], reviewed_at: "2026-10-04",
+  const oatsSafety = safety.oats;
+  if (!oatsSafety) throw new Error("Oats safety source unavailable");
+  safety.oats = { ...oatsSafety, status: "reviewed", allergens: [], diet: ["gluten"], known_allergens: [], known_diet: ["gluten"], sources: [OATS_LABEL], reviewed_at: "2026-10-04",
     basis: "Original mapped label has only rolled oats and declares oats. No nine-major-allergen ingredient; conservative gluten exclusion retained. Not package cross-contact clearance." };
   for (const [id, r] of Object.entries(quantities)) r.purchase_basis = purchaseBasis(toSku(SKUS.find(s => s.id === id)!));
   const referenceSnapshot = JSON.parse(readFileSync("data/snapshot.json", "utf8"));
@@ -109,8 +114,8 @@ export function projectPurchased(edible: Snapshot, reviews: Record<string, Quant
   }
   return validateSnapshot({ ...edible,
     // Physical pack labels, quantity, density and prices are NOT changed. This nutrient projection is private purchase-equivalent accounting, NOT edible per-100-g data.
-    nutrition: edible.nutrition.map(n => { const y = reviews[n.sku_id].edible_per_purchased; return { ...n, protein_g: n.protein_g*y, kcal: n.kcal*y, fat_g: n.fat_g*y, carbs_g: n.carbs_g*y }; }),
-    recipe_ingredients: edible.recipe_ingredients.map(i => ({ ...i, qty: i.qty / reviews[i.sku_id].edible_per_purchased })),
+    nutrition: edible.nutrition.map(n => { const review = reviews[n.sku_id]; if (!review) throw new Error(`${n.sku_id}: quantity review unavailable`); const y = review.edible_per_purchased; return { ...n, protein_g: n.protein_g*y, kcal: n.kcal*y, fat_g: n.fat_g*y, carbs_g: n.carbs_g*y }; }),
+    recipe_ingredients: edible.recipe_ingredients.map(i => { const review = reviews[i.sku_id]; if (!review) throw new Error(`${i.sku_id}: quantity review unavailable`); return { ...i, qty: i.qty / review.edible_per_purchased }; }),
   });
 }
 
@@ -120,7 +125,9 @@ export function targetedCandidates(): Candidate[] {
     const parts: Candidate["parts"] = [...proteins.map(row => ({ row, role: "protein" as const })), { row: [grain, 80, "g"], role: "grain" }, ...vegetables.map(row => ({ row, role: "vegetable" as const }))];
     const id = `reviewed-${proteins.map(r => r[0]).join("-")}-${grain}-${vegetables.map(r => r[0]).join("-")}-${method}`;
     const name = `${proteins.map(r => r[0].replace("frozen-", "").replaceAll("-", " ")).join(" and ")} with ${grain.replaceAll("-", " ")} and ${vegetables.map(r => r[0].replace("frozen-", "")).join(" and ")} ${method}`;
-    const c: Candidate = { method, parts, photo: null, quantity_basis: "reviewed-edible", recipe: { id, name: name[0].toUpperCase()+name.slice(1), meal_type: breakfast ? "breakfast" : method === "soup" ? "lunch" : "dinner", protein: proteins.map(r => r[0]).join(" and "), minutes: grain === "brown-rice" ? 55 : 45, ingredients: parts.map(p => p.row), steps: directions(parts, method, true), variants: [] } };
+    const first = name[0];
+    if (!first) throw new Error("Candidate name unavailable");
+    const c: Candidate = { method, parts, photo: null, quantity_basis: "reviewed-edible", recipe: { id, name: first.toUpperCase()+name.slice(1), meal_type: breakfast ? "breakfast" : method === "soup" ? "lunch" : "dinner", protein: proteins.map(r => r[0]).join(" and "), minutes: grain === "brown-rice" ? 55 : 45, ingredients: parts.map(p => p.row), steps: directions(parts, method, true), variants: [] } };
     compileCandidate(c); out.push(c);
   };
   const vegetables: Ing[][] = [[["carrots",120,"g"],["onions",80,"g"]], [["tomatoes",160,"g"],["onions",80,"g"]], [["frozen-broccoli",150,"g"],["carrots",100,"g"]]];
@@ -146,7 +153,8 @@ export function stageReviewed(approval?: WeekApproval, basket = reviewedBasket()
     else { seen.add(identity); try { compileCandidate(c); validated++; } catch (e) { reasons.push((e as Error).message); } }
     for (const [id] of c.recipe.ingredients) {
       if (!basket.quantities[id]) reasons.push(`${id}: nutrition/quantity unresolved`);
-      if (basket.safety[id]?.status !== "reviewed" || !basket.safety[id].allergens || !basket.safety[id].diet) reasons.push(`${id}: safety unresolved`);
+      const safety = basket.safety[id];
+      if (!safety || safety.status !== "reviewed" || !safety.allergens || !safety.diet) reasons.push(`${id}: safety unresolved`);
     }
     if (!reasons.length) reviewReady++;
     if (!approval?.recipe_ids.includes(c.recipe.id)) reasons.push("Explicit approval absent");
@@ -158,7 +166,7 @@ export function stageReviewed(approval?: WeekApproval, basket = reviewedBasket()
   const priceReview = priceEvidence(old, used);
   const edible = validateSnapshot({ version: old.version, generated_at: old.generated_at, stores: old.stores,
     skus: SKUS.filter(s => used.has(s.id)).map(toSku).map(s => s.id === "oats" ? { ...s, diet_flags: s.diet_flags.filter(d => d !== "gluten-free") } : s),
-    store_prices: priceReview.kept, nutrition: [...used].map(id => basket.quantities[id].nutrition),
+    store_prices: priceReview.kept, nutrition: [...used].map(id => { const review = basket.quantities[id]; if (!review) throw new Error(`${id}: quantity review unavailable`); return review.nutrition; }),
     recipes: compiled.recipes, recipe_ingredients: compiled.ingredients, recipe_variants: compiled.variants });
   return { counts: { generated: candidates.length, unique: seen.size, validated, reviewReady, eligible: eligible.length, quarantined: quarantine.length }, quarantine, edible, purchased: projectPurchased(edible, basket.quantities), compiled, basket, priceReview, candidate_digest: cd };
 }

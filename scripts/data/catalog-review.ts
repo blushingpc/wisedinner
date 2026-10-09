@@ -11,7 +11,7 @@ export type NutritionReview = {
   fdc_id: number; source: string | null; description: string; accessed: string | null;
   basis: string; conversion: string; fingerprint: string; manual: boolean;
 };
-export function nutritionFingerprint(sku: (typeof SKUS)[number], entry: UsdaMap[string]) {
+export function nutritionFingerprint(sku: (typeof SKUS)[number], entry: UsdaMap[string] | undefined) {
   return createHash("sha256").update(JSON.stringify({ sku, entry })).digest("hex");
 }
 
@@ -93,14 +93,15 @@ export function reviewNutrition(map: UsdaMap, foods: SourceFood[]): NutritionRev
     const entry = map[sku.id];
     const food = foods.find(f => f.fdcId === entry?.fdc_id);
     const reasons: string[] = [];
+    if (!entry) reasons.push("Cached USDA entry unavailable; reconcile the original source before review.");
     if (!GENERIC_BASES[sku.id]) reasons.push(NOTES[sku.id] ?? "Compound/processed package formulation not reviewed against an original label; generic reference is not branded verification.");
     if (!food) reasons.push("Original USDA record unavailable; manual entries require an original manufacturer panel.");
-    if (food && GENERIC_BASES[sku.id]) {
+    if (food && entry && GENERIC_BASES[sku.id]) {
       if (entry.fdc_id !== REVIEWED_SOURCES[sku.id]) reasons.push("Source identity changed since this review; raw/edible basis must be reviewed again.");
       if (JSON.stringify([sku.pack_qty, sku.pack_unit, sku.canonical_unit, sku.grams_per_unit]) !== JSON.stringify(REVIEWED_PACKS[sku.id])) reasons.push("Pack, density or piece weight changed; conversion review is stale.");
       if (sku.id === "eggs" && !food.portions.some(p => p.grams === 50 && /large/i.test(p.modifier))) reasons.push("Original large egg edible weight not confirmed.");
     }
-    if (food) {
+    if (food && entry) {
       if (!["Foundation", "SR Legacy"].includes(food.dataType)) reasons.push("Source nutrient serving basis has not been reviewed for this data type.");
       if (food.description !== entry.description) reasons.push("Cached description differs from original source.");
       const values = sourceMacros(food);

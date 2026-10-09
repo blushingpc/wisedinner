@@ -5,6 +5,11 @@ import { packCanonical, round2 } from "./units.ts";
 
 export const DAYS = ["mon", "tue", "wed", "thu", "fri"];
 export const SLOTS = ["breakfast", "lunch", "dinner"] as const;
+function at<T>(rows: readonly T[], index: number): T {
+  const field = Object.getOwnPropertyDescriptor(rows, index);
+  if (!field || !("value" in field) || field.value === undefined) throw new Error("Malformed solver selection");
+  return field.value;
+}
 const SHELF_STABLE_FROM = 3; // thu, fri: freezer + shelf only — perishables are eaten early in the week
 const MAX_PACK_TO_USED = 1.5; // retain the existing limit of at most a third of a perishable pack left over
 const MAX_SKU_KCAL_SHARE = 0.35;
@@ -173,7 +178,7 @@ export function evaluate(week: Week, ctx: Ctx): Evaluation {
   const repeats = (slot: number, cap: number, word: string) => {
     const seen = new Map<string, { n: number; name: string }>();
     for (const day of week) {
-      const t = day[slot];
+      const t = at(day, slot);
       const d = seen.get(t.base_id) ?? { n: 0, name: t.name };
       d.n++;
       seen.set(t.base_id, d);
@@ -186,7 +191,7 @@ export function evaluate(week: Week, ctx: Ctx): Evaluation {
   // preference, not a constraint: the same dish for lunch and dinner on one day is avoided when it costs less
   // than about two dollars to do so, but it never makes a week infeasible
   let pref = 0;
-  for (const day of week) if (day[1].base_id === day[2].base_id) pref += 1;
+  for (const day of week) if (at(day, 1).base_id === at(day, 2).base_id) pref += 1;
   return { penalty, cost, days, packs, used, shortfall, proteinSources, why, score: penalty * 1000 + cost + pref * PREF_SAME_DAY };
 }
 
@@ -197,25 +202,25 @@ export type Result = { week: Week; ev: Evaluation };
 // seeded local search from several random starts; keep every candidate's best. `fixed` pins slots (regenerate).
 export function anneal(ctx: Ctx, seed: number, fixed?: { week: Week; free: [number, number][] }): Result[] {
   const rand = rng(seed);
-  const pick = <T,>(arr: T[]) => arr[Math.floor(rand() * arr.length)];
+  const pick = <T,>(arr: T[]): T => at(arr, Math.floor(rand() * arr.length));
   const results: Result[] = [];
   const freeSlots = fixed?.free ?? DAYS.flatMap((_, d) => SLOTS.map((_, s) => [d, s] as [number, number]));
   const isFree = (d: number, s: number) => !fixed || fixed.free.some(([fd, fs]) => fd === d && fs === s);
   for (let c = 0; c < CANDIDATES; c++) {
-    const p = ctx.pools[c % ctx.pools.length];
+    const p = at(ctx.pools, c % ctx.pools.length);
     let week: Week = fixed
       ? fixed.week.map((day, d) => day.map((t, s) => (isFree(d, s) ? pick(options(ctx, d, s, p)) : t)))
       : DAYS.map((_, d) => SLOTS.map((_, s) => pick(options(ctx, d, s, p))));
     let ev = evaluate(week, ctx);
     let best = { week, ev };
     for (let i = 0; i < STEPS; i++) {
-      const [d, s] = freeSlots[Math.floor(rand() * freeSlots.length)];
+      const [d, s] = at(freeSlots, Math.floor(rand() * freeSlots.length));
       let next: Week;
       if (rand() < 0.5) {
         next = week.map((day, di) => (di === d ? day.map((t, si) => (si === s ? pick(options(ctx, d, s, p)) : t)) : day));
       } else {
         // every free slot that uses this template → another (moves whole packs, which single swaps rarely do)
-        const from = week[d][s];
+        const from = at(at(week, d), s);
         const to = pick(options(ctx, d, s, p));
         next = week.map((day, di) => day.map((t, si) => (t === from && isFree(di, si) && options(ctx, di, si, p).includes(to) ? to : t)));
       }
@@ -240,9 +245,9 @@ export function polish(r: Result, ctx: Ctx, passes = 3): Result {
     let improved = false;
     // Reordering the same day's mains can repair dinner repeats without changing food, cost or nutrition.
     for (let d = 0; d < DAYS.length; d++) {
-      const day = week[d];
-      if (day[1] === day[2]) continue;
-      const next = week.map((items, index) => index === d ? [items[0], items[2], items[1]] : items);
+      const day = at(week, d);
+      if (at(day, 1) === at(day, 2)) continue;
+      const next = week.map((items, index) => index === d ? [at(items, 0), at(items, 2), at(items, 1)] : items);
       const nev = evaluate(next, ctx);
       if (nev.score < ev.score) {
         week = next;
@@ -253,7 +258,7 @@ export function polish(r: Result, ctx: Ctx, passes = 3): Result {
     for (let d = 0; d < DAYS.length; d++) {
       for (let s = 0; s < SLOTS.length; s++) {
         for (const t of options(ctx, d, s)) {
-          if (t === week[d][s]) continue;
+          if (t === at(at(week, d), s)) continue;
           const next = week.map((day, di) => (di === d ? day.map((x, si) => (si === s ? t : x)) : day));
           const nev = evaluate(next, ctx);
           if (nev.score < ev.score) {
@@ -274,9 +279,9 @@ export function polish(r: Result, ctx: Ctx, passes = 3): Result {
 export function repairMealPairs(result: Result, ctx: Ctx): Result {
   let { week, ev } = result;
   for (let d = 0; d < DAYS.length; d++) {
-    const macros = ev.days[d];
+    const macros = at(ev.days, d);
     if (macros.protein >= ctx.input.protein_per_day && macros.kcal >= ctx.input.kcal_min && macros.kcal <= ctx.input.kcal_max) continue;
-    for (const [a, b] of [[0, 1], [0, 2], [1, 2]]) {
+    for (const [a, b] of [[0, 1], [0, 2], [1, 2]] as const) {
       for (const first of options(ctx, d, a)) for (const second of options(ctx, d, b)) {
         const next = week.map((items, index) => index === d ? items.map((item, slot) => slot === a ? first : slot === b ? second : item) : items);
         const nev = evaluate(next, ctx);
@@ -294,10 +299,10 @@ export function repairMealPairs(result: Result, ctx: Ctx): Result {
 export function choose(results: Result[], rand: () => number): Result {
   const feasibleOnes = results.filter((r) => r.ev.penalty === 0).sort((a, b) => a.ev.cost - b.ev.cost);
   if (feasibleOnes.length) {
-    const band = feasibleOnes.filter((r) => r.ev.cost <= feasibleOnes[0].ev.cost * BAND);
-    return band[Math.floor(rand() * band.length)];
+    const band = feasibleOnes.filter((r) => r.ev.cost <= at(feasibleOnes, 0).ev.cost * BAND);
+    return at(band, Math.floor(rand() * band.length));
   }
-  return [...results].sort((a, b) => a.ev.score - b.ev.score)[0];
+  return at([...results].sort((a, b) => a.ev.score - b.ev.score), 0);
 }
 
 // list arithmetic for a set of packs against one price map (alt_total, store subtotals)
@@ -320,7 +325,7 @@ export function toOutput(week: Week, ev: Evaluation, ctx: Ctx, seed: number, boo
     return k.perishable ? (packsPaid * k.price_usd) / servingsPacks : k.price_usd; // per pack-fraction actually eaten
   };
   const days = week.map((day, di) => ({
-    day: DAYS[di],
+    day: at(DAYS, di),
     items: day.map((t, si): PlanItem => {
       let protein = 0;
       let kcal = 0;
@@ -333,7 +338,7 @@ export function toOutput(week: Week, ev: Evaluation, ctx: Ctx, seed: number, boo
       }
       return {
         name: t.name,
-        unit: SLOTS[si],
+        unit: at(SLOTS, si),
         portion: t.parts.map((p) => `${label(sku.get(p.sku)!)} ${fraction(p.frac)}`).join(", "),
         protein_g: Math.round(protein),
         kcal: Math.round(kcal),
@@ -341,8 +346,8 @@ export function toOutput(week: Week, ev: Evaluation, ctx: Ctx, seed: number, boo
         cost_usd: round2(cost),
       };
     }),
-    protein_g: Math.round(ev.days[di].protein),
-    kcal: Math.round(ev.days[di].kcal),
+    protein_g: Math.round(at(ev.days, di).protein),
+    kcal: Math.round(at(ev.days, di).kcal),
   }));
   const list: ListItem[] = [...ev.packs]
     .map(([id, p]) => {
@@ -461,7 +466,7 @@ export function solve(input: SolveInput, s: Snapshot): SolveOutput {
 export function evaluateWeek(ids: string[] | string[][], input: SolveInput, s: Snapshot): SolveOutput {
   const seed = input.seed ?? 0;
   const book = buildPriceBook(s, input);
-  const run = runStores(book)[0];
+  const run = at(runStores(book), 0);
   const ctx = makeCtx(input, buildPool(s, book.maps.get(run.mapKey)!, input.diet, input.budget));
   const week = weekFrom(ids, ctx);
   return toOutput(week, evaluate(week, ctx), ctx, seed, book, s);
@@ -469,10 +474,17 @@ export function evaluateWeek(ids: string[] | string[][], input: SolveInput, s: S
 
 export function weekFrom(ids: string[] | string[][], ctx: Ctx): Week {
   // Accept the app's flat 15-id contract while retaining the existing five-day form during migration.
-  const nested = ids.length === 15 && [...ids].every((id) => typeof id === "string")
+  // Check descriptors before spreading/mapping externally supplied slot arrays.
+  const dense = (rows: readonly unknown[]): unknown[] => Array.from({ length: rows.length }, (_, i) => {
+    const field = Object.getOwnPropertyDescriptor(rows, i);
+    if (!field || !("value" in field) || field.value === undefined) throw new Error("week must contain 15 recipe ids, flat or five days of three");
+    return field.value;
+  });
+  const values = dense(ids);
+  const nested = ids.length === 15 && values.every((id) => typeof id === "string")
     ? DAYS.map((_, d) => (ids as string[]).slice(d * 3, d * 3 + 3))
     : ids as string[][];
-  if (nested.length !== DAYS.length || ![...nested].every((day) => Array.isArray(day) && day.length === SLOTS.length && [...day].every((id) => typeof id === "string"))) {
+  if (nested.length !== DAYS.length || !dense(nested).every((day) => Array.isArray(day) && day.length === SLOTS.length && dense(day).every((id) => typeof id === "string"))) {
     throw new Error("week must contain 15 recipe ids, flat or five days of three");
   }
   const byId = new Map(ctx.pool.templates.map((t) => [t.id, t]));
@@ -488,7 +500,7 @@ export function weekFrom(ids: string[] | string[][], ctx: Ctx): Week {
 // rebuild the internal context a solved week was produced under (same stores, same map, same pool)
 export function ctxFor(week: SolveOutput, s: Snapshot): { ctx: Ctx; book: PriceBook; internal: Week } {
   const book = buildPriceBook(s, week.input);
-  const mapKey = week.store_mode === "bestPerItem" ? "__min__" : week.store_mode === "singleStore" ? (week.stores[0]?.id ?? book.live[0].id) : book.stores[0].id;
+  const mapKey = week.store_mode === "bestPerItem" ? "__min__" : week.store_mode === "singleStore" ? (week.stores[0]?.id ?? at(book.live, 0).id) : at(book.stores, 0).id;
   const ctx = makeCtx(week.input, buildPool(s, book.maps.get(mapKey)!, week.input.diet, week.input.budget));
   const internal = weekFrom(
     week.days.map((d) => d.items.map((i) => i.recipe_id)),

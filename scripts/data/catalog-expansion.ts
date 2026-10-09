@@ -53,6 +53,8 @@ export function directions(parts: Part[], method: Method, reviewedEdible = false
 }
 
 function makeCandidate(proteins: string[], grain: string, vegetables: string[], method: Method): Candidate {
+  const firstProtein = proteins[0];
+  if (!firstProtein) throw new Error("Incomplete meal structure");
   const parts: Part[] = [
     ...proteins.map(id => ({ row: grams(id, proteins.length > 1), role: "protein" as const })),
     { row: [grain, 80, "g"], role: "grain" },
@@ -62,7 +64,7 @@ function makeCandidate(proteins: string[], grain: string, vegetables: string[], 
   const minutes = Math.max(grain === "brown-rice" ? 50 : 30, proteins.includes("lentils") ? 40 : 0);
   return {
     method, parts, photo: null,
-    recipe: { id, name: `${label(proteins[0])}${proteins.slice(1).map(p => ` and ${lower(p)}`).join("")} with ${lower(grain)} and ${vegetables.map(lower).join(" and ")} ${method}`,
+    recipe: { id, name: `${label(firstProtein)}${proteins.slice(1).map(p => ` and ${lower(p)}`).join("")} with ${lower(grain)} and ${vegetables.map(lower).join(" and ")} ${method}`,
       meal_type: proteins[0] === "eggs" && method === "bowl" ? "breakfast" : method === "soup" ? "lunch" : "dinner",
       protein: proteins.map(lower).join(" and "), minutes, ingredients: parts.map(p => p.row), steps: directions(parts, method), variants: [] },
   };
@@ -140,8 +142,10 @@ export function compileApproved(candidates: Candidate[]) {
     const group = families.get(key) ?? []; group.push(c); families.set(key, group);
   }
   const authored = [...families.values()].map(group => {
-    const base = structuredClone(group[0].recipe);
-    const baseProteins = group[0].parts.filter(p => p.role === "protein").map(p => p.row[0]);
+    const first = group[0];
+    if (!first) throw new Error("Incomplete meal structure");
+    const base = structuredClone(first.recipe);
+    const baseProteins = first.parts.filter(p => p.role === "protein").map(p => p.row[0]);
     base.variants = group.slice(1).map(c => {
       const proteins = c.parts.filter(p => p.role === "protein").map(p => p.row);
       return {

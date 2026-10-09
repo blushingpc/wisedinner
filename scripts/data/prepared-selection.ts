@@ -23,16 +23,18 @@ export function preparationData<T>(value: T, ancestors = new Set<object>()): T {
   if (value === undefined || value === null || typeof value === "string" || typeof value === "boolean" || (typeof value === "number" && Number.isFinite(value))) return value;
   if (typeof value !== "object" || ancestors.has(value)) throw Error("Malformed preparation data");
   const descriptors = Object.getOwnPropertyDescriptors(value), keys = Reflect.ownKeys(descriptors);
-  if (keys.some(key => typeof key !== "string" || !("value" in descriptors[key]))) throw Error("Malformed preparation data");
+  const field = (key: string) => { const d = descriptors[key]; if (!d || !("value" in d)) throw Error("Malformed preparation data"); return d; };
+  if (keys.some(key => typeof key !== "string" || !("value" in field(key)))) throw Error("Malformed preparation data");
   const next = new Set(ancestors).add(value);
   if (Array.isArray(value)) {
     if (Object.getPrototypeOf(value) !== Array.prototype) throw Error("Malformed preparation list");
-    const length = descriptors.length.value as number;
+    const length: unknown = field("length").value;
+    if (typeof length !== "number" || !Number.isSafeInteger(length) || length < 0) throw Error("Malformed preparation list");
     if (keys.length !== length + 1 || Array.from({ length }, (_, i) => i).some(i => !descriptors[i])) throw Error("Malformed preparation list");
-    return Array.from({ length }, (_, i) => preparationData(descriptors[i].value, next)) as T;
+    return Array.from({ length }, (_, i) => preparationData(field(String(i)).value, next)) as T;
   }
   if (![Object.prototype, null].includes(Object.getPrototypeOf(value))) throw Error("Malformed preparation data");
-  return Object.fromEntries(keys.map(key => [key, preparationData(descriptors[key as string].value, next)])) as T;
+  return Object.fromEntries(keys.map(key => { if (typeof key !== "string") throw Error("Malformed preparation data"); return [key, preparationData(field(key).value, next)]; })) as T;
 }
 
 export function preparationContext(context: PreparationContext): PreparationContext {
@@ -66,7 +68,8 @@ export function preparedCatalog(snapshot: Snapshot, supplied: PreparationContext
     const rows = copy.recipe_ingredients.filter(row => row.recipe_id === recipe.id), expectedRows = canonical.ingredients.filter(row => row.recipe_id === recipe.id);
     if (!equal(rows, expectedRows) || rows.some(row => {
       const skus = copy.skus.filter(sku => sku.id === row.sku_id), authored = canonicalSkus.get(row.sku_id);
-      return skus.length !== 1 || !authored || !equal(form(skus[0]), form(authored));
+      const sku = skus[0];
+      return skus.length !== 1 || !sku || !authored || !equal(form(sku), form(authored));
     })) { fail("mismatched-ingredient-quantity-form"); continue; }
     const links = copy.recipe_variants.filter(row => row.variant_recipe_id === recipe.id), sourceLinks = context.source.variants.filter(row => row.variant_recipe_id === recipe.id), expectedLinks = canonical.variants.filter(row => row.variant_recipe_id === recipe.id);
     if (!equal(links, expectedLinks) || !equal(sourceLinks, expectedLinks)) { fail("mismatched-variant-parent"); continue; }

@@ -16,7 +16,9 @@ export type PriceBook = {
 
 // closest observed region for a store: an exact ZIP match, else the ZIP sharing the longest prefix, else any
 function pickRegion<T extends { region: string }>(rows: T[], zip: string): T {
-  let best = rows[0];
+  const first = rows[0];
+  if (!first) throw new Error("Observed price rows unavailable");
+  let best = first;
   let score = -1;
   for (const r of rows) {
     let n = 0;
@@ -54,7 +56,10 @@ export function priceMapFor(s: Snapshot, store: Store, zip: string): PriceMap {
 
 export function buildPriceBook(s: Snapshot, input: SolveInput): PriceBook {
   if (!input.stores?.length || input.stores.length > 3) throw new Error("choose one to three stores");
-  const stores = input.stores.map((id) => {
+  const stores = Array.from({ length: input.stores.length }, (_, index) => {
+    const field = Object.getOwnPropertyDescriptor(input.stores, index);
+    if (!field || !("value" in field) || typeof field.value !== "string") throw new Error("choose one to three stores");
+    const id: string = field.value;
     const st = s.stores.find((x) => x.id === id);
     if (!st) throw new Error(`unknown store ${id}`);
     return st;
@@ -65,6 +70,8 @@ export function buildPriceBook(s: Snapshot, input: SolveInput): PriceBook {
   let modesAvailable: PriceBook["modesAvailable"] = [];
   let mode: StoreMode = "estimate";
   if (live.length >= 2) {
+    const firstLive = live[0];
+    if (!firstLive) throw new Error("Observed stores unavailable");
     modesAvailable = ["singleStore", "bestPerItem"];
     mode = input.mode ?? "singleStore";
     // min across live stores on observed rows only; a sku no live store observed is pinned to the first live store
@@ -75,7 +82,7 @@ export function buildPriceBook(s: Snapshot, input: SolveInput): PriceBook {
         const r = maps.get(st.id)!.get(k.id)!;
         if (r.observed && (!best || r.price_usd < best.price_usd)) best = r;
       }
-      min.set(k.id, best ?? maps.get(live[0].id)!.get(k.id)!);
+      min.set(k.id, best ?? maps.get(firstLive.id)!.get(k.id)!);
     }
     maps.set("__min__", min);
   } else if (live.length === 1) {
@@ -87,7 +94,11 @@ export function buildPriceBook(s: Snapshot, input: SolveInput): PriceBook {
 
 // the stores a solve runs at: every live store in singleStore, the anchor (first live, else first chosen) otherwise
 export function runStores(book: PriceBook): { id: string; mapKey: string }[] {
-  if (book.mode === "bestPerItem") return [{ id: book.live[0].id, mapKey: "__min__" }];
-  if (book.mode === "singleStore") return book.live.map((st) => ({ id: st.id, mapKey: st.id }));
-  return [{ id: book.stores[0].id, mapKey: book.stores[0].id }];
+  if (book.mode === "singleStore") {
+    if (!book.live.length) throw new Error("Observed stores unavailable");
+    return book.live.map((st) => ({ id: st.id, mapKey: st.id }));
+  }
+  const first = book.mode === "bestPerItem" ? book.live[0] : book.stores[0];
+  if (!first) throw new Error("Chosen stores unavailable");
+  return [{ id: first.id, mapKey: book.mode === "bestPerItem" ? "__min__" : first.id }];
 }

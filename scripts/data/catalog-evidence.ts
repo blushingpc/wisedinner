@@ -16,7 +16,7 @@ export async function collectEvidence() {
   const key = process.env.USDA_FDC_API_KEY;
   if (!key || /placeholder|your_|replace/i.test(key)) throw new Error("USDA credential unavailable; no lookup made");
   const map: UsdaMap = JSON.parse(readFileSync("data/usda-map.json", "utf8"));
-  const ids = [...new Set(SKUS.map(s => map[s.id]?.fdc_id).filter(id => id > 0))];
+  const ids = [...new Set(SKUS.map(s => map[s.id]?.fdc_id).filter((id): id is number => typeof id === "number" && id > 0))];
   const foods: SourceFood[] = [];
   // USDA's documented default is 1,000 requests/hour. This bounded run needs fewer than 80.
   for (const id of ids) {

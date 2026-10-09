@@ -36,7 +36,9 @@ export function shortlistCatalog(snapshot: Snapshot, input: SolveInput, anchors:
   const nutrition = new Map(snapshot.nutrition.map(n => [n.sku_id, n]));
   const skus = new Map(snapshot.skus.map(k => [k.id, k]));
   const book = buildPriceBook(snapshot, input);
-  const map = book.maps.get(book.mode === "bestPerItem" ? "__min__" : book.stores[0].id)!;
+  const firstStore = book.stores[0];
+  if (!firstStore) throw new Error("Chosen stores unavailable");
+  const map = book.maps.get(book.mode === "bestPerItem" ? "__min__" : firstStore.id)!;
   const eligible = templates.filter(t => dietOk(t, input.diet) && t.parts.every(p => map.has(p.sku) && map.get(p.sku)!.price_usd <= input.budget));
   const cost = (t: Template) => t.parts.reduce((sum, p) => sum + p.frac * map.get(p.sku)!.price_usd, 0);
   const protein = (t: Template) => t.parts.reduce((sum, p) => sum + p.qty * skus.get(p.sku)!.grams_per_unit * nutrition.get(p.sku)!.protein_g / 100, 0);

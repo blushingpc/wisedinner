@@ -7,10 +7,11 @@ import { belowMinimum, ctxFor, evaluate, options } from "./engine.ts";
 export function swapCandidates(week: SolveOutput, slotIndex: number, s: Snapshot, n = 6): SwapCandidate[] {
   const d = Math.floor(slotIndex / 3);
   const sl = slotIndex % 3;
-  if (d < 0 || d > 4 || slotIndex < 0) throw new Error("slotIndex must be 0..14");
+  if (!Number.isInteger(slotIndex) || d < 0 || d > 4 || slotIndex < 0) throw new Error("slotIndex must be 0..14");
   if (belowMinimum(week.input)) return []; // an empty week under the floor has nothing to swap
   const { ctx, internal } = ctxFor(week, s);
-  const current = internal[d][sl];
+  const current = internal[d]?.[sl];
+  if (!current) throw new Error("slotIndex must be 0..14");
   const base = evaluate(internal, ctx);
   const inWeek = new Set(internal.flat().map((t) => t.id));
   const existing = new Set([...week.list.map((i) => i.sku_id), ...ctx.pantry]);
@@ -20,6 +21,8 @@ export function swapCandidates(week: SolveOutput, slotIndex: number, s: Snapshot
     if (inWeek.has(t.id)) continue;
     const w = internal.map((day, di) => (di === d ? day.map((x, si) => (si === sl ? t : x)) : day));
     const ev = evaluate(w, ctx);
+    const afterDay = ev.days[d], beforeDay = base.days[d];
+    if (!afterDay || !beforeDay) throw new Error("Week must contain five complete days");
     if (base.penalty === 0 ? ev.penalty !== 0 : ev.score > base.score) continue;
     const newItems = t.parts.map((p) => p.sku).filter((id) => !existing.has(id));
     const v = variants.get(t.id);
@@ -27,7 +30,7 @@ export function swapCandidates(week: SolveOutput, slotIndex: number, s: Snapshot
       recipe_id: t.id,
       name: t.name,
       deltaCost: Math.round((ev.cost - base.cost) * 100) / 100,
-      deltaProtein: Math.round(ev.days[d].protein) - Math.round(base.days[d].protein), // the day figures as displayed
+      deltaProtein: Math.round(afterDay.protein) - Math.round(beforeDay.protein), // the day figures as displayed
       usesExisting: newItems.length === 0,
       newItems,
       ...(v ? { variantOf: { recipe_id: current.id, kind: v.kind } } : {}),
