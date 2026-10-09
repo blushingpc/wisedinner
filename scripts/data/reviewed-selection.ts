@@ -102,7 +102,9 @@ export function reviewedCandidates(week: SolveOutput, slot: number, stage: Stage
   evaluateWeek(ids, week.input, selection.snapshot);
   const bounded = shortlistCatalog(selection.snapshot, week.input, ids);
   const original = new Map(stage.purchased.recipe_variants.map(v => [v.variant_recipe_id, v]));
-  const current = ids[slot], originalFamily = original.get(current)?.recipe_id ?? current;
+  const current = ids[slot];
+  if(!Number.isInteger(slot)||current===undefined)throw new Error("Invalid reviewed meal slot");
+  const originalFamily = original.get(current)?.recipe_id ?? current;
   return swapCandidates(week, slot, bounded).map(candidate => {
     // Projected representatives are NOT authored parents. Preserve only actual original variant relations.
     const { variantOf: _projectedRelation, ...plain } = candidate;

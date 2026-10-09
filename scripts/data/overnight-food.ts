@@ -12,7 +12,9 @@ export function overnightBasket() {
   const sku=toSku(SKUS.find(s=>s.id==="ww-spaghetti")!);
   if(p.status!=="reviewed-original-label" || p.upc!=="0007680800584" || p.gtin!=="00076808005844" || p.pack!=="16 oz" || map.productId!==p.upc || map.size!==p.pack || sku.pack_qty!==1 || sku.pack_unit!=="lb" || digest(p.ingredients)!==digest(["Whole Grain Durum Wheat Flour"]) || p.yield!==1 || p.serving_g!==56) throw new Error("Whole-grain spaghetti identity/quantity review stale");
   b.quantities[sku.id]={sku_id:sku.id,source:p.panel,identity:p.identity,accessed:p.accessed,source_basis:"dry",edible_per_purchased:1,yield_source:p.manufacturer,yield_row:p.yield_basis,limits:p.limits,nutrition:labelNutrition(sku.id,p),purchase_basis:digest([sku.id,sku.pack_qty,sku.pack_unit,sku.pack_label,sku.canonical_unit,sku.grams_per_unit])};
-  b.safety[sku.id]={...b.safety[sku.id],status:"reviewed",allergens:["wheat","eggs"],diet:["gluten"],known_allergens:["wheat","eggs"],known_diet:["gluten"],sources:[p.manufacturer,p.panel,p.serving_source],reviewed_at:p.accessed,basis:p.limits};
+  const existingSafety=b.safety[sku.id];
+  if(!existingSafety)throw new Error("Whole-grain spaghetti safety review missing");
+  b.safety[sku.id]={...existingSafety,status:"reviewed",allergens:["wheat","eggs"],diet:["gluten"],known_allergens:["wheat","eggs"],known_diet:["gluten"],sources:[p.manufacturer,p.panel,p.serving_source],reviewed_at:p.accessed,basis:p.limits};
   b.input_digest=digest({prior:b.input_digest,labels});
   b.source_digest=digest({quantities:b.quantities,safety:b.safety,input_digest:b.input_digest});
   b.blocked=b.blocked.filter(id=>id!==sku.id);
