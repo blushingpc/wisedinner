@@ -60,3 +60,12 @@ export function decodeInventoryPlan(raw: string, expected?: PreviewRequest) {
   return freeze({ family: INVENTORY_FAMILY, version: 1, source: SOURCE_REVISION, revision: v.revision, request, originalSelection: safeCopy(v.originalSelection), selection: safeCopy(v.selection), pantry: physicalPantry(v.pantry), checks: record(safeCopy(v.checks)), model: inventoryModel(v.selection, request, v.pantry, v.originalSelection) });
 }
 export function sameInventoryRequest(a: PreviewRequest, b: PreviewRequest) { return JSON.stringify(previewRequest(a)) === JSON.stringify(previewRequest(b)); }
+// This family alone: one slot changes, original purchase/owned stock never does.
+export function replacementPlan(beforeRaw: string, afterRaw: string, slot: unknown) {
+  if (typeof slot !== "number" || !Number.isInteger(slot) || slot < 0 || slot > 14) held();
+  const before = decodeInventoryPlan(beforeRaw), after = decodeInventoryPlan(afterRaw, before.request);
+  if (after.revision !== before.revision + 1 || JSON.stringify(after.originalSelection) !== JSON.stringify(before.originalSelection) || JSON.stringify(after.pantry) !== JSON.stringify(before.pantry) || JSON.stringify(after.checks) !== JSON.stringify(before.checks) || JSON.stringify(after.model.originalInventory) !== JSON.stringify(before.model.originalInventory) || after.model.totalCents !== before.model.totalCents || after.model.budgetCents !== before.model.budgetCents) held();
+  let changed = 0;
+  before.model.days.forEach((day, d) => day.meals.forEach((meal, m) => { const next = after.model.days[d]?.meals[m]; if (!next) held(); if (d * 3 + m === slot) { if (next.id === meal.id) held(); changed++; } else if (JSON.stringify(next) !== JSON.stringify(meal)) held(); }));
+  if (changed !== 1) held(); return after;
+}

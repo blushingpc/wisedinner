@@ -30,6 +30,7 @@ export function createReviewedOwnerCatalog(read: (path: string) => Buffer = sour
   const prices = Object.fromEntries([...priceMapFor(s.edible, store, frozen.zip)].map(([id, p]) => [id, { cents: Math.round(p.price_usd * 100), observed: p.observed, asOf: p.as_of }]));
   if (digest(prices) !== digest(frozen.prices)) throw Error("reviewed_price_held");
   return Object.freeze({
+    assertSources,
     solve(value: unknown): string {
       assertSources();
       const request = previewRequest(value), allowed = new Set(eligibleRecipeIds(request));
