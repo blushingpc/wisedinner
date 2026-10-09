@@ -625,3 +625,9 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - 84 distinct affected runtime names, strict joined/ordinary types, scoped lint/voice and reachable iOS JavaScript binding closure pass. Original cancellation harness failure preserved.
 - All factories OFF, parents/G OPEN; real iPhone, physical food/current prices and hosted/provider proof UNRUN. Next: all-node minimum dependency handoff with exact genuine gates.
 - Report: docs/NATIVE-REVIEWED-OWNER-BINDING-LOCAL-2026-10-09.md
+
+### 2026-10-09 Native reviewed minimum handoff LOCAL
+- Two prepared producer/binding nodes sealed:98 unique current passing runtime names,144 original full-output fixtures,878 reopened immutable entries and35 closed/released resources.
+- Eligible local candidate flow is checkpointed; all15 parents/G OPEN and factories OFF. Native, hosted/provider, physical food/current-price/shared acceptance remain genuine gates.
+- Next: exact same-thread coordinator boundary and separately reviewed accepted-target/native/food/provider proof; routine audits after flow. Fixed result pointer remains first producer report.
+- Aggregate: docs/NATIVE-REVIEWED-MINIMUM-HANDOFF-LOCAL-2026-10-09.md
