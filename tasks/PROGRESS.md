@@ -603,3 +603,8 @@ Current local submission complete; recipe/equipment/inventory bridge and real na
 ### 2026-10-09 B5 reviewed owner durable inventory
 
 LOCAL source/controller/storage-port installation and recovery verified. Separate candidate family/key only; activation OFF and parents OPEN. 160 distinct runtime leaves and final strict/ordinary type gates pass. Original failures preserved. Next: included single-meal replacement with original purchased packs and finite pantry. Report: docs/REVIEWED-OWNER-DURABLE-INVENTORY-LOCAL-2026-10-09.md
+
+
+### 2026-10-09 B5 reviewed owner included replacement
+
+LOCAL actual owner single-meal replacement and durable whole-week recovery verified. Other14 meals, original purchased packs/cents/budget and finite pantry preserved. 108 distinct current affected leaves pass; 181 unique passing names this turn, with overlap excluded. Activation OFF, parents OPEN. Next: source-family meal/list instruction consumption and genuine activation/food/native/hosted prerequisites. Report: docs/REVIEWED-OWNER-INCLUDED-REROLL-LOCAL-2026-10-09.md
