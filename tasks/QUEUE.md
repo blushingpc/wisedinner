@@ -272,3 +272,10 @@ LOCAL actual acknowledged candidate now renders original instructions and purcha
 - Eligible local candidate flow is checkpointed; all15 parents/G OPEN and factories OFF. Native, hosted/provider, physical food/current-price/shared acceptance remain genuine gates.
 - Next: exact same-thread coordinator boundary and separately reviewed accepted-target/native/food/provider proof; routine audits after flow. Fixed result pointer remains first producer report.
 - Aggregate: docs/NATIVE-REVIEWED-MINIMUM-HANDOFF-LOCAL-2026-10-09.md
+
+### 2026-10-09 Email Auth compatible change plan LOCAL
+- Exact held six-digit signup/repeat-login provider package and rollback prepared; app production source unchanged.
+- 61 distinct current runtime names, current types, scoped effective lint and voice pass; original type/import/preservation failures retained.
+- Single permitted nonsecret Auth GET matched pinned state. No provider write/mail/activation; parents/G OPEN, spending $0.
+- Next: exact isolated Auth/shared-consumer review, encrypted credential correspondence, Enforced TLS and owned-recipient send scope.
+- Report: docs/EMAIL-AUTH-COMPATIBLE-CHANGE-PLAN-LOCAL-2026-10-09.md
