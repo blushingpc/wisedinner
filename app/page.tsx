@@ -1,5 +1,5 @@
 import { site } from "@/content/site";
-import { FAQ, SITE, faqLd } from "./copy";
+import { FAQ, SITE, SUPPORT_EMAIL, faqLd } from "./copy";
 import { Accordion } from "./ui/accordion";
 import { PhoneStage } from "./ui/phone-stage";
 import { GroceryList, ReceiptReveal, ShareWeek, ThisWeek, TwoNumbers } from "./screens";
@@ -21,7 +21,7 @@ const ORG = {
   name: "WiseDinner",
   url: SITE,
   logo: `${SITE}/press/wisedinner-mark.png`,
-  email: "support@wisedinner.com",
+  email: SUPPORT_EMAIL,
   description: site.hero.lede,
 };
 

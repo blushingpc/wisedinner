@@ -1,15 +1,27 @@
 {/* <!-- draft for attorney review before paid launch --> */}
 import type { Metadata } from "next";
 import { LegalLayout, type LegalSection } from "@/app/ui/legal-layout";
-import { PRIVACY_EFFECTIVE, PURCHASES } from "@/content/legal";
+import { APP_CLARIFIED, LOCAL_APP_PRIVACY, PRIVACY_EFFECTIVE, PURCHASES } from "@/content/legal";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
-  description: "What WiseDinner collects (almost nothing: the site takes no email for pre-order), what it never does with it, where it lives, how long we keep it, and how to see or delete it. No data sales, not ever.",
+  description: "How the free WiseDinner app stores plans on your device, what the website and optional support collect, and how to request access or deletion.",
   alternates: { canonical: "/privacy" },
 };
 
 const S: LegalSection[] = [
+  {
+    id: "local-app",
+    title: "The free local planner",
+    body: (
+      <>
+        <p>{LOCAL_APP_PRIVACY}</p>
+        <p>The current app does not publish shared weeks or offer subscriptions. If you open Privacy or Terms, the public page opens in your browser. If you choose Support, your email app opens. Your plan and answers are not automatically attached. You decide what to send; please leave out sensitive health information.</p>
+        <p>The website analytics and optional support processing described below are separate from the local meal planner. You can remove local app data by deleting the app; device backups are controlled by your device settings.</p>
+        <p>Current app clarification: {APP_CLARIFIED}. This describes the current free version and does not introduce new collection or change the retention and rights below.</p>
+      </>
+    ),
+  },
   {
     id: "collect",
     title: "What we collect",
@@ -21,7 +33,7 @@ const S: LegalSection[] = [
             <strong>Nothing for pre-order.</strong> The Pre-order now button sends you to the App Store or Google Play. The pre-order happens there, under that store&apos;s privacy policy. This site takes no email address, no account and no payment for it. We see only the anonymous analytics event that the button was used.
           </li>
           <li>
-            <strong>Shared weeks</strong>. When you share a week from the app, the card and its numbers, the meals, the list, the estimated totals, are published at a link on this site. Nothing about you travels with it: no name, no email, no device identifier. The shared pages on this site today are fixtures.
+            <strong>Shared week examples.</strong> The current free app does not publish shared week links. Examples on this site are demonstrations, not customers&apos; plans. If a future version offers public sharing, it will explain what is published before you choose to share.
           </li>
           <li>
             <strong>Support messages</strong>: your name if you give it, your email, and what you wrote.
@@ -30,7 +42,7 @@ const S: LegalSection[] = [
             <strong>Cookieless analytics</strong>. We use Vercel Web Analytics, which counts page views and a handful of named events (like &quot;pre-order opened&quot;) without cookies, without fingerprinting, and without a persistent identifier for you. It records a hashed, rotating visitor id, your country, device type, and referrer. It can&apos;t follow you across sites.
           </li>
         </ul>
-        <p>We don&apos;t ask for your name, your address, your payment details, or your health information anywhere on this site. Please don&apos;t put health information in the support form.</p>
+        <p>The support form asks for your email and message; your name is optional. We do not request your address, payment details or health information. Please leave health information out of support messages.</p>
       </>
     ),
   },
@@ -63,7 +75,7 @@ const S: LegalSection[] = [
     title: "Where it lives",
     body: (
       <>
-        <p>Support messages (and the entries from the retired early-access waitlist, see below) are stored in a Supabase (Postgres) database hosted in the United States. The website runs on Vercel, which also provides the analytics. Both are processors acting on our instructions; they don&apos;t get to use your data for their own purposes.</p>
+        <p>Support messages (and the entries from the retired early-access waitlist, see below) are stored in a Supabase (Postgres) database hosted in the United States. Email support uses Google Gmail. For email triage, the sender address, subject and up to the first 6,000 characters of the message may be processed by Anthropic to draft an informational reply or route it to a person. The website support form instead creates a thread for a person; its messages are not sent through that email triage path. The website runs on Vercel, which also provides the analytics.</p>
         <p>If you&apos;re outside the US, your data is transferred to and stored in the US when you submit it.</p>
       </>
     ),
@@ -105,7 +117,7 @@ const S: LegalSection[] = [
           <li>Delete all of it, including any entry from the retired waitlist;</li>
           <li>Send you a copy in a plain format.</li>
         </ul>
-        <p>Email support@wisedinner.com from the address in question. We confirm within 7 days and complete the request within 30. No forms, no account required. If you live somewhere with a data-protection regulator, you can also complain to them; we&apos;d rather you told us first.</p>
+        <p>Email wisedinnersupport@gmail.com from the address in question. We confirm within 7 days and complete the request within 30. No forms, no account required. If you live somewhere with a data-protection regulator, you can also complain to them; we&apos;d rather you told us first.</p>
       </>
     ),
   },

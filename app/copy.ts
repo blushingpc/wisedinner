@@ -4,7 +4,7 @@ import { site } from "../content/site.ts";
 const [plan, courier] = site.pricing.tiers;
 const usd = (n: number) => "$" + n.toFixed(2).replace(/\.00$/, "");
 
-export const SUPPORT_EMAIL = "support@wisedinner.com";
+export const SUPPORT_EMAIL = "wisedinnersupport@gmail.com";
 export const SITE = "https://www.wisedinner.com";
 
 export const FAQ = [

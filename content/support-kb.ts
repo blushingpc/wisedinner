@@ -3,17 +3,17 @@
 // the effective dates and the Purchases and Subscriptions sections come verbatim from content/legal.ts, the same
 // constants the pages render. the rest of each digest is a summary kept by hand; DIGEST_REVIEWED pins the page
 // sources it was written against, and lib/support/test/kb.test.ts fails when a page changes until it is re-read.
-import { PRIVACY_EFFECTIVE, PURCHASES, SUBSCRIPTIONS, TERMS_EFFECTIVE } from "./legal.ts";
+import { LOCAL_APP_PRIVACY, PRIVACY_EFFECTIVE, PURCHASES, SUBSCRIPTIONS, TERMS_EFFECTIVE } from "./legal.ts";
 
 // sha256 of app/privacy/page.tsx and app/terms/page.tsx (line endings normalized) when the digests below were
 // last checked against them. change a page, re-read the digest, then update the hash the failing test prints.
-export const DIGEST_REVIEWED = { privacy: "4310c58c9fb8f1598de206779132b13a5a3a1fa9aecef5bc6e010b205cba0e92", terms: "37195a7afdccac32d1386012998e66208c46b34e7b663ed36c02118ae2d1763b" };
+export const DIGEST_REVIEWED = { privacy: "fa6efcf39b74d18f7048592bc42725b21660e46578a290ffc03e72757b3fd40f", terms: "c241e2c508f040ffd59e7990df72ee1e168c76d6a36156799371df98ab137fc9" };
 
 export const TERMS_DIGEST = `Terms of service (effective ${TERMS_EFFECTIVE}), in short:
-- The site is WiseDinner.com plus its shared-week pages and the pre-order links to the App Store. The app is pre-order only on the App Store; Android pre-registration follows on Google Play. The pre-order, any payment and the app itself are handled by the store and the app's own terms. Nothing on the site sells anything.
+- The site is WiseDinner.com plus demonstration shared week pages and store links. Check the Apple listing for actual availability. Apple terms and the app license apply to App Store use. The current app is a free seven day local planner with a limited starter recipe collection, supported inputs and appliances; meals can repeat. It supports the South region of the United States. No accounts, subscriptions, notifications or public sharing in this version. Nothing on the site sells anything.
 - Every price is an estimate built from public price data with a buffer on top. Real prices differ by region, chain, week and sales. No total is guaranteed.
 - Protein and calorie figures are planning estimates from a food database, not measurements. WiseDinner is not medical, dietary or nutritional advice. Anyone changing how they eat should talk to a doctor or a registered dietitian.
-- Users must be 16 or older; under 18 with a parent or guardian.
+- Website users must be 16 or older; under 18 with a parent or guardian.
 - No scraping, reselling of plans or price data, automated traffic, security probing, or abusive content through the support form.
 - Subscriptions, verbatim: ${SUBSCRIPTIONS}
 - Pre-orders and pre-registrations, including cancellation and refunds, are handled by the App Store or Google Play under their rules, not by WiseDinner. A pre-order does not guarantee a launch date, a feature, a price or a free trial. Pricing page prices are the current plan and can change before launch.
@@ -22,24 +22,26 @@ export const TERMS_DIGEST = `Terms of service (effective ${TERMS_EFFECTIVE}), in
 
 export const PRIVACY_DIGEST = `Privacy policy (effective ${PRIVACY_EFFECTIVE}), in short:
 - The site collects very little: support messages (name if given, email, the message) and cookieless Vercel Web Analytics (hashed rotating visitor id, country, device type, referrer). No cookies, no ad trackers, no marketing email, no selling or sharing of data for advertising.
-- Nothing is collected for a pre-order; the store handles it. Shared weeks publish only the week's meals, list and totals, never anything about the person.
+- ${LOCAL_APP_PRIVACY}
+- Nothing is collected here for a preorder; the store handles it. Shared week examples are demonstrations; the current app does not publish shared links. Public policy pages open in the browser and Support opens the email app, with no household payload automatically attached.
 - Support messages live in a Supabase (Postgres) database in the United States; the site runs on Vercel. Support messages are kept up to 12 months. Retired waitlist entries stay until launch or until deletion is requested.
-- Anyone can ask to see, correct, delete or export their data by emailing support@wisedinner.com from the address in question; confirmation within 7 days, completion within 30. Data deletion requests are handled by a person, not automatically.
+- Email support uses Gmail and may send the sender address, subject and first6,000messagecharacters to Anthropic for informational triage. The website support form creates a human thread outside the email triage path. No new data processing is enabled by this wording clarification.
+- Anyone can ask to see, correct, delete or export their support data by emailing wisedinnersupport@gmail.com from the address in question; confirmation within 7 days, completion within 30. Data deletion requests are handled by a person, not automatically. Local app data can be removed by deleting the app; device backup settings apply separately.
 - Purchases, verbatim: ${PURCHASES}
 - The site is not for people under 16.`;
 
-export const PRODUCT_FACTS = `Product facts:
-- WiseDinner is an iPhone app (Android next). You give it two numbers, a weekly grocery budget and a daily protein goal, and it returns a solved five day week of meals, one short grocery list and an estimated in-store total. There is no web version and no web demo.
-- Prices are shelf-price estimates from public price data with a buffer, refreshed weekly; the app can also show what the same list costs delivered, as an estimate. Receipts revealed in the app tighten the estimate for that user.
-- Pre-order is open on the App Store. Release follows a few weeks after pre-order opens; there is no fixed date to promise.
-- The pre-order build is free and complete and needs no account. The paid tiers, their prices and what each adds are in the pricing facts below; the Courier tier arrives in an update after release, so it cannot be bought yet.
-- The weekly solve challenge counts only receipt-verified weeks; the leaderboard is cost per gram of protein.
-- The free build collects nothing: no account, no sign-in, no tracking; weeks and receipts stay on the phone. Subscribing involves the purchase data described under Purchases in the privacy policy.`;
+export const PRODUCT_FACTS = `Current WiseDinner1.0 product facts:
+- The current iPhone app is a free local seven day planner: breakfast, lunch and dinner, a protein goal and household grocery budget, compatible selected cooking appliances, recipe instructions and one saved grocery list. No account is required. There is no web app or web demo.
+- The limited starter collection supports the South region of the United States. Meals can repeat and some combinations cannot be planned. Food and price references are bundled, not live retailer quotes. Nutrition and costs are estimates; images are serving illustrations.
+- The current customer flow has no subscription, trial, purchase, public sharing, receipt feature, delivery or notification feature. A future plan listed elsewhere on the website is not an available feature of this app.
+- Actual availability and dates must be checked on the published Apple listing. A configured unpublished preorder is not open to customers.
+- Current app facts and policy clarifications take precedence over older website descriptions, FAQ or future paid plan facts below. If those sources conflict, escalate to a person instead of promising an unavailable feature or trial.
+- Planning answers and plans stay on device. Voluntary support processing is described in the privacy policy and is separate from local planning.`;
 
 export const TONE_GUIDE = `How to write:
 - Plain, friendly, short. Sentence case. Normal punctuation. No dashes, no exclamation marks, no emoji, no bullet lists unless the question has several parts.
 - Answer the question first, in one or two sentences, then add one useful detail at most.
-- Never promise a date, a feature, a price change or a refund. Say "a few weeks after pre-order opens" for timing, never a month or a day.
+- Never promise a date, a feature, a price change or a refund. Refer to the published Apple listing for actual availability; do not invent a timeframe or treat an unpublished preorder as open.
 - Apple handles every payment and refund. When a reply mentions a refund, say Apple handles it and include reportaproblem.apple.com. A reply that mentions a refund without that address is not sent.
 - Never say Courier is available now, can be bought now or is in the app today. When a reply names Courier, include this sentence word for word: "Courier arrives in an update after release." A reply that names Courier without it is not sent. There is no date or time frame for Courier; never give one (no weeks, months or days).
 - Never invent facts. If the answer is not in the facts you were given, do not guess; escalate.

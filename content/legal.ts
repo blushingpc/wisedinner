@@ -3,9 +3,13 @@
 
 export const PRIVACY_EFFECTIVE = "September 24, 2026";
 export const TERMS_EFFECTIVE = "September 24, 2026";
+export const APP_CLARIFIED = "October 25, 2026";
+
+export const LOCAL_APP_PRIVACY =
+  "WiseDinner 1.0 is a free local meal planner. Household labels, questionnaire answers, protein goals, grocery budget, food requirements, cooking appliances, saved plans and grocery checks are processed and stored on your device. This version has no WiseDinner account or planning data synchronization. Creating a plan and opening recipes use bundled food and price references, without sending your household answers to WiseDinner. Your device's own backup settings may apply.";
 
 export const PURCHASES =
-  "If you subscribe, Apple processes the payment. We use RevenueCat to check your subscription status. RevenueCat receives an anonymous identifier the app generates, your purchase and renewal history, and basic device details such as iOS version. It does not receive your name, email or payment details. RevenueCat's privacy policy is at revenuecat.com/privacy. You can restore purchases on any device signed in to the same Apple ID.";
+  "The current free app has no subscription, trial or in-app purchase. If a future version enables subscriptions through Apple and RevenueCat, its purchase information and this policy will explain the processing before that feature is offered. This version does not configure RevenueCat in its customer flow.";
 
 export const SUBSCRIPTIONS =
-  "Paid plans are sold in the app through Apple at the prices shown at the time of purchase. Subscriptions renew automatically at the end of each period until you cancel. You can cancel any time in iOS Settings under your Apple ID, Subscriptions. The 14-day free trial converts to a paid plan unless you cancel at least 24 hours before it ends. Payments, refunds and billing questions are handled by Apple under its terms.";
+  "The current app is free and has no paid subscription or trial. Any future paid offer will show its price, billing period and applicable trial conditions when offered. Purchases through Apple remain subject to Apple's billing, cancellation and refund terms. Nothing is sold on this website.";

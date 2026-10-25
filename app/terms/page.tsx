@@ -1,7 +1,7 @@
 {/* <!-- draft for attorney review before paid launch --> */}
 import type { Metadata } from "next";
 import { LegalLayout, type LegalSection } from "@/app/ui/legal-layout";
-import { SUBSCRIPTIONS, TERMS_EFFECTIVE } from "@/content/legal";
+import { APP_CLARIFIED, SUBSCRIPTIONS, TERMS_EFFECTIVE } from "@/content/legal";
 
 export const metadata: Metadata = {
   title: "Terms of service",
@@ -17,7 +17,7 @@ const S: LegalSection[] = [
       <>
         <p>Wisedinner is made by WiseDinner. We&apos;ll call ourselves &quot;we&quot; or &quot;WiseDinner&quot;. You&apos;re &quot;you&quot;.</p>
         <p>These terms cover the WiseDinner website at WiseDinner.com, the shared-week pages on it, and the Pre-order now links that send you to the App Store or Google Play. By using any of them you agree to these terms. If you don&apos;t agree, please don&apos;t use the site.</p>
-        <p>The app is available for pre-order on the App Store (Android pre-registration follows on Google Play). The pre-order, any payment and the app itself are handled by that store and by the app&apos;s own terms; paid plans will have their own billing terms in the app. Nothing on this site sells you anything.</p>
+        <p>App Store availability is shown on the Apple listing when it is published. Preorders and app licensing are subject to Apple&apos;s applicable terms and the app&apos;s license agreement. The current free app does not offer purchases. Nothing on this site sells you anything.</p>
       </>
     ),
   },
@@ -26,10 +26,13 @@ const S: LegalSection[] = [
     title: "The service",
     body: (
       <>
-        <p>Right now the service is two things.</p>
+        <p>Current app clarification: {APP_CLARIFIED}. The current free version and website work as follows.</p>
         <ul>
           <li>
-            <strong>Shared weeks.</strong> The WiseDinner app lets a user share a solved week as a card and a link on this site (WiseDinner.com/w/). A shared page shows the week&apos;s meals, its list and its estimated totals. It shows nothing about the person who shared it. The examples on this site today are fixtures, not real users&apos; weeks. The app itself has its own terms inside the app.
+            <strong>The free planner.</strong> WiseDinner plans seven days of breakfast, lunch and dinner using a limited starter recipe collection, a protein goal and a household grocery budget. Meals can repeat. Recipes are matched to the cooking appliances selected. Some combinations of region, food requirements, equipment, goals and budget are outside the collection&apos;s coverage. The current app supports the South region of the United States.
+          </li>
+          <li>
+            <strong>Local plans and website examples.</strong> The current app saves plans on your device. It does not provide accounts, subscriptions, notifications or public shared week links. Shared week examples on this website are demonstrations. Food images are serving illustrations. Planning costs and nutrition figures are estimates from bundled ingredient references, not live checkout quotes or measured cooked portions.
           </li>
           <li>
             <strong>Pre-order links.</strong> The Pre-order now button sends you to the App Store (iPhone) or Google Play (Android). The pre-order or pre-registration is a contract between you and that store under its terms. This site takes no email address, payment or account details for it.
@@ -102,7 +105,7 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>Pre-ordering on the App Store or pre-registering on Google Play is handled by that store, under its terms and its cancellation and refund rules, not by us. It does not guarantee a launch date, a feature, a price, or a free trial. The prices on our pricing page are what we currently plan to charge in the app, and they can change before launch.</p>
-        <p>If you joined the early-access waitlist this site ran before pre-order opened, that list is closed; you can have your entry deleted any time by emailing support@wisedinner.com.</p>
+        <p>If you joined the early-access waitlist this site ran before pre-order opened, that list is closed; you can have your entry deleted any time by emailing wisedinnersupport@gmail.com.</p>
       </>
     ),
   },
@@ -142,7 +145,7 @@ const S: LegalSection[] = [
     body: (
       <>
         <p>These terms are governed by the laws of Florida, USA, without regard to conflict-of-law rules.</p>
-        <p>If there&apos;s a problem, email support@wisedinner.com first. We&apos;ll try to sort it out informally within 30 days. If we can&apos;t, either of us can take it to the state or federal courts located in Florida, USA, and you agree to that jurisdiction.</p>
+        <p>If there&apos;s a problem, email wisedinnersupport@gmail.com first. We&apos;ll try to sort it out informally within 30 days. If we can&apos;t, either of us can take it to the state or federal courts located in Florida, USA, and you agree to that jurisdiction.</p>
       </>
     ),
   },
