@@ -1,8 +1,8 @@
-import {createHash} from "node:crypto";
+import { sha256Hex } from "../../lib/generated-runtime-bytes.ts";
 import {packCanonical} from "../../packages/solver/src/units.ts";
 import type {AuthoredSku} from "./authored/skus.ts";
 import {STORES} from "./authored/stores.ts";
-export const hash=(v:unknown)=>createHash("sha256").update(JSON.stringify(v)).digest("hex");
+export const hash=(v:unknown)=>sha256Hex(JSON.stringify(v));
 export const normalize=(v:string)=>v.normalize("NFKC").replace(/[®™]/g,"").toLowerCase().replace(/\s+/g," ").trim();
 export const packFingerprint=(s:AuthoredSku)=>hash([s.id,s.name,s.pack_qty,s.pack_unit,s.canonical_unit,s.grams_per_unit]);
 export type Offer={productId:string;description:string;items:{itemId?:string;size?:string;soldBy?:string;fulfillment?:{instore?:boolean;inStore?:boolean};price?:{regular?:number;promo?:number}}[]};
@@ -87,7 +87,8 @@ export function quarantinePrices(rows:ExactPrice[],skus:AuthoredSku[],context?:u
  // including a valid row paired with an invalid or differently located row.
  for(const r of input){const id=own(r,"sku_id");counts.set(id,(counts.get(id)??0)+1);}
  for(const value of input){const r=value as ExactPrice,id=own(r,"sku_id"),matches=skus.filter(s=>s.id===id);
- if(c&&counts.get(id)===1&&matches.length===1&&currentlyUsable(r,matches[0],c))accepted.push(r);
+ // Unique SKU branch proves its first match before the runtime-erased assertion.
+ if(c&&counts.get(id)===1&&matches.length===1&&currentlyUsable(r,matches[0]!,c))accepted.push(r);
  else {const text=(key:string)=>{const v=own(r,key);return typeof v==="string"?v:"";};quarantine.push({sku_id:text("sku_id"),store_id:text("store_id"),region:text("region"),as_of:text("as_of"),reason:"Held: explicit clock/policy, exact supported requested location, unique observation and immutable identity/pack/integer cents are required; historical integrity alone is insufficient."});}}
  return {accepted,quarantine,context_valid:c!==null};
 }

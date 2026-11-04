@@ -1,5 +1,7 @@
 // Server-only, unbound composition. No default admission, transaction connection or route binding.
-import {AccountError, UUID} from './account.ts';
+import {AccountError} from './generated-runtime-error.ts';
+import {UUID} from './generated-runtime-identity.ts';
+import {utf8ByteLength} from './generated-runtime-bytes.ts';
 export const FORMAT="owner-plan-v2-proposal-2026-10-08";
 export const MAX_BYTES=131072;
 export const PINS=Object.freeze({
@@ -36,7 +38,7 @@ export function ownCopy(value:unknown):unknown{
   }
   active.delete(v);return out;
  }
- const out=walk(value,0);if(Buffer.byteLength(JSON.stringify(out))>MAX_BYTES)refuse('state_too_large');return out;
+ const out=walk(value,0);if(utf8ByteLength(JSON.stringify(out))>MAX_BYTES)refuse('state_too_large');return out;
 }
 export const canonical=(v:unknown)=>JSON.stringify(ownCopy(v));
 function record(v:unknown,keys:readonly string[]):Record<string,unknown>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).sort().join()!==[...keys].sort().join())refuse();return v as Record<string,unknown>;}

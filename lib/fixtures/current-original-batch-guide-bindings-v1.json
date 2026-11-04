@@ -1,0 +1,597 @@
+{
+  "schema": "wd-source-original-batch-goldens-v1",
+  "sourceSha256": "4c4e64e9c7030ac588cd665a16786620a066d23c7fc409a086d12ac3d393051c",
+  "goldenOnlyNotWhitelist": true,
+  "guides": [
+    {
+      "schema": "wd-source-original-batch-guide-v1",
+      "kind": "source-derived-original-full-batch",
+      "sourceSha256": "4c4e64e9c7030ac588cd665a16786620a066d23c7fc409a086d12ac3d393051c",
+      "recipeId": "WD-R6-M-790a5d5592f32a7b",
+      "recipeSha256": "b6d90e4a253ef4cab6c7d513b0a40e2f0645b7f22f5b4a45c53a3df6fdec5741",
+      "methodSha256": "f0fdd7a98506b6c94ebf2496b4daf7cc58a0185bcb18dd81b07b6b7d89b25456",
+      "ingredientsSha256": "cc5c3fe5332158e2fe430e2ced92395a5129535265953f8313fb3ab08dd0d60b",
+      "allocationsSha256": "333674a8ef64ac238b0f2255f0051ab0cb779c839c5140fb78607bc03115e997",
+      "sourceServings": {
+        "numerator": "2",
+        "denominator": "1"
+      },
+      "factor": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "originalRecipe": {
+        "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+        "capacity_note": "Two servings. Bread and pan capacity, cooked yield and timing are authored estimates, not kitchen measurements. Use the stated pan and sequential batches; do not discard calculated filling to make it fit.",
+        "concept": "A familiar honey mustard egg toasties meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+        "equipment": [
+          "kitchen scale",
+          "knife",
+          "cutting board",
+          "two serving plates or bowls",
+          "stove",
+          "30 cm nonstick skillet",
+          "spatula",
+          "thin-tip food thermometer",
+          "two-slot toaster",
+          "mixing bowl",
+          "whisk",
+          "clean heatproof filling bowl",
+          "raw-food mixing bowl",
+          "toaster"
+        ],
+        "ingredients": [
+          {
+            "id": "olive_oil",
+            "name": "olive oil",
+            "quantity": "6",
+            "state": "ready-to-use",
+            "unit": "g"
+          },
+          {
+            "id": "protein_eggs",
+            "name": "whole egg",
+            "quantity": "240",
+            "state": "raw, shell removed, beaten",
+            "unit": "g"
+          },
+          {
+            "id": "garlic_powder",
+            "name": "garlic powder",
+            "quantity": "1",
+            "state": "dried garlic powder",
+            "unit": "g"
+          },
+          {
+            "id": "salt",
+            "name": "table salt",
+            "quantity": "1",
+            "state": "ready-to-use",
+            "unit": "g"
+          },
+          {
+            "id": "dijon_mustard",
+            "name": "ready-made Dijon mustard",
+            "quantity": "20",
+            "state": "ready to eat",
+            "unit": "g"
+          },
+          {
+            "id": "honey",
+            "name": "honey",
+            "quantity": "20",
+            "state": "ready to eat",
+            "unit": "g"
+          },
+          {
+            "id": "sandwich_bread",
+            "name": "whole-grain sandwich bread",
+            "quantity": "160",
+            "state": "baked, ready-to-eat; 4 thick slices total",
+            "unit": "g"
+          }
+        ],
+        "route": "toastie",
+        "safety_sources": [
+          "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+          "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+        ],
+        "sauce_family": "honey-mustard",
+        "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+        "servings": 2,
+        "steps": [
+          {
+            "allocations": [
+              {
+                "id": "protein_eggs",
+                "quantity": "240",
+                "unit": "g"
+              },
+              {
+                "id": "olive_oil",
+                "quantity": "6",
+                "unit": "g"
+              },
+              {
+                "id": "garlic_powder",
+                "quantity": "1",
+                "unit": "g"
+              },
+              {
+                "id": "salt",
+                "quantity": "1",
+                "unit": "g"
+              }
+            ],
+            "id": 1,
+            "instruction": "Beat whole egg with garlic powder, table salt in the raw-egg mixing bowl. Heat the allocated olive oil in the skillet over medium-low heat. Pour every portion of beaten egg into the skillet. Gently fold for about 3-5 minutes until firm curds form, no liquid egg remains and the center reaches 160 F (71 C). Transfer every cooked piece and its measured pan juices to the clean heatproof filling bowl. Keep this bowl separate from raw-food utensils."
+          },
+          {
+            "allocations": [
+              {
+                "id": "sandwich_bread",
+                "quantity": "160",
+                "unit": "g"
+              },
+              {
+                "id": "dijon_mustard",
+                "quantity": "20",
+                "unit": "g"
+              },
+              {
+                "id": "honey",
+                "quantity": "20",
+                "unit": "g"
+              }
+            ],
+            "id": 2,
+            "instruction": "Return all cooked whole egg from the clean heatproof filling bowl to the skillet. Take the skillet off the heat. Scrape all cooked filling into the clean heatproof filling bowl. The skillet is now empty for the bread step. Toast all four bread slices in the toaster in two batches. Combine all ready-made Dijon mustard, honey with the hot filling in the clean bowl. Divide the complete filling between two toast sandwiches. Use no extra butter or spread."
+          }
+        ],
+        "supporting_vegetables_g": 0,
+        "timing_note": "Estimated 30-50 minutes elapsed and 25-45 minutes active/attention-bound, including filling and two sequential sandwich batches. Not kitchen timed.",
+        "title": "Honey mustard egg toasties"
+      },
+      "consumeCompleteBatch": true,
+      "instructionsRewritten": false,
+      "kitchenTested": false,
+      "safetyCertified": false,
+      "nutritionRecalculated": false,
+      "guideSha256": "03a5a9299a7ea3d74b1bcce219b6e5f9c940d9d8bf08bd9b3f9409689ed1d5a9"
+    },
+    {
+      "schema": "wd-source-original-batch-guide-v1",
+      "kind": "source-derived-original-full-batch",
+      "sourceSha256": "4c4e64e9c7030ac588cd665a16786620a066d23c7fc409a086d12ac3d393051c",
+      "recipeId": "WD-R6-M-312a9fd0caf34aa5",
+      "recipeSha256": "fd03bc1581678d9f9459d99a48086cda53f72b280a39c9e9a5d799bfb6ab4efe",
+      "methodSha256": "b95fec3693b453805e0299d4ad2f16b70bcdf2e153f99b03528210ff4ba13c8b",
+      "ingredientsSha256": "ea0a6ac2b79c3900ed9177a2cbb026a0e5f9efa787abc3d64b0f53005126f12f",
+      "allocationsSha256": "ca29f5ce4864bff3a141d1b43299d170263bf30ea3a11bc0187236e033463320",
+      "sourceServings": {
+        "numerator": "2",
+        "denominator": "1"
+      },
+      "factor": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "originalRecipe": {
+        "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+        "capacity_note": "Two servings. Bread and pan capacity, cooked yield and timing are authored estimates, not kitchen measurements. Use the stated pan and sequential batches; do not discard calculated filling to make it fit.",
+        "concept": "A familiar honey mustard beef toasties meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+        "equipment": [
+          "kitchen scale",
+          "knife",
+          "cutting board",
+          "two serving plates or bowls",
+          "stove",
+          "30 cm nonstick skillet",
+          "spatula",
+          "thin-tip food thermometer",
+          "two-slot toaster",
+          "clean heatproof filling bowl",
+          "raw-food mixing bowl",
+          "toaster"
+        ],
+        "ingredients": [
+          {
+            "id": "olive_oil",
+            "name": "olive oil",
+            "quantity": "6",
+            "state": "ready-to-use",
+            "unit": "g"
+          },
+          {
+            "id": "protein_lean_ground_beef",
+            "name": "lean ground beef",
+            "quantity": "360",
+            "state": "raw, chilled",
+            "unit": "g"
+          },
+          {
+            "id": "garlic_powder",
+            "name": "garlic powder",
+            "quantity": "1",
+            "state": "dried garlic powder",
+            "unit": "g"
+          },
+          {
+            "id": "salt",
+            "name": "table salt",
+            "quantity": "1",
+            "state": "ready-to-use",
+            "unit": "g"
+          },
+          {
+            "id": "dijon_mustard",
+            "name": "ready-made Dijon mustard",
+            "quantity": "20",
+            "state": "ready to eat",
+            "unit": "g"
+          },
+          {
+            "id": "honey",
+            "name": "honey",
+            "quantity": "20",
+            "state": "ready to eat",
+            "unit": "g"
+          },
+          {
+            "id": "sandwich_bread",
+            "name": "whole-grain sandwich bread",
+            "quantity": "160",
+            "state": "baked, ready-to-eat; 4 thick slices total",
+            "unit": "g"
+          }
+        ],
+        "route": "toastie",
+        "safety_sources": [
+          "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+          "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+        ],
+        "sauce_family": "honey-mustard",
+        "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+        "servings": 2,
+        "steps": [
+          {
+            "allocations": [
+              {
+                "id": "protein_lean_ground_beef",
+                "quantity": "360",
+                "unit": "g"
+              },
+              {
+                "id": "olive_oil",
+                "quantity": "6",
+                "unit": "g"
+              },
+              {
+                "id": "garlic_powder",
+                "quantity": "1",
+                "unit": "g"
+              },
+              {
+                "id": "salt",
+                "quantity": "1",
+                "unit": "g"
+              }
+            ],
+            "id": 1,
+            "instruction": "Heat the allocated olive oil in the skillet over medium heat. Add lean ground beef with garlic powder, table salt and break into small crumbles. Cook about 8-12 minutes, stirring, until substantial crumbles reach 160 F (71 C). Keep the measured cooking juices in the dish. Transfer every cooked piece and its measured pan juices to the clean heatproof filling bowl. Keep this bowl separate from raw-food utensils."
+          },
+          {
+            "allocations": [
+              {
+                "id": "sandwich_bread",
+                "quantity": "160",
+                "unit": "g"
+              },
+              {
+                "id": "dijon_mustard",
+                "quantity": "20",
+                "unit": "g"
+              },
+              {
+                "id": "honey",
+                "quantity": "20",
+                "unit": "g"
+              }
+            ],
+            "id": 2,
+            "instruction": "Return all cooked lean ground beef from the clean heatproof filling bowl to the skillet. Take the skillet off the heat. Scrape all cooked filling into the clean heatproof filling bowl. The skillet is now empty for the bread step. Toast all four bread slices in the toaster in two batches. Combine all ready-made Dijon mustard, honey with the hot filling in the clean bowl. Divide the complete filling between two toast sandwiches. Use no extra butter or spread."
+          }
+        ],
+        "supporting_vegetables_g": 0,
+        "timing_note": "Estimated 30-50 minutes elapsed and 25-45 minutes active/attention-bound, including filling and two sequential sandwich batches. Not kitchen timed.",
+        "title": "Honey mustard beef toasties"
+      },
+      "consumeCompleteBatch": true,
+      "instructionsRewritten": false,
+      "kitchenTested": false,
+      "safetyCertified": false,
+      "nutritionRecalculated": false,
+      "guideSha256": "b4edeb7563a750542b734c17a8bd1bde62c5094c97592e8b903b020b2d66ba7d"
+    },
+    {
+      "schema": "wd-source-original-batch-guide-v1",
+      "kind": "source-derived-original-full-batch",
+      "sourceSha256": "4c4e64e9c7030ac588cd665a16786620a066d23c7fc409a086d12ac3d393051c",
+      "recipeId": "WD-R6-M-0d32cfe33ab49c32",
+      "recipeSha256": "1b59010584be7e68d8e8e54f746e29543dff73e7da52a3b18e59979cd0cc721c",
+      "methodSha256": "69cddee04aaa0ca780487ace4b78803b81f6ae0172b1a58bb09475f4b3f38e3e",
+      "ingredientsSha256": "f3b110b8c4478d041e37fc9b7432fcbd69b9c520bb7d2ed1974caaf75947c31f",
+      "allocationsSha256": "1d0c82e2519e05d6395997ac9d61bd19ae56a26be58eceee3a2705e298b9f58d",
+      "sourceServings": {
+        "numerator": "2",
+        "denominator": "1"
+      },
+      "factor": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "originalRecipe": {
+        "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+        "capacity_note": "Two servings. Bread and pan capacity, cooked yield and timing are authored estimates, not kitchen measurements. Use the stated pan and sequential batches; do not discard calculated filling to make it fit.",
+        "concept": "A familiar cheesy beef toasties meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+        "equipment": [
+          "kitchen scale",
+          "knife",
+          "cutting board",
+          "two serving plates or bowls",
+          "stove",
+          "30 cm nonstick skillet",
+          "spatula",
+          "thin-tip food thermometer",
+          "two-slot toaster",
+          "clean heatproof filling bowl",
+          "raw-food mixing bowl",
+          "toaster"
+        ],
+        "ingredients": [
+          {
+            "id": "olive_oil",
+            "name": "olive oil",
+            "quantity": "6",
+            "state": "ready-to-use",
+            "unit": "g"
+          },
+          {
+            "id": "protein_lean_ground_beef",
+            "name": "lean ground beef",
+            "quantity": "360",
+            "state": "raw, chilled",
+            "unit": "g"
+          },
+          {
+            "id": "garlic_powder",
+            "name": "garlic powder",
+            "quantity": "1",
+            "state": "dried garlic powder",
+            "unit": "g"
+          },
+          {
+            "id": "salt",
+            "name": "table salt",
+            "quantity": "1",
+            "state": "ready-to-use",
+            "unit": "g"
+          },
+          {
+            "id": "cheddar_cheese",
+            "name": "cheddar cheese",
+            "quantity": "60",
+            "state": "ready-to-eat, shredded",
+            "unit": "g"
+          },
+          {
+            "id": "sandwich_bread",
+            "name": "whole-grain sandwich bread",
+            "quantity": "160",
+            "state": "baked, ready-to-eat; 4 thick slices total",
+            "unit": "g"
+          }
+        ],
+        "route": "toastie",
+        "safety_sources": [
+          "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+          "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+        ],
+        "sauce_family": "cheese",
+        "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+        "servings": 2,
+        "steps": [
+          {
+            "allocations": [
+              {
+                "id": "protein_lean_ground_beef",
+                "quantity": "360",
+                "unit": "g"
+              },
+              {
+                "id": "olive_oil",
+                "quantity": "6",
+                "unit": "g"
+              },
+              {
+                "id": "garlic_powder",
+                "quantity": "1",
+                "unit": "g"
+              },
+              {
+                "id": "salt",
+                "quantity": "1",
+                "unit": "g"
+              }
+            ],
+            "id": 1,
+            "instruction": "Heat the allocated olive oil in the skillet over medium heat. Add lean ground beef with garlic powder, table salt and break into small crumbles. Cook about 8-12 minutes, stirring, until substantial crumbles reach 160 F (71 C). Keep the measured cooking juices in the dish. Transfer every cooked piece and its measured pan juices to the clean heatproof filling bowl. Keep this bowl separate from raw-food utensils."
+          },
+          {
+            "allocations": [
+              {
+                "id": "sandwich_bread",
+                "quantity": "160",
+                "unit": "g"
+              },
+              {
+                "id": "cheddar_cheese",
+                "quantity": "60",
+                "unit": "g"
+              }
+            ],
+            "id": 2,
+            "instruction": "Return all cooked lean ground beef from the clean heatproof filling bowl to the skillet. Take the skillet off the heat. Scrape all cooked filling into the clean heatproof filling bowl. The skillet is now empty for the bread step. Toast all four bread slices in the toaster in two batches. Combine all cheddar cheese with the hot filling in the clean bowl. Divide the complete filling between two toast sandwiches. Use no extra butter or spread."
+          }
+        ],
+        "supporting_vegetables_g": 0,
+        "timing_note": "Estimated 30-50 minutes elapsed and 25-45 minutes active/attention-bound, including filling and two sequential sandwich batches. Not kitchen timed.",
+        "title": "Cheesy beef toasties"
+      },
+      "consumeCompleteBatch": true,
+      "instructionsRewritten": false,
+      "kitchenTested": false,
+      "safetyCertified": false,
+      "nutritionRecalculated": false,
+      "guideSha256": "a140ff1bceea9cffa11f16f5dbc6c5086589ced371a7ea29dc314927ebfa8afd"
+    },
+    {
+      "schema": "wd-source-original-batch-guide-v1",
+      "kind": "source-derived-original-full-batch",
+      "sourceSha256": "4c4e64e9c7030ac588cd665a16786620a066d23c7fc409a086d12ac3d393051c",
+      "recipeId": "WD-R6-B-0129",
+      "recipeSha256": "984bfd92367e5fc4cc6b27e2c61f878794125907f2bae9870ea766a963ea72af",
+      "methodSha256": "78c54acfc325bf3df3a00c02ae85aaf2e9e7b74e34e13106a36e5cc579c3addc",
+      "ingredientsSha256": "22be8b2ee1b5a07a7a907910ef86dea7099e877641ffd4b278d0a232c39fc202",
+      "allocationsSha256": "707af555c705412e275684c497b811fec4b4fc51d2173ec735741f5fa6109306",
+      "sourceServings": {
+        "numerator": "2",
+        "denominator": "1"
+      },
+      "factor": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "originalRecipe": {
+        "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+        "capacity_note": "Two servings. Bread and pan capacity, cooked yield and timing are authored estimates, not kitchen measurements. Use the stated pan and sequential batches; do not discard calculated filling to make it fit.",
+        "concept": "A familiar cheddar omelettes with toast meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+        "equipment": [
+          "kitchen scale",
+          "knife",
+          "cutting board",
+          "two serving plates or bowls",
+          "mixing bowl",
+          "whisk",
+          "stove",
+          "28 cm nonstick skillet",
+          "spatula",
+          "thin-tip food thermometer",
+          "lid fitting skillet",
+          "two-slot toaster",
+          "clean heatproof filling bowl",
+          "raw-food mixing bowl",
+          "toaster"
+        ],
+        "ingredients": [
+          {
+            "id": "eggs",
+            "name": "Whole eggs",
+            "quantity": "200",
+            "state": "raw, shell removed; 100 g is approximately two large eggs",
+            "unit": "g"
+          },
+          {
+            "id": "salt",
+            "name": "Fine salt",
+            "quantity": "1/2",
+            "state": "dry",
+            "unit": "g"
+          },
+          {
+            "id": "cheddar",
+            "name": "Cheddar cheese",
+            "quantity": "60",
+            "state": "pasteurized, grated",
+            "unit": "g"
+          },
+          {
+            "id": "oil",
+            "name": "Olive oil",
+            "quantity": "8",
+            "state": "liquid",
+            "unit": "g"
+          },
+          {
+            "id": "bread",
+            "name": "Whole-grain bread",
+            "quantity": "120",
+            "state": "ready to eat, sliced; weighed total",
+            "unit": "g"
+          }
+        ],
+        "route": "simple-filled-omelette",
+        "safety_sources": [
+          "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+          "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+        ],
+        "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+        "servings": 2,
+        "steps": [
+          {
+            "allocations": [
+              {
+                "id": "oil",
+                "quantity": "8",
+                "unit": "g"
+              }
+            ],
+            "id": 1,
+            "instruction": "Warm only the oil allocated to this step in the nonstick skillet over medium-low heat."
+          },
+          {
+            "allocations": [
+              {
+                "id": "eggs",
+                "quantity": "200",
+                "unit": "g"
+              },
+              {
+                "id": "salt",
+                "quantity": "1/2",
+                "unit": "g"
+              },
+              {
+                "id": "cheddar",
+                "quantity": "60",
+                "unit": "g"
+              }
+            ],
+            "id": 2,
+            "instruction": "Whisk the allocated egg and salt. Pour half into the nonstick skillet over medium-low heat. Add half the allocated cheese, fold and cover until firm, no liquid egg remains and the center reaches 160 F (71 C). Transfer to a serving plate and repeat with all remaining egg and cheese. Use no unlisted oil."
+          },
+          {
+            "allocations": [
+              {
+                "id": "bread",
+                "quantity": "120",
+                "unit": "g"
+              }
+            ],
+            "id": 3,
+            "instruction": "Toast all four bread slices in two toaster batches. Divide all cooked egg filling and toast between two portions."
+          }
+        ],
+        "supporting_vegetables_g": 0,
+        "timing_note": "Estimated 35-55 minutes elapsed and 25-45 minutes active/attention-bound, including sequential filling and pan batches. Not kitchen timed.",
+        "title": "Cheddar omelettes with toast"
+      },
+      "consumeCompleteBatch": true,
+      "instructionsRewritten": false,
+      "kitchenTested": false,
+      "safetyCertified": false,
+      "nutritionRecalculated": false,
+      "guideSha256": "271ed03b48caa9a8a8a130dabd697038fd0615424cbfb0274a4c149116e19a21"
+    }
+  ]
+}

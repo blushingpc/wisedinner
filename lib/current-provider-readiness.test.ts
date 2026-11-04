@@ -1,0 +1,107 @@
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { inspectCurrentProviderReadiness, type ProviderReadinessConfig, type ProviderReadinessReceipt } from "./current-provider-readiness.server.ts";
+const kinds = ["email_domain", "smtp_configuration", "smtp_delivery", "otp_session", "native_callback", "apple_sign_in", "weekly_product", "yearly_product", "weekly_purchase", "yearly_purchase", "trial_eligibility"] as const;
+const hash=(letter:string)=>letter.repeat(64);
+type Fixture={version:2;evaluatedAt:string;environment:string;region:string;auth:Record<string,unknown>;email:Record<string,unknown>;subscription:Record<string,unknown>;evidence:{collectorManifestSha256:string;expectedCollectorManifestSha256:string;expectedScopeFingerprints:Record<string,string>;receipts:Record<string,unknown>[]}};
+function fixture():Fixture{return{version:2,evaluatedAt:"2026-10-31T18:00:00.000Z",environment:"production",region:"USA",auth:{environment:"production",region:"USA",supabaseConfigured:true,otpFlow:"email_code",redirectFingerprint:hash("a"),expectedRedirectFingerprint:hash("a"),nativeScheme:"wisedinner",expectedNativeScheme:"wisedinner"},email:{environment:"production",region:"USA",provider:"resend_smtp",domainConfigured:true,smtpConfigured:true,tlsMode:"implicit"},subscription:{configured:true,environment:"production",region:"USA",weeklyProductId:"com.wisedinner.app.protein.weekly",weeklyPriceCents:400,yearlyProductId:"com.wisedinner.app.protein.yearly",yearlyPriceCents:14900,entitlementId:"wisedinner_pro",trial:{weekly:{days:null,eligible:null,offerId:null,offerType:null},yearly:{days:null,eligible:null,offerId:null,offerType:null}}},evidence:{collectorManifestSha256:hash("f"),expectedCollectorManifestSha256:hash("f"),expectedScopeFingerprints:Object.fromEntries(kinds.map((k,i)=>[k,hash((i+1).toString(16))])),receipts:[]}};}
+function receipt(c:Fixture,kind:typeof kinds[number],level:"local"|"external"="external"){return{kind,level,environment:"production",region:"USA",productId:kind==="weekly_product"||kind==="weekly_purchase"?"com.wisedinner.app.protein.weekly":kind==="yearly_product"||kind==="yearly_purchase"?"com.wisedinner.app.protein.yearly":null,entitlementId:["weekly_product","yearly_product","weekly_purchase","yearly_purchase","trial_eligibility"].includes(kind)?"wisedinner_pro":null,scopeSha256:c.evidence.expectedScopeFingerprints[kind],evidenceSha256:hash("b"),collectorManifestSha256:c.evidence.expectedCollectorManifestSha256,collectedAt:"2026-10-31T17:00:00.000Z",validUntil:"2026-10-31T19:00:00.000Z"};}
+test("configured product facts do not imply acceptance; trial stays separate",()=>{const r=inspectCurrentProviderReadiness(fixture());assert.equal(r.subscription.status,"configured");assert.equal(r.subscription.weekly,"configured");assert.equal(r.subscription.yearly,"configured");assert.equal(r.subscription.purchase.weekly,"pending");assert.deepEqual(r.subscription.trial,{weekly:"not_configured",yearly:"not_configured"});assert.equal(r.auth.otp,"configured");assert.equal(r.auth.callback,"unsupported");assert.equal(r.evidence.collector,"current");});
+test("only fresh external current-scope receipts become accepted",()=>{const c=fixture();c.evidence.receipts=[receipt(c,"weekly_product"),receipt(c,"yearly_product"),receipt(c,"weekly_purchase"),receipt(c,"email_domain","local")];const r=inspectCurrentProviderReadiness(c);assert.equal(r.subscription.status,"externally_accepted");assert.equal(r.subscription.purchase.weekly,"externally_accepted");assert.equal(r.subscription.purchase.yearly,"pending");assert.equal(r.email.domain,"locally_verified");assert.deepEqual(r.evidence.acceptedKinds,["weekly_product","yearly_product","weekly_purchase"]);});
+test("stale, wrong-scope, environment, product, entitlement, and redirect evidence stays pending",()=>{const c=fixture(),stale=receipt(c,"email_domain");stale.validUntil="2026-10-31T17:59:59.999Z";const wrongProduct=receipt(c,"weekly_product");wrongProduct.productId="sentinel-product";const wrongEntitlement=receipt(c,"yearly_product");wrongEntitlement.entitlementId="wrong-entitlement";const wrongEnvironment=receipt(c,"smtp_configuration");wrongEnvironment.environment="sandbox";const wrongScope=receipt(c,"otp_session");wrongScope.scopeSha256=hash("c");c.auth.redirectFingerprint=hash("c");c.evidence.receipts=[stale,wrongProduct,wrongEntitlement,wrongEnvironment,wrongScope];const r=inspectCurrentProviderReadiness(c);assert.equal(r.subscription.weekly,"pending");assert.equal(r.subscription.yearly,"pending");assert.equal(r.email.smtp,"pending");assert.equal(r.auth.otp,"pending");for(const issue of ["evidence_stale","evidence_scope_mismatch","product_mismatch","environment_mismatch","entitlement_mismatch","redirect_mismatch"] as const)assert.ok(r.issues.includes(issue));assert.deepEqual(r.evidence.acceptedKinds,[]);});
+test("wrong price is held and unknown seven-day trial does not block normal subscription",()=>{const c=fixture();c.subscription.yearlyPriceCents=14901;let r=inspectCurrentProviderReadiness(c);assert.equal(r.subscription.status,"pending");assert.equal(r.subscription.yearly,"pending");c.subscription.yearlyPriceCents=14900;c.subscription.trial={weekly:{days:7,eligible:null,offerId:"weekly-seven-day-free",offerType:"free_trial"},yearly:{days:null,eligible:null,offerId:null,offerType:null}};r=inspectCurrentProviderReadiness(c);assert.equal(r.subscription.status,"configured");assert.equal(r.subscription.weekly,"configured");assert.equal(r.subscription.yearly,"configured");assert.equal(r.subscription.trial.weekly,"withheld");});
+test("accessor getters, toJSON and network hooks are not invoked",()=>{let getters=0,network=0;const c=fixture() as unknown as Record<string,unknown>;Object.defineProperty(c,"evaluatedAt",{get(){getters++;throw Error("secret-getter");}});Object.defineProperty(c,"toJSON",{get(){getters++;throw Error("secret-json");}});const old=globalThis.fetch;globalThis.fetch=(async()=>{network++;throw Error("no-network");}) as typeof fetch;try{const r=inspectCurrentProviderReadiness(c);JSON.stringify(r);assert.equal(getters,0);assert.equal(network,0);assert.ok(r.issues.includes("invalid_timestamp"));}finally{globalThis.fetch=old;}});
+test("accessor receipt array entries are rejected safely",()=>{let getters=0;const c=fixture(),a:unknown[]=[];Object.defineProperty(a,"0",{get(){getters++;return receipt(c,"weekly_product");}});a.length=1;c.evidence.receipts=a as never;const r=inspectCurrentProviderReadiness(c);assert.equal(getters,0);assert.equal(r.subscription.weekly,"pending");assert.ok(r.issues.includes("invalid_input"));});
+test("secret values and provider text never enter result",()=>{const c=fixture() as unknown as Record<string,unknown>;c.secret="secret-sentinel-NEVER-RETURN";const out=JSON.stringify(inspectCurrentProviderReadiness(c));assert.equal(out.includes("secret-sentinel-NEVER-RETURN"),false);assert.equal(out.includes("https://"),false);assert.equal(out.includes("@"),false);});
+
+type Mutable<T> = { -readonly [K in keyof T]: T[K] extends object ? Mutable<T[K]> : T[K] };
+const WEEKLY = "com.wisedinner.app.protein.weekly", YEARLY = "com.wisedinner.app.protein.yearly";
+function v2(): Mutable<ProviderReadinessConfig> {
+  const c = fixture();
+  return { ...c, version: 2, environment: "production", auth: { ...c.auth, environment: "production", region: "USA" }, email: { ...c.email, environment: "production", region: "USA" },
+    subscription: { ...c.subscription, trial: { weekly: { days: null, eligible: null, offerId: null, offerType: null }, yearly: { days: null, eligible: null, offerId: null, offerType: null } } },
+    evidence: { ...c.evidence, expectedScopeFingerprints: { ...c.evidence.expectedScopeFingerprints, weekly_trial_eligibility: hash("d"), yearly_trial_eligibility: hash("e") } } } as Mutable<ProviderReadinessConfig>;
+}
+function proof(c: Mutable<ProviderReadinessConfig>, kind: ProviderReadinessReceipt["kind"], level: "local" | "external" = "external"): Mutable<ProviderReadinessReceipt> {
+  return { kind, level, environment: c.environment, region: "USA", productId: kind.startsWith("weekly_") ? WEEKLY : kind.startsWith("yearly_") ? YEARLY : null,
+    entitlementId: kind.startsWith("weekly_") || kind.startsWith("yearly_") ? "wisedinner_pro" : null, scopeSha256: c.evidence.expectedScopeFingerprints[kind]!, evidenceSha256: hash("b"), collectorManifestSha256: c.evidence.expectedCollectorManifestSha256!, collectedAt: "2026-10-31T17:00:00.000Z", validUntil: "2026-10-31T19:00:00.000Z" };
+}
+function trialProof(c: Mutable<ProviderReadinessConfig>, product: "weekly" | "yearly") {
+  const offerId = `${product}-seven-day-free`; c.subscription.trial[product] = { days: 7, eligible: true, offerId, offerType: "free_trial" };
+  return { ...proof(c, `${product}_trial_eligibility`), offerId, trialDays: 7, eligibility: "eligible" as const, offerType: "free_trial" as const };
+}
+function allProofs(c: Mutable<ProviderReadinessConfig>) { return kinds.filter(k => k !== "trial_eligibility").map(k => proof(c, k)); }
+test("v2 version admission rejects legacy/unversioned input without silently promoting evidence", () => {
+  assert.equal(inspectCurrentProviderReadiness(v2()).version, 2);
+  for (const version of [undefined, 1, 3, "2"]) { const c = v2(); c.evidence.receipts = allProofs(c); const r = inspectCurrentProviderReadiness({ ...c, version }); assert.equal(r.subscription.status, "pending"); assert.deepEqual(r.evidence.acceptedKinds, []); }
+});
+test("review probe: sandbox subscription cannot elevate production metadata, purchase or trial", () => {
+  for (const level of ["local", "external"] as const) { const c = v2(); c.subscription.environment = "sandbox"; c.evidence.receipts = [...allProofs(c).filter(r => r.productId), trialProof(c, "weekly"), trialProof(c, "yearly")].map(r => ({ ...r, level, environment: "sandbox" }));
+    const r = inspectCurrentProviderReadiness(c); assert.equal(r.environment, "production"); assert.equal(r.subscription.status, "pending"); assert.deepEqual(r.subscription.purchase, { weekly: "pending", yearly: "pending" }); assert.deepEqual(r.subscription.trial, { weekly: "withheld", yearly: "withheld" }); assert.deepEqual(r.evidence.acceptedKinds, []); assert.ok(r.issues.includes("environment_mismatch")); }
+});
+test("review probe: unrelated-product and unknown environment/unsupported-region trial are withheld", () => {
+  const c = v2(); c.evidence.receipts = [{ ...trialProof(c, "weekly"), productId: "com.example.unrelated" }]; let r = inspectCurrentProviderReadiness(c); assert.equal(r.subscription.trial.weekly, "withheld");
+  c.subscription.environment = "unknown"; c.region = "unsupported"; c.evidence.receipts[0] = { ...c.evidence.receipts[0], environment: "unknown" }; r = inspectCurrentProviderReadiness(c); assert.equal(r.subscription.trial.weekly, "withheld"); assert.deepEqual(r.evidence.acceptedKinds, []);
+});
+test("review probe: unknown/unconfigured auth with matching typed callback receipt stays unsupported", () => {
+  for (const otpFlow of ["unknown", "magic_link", undefined]) for (const supabaseConfigured of [true, false, null]) { const c = v2(); Object.assign(c.auth, { otpFlow, supabaseConfigured }); c.evidence.receipts = [{ ...proof(c, "native_callback"), redirectFingerprint: hash("a"), nativeScheme: "wisedinner" }]; const r = inspectCurrentProviderReadiness({ ...c, callbackSupported: true, sourceSha256: hash("d") }); assert.equal(r.auth.callback, "unsupported"); assert.equal(r.auth.otp, "unsupported"); assert.equal(r.evidence.acceptedKinds.includes("native_callback"), false); }
+});
+test("normal positive same-scope USA evidence works, while callback remains unsupported", () => {
+  for (const environment of ["production", "sandbox"] as const) { const c = v2(); c.environment = environment; c.auth.environment = environment; c.email.environment = environment; c.subscription.environment = environment; c.evidence.receipts = [...allProofs(c), trialProof(c, "weekly"), trialProof(c, "yearly")]; const r = inspectCurrentProviderReadiness(c); assert.equal(r.subscription.status, "externally_accepted"); assert.equal(r.subscription.purchase.weekly, "externally_accepted"); assert.equal(r.auth.otp, "externally_accepted"); assert.equal(r.email.delivery, "externally_accepted"); assert.equal(r.auth.callback, "unsupported"); assert.deepEqual(r.subscription.trial, { weekly: "eligible", yearly: "eligible" }); }
+});
+test("weekly eligible/yearly unknown or ineligible never promotes yearly or blocks normal subscriptions", () => {
+  for (const eligible of [null, false]) { const c = v2(); c.evidence.receipts = [...allProofs(c), trialProof(c, "weekly"), trialProof(c, "yearly")]; c.subscription.trial.yearly.eligible = eligible; const r = inspectCurrentProviderReadiness(c); assert.deepEqual(r.subscription.trial, { weekly: "eligible", yearly: "withheld" }); assert.equal(r.subscription.status, "externally_accepted"); assert.equal(r.subscription.purchase.yearly, "externally_accepted"); }
+  const c = v2(); c.evidence.receipts = [trialProof(c, "yearly")]; assert.deepEqual(inspectCurrentProviderReadiness(c).subscription.trial, { weekly: "not_configured", yearly: "eligible" });
+});
+test("exact trial product/offer/days/free-type/eligibility/entitlement/fingerprint bindings are mandatory", () => {
+  for (const patch of [{ productId: YEARLY }, { offerId: "other" }, { offerId: undefined }, { trialDays: 14 }, { offerType: "paid_intro" }, { eligibility: "unknown" }, { entitlementId: "other" }, { scopeSha256: hash("c") }, { environment: "unknown" }, { region: null }, { level: "local" }]) { const c = v2(); c.evidence.receipts = [{ ...trialProof(c, "weekly"), ...patch } as ProviderReadinessReceipt]; const r = inspectCurrentProviderReadiness(c); assert.equal(r.subscription.trial.weekly, "withheld", JSON.stringify(patch)); assert.equal(r.subscription.status, "configured"); }
+  const c = v2(), wr = trialProof(c, "weekly"); trialProof(c, "yearly"); c.evidence.receipts = [wr, { ...wr, kind: "yearly_trial_eligibility", productId: YEARLY, offerId: "yearly-seven-day-free" }]; assert.deepEqual(inspectCurrentProviderReadiness(c).subscription.trial, { weekly: "eligible", yearly: "withheld" });
+});
+test("root and each affected component require known matching environment and USA region", () => {
+  for (const patch of [{ environment: "unknown" }, { environment: undefined }, { region: "CAN" }, { region: null }]) { const c = v2(); c.evidence.receipts = [...allProofs(c), trialProof(c, "weekly")]; const r = inspectCurrentProviderReadiness({ ...c, ...patch }); assert.equal(r.subscription.status, "pending"); assert.equal(r.auth.otp, "pending"); assert.equal(r.email.delivery, "pending"); assert.deepEqual(r.evidence.acceptedKinds, []); }
+  for (const component of ["auth", "email", "subscription"] as const) for (const patch of [{ environment: "sandbox" }, { environment: "unknown" }, { environment: undefined }, { region: "CAN" }, { region: undefined }]) { const c = v2(); c.evidence.receipts = [...allProofs(c), trialProof(c, "weekly")]; Object.assign(c[component], patch); const r = inspectCurrentProviderReadiness(c); if (component === "auth") { assert.equal(r.auth.otp, "pending"); assert.equal(r.auth.apple, "pending"); assert.equal(r.subscription.status, "externally_accepted"); } else if (component === "email") { assert.equal(r.email.domain, "pending"); assert.equal(r.email.delivery, "pending"); assert.equal(r.subscription.status, "externally_accepted"); } else { assert.equal(r.subscription.status, "pending"); assert.equal(r.subscription.trial.weekly, "withheld"); assert.equal(r.auth.otp, "externally_accepted"); } }
+});
+test("config-off subscriptions and incomplete SMTP/domain never elevate operations", () => {
+  for (const configured of [false, null, undefined]) { const c = v2(); c.evidence.receipts = [...allProofs(c), trialProof(c, "weekly")]; Object.assign(c.subscription, { configured }); const r = inspectCurrentProviderReadiness(c); assert.equal(r.subscription.purchase.weekly, "pending"); assert.equal(r.subscription.trial.weekly, "withheld"); }
+  for (const patch of [{ smtpConfigured: false }, { domainConfigured: false }, { provider: "unknown" }, { tlsMode: "unknown" }]) { const c = v2(); Object.assign(c.email, patch); c.evidence.receipts = [proof(c, "smtp_delivery")]; assert.equal(inspectCurrentProviderReadiness(c).email.delivery, "pending"); }
+});
+test("cached/historical/malformed scope or time cannot elevate evidence", () => {
+  for (const evaluatedAt of ["invalid", "2026-02-30T18:00:00.000Z", "2026-10-31T18:00:00-04:00"]) { const c = v2(); c.evidence.receipts = allProofs(c); assert.deepEqual(inspectCurrentProviderReadiness({ ...c, evaluatedAt }).evidence.acceptedKinds, []); }
+  for (const patch of [{ collectorManifestSha256: hash("e") }, { validUntil: "2026-10-30T19:00:00.000Z" }, { collectedAt: "2026-10-31T18:00:00.001Z" }, { evidenceSha256: "invalid" }, { scopeSha256: "invalid" }]) { const c = v2(); c.evidence.receipts = [{ ...proof(c, "weekly_purchase"), ...patch }]; assert.equal(inspectCurrentProviderReadiness(c).subscription.purchase.weekly, "pending"); }
+});
+test("v2 getter trial eligibility and implicit clock/network hooks are never invoked", () => {
+  let getters = 0, clocks = 0, network = 0; const c = v2(); c.evidence.receipts = [trialProof(c, "weekly")]; Object.defineProperty(c.subscription.trial.weekly, "eligible", { get() { getters++; return true; } });
+  const oldNow = Date.now, oldFetch = globalThis.fetch; Date.now = () => { clocks++; throw Error("clock"); }; globalThis.fetch = (async () => { network++; throw Error("network"); }) as typeof fetch;
+  try { const r = inspectCurrentProviderReadiness(c); assert.equal(r.subscription.trial.weekly, "withheld"); JSON.stringify(r); } finally { Date.now = oldNow; globalThis.fetch = oldFetch; } assert.equal(getters, 0); assert.equal(clocks, 0); assert.equal(network, 0);
+});
+
+test("exact legacy review probe shapes are held instead of silently elevated", () => {
+  const legacy = () => { const c = fixture() as unknown as Record<string, unknown>; delete c.version; const sub = c.subscription as Record<string, unknown>; delete sub.trial; sub.trialDays = 7; sub.trialEligible = true; return c; };
+  const a = legacy(), sub = a.subscription as Record<string, unknown>, ev = a.evidence as Fixture["evidence"];
+  sub.environment = "sandbox"; ev.receipts = [receipt(fixture(), "weekly_product"), receipt(fixture(), "yearly_product")].map(r => ({ ...r, environment: "sandbox" }));
+  assert.equal(inspectCurrentProviderReadiness(a).subscription.status, "pending");
+  const b = legacy(), be = b.evidence as Fixture["evidence"]; be.receipts = [{ ...receipt(fixture(), "trial_eligibility"), productId: "com.example.unrelated" }];
+  assert.deepEqual(inspectCurrentProviderReadiness(b).evidence.acceptedKinds, []);
+  (b.subscription as Record<string, unknown>).environment = "unknown"; b.region = "unsupported"; be.receipts[0].environment = "unknown"; assert.deepEqual(inspectCurrentProviderReadiness(b).evidence.acceptedKinds, []);
+  const c = legacy(), auth = c.auth as Record<string, unknown>, ce = c.evidence as Fixture["evidence"]; auth.otpFlow = "unknown"; auth.supabaseConfigured = false; ce.receipts = [{ ...receipt(fixture(), "native_callback"), redirectFingerprint: hash("a"), nativeScheme: "wisedinner" }];
+  assert.equal(inspectCurrentProviderReadiness(c).auth.callback, "unsupported"); assert.deepEqual(inspectCurrentProviderReadiness(c).evidence.acceptedKinds, []);
+});
+
+test("typed private DTO and QA contract agree; metadata and no-sender constraints remain", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const c = JSON.parse(await readFile(new URL("../scripts/current-email-qa/contract.json", import.meta.url), "utf8"));
+  assert.equal(c.version, 2); assert.equal(c.inspectorContract.inputVersion, 2); assert.equal(c.inspectorContract.outputVersion, inspectCurrentProviderReadiness(v2()).version);
+  assert.equal(c.executableSenders, false); assert.equal(c.currentWorkerMaySend, false); assert.equal(c.currentSourceFacts.weeklyPriceCents, 400); assert.equal(c.currentSourceFacts.yearlyPriceCents, 14900);
+  assert.deepEqual(c.inspectorContract.trial.receiptKinds, { weekly: "weekly_trial_eligibility", yearly: "yearly_trial_eligibility" }); assert.equal(c.inspectorContract.callback.currentSupport, "unsupported");
+});
+
+
+test("sandbox evidence supports TestFlight separately without public release; no cross-environment promotion or trial",()=>{
+ const c=v2();c.environment="sandbox";c.auth.environment="sandbox";c.email.environment="sandbox";c.subscription.environment="sandbox";
+ c.evidence.receipts=[proof(c,"weekly_product"),proof(c,"yearly_product")];
+ for(const r of c.evidence.receipts)r.environment="sandbox";
+ let out=inspectCurrentProviderReadiness(c);assert.equal(out.environment,"sandbox");assert.equal(out.subscription.status,"externally_accepted");
+ assert.equal(out.subscription.purchase.weekly,"pending");assert.equal(out.subscription.trial.weekly,"not_configured");
+ c.environment="production";c.auth.environment="production";c.email.environment="production";c.subscription.environment="production";
+ out=inspectCurrentProviderReadiness(c);assert.notEqual(out.subscription.status,"externally_accepted");assert.ok(out.issues.includes("environment_mismatch"));
+});

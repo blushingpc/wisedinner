@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { GET } from "../../app/api/support/poll/route.ts";
+import { GET } from "../../preserved-api/support/poll/route.ts";
 
 test("actual prepared poll rejects unauthenticated callers with no-store and no provider calls", async () => {
   const secret = process.env.CRON_SECRET; process.env.CRON_SECRET = "synthetic-cron-authorization";

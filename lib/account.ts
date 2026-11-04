@@ -1,10 +1,8 @@
 import { createHash } from "node:crypto";
+import { AccountError } from "./generated-runtime-error.ts";
+export { AccountError };
 
 // Versioned private account seam. No entitlement is needed to manage/delete an account.
-export class AccountError extends Error {
-  status: number;
-  constructor(status: number, code: string) { super(code); this.status = status; }
-}
 export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 export type VerifiedAccount = { id: string; token: string; authenticatedAt: number | null; providers: string[] };
 export type AccountCommand = { action: string; body: Record<string, unknown>; key: string | null };

@@ -1,0 +1,22 @@
+// Synthetic protocol fixtures only. Never a production recipe, yield or price registry.
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { createJoinedReferencePlanner } from "./generated-joined-plan.ts";
+const amount = (numerator: string, denominator = "1") => ({ numerator, denominator });
+export const sha = (value: string | Uint8Array) => createHash("sha256").update(value).digest("hex");
+function stable(value: unknown): unknown { if (Array.isArray(value)) return value.map(stable); if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([key, nested]) => [key, stable(nested)])); return value; }
+export function setup(held = false, priceAMax = 1000) {
+  const rows = ["a", "b"].map(id => {
+    const recipe = { title: "Synthetic " + id, servings: 2, equipment: ["fixture-pan"], ingredients: [{ id: "food-" + id, name: "Synthetic only", quantity: id === "a" ? "100" : "200", unit: "g", state: "raw" }], steps: [{ id: 1, instruction: "Original synthetic instruction.", allocations: [{ id: "food-" + id, quantity: id === "a" ? "100" : "200", unit: "g" }] }] }, recipeHash = sha(JSON.stringify(stable(recipe)));
+    const values = (scale: number) => ({ protein_g: { min: String(30 * scale), max: String(32 * scale) }, kcal: { min: String(250 * scale), max: String(270 * scale) }, carbs_g: { min: String(20 * scale), max: String(22 * scale) }, fat_g: { min: String(6 * scale), max: String(7 * scale) } });
+    return { id, recipe, recipe_sha256: recipeHash, kind: "main", sections: ["lunch", "dinner"], product_accepted: false, kitchen_tested: false, allergen_reviewed: false, regional_costs: null, image: null, flags: ["synthetic-only"], holds: [], nutrition: { status: held && id === "b" ? "held-incomplete" : "complete-conditional-USDA-input-estimate", flags: ["fixture-input-estimate"], missing_ingredients: held && id === "b" ? ["food-b"] : [], whole_batch: held && id === "b" ? null : values(2), per_serving: held && id === "b" ? null : values(1), partial_whole_batch: values(2), servings: "2", source_refresh: { exact_recipe_body_sha256: recipeHash, recipe_sha256_unchanged: recipeHash, source_archive_sha256: "c".repeat(64) } } };
+  });
+  const bytes = Buffer.from(rows.map(row => JSON.stringify(row)).join("\n") + "\n"), correspondences = ["a", "b"].map(id => ({ id: "map-" + id, ingredientId: "food-" + id, preparedState: "raw", consumedUnit: "g", skuId: "buy-" + id, purchaseState: "raw", purchaseUnit: "g", formDigest: "d".repeat(64), category: "pantry", perishable: false, factor: { min: amount("1"), max: amount("1") }, sourceSha256: "e".repeat(64) }));
+  const prices = ["a", "b"].map(id => ({ id: "pack-" + id, skuId: "buy-" + id, unit: "g", formDigest: "d".repeat(64), region: "South", packQuantity: amount("500"), packPriceCents: id === "a" ? { min: priceAMax - 100, max: priceAMax } : { min: 100, max: 200 }, currency: "USD", observedOn: "2026-10-01", usableThrough: "2026-10-31", sourceSha256: "f".repeat(64), basis: "synthetic-test-only", flags: ["not-market-data"] }));
+  const bound = createJoinedReferencePlanner(bytes, { sourcePin: { sha256: sha(bytes), recordCount: 2 }, correspondences, regionalPackFacts: prices });
+  assert.equal(bound.outcome, "ready"); if (bound.outcome !== "ready") throw new Error("Expected synthetic binding");
+  const people = [{ personId: "p1", label: "Fixture1", profileRevision: 1, proteinGoal: { kind: "known", gramsPerDay: "90", coverage: "selected-meals" }, exclusions: { kind: "none" } }, { personId: "p2", label: "Fixture2", profileRevision: 1, proteinGoal: { kind: "known", gramsPerDay: "120", coverage: "selected-meals" }, exclusions: { kind: "none" } }];
+  const request = { people, selectedDays: Array.from({ length: 7 }, (_, i) => "2026-10-" + String(19 + i)), slots: ["dinner"], region: "South", storeIds: ["fixture-shop"], budgetCents: 10000, asOfDate: "2026-10-18", equipment: ["fixture-pan"], pantry: [] };
+  const assignments = request.selectedDays.flatMap(date => people.map((person, i) => ({ assignmentId: person.personId + date, personId: person.personId, profileRevision: 1, date, slot: "dinner", recipeId: "a", recipeSha256: rows[0]!.recipe_sha256, sourceServings: amount(String(i + 3)) })));
+  return { planner: bound.planner, request, assignments, rows, bytes, configuration: { sourcePin: { sha256: sha(bytes), recordCount: 2 }, correspondences, regionalPackFacts: prices } };
+}

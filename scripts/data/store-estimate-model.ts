@@ -88,9 +88,10 @@ export function calibrate(m:Model,scope:QuoteScope,rows:BasketObservation[],sour
   const errors=rows.map(r=>({numerator:Math.max(0,r.actualCents-r.rawPredictionCents),denominator:r.rawPredictionCents}));
   errors.sort((a,b)=>{const x=BigInt(a.numerator)*BigInt(b.denominator),y=BigInt(b.numerator)*BigInt(a.denominator);return x<y?-1:x>y?1:0;});
   const available=rows.length>=policy.minSamples&&rank<=rows.length;
+  // Positive coverage/rank and available imply 1 <= rank <= errors.length.
   const body={scope:structuredClone(scope),fixture:m.fixture||rows.some(r=>r.evidence.kind==="fixture"),frozenAt:policy.asOf,
     calibratedThrough:rows.length?new Date(Math.max(...rows.map(r=>timestamp(r.evidence.observedAt)))).toISOString():m.frozenAt,
-    ids:rows.map(r=>r.id),units:rows.map(r=>r.independentUnit),sampleCount:rows.length,rank,upperError:available?errors[rank-1]:null,
+    ids:rows.map(r=>r.id),units:rows.map(r=>r.independentUnit),sampleCount:rows.length,rank,upperError:available?errors[rank-1]!:null,
     reason:available?null:"Insufficient independent calibration for the requested coverage",rows:structuredClone(rows),sources:structuredClone(sources),policy:structuredClone(policy)};
   return {...body,digest:hash(body)};
 }

@@ -1,0 +1,1863 @@
+{
+  "policy": "wd-reviewed-method-input-lineage-v1",
+  "originalSourcePin": {
+    "sha256": "8af0f7c3cb48540df1661c760290d44f0f78a7bf80d64e10030aae46130d7643",
+    "recordCount": 1300
+  },
+  "sourcePin": {
+    "sha256": "f8b115114bc2a2067b4104cbb6f60bb199b9d5afa1c7adc7b2e59ab9562ebbe8",
+    "recordCount": 1300
+  },
+  "records": [
+    {
+      "parent": {
+        "allergen_hint_limit": "Nonexhaustive ingredient-family warnings, including retained predecessor cautions. Check every actual product label and cross-contact; no allergen clearance.",
+        "allergen_reviewed": false,
+        "conservative_allergen_hints": [
+          "egg",
+          "milk",
+          "mustard"
+        ],
+        "culinary_review": {
+          "limits": "Actual taste, cooking, timing, capacity, brands, consumption and allergen/product acceptance remain unverified.",
+          "original_slot_preserved": true,
+          "physical_taste_tested": false,
+          "quantity_changes": [],
+          "scope": "static-current-ingredient-and-method-revision"
+        },
+        "duplicate_of": null,
+        "flags": [
+          "ingredient-input-estimate-not-measured-cooked-or-consumed",
+          "all-listed-oil-included-retention-unmeasured",
+          "historical-generic-or-manufacturer-reference-not-product-label",
+          "reference-envelope-not-statistical-or-all-brand-bounds",
+          "timing-estimated-not-kitchen-tested",
+          "allergen-and-cross-contact-review-pending",
+          "taste-and-founder-menu-acceptance-unverified",
+          "not-imported-into-app"
+        ],
+        "holds": [],
+        "id": "WD-R6-M-229a763292298d2a",
+        "image": null,
+        "kind": "main",
+        "kitchen_tested": false,
+        "meaningful_signature": "4313b79875485409db913d8ad7790e01ef21fb7fac3b007c2c1673b771279139",
+        "nutrition": {
+          "flags": [
+            "USDA-reference-input-estimate-not-measured-cooked-consumed",
+            "generic-or-reference-brand-not-actual-purchased-product",
+            "all-listed-oil-counted-retention-unmeasured",
+            "scenario-envelope-not-statistical-confidence-or-all-brand-bounds",
+            "physical-cooking-taste-allergen-and-product-acceptance-unverified"
+          ],
+          "missing_ingredients": [],
+          "partial_whole_batch": {
+            "carbs_g": {
+              "max": "5621481/40000",
+              "min": "1399923/10000"
+            },
+            "fat_g": {
+              "max": "78857/2500",
+              "min": "309833/10000"
+            },
+            "kcal": {
+              "max": "2069423963/2000000",
+              "min": "256939/250"
+            },
+            "protein_g": {
+              "max": "84281/2000",
+              "min": "1680151/40000"
+            }
+          },
+          "per_serving": {
+            "carbs_g": {
+              "max": "5621481/80000",
+              "min": "1399923/20000"
+            },
+            "fat_g": {
+              "max": "78857/5000",
+              "min": "309833/20000"
+            },
+            "kcal": {
+              "max": "2069423963/4000000",
+              "min": "256939/500"
+            },
+            "protein_g": {
+              "max": "84281/4000",
+              "min": "1680151/80000"
+            }
+          },
+          "servings": "2",
+          "source_refresh": {
+            "exact_recipe_body_sha256": "61351ba0e367600c86bb2590190202cbbf341110768824af29273b1fa7f0d767",
+            "ingredient_matching_file": "../ingredient-matches-02.json",
+            "no_new_prices_images_app_import": true,
+            "prior_nutrition_sha256": "52dc1d27370cb9c88865ea7e4f5cf4e645705394df38f6dd94ccd52921b9f6d1",
+            "raw_selected_records_file": "selected-usda-records.json",
+            "recipe_sha256_unchanged": "61351ba0e367600c86bb2590190202cbbf341110768824af29273b1fa7f0d767",
+            "source_archive_sha256": "c33d91e5c44ddbcd71ed6038714fb648b26089b3f91fabfa3be63d96d5763a01",
+            "version": "USDA-refresh-20261016-01"
+          },
+          "status": "complete-conditional-USDA-input-estimate",
+          "whole_batch": {
+            "carbs_g": {
+              "max": "5621481/40000",
+              "min": "1399923/10000"
+            },
+            "fat_g": {
+              "max": "78857/2500",
+              "min": "309833/10000"
+            },
+            "kcal": {
+              "max": "2069423963/2000000",
+              "min": "256939/250"
+            },
+            "protein_g": {
+              "max": "84281/2000",
+              "min": "1680151/40000"
+            }
+          }
+        },
+        "predecessor_id": "WD-M-229a763292298d2a",
+        "predecessor_recipe_sha256": "750ddc0ca3a47bd8192e1b991393812a738228fcaa6e7cc4050115910f86bfab",
+        "prior_revision_recipe_sha256": "a8bb6766b3a9185bc9753679cd3f5f3b85475f1545d613b0f55104be844366f7",
+        "product_accepted": false,
+        "recipe": {
+          "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+          "capacity_note": "Two servings. Bread and pan capacity, cooked yield and timing are authored estimates, not kitchen measurements. Use the stated pan and sequential batches; do not discard calculated filling to make it fit.",
+          "concept": "A familiar honey mustard egg and rice meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+          "equipment": [
+            "kitchen scale",
+            "knife",
+            "cutting board",
+            "two serving plates or bowls",
+            "stove",
+            "second burner",
+            "2 litre saucepan with lid",
+            "30 cm nonstick skillet",
+            "spatula",
+            "thin-tip food thermometer",
+            "graduated ml measuring jug",
+            "mixing bowl",
+            "whisk",
+            "clean heatproof filling bowl",
+            "raw-food mixing bowl"
+          ],
+          "ingredients": [
+            {
+              "id": "dry_white_rice",
+              "name": "long-grain white rice",
+              "quantity": "150",
+              "state": "dry, uncooked",
+              "unit": "g"
+            },
+            {
+              "id": "process_water",
+              "name": "water for cooking starch",
+              "quantity": "300",
+              "state": "potable",
+              "unit": "ml"
+            },
+            {
+              "id": "olive_oil",
+              "name": "olive oil",
+              "quantity": "6",
+              "state": "ready-to-use",
+              "unit": "g"
+            },
+            {
+              "id": "protein_eggs",
+              "name": "whole egg",
+              "quantity": "240",
+              "state": "raw, shell removed, beaten",
+              "unit": "g"
+            },
+            {
+              "id": "garlic_powder",
+              "name": "garlic powder",
+              "quantity": "1",
+              "state": "dried garlic powder",
+              "unit": "g"
+            },
+            {
+              "id": "salt",
+              "name": "table salt",
+              "quantity": "1",
+              "state": "ready-to-use",
+              "unit": "g"
+            },
+            {
+              "id": "dijon_mustard",
+              "name": "ready-made Dijon mustard",
+              "quantity": "20",
+              "state": "ready to eat",
+              "unit": "g"
+            },
+            {
+              "id": "honey",
+              "name": "honey",
+              "quantity": "20",
+              "state": "ready to eat",
+              "unit": "g"
+            }
+          ],
+          "route": "rice",
+          "safety_sources": [
+            "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+            "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+          ],
+          "sauce_family": "honey-mustard",
+          "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+          "servings": 2,
+          "steps": [
+            {
+              "allocations": [
+                {
+                  "id": "dry_white_rice",
+                  "quantity": "150",
+                  "unit": "g"
+                },
+                {
+                  "id": "process_water",
+                  "quantity": "300",
+                  "unit": "ml"
+                }
+              ],
+              "id": 1,
+              "instruction": "Put long-grain white rice, water for cooking starch in the lidded saucepan. Bring to a simmer, cover and cook on low for about 15-20 minutes until the rice is tender and water is absorbed. Turn off and rest covered 5 minutes. Cook the filling on the second burner while the rice cooks. Use the stated dry rice weight, not a cooked-weight substitution."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "protein_eggs",
+                  "quantity": "240",
+                  "unit": "g"
+                },
+                {
+                  "id": "olive_oil",
+                  "quantity": "6",
+                  "unit": "g"
+                },
+                {
+                  "id": "garlic_powder",
+                  "quantity": "1",
+                  "unit": "g"
+                },
+                {
+                  "id": "salt",
+                  "quantity": "1",
+                  "unit": "g"
+                }
+              ],
+              "id": 2,
+              "instruction": "Beat whole egg with garlic powder, table salt in the raw-egg mixing bowl. Heat the allocated olive oil in the skillet over medium-low heat. Pour every portion of beaten egg into the skillet. Gently fold for about 3-5 minutes until firm curds form, no liquid egg remains and the center reaches 160 F (71 C). Transfer every cooked piece and its measured pan juices to the clean heatproof filling bowl. Keep this bowl separate from raw-food utensils."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "dijon_mustard",
+                  "quantity": "20",
+                  "unit": "g"
+                },
+                {
+                  "id": "honey",
+                  "quantity": "20",
+                  "unit": "g"
+                }
+              ],
+              "id": 3,
+              "instruction": "Return all cooked whole egg from the clean heatproof filling bowl to the skillet. Take the skillet off the heat and let bubbling stop. Fold in all ready-made Dijon mustard, honey. Serve all cooked rice with the complete filling and sauce, divided into two portions."
+            }
+          ],
+          "supporting_vegetables_g": 0,
+          "timing_note": "20-40 minutes elapsed, 15-25 minutes active, an untested estimate; cooking endpoints control doneness.",
+          "title": "Honey mustard egg and rice"
+        },
+        "recipe_sha256": "61351ba0e367600c86bb2590190202cbbf341110768824af29273b1fa7f0d767",
+        "regional_costs": null,
+        "replaces_revision_id": "WD-R2-M-229a763292298d2a",
+        "revision": {
+          "change_type": "whole-current-catalog-culinary-revision",
+          "individual_replacement": false,
+          "inventory_changed": false,
+          "method_changed": true,
+          "new_authored_measurements": false,
+          "nutrition_recalculated": true,
+          "oil_stage_redistributed": false,
+          "previous_revision_metadata": {
+            "added_ids": [
+              "honey"
+            ],
+            "inventory_changed": true,
+            "method_changed": true,
+            "quantity_changes": {
+              "dijon_mustard": {
+                "after": "20",
+                "before": "15"
+              },
+              "olive_oil": {
+                "after": "6",
+                "before": "8"
+              },
+              "process_water": {
+                "after": "300",
+                "before": "330"
+              }
+            },
+            "removed_ids": [
+              "apple_cider_vinegar",
+              "bell_pepper",
+              "greek_yogurt",
+              "smoked_paprika",
+              "zucchini"
+            ],
+            "retained_existing_recipe": false
+          },
+          "spices_moved_to_cooking": []
+        },
+        "sections": [
+          "lunch",
+          "dinner"
+        ],
+        "stale_dependencies": [
+          "prior-price-projection",
+          "prior-image-binding",
+          "prior-variation-links"
+        ],
+        "status": "authored-draft-with-conditional-macros",
+        "variation_links": []
+      },
+      "child": {
+        "allergen_hint_limit": "Nonexhaustive ingredient-family warnings, including retained predecessor cautions. Check every actual product label and cross-contact; no allergen clearance.",
+        "allergen_reviewed": false,
+        "conservative_allergen_hints": [
+          "egg",
+          "milk",
+          "mustard"
+        ],
+        "culinary_review": {
+          "limits": "Actual taste, cooking, timing, capacity, brands, consumption and allergen/product acceptance remain unverified.",
+          "original_slot_preserved": true,
+          "physical_taste_tested": false,
+          "quantity_changes": [],
+          "scope": "static-current-ingredient-and-method-revision"
+        },
+        "duplicate_of": null,
+        "flags": [
+          "ingredient-input-estimate-not-measured-cooked-or-consumed",
+          "all-listed-oil-included-retention-unmeasured",
+          "historical-generic-or-manufacturer-reference-not-product-label",
+          "reference-envelope-not-statistical-or-all-brand-bounds",
+          "timing-estimated-not-kitchen-tested",
+          "allergen-and-cross-contact-review-pending",
+          "taste-and-founder-menu-acceptance-unverified",
+          "not-imported-into-app"
+        ],
+        "holds": [],
+        "id": "WD-R6-M-229a763292298d2a",
+        "image": null,
+        "kind": "main",
+        "kitchen_tested": false,
+        "meaningful_signature": "4313b79875485409db913d8ad7790e01ef21fb7fac3b007c2c1673b771279139",
+        "nutrition": {
+          "flags": [
+            "USDA-reference-input-estimate-not-measured-cooked-consumed",
+            "generic-or-reference-brand-not-actual-purchased-product",
+            "all-listed-oil-counted-retention-unmeasured",
+            "scenario-envelope-not-statistical-confidence-or-all-brand-bounds",
+            "physical-cooking-taste-allergen-and-product-acceptance-unverified"
+          ],
+          "missing_ingredients": [],
+          "partial_whole_batch": {
+            "carbs_g": {
+              "max": "5621481/40000",
+              "min": "1399923/10000"
+            },
+            "fat_g": {
+              "max": "78857/2500",
+              "min": "309833/10000"
+            },
+            "kcal": {
+              "max": "2069423963/2000000",
+              "min": "256939/250"
+            },
+            "protein_g": {
+              "max": "84281/2000",
+              "min": "1680151/40000"
+            }
+          },
+          "per_serving": {
+            "carbs_g": {
+              "max": "5621481/80000",
+              "min": "1399923/20000"
+            },
+            "fat_g": {
+              "max": "78857/5000",
+              "min": "309833/20000"
+            },
+            "kcal": {
+              "max": "2069423963/4000000",
+              "min": "256939/500"
+            },
+            "protein_g": {
+              "max": "84281/4000",
+              "min": "1680151/80000"
+            }
+          },
+          "servings": "2",
+          "source_refresh": {
+            "exact_recipe_body_sha256": "61351ba0e367600c86bb2590190202cbbf341110768824af29273b1fa7f0d767",
+            "ingredient_matching_file": "../ingredient-matches-02.json",
+            "no_new_prices_images_app_import": true,
+            "prior_nutrition_sha256": "52dc1d27370cb9c88865ea7e4f5cf4e645705394df38f6dd94ccd52921b9f6d1",
+            "raw_selected_records_file": "selected-usda-records.json",
+            "recipe_sha256_unchanged": "61351ba0e367600c86bb2590190202cbbf341110768824af29273b1fa7f0d767",
+            "source_archive_sha256": "c33d91e5c44ddbcd71ed6038714fb648b26089b3f91fabfa3be63d96d5763a01",
+            "version": "USDA-refresh-20261016-01"
+          },
+          "status": "complete-conditional-USDA-input-estimate",
+          "whole_batch": {
+            "carbs_g": {
+              "max": "5621481/40000",
+              "min": "1399923/10000"
+            },
+            "fat_g": {
+              "max": "78857/2500",
+              "min": "309833/10000"
+            },
+            "kcal": {
+              "max": "2069423963/2000000",
+              "min": "256939/250"
+            },
+            "protein_g": {
+              "max": "84281/2000",
+              "min": "1680151/40000"
+            }
+          }
+        },
+        "predecessor_id": "WD-M-229a763292298d2a",
+        "predecessor_recipe_sha256": "750ddc0ca3a47bd8192e1b991393812a738228fcaa6e7cc4050115910f86bfab",
+        "prior_revision_recipe_sha256": "a8bb6766b3a9185bc9753679cd3f5f3b85475f1545d613b0f55104be844366f7",
+        "product_accepted": false,
+        "recipe": {
+          "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+          "capacity_note": "Original rice capacity reference: two source servings in a2litre lidded saucepan. After covered rest, the existing clean heatproof filling bowl holds the reserved rice; its actual capacity is unspecified and must be checked. Filling now cooks in the emptied saucepan, not the original30cm nonstick skillet. Ground beef uses two equal measured batches; no new vessel dimensions/nonstick performance are asserted. Smaller water amounts may evaporate before rice is tender; heat, liquid retention, stirring and thermometer depth at each reserved portion remain unmeasured and held for review.",
+          "concept": "A familiar honey mustard egg and rice meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+          "equipment": [
+            "kitchen scale",
+            "knife",
+            "cutting board",
+            "two serving plates or bowls",
+            "stove",
+            "2 litre saucepan with lid",
+            "spatula",
+            "thin-tip food thermometer",
+            "graduated ml measuring jug",
+            "mixing bowl",
+            "whisk",
+            "clean heatproof filling bowl",
+            "raw-food mixing bowl"
+          ],
+          "ingredients": [
+            {
+              "id": "dry_white_rice",
+              "name": "long-grain white rice",
+              "quantity": "150",
+              "state": "dry, uncooked",
+              "unit": "g"
+            },
+            {
+              "id": "process_water",
+              "name": "water for cooking starch",
+              "quantity": "300",
+              "state": "potable",
+              "unit": "ml"
+            },
+            {
+              "id": "olive_oil",
+              "name": "olive oil",
+              "quantity": "6",
+              "state": "ready-to-use",
+              "unit": "g"
+            },
+            {
+              "id": "protein_eggs",
+              "name": "whole egg",
+              "quantity": "240",
+              "state": "raw, shell removed, beaten",
+              "unit": "g"
+            },
+            {
+              "id": "garlic_powder",
+              "name": "garlic powder",
+              "quantity": "1",
+              "state": "dried garlic powder",
+              "unit": "g"
+            },
+            {
+              "id": "salt",
+              "name": "table salt",
+              "quantity": "1",
+              "state": "ready-to-use",
+              "unit": "g"
+            },
+            {
+              "id": "dijon_mustard",
+              "name": "ready-made Dijon mustard",
+              "quantity": "20",
+              "state": "ready to eat",
+              "unit": "g"
+            },
+            {
+              "id": "honey",
+              "name": "honey",
+              "quantity": "20",
+              "state": "ready to eat",
+              "unit": "g"
+            }
+          ],
+          "route": "wd-current-rice-then-saucepan-filling-v1",
+          "safety_sources": [
+            "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+            "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+          ],
+          "sauce_family": "honey-mustard",
+          "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+          "servings": 2,
+          "steps": [
+            {
+              "allocations": [
+                {
+                  "id": "dry_white_rice",
+                  "quantity": "150",
+                  "unit": "g"
+                },
+                {
+                  "id": "process_water",
+                  "quantity": "300",
+                  "unit": "ml"
+                }
+              ],
+              "id": 1,
+              "instruction": "Put only the allocated dry rice and potable cooking water shown below in the lidded saucepan. Bring to a simmer on one burner, cover and lower heat. Cook until rice is tender and water absorbed; the original batch guide is15-20minutes, not a smaller-batch promise. Turn off heat and rest covered5minutes on the same burner. Transfer all cooked rice with the spatula to the clean heatproof filling bowl. Confirm it fits safely before cooking; if capacity is inadequate, stop this route. Keep the bowl separate from raw utensils. Leave the emptied saucepan on this burner for the filling; no hot-pan landing surface or second burner is assumed."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "protein_eggs",
+                  "quantity": "240",
+                  "unit": "g"
+                },
+                {
+                  "id": "olive_oil",
+                  "quantity": "6",
+                  "unit": "g"
+                },
+                {
+                  "id": "garlic_powder",
+                  "quantity": "1",
+                  "unit": "g"
+                },
+                {
+                  "id": "salt",
+                  "quantity": "1",
+                  "unit": "g"
+                }
+              ],
+              "id": 2,
+              "instruction": "Beat the allocated egg, garlic and salt in the raw-egg mixing bowl. Add only the step's allocated oil to the emptied saucepan on low heat; it is not assumed nonstick. Add all allocated egg and gently fold until firm, no liquid egg remains and the center reaches160F(71C). Keep the cooked egg in the saucepan. If sticking or a shallow amount prevents safe stirring, full recovery or thermometer use, stop this route; do not add oil/water or substitute a larger amount. Keep raw utensils away from the reserved rice."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "dijon_mustard",
+                  "quantity": "20",
+                  "unit": "g"
+                },
+                {
+                  "id": "honey",
+                  "quantity": "20",
+                  "unit": "g"
+                }
+              ],
+              "id": 3,
+              "instruction": "Turn off heat and let bubbling stop. Fold all allocated Dijon mustard and honey into the cooked filling in the saucepan. Serve the complete filling, sauce and all reserved rice promptly for this assignment. Do not put raw utensils into the rice bowl. The short rice wait is not a validated hot hold; no delayed meal-prep or safe reheating claim is made. Follow the original storage limits if interrupted; rice beyond safe time limits must not be rescued by reheating."
+            }
+          ],
+          "supporting_vegetables_g": 0,
+          "timing_note": "Original two-source-serving static serial estimate:34-54minutes elapsed,16-32hands-on,29-49attention. Not measured. Smaller-batch timing is held; cues and safety endpoints control doneness, not a scaled timer.",
+          "title": "Honey mustard egg and rice"
+        },
+        "recipe_sha256": "f4e020ae407c00b01f131ff44376d6ae251d072027c53620c1ae3c0e4feea1fa",
+        "regional_costs": null,
+        "replaces_revision_id": "WD-R2-M-229a763292298d2a",
+        "revision": {
+          "change_type": "whole-current-catalog-culinary-revision",
+          "individual_replacement": false,
+          "inventory_changed": false,
+          "method_changed": true,
+          "new_authored_measurements": false,
+          "nutrition_recalculated": true,
+          "oil_stage_redistributed": false,
+          "previous_revision_metadata": {
+            "added_ids": [
+              "honey"
+            ],
+            "inventory_changed": true,
+            "method_changed": true,
+            "quantity_changes": {
+              "dijon_mustard": {
+                "after": "20",
+                "before": "15"
+              },
+              "olive_oil": {
+                "after": "6",
+                "before": "8"
+              },
+              "process_water": {
+                "after": "300",
+                "before": "330"
+              }
+            },
+            "removed_ids": [
+              "apple_cider_vinegar",
+              "bell_pepper",
+              "greek_yogurt",
+              "smoked_paprika",
+              "zucchini"
+            ],
+            "retained_existing_recipe": false
+          },
+          "spices_moved_to_cooking": []
+        },
+        "sections": [
+          "lunch",
+          "dinner"
+        ],
+        "stale_dependencies": [
+          "prior-price-projection",
+          "prior-image-binding",
+          "prior-variation-links"
+        ],
+        "status": "authored-draft-with-conditional-macros",
+        "variation_links": [],
+        "preparation_lineage": {
+          "policy": "wd-reviewed-method-input-lineage-v1",
+          "reviewId": "wd-current-method-v9-static-20261030",
+          "recipeId": "WD-R6-M-229a763292298d2a",
+          "parentRecipeSha256": "61351ba0e367600c86bb2590190202cbbf341110768824af29273b1fa7f0d767",
+          "childRecipeSha256": "f4e020ae407c00b01f131ff44376d6ae251d072027c53620c1ae3c0e4feea1fa",
+          "parentNutritionSha256": "2ec3559f1bdcf4773a043790f3447a1e9a92867801385a30873739de8affe2eb",
+          "parentRowSha256": "fc528034a0555dc0e2b955f8c4a7bcbd2306d9892c4326775131c868d82dea55",
+          "parentSourceSha256": "8af0f7c3cb48540df1661c760290d44f0f78a7bf80d64e10030aae46130d7643",
+          "nutritionMeaning": "unchanged-conditional-input-estimate",
+          "kitchenAcceptance": false
+        }
+      }
+    },
+    {
+      "parent": {
+        "allergen_hint_limit": "Nonexhaustive ingredient-family warnings, including retained predecessor cautions. Check every actual product label and cross-contact; no allergen clearance.",
+        "allergen_reviewed": false,
+        "conservative_allergen_hints": [
+          "mustard",
+          "wheat"
+        ],
+        "culinary_review": {
+          "limits": "Actual taste, cooking, timing, capacity, brands, consumption and allergen/product acceptance remain unverified.",
+          "original_slot_preserved": true,
+          "physical_taste_tested": false,
+          "quantity_changes": [],
+          "scope": "static-current-ingredient-and-method-revision"
+        },
+        "duplicate_of": null,
+        "flags": [
+          "ingredient-input-estimate-not-measured-cooked-or-consumed",
+          "all-listed-oil-included-retention-unmeasured",
+          "historical-generic-or-manufacturer-reference-not-product-label",
+          "reference-envelope-not-statistical-or-all-brand-bounds",
+          "timing-estimated-not-kitchen-tested",
+          "allergen-and-cross-contact-review-pending",
+          "taste-and-founder-menu-acceptance-unverified",
+          "not-imported-into-app"
+        ],
+        "holds": [],
+        "id": "WD-R6-M-431627cc2c407495",
+        "image": null,
+        "kind": "main",
+        "kitchen_tested": false,
+        "meaningful_signature": "036dd3c7b5647180a988a64e8e83a35cd52f437af5bb0ad37ee11bccf8ad7505",
+        "nutrition": {
+          "flags": [
+            "USDA-reference-input-estimate-not-measured-cooked-consumed",
+            "generic-or-reference-brand-not-actual-purchased-product",
+            "all-listed-oil-counted-retention-unmeasured",
+            "scenario-envelope-not-statistical-confidence-or-all-brand-bounds",
+            "physical-cooking-taste-allergen-and-product-acceptance-unverified"
+          ],
+          "missing_ingredients": [],
+          "partial_whole_batch": {
+            "carbs_g": {
+              "max": "5552361/40000",
+              "min": "1382643/10000"
+            },
+            "fat_g": {
+              "max": "137447/2500",
+              "min": "189593/10000"
+            },
+            "kcal": {
+              "max": "13759973299/10000000",
+              "min": "280039/250"
+            },
+            "protein_g": {
+              "max": "182249/2000",
+              "min": "3088891/40000"
+            }
+          },
+          "per_serving": {
+            "carbs_g": {
+              "max": "5552361/80000",
+              "min": "1382643/20000"
+            },
+            "fat_g": {
+              "max": "137447/5000",
+              "min": "189593/20000"
+            },
+            "kcal": {
+              "max": "13759973299/20000000",
+              "min": "280039/500"
+            },
+            "protein_g": {
+              "max": "182249/4000",
+              "min": "3088891/80000"
+            }
+          },
+          "servings": "2",
+          "source_refresh": {
+            "exact_recipe_body_sha256": "66aa9c670eefaa7d9983c0da44c663b4bf2d0c7e3565746d615a202321bee117",
+            "ingredient_matching_file": "../ingredient-matches-02.json",
+            "no_new_prices_images_app_import": true,
+            "prior_nutrition_sha256": "4184e2e106dd52b96b4343394044ea432414f80fbf43aa5191a7eef4dea8b83c",
+            "raw_selected_records_file": "selected-usda-records.json",
+            "recipe_sha256_unchanged": "66aa9c670eefaa7d9983c0da44c663b4bf2d0c7e3565746d615a202321bee117",
+            "source_archive_sha256": "c33d91e5c44ddbcd71ed6038714fb648b26089b3f91fabfa3be63d96d5763a01",
+            "version": "USDA-refresh-20261016-01"
+          },
+          "status": "complete-conditional-USDA-input-estimate",
+          "whole_batch": {
+            "carbs_g": {
+              "max": "5552361/40000",
+              "min": "1382643/10000"
+            },
+            "fat_g": {
+              "max": "137447/2500",
+              "min": "189593/10000"
+            },
+            "kcal": {
+              "max": "13759973299/10000000",
+              "min": "280039/250"
+            },
+            "protein_g": {
+              "max": "182249/2000",
+              "min": "3088891/40000"
+            }
+          }
+        },
+        "predecessor_id": "WD-M-431627cc2c407495",
+        "predecessor_recipe_sha256": "e30653e28c82d80ad9cc1996141309ecc504bdf6dd7428ae4c1797c9fa2c7eb2",
+        "prior_revision_recipe_sha256": "315ceb2862a8f4bddfb864dffa437a866ea18fe78c5ec4211cbd81bafa86b9d3",
+        "product_accepted": false,
+        "recipe": {
+          "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+          "capacity_note": "Two servings. Bread and pan capacity, cooked yield and timing are authored estimates, not kitchen measurements. Use the stated pan and sequential batches; do not discard calculated filling to make it fit.",
+          "concept": "A familiar honey mustard beef and rice meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+          "equipment": [
+            "kitchen scale",
+            "knife",
+            "cutting board",
+            "two serving plates or bowls",
+            "stove",
+            "second burner",
+            "2 litre saucepan with lid",
+            "30 cm nonstick skillet",
+            "spatula",
+            "thin-tip food thermometer",
+            "graduated ml measuring jug",
+            "clean heatproof filling bowl",
+            "raw-food mixing bowl"
+          ],
+          "ingredients": [
+            {
+              "id": "dry_white_rice",
+              "name": "long-grain white rice",
+              "quantity": "150",
+              "state": "dry, uncooked",
+              "unit": "g"
+            },
+            {
+              "id": "process_water",
+              "name": "water for cooking starch",
+              "quantity": "300",
+              "state": "potable",
+              "unit": "ml"
+            },
+            {
+              "id": "olive_oil",
+              "name": "olive oil",
+              "quantity": "6",
+              "state": "ready-to-use",
+              "unit": "g"
+            },
+            {
+              "id": "protein_lean_ground_beef",
+              "name": "lean ground beef",
+              "quantity": "360",
+              "state": "raw, chilled",
+              "unit": "g"
+            },
+            {
+              "id": "garlic_powder",
+              "name": "garlic powder",
+              "quantity": "1",
+              "state": "dried garlic powder",
+              "unit": "g"
+            },
+            {
+              "id": "salt",
+              "name": "table salt",
+              "quantity": "1",
+              "state": "ready-to-use",
+              "unit": "g"
+            },
+            {
+              "id": "dijon_mustard",
+              "name": "ready-made Dijon mustard",
+              "quantity": "20",
+              "state": "ready to eat",
+              "unit": "g"
+            },
+            {
+              "id": "honey",
+              "name": "honey",
+              "quantity": "20",
+              "state": "ready to eat",
+              "unit": "g"
+            }
+          ],
+          "route": "rice",
+          "safety_sources": [
+            "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+            "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+          ],
+          "sauce_family": "honey-mustard",
+          "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+          "servings": 2,
+          "steps": [
+            {
+              "allocations": [
+                {
+                  "id": "dry_white_rice",
+                  "quantity": "150",
+                  "unit": "g"
+                },
+                {
+                  "id": "process_water",
+                  "quantity": "300",
+                  "unit": "ml"
+                }
+              ],
+              "id": 1,
+              "instruction": "Put long-grain white rice, water for cooking starch in the lidded saucepan. Bring to a simmer, cover and cook on low for about 15-20 minutes until the rice is tender and water is absorbed. Turn off and rest covered 5 minutes. Cook the filling on the second burner while the rice cooks. Use the stated dry rice weight, not a cooked-weight substitution."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "protein_lean_ground_beef",
+                  "quantity": "360",
+                  "unit": "g"
+                },
+                {
+                  "id": "olive_oil",
+                  "quantity": "6",
+                  "unit": "g"
+                },
+                {
+                  "id": "garlic_powder",
+                  "quantity": "1",
+                  "unit": "g"
+                },
+                {
+                  "id": "salt",
+                  "quantity": "1",
+                  "unit": "g"
+                }
+              ],
+              "id": 2,
+              "instruction": "Heat the allocated olive oil in the skillet over medium heat. Add lean ground beef with garlic powder, table salt and break into small crumbles. Cook about 8-12 minutes, stirring, until substantial crumbles reach 160 F (71 C). Keep the measured cooking juices in the dish. Transfer every cooked piece and its measured pan juices to the clean heatproof filling bowl. Keep this bowl separate from raw-food utensils."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "dijon_mustard",
+                  "quantity": "20",
+                  "unit": "g"
+                },
+                {
+                  "id": "honey",
+                  "quantity": "20",
+                  "unit": "g"
+                }
+              ],
+              "id": 3,
+              "instruction": "Return all cooked lean ground beef from the clean heatproof filling bowl to the skillet. Take the skillet off the heat and let bubbling stop. Fold in all ready-made Dijon mustard, honey. Serve all cooked rice with the complete filling and sauce, divided into two portions."
+            }
+          ],
+          "supporting_vegetables_g": 0,
+          "timing_note": "20-40 minutes elapsed, 15-25 minutes active, an untested estimate; cooking endpoints control doneness.",
+          "title": "Honey mustard beef and rice"
+        },
+        "recipe_sha256": "66aa9c670eefaa7d9983c0da44c663b4bf2d0c7e3565746d615a202321bee117",
+        "regional_costs": null,
+        "replaces_revision_id": "WD-R2-M-431627cc2c407495",
+        "revision": {
+          "change_type": "whole-current-catalog-culinary-revision",
+          "individual_replacement": false,
+          "inventory_changed": false,
+          "method_changed": true,
+          "new_authored_measurements": false,
+          "nutrition_recalculated": true,
+          "oil_stage_redistributed": false,
+          "previous_revision_metadata": {
+            "added_ids": [
+              "dry_white_rice",
+              "honey"
+            ],
+            "inventory_changed": true,
+            "method_changed": true,
+            "quantity_changes": {
+              "dijon_mustard": {
+                "after": "20",
+                "before": "15"
+              },
+              "olive_oil": {
+                "after": "6",
+                "before": "8"
+              },
+              "process_water": {
+                "after": "300",
+                "before": "210"
+              }
+            },
+            "removed_ids": [
+              "bell_pepper",
+              "black_pepper",
+              "dill",
+              "dry_instant_couscous",
+              "lemon_juice",
+              "onion"
+            ],
+            "retained_existing_recipe": false
+          },
+          "spices_moved_to_cooking": []
+        },
+        "sections": [
+          "lunch",
+          "dinner"
+        ],
+        "stale_dependencies": [
+          "prior-price-projection",
+          "prior-image-binding",
+          "prior-variation-links"
+        ],
+        "status": "authored-draft-with-conditional-macros",
+        "variation_links": []
+      },
+      "child": {
+        "allergen_hint_limit": "Nonexhaustive ingredient-family warnings, including retained predecessor cautions. Check every actual product label and cross-contact; no allergen clearance.",
+        "allergen_reviewed": false,
+        "conservative_allergen_hints": [
+          "mustard",
+          "wheat"
+        ],
+        "culinary_review": {
+          "limits": "Actual taste, cooking, timing, capacity, brands, consumption and allergen/product acceptance remain unverified.",
+          "original_slot_preserved": true,
+          "physical_taste_tested": false,
+          "quantity_changes": [],
+          "scope": "static-current-ingredient-and-method-revision"
+        },
+        "duplicate_of": null,
+        "flags": [
+          "ingredient-input-estimate-not-measured-cooked-or-consumed",
+          "all-listed-oil-included-retention-unmeasured",
+          "historical-generic-or-manufacturer-reference-not-product-label",
+          "reference-envelope-not-statistical-or-all-brand-bounds",
+          "timing-estimated-not-kitchen-tested",
+          "allergen-and-cross-contact-review-pending",
+          "taste-and-founder-menu-acceptance-unverified",
+          "not-imported-into-app"
+        ],
+        "holds": [],
+        "id": "WD-R6-M-431627cc2c407495",
+        "image": null,
+        "kind": "main",
+        "kitchen_tested": false,
+        "meaningful_signature": "036dd3c7b5647180a988a64e8e83a35cd52f437af5bb0ad37ee11bccf8ad7505",
+        "nutrition": {
+          "flags": [
+            "USDA-reference-input-estimate-not-measured-cooked-consumed",
+            "generic-or-reference-brand-not-actual-purchased-product",
+            "all-listed-oil-counted-retention-unmeasured",
+            "scenario-envelope-not-statistical-confidence-or-all-brand-bounds",
+            "physical-cooking-taste-allergen-and-product-acceptance-unverified"
+          ],
+          "missing_ingredients": [],
+          "partial_whole_batch": {
+            "carbs_g": {
+              "max": "5552361/40000",
+              "min": "1382643/10000"
+            },
+            "fat_g": {
+              "max": "137447/2500",
+              "min": "189593/10000"
+            },
+            "kcal": {
+              "max": "13759973299/10000000",
+              "min": "280039/250"
+            },
+            "protein_g": {
+              "max": "182249/2000",
+              "min": "3088891/40000"
+            }
+          },
+          "per_serving": {
+            "carbs_g": {
+              "max": "5552361/80000",
+              "min": "1382643/20000"
+            },
+            "fat_g": {
+              "max": "137447/5000",
+              "min": "189593/20000"
+            },
+            "kcal": {
+              "max": "13759973299/20000000",
+              "min": "280039/500"
+            },
+            "protein_g": {
+              "max": "182249/4000",
+              "min": "3088891/80000"
+            }
+          },
+          "servings": "2",
+          "source_refresh": {
+            "exact_recipe_body_sha256": "66aa9c670eefaa7d9983c0da44c663b4bf2d0c7e3565746d615a202321bee117",
+            "ingredient_matching_file": "../ingredient-matches-02.json",
+            "no_new_prices_images_app_import": true,
+            "prior_nutrition_sha256": "4184e2e106dd52b96b4343394044ea432414f80fbf43aa5191a7eef4dea8b83c",
+            "raw_selected_records_file": "selected-usda-records.json",
+            "recipe_sha256_unchanged": "66aa9c670eefaa7d9983c0da44c663b4bf2d0c7e3565746d615a202321bee117",
+            "source_archive_sha256": "c33d91e5c44ddbcd71ed6038714fb648b26089b3f91fabfa3be63d96d5763a01",
+            "version": "USDA-refresh-20261016-01"
+          },
+          "status": "complete-conditional-USDA-input-estimate",
+          "whole_batch": {
+            "carbs_g": {
+              "max": "5552361/40000",
+              "min": "1382643/10000"
+            },
+            "fat_g": {
+              "max": "137447/2500",
+              "min": "189593/10000"
+            },
+            "kcal": {
+              "max": "13759973299/10000000",
+              "min": "280039/250"
+            },
+            "protein_g": {
+              "max": "182249/2000",
+              "min": "3088891/40000"
+            }
+          }
+        },
+        "predecessor_id": "WD-M-431627cc2c407495",
+        "predecessor_recipe_sha256": "e30653e28c82d80ad9cc1996141309ecc504bdf6dd7428ae4c1797c9fa2c7eb2",
+        "prior_revision_recipe_sha256": "315ceb2862a8f4bddfb864dffa437a866ea18fe78c5ec4211cbd81bafa86b9d3",
+        "product_accepted": false,
+        "recipe": {
+          "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+          "capacity_note": "Original rice capacity reference: two source servings in a2litre lidded saucepan. After covered rest, the existing clean heatproof filling bowl holds the reserved rice; its actual capacity is unspecified and must be checked. Filling now cooks in the emptied saucepan, not the original30cm nonstick skillet. Ground beef uses two equal measured batches; no new vessel dimensions/nonstick performance are asserted. Smaller water amounts may evaporate before rice is tender; heat, liquid retention, stirring and thermometer depth at each reserved portion remain unmeasured and held for review.",
+          "concept": "A familiar honey mustard beef and rice meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+          "equipment": [
+            "kitchen scale",
+            "knife",
+            "cutting board",
+            "two serving plates or bowls",
+            "stove",
+            "2 litre saucepan with lid",
+            "spatula",
+            "thin-tip food thermometer",
+            "graduated ml measuring jug",
+            "clean heatproof filling bowl",
+            "raw-food mixing bowl"
+          ],
+          "ingredients": [
+            {
+              "id": "dry_white_rice",
+              "name": "long-grain white rice",
+              "quantity": "150",
+              "state": "dry, uncooked",
+              "unit": "g"
+            },
+            {
+              "id": "process_water",
+              "name": "water for cooking starch",
+              "quantity": "300",
+              "state": "potable",
+              "unit": "ml"
+            },
+            {
+              "id": "olive_oil",
+              "name": "olive oil",
+              "quantity": "6",
+              "state": "ready-to-use",
+              "unit": "g"
+            },
+            {
+              "id": "protein_lean_ground_beef",
+              "name": "lean ground beef",
+              "quantity": "360",
+              "state": "raw, chilled",
+              "unit": "g"
+            },
+            {
+              "id": "garlic_powder",
+              "name": "garlic powder",
+              "quantity": "1",
+              "state": "dried garlic powder",
+              "unit": "g"
+            },
+            {
+              "id": "salt",
+              "name": "table salt",
+              "quantity": "1",
+              "state": "ready-to-use",
+              "unit": "g"
+            },
+            {
+              "id": "dijon_mustard",
+              "name": "ready-made Dijon mustard",
+              "quantity": "20",
+              "state": "ready to eat",
+              "unit": "g"
+            },
+            {
+              "id": "honey",
+              "name": "honey",
+              "quantity": "20",
+              "state": "ready to eat",
+              "unit": "g"
+            }
+          ],
+          "route": "wd-current-rice-then-saucepan-filling-v1",
+          "safety_sources": [
+            "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+            "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+          ],
+          "sauce_family": "honey-mustard",
+          "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+          "servings": 2,
+          "steps": [
+            {
+              "allocations": [
+                {
+                  "id": "dry_white_rice",
+                  "quantity": "150",
+                  "unit": "g"
+                },
+                {
+                  "id": "process_water",
+                  "quantity": "300",
+                  "unit": "ml"
+                }
+              ],
+              "id": 1,
+              "instruction": "Put only the allocated dry rice and potable cooking water shown below in the lidded saucepan. Bring to a simmer on one burner, cover and lower heat. Cook until rice is tender and water absorbed; the original batch guide is15-20minutes, not a smaller-batch promise. Turn off heat and rest covered5minutes on the same burner. Transfer all cooked rice with the spatula to the clean heatproof filling bowl. Confirm it fits safely before cooking; if capacity is inadequate, stop this route. Keep the bowl separate from raw utensils. Leave the emptied saucepan on this burner for the filling; no hot-pan landing surface or second burner is assumed."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "protein_lean_ground_beef",
+                  "quantity": "360",
+                  "unit": "g"
+                },
+                {
+                  "id": "olive_oil",
+                  "quantity": "6",
+                  "unit": "g"
+                },
+                {
+                  "id": "garlic_powder",
+                  "quantity": "1",
+                  "unit": "g"
+                },
+                {
+                  "id": "salt",
+                  "quantity": "1",
+                  "unit": "g"
+                }
+              ],
+              "id": 2,
+              "instruction": "Use the emptied saucepan on this same burner. Divide the step's allocated oil, beef, garlic and salt into the TWO exact sub-batches shown below. Warm only the first sub-batch oil on medium-low. Add its beef and seasoning, break into small crumbles, and cook to160F(71C) in substantial crumbles. Move all cooked meat and juices to a clean serving plate. Repeat with the second sub-batch and its oil, then return the first cooked batch and all juices to the saucepan. If a sub-batch cannot be stirred safely without crowding, or sticking prevents recovery of the measured food, stop: do not discard food, add oil/water or assume a larger vessel. Raw-food utensils must not touch cooked food."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "dijon_mustard",
+                  "quantity": "20",
+                  "unit": "g"
+                },
+                {
+                  "id": "honey",
+                  "quantity": "20",
+                  "unit": "g"
+                }
+              ],
+              "id": 3,
+              "instruction": "Turn off heat and let bubbling stop. Fold all allocated Dijon mustard and honey into the cooked filling in the saucepan. Serve the complete filling, sauce and all reserved rice promptly for this assignment. Do not put raw utensils into the rice bowl. The short rice wait is not a validated hot hold; no delayed meal-prep or safe reheating claim is made. Follow the original storage limits if interrupted; rice beyond safe time limits must not be rescued by reheating."
+            }
+          ],
+          "supporting_vegetables_g": 0,
+          "timing_note": "Original two-source-serving static serial estimate:47-73minutes elapsed,29-51hands-on,42-68attention. Not measured. Smaller-batch timing is held; cues and safety endpoints control doneness, not a scaled timer.",
+          "title": "Honey mustard beef and rice"
+        },
+        "recipe_sha256": "a58b59e85e82934970fda63fd5053ce8123f1d3a12a6c492059f657fb9e6d33f",
+        "regional_costs": null,
+        "replaces_revision_id": "WD-R2-M-431627cc2c407495",
+        "revision": {
+          "change_type": "whole-current-catalog-culinary-revision",
+          "individual_replacement": false,
+          "inventory_changed": false,
+          "method_changed": true,
+          "new_authored_measurements": false,
+          "nutrition_recalculated": true,
+          "oil_stage_redistributed": false,
+          "previous_revision_metadata": {
+            "added_ids": [
+              "dry_white_rice",
+              "honey"
+            ],
+            "inventory_changed": true,
+            "method_changed": true,
+            "quantity_changes": {
+              "dijon_mustard": {
+                "after": "20",
+                "before": "15"
+              },
+              "olive_oil": {
+                "after": "6",
+                "before": "8"
+              },
+              "process_water": {
+                "after": "300",
+                "before": "210"
+              }
+            },
+            "removed_ids": [
+              "bell_pepper",
+              "black_pepper",
+              "dill",
+              "dry_instant_couscous",
+              "lemon_juice",
+              "onion"
+            ],
+            "retained_existing_recipe": false
+          },
+          "spices_moved_to_cooking": []
+        },
+        "sections": [
+          "lunch",
+          "dinner"
+        ],
+        "stale_dependencies": [
+          "prior-price-projection",
+          "prior-image-binding",
+          "prior-variation-links"
+        ],
+        "status": "authored-draft-with-conditional-macros",
+        "variation_links": [],
+        "preparation_lineage": {
+          "policy": "wd-reviewed-method-input-lineage-v1",
+          "reviewId": "wd-current-method-v9-static-20261030",
+          "recipeId": "WD-R6-M-431627cc2c407495",
+          "parentRecipeSha256": "66aa9c670eefaa7d9983c0da44c663b4bf2d0c7e3565746d615a202321bee117",
+          "childRecipeSha256": "a58b59e85e82934970fda63fd5053ce8123f1d3a12a6c492059f657fb9e6d33f",
+          "parentNutritionSha256": "fe89064321c4fff88f8acf192ae6b4a335d3eccdadf444ba9e15f4cccb2a0911",
+          "parentRowSha256": "a53d9d259a20d11ea1389f3fad82c50a75123d4f03b16718b6827f39c93258c5",
+          "parentSourceSha256": "8af0f7c3cb48540df1661c760290d44f0f78a7bf80d64e10030aae46130d7643",
+          "nutritionMeaning": "unchanged-conditional-input-estimate",
+          "kitchenAcceptance": false
+        }
+      }
+    },
+    {
+      "parent": {
+        "allergen_hint_limit": "Nonexhaustive ingredient-family warnings, including retained predecessor cautions. Check every actual product label and cross-contact; no allergen clearance.",
+        "allergen_reviewed": false,
+        "conservative_allergen_hints": [
+          "egg",
+          "milk",
+          "wheat"
+        ],
+        "culinary_review": {
+          "limits": "Actual taste, cooking, timing, capacity, brands, consumption and allergen/product acceptance remain unverified.",
+          "original_slot_preserved": true,
+          "physical_taste_tested": false,
+          "quantity_changes": [],
+          "scope": "static-current-ingredient-and-method-revision"
+        },
+        "duplicate_of": null,
+        "flags": [
+          "ingredient-input-estimate-not-measured-cooked-or-consumed",
+          "all-listed-oil-included-retention-unmeasured",
+          "historical-generic-or-manufacturer-reference-not-product-label",
+          "reference-envelope-not-statistical-or-all-brand-bounds",
+          "timing-estimated-not-kitchen-tested",
+          "allergen-and-cross-contact-review-pending",
+          "taste-and-founder-menu-acceptance-unverified",
+          "not-imported-into-app"
+        ],
+        "holds": [],
+        "id": "WD-R6-B-0104",
+        "image": null,
+        "kind": "breakfast",
+        "kitchen_tested": false,
+        "meaningful_signature": "5d8190a96d367c8930ff075589e97c8c47ec3f64fa18f13f223ad942c1abfd2b",
+        "nutrition": {
+          "flags": [
+            "USDA-reference-input-estimate-not-measured-cooked-consumed",
+            "generic-or-reference-brand-not-actual-purchased-product",
+            "all-listed-oil-counted-retention-unmeasured",
+            "scenario-envelope-not-statistical-confidence-or-all-brand-bounds",
+            "physical-cooking-taste-allergen-and-product-acceptance-unverified"
+          ],
+          "missing_ingredients": [],
+          "partial_whole_batch": {
+            "carbs_g": {
+              "max": "6864/125",
+              "min": "13539/250"
+            },
+            "fat_g": {
+              "max": "6562/125",
+              "min": "2581/50"
+            },
+            "kcal": {
+              "max": "22988/25",
+              "min": "22598/25"
+            },
+            "protein_g": {
+              "max": "13783/250",
+              "min": "1351/25"
+            }
+          },
+          "per_serving": {
+            "carbs_g": {
+              "max": "3432/125",
+              "min": "13539/500"
+            },
+            "fat_g": {
+              "max": "3281/125",
+              "min": "2581/100"
+            },
+            "kcal": {
+              "max": "11494/25",
+              "min": "11299/25"
+            },
+            "protein_g": {
+              "max": "13783/500",
+              "min": "1351/50"
+            }
+          },
+          "servings": "2",
+          "source_refresh": {
+            "exact_recipe_body_sha256": "7ff9cfc5e430123a0f33d4f1662cfe53748c2eec51fc79b9134920fa07b6726d",
+            "ingredient_matching_file": "../ingredient-matches-02.json",
+            "no_new_prices_images_app_import": true,
+            "prior_nutrition_sha256": "252cd5e3fc38f38043d10e492a1c576b115d9ea6f491a97d914752914b654845",
+            "raw_selected_records_file": "selected-usda-records.json",
+            "recipe_sha256_unchanged": "7ff9cfc5e430123a0f33d4f1662cfe53748c2eec51fc79b9134920fa07b6726d",
+            "source_archive_sha256": "c33d91e5c44ddbcd71ed6038714fb648b26089b3f91fabfa3be63d96d5763a01",
+            "version": "USDA-refresh-20261016-01"
+          },
+          "status": "complete-conditional-USDA-input-estimate",
+          "whole_batch": {
+            "carbs_g": {
+              "max": "6864/125",
+              "min": "13539/250"
+            },
+            "fat_g": {
+              "max": "6562/125",
+              "min": "2581/50"
+            },
+            "kcal": {
+              "max": "22988/25",
+              "min": "22598/25"
+            },
+            "protein_g": {
+              "max": "13783/250",
+              "min": "1351/25"
+            }
+          }
+        },
+        "predecessor_id": "WD-B-0104",
+        "predecessor_recipe_sha256": "a5a15b193a7cc7edc8b22680eaedccebf7461d73bc84165bcbcbd6264982c5b7",
+        "prior_revision_recipe_sha256": "ed0efdb08d5f034c4239817600381dee738b7aaa1b235c6b8beabbcfc4d10507",
+        "product_accepted": false,
+        "recipe": {
+          "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+          "capacity_note": "Two servings. Bread and pan capacity, cooked yield and timing are authored estimates, not kitchen measurements. Use the stated pan and sequential batches; do not discard calculated filling to make it fit.",
+          "concept": "A familiar cheddar egg scramble with toast meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+          "equipment": [
+            "kitchen scale",
+            "knife",
+            "cutting board",
+            "two serving plates or bowls",
+            "mixing bowl",
+            "whisk",
+            "stove",
+            "28 cm nonstick skillet",
+            "spatula",
+            "thin-tip food thermometer",
+            "two-slot toaster",
+            "clean heatproof filling bowl",
+            "raw-food mixing bowl",
+            "toaster"
+          ],
+          "ingredients": [
+            {
+              "id": "eggs",
+              "name": "Whole eggs",
+              "quantity": "200",
+              "state": "raw, shell removed; 100 g is approximately two large eggs",
+              "unit": "g"
+            },
+            {
+              "id": "salt",
+              "name": "Fine salt",
+              "quantity": "1/2",
+              "state": "dry",
+              "unit": "g"
+            },
+            {
+              "id": "cheddar",
+              "name": "Cheddar cheese",
+              "quantity": "60",
+              "state": "pasteurized, grated",
+              "unit": "g"
+            },
+            {
+              "id": "oil",
+              "name": "Olive oil",
+              "quantity": "8",
+              "state": "liquid",
+              "unit": "g"
+            },
+            {
+              "id": "bread",
+              "name": "Whole-grain bread",
+              "quantity": "120",
+              "state": "ready to eat, sliced; weighed total",
+              "unit": "g"
+            }
+          ],
+          "route": "simple-scramble-and-toast",
+          "safety_sources": [
+            "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+            "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+          ],
+          "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+          "servings": 2,
+          "steps": [
+            {
+              "allocations": [
+                {
+                  "id": "oil",
+                  "quantity": "8",
+                  "unit": "g"
+                }
+              ],
+              "id": 1,
+              "instruction": "Warm only the oil allocated to this step in the nonstick skillet over medium-low heat."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "eggs",
+                  "quantity": "200",
+                  "unit": "g"
+                },
+                {
+                  "id": "salt",
+                  "quantity": "1/2",
+                  "unit": "g"
+                },
+                {
+                  "id": "cheddar",
+                  "quantity": "60",
+                  "unit": "g"
+                }
+              ],
+              "id": 2,
+              "instruction": "Whisk the allocated eggs and salt in the raw-egg bowl. Lower the skillet heat to medium-low. Add all egg to the cooked filling and gently fold until firm with no liquid egg and 160 F (71 C) in the center. Fold in all allocated cheese during the last minute, then take off the heat."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "bread",
+                  "quantity": "120",
+                  "unit": "g"
+                }
+              ],
+              "id": 3,
+              "instruction": "Toast all four bread slices in two toaster batches. Divide all cooked egg filling and toast between two portions."
+            }
+          ],
+          "supporting_vegetables_g": 0,
+          "timing_note": "20-30 minutes elapsed and about 15-25 minutes active; untested estimate including preparation and toast batches.",
+          "title": "Cheddar egg scramble with toast"
+        },
+        "recipe_sha256": "7ff9cfc5e430123a0f33d4f1662cfe53748c2eec51fc79b9134920fa07b6726d",
+        "regional_costs": null,
+        "replaces_revision_id": "WD-R2-B-0104",
+        "revision": {
+          "change_type": "whole-current-catalog-culinary-revision",
+          "individual_replacement": false,
+          "inventory_changed": false,
+          "method_changed": true,
+          "new_authored_measurements": false,
+          "nutrition_recalculated": true,
+          "oil_stage_redistributed": false,
+          "previous_revision_metadata": {
+            "added_ids": [],
+            "inventory_changed": true,
+            "method_changed": true,
+            "quantity_changes": {
+              "cheddar": {
+                "after": "60",
+                "before": "40"
+              },
+              "oil": {
+                "after": "8",
+                "before": "10"
+              },
+              "salt": {
+                "after": "1/2",
+                "before": "1"
+              }
+            },
+            "removed_ids": [
+              "black-pepper",
+              "broccoli",
+              "water"
+            ],
+            "retained_existing_recipe": false
+          },
+          "spices_moved_to_cooking": []
+        },
+        "sections": [
+          "breakfast"
+        ],
+        "stale_dependencies": [
+          "prior-price-projection",
+          "prior-image-binding",
+          "prior-variation-links"
+        ],
+        "status": "authored-draft-with-conditional-macros",
+        "variation_links": []
+      },
+      "child": {
+        "allergen_hint_limit": "Nonexhaustive ingredient-family warnings, including retained predecessor cautions. Check every actual product label and cross-contact; no allergen clearance.",
+        "allergen_reviewed": false,
+        "conservative_allergen_hints": [
+          "egg",
+          "milk",
+          "wheat"
+        ],
+        "culinary_review": {
+          "limits": "Actual taste, cooking, timing, capacity, brands, consumption and allergen/product acceptance remain unverified.",
+          "original_slot_preserved": true,
+          "physical_taste_tested": false,
+          "quantity_changes": [],
+          "scope": "static-current-ingredient-and-method-revision"
+        },
+        "duplicate_of": null,
+        "flags": [
+          "ingredient-input-estimate-not-measured-cooked-or-consumed",
+          "all-listed-oil-included-retention-unmeasured",
+          "historical-generic-or-manufacturer-reference-not-product-label",
+          "reference-envelope-not-statistical-or-all-brand-bounds",
+          "timing-estimated-not-kitchen-tested",
+          "allergen-and-cross-contact-review-pending",
+          "taste-and-founder-menu-acceptance-unverified",
+          "not-imported-into-app"
+        ],
+        "holds": [],
+        "id": "WD-R6-B-0104",
+        "image": null,
+        "kind": "breakfast",
+        "kitchen_tested": false,
+        "meaningful_signature": "5d8190a96d367c8930ff075589e97c8c47ec3f64fa18f13f223ad942c1abfd2b",
+        "nutrition": {
+          "flags": [
+            "USDA-reference-input-estimate-not-measured-cooked-consumed",
+            "generic-or-reference-brand-not-actual-purchased-product",
+            "all-listed-oil-counted-retention-unmeasured",
+            "scenario-envelope-not-statistical-confidence-or-all-brand-bounds",
+            "physical-cooking-taste-allergen-and-product-acceptance-unverified"
+          ],
+          "missing_ingredients": [],
+          "partial_whole_batch": {
+            "carbs_g": {
+              "max": "6864/125",
+              "min": "13539/250"
+            },
+            "fat_g": {
+              "max": "6562/125",
+              "min": "2581/50"
+            },
+            "kcal": {
+              "max": "22988/25",
+              "min": "22598/25"
+            },
+            "protein_g": {
+              "max": "13783/250",
+              "min": "1351/25"
+            }
+          },
+          "per_serving": {
+            "carbs_g": {
+              "max": "3432/125",
+              "min": "13539/500"
+            },
+            "fat_g": {
+              "max": "3281/125",
+              "min": "2581/100"
+            },
+            "kcal": {
+              "max": "11494/25",
+              "min": "11299/25"
+            },
+            "protein_g": {
+              "max": "13783/500",
+              "min": "1351/50"
+            }
+          },
+          "servings": "2",
+          "source_refresh": {
+            "exact_recipe_body_sha256": "7ff9cfc5e430123a0f33d4f1662cfe53748c2eec51fc79b9134920fa07b6726d",
+            "ingredient_matching_file": "../ingredient-matches-02.json",
+            "no_new_prices_images_app_import": true,
+            "prior_nutrition_sha256": "252cd5e3fc38f38043d10e492a1c576b115d9ea6f491a97d914752914b654845",
+            "raw_selected_records_file": "selected-usda-records.json",
+            "recipe_sha256_unchanged": "7ff9cfc5e430123a0f33d4f1662cfe53748c2eec51fc79b9134920fa07b6726d",
+            "source_archive_sha256": "c33d91e5c44ddbcd71ed6038714fb648b26089b3f91fabfa3be63d96d5763a01",
+            "version": "USDA-refresh-20261016-01"
+          },
+          "status": "complete-conditional-USDA-input-estimate",
+          "whole_batch": {
+            "carbs_g": {
+              "max": "6864/125",
+              "min": "13539/250"
+            },
+            "fat_g": {
+              "max": "6562/125",
+              "min": "2581/50"
+            },
+            "kcal": {
+              "max": "22988/25",
+              "min": "22598/25"
+            },
+            "protein_g": {
+              "max": "13783/250",
+              "min": "1351/25"
+            }
+          }
+        },
+        "predecessor_id": "WD-B-0104",
+        "predecessor_recipe_sha256": "a5a15b193a7cc7edc8b22680eaedccebf7461d73bc84165bcbcbd6264982c5b7",
+        "prior_revision_recipe_sha256": "ed0efdb08d5f034c4239817600381dee738b7aaa1b235c6b8beabbcfc4d10507",
+        "product_accepted": false,
+        "recipe": {
+          "before_heat": "Weigh every ingredient in its declared edible state. Prepare the listed cuts and ready-to-eat produce before handling raw egg, meat or fish. Keep raw-food utensils separate from the clean heatproof bowl and serving dishes. Use only the measured inventory; no assumed sides, garnish or extra oil.",
+          "capacity_note": "Original capacity reference: two source servings and28cm nonstick skillet. Bread must lie flat; split only the reserved bread into fitting batches. No slice-to-gram or fractional-egg conversion is assumed. Small egg allocations may be too shallow for reliable folding/temperature measurement in this pan; capacity and smaller-batch heat behavior are unmeasured and held for review.",
+          "concept": "A familiar cheddar egg scramble with toast meal for two, using its actual listed ingredients and one defined cooking route. Authored draft, not taste-tested.",
+          "equipment": [
+            "kitchen scale",
+            "knife",
+            "cutting board",
+            "two serving plates or bowls",
+            "mixing bowl",
+            "whisk",
+            "stove",
+            "28 cm nonstick skillet",
+            "spatula",
+            "thin-tip food thermometer",
+            "clean heatproof filling bowl",
+            "raw-food mixing bowl"
+          ],
+          "ingredients": [
+            {
+              "id": "eggs",
+              "name": "Whole eggs",
+              "quantity": "200",
+              "state": "raw, shell removed; 100 g is approximately two large eggs",
+              "unit": "g"
+            },
+            {
+              "id": "salt",
+              "name": "Fine salt",
+              "quantity": "1/2",
+              "state": "dry",
+              "unit": "g"
+            },
+            {
+              "id": "cheddar",
+              "name": "Cheddar cheese",
+              "quantity": "60",
+              "state": "pasteurized, grated",
+              "unit": "g"
+            },
+            {
+              "id": "oil",
+              "name": "Olive oil",
+              "quantity": "8",
+              "state": "liquid",
+              "unit": "g"
+            },
+            {
+              "id": "bread",
+              "name": "Whole-grain bread",
+              "quantity": "120",
+              "state": "ready to eat, sliced; weighed total",
+              "unit": "g"
+            }
+          ],
+          "route": "wd-current-dry-skillet-toast-v1",
+          "safety_sources": [
+            "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+            "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely"
+          ],
+          "serve_and_store": "Divide the finished meal evenly between two people. Refrigerate perishable leftovers in shallow covered containers at 40 F (4 C) or colder within 2 hours, or 1 hour above 90 F (32 C). Reheat leftovers to 165 F (74 C). No recipe-specific storage life or physical cooking has been tested.",
+          "servings": 2,
+          "steps": [
+            {
+              "allocations": [
+                {
+                  "id": "bread",
+                  "quantity": "120",
+                  "unit": "g"
+                }
+              ],
+              "id": 1,
+              "instruction": "Use only the reserved bread amount shown below. Before handling raw egg, put bread flat in the clean, cool skillet, in fitting batches without overlap. Turn heat to low or medium-low. Toast dry; turn with the spatula when the underside is lightly golden and crisp. Toast the second side to the same cue. Watch continuously; reduce or turn off heat if browning too fast or smoking. Move each batch to clean serving plates. Add no oil, butter or toppings, and do not leave the empty nonstick pan heating between batches. Follow the pan's care instructions; if dry-food cooking is prohibited, this route is unavailable."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "oil",
+                  "quantity": "8",
+                  "unit": "g"
+                }
+              ],
+              "id": 2,
+              "instruction": "Turn off the burner. Use the spatula to clear loose bread crumbs onto the toast plates; let the pan cool enough that the measured oil will not smoke. Add only the oil allocated below, then return to low heat. Keep toast and clean plates separate from raw-egg utensils."
+            },
+            {
+              "allocations": [
+                {
+                  "id": "eggs",
+                  "quantity": "200",
+                  "unit": "g"
+                },
+                {
+                  "id": "salt",
+                  "quantity": "1/2",
+                  "unit": "g"
+                },
+                {
+                  "id": "cheddar",
+                  "quantity": "60",
+                  "unit": "g"
+                }
+              ],
+              "id": 3,
+              "instruction": "Whisk the allocated egg and salt in the raw-egg bowl. Pour into the oiled skillet on low to medium-low heat. Gently fold until firm with no liquid egg and160F(71C) in the center. Fold in all allocated cheese near the end. Turn off heat. Serve all cooked egg, cheese, measured pan oil and reserved toast for this assignment; do not make the original full batch unless its full quantity is reserved."
+            }
+          ],
+          "supporting_vegetables_g": 0,
+          "timing_note": "Original two-source-serving static serial estimate:20-57minutes elapsed,20-57hands-on,20-57attention. Not measured. Smaller-batch timing is held; cues and safety endpoints control doneness, not a scaled timer.",
+          "title": "Cheddar egg scramble with toast"
+        },
+        "recipe_sha256": "864e9f8317d2d83e4817302903dd2e7677ec70954dcf04aa2c1d2236c84e6a69",
+        "regional_costs": null,
+        "replaces_revision_id": "WD-R2-B-0104",
+        "revision": {
+          "change_type": "whole-current-catalog-culinary-revision",
+          "individual_replacement": false,
+          "inventory_changed": false,
+          "method_changed": true,
+          "new_authored_measurements": false,
+          "nutrition_recalculated": true,
+          "oil_stage_redistributed": false,
+          "previous_revision_metadata": {
+            "added_ids": [],
+            "inventory_changed": true,
+            "method_changed": true,
+            "quantity_changes": {
+              "cheddar": {
+                "after": "60",
+                "before": "40"
+              },
+              "oil": {
+                "after": "8",
+                "before": "10"
+              },
+              "salt": {
+                "after": "1/2",
+                "before": "1"
+              }
+            },
+            "removed_ids": [
+              "black-pepper",
+              "broccoli",
+              "water"
+            ],
+            "retained_existing_recipe": false
+          },
+          "spices_moved_to_cooking": []
+        },
+        "sections": [
+          "breakfast"
+        ],
+        "stale_dependencies": [
+          "prior-price-projection",
+          "prior-image-binding",
+          "prior-variation-links"
+        ],
+        "status": "authored-draft-with-conditional-macros",
+        "variation_links": [],
+        "preparation_lineage": {
+          "policy": "wd-reviewed-method-input-lineage-v1",
+          "reviewId": "wd-current-method-v9-static-20261030",
+          "recipeId": "WD-R6-B-0104",
+          "parentRecipeSha256": "7ff9cfc5e430123a0f33d4f1662cfe53748c2eec51fc79b9134920fa07b6726d",
+          "childRecipeSha256": "864e9f8317d2d83e4817302903dd2e7677ec70954dcf04aa2c1d2236c84e6a69",
+          "parentNutritionSha256": "caa5f304589b9ca56c15068c7b8923acbccba77200e7296e31532c55e8eee722",
+          "parentRowSha256": "506f921891c9029cd891c4bc451dc575d5ebbf0e0830fc36a4cb03e0d593c885",
+          "parentSourceSha256": "8af0f7c3cb48540df1661c760290d44f0f78a7bf80d64e10030aae46130d7643",
+          "nutritionMeaning": "unchanged-conditional-input-estimate",
+          "kitchenAcceptance": false
+        }
+      }
+    }
+  ]
+}

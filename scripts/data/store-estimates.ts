@@ -20,7 +20,8 @@ export type BasketQuote={scope:QuoteScope;scopeDigest:string;fixture:boolean;sta
 export function ratio(numerator:number,denominator=1):Ratio{cents(numerator);cents(denominator,true);return {numerator,denominator};}
 export function decimalQuantity(value:number):Ratio{
   if(!Number.isFinite(value)||value<0)throw Error("Invalid physical quantity");
-  const [mantissa,exponent="0"]=String(value).split("e"),[whole,fraction=""]=mantissa.split(".");
+  // A finite number string always has its first mantissa component.
+  const [mantissa,exponent="0"]=String(value).split("e"),[whole,fraction=""]=mantissa!.split(".");
   const scale=fraction.length-Number(exponent),n=BigInt(whole+fraction);
   return scale>=0?fromBig(n,BigInt(10)**BigInt(scale)):fromBig(n*BigInt(10)**BigInt(-scale),BigInt(1));
 }
@@ -60,13 +61,15 @@ function lineFor(req:Requirement,owned:Ratio,facts:PackFact[],m:Model):Line{
     }
     if(index===facts.length)return;
     // More preferred/source-earlier packs win otherwise equal ties.
-    for(let n=caps[index];n>=0;n--)walk(index+1,sum(quantity,times(facts[index].packQuantity,n)),addCents([cost,ceilRatio(prices[index],ratio(n))]),[...counts,n]);
+    // Recursion exits at facts.length; caps/prices are maps of that same array.
+    for(let n=caps[index]!;n>=0;n--)walk(index+1,sum(quantity,times(facts[index]!.packQuantity,n)),addCents([cost,ceilRatio(prices[index]!,ratio(n))]),[...counts,n]);
   };
   walk(0,ratio(0),0,[]);
   if(!best)throw Error("Unavailable packs or perishable carryover limit");
   const chosen=best as {counts:number[];quantity:Ratio;cost:number};
+  // The chosen count vector is padded to facts.length before it is accepted.
   return {...base,purchased:chosen.quantity,newCarryover:subtract(chosen.quantity,remaining),rawCents:chosen.cost,
-    assignments:facts.flatMap((f,i)=>chosen.counts[i]?[{storeId:f.cell.storeId,factId:f.id,productId:f.productId,offerId:f.offerId,packLabel:f.packLabel,packQuantity:f.packQuantity,packs:chosen.counts[i],packCents:prices[i],mode:f.mode}]:[])};
+    assignments:facts.flatMap((f,i)=>chosen.counts[i]?[{storeId:f.cell.storeId,factId:f.id,productId:f.productId,offerId:f.offerId,packLabel:f.packLabel,packQuantity:f.packQuantity,packs:chosen.counts[i]!,packCents:prices[i]!,mode:f.mode}]:[])};
 }
 export function quoteBaskets(request:QuoteRequest,requirements:Requirement[],pantry:PantryAmount[],stores:PhysicalStore[],facts:PackFact[],sources:SourcePolicy[],model:Model,calibrations:Calibration[]){
   cents(request.budgetCents);textId(request.region);textId(request.selectionRevision);textId(request.strategyPolicyDigest);
