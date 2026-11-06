@@ -2,10 +2,15 @@ import { AccountError, accountHandler, loadCatalogPin, supabaseAccountRepository
 
 export const runtime = "nodejs";
 async function handle(request: Request) {
-  // Default-off until migration/RLS/provider/retention checks and a separately authorized rollout.
+  // Broad legacy actions remain independently off until lifecycle rollout.
+  // Profile-only access is limited before authentication or repository work.
+  const path = new URL(request.url).pathname;
+  const profileOnly = process.env.WD_ACCOUNT_PROFILE_API_ENABLED === "true"
+    && (path === "/api/v1/account" || path === "/api/v1/account/")
+    && ["GET", "POST", "PATCH"].includes(request.method);
   const url = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (process.env.WD_ACCOUNT_API_ENABLED !== "true" || !url || !key) return Response.json({ error: "account_not_configured" }, { status: 503, headers: { "Cache-Control": "no-store" } });
+  if (!(process.env.WD_ACCOUNT_API_ENABLED === "true" || profileOnly) || !url || !key) return Response.json({ error: "account_not_configured" }, { status: 503, headers: { "Cache-Control": "no-store" } });
   try {
     const verify = supabaseVerifier(url, key);
     const account = await verify(request);
