@@ -1,3 +1,4 @@
+import { CURRENT_PRODUCT_ENROLLMENT_V2, productEnrollmentMatchesHost, type CheckedProductEnrollmentV2 } from "./current-product-enrollment.server.ts";
 import {createCurrentIntegrationReferenceV11Async,CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY} from "./current-integration-reference-v11.server.ts";
 import {createCurrentIntegrationReferenceV10,CURRENT_INTEGRATION_REFERENCE_V10_IDENTITY} from "./current-integration-reference-v10.server.ts";
 import { readCurrentBundledCapsule } from "./current-bundled-capsule.server.ts";
@@ -90,7 +91,7 @@ function json(value: string | undefined): unknown {
  * factory, authenticate an owner, or contact a configured target. Unknown
  * metadata leaves new-session/source/billing admission explicitly unavailable.
  * currentRead needs none of those mutation prerequisites. */
-export function resolveCurrentIntegrationServerConfiguration(value: unknown, now: () => number = Date.now, request: typeof fetch = fetch): CurrentIntegrationRuntimeDependencies {
+export function resolveCurrentIntegrationServerConfiguration(value: unknown, now: () => number = Date.now, request: typeof fetch = fetch, productEnrollment: CheckedProductEnrollmentV2 | null = CURRENT_PRODUCT_ENROLLMENT_V2): CurrentIntegrationRuntimeDependencies {
   try {
     const c = configuration(value), enabled = c.WD_CURRENT_OWNER_API_ENABLED === "true" && c.WD_REVENUECAT_CONFIGURATION_VERIFIED === "true";
     const origin = c.SUPABASE_URL ?? c.NEXT_PUBLIC_SUPABASE_URL;
@@ -110,9 +111,10 @@ export function resolveCurrentIntegrationServerConfiguration(value: unknown, now
     const providerReadiness = rawReadiness && typeof rawReadiness === "object" && !Array.isArray(rawReadiness)
       ? { ...rawReadiness, evaluatedAt: new Date(now()).toISOString() } : undefined;
     const projection = inspectCurrentProviderReadiness(providerReadiness);
-    const productsReady = projection.region === "USA" && projection.environment === environment?.toLowerCase()
-      && projection.subscription.status === "externally_accepted";
     const readKey = c.REVENUECAT_SUBSCRIBER_READ_API_KEY ?? c.REVENUECAT_SECRET_API_KEY;
+    const productsReady = productEnrollment === null
+      ? projection.region === "USA" && projection.environment === environment?.toLowerCase() && projection.subscription.status === "externally_accepted"
+      : productEnrollmentMatchesHost(productEnrollment, { origin, environment, subscriberReadKey: readKey, readiness: providerReadiness, now: now() });
     const subscription: CurrentIntegrationRuntimeDependencies["subscription"] = enabled && origin && serverCredential && readKey && productsReady && (environment === "SANDBOX" || environment === "PRODUCTION")
       ? { environment, config: { environment, entitlement: "wisedinner_pro", products: ["com.wisedinner.app.protein.weekly", "com.wisedinner.app.protein.yearly"] },
         repository: supabaseBillingRepository(origin, serverCredential, request), provider: revenueCatProvider(readKey, request) } : undefined;

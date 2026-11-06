@@ -296,6 +296,19 @@ export const CURRENT_INTEGRATION_SOURCE_MANIFEST = Object.freeze({
   peerGraphsAccepted: false,
   environmentNames: Object.freeze(["SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_ANON_KEY", "NEXT_PUBLIC_SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY", "REVENUECAT_SECRET_API_KEY", "WD_BILLING_ENVIRONMENT", "WD_CURRENT_OWNER_API_ENABLED", "WD_CURRENT_OWNER_READ_API_ENABLED", "WD_ACCOUNT_DELETION_V2_ENABLED", "WD_ACCOUNT_DELETION_V2_RETENTION_POLICY"]),
   codeAndAssets: Object.freeze([
+    // Exact existing relative dependency closure, including maintained source families.
+    "lib/current-bundled-capsule.server.ts",
+    "lib/generated-current-source-capsule-v7.json",
+    "lib/generated-current-source-capsule-v9.json",
+    "lib/current-integration-reference-v10.server.ts",
+    "lib/current-integration-reference-v9.server.ts",
+    "lib/fixtures/current-final-practical-guides-v1.json",
+    "lib/fixtures/current-final-source-v1.json",
+    "lib/fixtures/current-profile-method-guides-v1.json",
+    "lib/generated-final-source-admission.ts",
+    "lib/generated-profile-method-guides.ts",
+    "lib/generated-regional-rate-reference.ts",
+    "lib/generated-reviewed-nutrition-transition.ts",
     "lib/current-integration-reference-v11.server.ts", "lib/generated-current-source-capsule-v11.json",
     "lib/fixtures/current-original-batch-guide-bindings-v1.json",
     "lib/fixtures/current-reviewed-practical-guides-v1.json",
@@ -304,7 +317,7 @@ export const CURRENT_INTEGRATION_SOURCE_MANIFEST = Object.freeze({
 
     "lib/current-integration-runtime.server.ts", "lib/generated-current-source-capsule-v4.json",
     "lib/current-integration-reference-v5.server.ts", "lib/generated-current-source-capsule-v5.json",
-    "lib/current-subscription-scope-bridge.server.ts", "lib/current-provider-readiness.server.ts", "lib/billing-restore.ts",
+    "lib/current-subscription-scope-bridge.server.ts", "lib/current-provider-readiness.server.ts", "lib/current-product-enrollment.server.ts", "lib/billing-restore.ts",
     "lib/account-deletion-v2-auth.server.ts",
     "lib/account-deletion-v2.server.ts",
     "lib/account-deletion.ts",
