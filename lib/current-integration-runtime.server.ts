@@ -65,7 +65,7 @@ export type CurrentIntegrationRuntimeDependencies = Readonly<{
   owner?: Readonly<{ identity: OwnerScopeDependencies; rpc: CurrentOwnerRpcDriver }>;
   subscription?: Readonly<{ environment: BillingEnvironment; repository: BillingRepository; provider: BillingProvider; config: BillingConfig }>;
   providerReadiness?: unknown;
-  source?: Readonly<{ expected: CurrentIntegrationSourceIdentity; create(): CurrentIntegrationSource }>;
+  source?: Readonly<{ expected: CurrentIntegrationSourceIdentity; create(): CurrentIntegrationSource | Promise<CurrentIntegrationSource> }>;
   lifecycle?: Readonly<{ admission?: CurrentLifecycleAdmission; create(admission?: CurrentLifecycleAdmission): CurrentLifecycleHandlers }>;
   request?: typeof fetch; now?: () => number;
 }>;
@@ -185,10 +185,10 @@ export function createCurrentIntegrationRuntime(deps: CurrentIntegrationRuntimeD
     }
   } catch { subscription = undefined; }
   const validBilling = !!subscription;
-  let expected: CurrentIntegrationSourceIdentity | null = null, sourceFactory: (() => CurrentIntegrationSource) | undefined;
+  let expected: CurrentIntegrationSourceIdentity | null = null, sourceFactory: (() => CurrentIntegrationSource | Promise<CurrentIntegrationSource>) | undefined;
   try { if (d.source) { const src = data(d.source); expected = sourceIdentity(src.expected); sourceFactory = method(d.source, "create"); } } catch { /* held */ }
   let sourceState: Readiness = expected && sourceFactory ? state("configured", "source_not_loaded") : state("unsupported", "source_unavailable");
-  let source: CurrentIntegrationSource | null = null, attemptedSource = false;
+  let source: CurrentIntegrationSource | null = null, sourcePreparation: Promise<void> | null = null;
   let lifecycleFactory: NonNullable<CurrentIntegrationRuntimeDependencies["lifecycle"]>["create"] | undefined;
   let admission: CurrentLifecycleAdmission | undefined, validLifecycle = false;
   try { if (d.lifecycle) { const l = data(d.lifecycle); lifecycleFactory = method(d.lifecycle, "create"); admission = capturedAdmission(l.admission); validLifecycle = !admission || admission.origin === TARGET; } } catch { /* held */ }
@@ -207,10 +207,16 @@ export function createCurrentIntegrationRuntime(deps: CurrentIntegrationRuntimeD
   }
   async function bind(...args: Parameters<CurrentOwnerServiceDependencies["bind"]>) {
     if (!expected || !sourceFactory) return null;
-    if (!attemptedSource) {
-      attemptedSource = true;
-      try { source = checkedSource(sourceFactory(), expected); sourceState = state("verified", "local_source_identity_matched"); }
-      catch { sourceState = state("unsupported", "source_identity_unavailable"); }
+    if (!source) {
+      if (!sourcePreparation) {
+        // Share preparation only. Owner/transaction/access state stays local to
+        // each bind call, and a failed preparation never becomes a ready source.
+        sourcePreparation = Promise.resolve().then(async () => {
+          try { source = checkedSource(await sourceFactory!(), expected!); sourceState = state("verified", "local_source_identity_matched"); }
+          catch { sourceState = state("configured", "source_preparation_failed"); }
+        }).finally(() => { sourcePreparation = null; });
+      }
+      await sourcePreparation;
     }
     if (!source) return null;
     const kernel = await source.bind(...args);
@@ -218,6 +224,7 @@ export function createCurrentIntegrationRuntime(deps: CurrentIntegrationRuntimeD
     // never by throwing away a possibly committed response afterward.
     if (!kernel || kernel.newWeekCommitBefore !== expected.window.commitBefore) return null;
     return { newWeekCommitBefore: kernel.newWeekCommitBefore, async handle(request: Request) {
+      if (request.signal.aborted) return unavailable("currentSession", "request_aborted", 499);
       // The accepted pure evaluator also serves historic projections. At the
       // current route boundary a closed reference lease cannot price ANY new
       // evaluation/replacement. Independent original reads use currentRead and

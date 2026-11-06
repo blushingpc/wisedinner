@@ -1,6 +1,6 @@
 import {isFinalDerivedRow,FINAL_DERIVED_NUTRITION_STATUS,finalReviewedMethodNutritionParent} from "./generated-final-source-admission.ts";
 import { isReviewedMixedNutrition, MIXED_NUTRITION_STATUS } from "./generated-reviewed-nutrition-transition.ts";
-import { sha256Hex, utf8ByteLength, utf8Encode, copyRuntimeBytes, utf8DecodeFatal } from "./generated-runtime-bytes.ts";
+import { createRuntimeSha256, sha256Hex, utf8Encode, copyRuntimeBytes, utf8DecodeFatal } from "./generated-runtime-bytes.ts";
 import { compare, decimal, multiply, rational, receipt, type Rational } from "../packages/solver/src/generated-meal-ranges.ts";
 import type { ExactAmount } from "../packages/solver/src/generated-plan-measures.ts";
 import { isReviewedMethodBodySha, reviewedMethodNutritionParent } from "./generated-reviewed-method-lineage.ts";
@@ -128,37 +128,70 @@ function project(value: unknown): RevisedRecipeProjection {
   return { id, kind: row.kind as "main" | "breakfast", sections, recipeSha256, recipe, source: row, nutrition: nutrition(row, recipe), capabilities: { regionalPrice: "held", wholePackCheckout: "held", imageBinding: "held" }, plannerAdopted: false };
 }
 
+export type CatalogYieldControl = () => Promise<void>;
+// Each sync and async caller drives the same validation steps. Only a fully
+// admitted immutable result enters the original exact-text cache.
+function* catalogSteps(source: unknown, expectedSha256: string, expectedCount: number): Generator<void, CatalogProjectionOutcome> {
+  try {
+    if (typeof source !== "string" && !(source instanceof Uint8Array)) fail();
+    if (typeof source === "string") {
+      const cached = validatedTexts.find(row => row.sha256 === expectedSha256 && row.count === expectedCount && row.text === source);
+      if (cached) return cached.result;
+    }
+    const chunks: Uint8Array[] = []; let total = 0;
+    if (typeof source === "string") {
+      for (let at = 0; at < source.length;) {
+        let end = Math.min(at + 65536, source.length);
+        // Do not split a surrogate pair; utf8Encode retains its existing lone-surrogate behavior.
+        if (end < source.length && source.charCodeAt(end - 1) >= 0xd800 && source.charCodeAt(end - 1) <= 0xdbff) end--;
+        const chunk = utf8Encode(source.slice(at, end)); total += chunk.length;
+        if (total > 64 * 1024 * 1024) fail(); chunks.push(chunk); at = end; yield;
+      }
+    } else {
+      if (source.byteLength > 64 * 1024 * 1024) fail();
+      const bytes = copyRuntimeBytes(source); if (bytes.length > 64 * 1024 * 1024) fail();
+      for (let at = 0; at < bytes.length; at += 65536) { const chunk = bytes.subarray(at, at + 65536); chunks.push(chunk); total += chunk.length; yield; }
+    }
+    const bytes = new Uint8Array(total); let offset = 0; const hash = createRuntimeSha256();
+    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; hash.update(chunk); yield; }
+    if (hash.digestHex() !== expectedSha256) return { outcome: "error", code: "source_hash_mismatch" };
+    const decoded: string[] = [];
+    for (let at = 0; at < bytes.length;) {
+      let end = Math.min(at + 65536, bytes.length);
+      while (end < bytes.length && end > at && (bytes[end]! & 0xc0) === 0x80) end--;
+      if (end === at) fail();
+      decoded.push(utf8DecodeFatal(bytes.subarray(at, end), at !== 0)); at = end; yield;
+    }
+    const lines = decoded.join("").replace(/\r?\n$/, "").split(/\r?\n/);
+    if (lines.length !== expectedCount || lines.some(line => !line.trim())) fail();
+    const recipes: RevisedRecipeProjection[] = [];
+    // Freeze each complete projection inside the bounded validation batch. A
+    // final recursive walk of all1300mutable rows would block after the last
+    // cooperative yield. No row or partial catalog is published here.
+    for (let i = 0; i < lines.length; i++) { recipes.push(deepFreeze(project(JSON.parse(lines[i]!)))); if ((i + 1) % 8 === 0) yield; }
+    const ids = new Set(recipes.map(row => row.id)); if (ids.size !== recipes.length) fail("invalid_recipe_identity");
+    const conditionalNutrition = recipes.filter(row => row.nutrition.status === "conditional").length;
+    const result = deepFreeze({ outcome: "success" as const, sourceSha256: expectedSha256, recipes, summary: { total: recipes.length, main: recipes.filter(row => row.kind === "main").length, breakfast: recipes.filter(row => row.kind === "breakfast").length, conditionalNutrition, heldNutrition: recipes.length - conditionalNutrition }, productAccepted: false as const });
+    if (typeof source === "string") { if (validatedTexts.length >= 2) validatedTexts.shift(); validatedTexts.push({ text: source, sha256: expectedSha256, count: expectedCount, result }); }
+    return result;
+  } catch (error) { return { outcome: "error", code: error instanceof CatalogFault ? error.code : "invalid_catalog_source" }; }
+}
 export function createRevisedCatalogReader(pin: unknown): (source: unknown) => CatalogProjectionOutcome {
   if (!pin || typeof pin !== "object" || Array.isArray(pin)) throw new Error("Invalid revised catalog pin");
   const descriptors = Object.getOwnPropertyDescriptors(pin), keys = Reflect.ownKeys(descriptors);
   if (keys.length !== 2 || keys.some(key => typeof key !== "string" || !["sha256", "recordCount"].includes(key) || !("value" in descriptors[key]!) || !descriptors[key]!.enumerable)) throw new Error("Invalid revised catalog pin");
   const expectedSha256: unknown = descriptors.sha256?.value, expectedCount: unknown = descriptors.recordCount?.value;
   if (typeof expectedSha256 !== "string" || !/^[a-f0-9]{64}$/.test(expectedSha256) || !Number.isSafeInteger(expectedCount) || (expectedCount as number) < 1 || (expectedCount as number) > 2000) throw new Error("Invalid revised catalog pin");
-  return source => {
-    try {
-      if (typeof source !== "string" && !(source instanceof Uint8Array)) fail();
-      if (typeof source === "string") {
-        const cached = validatedTexts.find(row => row.sha256 === expectedSha256 && row.count === expectedCount && row.text === source);
-        if (cached) return cached.result;
-      }
-      if (typeof source === "string" && utf8ByteLength(source) > 64 * 1024 * 1024 || source instanceof Uint8Array && source.byteLength > 64 * 1024 * 1024) fail();
-      const bytes = typeof source === "string" ? utf8Encode(source) : copyRuntimeBytes(source);
-      if (sha(bytes) !== expectedSha256) return { outcome: "error", code: "source_hash_mismatch" };
-      const content = utf8DecodeFatal(bytes), lines = content.replace(/\r?\n$/, "").split(/\r?\n/);
-      if (lines.length !== expectedCount || lines.some(line => !line.trim())) fail();
-      const recipes = lines.map(line => project(JSON.parse(line))), ids = new Set(recipes.map(row => row.id));
-      if (ids.size !== recipes.length) fail("invalid_recipe_identity");
-      const conditionalNutrition = recipes.filter(row => row.nutrition.status === "conditional").length;
-      const result = deepFreeze({ outcome: "success" as const, sourceSha256: expectedSha256, recipes, summary: { total: recipes.length, main: recipes.filter(row => row.kind === "main").length, breakfast: recipes.filter(row => row.kind === "breakfast").length, conditionalNutrition, heldNutrition: recipes.length - conditionalNutrition }, productAccepted: false as const });
-      if (typeof source === "string") {
-        if (validatedTexts.length >= 2) validatedTexts.shift();
-        validatedTexts.push({ text: source, sha256: expectedSha256 as string, count: expectedCount as number, result });
-      }
-      return result;
-    } catch (error) {
-      return { outcome: "error", code: error instanceof CatalogFault ? error.code : "invalid_catalog_source" };
-    }
-  };
+  return source => { const steps = catalogSteps(source, expectedSha256 as string, expectedCount as number); let next = steps.next(); while (!next.done) next = steps.next(); return next.value; };
+}
+export function createRevisedCatalogReaderAsync(pin: unknown, yieldControl: CatalogYieldControl): (source: unknown) => Promise<CatalogProjectionOutcome> {
+  if (!pin || typeof pin !== "object" || Array.isArray(pin)) throw new Error("Invalid revised catalog pin");
+  const descriptors = Object.getOwnPropertyDescriptors(pin), keys = Reflect.ownKeys(descriptors);
+  if (keys.length !== 2 || keys.some(key => typeof key !== "string" || !["sha256", "recordCount"].includes(key) || !("value" in descriptors[key]!) || !descriptors[key]!.enumerable)) throw new Error("Invalid revised catalog pin");
+  const expectedSha256: unknown = descriptors.sha256?.value, expectedCount: unknown = descriptors.recordCount?.value;
+  if (typeof expectedSha256 !== "string" || !/^[a-f0-9]{64}$/.test(expectedSha256) || !Number.isSafeInteger(expectedCount) || (expectedCount as number) < 1 || (expectedCount as number) > 2000) throw new Error("Invalid revised catalog pin");
+  if (typeof yieldControl !== "function") throw Error("catalog_scheduler_required");
+  return async source => { const steps = catalogSteps(source, expectedSha256 as string, expectedCount as number); let next = steps.next(); while (!next.done) { await yieldControl(); next = steps.next(); } return next.value; };
 }
 
 export const loadRevisedCatalog = createRevisedCatalogReader(CURRENT_REVISED_CATALOG_PIN);

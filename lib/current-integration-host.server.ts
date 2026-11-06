@@ -1,4 +1,4 @@
-import {createCurrentIntegrationReferenceV11,CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY} from "./current-integration-reference-v11.server.ts";
+import {createCurrentIntegrationReferenceV11Async,CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY} from "./current-integration-reference-v11.server.ts";
 import {createCurrentIntegrationReferenceV10,CURRENT_INTEGRATION_REFERENCE_V10_IDENTITY} from "./current-integration-reference-v10.server.ts";
 import { readCurrentBundledCapsule } from "./current-bundled-capsule.server.ts";
 import { currentPrivateHostInputs, createCurrentLifecyclePrivateProducerForHost } from "./current-lifecycle-private-producer.server.ts";
@@ -27,7 +27,7 @@ export type CurrentIntegrationHostResolver = Readonly<{
 const resolvers = new AsyncLocalStorage<CurrentIntegrationHostResolver["resolve"]>();
 // Cache only immutable prepared source per clock, never an owner, admission or
 // access closure. Loading still happens after the runtime admits the request.
-const preparedSources = new WeakMap<() => number, Map<string, CurrentIntegrationSource>>();
+const preparedSources = new WeakMap<() => number, Map<string, CurrentIntegrationSource | Promise<CurrentIntegrationSource>>>();
 
 /** Pure host construction. The accepted runtime owns issuer/bridge/engine,
  * request-local access, SQL fences, source leases and recovery. */
@@ -126,9 +126,17 @@ export function resolveCurrentIntegrationServerConfiguration(value: unknown, now
           let profiles = preparedSources.get(now);
           let source = profiles?.get(profile);
           if (!source) {
-            source = v11 ? createCurrentIntegrationReferenceV11(now) : v10 ? createCurrentIntegrationReferenceV10(now) : v9 ? createCurrentIntegrationReferenceV9(now) : v7 ? createCurrentIntegrationReferenceV7(now) : v5 ? createCurrentIntegrationReferenceV5(now) : loadCurrentIntegrationHostSource(now);
             if (!profiles) { profiles = new Map(); preparedSources.set(now, profiles); }
-            profiles.set(profile, source);
+            if (v11) {
+              const preparing = createCurrentIntegrationReferenceV11Async(now), cache = profiles;
+              source = preparing; cache.set(profile, preparing);
+              // Rejections retire only this preparation. A later admitted call
+              // may retry pure local work; no pending/error is marked ready.
+              void preparing.then(value => { if (cache.get(profile) === preparing) cache.set(profile, value); }, () => { if (cache.get(profile) === preparing) cache.delete(profile); });
+            } else {
+              source = v10 ? createCurrentIntegrationReferenceV10(now) : v9 ? createCurrentIntegrationReferenceV9(now) : v7 ? createCurrentIntegrationReferenceV7(now) : v5 ? createCurrentIntegrationReferenceV5(now) : loadCurrentIntegrationHostSource(now);
+              profiles.set(profile, source);
+            }
           }
           return source;
         } },

@@ -1,5 +1,6 @@
+import { createRevisedCatalogReaderAsync, type CatalogYieldControl } from "./generated-plan-catalog.ts";
 import { createHash } from "node:crypto";
-import { gunzipSync } from "node:zlib";
+import { gunzipSync, gunzip } from "node:zlib";
 import { canonicalReferenceData, copyReferenceData } from "./generated-plan-data.ts";
 import { createReferenceSessionFactoryV2, createReferenceSessionFactoryV3, createReferenceSessionFactoryV4 } from "./generated-plan-session.ts";
 import { NEW_WEEK_RECONFIRM_POLICY } from "./generated-plan-state.ts";
@@ -9,7 +10,7 @@ import type { CurrentOwnerServiceDependencies } from "./generated-current-owner-
 import { createReviewedReferenceArchive, referenceAdmissionDigest, reviewedReferenceDataDigest, type ReviewedReferenceDataV1, type ReferenceAdmissionManifest } from "./generated-reviewed-reference-data.ts";
 
 export const createReviewedCurrentReferenceArchive = createReviewedReferenceArchive;
-import { createCurrentGuidePolicy, CURRENT_GUIDE_POLICY } from "./generated-current-guide-policy.ts";
+import { createCurrentGuidePolicyAsync, createCurrentGuidePolicy, CURRENT_GUIDE_POLICY } from "./generated-current-guide-policy.ts";
 
 const snapshots = Object.freeze([Object.freeze({
   source: "4c4e64e9c7030ac588cd665a16786620a066d23c7fc409a086d12ac3d393051c", bytes: 11357533,
@@ -78,6 +79,85 @@ export function createReviewedCurrentSourceBinder(capsuleValue: unknown, now: ()
     ...(guidePolicy ? { guidePolicy: Object.freeze({ version: CURRENT_GUIDE_POLICY, sha256: guidePolicy.sha256 }) } : {}),
     referenceWindow: Object.freeze({ firstDay: clock.firstDay, lastDay: clock.lastDay, commitBefore: clock.commitBefore }),
     bind: async (owner, transactions) => {
+      if (!isIssuedVerifiedOwnerScope(owner)) return null;
+      // The existing durable port stores opaque bounded JSON; source-selected repositories validate each version.
+      const kernel = factory.bind({ labels, transactions: transactions as unknown as import("./generated-plan-state.ts").ReferenceStatePortV2 & import("./generated-plan-state.ts").ReferenceStatePortV3, resolveScope: () => owner.scope,
+        newWeekPolicy: NEW_WEEK_RECONFIRM_POLICY, newWeekRequestPolicy: clock.check });
+      if (kernel.outcome !== "ready") return null;
+      return Object.freeze({ newWeekCommitBefore: clock.commitBefore, async handle(request: Request) {
+        const response = await kernel.handle(request);
+        response.headers.set("X-WiseDinner-Reference-Through", clock.lastDay);
+        response.headers.set("X-WiseDinner-Source", pins.source);
+        if (guidePolicy) {
+          response.headers.set("X-WiseDinner-Guide-Policy", CURRENT_GUIDE_POLICY);
+          response.headers.set("X-WiseDinner-Guide-Policy-Sha256", guidePolicy.sha256);
+        }
+        // Header generation must never discard a committed acknowledgement.
+        try { response.headers.set("X-WiseDinner-Clock-Utc", new Date(now()).toISOString()); } catch { /* retain response */ }
+        return response;
+      } });
+    },
+  });
+}
+
+export async function createReviewedCurrentSourceBinderAsync(capsuleValue: unknown, now: () => number, profileMethods: boolean, yieldControl: CatalogYieldControl): Promise<{
+  readonly bind: CurrentOwnerServiceDependencies["bind"];
+  readonly sourceSha256: string; readonly sourcePolicyBasisSha256: string;
+  readonly referenceWindow: { readonly firstDay: string; readonly lastDay: string; readonly commitBefore: number };
+  readonly reviewedReferenceData?: ReviewedReferenceDataV1;
+  readonly guidePolicy?: Readonly<{ version: string; sha256: string }>;
+}> {
+  if (!capsuleValue || typeof capsuleValue !== "object" || Array.isArray(capsuleValue)) throw Error("Current source capsule unavailable");
+  const encoded = JSON.stringify(capsuleValue);
+  if (encoded.length > 3 * 1024 * 1024) throw Error("Current source capsule seal mismatch");
+  const capsuleSha = sha(encoded), pins = snapshots.find(row => row.capsule === capsuleSha);
+  if (!pins) throw Error("Current source capsule seal mismatch");
+  const capsule = JSON.parse(encoded) as { schema: string; sourceGzipBase64: string; configuration: unknown; labels: unknown };
+  if (capsule.schema !== "wd-current-server-source-capsule-v2" || typeof capsule.sourceGzipBase64 !== "string") throw Error("Current source capsule invalid");
+  const configuration = copyReferenceData(capsule.configuration), labels = copyReferenceData(capsule.labels);
+  if (sha(JSON.stringify(canonicalReferenceData(configuration))) !== pins.configuration || sha(JSON.stringify(canonicalReferenceData(labels))) !== pins.labels) throw Error("Current source configuration mismatch");
+  await yieldControl();
+  const sourceBytes = await new Promise<Buffer>((resolve, reject) => gunzip(Buffer.from(capsule.sourceGzipBase64, "base64"), { maxOutputLength: pins.bytes + 1 }, (error, output) => error ? reject(error) : resolve(output)));
+  if (sourceBytes.length !== pins.bytes || sha(sourceBytes) !== pins.source) throw Error("Current source body mismatch");
+  const source = new TextDecoder("utf-8", { fatal: true }).decode(sourceBytes);
+  if(profileMethods && pins.reviewRevision!==9 && pins.reviewRevision!==11) throw Error("profile_method_archive_mismatch");
+  const revision=profileMethods?(pins.reviewRevision===11?11:10):pins.reviewRevision;
+  const createFactory = profileMethods ? createReferenceSessionFactoryV4 : (pins.reviewRevision === 7 || pins.reviewRevision === 9) ? createReferenceSessionFactoryV3 : createReferenceSessionFactoryV2;
+  const catalog = await createRevisedCatalogReaderAsync({ sha256: pins.source, recordCount: 1300 }, yieldControl)(source);
+  if (catalog.outcome !== "success") throw Error("Current source not admitted");
+  await yieldControl();
+  const initial = createFactory(source, configuration);
+  await yieldControl();
+  if (initial.outcome !== "ready" || initial.source.sha256 !== pins.source || initial.source.recordCount !== 1300) throw Error("Current source not admitted");
+  // Each closed snapshot has its separately recorded review window. Capture
+  // dates and prices are unchanged; no request can renew or select a new lease.
+  const clock = (profileMethods ? createReviewedWeekClockPolicy : createReferenceSnapshotClockPolicy)(pins.firstDay, pins.lastDay, now);
+  // Closed V4 and explicit V5 snapshots retain their own current handoff. The
+  // older accepted capsule still binds its original legacy sessions unchanged.
+  let reviewed: ReviewedReferenceDataV1 | undefined;
+  if (pins.reviewRevision === 4 || pins.reviewRevision === 5 || pins.reviewRevision === 6 || pins.reviewRevision === 7 || pins.reviewRevision === 9 || pins.reviewRevision === 11) {
+    const manifest: ReferenceAdmissionManifest = Object.freeze({ reviewRevision: revision, sourcePin: initial.source,
+      configurationSha256: pins.configuration, sourcePolicyBasisSha256: initial.sourcePolicyBasis.basisSha256,
+      window: Object.freeze({ firstDay: pins.firstDay, lastDay: pins.lastDay, commitBefore: clock.commitBefore }),
+      regions: Object.freeze(["Northeast", "Midwest", "South", "West"]) });
+    const body = { schema: "wd-reviewed-reference-data-v1" as const, reviewRevision: manifest.reviewRevision,
+      sourcePin: { sha256: pins.source, recordCount: 1300 }, configurationSha256: pins.configuration, configuration,
+      sourcePolicyBasis: initial.sourcePolicyBasis, window: manifest.window, regions: manifest.regions,
+      evidenceManifestSha256: referenceAdmissionDigest(manifest) };
+    await yieldControl();
+    const archive = createReviewedCurrentReferenceArchive(source, [{ ...body, reviewedDataSha256: reviewedReferenceDataDigest(body) }], [manifest]);
+    reviewed = archive.current();
+  }
+  await yieldControl();
+  const guidePolicy = reviewed ? await createCurrentGuidePolicyAsync(source, configuration, profileMethods, yieldControl) : undefined;
+  await yieldControl();
+  const factory = reviewed ? createFactory(source, configuration, { reviewedReferenceData: reviewed, currentGuidePolicy: guidePolicy }) : initial;
+  if (factory.outcome !== "ready") throw Error("Current source handoff mismatch");
+  return Object.freeze({ sourceSha256: pins.source, sourcePolicyBasisSha256: factory.sourcePolicyBasis.basisSha256,
+    ...(reviewed ? { reviewedReferenceData: reviewed } : {}),
+    ...(guidePolicy ? { guidePolicy: Object.freeze({ version: CURRENT_GUIDE_POLICY, sha256: guidePolicy.sha256 }) } : {}),
+    referenceWindow: Object.freeze({ firstDay: clock.firstDay, lastDay: clock.lastDay, commitBefore: clock.commitBefore }),
+    bind: async (owner: Parameters<CurrentOwnerServiceDependencies["bind"]>[0], transactions: Parameters<CurrentOwnerServiceDependencies["bind"]>[1]) => {
       if (!isIssuedVerifiedOwnerScope(owner)) return null;
       // The existing durable port stores opaque bounded JSON; source-selected repositories validate each version.
       const kernel = factory.bind({ labels, transactions: transactions as unknown as import("./generated-plan-state.ts").ReferenceStatePortV2 & import("./generated-plan-state.ts").ReferenceStatePortV3, resolveScope: () => owner.scope,

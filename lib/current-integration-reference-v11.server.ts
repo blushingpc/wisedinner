@@ -1,5 +1,7 @@
+import { setImmediate as yieldImmediate } from "node:timers/promises";
+import type { CatalogYieldControl } from "./generated-plan-catalog.ts";
 import {readCurrentBundledCapsule} from "./current-bundled-capsule.server.ts";
-import {createReviewedCurrentSourceBinder} from "./generated-current-reviewed-source.ts";
+import {createReviewedCurrentSourceBinderAsync,createReviewedCurrentSourceBinder} from "./generated-current-reviewed-source.ts";
 import {referenceConfigurationDigest} from "./generated-reviewed-reference-data.ts";
 import type {CurrentIntegrationSource,CurrentIntegrationSourceIdentity} from "./current-integration-runtime.server.ts";
 // New source-policy/code family. Documentary11admission; originalV9/V10capsules,sourcefactsanddates remain unchanged.
@@ -22,6 +24,14 @@ const fixed = {
 export const CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY:CurrentIntegrationSourceIdentity=Object.freeze({...fixed,guidePolicy:Object.freeze(fixed.guidePolicy),window:Object.freeze(fixed.window)});
 export function createCurrentIntegrationReferenceV11(now:()=>number=Date.now):CurrentIntegrationSource{
  const bound=createReviewedCurrentSourceBinder(JSON.parse(readCurrentBundledCapsule("v11",import.meta.url)),now,true);
+ const p=bound.reviewedReferenceData;if(!p||p.reviewRevision!==11||!bound.guidePolicy)throw Error("profile_reference_unavailable");
+ const actual={sourceSha256:bound.sourceSha256,sourcePolicyBasisSha256:bound.sourcePolicyBasisSha256,configurationSha256:p.configurationSha256,reviewedDataSha256:p.reviewedDataSha256,evidenceManifestSha256:p.evidenceManifestSha256,guidePolicy:bound.guidePolicy,window:bound.referenceWindow};
+ if(referenceConfigurationDigest(actual)!==referenceConfigurationDigest(CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY))throw Error("profile_reference_identity_mismatch");
+ return Object.freeze({...bound,reviewedReferenceData:p,guidePolicy:bound.guidePolicy});
+}
+
+export async function createCurrentIntegrationReferenceV11Async(now:()=>number=Date.now, yieldControl:CatalogYieldControl=()=>yieldImmediate()):Promise<CurrentIntegrationSource>{
+ const bound=await createReviewedCurrentSourceBinderAsync(JSON.parse(readCurrentBundledCapsule("v11",import.meta.url)),now,true,yieldControl);
  const p=bound.reviewedReferenceData;if(!p||p.reviewRevision!==11||!bound.guidePolicy)throw Error("profile_reference_unavailable");
  const actual={sourceSha256:bound.sourceSha256,sourcePolicyBasisSha256:bound.sourcePolicyBasisSha256,configurationSha256:p.configurationSha256,reviewedDataSha256:p.reviewedDataSha256,evidenceManifestSha256:p.evidenceManifestSha256,guidePolicy:bound.guidePolicy,window:bound.referenceWindow};
  if(referenceConfigurationDigest(actual)!==referenceConfigurationDigest(CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY))throw Error("profile_reference_identity_mismatch");

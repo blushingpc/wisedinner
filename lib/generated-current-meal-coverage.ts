@@ -5,7 +5,7 @@ import finalManifest from "./fixtures/current-final-source-v1.json" with {type:"
 import {FINAL_DERIVED_PIN} from "./generated-final-source-admission.ts";
 import {createJoinedReferencePlannerV3} from "./generated-joined-plan.ts";
 import {quoteRegionalEstimatesV3} from "./generated-regional-quote.ts";
-import { createRevisedCatalogReader, type RevisedRecipeProjection } from "./generated-plan-catalog.ts";
+import { createRevisedCatalogReader, type CatalogYieldControl, type RevisedRecipeProjection } from "./generated-plan-catalog.ts";
 import { copyReferenceData, canonicalReferenceData } from "./generated-plan-data.ts";
 import { sha256Hex } from "./generated-runtime-bytes.ts";
 import { prepareReferencePurchaseRequirements } from "./generated-plan-quote.ts";
@@ -101,7 +101,7 @@ type CoverageRow = Readonly<{
 
 // Trusted host/code configuration only, not an HTTP DTO or account grant. Exact
 // pins bind evidence; they do not prove real prices, allergies or physical cooking.
-export function createCurrentMealCoverage(source: unknown, options: {
+function* currentMealCoverageSteps(source: unknown, options: {
   sourcePin: { sha256: string; recordCount: number }; configuration: unknown; configurationSha256: string;
   asOfDate: string; region: string; storeIds: readonly string[]; practicalAssets?: unknown; profileMethodPolicy?: typeof PROFILE_METHOD_POLICY;
 }) {
@@ -116,6 +116,7 @@ export function createCurrentMealCoverage(source: unknown, options: {
     if(profileMethods&&(!isFinal||settings.profileMethodPolicy!==PROFILE_METHOD_POLICY))fail();
     const validation = (isFinal?createJoinedReferencePlannerV3:createJoinedReferencePlannerV2)(source, configuration);
     if (validation.outcome !== "ready") return frozen({ outcome: "held" as const, code: "coverage_configuration_not_ready" });
+    yield;
     const prices = configuration.referencePrices === undefined ? undefined : readReferencePriceConfigurationV2(configuration.referencePrices);
     const correspondences = stringsOrAllocations(configuration.correspondences).map(object);
     const quantitySnapshot=captureReferencePurchaseCorrespondences(configuration.correspondences),rateSnapshot=isFinal?readRateReferenceConfiguration(configuration.rateReferences):undefined;
@@ -134,14 +135,15 @@ export function createCurrentMealCoverage(source: unknown, options: {
         return frozen({ sourceServings: receipt(n), kind: "reviewed-serving-adaptation" as const, guideSha256: mealCoverageHash(guide), guide });
       }));
     }
-    const originals = new Map<string, OriginalGuide>();
-    for (const row of catalog.recipes) { const g = originalGuide(row, catalog.sourceSha256); if (g) originals.set(row.id, g); }
+    const originals = new Map<string, OriginalGuide>(); let originalIndex = 0;
+    for (const row of catalog.recipes) { const g = originalGuide(row, catalog.sourceSha256); if (g) originals.set(row.id, g); if (++originalIndex % 8 === 0) yield; }
     // Required regression goldens, not a source/guide whitelist. Every other
     // intact source row uses the exact same allocation and full-batch rules.
     if (goldens.sourceSha256 === catalog.sourceSha256) for (const golden of goldens.guides) {
       const actual = originals.get(golden.recipeId); if (!actual || mealCoverageHash(actual) !== mealCoverageHash(golden)) fail();
     }
-    const rows: CoverageRow[] = catalog.recipes.map(row => {
+    const rows: CoverageRow[] = []; let rowIndex = 0;
+    for (const row of catalog.recipes) {
       const demands = row.recipe.ingredients.filter(i => !utilities.has(utilityKey(i))).map(i => ({ assignmentId: "coverage:" + row.id, recipeId: row.id, recipeSha256: row.recipeSha256, ingredientId: i.id, preparedState: i.state, baseUnit: i.unit, amount: receipt(amount(i.quantity)) }));
       const missingForms = row.recipe.ingredients.filter(i => !utilities.has(utilityKey(i)) && !correspondences.some(c => formKey(i) === formKey({ id: c.ingredientId, state: c.preparedState, unit: c.consumedUnit }))).map(formKey);
       const prepared = prepareReferencePurchaseRequirements(demands, quantitySnapshot);
@@ -165,10 +167,11 @@ export function createCurrentMealCoverage(source: unknown, options: {
         if (index < 0) domains.push(domain); else domains[index] = domain;
       }
       if(profileMethods&&original){const method=profileMethodGuide(row.id,row.recipeSha256,row.recipe);if(method)domains.push(frozen({sourceServings:original.sourceServings,kind:"reviewed-equipment-adaptation" as const,equipment:method.equipment.flatMap(classifyMealTool),guideSha256:mealCoverageHash({method,policy:profileMethodDescriptor()}),guide:method}));}
-      return frozen({ recipeId: row.id, recipeSha256: row.recipeSha256, sourceSha256: catalog.sourceSha256, kind: row.kind, sections: row.sections, nutrition: row.nutrition.status, sourceFlags: row.source.flags as string[], nutritionFlags: row.nutrition.flags, sourceHolds: row.source.holds as string[],
+      rows.push(frozen({ recipeId: row.id, recipeSha256: row.recipeSha256, sourceSha256: catalog.sourceSha256, kind: row.kind, sections: row.sections, nutrition: row.nutrition.status, sourceFlags: row.source.flags as string[], nutritionFlags: row.nutrition.flags, sourceHolds: row.source.holds as string[],
         quantity: { outcome: prepared.outcome, code: prepared.outcome === "prepared" ? null : prepared.code, missingForms }, price,
-        equipment: row.recipe.equipment.flatMap(classifyMealTool), guideDomains: domains, guideHold: domains.length ? null : "source_allocation_totals_unverified" });
-    });
+        equipment: row.recipe.equipment.flatMap(classifyMealTool), guideDomains: domains, guideHold: domains.length ? null : "source_allocation_totals_unverified" }));
+      if (++rowIndex % 8 === 0) yield;
+    }
     const indexed = new Map(rows.map(r => [r.recipeId, r]));
     function forCandidate(untrusted: unknown) {
       try {
@@ -196,4 +199,12 @@ export function createCurrentMealCoverage(source: unknown, options: {
     }
     return frozen({ outcome: "ready" as const, contract: MEAL_COVERAGE, ...(profileMethods?{profileMethodPolicy:profileMethodDescriptor()}:{}), sourceSha256: catalog.sourceSha256, configurationSha256: settings.configurationSha256, sourcePolicyBasis: validation.sourcePolicyBasis, asOfDate, rows, summary: { ...catalog.summary, quantityComplete: rows.filter(r => r.quantity.outcome === "prepared").length, priceComplete: rows.filter(r => r.price.outcome === "covered").length, originalBatchGuides: originals.size, reviewedAdaptationRecipes: adaptations.size, guideRecipes: rows.filter(r => r.guideDomains.length).length }, forCandidate, productAccepted: false as const });
   } catch { return frozen({ outcome: "error" as const, code: "invalid_meal_coverage_input" }); }
+}
+
+export function createCurrentMealCoverage(...args: Parameters<typeof currentMealCoverageSteps>) {
+  const steps = currentMealCoverageSteps(...args); let next = steps.next(); while (!next.done) next = steps.next(); return next.value;
+}
+export async function createCurrentMealCoverageAsync(source: unknown, options: Parameters<typeof currentMealCoverageSteps>[1], yieldControl: CatalogYieldControl) {
+  if (typeof yieldControl !== "function") throw Error("coverage_scheduler_required");
+  const steps = currentMealCoverageSteps(source, options); let next = steps.next(); while (!next.done) { await yieldControl(); next = steps.next(); } return next.value;
 }
