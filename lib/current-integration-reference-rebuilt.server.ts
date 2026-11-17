@@ -7,7 +7,7 @@ import { referenceConfigurationDigest } from "./generated-reviewed-reference-dat
 
 export async function createCurrentIntegrationRebuiltReference(now: () => number = Date.now): Promise<CurrentIntegrationSource> {
   const { createFixedRebuiltBinder } = await import("./fixed-rebuilt-binder.ts");
-  const bound = createFixedRebuiltBinder(now);
+  const bound = await createFixedRebuiltBinder(now);
   const reference = bound.reviewedReferenceData;
   const actual: CurrentIntegrationSourceIdentity = {
     sourceSha256: bound.sourceSha256,

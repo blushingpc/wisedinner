@@ -1,20 +1,25 @@
 import { FIXED_REBUILT_PIN, fixedRebuiltConfigurationMatches } from "./fixed-rebuilt-admission.ts";
 import { mealCoverageHash, originalGuide, readFixedRebuiltDonorGuide } from "./generated-current-meal-coverage.ts";
 import type { CurrentGuidePolicy } from "./generated-joined-plan.ts";
-import { createRevisedCatalogReader } from "./generated-plan-catalog.ts";
+import { createRevisedCatalogReaderAsync, type CatalogYieldControl } from "./generated-plan-catalog.ts";
 
-export function createFixedRebuiltGuidePolicy(source: unknown, configuration: unknown) {
+export async function createFixedRebuiltGuidePolicy(source: unknown, configuration: unknown, yieldControl: CatalogYieldControl) {
   if (!fixedRebuiltConfigurationMatches(configuration)) throw Error("fixed_guide_configuration_mismatch");
-  const catalog = createRevisedCatalogReader(FIXED_REBUILT_PIN)(source);
+  const catalog = await createRevisedCatalogReaderAsync(FIXED_REBUILT_PIN, yieldControl)(source);
   if (catalog.outcome !== "success") throw Error("fixed_guide_coverage_held:" + catalog.code);
-  const guideRows = catalog.recipes.map(row => {
-    const guide = originalGuide(row, catalog.sourceSha256);
-    return {
-      recipeId: row.id,
-      recipeSha256: row.recipeSha256,
-      domain: guide ? { sourceServings: guide.sourceServings, guideSha256: guide.guideSha256 } : null,
-    };
-  });
+  const guideRows = [];
+  for (let offset = 0; offset < catalog.recipes.length; offset += 8) {
+    const batch = catalog.recipes.slice(offset, offset + 8);
+    for (const row of batch) {
+      const guide = originalGuide(row, catalog.sourceSha256);
+      guideRows.push({
+        recipeId: row.id,
+        recipeSha256: row.recipeSha256,
+        domain: guide ? { sourceServings: guide.sourceServings, guideSha256: guide.guideSha256 } : null,
+      });
+    }
+    await yieldControl();
+  }
   const rows = new Map(guideRows.map(row => [row.recipeId, row]));
   const descriptor = Object.freeze({
     version: "wd-current-guide-policy-v1",

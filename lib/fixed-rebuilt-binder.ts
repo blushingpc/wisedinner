@@ -1,4 +1,6 @@
+import { setImmediate as yieldImmediate } from "node:timers/promises";
 import type { CurrentIntegrationSource } from "./current-integration-runtime.server.ts";
+import type { CatalogYieldControl } from "./generated-plan-catalog.ts";
 import {
   CURRENT_INTEGRATION_REBUILT_IDENTITY,
 } from "./current-integration-rebuilt-identity.server.ts";
@@ -17,7 +19,7 @@ import { isIssuedVerifiedOwnerScope } from "./generated-owner-scope.ts";
 import { createReferenceSessionFactoryV4 } from "./generated-plan-session.ts";
 import { NEW_WEEK_RECONFIRM_POLICY, type ReferenceStatePortV3 } from "./generated-plan-state.ts";
 
-export function createFixedRebuiltBinder(now: () => number = Date.now): CurrentIntegrationSource {
+export async function createFixedRebuiltBinder(now: () => number = Date.now, yieldControl: CatalogYieldControl = () => yieldImmediate()): Promise<CurrentIntegrationSource> {
   const identity = CURRENT_INTEGRATION_REBUILT_IDENTITY;
   const handle = loadFixedRebuiltSource();
   const fixed = readFixedRebuiltSource(handle);
@@ -30,7 +32,8 @@ export function createFixedRebuiltBinder(now: () => number = Date.now): CurrentI
   // The fixed loader validates the exact packet and the session factory
   // validates it against the planner. There is no revision to choose here.
   const reviewedReferenceData = packet;
-  const guide = createFixedRebuiltGuidePolicy(source, configuration);
+  await yieldControl();
+  const guide = await createFixedRebuiltGuidePolicy(source, configuration, yieldControl);
   if (guide.sha256 !== identity.guidePolicy.sha256) throw Error("fixed_guide_integrity_held");
 
   const factory = createReferenceSessionFactoryV4(source, configuration, {
@@ -42,6 +45,7 @@ export function createFixedRebuiltBinder(now: () => number = Date.now): CurrentI
       factory.sourcePolicyBasis.basisSha256 !== identity.sourcePolicyBasisSha256) {
     throw Error("fixed_factory_integrity_held");
   }
+  await yieldControl();
   let paired: ReturnType<typeof createFixedRebuiltPairedPolicy> | undefined;
   function loadPairedPolicy() {
     if (!paired) {
