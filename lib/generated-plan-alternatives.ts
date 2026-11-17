@@ -39,32 +39,40 @@ export function discoverReplacementAlternatives(
   evaluate: (assignments: unknown, request: unknown) => ReferencePlanOutcome,
   preview: (before: ReferenceEvaluationSuccess, request: unknown, intent: unknown) => ReferenceReplacementOutcome,
   guidePolicy?: import("./generated-joined-plan.ts").CurrentGuidePolicy,
+  stockFilter?: (before: ReferenceEvaluationSuccess) => ((recipe: Extract<CatalogProjectionOutcome, { outcome: "success" }>["recipes"][number]["recipe"], servings: ExactAmount) => boolean) | undefined,
 ): ReferenceAlternativesOutcome {
   let grid: Data, candidates: Candidate[], maxEvaluations: number, limit: number, personId: string, assignmentId: string, expectedRecipeSha256: string, assignments: unknown, request: unknown;
   try {
     grid = record(copyReferenceData(gridValue), ["personId", "assignmentId", "expectedRecipeSha256", "candidates", "maxEvaluations", "limit"]);
     personId = text(grid.personId); assignmentId = text(grid.assignmentId); expectedRecipeSha256 = text(grid.expectedRecipeSha256);
     if (!/^[a-f0-9]{64}$/.test(expectedRecipeSha256)) invalid();
-    maxEvaluations = integer(grid.maxEvaluations, 256); limit = integer(grid.limit, 32);
+    maxEvaluations = integer(grid.maxEvaluations, stockFilter ? 1300 : 256); limit = integer(grid.limit, 32);
     if (!Array.isArray(grid.candidates) || !grid.candidates.length || grid.candidates.length > 1300) invalid();
     candidates = grid.candidates.map(value => { const row = record(value, ["recipeId", "sourceServings"]); return { recipeId: text(row.recipeId), sourceServings: portion(row.sourceServings) }; }).sort((a, b) => order(key(a), key(b)));
     if (new Set(candidates.map(key)).size !== candidates.length) invalid();
     assignments = copyReferenceData(assignmentsValue); request = copyReferenceData(requestValue);
   } catch { return { outcome: "error", code: "invalid_replacement_grid" }; }
-  const ids = new Set(catalog.recipes.map(recipe => recipe.id));
-  if (candidates.some(value => !ids.has(value.recipeId))) return { outcome: "error", code: "replacement_recipe_missing" };
+  const recipes = new Map(catalog.recipes.map(recipe => [recipe.id, recipe]));
+  if (candidates.some(value => !recipes.has(value.recipeId))) return { outcome: "error", code: "replacement_recipe_missing" };
   const before = evaluate(assignments, request); if (before.outcome !== "success") return before;
   const target = before.projection.assignments.find(value => value.assignmentId === assignmentId);
   if (!target) return { outcome: "error", code: "replacement_assignment_missing" };
   if (target.personId !== personId) return { outcome: "error", code: "replacement_subject_mismatch" };
   if (target.recipeSha256 !== expectedRecipeSha256) return { outcome: "error", code: "stale_replacement_source" };
+  const fitsStock = stockFilter?.(before);
   const eligible: (Candidate & { preview: Preview })[] = [], excluded: (Candidate & { result: Rejection | { outcome: "unchanged" } })[] = [];
   let evaluatedCandidateCount = 0, unchangedCandidateCount = 0, examined = 0, eligibleCandidateCount = 0, heldCandidateCount = 0;
   for (const candidate of candidates) {
-    const recipe = catalog.recipes.find(r => r.id === candidate.recipeId)!;
+    const recipe = recipes.get(candidate.recipeId)!;
     const checked = guidePolicy?.check({ ...candidate, recipeSha256: recipe.recipeSha256, request });
     if (checked?.outcome === "held") { examined++; heldCandidateCount++; excluded.push({ ...candidate, result: { outcome: "held", reasons: checked.reasons.map(code => ({ code })) } }); continue; }
     if (key(candidate) === key(target)) { unchangedCandidateCount++; examined++; excluded.push({ ...candidate, result: { outcome: "unchanged" } }); continue; }
+    if (fitsStock && !fitsStock(recipe.recipe, candidate.sourceServings)) {
+      examined++;
+      excluded.push({ ...candidate, result: { outcome: "no_fit", scope: "evaluated-assignments-only", week: null,
+        reasons: [{ code: "replacement_requires_more_groceries", personId, assignmentId }] } });
+      continue;
+    }
     if (evaluatedCandidateCount >= maxEvaluations) break;
     const result = preview(before, request, { assignmentId, personId, expectedRecipeSha256, replacementRecipeId: candidate.recipeId, sourceServings: candidate.sourceServings });
     evaluatedCandidateCount++; examined++;

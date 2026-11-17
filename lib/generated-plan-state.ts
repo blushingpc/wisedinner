@@ -1,4 +1,5 @@
-import type {JoinedReferenceBindingV3,ReferenceEvaluationSuccessV3} from "./generated-joined-plan.ts";
+import type {JoinedReferenceBindingV3,PlannerV3,ReferenceEvaluationSuccessV3} from "./generated-joined-plan.ts";
+import { evaluatePairedReplacement, readPairedPreparation, readPairedReplacementIntent, readPreparationSubjects, retainPreparation, updatePreparation, type PairedPreparation, type PairedReplacementPolicy } from "./generated-paired-replacement.ts";
 import { canonicalReferenceData } from "./generated-plan-data.ts";
 import { utf8ByteLength } from "./generated-runtime-bytes.ts";
 import { reconcileShoppingChecks, rebindConfirmedPurchaseChecks, setShoppingCheck, type ShoppingCheck, type ShoppingCheckState } from "./generated-plan-shopping.ts";
@@ -26,6 +27,7 @@ export type ReferenceWeek = {
   readonly quote: ReferenceEvaluationSuccess["quote"]; readonly shoppingChecks: ShoppingCheckState; readonly contentSha256: string;
   readonly pantryBasis?: ReferencePantryBasis;
   readonly allergyBasisSha256?: string;
+  readonly preparation?: PairedPreparation;
   readonly newWeekPolicy?: { readonly version: typeof NEW_WEEK_RECONFIRM_POLICY; readonly pantrySha256: string; readonly pantryBasisSha256?: string; readonly currentSettingsSha256?: string };
 };
 export type ReferenceEnvelope = { readonly revision: number; readonly current: ReferenceWeek | null; readonly draft: ReferenceWeek | null };
@@ -56,10 +58,18 @@ export type ReferenceWeekV3=Omit<ReferenceWeekV2,"quote">&Pick<ReferenceEvaluati
 export type ReferenceEnvelopeV3={readonly revision:number;readonly current:ReferenceWeekV3|null;readonly draft:ReferenceWeekV3|null};
 type V3Result<T>=T extends ReferenceWeekV2?ReferenceWeekV3:T extends readonly(infer E)[]?readonly V3Result<E>[]:T extends object?{[K in keyof T]:V3Result<T[K]>}:T;
 export type RepositoryV3={[K in keyof RepositoryV2]:RepositoryV2[K] extends (...args:infer A)=>Promise<infer O>?(...args:A)=>Promise<V3Result<O>>:never};
-export type ReferenceStatePortV3={transaction<T>(body:(tx:{readState(scopeKey:string):Promise<ReferenceEnvelopeV3|null>;readOperation(scopeKey:string,operationId:string):Promise<V3Result<StoredReferenceOperationV2>|null>;commit(scopeKey:string,state:ReferenceEnvelopeV3,operation:V3Result<StoredReferenceOperationV2>):Promise<void>})=>Promise<T>):Promise<T>};
+type ReferenceTransactionV3 = {
+  readState(scopeKey: string): Promise<ReferenceEnvelopeV3 | null>;
+  readOperation(scopeKey: string, operationId: string): Promise<V3Result<StoredReferenceOperationV2> | null>;
+  commit(scopeKey: string, state: ReferenceEnvelopeV3, operation: V3Result<StoredReferenceOperationV2>): Promise<void>;
+};
+export type ReferenceStatePortV3 = { transaction<T>(body: (tx: ReferenceTransactionV3) => Promise<T>): Promise<T> };
 function contentDigest(body: Record<string, unknown>, version: 1 | 2): string {
   if (version === 1) return hash(copy(body));
-  const { sourcePolicyBasis, utilityPartition, ...base } = body;
+  // Preparation is private state covered by the atomic envelope digest and
+  // revision. The public meal and grocery identity remains stable on Cook.
+  const { sourcePolicyBasis, utilityPartition, preparation: privatePreparation, ...base } = body;
+  void privatePreparation;
   return sourcePolicyHashV2(["wd-joined-session-content-v2", hash(copy(base)), (sourcePolicyBasis as SourcePolicyBasisV2).basisSha256, sourcePolicyHashV2(utilityPartition)]);
 }
 function validateSourcePolicyBasis(value: unknown): SourcePolicyBasisV2 {
@@ -129,8 +139,10 @@ export function revokeLocalReferenceScope(scope: LocalReferenceScope): void { co
 function week(value: unknown, version: 1 | 2 = 1): ReferenceWeek | null {
   if (value === null) return null;
   if (value && typeof value === "object" && !Object.hasOwn(value, "shoppingChecks")) refuse("reference_checklist_migration_required", true);
-  const fields = record(value, ["weekId", "request", "assignments", "sourceSha256", "requestSha256", "assignmentsSha256", "quote", "shoppingChecks", "contentSha256", ...(version === 2 ? ["sourcePolicyBasis", "utilityPartition"] : []), ...(value && typeof value === "object" && Object.hasOwn(value, "newWeekPolicy") ? ["newWeekPolicy"] : []), ...(value && typeof value === "object" && Object.hasOwn(value, "pantryBasis") ? ["pantryBasis"] : []), ...(value && typeof value === "object" && Object.hasOwn(value, "allergyBasisSha256") ? ["allergyBasisSha256"] : [])]);
+  const hasPreparation = version === 2 && !!value && typeof value === "object" && Object.hasOwn(value, "preparation");
+  const fields = record(value, ["weekId", "request", "assignments", "sourceSha256", "requestSha256", "assignmentsSha256", "quote", "shoppingChecks", "contentSha256", ...(version === 2 ? ["sourcePolicyBasis", "utilityPartition"] : []), ...(hasPreparation ? ["preparation"] : []), ...(value && typeof value === "object" && Object.hasOwn(value, "newWeekPolicy") ? ["newWeekPolicy"] : []), ...(value && typeof value === "object" && Object.hasOwn(value, "pantryBasis") ? ["pantryBasis"] : []), ...(value && typeof value === "object" && Object.hasOwn(value, "allergyBasisSha256") ? ["allergyBasisSha256"] : [])]);
   uuid(fields.weekId);
+  if (hasPreparation && !readPairedPreparation(fields.preparation, fields.weekId as string, fields.assignments)) refuse("stored_state_invalid");
   if (Object.hasOwn(fields, "allergyBasisSha256") && (typeof fields.allergyBasisSha256 !== "string" || !/^[a-f0-9]{64}$/.test(fields.allergyBasisSha256))) refuse("stored_state_invalid");
   const { contentSha256, ...body } = fields;
   if (version === 2) { const basis = validateSourcePolicyBasis(fields.sourcePolicyBasis); if (basis.catalogSha256 !== fields.sourceSha256 || fields.utilityPartition === undefined || (fields.utilityPartition === null) !== (basis.utilityPolicy === null)) refuse("stored_state_invalid"); }
@@ -162,6 +174,10 @@ function decodeEnvelope(value: unknown, version: 1 | 2 = 1): ReferenceEnvelope {
   const fields = record(copy(value), ["revision", "current", "draft"]), current = week(fields.current, version), draft = week(fields.draft, version);
   if (draft && (!current || draft.weekId === current.weekId)) refuse("stored_state_invalid");
   return { revision: revision(fields.revision), current, draft };
+}
+export function readStoredReferenceWeekV3(value: unknown): ReferenceWeekV3 | null {
+  try { return week(copy(value), 2) as unknown as ReferenceWeekV3 | null; }
+  catch { return null; }
 }
 function decodeReceipt(value: unknown, version: 1 | 2 = 1): Receipt {
   const copied = copy(value) as Data;
@@ -209,11 +225,12 @@ export function createReferencePlanRepositoryV2(deps: { planner: Extract<JoinedR
   // namespace are selected independently and never fed through a V1 decoder.
   return createRepository(deps as unknown as { planner: Planner; transactions: ReferenceStatePort; newWeekPolicy?: typeof NEW_WEEK_RECONFIRM_POLICY; sourcePolicyBasis: SourcePolicyBasisV2; newWeekRequestPolicy?: NewWeekRequestPolicy }, 2) as unknown as RepositoryV2;
 }
-export function createReferencePlanRepositoryV3(deps:{planner:Extract<JoinedReferenceBindingV3,{outcome:"ready"}>["planner"];sourcePolicyBasis:SourcePolicyBasisV2;transactions:ReferenceStatePortV3;newWeekPolicy?:typeof NEW_WEEK_RECONFIRM_POLICY;newWeekRequestPolicy?:NewWeekRequestPolicy}):RepositoryV3 {
+type PairedPolicyProvider = PairedReplacementPolicy | (() => PairedReplacementPolicy | undefined);
+export function createReferencePlanRepositoryV3(deps:{planner:Extract<JoinedReferenceBindingV3,{outcome:"ready"}>["planner"];sourcePolicyBasis:SourcePolicyBasisV2;transactions:ReferenceStatePortV3;newWeekPolicy?:typeof NEW_WEEK_RECONFIRM_POLICY;newWeekRequestPolicy?:NewWeekRequestPolicy;pairedReplacement?:PairedPolicyProvider}):RepositoryV3 {
  // Same original operation/owner/epoch engine and V2 durable codec. V3 changes only the typed quote row family.
  return createRepository(deps as unknown as Parameters<typeof createRepository>[0],2) as unknown as RepositoryV3;
 }
-function createRepository(deps: { planner: Planner; transactions: ReferenceStatePort; newWeekPolicy?: typeof NEW_WEEK_RECONFIRM_POLICY; sourcePolicyBasis?: SourcePolicyBasisV2; newWeekRequestPolicy?: NewWeekRequestPolicy }, version: 1 | 2) {
+function createRepository(deps: { planner: Planner; transactions: ReferenceStatePort; newWeekPolicy?: typeof NEW_WEEK_RECONFIRM_POLICY; sourcePolicyBasis?: SourcePolicyBasisV2; newWeekRequestPolicy?: NewWeekRequestPolicy; pairedReplacement?: PairedPolicyProvider }, version: 1 | 2) {
   const sourcePolicyBasis = version === 2 ? validateSourcePolicyBasis(copy(deps.sourcePolicyBasis)) : null;
   const active = (scope: LocalReferenceScope) => activeScope(scope, version);
   const envelope = (value: unknown) => decodeEnvelope(value, version);
@@ -226,6 +243,21 @@ function createRepository(deps: { planner: Planner; transactions: ReferenceState
   if (typeof deps?.planner?.evaluateJoined !== "function" || typeof deps?.planner?.confirmReplacement !== "function" || typeof deps?.transactions?.transaction !== "function") refuse("state_binding_required");
   if (deps.newWeekPolicy !== undefined && deps.newWeekPolicy !== NEW_WEEK_RECONFIRM_POLICY) refuse("invalid_new_week_policy");
   const newWeekPolicy = deps.newWeekPolicy;
+  const pairedPolicy = () => typeof deps.pairedReplacement === "function" ? deps.pairedReplacement() : deps.pairedReplacement;
+  function reservedReplacements(saved: ReferenceWeek | null) {
+    if (version !== 2 || !saved || (saved as unknown as ReferenceWeekV2).sourcePolicyBasis.basisSha256 === sourcePolicyBasis!.basisSha256) return undefined;
+    const policy = pairedPolicy();
+    if (policy && saved.sourceSha256 === policy.sourceSha256 &&
+        (saved as unknown as ReferenceWeekV2).sourcePolicyBasis.basisSha256 === policy.basisSha256) return policy.reservedReplacements;
+    return undefined;
+  }
+  function pairedWeekEvaluator(saved: ReferenceWeek | null) {
+    if (version !== 2 || !saved || (saved as unknown as ReferenceWeekV2).sourcePolicyBasis.basisSha256 === sourcePolicyBasis!.basisSha256) return undefined;
+    const policy = pairedPolicy();
+    if (policy && saved.sourceSha256 === policy.sourceSha256 &&
+        (saved as unknown as ReferenceWeekV2).sourcePolicyBasis.basisSha256 === policy.basisSha256) return policy.transition?.evaluateJoined;
+    return undefined;
+  }
   function currentPantry(input: { readonly request: unknown; readonly pantryBasis?: unknown }) {
     const stock = (input.request as Data)?.pantry;
     if (!Array.isArray(stock)) refuse("invalid_state_command");
@@ -238,11 +270,97 @@ function createRepository(deps: { planner: Planner; transactions: ReferenceState
     const people = (saved.request as Data)?.people;
     const declared = Array.isArray(people) && people.some(p => p?.exclusions?.kind === "mapped" && Array.isArray(p.exclusions.allergenIds) && p.exclusions.allergenIds.length);
     if (!saved.allergyBasisSha256 && !declared) return;
-    const current = deps.planner.evaluateJoined(saved.assignments, saved.request);
+    const current = (pairedWeekEvaluator(saved) ?? deps.planner.evaluateJoined)(saved.assignments, saved.request);
     if (current.outcome !== "success" || !current.allergyBasisSha256 || current.allergyBasisSha256 !== saved.allergyBasisSha256) refuse("saved_allergy_basis_changed", true);
+  }
+  function pairedPreview(key: string, state: ReferenceEnvelope, weekId: string, intentValue: unknown, discovery = false) {
+    const policy = pairedPolicy();
+    if (version !== 2 || !policy || !deps.newWeekRequestPolicy) refuse("paired_replacement_unavailable", true);
+    if (state.current?.weekId !== weekId) refuse("current_week_subject_mismatch");
+    const intent = readPairedReplacementIntent(intentValue);
+    if (!intent) refuse("invalid_state_command");
+    currentPantry(state.current);
+    const clockFailure = deps.newWeekRequestPolicy(state.current.request);
+    if (clockFailure) refuse(clockFailure.code, true);
+    const evaluation = evaluatePairedReplacement(key, state.current as unknown as ReferenceWeekV3, state.revision,
+      state.current.preparation ?? null, intent, policy, deps.planner as unknown as PlannerV3, discovery);
+    if (evaluation.outcome === "held") refuse(evaluation.code, true);
+    return evaluation;
   }
   const unknown = new Set<string>();
   const repository = Object.freeze({
+    async findReservedReplacements(scope: LocalReferenceScope, value: unknown) {
+      try {
+        const bound = active(scope), input = record(copy(value), ["weekId", "expectedRevision", "candidateGrid"]);
+        const weekId = uuid(input.weekId), expected = revision(input.expectedRevision);
+        const state = await deps.transactions.transaction(async tx => envelope(await tx.readState(bound.key)));
+        active(scope);
+        if (state.revision !== expected) refuse("revision_conflict");
+        if (state.current?.weekId !== weekId) refuse("current_week_subject_mismatch");
+        const reserved = reservedReplacements(state.current);
+        if (!reserved) refuse("saved_replacement_basis_changed", true);
+        currentPantry(state.current);
+        currentAllergies(state.current);
+        const found = reserved.find(state.current as unknown as ReferenceWeekV3, input.candidateGrid);
+        if (found.outcome !== "alternatives") return found;
+        return freeze({ outcome: "reserved-options" as const, revision: expected,
+          requestSha256: found.requestSha256, baseAssignmentsSha256: found.baseAssignmentsSha256,
+          candidates: found.candidates.map(({ recipeId, sourceServings, preview }) => ({
+            recipeId, sourceServings, previewSha256: preview.previewSha256,
+          })) });
+      } catch (failure) {
+        return failure instanceof Refusal ? error(failure) : { outcome: "error" as const, code: "reserved_replacement_unavailable" };
+      }
+    },
+    async findPairedReplacements(scope: LocalReferenceScope, value: unknown) {
+      try {
+        const bound = active(scope), input = record(copy(value), ["weekId", "expectedRevision", "intents"]);
+        const weekId = uuid(input.weekId), expected = revision(input.expectedRevision);
+        if (!Array.isArray(input.intents) || input.intents.length > 96 ||
+            input.intents.some(intent => !readPairedReplacementIntent(intent))) refuse("invalid_state_command");
+        const state = await deps.transactions.transaction(async tx => envelope(await tx.readState(bound.key)));
+        active(scope);
+        if (state.revision !== expected) refuse("revision_conflict");
+        if (state.current?.weekId !== weekId) refuse("current_week_subject_mismatch");
+        const options: { recipeId: string; donorAssignmentId: string }[] = [];
+        for (const value of input.intents) {
+          try {
+            const preview = pairedPreview(bound.key, state, weekId, value, true);
+            if (!options.some(option => option.recipeId === preview.target.recipeId)) {
+              options.push({ recipeId: preview.target.recipeId, donorAssignmentId: preview.donor.assignmentId });
+            }
+          } catch (failure) { if (!(failure instanceof Refusal)) throw failure; }
+          if (options.length === 6) break;
+        }
+        active(scope);
+        return freeze({ outcome: "paired-options" as const, revision: expected, options });
+      } catch (failure) {
+        return failure instanceof Refusal ? error(failure) : { outcome: "error" as const, code: "paired_preview_unavailable" };
+      }
+    },
+    async previewPairedReplacement(scope: LocalReferenceScope, value: unknown) {
+      try {
+        const bound = active(scope), input = record(copy(value), ["weekId", "expectedRevision", "intent"]);
+        const weekId = uuid(input.weekId), expected = revision(input.expectedRevision);
+        const result = await deps.transactions.transaction(async tx => {
+          active(scope);
+          const state = envelope(await tx.readState(bound.key));
+          if (state.revision !== expected) refuse("revision_conflict");
+          return pairedPreview(bound.key, state, weekId, input.intent);
+        });
+        active(scope);
+        const { evaluation, checks, preparationAfter, ...preview } = result;
+        void preparationAfter;
+        return freeze({ ...preview, estimatedTotalCents: evaluation.quote.estimatedTotalCents,
+          ...(pairedPolicy()?.transition ? {
+            nextSourceSha256: evaluation.sourceSha256,
+            nextBasisSha256: evaluation.sourcePolicyBasis.basisSha256,
+          } : {}),
+        });
+      } catch (failure) {
+        return failure instanceof Refusal ? error(failure) : { outcome: "error" as const, code: "paired_preview_unavailable" };
+      }
+    },
     async read(scope: LocalReferenceScope): Promise<{ outcome: "read"; state: ReferenceEnvelope; storedReferenceOnly: true } | ErrorOutcome | HeldOutcome> {
       try { const bound = active(scope), state = await deps.transactions.transaction(async tx => envelope(await tx.readState(bound.key))); active(scope); return freeze({ outcome: "read", state, storedReferenceOnly: true }); }
       catch (failure) { return failure instanceof Refusal ? error(failure) : { outcome: "error", code: "reference_state_unavailable" }; }
@@ -261,10 +379,18 @@ function createRepository(deps: { planner: Planner; transactions: ReferenceState
         bound = active(scope); input = copy(value) as Data;
         if (!input || typeof input !== "object") refuse("invalid_state_command");
         const noPayload = input.kind === "cancel-week-draft" || input.kind === "confirm-new-week";
-        const payloadFields = input.kind === "confirm-replacement" ? ["intent", "expectedPreviewSha256", "expectedRequestSha256", "expectedAssignmentsSha256"] : input.kind === "set-shopping-check" ? ["itemKey", "fingerprint", "checked"] : noPayload ? [] : ["request", "assignments"];
+        const paired = input.kind === "confirm-paired-replacement";
+        const preparation = input.kind === "set-preparation";
+        const payloadFields = input.kind === "confirm-replacement" || paired
+          ? ["intent", "expectedPreviewSha256", "expectedRequestSha256", "expectedAssignmentsSha256", ...(paired ? ["expectedPreparationRevision"] : [])]
+          : preparation ? ["subjects"] : input.kind === "set-shopping-check" ? ["itemKey", "fingerprint", "checked"] : noPayload ? [] : ["request", "assignments"];
         const reviewingPantry = input.kind === "create-week-draft" && newWeekPolicy !== undefined;
         if (reviewingPantry && !Object.hasOwn(input, "pantryConfirmation")) refuse("new_week_pantry_reconfirmation_required", true);
-        const basisFields = input.kind === "confirm-replacement" ? (Object.hasOwn(input, "expectedPantryBasisSha256") ? ["expectedPantryBasisSha256"] : []) : !noPayload && input.kind !== "set-shopping-check" && Object.hasOwn(input, "pantryBasis") ? ["pantryBasis"] : [];
+        const basisFields = input.kind === "confirm-replacement" ? (Object.hasOwn(input, "expectedPantryBasisSha256") ? ["expectedPantryBasisSha256"] : []) : !paired && !noPayload && input.kind !== "set-shopping-check" && Object.hasOwn(input, "pantryBasis") ? ["pantryBasis"] : [];
+        if (input.kind === "confirm-replacement" && Object.hasOwn(input, "expectedAfterAssignmentsSha256")) {
+          if (typeof input.expectedAfterAssignmentsSha256 !== "string" || !/^[a-f0-9]{64}$/.test(input.expectedAfterAssignmentsSha256)) refuse("invalid_state_command");
+          basisFields.push("expectedAfterAssignmentsSha256");
+        }
         record(input, ["operationId", "kind", "expectedRevision", "weekId", ...(version === 2 ? ["expectedSourcePolicyBasisSha256", ...(Object.hasOwn(input, "sessionIntentSha256") ? ["sessionIntentSha256"] : [])] : []), ...payloadFields, ...basisFields, ...(reviewingPantry ? ["pantryConfirmation"] : [])]);
         if (reviewingPantry) {
           const confirmation = record(input.pantryConfirmation, ["kind", "stockSha256", ...(Object.hasOwn(input, "pantryBasis") ? ["basisSha256"] : [])]);
@@ -272,7 +398,11 @@ function createRepository(deps: { planner: Planner; transactions: ReferenceState
           if (confirmation.stockSha256 !== hash(copy((input.request as Data)?.pantry))) refuse("pantry_confirmation_mismatch");
           if (Object.hasOwn(input, "pantryBasis") && confirmation.basisSha256 !== (input.pantryBasis as ReferencePantryBasis)?.basisSha256) refuse("pantry_confirmation_mismatch");
         }
-        if (!["install-current", "save-current", "create-week-draft", "cancel-week-draft", "confirm-new-week", "confirm-replacement", "set-shopping-check"].includes(input.kind as string)) refuse("unsupported_state_command");
+        if (!["install-current", "save-current", "create-week-draft", "cancel-week-draft", "confirm-new-week", "confirm-replacement", "confirm-paired-replacement", "set-shopping-check", "set-preparation"].includes(input.kind as string)) refuse("unsupported_state_command");
+        if (preparation && !readPreparationSubjects(input.subjects)) refuse("invalid_state_command");
+        if (paired && (!readPairedReplacementIntent(input.intent) ||
+            ![input.expectedPreviewSha256, input.expectedRequestSha256, input.expectedAssignmentsSha256].every(value => typeof value === "string" && /^[a-f0-9]{64}$/.test(value)))) refuse("invalid_state_command");
+        if (paired) revision(input.expectedPreparationRevision);
         id = uuid(input.operationId); expected = revision(input.expectedRevision); weekId = uuid(input.weekId);
         if (unknown.has(bound.key + id)) return { outcome: "held", code: "operation_status_required" };
       } catch (failure) { return failure instanceof Refusal ? error(failure) : { outcome: "error", code: "invalid_state_command" }; }
@@ -288,7 +418,8 @@ function createRepository(deps: { planner: Planner; transactions: ReferenceState
           // Fresh save/draft commands fully re-evaluate under the current
           // expected basis. Preserve held old state until explicit replacement
           // or cancellation. Only edits reusing old plan/draft truth must hold.
-          if (input.kind === "set-shopping-check" || input.kind === "confirm-replacement") requireCurrentBasis(state.current);
+          const savedReplacement = input.kind === "confirm-replacement" ? reservedReplacements(state.current) : undefined;
+          if (input.kind === "confirm-replacement" && !savedReplacement || input.kind === "set-shopping-check" && !pairedWeekEvaluator(state.current)) requireCurrentBasis(state.current);
           if (input.kind === "confirm-new-week") requireCurrentBasis(state.draft);
           if (state.revision !== expected) refuse("revision_conflict");
           let next: ReferenceEnvelope;
@@ -320,17 +451,52 @@ function createRepository(deps: { planner: Planner; transactions: ReferenceState
             const body = { ...previous, shoppingChecks: { status: "ready" as const, rows: changed.rows } };
             const current = { ...body, contentSha256: contentDigest(body, version) };
             next = { revision: state.revision + 1, current, draft: state.draft };
+          } else if (input.kind === "set-preparation") {
+            const policy = pairedPolicy();
+            if (version !== 2 || !policy) refuse("paired_replacement_unavailable", true);
+            if (state.current?.weekId !== weekId) refuse("current_week_subject_mismatch");
+            const current = state.current as unknown as ReferenceWeekV3;
+            const currentBasis = current.sourcePolicyBasis.basisSha256;
+            const transition = policy.transition;
+            if (!(current.sourceSha256 === policy.sourceSha256 && currentBasis === policy.basisSha256) &&
+                !(current.sourceSha256 === transition?.fromSourceSha256 && currentBasis === transition.fromBasisSha256)) {
+              refuse("saved_source_policy_basis_changed", true);
+            }
+            const preparation = updatePreparation(current, readPreparationSubjects(input.subjects)!);
+            if (!preparation) refuse("preparation_subject_changed", true);
+            next = { revision: state.revision + 1, current: { ...state.current, preparation }, draft: state.draft };
+          } else if (input.kind === "confirm-paired-replacement") {
+            const paired = pairedPreview(bound.key, state, weekId, input.intent);
+            if (paired.previewSha256 !== input.expectedPreviewSha256 ||
+                paired.preparationRevision !== input.expectedPreparationRevision ||
+                paired.requestSha256 !== input.expectedRequestSha256 ||
+                paired.assignmentsSha256 !== input.expectedAssignmentsSha256) refuse("stale_paired_preview", true);
+            const previous = state.current!;
+            let current = saveWeek(weekId, { request: previous.request, ...(previous.pantryBasis ? { pantryBasis: previous.pantryBasis } : {}) },
+              paired.evaluation as unknown as ReferenceEvaluationSuccess, paired.checks);
+            if (previous.newWeekPolicy) {
+              const { contentSha256: ignored, ...stored } = current;
+              void ignored;
+              const body = { ...stored, newWeekPolicy: previous.newWeekPolicy };
+              current = { ...body, contentSha256: contentDigest(body, version) };
+            }
+            next = { revision: state.revision + 1, current: { ...current, preparation: paired.preparationAfter }, draft: state.draft };
           } else if (input.kind === "confirm-replacement") {
             if (state.current?.weekId !== weekId) refuse("current_week_subject_mismatch");
             currentPantry(state.current);
             currentAllergies(state.current);
             if (state.current.pantryBasis && input.expectedPantryBasisSha256 !== state.current.pantryBasis.basisSha256) refuse("stale_pantry_basis");
             if (!state.current.pantryBasis && Object.hasOwn(input, "expectedPantryBasisSha256")) refuse("stale_pantry_basis");
-            const confirmed = deps.planner.confirmReplacement(state.current.assignments, state.current.request, { intent: input.intent, expectedPreviewSha256: input.expectedPreviewSha256, expectedRequestSha256: input.expectedRequestSha256, expectedAssignmentsSha256: input.expectedAssignmentsSha256 });
+            const confirmation = { intent: input.intent, expectedPreviewSha256: input.expectedPreviewSha256, expectedRequestSha256: input.expectedRequestSha256, expectedAssignmentsSha256: input.expectedAssignmentsSha256 };
+            const confirmed = savedReplacement
+              ? savedReplacement.confirm(state.current as unknown as ReferenceWeekV3, confirmation) as ReturnType<Planner["confirmReplacement"]>
+              : deps.planner.confirmReplacement(state.current.assignments, state.current.request, confirmation);
             if (confirmed.outcome !== "proposal") {
               const rejected: RejectedReceipt = { outcome: "not_applied", operationId: id, result: confirmed }, saved = { operationId: id, intentSha256, receipt: rejected };
               copy(saved); active(scope); await tx.commit(bound.key, state, saved); return rejected;
             }
+            if ((savedReplacement || Object.hasOwn(input, "expectedAfterAssignmentsSha256")) &&
+                input.expectedAfterAssignmentsSha256 !== confirmed.evaluation.assignmentsSha256) refuse("stale_replacement_preview", true);
             let checks = currentChecks(state.current);
             if (version === 2) {
               // Same live scope/transaction, exact week and revision were checked
@@ -344,7 +510,8 @@ function createRepository(deps: { planner: Planner; transactions: ReferenceState
               checks = carried.rows;
             }
             const current = saveWeek(weekId, { request: state.current.request, ...(state.current.pantryBasis ? { pantryBasis: state.current.pantryBasis } : {}) }, confirmed.evaluation, checks);
-            next = { revision: state.revision + 1, current, draft: state.draft };
+            const preparation = retainPreparation(state.current, current.assignments);
+            next = { revision: state.revision + 1, current: preparation ? { ...current, preparation } : current, draft: state.draft };
           } else {
             currentPantry(input as { request: unknown; pantryBasis?: unknown });
             const evaluated = (version === 2 ? deps.newWeekRequestPolicy?.(input.request) : null) ?? deps.planner.evaluateJoined(input.assignments, input.request);
@@ -367,7 +534,8 @@ function createRepository(deps: { planner: Planner; transactions: ReferenceState
             } else if (input.kind === "save-current") {
               if (state.current?.weekId !== weekId) refuse("current_week_subject_mismatch");
               if (JSON.stringify(dates(state.current)) !== JSON.stringify(dates(candidate))) refuse("current_week_dates_changed");
-              next = { revision: state.revision + 1, current: candidate, draft: state.draft };
+              const preparation = retainPreparation(state.current, candidate.assignments);
+              next = { revision: state.revision + 1, current: preparation ? { ...candidate, preparation } : candidate, draft: state.draft };
             } else {
               if (!state.current) refuse("current_week_required");
               if (state.draft) refuse("week_draft_already_exists");
@@ -377,13 +545,16 @@ function createRepository(deps: { planner: Planner; transactions: ReferenceState
           }
           // Keep the original receipt lookup ahead of clock policy. Old known
           // receipts and historical reads do not become new priced writes.
-          const pricedRequest = input.kind === "create-week-draft" ? next.draft?.request : ["install-current", "save-current", "confirm-new-week"].includes(input.kind as string) ? next.current?.request : undefined;
+          const pricedRequest = input.kind === "create-week-draft" ? next.draft?.request : ["install-current", "save-current", "confirm-new-week", "confirm-paired-replacement"].includes(input.kind as string) ? next.current?.request : undefined;
           const clockFailure = version === 2 && pricedRequest !== undefined ? deps.newWeekRequestPolicy?.(pricedRequest) : null;
           if (clockFailure) {
             const rejected: RejectedReceipt = { outcome: "not_applied", operationId: id, result: clockFailure }, saved = { operationId: id, intentSha256, receipt: rejected };
             copy(saved); active(scope); await tx.commit(bound.key, state, saved); return rejected;
           }
-          const ack = receipt({ outcome: "acknowledged", operationId: id, state: next, ...(version === 2 ? { committedSourcePolicyBasisSha256: sourcePolicyBasis!.basisSha256 } : {}) }) as AcceptedReceipt, saved = { operationId: id, intentSha256, receipt: ack };
+          const committedBasis = version === 2 && ["confirm-replacement", "confirm-paired-replacement", "set-preparation", "set-shopping-check"].includes(input.kind as string)
+            ? (next.current as unknown as ReferenceWeekV3).sourcePolicyBasis.basisSha256
+            : sourcePolicyBasis?.basisSha256;
+          const ack = receipt({ outcome: "acknowledged", operationId: id, state: next, ...(version === 2 ? { committedSourcePolicyBasisSha256: committedBasis } : {}) }) as AcceptedReceipt, saved = { operationId: id, intentSha256, receipt: ack };
           // Bound before commit, never discover oversized acknowledgements only
           // after a write. This private8MiBresource guard is not a public API
           // policy; the old owner codec/PINS/schema remain unchanged.

@@ -1,4 +1,7 @@
+import { dietaryPatterns, type DietaryPattern } from "./generated-dietary-admission.ts";
 import {FINAL_DERIVED_PIN} from "./generated-final-source-admission.ts";
+import { CURRENT_INTEGRATION_REBUILT_IDENTITY } from "./current-integration-rebuilt-identity.server.ts";
+import { FIXED_REBUILT_DONOR_BASIS_SHA256, FIXED_REBUILT_DONOR_PIN } from "./fixed-rebuilt-donor.ts";
 import { admitVerifiedReferenceOwner, type OwnerScopeDependencies } from "./generated-owner-scope.ts";
 import { createCurrentOwnerRpcStatePort, type CurrentOwnerRpcDriver } from "./generated-current-rpc-state.ts";
 import { canonicalReferenceData, copyReferenceData } from "./generated-plan-data.ts";
@@ -12,6 +15,9 @@ import { quoteRegionalEstimates } from "./generated-regional-quote.ts";
 import { rational, receipt } from "../packages/solver/src/generated-meal-ranges.ts";
 import { hash } from "../scripts/data/price-evidence.ts";
 import { UUID } from "./generated-runtime-identity.ts";
+import { loadFixedRebuiltSource, readFixedRebuiltSource } from "./fixed-loader/fixed-source.ts";
+import { presentStoredGroceriesV3 } from "./generated-plan-presenter.ts";
+import { readPairedPreparation } from "./generated-paired-replacement.ts";
 
 // Server-only, source-independent READ boundary. It never evaluates a planner,
 // asks for billing access, commits state or authorizes an old-source mutation.
@@ -54,7 +60,9 @@ function exact(value: unknown) {
 // Hashing the stored alphabetically ordered JSON directly would be incorrect:
 // requestSha256 is the hash of this exact normalized producer field order.
 function normalizedRequest(value: unknown, equipmentLimit: 50 | 100 = 50) {
-  const row = fields(value, ["people", "selectedDays", "slots", "region", "storeIds", "budgetCents", "asOfDate", "equipment", "pantry"]);
+  const row = fields(value, ["people", "selectedDays", "slots", "region", "storeIds", "budgetCents", "asOfDate", "equipment", "pantry"], ["dietaryPattern"]);
+  const dietaryPattern = row.dietaryPattern as DietaryPattern | undefined;
+  if (Object.hasOwn(row, "dietaryPattern") && (!dietaryPattern || !dietaryPatterns.includes(dietaryPattern))) fail();
   const parsed = parsePeople(row.people); if (parsed.outcome !== "validated") fail();
   const selectedDays = strings(row.selectedDays, 7).map(date).sort(order), slots = strings(row.slots, 3).sort(order), equipment = strings(row.equipment, equipmentLimit).sort(order);
   if (!selectedDays.length || !slots.length || slots.some(slot => !["breakfast", "lunch", "dinner"].includes(slot)) || Date.parse(selectedDays.at(-1)!) - Date.parse(selectedDays[0]!) > 6 * 86400000) fail();
@@ -62,7 +70,7 @@ function normalizedRequest(value: unknown, equipmentLimit: 50 | 100 = 50) {
   if (checked.outcome !== "quoted") fail();
   const people = parsed.people.map(person => person.preferences ? { ...person, preferences: { preferredRecipeIds: [...person.preferences.preferredRecipeIds].sort(order) } } : person).sort((a, b) => order(a.personId, b.personId));
   const pantry = checked.ownedRemaining.map(stock => ({ skuId: stock.skuId, unit: stock.unit, formDigest: stock.formDigest, quantity: { numerator: Number(stock.quantity.numerator), denominator: Number(stock.quantity.denominator) } }));
-  return { people, selectedDays, slots, region: checked.region, storeIds: checked.storeIds, budgetCents: row.budgetCents as number, asOfDate: checked.asOfDate, equipment, pantry };
+  return { people, selectedDays, slots, region: checked.region, storeIds: checked.storeIds, budgetCents: row.budgetCents as number, asOfDate: checked.asOfDate, equipment, pantry, ...(dietaryPattern ? { dietaryPattern } : {}) };
 }
 function assignments(value: unknown, request: ReturnType<typeof normalizedRequest>) {
   if (!Array.isArray(value) || !value.length || value.length > 168) fail();
@@ -97,11 +105,14 @@ function money(value: unknown, signed = false) {
 }
 function savedWeek(value: unknown): Data | null {
   if (value === null) return null;
-  const row = fields(value, ["weekId", "request", "assignments", "sourceSha256", "requestSha256", "assignmentsSha256", "quote", "shoppingChecks", "contentSha256", "sourcePolicyBasis", "utilityPartition"], ["pantryBasis", "allergyBasisSha256", "newWeekPolicy"]);
+  const row = fields(value, ["weekId", "request", "assignments", "sourceSha256", "requestSha256", "assignmentsSha256", "quote", "shoppingChecks", "contentSha256", "sourcePolicyBasis", "utilityPartition"], ["pantryBasis", "allergyBasisSha256", "newWeekPolicy", "preparation"]);
   uuid(row.weekId); const source = sha(row.sourceSha256), checkedBasis = basis(row.sourcePolicyBasis, source);
-  const { contentSha256, sourcePolicyBasis: ignoredBasis, utilityPartition, ...body } = row; void ignoredBasis;
+  const { contentSha256, sourcePolicyBasis: ignoredBasis, utilityPartition, preparation, ...body } = row; void ignoredBasis;
+  if (Object.hasOwn(row, "preparation") && !readPairedPreparation(preparation, String(row.weekId), row.assignments)) fail();
   if ((utilityPartition === null) !== (checkedBasis.utilityPolicy === null) || sourcePolicyHashV2(["wd-joined-session-content-v2", hash(canonicalReferenceData(body)), checkedBasis.basisSha256, sourcePolicyHashV2(utilityPartition)]) !== sha(contentSha256)) fail();
-  const request = normalizedRequest(row.request, source === FINAL_DERIVED_PIN.sha256 ? 100 : 50), selected = assignments(row.assignments, request);
+  const paired = source === FIXED_REBUILT_DONOR_PIN.sha256 && checkedBasis.basisSha256 === FIXED_REBUILT_DONOR_BASIS_SHA256;
+  const equipmentLimit = source === FINAL_DERIVED_PIN.sha256 || source === CURRENT_INTEGRATION_REBUILT_IDENTITY.sourceSha256 || paired ? 100 : 50;
+  const request = normalizedRequest(row.request, equipmentLimit), selected = assignments(row.assignments, request);
   if (hash(request) !== sha(row.requestSha256) || hash(selected) !== sha(row.assignmentsSha256)) fail();
   if (Object.hasOwn(row, "pantryBasis")) { if (inspectPantryBasis(row.pantryBasis, object(row.request).pantry).outcome !== "ready") fail(); }
   else if (request.pantry.length) fail("pantry_provenance_migration_required");
@@ -120,6 +131,13 @@ function savedWeek(value: unknown): Data | null {
   } else if (shopping.status !== "held" || fields(shopping, ["status", "code"]).code !== "new_week_carry_policy_required") fail();
   const total = money(quote.estimatedTotalCents), remaining = money(quote.budgetRemainingCents, true);
   if (remaining.min !== request.budgetCents - total.max || remaining.max !== request.budgetCents - total.min) fail();
+  let pairedGroceryView;
+  if (paired && shopping.status === "ready" && quote.purchasePolicy === "wd-mixed-purchases-v3") {
+    const fixed = readFixedRebuiltSource(loadFixedRebuiltSource());
+    const shown = presentStoredGroceriesV3(quote as unknown as Parameters<typeof presentStoredGroceriesV3>[0],
+      fixed?.binding.labels, shopping.rows);
+    if (shown.outcome === "groceries") pairedGroceryView = shown;
+  }
   // Whitelist only. No raw quote, fact/price rows, provider receipts, URLs or
   // arbitrary stored error objects are copied into a customer response.
   return { weekId: row.weekId, sourceSha256: source, requestSha256: row.requestSha256, assignmentsSha256: row.assignmentsSha256, contentSha256,
@@ -127,6 +145,7 @@ function savedWeek(value: unknown): Data | null {
     pantryBasisSha256: row.pantryBasis ? object(row.pantryBasis).basisSha256 : null, allergyBasisSha256: row.allergyBasisSha256 ?? null,
     utilityPartitionSha256: sourcePolicyHashV2(utilityPartition), shoppingChecks: copyReferenceData(row.shoppingChecks),
     groceries: { estimatedTotalCents: total, budgetRemainingCents: remaining, uniqueBuyItemCount: integer(quote.uniqueBuyItemCount), currency: "USD", region: quote.region, storeIds: quote.storeIds, asOfDate: quote.asOfDate, liveRetailerPricing: false, checkoutChargesIncluded: false, estimateDisclosure: "stored-whole-pack-estimate-not-current-store-prices", referenceEstimatesIncluded: Object.hasOwn(quote, "referenceEstimates") },
+    ...(pairedGroceryView ? { pairedGroceryView } : {}),
     view: { outcome: "held", code: "original_source_render_not_evaluated" } };
 }
 function savedState(value: unknown) {
@@ -137,7 +156,7 @@ function savedState(value: unknown) {
 }
 function originalSource(value: unknown, targetOperationId: string, digest: string): string {
   const row = fields(value, ["contract", "operation", "operationId", "sourceSha256", "payload", "expectedSourcePolicyBasisSha256", "intentSha256"]);
-  if (row.contract !== "wd-joined-session-proposal-v2" || !["installCurrent", "saveCurrent", "createWeekDraft", "cancelWeekDraft", "confirmNewWeek", "shoppingCheck", "saveReplacement"].includes(String(row.operation)) || row.operationId !== targetOperationId || row.intentSha256 !== digest) fail("original_intent_mismatch");
+  if (row.contract !== "wd-joined-session-proposal-v2" || !["installCurrent", "saveCurrent", "createWeekDraft", "cancelWeekDraft", "confirmNewWeek", "shoppingCheck", "saveReplacement", "markPreparation", "savePairedReplacement"].includes(String(row.operation)) || row.operationId !== targetOperationId || row.intentSha256 !== digest) fail("original_intent_mismatch");
   const { intentSha256: ignored, ...intent } = row; void ignored;
   if (referenceOperationDigest(intent) !== digest) fail("original_intent_mismatch");
   object(row.payload); if (row.expectedSourcePolicyBasisSha256 !== null) sha(row.expectedSourcePolicyBasisSha256);
@@ -197,7 +216,16 @@ export function createCurrentOwnerReadService(dependencies: CurrentOwnerReadDepe
           if (!weeks.some(week => week.sourcePolicyBasisSha256 === receipt.committedSourcePolicyBasisSha256)) fail("stored_receipt_invalid");
           const sources = [...new Set(weeks.filter(week => week.sourcePolicyBasisSha256 === receipt.committedSourcePolicyBasisSha256).map(week => week.sourceSha256))];
           if (sources.length !== 1) fail("source_binding_unavailable");
-          if (input.originalEnvelope && originalSource(input.originalEnvelope, stored.operationId, stored.intentSha256) !== sources[0]) fail("original_source_mismatch");
+          if (input.originalEnvelope) {
+            const original = object(input.originalEnvelope);
+            const source = originalSource(original, stored.operationId, stored.intentSha256);
+            const exactPair = source === CURRENT_INTEGRATION_REBUILT_IDENTITY.sourceSha256 &&
+              original.expectedSourcePolicyBasisSha256 === CURRENT_INTEGRATION_REBUILT_IDENTITY.sourcePolicyBasisSha256 &&
+              sources[0] === FIXED_REBUILT_DONOR_PIN.sha256 &&
+              receipt.committedSourcePolicyBasisSha256 === FIXED_REBUILT_DONOR_BASIS_SHA256 &&
+              ["savePairedReplacement", "markPreparation", "shoppingCheck", "saveReplacement"].includes(String(original.operation));
+            if (source !== sources[0] && !exactPair) fail("original_source_mismatch");
+          }
           return { outcome: "operation_status", ...known, state, sourceBinding: { status: "stored", sourceSha256: sources[0], committedSourcePolicyBasisSha256: receipt.committedSourcePolicyBasisSha256 } };
         }
         const rejection = object(receipt.result);

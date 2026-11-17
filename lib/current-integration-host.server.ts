@@ -1,5 +1,9 @@
+import { createCurrentIntegrationDietaryReference, CURRENT_INTEGRATION_DIETARY_IDENTITY, CURRENT_INTEGRATION_STRICT_DIETARY_IDENTITY } from "./current-integration-reference-dietary.server.ts";
+import { createCurrentIntegrationSuccessorReference, CURRENT_INTEGRATION_HOUSEHOLD_IDENTITY, CURRENT_INTEGRATION_SUCCESSOR_IDENTITY } from "./current-integration-reference-successor.server.ts";
 import { CURRENT_PRODUCT_ENROLLMENT_V2, productEnrollmentMatchesHost, type CheckedProductEnrollmentV2 } from "./current-product-enrollment.server.ts";
 import {createCurrentIntegrationReferenceV11Async,CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY} from "./current-integration-reference-v11.server.ts";
+import { createCurrentIntegrationRebuiltReference } from "./current-integration-reference-rebuilt.server.ts";
+import { CURRENT_INTEGRATION_REBUILT_IDENTITY, CURRENT_INTEGRATION_REBUILT_PROFILE } from "./current-integration-rebuilt-identity.server.ts";
 import {createCurrentIntegrationReferenceV10,CURRENT_INTEGRATION_REFERENCE_V10_IDENTITY} from "./current-integration-reference-v10.server.ts";
 import { readCurrentBundledCapsule } from "./current-bundled-capsule.server.ts";
 import { currentPrivateHostInputs, createCurrentLifecyclePrivateProducerForHost } from "./current-lifecycle-private-producer.server.ts";
@@ -70,7 +74,7 @@ export const CURRENT_INTEGRATION_HOST_CONFIG_NAMES = Object.freeze([
   "WD_CURRENT_OWNER_API_ENABLED", "WD_CURRENT_OWNER_READ_API_ENABLED",
   "WD_REVENUECAT_CONFIGURATION_VERIFIED", "WD_BILLING_ENVIRONMENT", "REVENUECAT_SECRET_API_KEY",
   "WD_CURRENT_SOURCE_IDENTITY_JSON", "WD_CURRENT_PROVIDER_READINESS_JSON", "WD_CURRENT_REFERENCE_PROFILE",
-  "REVENUECAT_SUBSCRIBER_READ_API_KEY",
+  "REVENUECAT_SUBSCRIBER_READ_API_KEY", "WD_CURRENT_REBUILT_BETA_ENABLED",
 ] as const);
 function configuration(value: unknown): Record<string, string | undefined> {
   if (!value || typeof value !== "object" || Array.isArray(value) || isProxy(value)) throw Error("host_configuration_invalid");
@@ -91,20 +95,29 @@ function json(value: string | undefined): unknown {
  * factory, authenticate an owner, or contact a configured target. Unknown
  * metadata leaves new-session/source/billing admission explicitly unavailable.
  * currentRead needs none of those mutation prerequisites. */
-export function resolveCurrentIntegrationServerConfiguration(value: unknown, now: () => number = Date.now, request: typeof fetch = fetch, productEnrollment: CheckedProductEnrollmentV2 | null = CURRENT_PRODUCT_ENROLLMENT_V2): CurrentIntegrationRuntimeDependencies {
+export function resolveCurrentIntegrationServerConfiguration(value: unknown, now: () => number = Date.now, request: typeof fetch = fetch, productEnrollment: CheckedProductEnrollmentV2 | null = CURRENT_PRODUCT_ENROLLMENT_V2, requestedSource?: string | null): CurrentIntegrationRuntimeDependencies {
   try {
     const c = configuration(value), enabled = c.WD_CURRENT_OWNER_API_ENABLED === "true" && c.WD_REVENUECAT_CONFIGURATION_VERIFIED === "true";
     const origin = c.SUPABASE_URL ?? c.NEXT_PUBLIC_SUPABASE_URL;
     const publicAuthKey = c.SUPABASE_ANON_KEY ?? c.NEXT_PUBLIC_SUPABASE_ANON_KEY, serverCredential = c.SUPABASE_SERVICE_ROLE_KEY;
     const environment = c.WD_BILLING_ENVIRONMENT;
+    const strictDietary = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v14";
+    const dietary = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v14-dated-estimates";
+    const household = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v13";
+    const successor = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v12";
     const v5 = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v5";
     const v7 = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v7";
     const v11=c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v11";
+    const rebuiltBeta = v11 && c.WD_CURRENT_REBUILT_BETA_ENABLED === "true" &&
+      requestedSource === CURRENT_INTEGRATION_REBUILT_IDENTITY.sourceSha256;
+    const rebuilt = rebuiltBeta || c.WD_CURRENT_REFERENCE_PROFILE === CURRENT_INTEGRATION_REBUILT_PROFILE;
     const v10=c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v10";
     const v9 = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v9";
-    if (c.WD_CURRENT_REFERENCE_PROFILE !== undefined && !v5 && !v7 && !v9 && !v10 && !v11 && c.WD_CURRENT_REFERENCE_PROFILE !== "wd-current-reference-v4") throw Error("source_profile");
-    const expected = v11 ? CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY : v10 ? CURRENT_INTEGRATION_REFERENCE_V10_IDENTITY : v9 ? CURRENT_INTEGRATION_REFERENCE_V9_IDENTITY : v7 ? CURRENT_INTEGRATION_REFERENCE_V7_IDENTITY : v5 ? CURRENT_INTEGRATION_REFERENCE_V5_IDENTITY : json(c.WD_CURRENT_SOURCE_IDENTITY_JSON);
-    if ((v5 || v7 || v9 || v10 || v11) && c.WD_CURRENT_SOURCE_IDENTITY_JSON !== undefined && referenceConfigurationDigest(json(c.WD_CURRENT_SOURCE_IDENTITY_JSON)) !== referenceConfigurationDigest(expected)) throw Error("source_identity");
+    if (c.WD_CURRENT_REFERENCE_PROFILE !== undefined && !v5 && !v7 && !v9 && !v10 && !v11 && !rebuilt && !successor && !household && !dietary && !strictDietary && c.WD_CURRENT_REFERENCE_PROFILE !== "wd-current-reference-v4") throw Error("source_profile");
+    const expected = rebuilt ? CURRENT_INTEGRATION_REBUILT_IDENTITY
+      : strictDietary ? CURRENT_INTEGRATION_STRICT_DIETARY_IDENTITY : dietary ? CURRENT_INTEGRATION_DIETARY_IDENTITY : household ? CURRENT_INTEGRATION_HOUSEHOLD_IDENTITY : successor ? CURRENT_INTEGRATION_SUCCESSOR_IDENTITY : v11 ? CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY : v10 ? CURRENT_INTEGRATION_REFERENCE_V10_IDENTITY : v9 ? CURRENT_INTEGRATION_REFERENCE_V9_IDENTITY : v7 ? CURRENT_INTEGRATION_REFERENCE_V7_IDENTITY : v5 ? CURRENT_INTEGRATION_REFERENCE_V5_IDENTITY : json(c.WD_CURRENT_SOURCE_IDENTITY_JSON);
+    const configuredIdentity = rebuiltBeta ? CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY : expected;
+    if ((rebuilt || dietary || strictDietary || household || successor || v5 || v7 || v9 || v10 || v11) && c.WD_CURRENT_SOURCE_IDENTITY_JSON !== undefined && referenceConfigurationDigest(json(c.WD_CURRENT_SOURCE_IDENTITY_JSON)) !== referenceConfigurationDigest(configuredIdentity)) throw Error("source_identity");
     const rawReadiness = json(c.WD_CURRENT_PROVIDER_READINESS_JSON);
     // Evaluate expiry against the actual host clock; never refresh receipt
     // collectedAt/validUntil, scope, environment, product or offer observations.
@@ -124,19 +137,20 @@ export function resolveCurrentIntegrationServerConfiguration(value: unknown, now
       ...(origin && publicAuthKey && serverCredential ? { supabase: { origin, publicAuthKey, serverCredential } } : {}),
       ...(enabled && expected && typeof expected === "object" && !Array.isArray(expected) ? {
         source: { expected: expected as CurrentIntegrationSourceIdentity, create: () => {
-          const profile = v11 ? "v11" : v10 ? "v10" : v9 ? "v9" : v7 ? "v7" : v5 ? "v5" : "v4";
+          const profile = rebuilt ? CURRENT_INTEGRATION_REBUILT_PROFILE
+            : strictDietary ? "v14" : dietary ? "v14-dated-estimates" : household ? "v13" : successor ? "v12" : v11 ? "v11" : v10 ? "v10" : v9 ? "v9" : v7 ? "v7" : v5 ? "v5" : "v4";
           let profiles = preparedSources.get(now);
           let source = profiles?.get(profile);
           if (!source) {
             if (!profiles) { profiles = new Map(); preparedSources.set(now, profiles); }
-            if (v11) {
-              const preparing = createCurrentIntegrationReferenceV11Async(now), cache = profiles;
+            if (v11 || rebuilt) {
+              const preparing = rebuilt ? createCurrentIntegrationRebuiltReference(now) : createCurrentIntegrationReferenceV11Async(now), cache = profiles;
               source = preparing; cache.set(profile, preparing);
               // Rejections retire only this preparation. A later admitted call
               // may retry pure local work; no pending/error is marked ready.
               void preparing.then(value => { if (cache.get(profile) === preparing) cache.set(profile, value); }, () => { if (cache.get(profile) === preparing) cache.delete(profile); });
             } else {
-              source = v10 ? createCurrentIntegrationReferenceV10(now) : v9 ? createCurrentIntegrationReferenceV9(now) : v7 ? createCurrentIntegrationReferenceV7(now) : v5 ? createCurrentIntegrationReferenceV5(now) : loadCurrentIntegrationHostSource(now);
+              source = dietary || strictDietary ? createCurrentIntegrationDietaryReference(now, strictDietary) : household || successor ? createCurrentIntegrationSuccessorReference(now, household) : v10 ? createCurrentIntegrationReferenceV10(now) : v9 ? createCurrentIntegrationReferenceV9(now) : v7 ? createCurrentIntegrationReferenceV7(now) : v5 ? createCurrentIntegrationReferenceV5(now) : loadCurrentIntegrationHostSource(now);
               profiles.set(profile, source);
             }
           }
@@ -201,7 +215,8 @@ export async function currentIntegrationHostPOST(route: Route, request: Request)
  * material grants lifecycle authority; the accepted adapter issues each original
  * from independent current facts. Read/session requests never load private keys. */
 export async function resolveCurrentIntegrationProductionConfiguration(value: unknown, request: Request, route: Route, transport: typeof fetch = fetch, now: () => number = Date.now): Promise<CurrentIntegrationRuntimeDependencies> {
-  const base = resolveCurrentIntegrationServerConfiguration(value, now, transport);
+  const requestedSource = route === "currentSession" ? request.headers.get("X-WiseDinner-Source") : undefined;
+  const base = resolveCurrentIntegrationServerConfiguration(value, now, transport, undefined, requestedSource);
   if (route !== "appleCredential" && route !== "deletion") return base;
   const lifecycle = await resolveCurrentIntegrationLifecycleConfiguration(value, request, transport, now);
   return { ...base, ...(lifecycle ? { lifecycle, flags: { ...base.flags, appleCredential: true, deletion: true } } : {}) };

@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readCurrentBundledCapsule } from "./current-bundled-capsule.server.ts";
 import { createReviewedCurrentSourceBinder } from "./generated-current-reviewed-source.ts";
 import { referenceConfigurationDigest } from "./generated-reviewed-reference-data.ts";
 import type { CurrentIntegrationSource, CurrentIntegrationSourceIdentity } from "./current-integration-runtime.server.ts";
@@ -27,7 +27,7 @@ export const CURRENT_INTEGRATION_REFERENCE_V6_IDENTITY: CurrentIntegrationSource
 });
 export function createCurrentIntegrationReferenceV6(now: () => number = Date.now): CurrentIntegrationSource {
   // Fixed bundled asset, no filesystem discovery or caller-selected source path.
-  const capsule = JSON.parse(readFileSync(new URL("./generated-current-source-capsule-v6.json", import.meta.url), "utf8"));
+  const capsule = JSON.parse(readCurrentBundledCapsule("v6", import.meta.url));
   const bound = createReviewedCurrentSourceBinder(capsule, now);
   if (bound.reviewedReferenceData?.reviewRevision !== 6 || !bound.guidePolicy) throw Error("reference_v6_unavailable");
   const p = bound.reviewedReferenceData;

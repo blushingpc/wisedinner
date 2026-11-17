@@ -1,6 +1,7 @@
+import type { DietaryRegistry } from "./generated-dietary-admission.ts";
 import {retainV3PurchaseCustody} from "./generated-regional-quote.ts";
-import {createJoinedReferencePlannerV4,createJoinedReferencePlannerV3,type JoinedReferenceBindingV3} from "./generated-joined-plan.ts";
-import {createReferencePlanRepositoryV3,type ReferenceStatePortV3} from "./generated-plan-state.ts";
+import {createCuratedStrictArchivePlanner,CURATED_STRICT_ARCHIVE_BASIS,createCuratedSuccessorReferencePlanner,createJoinedReferencePlannerV4,createJoinedReferencePlannerV3,type JoinedReferenceBindingV3, type PlannerV3} from "./generated-joined-plan.ts";
+import {createReferencePlanRepositoryV3,readStoredReferenceWeekV3,type ReferenceStatePortV3} from "./generated-plan-state.ts";
 import {presentGroceriesV3,presentRecipeV3} from "./generated-plan-presenter.ts";
 import { webRuntimeHttp, type RuntimeHttp, type RuntimeRequest, type RuntimeResponse } from "./generated-runtime-http.ts";
 import { utf8ByteLength } from "./generated-runtime-bytes.ts";
@@ -14,7 +15,7 @@ import { presentGroceries as legacyGroceries, presentRecipe as legacyRecipe, pre
 import type { ReviewedImageIndex } from "./generated-plan-images.ts";
 import { UUID } from "./generated-runtime-identity.ts";
 import { preparePantryBasis, revalidatePantryBasis } from "./generated-plan-pantry-basis.ts";
-import { readReviewedReferenceDataV1, referenceConfigurationDigest, REVIEWED_REFERENCE_DATA, type ReviewedReferenceDataV1 } from "./generated-reviewed-reference-data.ts";
+import { CURATED_DIETARY_REFERENCE_REVISION, CURATED_HOUSEHOLD_REFERENCE_REVISION, readReviewedReferenceDataV1, referenceConfigurationDigest, REVIEWED_REFERENCE_DATA, type ReviewedReferenceDataV1 } from "./generated-reviewed-reference-data.ts";
 
 // A versioned producer proposal, not a public route, accepted native contract or
 // account/access provider. Only the trusted host can resolve an opaque scope.
@@ -22,9 +23,16 @@ export const REFERENCE_SESSION_CONTRACT = "wd-joined-session-proposal-v1";
 export const REFERENCE_SESSION_CONTRACT_V2 = "wd-joined-session-proposal-v2";
 type Data = Record<string, unknown>;
 type Context<Q extends RuntimeRequest = Request> = { readonly request: Q; readonly operation: string; readonly operationId: string; readonly intentSha256: string };
-type Options<Q extends RuntimeRequest = Request> = { readonly labels: unknown; readonly transactions: ReferenceStatePort; readonly resolveScope?: (context: Context<Q>) => LocalReferenceScope | "deny" | null | Promise<LocalReferenceScope | "deny" | null>; readonly newWeekPolicy?: typeof NEW_WEEK_RECONFIRM_POLICY; readonly images?: ReviewedImageIndex; readonly newWeekRequestPolicy?: import("./generated-source-clock.ts").NewWeekRequestPolicy };
+export type SavedWeekPresenter = (week: ReferenceWeek) => Promise<unknown>;
+type SavedWeekEvaluator = Readonly<{
+  source: { sha256: string };
+  sourcePolicyBasis: { basisSha256: string };
+  evaluateJoined: PlannerV3["evaluateJoined"];
+}>;
+type Options<Q extends RuntimeRequest = Request> = { readonly labels: unknown; readonly transactions: ReferenceStatePort; readonly resolveScope?: (context: Context<Q>) => LocalReferenceScope | "deny" | null | Promise<LocalReferenceScope | "deny" | null>; readonly newWeekPolicy?: typeof NEW_WEEK_RECONFIRM_POLICY; readonly images?: ReviewedImageIndex; readonly newWeekRequestPolicy?: import("./generated-source-clock.ts").NewWeekRequestPolicy; readonly archivedSavedWeek?: SavedWeekPresenter; readonly resolveSavedWeekEvaluator?: (sourceSha256: string, basisSha256: string) => SavedWeekEvaluator | undefined; readonly pairedReplacement?: () => import("./generated-paired-replacement.ts").PairedReplacementPolicy | undefined };
 const PURE = ["preparePantry", "evaluateJoined", "planJoined", "findReplacements", "previewReplacement", "confirmReplacement"];
 const STATE = ["readCurrent", "operationStatus", "installCurrent", "saveCurrent", "createWeekDraft", "cancelWeekDraft", "confirmNewWeek", "shoppingCheck", "saveReplacement"];
+const PAIRED_WRITES = ["markPreparation", "savePairedReplacement"];
 const HELD = ["signIn", "trial", "restore", "storePrices"];
 class InputError extends Error {}
 function record(value: unknown, required: readonly string[], optional: readonly string[] = []): Data {
@@ -33,7 +41,7 @@ function record(value: unknown, required: readonly string[], optional: readonly 
 }
 function freeze<T>(value: T): T { if (value && typeof value === "object" && !Object.isFrozen(value)) { Object.values(value).forEach(freeze); Object.freeze(value); } return value; }
 
-type SessionBindingV1 = { readonly outcome: "error"; readonly code: string } | { readonly outcome: "ready"; readonly source: { readonly sha256: string; readonly recordCount: number }; readonly handle: (request: Request) => Promise<Response> };
+type SessionBindingV1 = { readonly outcome: "error"; readonly code: string } | { readonly outcome: "ready"; readonly source: { readonly sha256: string; readonly recordCount: number }; readonly handle: (request: Request) => Promise<Response>; readonly presentSavedWeek: SavedWeekPresenter };
 type SessionBindingV2 = Exclude<ReturnType<typeof createJoinedReferencePlannerV2>, { outcome: "ready" }> | Extract<SessionBindingV1, { outcome: "ready" }> & { readonly sourcePolicyBasis: import("./generated-source-policy-basis-v2.ts").SourcePolicyBasisV2 };
 export function createReferenceSessionHandler(source: unknown, configuration: unknown, options: Options): SessionBindingV1 { return createSession(source, configuration, options, 1, webRuntimeHttp()) as SessionBindingV1; }
 export function createReferenceSessionHandlerV2(source: unknown, configuration: unknown, options: Omit<Options, "transactions"> & { readonly transactions: ReferenceStatePortV2 }): SessionBindingV2 { return createSession(source, configuration, options as unknown as Options, 2, webRuntimeHttp()) as SessionBindingV2; }
@@ -68,6 +76,31 @@ export function createReferenceSessionFactoryV4(source:unknown,configuration:unk
  if(trusted?.reviewedReferenceData!==undefined){const read=readReviewedReferenceDataV1(source,trusted.reviewedReferenceData);if(read.outcome!=="ready"||read.packet.configurationSha256!==referenceConfigurationDigest(configuration)||read.packet.sourcePolicyBasis.basisSha256!==binding.sourcePolicyBasis.basisSha256)return {outcome:"error" as const,code:"invalid_reviewed_reference_data"};reviewed=read.packet;}
  return Object.freeze({outcome:"ready" as const,source:binding.source,sourcePolicyBasis:binding.sourcePolicyBasis,bind:(options:Omit<Options,"transactions">&{readonly transactions:ReferenceStatePortV3})=>createSessionFromBinding(binding,options as unknown as Options,3,webRuntimeHttp(),reviewed) as SessionBindingV2});
 }
+export function createCuratedSuccessorSessionFactory(
+  source: unknown, configuration: unknown, reviewedReferenceData: ReviewedReferenceDataV1,
+  dietaryReview?: Readonly<{ registry: DietaryRegistry; registrySha256: string }>,
+) {
+  const binding = reviewedReferenceData.sourcePolicyBasis.basisSha256 === CURATED_STRICT_ARCHIVE_BASIS ? createCuratedStrictArchivePlanner(source, configuration, dietaryReview) : createCuratedSuccessorReferencePlanner(source, configuration, (reviewedReferenceData.reviewRevision === CURATED_HOUSEHOLD_REFERENCE_REVISION || reviewedReferenceData.reviewRevision === CURATED_DIETARY_REFERENCE_REVISION), dietaryReview);
+  if (binding.outcome !== "ready") return binding;
+  const read = readReviewedReferenceDataV1(source, reviewedReferenceData, dietaryReview);
+  if (read.outcome !== "ready" || read.packet.configurationSha256 !== referenceConfigurationDigest(configuration) ||
+      read.packet.sourcePolicyBasis.basisSha256 !== binding.sourcePolicyBasis.basisSha256) {
+    return { outcome: "error" as const, code: "invalid_reviewed_reference_data" };
+  }
+  return Object.freeze({
+    outcome: "ready" as const, source: binding.source, sourcePolicyBasis: binding.sourcePolicyBasis,
+    bind: (options: Omit<Options, "transactions"> & { readonly transactions: ReferenceStatePortV3 }) =>
+      createSessionFromBinding(binding, options as unknown as Options, 3, webRuntimeHttp(), read.packet) as SessionBindingV2,
+  });
+}
+
+export function bindArchivedWeekPresenter(
+  binding: Extract<JoinedReferenceBindingV3, { outcome: "ready" }>,
+  options: Omit<Options, "transactions"> & { readonly transactions: ReferenceStatePortV3 },
+): SavedWeekPresenter | undefined {
+  const session = createSessionFromBinding(binding, options as unknown as Options, 3, webRuntimeHttp());
+  return session.outcome === "ready" && "presentSavedWeek" in session ? session.presentSavedWeek : undefined;
+}
 function createSessionFromBinding<Q extends RuntimeRequest, S extends RuntimeResponse>(binding: ReturnType<typeof createJoinedReferencePlanner> | JoinedReferenceBindingV2 | JoinedReferenceBindingV3, options: Options<Q>, version: 1 | 2 | 3, runtime: RuntimeHttp<Q, S>, reviewed?: ReviewedReferenceDataV1) {
   if (binding.outcome !== "ready") return binding;
   const bound = binding as Extract<ReturnType<typeof createJoinedReferencePlanner>, { outcome: "ready" }>;
@@ -79,21 +112,41 @@ function createSessionFromBinding<Q extends RuntimeRequest, S extends RuntimeRes
   try {
     labels = freeze(copyReferenceData(options.labels));
     if (options.resolveScope !== undefined && typeof options.resolveScope !== "function") throw new InputError("Invalid scope binding");
-    repository = version===3?createReferencePlanRepositoryV3({planner:(binding as Extract<JoinedReferenceBindingV3,{outcome:"ready"}>).planner,sourcePolicyBasis:basis!,transactions:options.transactions as unknown as ReferenceStatePortV3,newWeekPolicy:options.newWeekPolicy,newWeekRequestPolicy:options.newWeekRequestPolicy}) as unknown as ReturnType<typeof createReferencePlanRepository>:version === 1 ? createReferencePlanRepository({ planner: bound.planner, transactions: options.transactions, newWeekPolicy: options.newWeekPolicy }) : createReferencePlanRepositoryV2({ planner: (binding as Extract<JoinedReferenceBindingV2, { outcome: "ready" }>).planner, sourcePolicyBasis: basis!, transactions: options.transactions as unknown as ReferenceStatePortV2, newWeekPolicy: options.newWeekPolicy, newWeekRequestPolicy: options.newWeekRequestPolicy }) as unknown as ReturnType<typeof createReferencePlanRepository>;
+    repository = version===3?createReferencePlanRepositoryV3({planner:(binding as Extract<JoinedReferenceBindingV3,{outcome:"ready"}>).planner,sourcePolicyBasis:basis!,transactions:options.transactions as unknown as ReferenceStatePortV3,newWeekPolicy:options.newWeekPolicy,newWeekRequestPolicy:options.newWeekRequestPolicy,pairedReplacement:options.pairedReplacement}) as unknown as ReturnType<typeof createReferencePlanRepository>:version === 1 ? createReferencePlanRepository({ planner: bound.planner, transactions: options.transactions, newWeekPolicy: options.newWeekPolicy }) : createReferencePlanRepositoryV2({ planner: (binding as Extract<JoinedReferenceBindingV2, { outcome: "ready" }>).planner, sourcePolicyBasis: basis!, transactions: options.transactions as unknown as ReferenceStatePortV2, newWeekPolicy: options.newWeekPolicy, newWeekRequestPolicy: options.newWeekRequestPolicy }) as unknown as ReturnType<typeof createReferencePlanRepository>;
   } catch { return { outcome: "error", code: "invalid_session_configuration" } as const; }
   const resolveScope = options.resolveScope, images = options.images, newWeekPolicy = options.newWeekPolicy;
   // Internal provenance stays on durable V2 receipts. Keep it out of normal
   // strict acknowledgement DTOs, but retain it for post-serialization capacity.
   const committedBases = new WeakMap<object, string>();
-  function savedWeek(saved: ReferenceWeek | null) {
+  const pairedSupported = version === 3 && typeof options.pairedReplacement === "function";
+  async function savedWeek(saved: ReferenceWeek | null) {
     if (!saved) return null;
     const identity = { weekId: saved.weekId, sourceSha256: saved.sourceSha256, requestSha256: saved.requestSha256, assignmentsSha256: saved.assignmentsSha256, contentSha256: saved.contentSha256, pantryBasisSha256: saved.pantryBasis?.basisSha256 ?? null, ...(version >= 2 ? { sourcePolicyBasisSha256: (saved as unknown as ReferenceWeekV2).sourcePolicyBasis.basisSha256 } : {}) };
-    if (version >= 2 && (saved as unknown as ReferenceWeekV2).sourcePolicyBasis.basisSha256 !== basis!.basisSha256) return { ...identity, view: { outcome: "held", code: "saved_source_policy_basis_changed" } };
+    let evaluate = bound.planner.evaluateJoined;
+    if (version >= 2 && identity.sourcePolicyBasisSha256 !== basis!.basisSha256) {
+      let alternate: SavedWeekEvaluator | undefined;
+      try {
+        if (version === 3) alternate = options.resolveSavedWeekEvaluator?.(saved.sourceSha256, identity.sourcePolicyBasisSha256!);
+      } catch { /* An unavailable alternate still allows the archived resolver. */ }
+      if (alternate && alternate.source.sha256 === saved.sourceSha256 &&
+          alternate.sourcePolicyBasis.basisSha256 === identity.sourcePolicyBasisSha256) {
+        const verified = readStoredReferenceWeekV3(saved);
+        if (!verified) return { ...identity, view: { outcome: "held", code: "stored_state_invalid" } };
+        saved = verified as unknown as ReferenceWeek;
+        evaluate = alternate.evaluateJoined as unknown as typeof evaluate;
+      } else {
+        try {
+          const archived = await options.archivedSavedWeek?.(saved);
+          if (archived) return archived;
+        } catch { /* A failed presentation cannot suppress an original acknowledgement. */ }
+        return { ...identity, view: { outcome: "held", code: "saved_source_policy_basis_changed" } };
+      }
+    }
     if (saved.pantryBasis) {
       const checked = revalidatePantryBasis(bound.planner.preparePantry, saved.pantryBasis, (saved.request as Data)?.pantry);
       if (checked.outcome !== "ready") return { ...identity, view: { outcome: checked.outcome, code: checked.code } };
     }
-    let evaluated = bound.planner.evaluateJoined(saved.assignments, saved.request);
+    let evaluated = evaluate(saved.assignments, saved.request);
     if(version===3&&evaluated.outcome==="success"){
      const next=evaluated as unknown as import("./generated-joined-plan.ts").ReferenceEvaluationSuccessV3;
      if(saved.sourceSha256!==next.sourceSha256||(saved as unknown as ReferenceWeekV2).sourcePolicyBasis.basisSha256!==next.sourcePolicyBasis.basisSha256)return {...identity,view:{outcome:"held",code:"saved_source_policy_basis_changed"}};
@@ -108,19 +161,22 @@ function createSessionFromBinding<Q extends RuntimeRequest, S extends RuntimeRes
     }
     return { ...identity, view };
   }
-  function stateView(state: ReferenceEnvelope) { return { revision: state.revision, current: savedWeek(state.current), draft: savedWeek(state.draft) }; }
-  function safeResult(value: unknown): unknown {
+  async function stateView(state: ReferenceEnvelope) {
+    const [current, draft] = await Promise.all([savedWeek(state.current), savedWeek(state.draft)]);
+    return { revision: state.revision, current, draft };
+  }
+  async function safeResult(value: unknown): Promise<unknown> {
     const result = value as Data;
-    if (result.outcome === "read") return { outcome: "read", state: stateView(result.state as ReferenceEnvelope), storedReferenceOnly: true };
+    if (result.outcome === "read") return { outcome: "read", state: await stateView(result.state as ReferenceEnvelope), storedReferenceOnly: true };
     if (result.outcome === "acknowledged") {
-      const projected = { outcome: "acknowledged", operationId: result.operationId, saved: true, state: stateView(result.state as ReferenceEnvelope) };
+      const projected = { outcome: "acknowledged", operationId: result.operationId, saved: true, state: await stateView(result.state as ReferenceEnvelope) };
       if (version >= 2) {
         if (typeof result.committedSourcePolicyBasisSha256 !== "string" || !/^[a-f0-9]{64}$/.test(result.committedSourcePolicyBasisSha256)) throw new InputError("Invalid committed policy basis");
         committedBases.set(projected, result.committedSourcePolicyBasisSha256);
       }
       return projected;
     }
-    if (result.outcome === "committed") return { outcome: "committed", receipt: safeResult(result.receipt) };
+    if (result.outcome === "committed") return { outcome: "committed", receipt: await safeResult(result.receipt) };
     return result;
   }
   function status(result: unknown): number {
@@ -139,7 +195,7 @@ function createSessionFromBinding<Q extends RuntimeRequest, S extends RuntimeRes
       if (utf8ByteLength(body) > 16 * 1024 * 1024) {
         const row = result as Data, receipt = (row.outcome === "committed" ? row.receipt : row) as Data;
         const committed = receipt.outcome === "acknowledged", rejected = receipt.outcome === "not_applied";
-        const mutation = operation !== null && STATE.includes(operation) && !["readCurrent", "operationStatus"].includes(operation);
+        const mutation = operation !== null && (STATE.includes(operation) || PAIRED_WRITES.includes(operation)) && !["readCurrent", "operationStatus"].includes(operation);
         // Serialization is after the transaction. A smaller response must not
         // erase a known commit, claim rollback or cause an endless status loop.
         const uncertain = mutation && !committed && !rejected;
@@ -181,7 +237,7 @@ function createSessionFromBinding<Q extends RuntimeRequest, S extends RuntimeRes
         if (version >= 2 && envelope.expectedSourcePolicyBasisSha256 !== null && envelope.expectedSourcePolicyBasisSha256 !== basis!.basisSha256) return respond({ outcome: "error", code: "stale_source_policy_basis", saved: false }, 409);
         const checked = await repository.read(scope); if (checked.outcome !== "read") return respond(checked);
         if (opted && !reviewed) return respond({ outcome: "held", code: "reviewed_reference_data_unavailable" });
-        return respond({ outcome: "capabilities", source: bound.source, supported: ["capabilities", ...PURE, ...STATE], held: HELD, newWeekPolicy: newWeekPolicy ?? null, pantryPersistence: "original-observations-and-current-trusted-basis-required", acceptedByNative: false, hostedAuthorizationVerified: false, commercialAccessVerified: false, ...(version >= 2 ? { sourcePolicies: { session: contract, referencePrices: basis!.referencePricePolicy, tapCookingWater: basis!.utilityPolicy, sourcePolicyBasisSha256: basis!.basisSha256 } } : {}), ...(opted ? { reviewedReferenceData: reviewed } : {}) });
+        return respond({ outcome: "capabilities", source: bound.source, supported: ["capabilities", ...PURE, ...STATE, ...(pairedSupported ? ["findPairedReplacements", "previewPairedReplacement", "findReservedReplacements", ...PAIRED_WRITES] : [])], held: HELD, newWeekPolicy: newWeekPolicy ?? null, pantryPersistence: "original-observations-and-current-trusted-basis-required", acceptedByNative: false, hostedAuthorizationVerified: false, commercialAccessVerified: false, ...(version >= 2 ? { sourcePolicies: { session: contract, referencePrices: basis!.referencePricePolicy, tapCookingWater: basis!.utilityPolicy, sourcePolicyBasisSha256: basis!.basisSha256 } } : {}), ...(opted ? { reviewedReferenceData: reviewed } : {}) });
       }
       if (PURE.includes(operation)) {
         const pure = createBoundReferenceOperationRuntimeHandler(bound, { labels, images, newWeekRequestPolicy: options.newWeekRequestPolicy, authorize: async () => (await repository.read(scope)).outcome === "read" ? "allow" : "deny" }, version===1?1:2, runtime);
@@ -193,12 +249,20 @@ function createSessionFromBinding<Q extends RuntimeRequest, S extends RuntimeRes
         return respond(body.result, response.status);
       }
       if (HELD.includes(operation)) return respond({ outcome: "held", code: "operation_not_bound" });
-      if (!STATE.includes(operation)) return respond({ outcome: "error", code: "unsupported_operation" });
+      if (pairedSupported && ["findPairedReplacements", "previewPairedReplacement", "findReservedReplacements"].includes(operation)) {
+        record(payload, ["expectedRevision", "weekId", operation === "findReservedReplacements" ? "candidateGrid" : operation === "findPairedReplacements" ? "intents" : "intent"]);
+        if (envelope.expectedSourcePolicyBasisSha256 !== basis!.basisSha256) return respond({ outcome: "error", code: "stale_source_policy_basis" }, 409);
+        if (operation === "findReservedReplacements") return respond(await repository.findReservedReplacements(scope, payload));
+        return respond(await (operation === "findPairedReplacements"
+          ? repository.findPairedReplacements(scope, payload)
+          : repository.previewPairedReplacement(scope, payload)));
+      }
+      if (!STATE.includes(operation) && !(pairedSupported && PAIRED_WRITES.includes(operation))) return respond({ outcome: "error", code: "unsupported_operation" });
       if (version >= 2 && !["readCurrent", "operationStatus"].includes(operation)) {
         // Resolve an exact original durable intent BEFORE current pantry/source
         // preparation. Drift cannot erase or rewrite an acknowledged operation.
         const original = await resolveOriginalReferenceOperationV2(repository, scope, operationId, intentSha256);
-        if (original) return respond(safeResult(original));
+        if (original) return respond(await safeResult(original));
       }
       let result: unknown;
       if (operation === "readCurrent") { record(payload, []); result = await repository.read(scope); }
@@ -224,14 +288,20 @@ function createSessionFromBinding<Q extends RuntimeRequest, S extends RuntimeRes
         } else if (operation === "shoppingCheck") {
           record(payload, ["expectedRevision", "weekId", "itemKey", "fingerprint", "checked"]); Object.assign(command, { kind: "set-shopping-check", itemKey: payload.itemKey, fingerprint: payload.fingerprint, checked: payload.checked });
         } else if (operation === "saveReplacement") {
-          record(payload, ["expectedRevision", "weekId", "intent", "expectedPreviewSha256", "expectedRequestSha256", "expectedAssignmentsSha256"], ["expectedPantryBasisSha256"]); Object.assign(command, { ...payload, kind: "confirm-replacement" });
+          record(payload, ["expectedRevision", "weekId", "intent", "expectedPreviewSha256", "expectedRequestSha256", "expectedAssignmentsSha256"], ["expectedPantryBasisSha256", "expectedAfterAssignmentsSha256"]); Object.assign(command, { ...payload, kind: "confirm-replacement" });
+        } else if (operation === "markPreparation") {
+          record(payload, ["expectedRevision", "weekId", "subjects"]);
+          Object.assign(command, { kind: "set-preparation", subjects: payload.subjects });
+        } else if (operation === "savePairedReplacement") {
+          record(payload, ["expectedRevision", "weekId", "intent", "expectedPreviewSha256", "expectedPreparationRevision", "expectedRequestSha256", "expectedAssignmentsSha256"]);
+          Object.assign(command, { ...payload, kind: "confirm-paired-replacement" });
         } else {
           record(payload, ["expectedRevision", "weekId"]); command.kind = operation === "confirmNewWeek" ? "confirm-new-week" : "cancel-week-draft";
         }
         result = await repository.applyPlanCommand(scope, command);
       }
-      return respond(safeResult(result));
+      return respond(await safeResult(result));
     } catch (error) { return respond({ outcome: "error", code: error instanceof InputError ? "invalid_operation_payload" : "session_operation_unavailable", reconcileOperationStatus: true }, error instanceof InputError ? 400 : 503); }
   }
-  return Object.freeze({ outcome: "ready" as const, source: bound.source, ...(version >= 2 ? { sourcePolicyBasis: basis! } : {}), handle });
+  return Object.freeze({ outcome: "ready" as const, source: bound.source, ...(version >= 2 ? { sourcePolicyBasis: basis! } : {}), handle, presentSavedWeek: savedWeek });
 }

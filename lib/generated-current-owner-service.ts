@@ -5,7 +5,7 @@ import { createCurrentOwnerRpcStatePort, type CurrentOwnerRpcDriver } from "./ge
 import type { ReferenceStatePortV2 } from "./generated-plan-state.ts";
 
 type Owner = Extract<VerifiedOwnerScope, { outcome: "ready" }>;
-type Kernel = { handle(request: Request): Promise<Response>; readonly newWeekCommitBefore?: number };
+type Kernel = { handle(request: Request): Promise<Response>; readonly newWeekCommitBefore?: number; readonly presentSavedWeek?: import("./generated-plan-session.ts").SavedWeekPresenter };
 export type CurrentOwnerServiceDependencies = Readonly<{
   enabled: boolean;
   identity: OwnerScopeDependencies;
@@ -15,9 +15,9 @@ export type CurrentOwnerServiceDependencies = Readonly<{
   bind(owner: Owner, transactions: ReferenceStatePortV2): Promise<Kernel | null>;
   now?: () => number;
 }>;
-const mutations = new Set(["installCurrent", "saveCurrent", "createWeekDraft", "cancelWeekDraft", "confirmNewWeek", "shoppingCheck", "saveReplacement"]);
-const newPricedWeeks = new Set(["installCurrent", "saveCurrent", "createWeekDraft", "confirmNewWeek"]);
-const operations = new Set([...mutations, "capabilities", "preparePantry", "evaluateJoined", "planJoined", "findReplacements", "previewReplacement", "confirmReplacement", "readCurrent", "operationStatus"]);
+const mutations = new Set(["installCurrent", "saveCurrent", "createWeekDraft", "cancelWeekDraft", "confirmNewWeek", "shoppingCheck", "saveReplacement", "markPreparation", "savePairedReplacement"]);
+const newPricedWeeks = new Set(["installCurrent", "saveCurrent", "createWeekDraft", "confirmNewWeek", "savePairedReplacement"]);
+const operations = new Set([...mutations, "capabilities", "preparePantry", "evaluateJoined", "planJoined", "findReplacements", "previewReplacement", "confirmReplacement", "findPairedReplacements", "previewPairedReplacement", "findReservedReplacements", "readCurrent", "operationStatus"]);
 function response(code: string, status: number) {
   return Response.json({ error: code, mode: "private-owner-integration-only", productionReady: false }, { status, headers: { "Cache-Control": "no-store" } });
 }

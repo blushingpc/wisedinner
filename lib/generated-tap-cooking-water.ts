@@ -1,3 +1,5 @@
+import { FIXED_REBUILT_PIN, FIXED_REBUILT_UTILITY_SHA } from "./fixed-rebuilt-admission.ts";
+import { FIXED_REBUILT_DONOR_PIN, FIXED_REBUILT_DONOR_UTILITY_SHA256 } from "./fixed-rebuilt-donor.ts";
 import { FINAL_DERIVED_PIN, isFinalUtilityDerivation } from "./generated-final-source-admission.ts";
 import { sha256Hex, utf8Encode, utf8DecodeFatal, copyRuntimeBytes } from "./generated-runtime-bytes.ts";
 import { createRevisedCatalogReader, CURRENT_REVISED_CATALOG_PIN } from "./generated-plan-catalog.ts";
@@ -195,4 +197,18 @@ export function createFinalDerivedTapCookingWaterClassifier(source:unknown,revie
  const configuration={policy:full.policy,sourcePin:full.sourcePin,matchDataSha256:full.matchDataSha256,recordDataSha256:full.recordDataSha256,reviewedForms:full.reviewedForms};
  return createClassifier(source,configuration,FINAL_DERIVED_PIN,full);
  }catch{return {outcome:"error",code:"invalid_tap_water_configuration"};}
+}
+
+export function createFixedRebuiltTapCookingWaterClassifier(source: unknown, configuration: unknown): TapClassifierBindingV1 {
+  const full = copyReferenceData(configuration) as Data;
+  if (hash(full) !== FIXED_REBUILT_UTILITY_SHA) return { outcome: "held", code: "tap_water_review_required" };
+  const { derivation, ...base } = full;
+  return createClassifier(source, base, FIXED_REBUILT_PIN, full);
+}
+
+export function createFixedRebuiltDonorTapWaterClassifier(source: unknown, configuration: unknown): TapClassifierBindingV1 {
+  const full = copyReferenceData(configuration) as Data;
+  if (hash(full) !== FIXED_REBUILT_DONOR_UTILITY_SHA256) return { outcome: "held", code: "tap_water_review_required" };
+  const { derivation, ...base } = full;
+  return createClassifier(source, base, FIXED_REBUILT_DONOR_PIN, full);
 }

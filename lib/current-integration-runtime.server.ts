@@ -1,4 +1,10 @@
+import { CURRENT_INTEGRATION_DIETARY_IDENTITY } from "./current-integration-reference-dietary.server.ts";
+import { CURATED_LOCAL_QA_PIN as CURATED_DIETARY_PIN } from "./generated-curated-successor-policy.ts";
+import { CURRENT_INTEGRATION_HOUSEHOLD_IDENTITY, CURRENT_INTEGRATION_SUCCESSOR_IDENTITY } from "./current-integration-reference-successor.server.ts";
+import { CURATED_LOCAL_QA_PIN as CURATED_SUCCESSOR_PIN } from "./generated-curated-archive-v13-policy.ts";
+import { CURATED_DIETARY_REFERENCE_REVISION, CURATED_HOUSEHOLD_REFERENCE_REVISION, CURATED_SUCCESSOR_REFERENCE_REVISION } from "./generated-reviewed-reference-data.ts";
 import {CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY} from "./current-integration-reference-v11.server.ts";
+import { CURRENT_INTEGRATION_REBUILT_IDENTITY, CURRENT_INTEGRATION_REBUILT_REVISION } from "./current-integration-rebuilt-identity.server.ts";
 import {CURRENT_INTEGRATION_REFERENCE_V10_IDENTITY} from "./current-integration-reference-v10.server.ts";
 import { CURRENT_INTEGRATION_REFERENCE_V9_IDENTITY } from "./current-integration-reference-v9.server.ts";
 import { CURRENT_INTEGRATION_REFERENCE_V5_IDENTITY } from "./current-integration-reference-v5.server.ts";
@@ -86,7 +92,11 @@ function credential(value: unknown, role: "anon" | "service_role"): value is str
 function isFinalV5(value: CurrentIntegrationSourceIdentity): boolean {
   return referenceConfigurationDigest(value) === referenceConfigurationDigest(CURRENT_INTEGRATION_REFERENCE_V5_IDENTITY);
 }
-function fixedCurrentRevision(value: CurrentIntegrationSourceIdentity): 9 | 10 | 11 | null {
+function fixedCurrentRevision(value: CurrentIntegrationSourceIdentity): 9 | 10 | 11 | 12 | 13 | 14 | null {
+  if (referenceConfigurationDigest(value) === referenceConfigurationDigest(CURRENT_INTEGRATION_REBUILT_IDENTITY)) return CURRENT_INTEGRATION_REBUILT_REVISION;
+  if (referenceConfigurationDigest(value) === referenceConfigurationDigest(CURRENT_INTEGRATION_DIETARY_IDENTITY)) return CURATED_DIETARY_REFERENCE_REVISION;
+  if(referenceConfigurationDigest(value)===referenceConfigurationDigest(CURRENT_INTEGRATION_HOUSEHOLD_IDENTITY))return CURATED_HOUSEHOLD_REFERENCE_REVISION;
+  if(referenceConfigurationDigest(value)===referenceConfigurationDigest(CURRENT_INTEGRATION_SUCCESSOR_IDENTITY))return CURATED_SUCCESSOR_REFERENCE_REVISION;
   if(referenceConfigurationDigest(value)===referenceConfigurationDigest(CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY))return 11;
   if(referenceConfigurationDigest(value)===referenceConfigurationDigest(CURRENT_INTEGRATION_REFERENCE_V10_IDENTITY))return 10;
   const digest = referenceConfigurationDigest(value);
@@ -107,7 +117,7 @@ function checkedSource(value: CurrentIntegrationSource, expected: CurrentIntegra
   const { reviewedDataSha256, ...body } = p;
   const actual: CurrentIntegrationSourceIdentity = { sourceSha256: value.sourceSha256, sourcePolicyBasisSha256: value.sourcePolicyBasisSha256,
     configurationSha256: p.configurationSha256, reviewedDataSha256, evidenceManifestSha256: p.evidenceManifestSha256, guidePolicy: value.guidePolicy, window: value.referenceWindow };
-  if (typeof value.bind !== "function" || p.schema !== "wd-reviewed-reference-data-v1" || p.reviewRevision !== (fixedCurrentRevision(expected) ?? (isFinalV5(expected) ? 5 : 4)) || p.sourcePin.recordCount !== 1300 || p.sourcePin.sha256 !== expected.sourceSha256
+  if (typeof value.bind !== "function" || p.schema !== "wd-reviewed-reference-data-v1" || p.reviewRevision !== (fixedCurrentRevision(expected) ?? (isFinalV5(expected) ? 5 : 4)) || p.sourcePin.recordCount !== (expected.sourceSha256 === CURATED_SUCCESSOR_PIN.sha256 ? CURATED_SUCCESSOR_PIN.recordCount : expected.sourceSha256 === CURATED_DIETARY_PIN.sha256 ? CURATED_DIETARY_PIN.recordCount : 1300) || p.sourcePin.sha256 !== expected.sourceSha256
     || p.sourcePolicyBasis.basisSha256 !== expected.sourcePolicyBasisSha256 || reviewedReferenceDataDigest(body) !== reviewedDataSha256
     || referenceConfigurationDigest(p.configuration) !== expected.configurationSha256
     || referenceAdmissionDigest(referenceAdmissionFor(p)) !== expected.evidenceManifestSha256
@@ -298,7 +308,7 @@ export const CURRENT_INTEGRATION_SOURCE_MANIFEST = Object.freeze({
   codeAndAssets: Object.freeze([
     // Exact existing relative dependency closure, including maintained source families.
     "lib/current-bundled-capsule.server.ts",
-    "lib/generated-current-source-capsule-v7.json",
+    "lib/current-integration-reference-v7.server.ts", "lib/generated-current-source-capsule-v7.json",
     "lib/generated-current-source-capsule-v9.json",
     "lib/current-integration-reference-v10.server.ts",
     "lib/current-integration-reference-v9.server.ts",
@@ -310,6 +320,36 @@ export const CURRENT_INTEGRATION_SOURCE_MANIFEST = Object.freeze({
     "lib/generated-regional-rate-reference.ts",
     "lib/generated-reviewed-nutrition-transition.ts",
     "lib/current-integration-reference-v11.server.ts", "lib/generated-current-source-capsule-v11.json",
+    "lib/current-integration-rebuilt-identity.server.ts",
+    "lib/current-integration-reference-rebuilt.server.ts",
+    "lib/fixed-rebuilt-admission.ts",
+    "lib/fixed-rebuilt-archives.ts",
+    "lib/fixed-rebuilt-binder.ts",
+    "lib/fixed-rebuilt-clock.ts",
+    "lib/fixed-rebuilt-donor.ts",
+    "lib/fixed-rebuilt-guide.ts",
+    "lib/fixed-rebuilt-paired-policy.ts",
+    "lib/half-batch-validator.ts",
+    "lib/fixed-loader/fixed-source.ts",
+    "lib/fixed-loader/bundle/runtime-source.jsonl",
+    "lib/fixed-loader/bundle/compiled-calculator.jsonl",
+    "lib/fixed-loader/bundle/manifest.json",
+    "lib/fixed-loader/bundle/reference-packet.json",
+    "lib/fixed-loader/bundle/private-donor-row.jsonl",
+    "lib/current-integration-reference-successor.server.ts", "lib/generated-current-successor-catalog.json",
+    "lib/generated-curated-successor-policy.ts", "lib/generated-curated-equipment.ts",
+    "lib/current-integration-reference-dietary.server.ts",
+    "lib/generated-curated-archive-dietary-policy.ts",
+    "lib/generated-curated-archive-v13-policy.ts",
+    "lib/generated-curated-strict-archive-configuration.json",
+    "lib/generated-curated-strict-archive-policy.ts",
+    "lib/generated-curated-south-archive-configuration-previous.json",
+    "lib/generated-current-dietary-catalog-previous.json",
+    "lib/generated-current-dietary-catalog.json",
+    "lib/generated-dietary-admission.ts",
+    "lib/generated-curated-preparation.ts",
+    "lib/generated-curated-archive-method-policy.ts",
+    "lib/generated-current-dietary-catalog-method-archive.json",
     "lib/fixtures/current-original-batch-guide-bindings-v1.json",
     "lib/fixtures/current-reviewed-practical-guides-v1.json",
     "lib/generated-current-guide-policy.ts",
@@ -317,6 +357,7 @@ export const CURRENT_INTEGRATION_SOURCE_MANIFEST = Object.freeze({
 
     "lib/current-integration-runtime.server.ts", "lib/generated-current-source-capsule-v4.json",
     "lib/current-integration-reference-v5.server.ts", "lib/generated-current-source-capsule-v5.json",
+    "lib/current-integration-reference-v6.server.ts", "lib/generated-current-source-capsule-v6.json",
     "lib/current-subscription-scope-bridge.server.ts", "lib/current-provider-readiness.server.ts", "lib/current-product-enrollment.server.ts", "lib/billing-restore.ts",
     "lib/account-deletion-v2-auth.server.ts",
     "lib/account-deletion-v2.server.ts",
@@ -350,10 +391,12 @@ export const CURRENT_INTEGRATION_SOURCE_MANIFEST = Object.freeze({
     "lib/generated-plan-presenter.ts",
     "lib/generated-plan-protein-tolerance.ts",
     "lib/generated-plan-quote.ts",
+    "lib/generated-replacement-stock.ts",
     "lib/generated-plan-search.ts",
     "lib/generated-plan-session.ts",
     "lib/generated-plan-shopping.ts",
     "lib/generated-plan-state.ts",
+    "lib/generated-paired-replacement.ts",
     "lib/generated-regional-quote.ts",
     "lib/generated-retailer-reference.ts",
     "lib/generated-reviewed-method-lineage.ts",

@@ -1,9 +1,11 @@
+import {FIXED_REBUILT_PIN} from "./fixed-rebuilt-admission.ts";
+import { FIXED_REBUILT_DONOR_PIN, FIXED_REBUILT_DONOR_RECIPE_ID } from "./fixed-rebuilt-donor.ts";
 import {PROFILE_METHOD_POLICY,profileMethodGuide,profileMethodDescriptor} from "./generated-profile-method-guides.ts";
 import {captureReferencePurchaseCorrespondences} from "./generated-plan-quote.ts";
 import {readRateReferenceConfiguration} from "./generated-regional-rate-reference.ts";
 import finalManifest from "./fixtures/current-final-source-v1.json" with {type:"json"};
 import {FINAL_DERIVED_PIN} from "./generated-final-source-admission.ts";
-import {createJoinedReferencePlannerV3} from "./generated-joined-plan.ts";
+import {createJoinedReferencePlannerV3,createJoinedReferencePlannerV4} from "./generated-joined-plan.ts";
 import {quoteRegionalEstimatesV3} from "./generated-regional-quote.ts";
 import { createRevisedCatalogReader, type CatalogYieldControl, type RevisedRecipeProjection } from "./generated-plan-catalog.ts";
 import { copyReferenceData, canonicalReferenceData } from "./generated-plan-data.ts";
@@ -90,6 +92,14 @@ function originalGuide(row: RevisedRecipeProjection, sourceSha256: string) {
   return frozen({ ...value, guideSha256: mealCoverageHash(value) });
 }
 type OriginalGuide = NonNullable<ReturnType<typeof originalGuide>>;
+export function readFixedRebuiltDonorGuide(source: unknown): OriginalGuide | null {
+  const catalog = createRevisedCatalogReader(FIXED_REBUILT_DONOR_PIN)(source);
+  if (catalog.outcome !== "success") return null;
+  const row = catalog.recipes.at(-1);
+  if (row?.id !== FIXED_REBUILT_DONOR_RECIPE_ID) return null;
+  const guide = originalGuide(row, catalog.sourceSha256);
+  return guide?.guideSha256 === "40779c2ef2476d40dbfb4b4a9590cbe471f8cb350bb124ad6eea5412adc671cf" ? guide : null;
+}
 type Domain = Readonly<{ sourceServings: ExactAmount; kind: "source-derived-original-full-batch" | "reviewed-serving-adaptation" | "reviewed-equipment-adaptation"; equipment?: readonly MealToolRequirement[]; guideSha256: string; guide: unknown }>;
 type CoverageRow = Readonly<{
   recipeId: string; recipeSha256: string; sourceSha256: string; kind: string; sections: readonly string[];
@@ -111,15 +121,15 @@ function* currentMealCoverageSteps(source: unknown, options: {
     if (mealCoverageHash(configuration) !== settings.configurationSha256 || mealCoverageHash(configuration.sourcePin) !== mealCoverageHash(settings.sourcePin)) fail();
     const catalog = createRevisedCatalogReader(settings.sourcePin)(source); if (catalog.outcome !== "success") return catalog;
     const sourceSha256 = catalog.sourceSha256;
-    const isFinal=catalog.sourceSha256===FINAL_DERIVED_PIN.sha256;
+    const isFinal=catalog.sourceSha256===FINAL_DERIVED_PIN.sha256; const isRebuilt=catalog.sourceSha256===FIXED_REBUILT_PIN.sha256;
     const profileMethods=settings.profileMethodPolicy!==undefined;
     if(profileMethods&&(!isFinal||settings.profileMethodPolicy!==PROFILE_METHOD_POLICY))fail();
-    const validation = (isFinal?createJoinedReferencePlannerV3:createJoinedReferencePlannerV2)(source, configuration);
+    const validation = (isRebuilt?createJoinedReferencePlannerV4:isFinal?createJoinedReferencePlannerV3:createJoinedReferencePlannerV2)(source, configuration);
     if (validation.outcome !== "ready") return frozen({ outcome: "held" as const, code: "coverage_configuration_not_ready" });
     yield;
     const prices = configuration.referencePrices === undefined ? undefined : readReferencePriceConfigurationV2(configuration.referencePrices);
     const correspondences = stringsOrAllocations(configuration.correspondences).map(object);
-    const quantitySnapshot=captureReferencePurchaseCorrespondences(configuration.correspondences),rateSnapshot=isFinal?readRateReferenceConfiguration(configuration.rateReferences):undefined;
+    const quantitySnapshot=captureReferencePurchaseCorrespondences(configuration.correspondences),rateSnapshot=(isFinal||isRebuilt)?readRateReferenceConfiguration(configuration.rateReferences):undefined;
     const water = configuration.tapCookingWater === undefined ? [] : stringsOrAllocations(object(configuration.tapCookingWater).reviewedForms).map(x => object(object(x).exactForm));
     const utilities = new Set(water.map(utilityKey)), byId = new Map(catalog.recipes.map(r => [r.id, r]));
     const assets = settings.practicalAssets === undefined ? null : object(settings.practicalAssets);
@@ -150,7 +160,7 @@ function* currentMealCoverageSteps(source: unknown, options: {
       let price: CoverageRow["price"] = { outcome: "held", code: prepared.outcome === "prepared" ? "price_evidence_required" : "purchase_evidence_required", sources: [] };
       if (prepared.outcome === "prepared") {
         const quoteRequest={ region: settings.region, storeIds: settings.storeIds, asOfDate, budgetCents: Number.MAX_SAFE_INTEGER };
-        const quote = isFinal?quoteRegionalEstimatesV3(quoteRequest,prepared.requirements,[],configuration.regionalPackFacts,prices,rateSnapshot):quoteRegionalEstimatesV2(quoteRequest,prepared.requirements,[],configuration.regionalPackFacts,prices);
+        const quote = (isFinal||isRebuilt)?quoteRegionalEstimatesV3(quoteRequest,prepared.requirements,[],configuration.regionalPackFacts,prices,rateSnapshot):quoteRegionalEstimatesV2(quoteRequest,prepared.requirements,[],configuration.regionalPackFacts,prices);
         if (quote.outcome === "quoted") {
           const sources = quote.referenceEstimates?.sources ?? [];
           // Use the quote engine's validated mode, never a raw configuration flag.
@@ -169,7 +179,11 @@ function* currentMealCoverageSteps(source: unknown, options: {
       if(profileMethods&&original){const method=profileMethodGuide(row.id,row.recipeSha256,row.recipe);if(method)domains.push(frozen({sourceServings:original.sourceServings,kind:"reviewed-equipment-adaptation" as const,equipment:method.equipment.flatMap(classifyMealTool),guideSha256:mealCoverageHash({method,policy:profileMethodDescriptor()}),guide:method}));}
       rows.push(frozen({ recipeId: row.id, recipeSha256: row.recipeSha256, sourceSha256: catalog.sourceSha256, kind: row.kind, sections: row.sections, nutrition: row.nutrition.status, sourceFlags: row.source.flags as string[], nutritionFlags: row.nutrition.flags, sourceHolds: row.source.holds as string[],
         quantity: { outcome: prepared.outcome, code: prepared.outcome === "prepared" ? null : prepared.code, missingForms }, price,
-        equipment: row.recipe.equipment.flatMap(classifyMealTool), guideDomains: domains, guideHold: domains.length ? null : "source_allocation_totals_unverified" }));
+        equipment: row.recipe.equipment.flatMap<MealToolRequirement>(tool =>
+          isRebuilt && tool === "heatproof cup"
+            ? [{ source: tool, role: "special-capability", capabilityId: tool }]
+            : classifyMealTool(tool)),
+        guideDomains: domains, guideHold: domains.length ? null : "source_allocation_totals_unverified" }));
       if (++rowIndex % 8 === 0) yield;
     }
     const indexed = new Map(rows.map(r => [r.recipeId, r]));
@@ -208,3 +222,4 @@ export async function createCurrentMealCoverageAsync(source: unknown, options: P
   if (typeof yieldControl !== "function") throw Error("coverage_scheduler_required");
   const steps = currentMealCoverageSteps(source, options); let next = steps.next(); while (!next.done) { await yieldControl(); next = steps.next(); } return next.value;
 }
+

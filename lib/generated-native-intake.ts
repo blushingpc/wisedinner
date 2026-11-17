@@ -1,3 +1,4 @@
+import { dietaryPatternForLabel, type DietaryPattern } from "./generated-dietary-admission.ts";
 import { copyReferenceData, canonicalReferenceData } from "./generated-plan-data.ts";
 import { parsePeople, type PersonInput } from "../packages/solver/src/generated-plan-contract.ts";
 import { hash } from "../scripts/data/price-evidence.ts";
@@ -18,7 +19,7 @@ const COVERAGE = "wd-seven-day-three-meals-v1";
 type Data = Record<string, unknown>;
 type Issue = { readonly code: string; readonly field: string; readonly personId?: string; readonly profileRevision?: number };
 type Mapping = { readonly label: string; readonly id: string; readonly sourceSha256: string; readonly kind?: string };
-type IntakeRequest = { readonly people: readonly PersonInput[]; readonly budgetCents: number; readonly selectedDays: readonly string[]; readonly slots: readonly string[]; readonly region: string; readonly storeIds: readonly string[]; readonly asOfDate: string; readonly equipment: readonly string[]; readonly pantry: readonly never[] };
+type IntakeRequest = { readonly people: readonly PersonInput[]; readonly budgetCents: number; readonly selectedDays: readonly string[]; readonly slots: readonly string[]; readonly region: string; readonly storeIds: readonly string[]; readonly asOfDate: string; readonly equipment: readonly string[]; readonly pantry: readonly never[]; readonly dietaryPattern?: DietaryPattern };
 type IntakeVersion = typeof NATIVE_INTAKE_BINDING | typeof NATIVE_INTAKE_BINDING_V2;
 type Outcome<V extends IntakeVersion = typeof NATIVE_INTAKE_BINDING> = { readonly outcome: "ready"; readonly version: V; readonly request: IntakeRequest; readonly inputSha256: string; readonly mappingEvidence: readonly Mapping[]; readonly shoppingPreference?: ShoppingPreferenceV2; readonly inactiveWeeklyKeys: readonly string[]; readonly acceptedByNative: false; readonly solved: false; readonly saved: false } | { readonly outcome: "held"; readonly issues: readonly Issue[]; readonly request: null; readonly inputSha256: string } | { readonly outcome: "error"; readonly code: "invalid_native_intake" };
 function invalid(): never { throw new TypeError("Native input refused"); }
@@ -100,11 +101,14 @@ function createIntakeAdapter<V extends IntakeVersion>(configuration: unknown, ve
   let sourceSha256: string, stores: Map<string, Mapping>, tools: Map<string, Mapping>, allergyMappingRevision = 0;
   let foodAllergies: Map<string, Mapping> | null = null, exactCustomAllergies = false;
   let shoppingMappings: unknown = null;
+  let reviewedDietaryPatterns = false;
   try {
-    const config = record(copyReferenceData(configuration), ["sourceSha256", "storeMappings", "equipmentMappings"], ["foodAllergyMappings", ...(version === NATIVE_INTAKE_BINDING_V2 ? ["shoppingPreferencePolicy"] : [])]); sourceSha256 = sha(config.sourceSha256); stores = mappings(config.storeMappings, true); tools = mappings(config.equipmentMappings, false);
+    const config = record(copyReferenceData(configuration), ["sourceSha256", "storeMappings", "equipmentMappings"], ["foodAllergyMappings", ...(version === NATIVE_INTAKE_BINDING_V2 ? ["shoppingPreferencePolicy", "reviewedDietaryPatterns"] : [])]); sourceSha256 = sha(config.sourceSha256); stores = mappings(config.storeMappings, true); tools = mappings(config.equipmentMappings, false);
     if (version === NATIVE_INTAKE_BINDING_V2) {
       if (config.shoppingPreferencePolicy !== SHOPPING_PREFERENCE_POLICY_V2) invalid();
       shoppingMappings = config.storeMappings;
+      if (Object.hasOwn(config, "reviewedDietaryPatterns") && config.reviewedDietaryPatterns !== true) invalid();
+      reviewedDietaryPatterns = config.reviewedDietaryPatterns === true;
     }
     if (Object.hasOwn(config, "foodAllergyMappings")) {
       const review = record(config.foodAllergyMappings, ["policy", "mappingRevision", "labels"], ["customPolicy"]); if (review.policy !== HOUSEHOLD_ALLERGY_POLICY) invalid();
@@ -137,7 +141,9 @@ function createIntakeAdapter<V extends IntakeVersion>(configuration: unknown, ve
       if (selectedDays.some(day => date(day) === null)) add("week_date_binding_required", "startDate");
       if (string(draft.coverage) !== COVERAGE) add("coverage_confirmation_required", "coverage");
       const budgetCents = cents(string(draft.budget)); if (budgetCents === null) add("invalid_household_budget", "budget");
-      if (string(draft.dietaryRule) !== "No set pattern") add("eating_pattern_mapping_required", "dietaryRule");
+      const dietLabel = string(draft.dietaryRule);
+      const dietaryPattern = reviewedDietaryPatterns ? dietaryPatternForLabel(dietLabel) : undefined;
+      if (dietLabel !== "No set pattern" && !dietaryPattern) add("eating_pattern_mapping_required", "dietaryRule");
       if (string(draft.additionalRule).trim()) add("custom_restriction_mapping_required", "additionalRule");
       const profiles = list(context.profiles, 8).map(raw => { const p = record(raw, ["personId", "profileRevision", "answerSha256"]); return { personId: nonempty(p.personId), profileRevision: revision(p.profileRevision), answerSha256: sha(p.answerSha256) }; });
       if (new Set(profiles.map(p => p.personId)).size !== profiles.length) invalid();
@@ -195,7 +201,7 @@ function createIntakeAdapter<V extends IntakeVersion>(configuration: unknown, ve
       }
       if (issues.length) return freeze({ outcome: "held", issues, request: null, inputSha256 });
       const checked = parsePeople(members); if (checked.outcome !== "validated") invalid();
-      return freeze({ outcome: "ready", version, request: { people: checked.people, budgetCents: budgetCents!, selectedDays, slots: ["breakfast", "lunch", "dinner"], region, storeIds, asOfDate: asOfDate!, equipment, pantry: [] }, inputSha256, mappingEvidence: evidence, ...(shoppingPreference ? { shoppingPreference } : {}), inactiveWeeklyKeys: Object.keys(weekly).filter(key => key !== activeKey).sort(), acceptedByNative: false, solved: false, saved: false });
+      return freeze({ outcome: "ready", version, request: { people: checked.people, budgetCents: budgetCents!, selectedDays, slots: ["breakfast", "lunch", "dinner"], region, storeIds, asOfDate: asOfDate!, equipment, pantry: [], ...(dietaryPattern ? { dietaryPattern } : {}) }, inputSha256, mappingEvidence: evidence, ...(shoppingPreference ? { shoppingPreference } : {}), inactiveWeeklyKeys: Object.keys(weekly).filter(key => key !== activeKey).sort(), acceptedByNative: false, solved: false, saved: false });
     } catch { return { outcome: "error", code: "invalid_native_intake" }; }
   }
   return Object.freeze({ outcome: "ready", prepare });

@@ -84,7 +84,7 @@ export function createReviewedCurrentSourceBinder(capsuleValue: unknown, now: ()
       const kernel = factory.bind({ labels, transactions: transactions as unknown as import("./generated-plan-state.ts").ReferenceStatePortV2 & import("./generated-plan-state.ts").ReferenceStatePortV3, resolveScope: () => owner.scope,
         newWeekPolicy: NEW_WEEK_RECONFIRM_POLICY, newWeekRequestPolicy: clock.check });
       if (kernel.outcome !== "ready") return null;
-      return Object.freeze({ newWeekCommitBefore: clock.commitBefore, async handle(request: Request) {
+      return Object.freeze({ newWeekCommitBefore: clock.commitBefore, presentSavedWeek: kernel.presentSavedWeek, async handle(request: Request) {
         const response = await kernel.handle(request);
         response.headers.set("X-WiseDinner-Reference-Through", clock.lastDay);
         response.headers.set("X-WiseDinner-Source", pins.source);
@@ -163,7 +163,7 @@ export async function createReviewedCurrentSourceBinderAsync(capsuleValue: unkno
       const kernel = factory.bind({ labels, transactions: transactions as unknown as import("./generated-plan-state.ts").ReferenceStatePortV2 & import("./generated-plan-state.ts").ReferenceStatePortV3, resolveScope: () => owner.scope,
         newWeekPolicy: NEW_WEEK_RECONFIRM_POLICY, newWeekRequestPolicy: clock.check });
       if (kernel.outcome !== "ready") return null;
-      return Object.freeze({ newWeekCommitBefore: clock.commitBefore, async handle(request: Request) {
+      return Object.freeze({ newWeekCommitBefore: clock.commitBefore, presentSavedWeek: kernel.presentSavedWeek, async handle(request: Request) {
         const response = await kernel.handle(request);
         response.headers.set("X-WiseDinner-Reference-Through", clock.lastDay);
         response.headers.set("X-WiseDinner-Source", pins.source);

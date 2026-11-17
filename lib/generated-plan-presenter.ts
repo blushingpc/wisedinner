@@ -102,14 +102,17 @@ export function presentRecipe(evaluation: ReferenceEvaluationSuccess, personId: 
     sourceLimitations: { recipe: selected.sourceFlags, holds: selected.sourceHolds, nutrition: selected.nutrition.flags }, warnings: ["conditional-input-nutrition-not-measured-cooked-food", "original-batch-method-not-a-reviewed-scaled-method", "allergen-and-kitchen-review-not-established"] });
 }
 
-export function presentGroceries(evaluation: ReferenceEvaluationSuccess, configuredLabels: unknown, acknowledgedCheckRows?: unknown): GroceryView | ErrorView | HeldView { return groceries(evaluation, configuredLabels, acknowledgedCheckRows, 1) as GroceryView | ErrorView | HeldView; }
-export function presentGroceriesV2(evaluation: ReferenceEvaluationSuccessV2, configuredLabels: unknown, acknowledgedCheckRows?: unknown): GroceryViewV2 | ErrorView | HeldView { return groceries(evaluation as unknown as ReferenceEvaluationSuccess, configuredLabels, acknowledgedCheckRows, 2) as GroceryViewV2 | ErrorView | HeldView; }
-export function presentGroceriesV3(evaluation:ReferenceEvaluationSuccessV3,configuredLabels:unknown,acknowledgedCheckRows?:unknown):GroceryViewV3|ErrorView|HeldView{return groceries(evaluation,configuredLabels,acknowledgedCheckRows,2) as GroceryViewV3|ErrorView|HeldView;}
+export function presentGroceries(evaluation: ReferenceEvaluationSuccess, configuredLabels: unknown, acknowledgedCheckRows?: unknown): GroceryView | ErrorView | HeldView { return groceries(evaluation.quote, configuredLabels, acknowledgedCheckRows, 1) as GroceryView | ErrorView | HeldView; }
+export function presentGroceriesV2(evaluation: ReferenceEvaluationSuccessV2, configuredLabels: unknown, acknowledgedCheckRows?: unknown): GroceryViewV2 | ErrorView | HeldView { return groceries(evaluation.quote, configuredLabels, acknowledgedCheckRows, 2) as GroceryViewV2 | ErrorView | HeldView; }
+export function presentGroceriesV3(evaluation:ReferenceEvaluationSuccessV3,configuredLabels:unknown,acknowledgedCheckRows?:unknown):GroceryViewV3|ErrorView|HeldView{return presentStoredGroceriesV3(evaluation.quote,configuredLabels,acknowledgedCheckRows);}
+export function presentStoredGroceriesV3(quote: ReferenceEvaluationSuccessV3["quote"], configuredLabels: unknown, acknowledgedCheckRows?: unknown): GroceryViewV3 | ErrorView | HeldView {
+  return groceries(quote, configuredLabels, acknowledgedCheckRows, 2) as GroceryViewV3 | ErrorView | HeldView;
+}
 export function presentRecipeV3(evaluation:ReferenceEvaluationSuccessV3,personId:string,assignmentId:string,images?:ReviewedImageIndex){return presentRecipeV2(evaluation as unknown as ReferenceEvaluationSuccessV2,personId,assignmentId,images);}
-function groceries(evaluation: ReferenceEvaluationSuccess|ReferenceEvaluationSuccessV2|ReferenceEvaluationSuccessV3, configuredLabels: unknown, acknowledgedCheckRows: unknown, version: 1 | 2) {
+function groceries(quote: (ReferenceEvaluationSuccess|ReferenceEvaluationSuccessV2|ReferenceEvaluationSuccessV3)["quote"], configuredLabels: unknown, acknowledgedCheckRows: unknown, version: 1 | 2) {
   let named: Map<string, Label>;
   try { named = labels(configuredLabels); } catch { return { outcome: "error", code: "invalid_grocery_labels" }; }
-  const quote = evaluation.quote, groups = new Map<string, BuyRow[]>(), alreadyAtHome: HomeRow[] = [];
+  const groups = new Map<string, BuyRow[]>(), alreadyAtHome: HomeRow[] = [];
   const checks = acknowledgedCheckRows === undefined ? null : reconcileShoppingChecks(quote, acknowledgedCheckRows);
   if (checks && checks.outcome !== "reconciled") return checks;
   const checksByKey = checks ? new Map(checks.rows.map(row => [row.itemKey, row.checked])) : null;

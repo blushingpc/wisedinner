@@ -1,0 +1,1198 @@
+{
+  "contract": "wd-closed-current-calculator-v1",
+  "sourcePin": {
+    "sha256": "529c2ce4504378ef5a538a8def4041406c37be676fe049ea52cf03f5dfcdaec9",
+    "recordCount": 1300
+  },
+  "rawBytes": 13275236,
+  "rawCodeUnits": 13274938,
+  "artifactSha256": "2ceee0f5ed08e8b94d756acd64438dfd35173709c6a5961a1ce26737289a1d8c",
+  "artifactCodeUnits": 7683590,
+  "configurationSha256": "0e1ec60b98c5ca04b8145e14bcbc4bb76f66511fcf72ef7d56cd3f18b6ff9cd4",
+  "configurationBasisSha256": "0e6f4d0ec2c95c53ce31c5ce7bca8dc4ec815ec949a65b981f3e9b6532720939",
+  "contexts": [
+    {
+      "asOfDate": "2026-11-02",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-02",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-02",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-02",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-03",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-03",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-03",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-03",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-04",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-04",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-04",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-04",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-05",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-05",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-05",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-05",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-06",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-06",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-06",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-06",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-07",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-07",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-07",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-07",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-08",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-08",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-08",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-08",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-09",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-09",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-09",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-09",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-10",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-10",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-10",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-10",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-11",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-11",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-11",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-11",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-12",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-12",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-12",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-12",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-13",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-13",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-13",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-13",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-14",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-14",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-14",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-14",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-15",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-15",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-15",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-15",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-16",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-16",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-16",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-16",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-17",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-17",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-17",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-17",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-18",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-18",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-18",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-18",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-19",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-19",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-19",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-19",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-20",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-20",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-20",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-20",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-21",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-21",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-21",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-21",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-22",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-22",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-22",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-22",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-23",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-23",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-23",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-23",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-24",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-24",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-24",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-24",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-25",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-25",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-25",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-25",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-26",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-26",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-26",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-26",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-27",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-27",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-27",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-27",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-28",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-28",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-28",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-28",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-29",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-29",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-29",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-29",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-30",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-30",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-30",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-11-30",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-01",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-01",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-01",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-01",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-02",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-02",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-02",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-02",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-03",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-03",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-03",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-03",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-04",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-04",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-04",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-04",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-05",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-05",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-05",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-05",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-06",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-06",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-06",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-06",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-07",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-07",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-07",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-07",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-08",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-08",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-08",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-08",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-09",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-09",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-09",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-09",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-10",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-10",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-10",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-10",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-11",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-11",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-11",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-11",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-12",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-12",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-12",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-12",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-13",
+      "region": "South",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-13",
+      "region": "Northeast",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-13",
+      "region": "Midwest",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    },
+    {
+      "asOfDate": "2026-12-13",
+      "region": "West",
+      "storeIds": [
+        "wd-reference-estimate:no-shop-preference"
+      ]
+    }
+  ],
+  "artifactBytes": 7683706,
+  "utilitySha256": "0bc58527f19dfaeaadf8c1e3920794496fbbbd6c7d9394b67e879968c3cc4170",
+  "parentSourceSha256": "33e1dba41e08bec489b195a4febfe15f3e4d90f42066d763c9d0451fa9c4ecf9",
+  "sourceRows": 1300,
+  "guideDomains": 1300,
+  "equipmentMappingsSha256": "fa0b74834df0b532cbd34b2da03e8d171ec96d260fd1cf5d06e0f920daa8c0c3",
+  "storeMappingsSha256": "1c799fceeedf85e2e5a0e63c0bdaadc79e08e0d9dade0bd9efeade528c0449ad"
+}

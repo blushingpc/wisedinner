@@ -1,3 +1,9 @@
+import {FIXED_REBUILT_PIN} from "./fixed-rebuilt-admission.ts";
+import * as strictPolicy from "./generated-curated-strict-archive-policy.ts";
+import * as archivedV13 from "./generated-curated-archive-v13-policy.ts";
+import type { DietaryRegistry } from "./generated-dietary-admission.ts";
+import { CURATED_LOCAL_QA_PIN as CURATED_SUCCESSOR_PIN, curatedQaPolicyDescriptor } from "./generated-curated-successor-policy.ts";
+import { createCuratedSuccessorReferencePlanner, createCuratedStrictArchivePlanner } from "./generated-joined-plan.ts";
 import {FINAL_DERIVED_PIN} from "./generated-final-source-admission.ts";
 import {createJoinedReferencePlannerV4,createJoinedReferencePlannerV3} from "./generated-joined-plan.ts";
 import { canonicalReferenceData, copyReferenceData } from "./generated-plan-data.ts";
@@ -5,6 +11,9 @@ import { sha256Hex, utf8ByteLength } from "./generated-runtime-bytes.ts";
 import { createJoinedReferencePlannerV2 } from "./generated-joined-plan.ts";
 import type { SourcePolicyBasisV2 } from "./generated-source-policy-basis-v2.ts";
 
+export const CURATED_SUCCESSOR_REFERENCE_REVISION = 12;
+export const CURATED_HOUSEHOLD_REFERENCE_REVISION = 13;
+export const CURATED_DIETARY_REFERENCE_REVISION = 14;
 export const REVIEWED_REFERENCE_DATA = "wd-reviewed-reference-data-v1";
 const regions = ["Northeast", "Midwest", "South", "West"] as const;
 type Data = Record<string, unknown>;
@@ -32,7 +41,7 @@ export function referenceAdmissionFor(packet: ReviewedReferenceDataV1): Referenc
 }
 // Byte/schema agreement only. A successful parser is NOT source-review authority.
 // The host must separately match the exact packet to its trusted admission list.
-export function readReviewedReferenceDataV1(source: unknown, input: unknown): { outcome: "ready"; packet: ReviewedReferenceDataV1 } | { outcome: "error"; code: "invalid_reviewed_reference_data" } {
+export function readReviewedReferenceDataV1(source: unknown, input: unknown, dietaryReview?: Readonly<{ registry: DietaryRegistry; registrySha256: string }>): { outcome: "ready"; packet: ReviewedReferenceDataV1 } | { outcome: "error"; code: "invalid_reviewed_reference_data" } {
   try {
     const row = object(copyReferenceData(input), ["schema", "reviewRevision", "sourcePin", "configurationSha256", "configuration", "sourcePolicyBasis", "window", "regions", "evidenceManifestSha256", "reviewedDataSha256"]);
     if (row.schema !== REVIEWED_REFERENCE_DATA || !Number.isSafeInteger(row.reviewRevision) || (row.reviewRevision as number) < 1 || utf8ByteLength(JSON.stringify(row)) > 16 * 1024 * 1024) invalid();
@@ -41,13 +50,28 @@ export function readReviewedReferenceDataV1(source: unknown, input: unknown): { 
     const window = object(row.window, ["firstDay", "lastDay", "commitBefore"]);
     for (const k of ["firstDay", "lastDay"]) if (typeof window[k] !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(window[k] as string) || !Number.isFinite(Date.parse(window[k] + "T00:00:00Z")) || new Date(window[k] + "T00:00:00Z").toISOString().slice(0, 10) !== window[k]) invalid();
     if ((window.firstDay as string) > (window.lastDay as string) || window.commitBefore !== Date.parse(window.lastDay + "T00:00:00Z") + 86400000) invalid();
-    if (!Array.isArray(row.regions) || row.regions.length !== regions.length || !regions.every(r => (row.regions as unknown[]).includes(r))) invalid();
+    const archived = pin.sha256 === archivedV13.CURATED_LOCAL_QA_PIN.sha256;
+    const rebuilt = pin.sha256 === CURATED_SUCCESSOR_PIN.sha256;
+    const curated = archived || rebuilt;
+    const strict = rebuilt && row.configurationSha256 === "d6d0445f420f8fa73b79464965dd601811d3dc93c453449e807c4c2558c843a7";
+    if (curated) {
+      const scope = (archived ? archivedV13.curatedQaPolicyDescriptor() : strict ? strictPolicy.curatedQaPolicyDescriptor() : curatedQaPolicyDescriptor()).scope;
+      const expectedPin = archived ? archivedV13.CURATED_LOCAL_QA_PIN : CURATED_SUCCESSOR_PIN;
+      const correctRevision = archived
+        ? row.reviewRevision === CURATED_SUCCESSOR_REFERENCE_REVISION || row.reviewRevision === CURATED_HOUSEHOLD_REFERENCE_REVISION
+        : row.reviewRevision === CURATED_DIETARY_REFERENCE_REVISION;
+      if (!correctRevision || pin.recordCount !== expectedPin.recordCount ||
+          window.firstDay !== scope.firstDay || window.lastDay !== scope.lastDay ||
+          referenceConfigurationDigest(row.regions) !== referenceConfigurationDigest(archived ? [scope.region] : strict ? strictPolicy.curatedQaPolicyDescriptor().scope.regions : curatedQaPolicyDescriptor().scope.regions)) invalid();
+    } else if (!Array.isArray(row.regions) || row.regions.length !== regions.length ||
+        !regions.every(r => (row.regions as unknown[]).includes(r))) invalid();
     if (hash(row.configurationSha256) !== referenceConfigurationDigest(row.configuration)) invalid();
     const config = row.configuration as Data;
     if (referenceConfigurationDigest(config.sourcePin) !== referenceConfigurationDigest(pin)) invalid();
     const final=pin.sha256===FINAL_DERIVED_PIN.sha256;
     if(final&&row.reviewRevision!==7&&row.reviewRevision!==9&&row.reviewRevision!==10&&row.reviewRevision!==11)invalid();
-    const binding = (final?((row.reviewRevision===10||row.reviewRevision===11)?createJoinedReferencePlannerV4:createJoinedReferencePlannerV3):createJoinedReferencePlannerV2)(source, config);
+    const fixedRebuilt=pin.sha256===FIXED_REBUILT_PIN.sha256 && pin.recordCount===FIXED_REBUILT_PIN.recordCount && row.reviewRevision===12;
+    const binding = fixedRebuilt ? createJoinedReferencePlannerV4(source, config) : strict ? createCuratedStrictArchivePlanner(source, config, dietaryReview) : curated ? createCuratedSuccessorReferencePlanner(source, config, (row.reviewRevision === CURATED_HOUSEHOLD_REFERENCE_REVISION || row.reviewRevision === CURATED_DIETARY_REFERENCE_REVISION), dietaryReview) : (final?((row.reviewRevision===10||row.reviewRevision===11)?createJoinedReferencePlannerV4:createJoinedReferencePlannerV3):createJoinedReferencePlannerV2)(source, config);
     if (binding.outcome !== "ready" || binding.source.sha256 !== pin.sha256 || binding.source.recordCount !== pin.recordCount || referenceConfigurationDigest(binding.sourcePolicyBasis) !== referenceConfigurationDigest(row.sourcePolicyBasis)) invalid();
     const { reviewedDataSha256, ...body } = row;
     if (hash(reviewedDataSha256) !== reviewedReferenceDataDigest(body)) invalid();
@@ -59,12 +83,12 @@ export function readReviewedReferenceDataV1(source: unknown, input: unknown): { 
 
 // Trusted code/host input only. The production binder supplies its closed
 // manifests; request JSON and successful packet parsing never populate them.
-export function createReviewedReferenceArchive(source: unknown, entries: readonly unknown[], trustedManifests: readonly ReferenceAdmissionManifest[]) {
+export function createReviewedReferenceArchive(source: unknown, entries: readonly unknown[], trustedManifests: readonly ReferenceAdmissionManifest[], dietaryReview?: Readonly<{ registry: DietaryRegistry; registrySha256: string }>) {
   if (!Array.isArray(entries) || !entries.length || entries.length > 64 || !Array.isArray(trustedManifests) || !trustedManifests.length || trustedManifests.length > 64) invalid();
   const manifests = copyReferenceData(trustedManifests) as ReferenceAdmissionManifest[];
   const packets: ReviewedReferenceDataV1[] = [], revisions = new Map<number, string>();
   for (const entry of entries) {
-    const read = readReviewedReferenceDataV1(source, entry); if (read.outcome !== "ready") invalid();
+    const read = readReviewedReferenceDataV1(source, entry, dietaryReview); if (read.outcome !== "ready") invalid();
     const p = read.packet, digest = referenceAdmissionDigest(referenceAdmissionFor(p));
     if (!manifests.some(m => referenceAdmissionDigest(m) === digest)) invalid();
     if (revisions.has(p.reviewRevision) && revisions.get(p.reviewRevision) !== p.reviewedDataSha256) invalid();

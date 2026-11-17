@@ -1,3 +1,5 @@
+import { fixedRebuiltNutritionParent } from "./fixed-rebuilt-admission.ts";
+import { fixedRebuiltDonorNutritionParent } from "./fixed-rebuilt-donor.ts";
 import {isFinalDerivedRow,FINAL_DERIVED_NUTRITION_STATUS,finalReviewedMethodNutritionParent} from "./generated-final-source-admission.ts";
 import { isReviewedMixedNutrition, MIXED_NUTRITION_STATUS } from "./generated-reviewed-nutrition-transition.ts";
 import { createRuntimeSha256, sha256Hex, utf8Encode, copyRuntimeBytes, utf8DecodeFatal } from "./generated-runtime-bytes.ts";
@@ -67,11 +69,17 @@ function macros(value: unknown): Record<Macro, { min: Rational; max: Rational }>
     return [key, { min, max }];
   })) as Record<Macro, { min: Rational; max: Rational }>;
 }
-function nutrition(row: Data, recipe: Recipe): RevisedRecipeProjection["nutrition"] {
+function nutrition(row: Data, recipe: Recipe, sourceSha256: string): RevisedRecipeProjection["nutrition"] {
   try {
     const value = object(row.nutrition), flags = strings(value.flags), missingIngredients = strings(value.missing_ingredients);
     const refresh = object(value.source_refresh);
-    const reviewedParent = reviewedMethodNutritionParent(row)??finalReviewedMethodNutritionParent(row);
+    const hasHalfBatchLineage = Object.hasOwn(row, "half_batch_lineage");
+    const rebuiltParent = hasHalfBatchLineage ? fixedRebuiltNutritionParent(row) : null;
+    if (hasHalfBatchLineage && !rebuiltParent) fail("invalid_recipe_identity");
+    const hasDonorLineage = Object.hasOwn(row, "donor_variant_lineage");
+    const donorParent = hasDonorLineage ? fixedRebuiltDonorNutritionParent(row, sourceSha256) : null;
+    if (hasDonorLineage && !donorParent) fail("invalid_recipe_identity");
+    const reviewedParent = reviewedMethodNutritionParent(row) ?? finalReviewedMethodNutritionParent(row) ?? rebuiltParent ?? donorParent;
     if ((Object.hasOwn(row, "preparation_lineage") || isReviewedMethodBodySha(row.recipe_sha256)) && reviewedParent === null) fail("invalid_recipe_identity");
     const nutritionBody = reviewedParent ?? row.recipe_sha256;
     if (refresh.exact_recipe_body_sha256 !== nutritionBody || refresh.recipe_sha256_unchanged !== nutritionBody) fail("invalid_recipe_identity");
@@ -82,7 +90,7 @@ function nutrition(row: Data, recipe: Recipe): RevisedRecipeProjection["nutritio
       return { status: "held", perServing: null, flags, missingIngredients };
     }
     if (value.status === FINAL_DERIVED_NUTRITION_STATUS || Object.hasOwn(row,"derived_lineage")) {
-      if(value.status!==FINAL_DERIVED_NUTRITION_STATUS||!isFinalDerivedRow(row)) fail("invalid_nutrition_evidence");
+      if(value.status!==FINAL_DERIVED_NUTRITION_STATUS||!(isFinalDerivedRow(row)||rebuiltParent)) fail("invalid_nutrition_evidence");
     } else if (value.status === MIXED_NUTRITION_STATUS || Object.hasOwn(value, "nutrition_overlay")) {
       if (value.status !== MIXED_NUTRITION_STATUS || !isReviewedMixedNutrition(row)) fail("invalid_nutrition_evidence");
     } else if (value.status !== "complete-conditional-USDA-input-estimate") fail("invalid_nutrition_evidence");
@@ -97,7 +105,7 @@ function nutrition(row: Data, recipe: Recipe): RevisedRecipeProjection["nutritio
     return fail("invalid_nutrition_evidence");
   }
 }
-function project(value: unknown): RevisedRecipeProjection {
+function project(value: unknown, sourceSha256: string): RevisedRecipeProjection {
   const row = object(value), id = text(row.id), body = object(row.recipe), recipeSha256 = hashValue(row.recipe_sha256);
   if (sha(JSON.stringify(stable(body))) !== recipeSha256) fail("invalid_recipe_identity");
   if (row.product_accepted !== false || row.kitchen_tested !== false || row.allergen_reviewed !== false || !["main", "breakfast"].includes(String(row.kind))) fail();
@@ -125,7 +133,7 @@ function project(value: unknown): RevisedRecipeProjection {
     if (!Array.isArray(step.allocations) || step.allocations.some(value => !ingredientIds.has(text(object(value).id)))) fail();
   }
   const recipe = body as Recipe;
-  return { id, kind: row.kind as "main" | "breakfast", sections, recipeSha256, recipe, source: row, nutrition: nutrition(row, recipe), capabilities: { regionalPrice: "held", wholePackCheckout: "held", imageBinding: "held" }, plannerAdopted: false };
+  return { id, kind: row.kind as "main" | "breakfast", sections, recipeSha256, recipe, source: row, nutrition: nutrition(row, recipe, sourceSha256), capabilities: { regionalPrice: "held", wholePackCheckout: "held", imageBinding: "held" }, plannerAdopted: false };
 }
 
 export type CatalogYieldControl = () => Promise<void>;
@@ -168,7 +176,7 @@ function* catalogSteps(source: unknown, expectedSha256: string, expectedCount: n
     // Freeze each complete projection inside the bounded validation batch. A
     // final recursive walk of all1300mutable rows would block after the last
     // cooperative yield. No row or partial catalog is published here.
-    for (let i = 0; i < lines.length; i++) { recipes.push(deepFreeze(project(JSON.parse(lines[i]!)))); if ((i + 1) % 8 === 0) yield; }
+    for (let i = 0; i < lines.length; i++) { recipes.push(deepFreeze(project(JSON.parse(lines[i]!), expectedSha256))); if ((i + 1) % 8 === 0) yield; }
     const ids = new Set(recipes.map(row => row.id)); if (ids.size !== recipes.length) fail("invalid_recipe_identity");
     const conditionalNutrition = recipes.filter(row => row.nutrition.status === "conditional").length;
     const result = deepFreeze({ outcome: "success" as const, sourceSha256: expectedSha256, recipes, summary: { total: recipes.length, main: recipes.filter(row => row.kind === "main").length, breakfast: recipes.filter(row => row.kind === "breakfast").length, conditionalNutrition, heldNutrition: recipes.length - conditionalNutrition }, productAccepted: false as const });
