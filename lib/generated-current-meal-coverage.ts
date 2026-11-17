@@ -78,7 +78,7 @@ function allocationCheck(recipe: RevisedRecipeProjection["recipe"]): boolean {
   } catch { return false; }
 }
 function stringsOrAllocations(value: unknown): unknown[] { if (!Array.isArray(value) || value.length > 200) fail(); return value; }
-function originalGuide(row: RevisedRecipeProjection, sourceSha256: string) {
+export function originalGuide(row: RevisedRecipeProjection, sourceSha256: string) {
   if (!allocationCheck(row.recipe)) return null;
   const value = {
     schema: "wd-source-original-batch-guide-v1", kind: "source-derived-original-full-batch", sourceSha256,

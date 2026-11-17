@@ -146,31 +146,39 @@ function* catalogSteps(source: unknown, expectedSha256: string, expectedCount: n
       const cached = validatedTexts.find(row => row.sha256 === expectedSha256 && row.count === expectedCount && row.text === source);
       if (cached) return cached.result;
     }
-    const chunks: Uint8Array[] = []; let total = 0;
+    const hash = createRuntimeSha256();
+    let decodedText: string;
     if (typeof source === "string") {
+      let total = 0;
       for (let at = 0; at < source.length;) {
         let end = Math.min(at + 65536, source.length);
         // Do not split a surrogate pair; utf8Encode retains its existing lone-surrogate behavior.
         if (end < source.length && source.charCodeAt(end - 1) >= 0xd800 && source.charCodeAt(end - 1) <= 0xdbff) end--;
         const chunk = utf8Encode(source.slice(at, end)); total += chunk.length;
-        if (total > 64 * 1024 * 1024) fail(); chunks.push(chunk); at = end; yield;
+        if (total > 64 * 1024 * 1024) fail(); hash.update(chunk); at = end; yield;
       }
+      if (hash.digestHex() !== expectedSha256) return { outcome: "error", code: "source_hash_mismatch" };
+      yield;
+      // Match the UTF-8 round trip: replace lone surrogates and drop only the
+      // first BOM. The original text can otherwise be parsed without copying it.
+      decodedText = source.toWellFormed();
+      if (decodedText.charCodeAt(0) === 0xfeff) decodedText = decodedText.slice(1);
+      yield;
     } else {
       if (source.byteLength > 64 * 1024 * 1024) fail();
       const bytes = copyRuntimeBytes(source); if (bytes.length > 64 * 1024 * 1024) fail();
-      for (let at = 0; at < bytes.length; at += 65536) { const chunk = bytes.subarray(at, at + 65536); chunks.push(chunk); total += chunk.length; yield; }
+      for (let at = 0; at < bytes.length; at += 65536) { hash.update(bytes.subarray(at, at + 65536)); yield; }
+      if (hash.digestHex() !== expectedSha256) return { outcome: "error", code: "source_hash_mismatch" };
+      const decoded: string[] = [];
+      for (let at = 0; at < bytes.length;) {
+        let end = Math.min(at + 65536, bytes.length);
+        while (end < bytes.length && end > at && (bytes[end]! & 0xc0) === 0x80) end--;
+        if (end === at) fail();
+        decoded.push(utf8DecodeFatal(bytes.subarray(at, end), at !== 0)); at = end; yield;
+      }
+      decodedText = decoded.join("");
     }
-    const bytes = new Uint8Array(total); let offset = 0; const hash = createRuntimeSha256();
-    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; hash.update(chunk); yield; }
-    if (hash.digestHex() !== expectedSha256) return { outcome: "error", code: "source_hash_mismatch" };
-    const decoded: string[] = [];
-    for (let at = 0; at < bytes.length;) {
-      let end = Math.min(at + 65536, bytes.length);
-      while (end < bytes.length && end > at && (bytes[end]! & 0xc0) === 0x80) end--;
-      if (end === at) fail();
-      decoded.push(utf8DecodeFatal(bytes.subarray(at, end), at !== 0)); at = end; yield;
-    }
-    const lines = decoded.join("").replace(/\r?\n$/, "").split(/\r?\n/);
+    const lines = decodedText.replace(/\r?\n$/, "").split(/\r?\n/);
     if (lines.length !== expectedCount || lines.some(line => !line.trim())) fail();
     const recipes: RevisedRecipeProjection[] = [];
     // Freeze each complete projection inside the bounded validation batch. A

@@ -16,7 +16,6 @@ import { createFixedRebuiltPairedPolicy } from "./fixed-rebuilt-paired-policy.ts
 import { isIssuedVerifiedOwnerScope } from "./generated-owner-scope.ts";
 import { createReferenceSessionFactoryV4 } from "./generated-plan-session.ts";
 import { NEW_WEEK_RECONFIRM_POLICY, type ReferenceStatePortV3 } from "./generated-plan-state.ts";
-import { createReviewedReferenceArchive, referenceAdmissionFor } from "./generated-reviewed-reference-data.ts";
 
 export function createFixedRebuiltBinder(now: () => number = Date.now): CurrentIntegrationSource {
   const identity = CURRENT_INTEGRATION_REBUILT_IDENTITY;
@@ -28,8 +27,9 @@ export function createFixedRebuiltBinder(now: () => number = Date.now): CurrentI
 
   const { packet, binding } = fixed;
   const { configuration, labels } = binding;
-  const archive = createReviewedReferenceArchive(source, [packet], [referenceAdmissionFor(packet)]);
-  const reviewedReferenceData = archive.current();
+  // The fixed loader validates the exact packet and the session factory
+  // validates it against the planner. There is no revision to choose here.
+  const reviewedReferenceData = packet;
   const guide = createFixedRebuiltGuidePolicy(source, configuration);
   if (guide.sha256 !== identity.guidePolicy.sha256) throw Error("fixed_guide_integrity_held");
 
