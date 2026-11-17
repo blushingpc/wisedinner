@@ -264,7 +264,7 @@ export function supabaseDeletionAuthV2(origin: string, serverCredential: string,
   function uuid(value: unknown): asserts value is string { if (typeof value !== "string" || !UUID.test(value)) throw new AuthDeletionError(); }
   function time(value: unknown): asserts value is string {
     if (typeof value !== "string" || !TIME.test(value) || !Number.isFinite(Date.parse(value))) throw new AuthDeletionError();
-    const [year, month, day] = value.slice(0, 10).split("-").map(Number);
+    const year = Number(value.slice(0, 4)), month = Number(value.slice(5, 7)), day = Number(value.slice(8, 10));
     if (month < 1 || month > 12 || day < 1 || day > new Date(Date.UTC(year, month, 0)).getUTCDate() || Number(value.slice(11, 13)) > 23 || Number(value.slice(14, 16)) > 59 || Number(value.slice(17, 19)) > 59) throw new AuthDeletionError();
   }
   function target(value: DeletionTarget): DeletionTarget {
@@ -287,7 +287,7 @@ export function supabaseDeletionAuthV2(origin: string, serverCredential: string,
       try {
         return await Promise.race([(async () => {
           const response = await request(endpoint, { method, headers: { apikey: serverCredential, Authorization: `Bearer ${serverCredential}`, "Content-Type": "application/json", "X-Supabase-Api-Version": "2024-01-01" }, ...(method === "DELETE" ? { body: '{"should_soft_delete":false}' } : payload === undefined ? {} : { body: JSON.stringify(payload) }), redirect: "error", cache: "no-store", signal: controller.signal });
-          if (response.redirected || response.url && response.url !== endpoint || response.headers.get("content-type")?.split(";")[0].trim() !== "application/json") throw new AuthDeletionError();
+          if (response.redirected || response.url && response.url !== endpoint || response.headers.get("content-type")?.split(";", 1)[0]?.trim() !== "application/json") throw new AuthDeletionError();
           const length = response.headers.get("content-length"); if (length && (!/^\d+$/.test(length) || Number(length) > 32768)) throw new AuthDeletionError();
           reader = response.body?.getReader(); if (!reader) throw new AuthDeletionError();
           const chunks: Uint8Array[] = []; let size = 0;
@@ -306,7 +306,7 @@ export function supabaseDeletionAuthV2(origin: string, serverCredential: string,
       const rows = user.identities.map(value => {
         const i = object(value); uuid(i.identity_id); if (i.user_id !== id || typeof i.provider !== "string" || !["email", "google", "apple"].includes(i.provider) || typeof i.id !== "string" || !i.id || Buffer.byteLength(i.id) > 1024 || controls(i.id)) throw new AuthDeletionError();
         time(i.created_at); if (seen.has(i.identity_id)) throw new AuthDeletionError(); seen.add(i.identity_id);
-        return [i.identity_id, i.provider, i.id, i.user_id, i.created_at] as string[];
+        return [i.identity_id, i.provider, i.id, i.user_id, i.created_at] as const;
       }).sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);
       if (new Set(rows.map(r => r[1] + "\0" + r[2])).size !== rows.length) throw new AuthDeletionError();
       // Explicit email/phone, editable metadata, tokens, identity_data and mutable dates excluded.

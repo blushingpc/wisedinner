@@ -1,5 +1,5 @@
 import { createHash, createCipheriv, createDecipheriv, randomBytes, randomUUID, createPublicKey, sign, verify, timingSafeEqual } from "node:crypto";
-import type { KeyObject, JsonWebKey } from "node:crypto";
+import type { KeyObject, JsonWebKeyInput } from "node:crypto";
 import type { VerifiedAccount } from "./account.ts";
 import { parseReferenceJson } from "./generated-plan-json.ts";
 import { canonicalReferenceData } from "./generated-plan-data.ts";
@@ -72,11 +72,13 @@ export function decodeTrustedAppleIdentity(input: unknown, ownerId: string, orig
   const created = appleText(u.created_at); if (!Number.isFinite(Date.parse(created)) || !Array.isArray(u.identities) || !u.identities.length || u.identities.length > 16) appleFail("identity_unverified");
   const seen = new Set<string>(); const rows = u.identities.map(value => {
     const v = appleObject(value), id = appleUuid(v.identity_id), date = appleText(v.created_at);
-    if (seen.has(id) || v.user_id !== ownerId || !["apple", "email", "google"].includes(String(v.provider)) || !Number.isFinite(Date.parse(date))) appleFail("identity_unverified"); seen.add(id);
-    return [id, v.provider as string, appleText(v.id), ownerId, date];
+    const provider = v.provider;
+    if (seen.has(id) || v.user_id !== ownerId || typeof provider !== "string" || !["apple", "email", "google"].includes(provider) || !Number.isFinite(Date.parse(date))) appleFail("identity_unverified"); seen.add(id);
+    return [id, provider, appleText(v.id), ownerId, date] as const;
   }).sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);
-  const apples = rows.filter(x => x[1] === "apple"); if (apples.length !== 1) appleFail("identity_unverified");
-  return { ownerId, identityHash: appleDigest(["wd-supabase-auth-lineage-1", appleOrigin(origin), ownerId, created, rows]), appleIdentityHash: appleDigest(["wd-apple-identity-1", appleOrigin(origin), ...apples[0]]), subject: apples[0][2] };
+  const [apple, duplicate] = rows.filter(row => row[1] === "apple");
+  if (!apple || duplicate) appleFail("identity_unverified");
+  return { ownerId, identityHash: appleDigest(["wd-supabase-auth-lineage-1", appleOrigin(origin), ownerId, created, rows]), appleIdentityHash: appleDigest(["wd-apple-identity-1", appleOrigin(origin), ...apple]), subject: apple[2] };
 }
 export function createTrustedAppleIdentityReader(origin: string, serverKey: string, request: typeof fetch = fetch) {
   const base = appleOrigin(origin); appleText(serverKey, 16384);
@@ -85,16 +87,20 @@ export function createTrustedAppleIdentityReader(origin: string, serverKey: stri
     if (r.status !== 200) appleFail("identity_unverified"); return decodeTrustedAppleIdentity(parseAppleJson(r.text), owner.id, base);
   };
 }
-export type AppleJwk = JsonWebKey & { kid?: string; use?: string; alg?: string };
+export type AppleJwk = JsonWebKeyInput["key"] & { kid?: string; use?: string; alg?: string };
 function b64(x: string): Buffer { if (!/^[A-Za-z0-9_-]+$/.test(x) || Buffer.from(x, "base64url").toString("base64url") !== x) appleFail("identity_unverified"); return Buffer.from(x, "base64url"); }
 export function verifyAppleIdToken(token: string, keys: unknown, expected: { subject: string; clientId: string; nonce: string; now: number; code?: string }): AppleData {
   if (!Number.isSafeInteger(expected.now) || expected.now < 0) appleFail("custody_not_configured");
-  appleText(token, 20480); const parts = token.split("."); if (parts.length !== 3) appleFail("identity_unverified");
-  const h = appleObject(parseAppleJson(b64(parts[0]).toString("utf8"))), claims = appleObject(parseAppleJson(b64(parts[1]).toString("utf8")));
+  appleText(token, 20480);
+  const [header, payload, signature, ...extra] = token.split(".");
+  if (!header || !payload || !signature || extra.length) appleFail("identity_unverified");
+  const h = appleObject(parseAppleJson(b64(header).toString("utf8"))), claims = appleObject(parseAppleJson(b64(payload).toString("utf8")));
   if (h.alg !== "RS256" || Object.keys(h).some(k => !["alg", "kid", "typ"].includes(k)) || h.typ != null && h.typ !== "JWT") appleFail("identity_unverified");
   const set = appleExact(keys, ["keys"]); if (!Array.isArray(set.keys) || set.keys.length > 32) appleFail("identity_unverified");
-  const candidates = set.keys.map(appleObject).filter(k => k.kid === appleText(h.kid) && k.kty === "RSA" && k.alg === "RS256" && k.use === "sig"); if (candidates.length !== 1) appleFail("identity_unverified");
-  if (!verify("RSA-SHA256", Buffer.from(parts[0] + "." + parts[1]), createPublicKey({ key: candidates[0] as AppleJwk, format: "jwk" }), b64(parts[2]))) appleFail("identity_unverified");
+  const [candidate, duplicate] = set.keys.map(appleObject).filter(k => k.kid === appleText(h.kid) && k.kty === "RSA" && k.alg === "RS256" && k.use === "sig");
+  if (!candidate || duplicate || typeof candidate.n !== "string" || typeof candidate.e !== "string") appleFail("identity_unverified");
+  const key = createPublicKey({ key: { kty: "RSA", n: candidate.n, e: candidate.e }, format: "jwk" });
+  if (!verify("RSA-SHA256", Buffer.from(header + "." + payload), key, b64(signature))) appleFail("identity_unverified");
   if (claims.iss !== "https://appleid.apple.com" || claims.aud !== expected.clientId || claims.sub !== expected.subject || claims.nonce !== appleSha(expected.nonce) || !Number.isSafeInteger(claims.iat) || !Number.isSafeInteger(claims.exp) || (claims.iat as number) > expected.now || (claims.exp as number) <= expected.now || (claims.exp as number) <= (claims.iat as number)) appleFail("identity_unverified");
   if (expected.code !== undefined) {
     if (typeof claims.c_hash !== "string") appleFail("code_binding_required");
@@ -171,7 +177,7 @@ export function createAppleTokenCustodyService(input: AppleCustodyDependencies) 
   return async (request: Request): Promise<Response> => {
     let operationId: string | null = null, intent: string | null = null, admissionAttempted = false, statusReadAttempted = false;
     try {
-      if (request.method !== "POST" || request.headers.get("content-type")?.split(";")[0].trim() !== "application/json" || request.headers.has("content-encoding")) appleFail("invalid_request");
+      if (request.method !== "POST" || request.headers.get("content-type")?.split(";", 1)[0]?.trim() !== "application/json" || request.headers.has("content-encoding")) appleFail("invalid_request");
       const text = await appleRead(request.body, 32768, request.signal), n = request.headers.get("content-length"); if (n !== null && (!/^\d+$/.test(n) || Number(n) !== Buffer.byteLength(text))) appleFail("invalid_request");
       const v = appleObject(parseAppleJson(text)); operationId = appleUuid(v.operationId); if (v.contract !== APPLE_CUSTODY) appleFail("invalid_request");
       if (!/^Bearer [^\s]+$/.test(request.headers.get("authorization") ?? "")) appleFail("auth_required");
@@ -219,8 +225,8 @@ export function createAppleTokenCustodyService(input: AppleCustodyDependencies) 
         }
         appleFail("transport_unknown");
       }
-      const tokens = inspectAppleTokens(response.value); verifyAppleIdToken(tokens.id_token, keys, { subject: identity.subject, clientId: deps.clientId, nonce, now: Math.floor((deps.now?.() ?? Date.now()) / 1000) });
-      const claims = appleObject(parseAppleJson(Buffer.from(tokens.id_token.split(".")[1], "base64url").toString("utf8")));
+      const tokens = inspectAppleTokens(response.value);
+      const claims = verifyAppleIdToken(tokens.id_token, keys, { subject: identity.subject, clientId: deps.clientId, nonce, now: Math.floor((deps.now?.() ?? Date.now()) / 1000) });
       if (claims.c_hash !== undefined) verifyAppleIdToken(tokens.id_token, keys, { subject: identity.subject, clientId: deps.clientId, nonce, now, code });
       if (claims.at_hash !== undefined && claims.at_hash !== createHash("sha256").update(tokens.access_token, "ascii").digest().subarray(0, 16).toString("base64url")) appleFail("identity_unverified");
       const current = await deps.identity(owner); if (current.ownerId !== owner.id || current.identityHash !== identity.identityHash || current.appleIdentityHash !== identity.appleIdentityHash) appleFail("identity_unverified");

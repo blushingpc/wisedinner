@@ -24,6 +24,8 @@ import {
 import type { CurrentIntegrationSource, CurrentIntegrationSourceIdentity } from "./current-integration-runtime.server.ts";
 
 import { createCurrentIntegrationSuccessorReference, CURRENT_INTEGRATION_SUCCESSOR_IDENTITY, CURRENT_INTEGRATION_HOUSEHOLD_IDENTITY } from "./current-integration-reference-successor.server.ts";
+import { CURRENT_INTEGRATION_REBUILT_IDENTITY } from "./current-integration-rebuilt-identity.server.ts";
+import { FIXED_REBUILT_DONOR_BASIS_SHA256, FIXED_REBUILT_DONOR_PIN } from "./fixed-rebuilt-donor.ts";
 const packageSha256 = "295103126ee947ede3dfff9d7a106f3d6719e84bc4c7fb654fca7e9a15bd9ece";
 const registrySha256 = "585fe4651be5ee9ff0fb420b3fc7ca4abc02f1e0fc6cf89320dd714bf04a3f75";
 
@@ -87,6 +89,7 @@ export function createCurrentIntegrationDietaryReference(now: () => number = Dat
     [CURRENT_INTEGRATION_HOUSEHOLD_IDENTITY.sourcePolicyBasisSha256, true],
   ]);
   const predecessors = new Map<string, CurrentIntegrationSource>();
+  let rebuiltArchive: Promise<CurrentIntegrationSource> | undefined;
   if (sha256Hex(JSON.stringify(archiveDietaryPackage)) !== "47c7cdd70e7ed9680363b2541570f6533ffe7a2007b042429651aa18efd9cc3f") throw Error("dietary_archive_integrity");
   if (sha256Hex(JSON.stringify(archiveMethodPackage)) !== "f5b08ce9a6566627fe9b3eac41b42808fb3964cacb9de7c52a72b544df60adab") throw Error("method_archive_integrity");
   const methodReview = archiveMethodPackage.dietaryReview as unknown as typeof dietaryReview;
@@ -124,6 +127,20 @@ export function createCurrentIntegrationDietaryReference(now: () => number = Dat
           if (week.sourceSha256 === archiveDietaryPin.sha256) {
             if (basis === CURATED_SOUTH_ARCHIVE_BASIS) return southPresenter?.(week);
             if (archiveDietary.outcome === "ready" && basis === archiveDietary.sourcePolicyBasis.basisSha256) return regionalPresenter?.(week);
+          }
+          const fromRebuilt = week.sourceSha256 === CURRENT_INTEGRATION_REBUILT_IDENTITY.sourceSha256 &&
+            basis === CURRENT_INTEGRATION_REBUILT_IDENTITY.sourcePolicyBasisSha256;
+          const fromPairedRebuilt = week.sourceSha256 === FIXED_REBUILT_DONOR_PIN.sha256 &&
+            basis === FIXED_REBUILT_DONOR_BASIS_SHA256;
+          if (fromRebuilt || fromPairedRebuilt) {
+            if (!rebuiltArchive) {
+              const loading = import("./current-integration-reference-rebuilt.server.ts")
+                .then(({ createCurrentIntegrationRebuiltReference }) => createCurrentIntegrationRebuiltReference(now));
+              rebuiltArchive = loading;
+              void loading.catch(() => { if (rebuiltArchive === loading) rebuiltArchive = undefined; });
+            }
+            const archivedKernel = await (await rebuiltArchive).bind(owner, transactions);
+            return archivedKernel?.presentSavedWeek?.(week);
           }
           const create = week.sourceSha256 === CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY.sourceSha256
             ? archivedSources.get(basis)

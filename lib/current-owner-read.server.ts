@@ -90,7 +90,7 @@ function basis(value: unknown, source: string): Data {
   const row = fields(value, ["policy", "catalogSha256", "purchaseCorrespondencesSha256", "regionalPackFactsSha256", "referencePricePolicy", "referenceConfigurationSha256", "utilityPolicy", "utilityConfigurationSha256", "basisSha256"], ["documentaryValuationPolicy"]);
   if (row.policy !== "wd-source-policy-basis-v2" || row.catalogSha256 !== source) fail();
   for (const key of ["catalogSha256", "purchaseCorrespondencesSha256", "regionalPackFactsSha256", "basisSha256"]) sha(row[key]);
-  for (const [policy, digest, expected] of [["referencePricePolicy", "referenceConfigurationSha256", "wd-price-reference-fallback-v2"], ["utilityPolicy", "utilityConfigurationSha256", "wd-tap-cooking-water-utility-v1"]]) {
+  for (const [policy, digest, expected] of [["referencePricePolicy", "referenceConfigurationSha256", "wd-price-reference-fallback-v2"], ["utilityPolicy", "utilityConfigurationSha256", "wd-tap-cooking-water-utility-v1"]] as const) {
     if (row[policy] === null ? row[digest] !== null : row[policy] !== expected || !SHA.test(String(row[digest]))) fail();
   }
   if (Object.hasOwn(row, "documentaryValuationPolicy") && (row.documentaryValuationPolicy !== "wd-dated-documentary-reference-v1" || row.referencePricePolicy === null)) fail();

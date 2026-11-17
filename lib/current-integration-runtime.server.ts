@@ -133,7 +133,11 @@ function checkedSource(value: CurrentIntegrationSource, expected: CurrentIntegra
 function data<T>(value: T): T {
   if (!value || typeof value !== "object" || Array.isArray(value)) throw Error("configuration");
   const descriptors = Object.getOwnPropertyDescriptors(value);
-  if (Reflect.ownKeys(descriptors).some(k => typeof k !== "string" || !("value" in descriptors[k]))) throw Error("configuration");
+  if (Reflect.ownKeys(descriptors).some(key => {
+    if (typeof key !== "string") return true;
+    const descriptor = descriptors[key];
+    return !descriptor || !("value" in descriptor);
+  })) throw Error("configuration");
   return Object.fromEntries(Object.entries(descriptors).map(([k, d]) => [k, d.value])) as T;
 }
 function method<T extends object, K extends keyof T>(port: T, key: K): T[K] {
@@ -275,7 +279,7 @@ export function createCurrentIntegrationRuntime(deps: CurrentIntegrationRuntimeD
         if (request.signal.aborted) return unavailable(route, "request_aborted", 499);
         if (route === "currentRead") return noStore(await createCurrentOwnerReadService({ enabled: true, ...ownerPorts() })(request));
         if (route === "currentSession") {
-          const headers = [["X-WiseDinner-Source", expected!.sourceSha256], [CURRENT_GUIDE_HEADERS.version, expected!.guidePolicy.version], [CURRENT_GUIDE_HEADERS.sha256, expected!.guidePolicy.sha256]];
+          const headers = [["X-WiseDinner-Source", expected!.sourceSha256], [CURRENT_GUIDE_HEADERS.version, expected!.guidePolicy.version], [CURRENT_GUIDE_HEADERS.sha256, expected!.guidePolicy.sha256]] as const;
           if (headers.some(([key, value]) => request.headers.has(key) && request.headers.get(key) !== value)) return unavailable(route, "runtime_identity_mismatch", 409);
           return noStore(await createCurrentOwnerIntegrationHandler({ enabled: true, ...ownerPorts(), access: validBilling ? createCurrentOwnerSubscriptionAccess(request, { enabled: true, identity: ownerPorts().identity, repository: subscription!.repository, provider: subscription!.provider, config: subscription!.config, now }) : async () => noAccess, bind, now })(request));
         }

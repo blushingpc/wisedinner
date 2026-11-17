@@ -74,7 +74,7 @@ export const CURRENT_INTEGRATION_HOST_CONFIG_NAMES = Object.freeze([
   "WD_CURRENT_OWNER_API_ENABLED", "WD_CURRENT_OWNER_READ_API_ENABLED",
   "WD_REVENUECAT_CONFIGURATION_VERIFIED", "WD_BILLING_ENVIRONMENT", "REVENUECAT_SECRET_API_KEY",
   "WD_CURRENT_SOURCE_IDENTITY_JSON", "WD_CURRENT_PROVIDER_READINESS_JSON", "WD_CURRENT_REFERENCE_PROFILE",
-  "REVENUECAT_SUBSCRIBER_READ_API_KEY", "WD_CURRENT_REBUILT_BETA_ENABLED",
+  "REVENUECAT_SUBSCRIBER_READ_API_KEY", "WD_CURRENT_REBUILT_BETA_ENABLED", "WD_CURRENT_DIETARY_BETA_ENABLED",
 ] as const);
 function configuration(value: unknown): Record<string, string | undefined> {
   if (!value || typeof value !== "object" || Array.isArray(value) || isProxy(value)) throw Error("host_configuration_invalid");
@@ -102,12 +102,14 @@ export function resolveCurrentIntegrationServerConfiguration(value: unknown, now
     const publicAuthKey = c.SUPABASE_ANON_KEY ?? c.NEXT_PUBLIC_SUPABASE_ANON_KEY, serverCredential = c.SUPABASE_SERVICE_ROLE_KEY;
     const environment = c.WD_BILLING_ENVIRONMENT;
     const strictDietary = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v14";
-    const dietary = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v14-dated-estimates";
     const household = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v13";
     const successor = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v12";
     const v5 = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v5";
     const v7 = c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v7";
     const v11=c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v11";
+    const dietaryBeta = v11 && c.WD_CURRENT_DIETARY_BETA_ENABLED === "true" &&
+      requestedSource === CURRENT_INTEGRATION_DIETARY_IDENTITY.sourceSha256;
+    const dietary = dietaryBeta || c.WD_CURRENT_REFERENCE_PROFILE === "wd-current-reference-v14-dated-estimates";
     const rebuiltBeta = v11 && c.WD_CURRENT_REBUILT_BETA_ENABLED === "true" &&
       requestedSource === CURRENT_INTEGRATION_REBUILT_IDENTITY.sourceSha256;
     const rebuilt = rebuiltBeta || c.WD_CURRENT_REFERENCE_PROFILE === CURRENT_INTEGRATION_REBUILT_PROFILE;
@@ -116,7 +118,7 @@ export function resolveCurrentIntegrationServerConfiguration(value: unknown, now
     if (c.WD_CURRENT_REFERENCE_PROFILE !== undefined && !v5 && !v7 && !v9 && !v10 && !v11 && !rebuilt && !successor && !household && !dietary && !strictDietary && c.WD_CURRENT_REFERENCE_PROFILE !== "wd-current-reference-v4") throw Error("source_profile");
     const expected = rebuilt ? CURRENT_INTEGRATION_REBUILT_IDENTITY
       : strictDietary ? CURRENT_INTEGRATION_STRICT_DIETARY_IDENTITY : dietary ? CURRENT_INTEGRATION_DIETARY_IDENTITY : household ? CURRENT_INTEGRATION_HOUSEHOLD_IDENTITY : successor ? CURRENT_INTEGRATION_SUCCESSOR_IDENTITY : v11 ? CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY : v10 ? CURRENT_INTEGRATION_REFERENCE_V10_IDENTITY : v9 ? CURRENT_INTEGRATION_REFERENCE_V9_IDENTITY : v7 ? CURRENT_INTEGRATION_REFERENCE_V7_IDENTITY : v5 ? CURRENT_INTEGRATION_REFERENCE_V5_IDENTITY : json(c.WD_CURRENT_SOURCE_IDENTITY_JSON);
-    const configuredIdentity = rebuiltBeta ? CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY : expected;
+    const configuredIdentity = rebuiltBeta || dietaryBeta ? CURRENT_INTEGRATION_REFERENCE_V11_IDENTITY : expected;
     if ((rebuilt || dietary || strictDietary || household || successor || v5 || v7 || v9 || v10 || v11) && c.WD_CURRENT_SOURCE_IDENTITY_JSON !== undefined && referenceConfigurationDigest(json(c.WD_CURRENT_SOURCE_IDENTITY_JSON)) !== referenceConfigurationDigest(configuredIdentity)) throw Error("source_identity");
     const rawReadiness = json(c.WD_CURRENT_PROVIDER_READINESS_JSON);
     // Evaluate expiry against the actual host clock; never refresh receipt
@@ -143,7 +145,7 @@ export function resolveCurrentIntegrationServerConfiguration(value: unknown, now
           let source = profiles?.get(profile);
           if (!source) {
             if (!profiles) { profiles = new Map(); preparedSources.set(now, profiles); }
-            if (v11 || rebuilt) {
+            if (rebuilt || v11 && !dietaryBeta) {
               const preparing = rebuilt ? createCurrentIntegrationRebuiltReference(now) : createCurrentIntegrationReferenceV11Async(now), cache = profiles;
               source = preparing; cache.set(profile, preparing);
               // Rejections retire only this preparation. A later admitted call

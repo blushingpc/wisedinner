@@ -13,16 +13,23 @@ const STATES: readonly AccessState["state"][] = ["active", "trial", "expired", "
 const REASONS = new Set(["not_verified", "identity_review_required", "stale_provider_response", "no_entitlement", "product_unverified", "environment_or_store_mismatch", "ownership_review_required", "period_unverified", "provider_refund", "expiry_unverified", "transaction_unverified", "provider_verified", "provider_expired", "malformed_provider_state", "transaction_owner_review_required"]);
 const NO_ACCESS: Access = Object.freeze({ state: "unknown", expiresAt: null, observedAt: 0, reason: "not_verified", allowed: false, rerollsIncluded: false, stale: false });
 
+function hasAccessor(descriptors: object): boolean {
+  return Reflect.ownKeys(descriptors).some(key => {
+    const descriptor: unknown = Object.getOwnPropertyDescriptor(descriptors, key)?.value;
+    return !descriptor || typeof descriptor !== "object" || !("value" in descriptor);
+  });
+}
+
 function data(value: unknown): Data {
   if (!value || typeof value !== "object" || Array.isArray(value)) throw Error("invalid_input");
   const descriptors = Object.getOwnPropertyDescriptors(value);
-  if (Reflect.ownKeys(descriptors).some(k => !("value" in descriptors[k as string]))) throw Error("invalid_input");
+  if (hasAccessor(descriptors)) throw Error("invalid_input");
   return Object.fromEntries(Object.entries(descriptors).map(([k, d]) => [k, d.value]));
 }
 function strings(value: unknown, max: number): string[] {
   if (!Array.isArray(value)) throw Error("invalid_input");
   const descriptors = Object.getOwnPropertyDescriptors(value), length = Object.getOwnPropertyDescriptor(value, "length")?.value;
-  if (!Number.isSafeInteger(length) || length < 0 || length > max || Reflect.ownKeys(descriptors).some(k => !("value" in descriptors[k as string]))) throw Error("invalid_input");
+  if (!Number.isSafeInteger(length) || length < 0 || length > max || hasAccessor(descriptors)) throw Error("invalid_input");
   const result: string[] = [];
   for (let i = 0; i < length; i++) { const entry = Object.getOwnPropertyDescriptor(value, String(i)); if (!entry || !("value" in entry) || typeof entry.value !== "string") throw Error("invalid_input"); result.push(entry.value); }
   return result;
@@ -32,7 +39,7 @@ function method<T extends object, K extends keyof T>(port: T, key: K, receiver: 
   if (!Object.hasOwn(raw, key)) throw Error("invalid_input");
   const fn = raw[key as string]; if (typeof fn !== "function") throw Error("invalid_input");
   const descriptors = Object.getOwnPropertyDescriptors(fn);
-  if (Reflect.ownKeys(descriptors).some(k => !("value" in descriptors[k as string]))) throw Error("invalid_input");
+  if (hasAccessor(descriptors)) throw Error("invalid_input");
   return ((...args: unknown[]) => Reflect.apply(fn, receiver, args)) as T[K];
 }
 function verified(value: VerifiedAccount): VerifiedAccount {
